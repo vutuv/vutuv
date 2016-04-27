@@ -18,3 +18,8 @@ $ mix ecto.create
 $ mix ecto.migrate
 $ mix phoenix.server
 ```
+
+# Do you want to participate?
+
+Great! This is an open-source project. Please feel free to create a pull request for stuff you want to change. 
+And please do add an issue for any problem or feature request.
