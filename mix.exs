@@ -19,7 +19,7 @@ defmodule Vutuv.Mixfile do
   def application do
     [mod: {Vutuv, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :mariaex]]
   end
 
   # Specifies which paths to compile per environment.
@@ -32,7 +32,7 @@ defmodule Vutuv.Mixfile do
   defp deps do
     [{:phoenix, "~> 1.1.0"},
      {:phoenix_ecto, "~> 2.0"},
-     {:postgrex, ">= 0.0.0"},
+     {:mariaex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.3"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
