@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/vutuv/vutuv.png?label=ready&title=Ready)](https://waffle.io/vutuv/vutuv)
 # vutuv
 vutuv is a social network service to host and share information about humans and organizations.
 
