@@ -1,0 +1,59 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :first_name, class: "control-label" %>
+    <%= text_input f, :first_name, class: "form-control" %>
+    <%= error_tag f, :first_name %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :last_name, class: "control-label" %>
+    <%= text_input f, :last_name, class: "form-control" %>
+    <%= error_tag f, :last_name %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :middlename, class: "control-label" %>
+    <%= text_input f, :middlename, class: "form-control" %>
+    <%= error_tag f, :middlename %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :nickname, class: "control-label" %>
+    <%= text_input f, :nickname, class: "form-control" %>
+    <%= error_tag f, :nickname %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :honorific_prefix, class: "control-label" %>
+    <%= text_input f, :honorific_prefix, class: "form-control" %>
+    <%= error_tag f, :honorific_prefix %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :honorific_suffix, class: "control-label" %>
+    <%= text_input f, :honorific_suffix, class: "form-control" %>
+    <%= error_tag f, :honorific_suffix %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :gender, class: "control-label" %>
+    <%= text_input f, :gender, class: "form-control" %>
+    <%= error_tag f, :gender %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :birthdate, class: "control-label" %>
+    <%= date_select f, :birthdate, class: "form-control" %>
+    <%= error_tag f, :birthdate %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

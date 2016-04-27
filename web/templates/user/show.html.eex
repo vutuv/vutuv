@@ -1,0 +1,48 @@
+<h2>Show user</h2>
+
+<ul>
+
+  <li>
+    <strong>First name:</strong>
+    <%= @user.first_name %>
+  </li>
+
+  <li>
+    <strong>Last name:</strong>
+    <%= @user.last_name %>
+  </li>
+
+  <li>
+    <strong>Middlename:</strong>
+    <%= @user.middlename %>
+  </li>
+
+  <li>
+    <strong>Nickname:</strong>
+    <%= @user.nickname %>
+  </li>
+
+  <li>
+    <strong>Honorific prefix:</strong>
+    <%= @user.honorific_prefix %>
+  </li>
+
+  <li>
+    <strong>Honorific suffix:</strong>
+    <%= @user.honorific_suffix %>
+  </li>
+
+  <li>
+    <strong>Gender:</strong>
+    <%= @user.gender %>
+  </li>
+
+  <li>
+    <strong>Birthdate:</strong>
+    <%= @user.birthdate %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: user_path(@conn, :edit, @user) %>
+<%= link "Back", to: user_path(@conn, :index) %>
