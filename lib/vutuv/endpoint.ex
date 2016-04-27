@@ -33,7 +33,7 @@ defmodule Vutuv.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_vutuv_key",
-    signing_salt: "Tz83rSfs"
+    signing_salt: "UOTk6kQ0"
 
   plug Vutuv.Router
 end

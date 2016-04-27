@@ -9,7 +9,7 @@ use Mix.Config
 config :vutuv, Vutuv.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
-  secret_key_base: "hiQL37fqrmOsqHnxhg2d2wHzcqM19XOIToM3BceRDjEQ24fD5wsAdQ3rti5tjSVu",
+  secret_key_base: "bKsyV5xWMWlC+AY8O14/aUcN8xPsa2GjIiE364y/bgBlIhzNnTHhNy0pLyucwVpl",
   render_errors: [accepts: ~w(html json)],
   pubsub: [name: Vutuv.PubSub,
            adapter: Phoenix.PubSub.PG2]

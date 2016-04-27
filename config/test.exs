@@ -15,4 +15,5 @@ config :vutuv, Vutuv.Repo,
   username: "root",
   password: "",
   database: "vutuv_test",
+  hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
