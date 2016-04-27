@@ -11,7 +11,8 @@ config :logger, level: :warn
 
 # Configure your database
 config :vutuv, Vutuv.Repo,
-adapter: Ecto.Adapters.MySQL,
-username: "root",
-password: "",
-database: "vutuv_test"
+  adapter: Ecto.Adapters.MySQL,
+  username: "root",
+  password: "",
+  database: "vutuv_test",
+  pool: Ecto.Adapters.SQL.Sandbox
