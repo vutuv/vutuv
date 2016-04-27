@@ -11,6 +11,7 @@ Make sure that your database configuration in `config/dev.exs` is correct.
 
 ```bash
 $ cd vutuv
+$ mix deps.get
 $ mix ecto.create
 $ mix ecto.migrate
 $ mix phoenix.server
