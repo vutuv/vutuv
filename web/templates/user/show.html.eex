@@ -1,53 +1,53 @@
-<h2>Show user</h2>
+<h2><%= gettext "Show user" %></h2>
 
 <ul>
 
   <li>
-    <strong>First name:</strong>
+    <strong><%= gettext "First name:" %></strong>
     <%= @user.first_name %>
   </li>
 
   <li>
-    <strong>Last name:</strong>
+    <strong><%= gettext "Last name:" %></strong>
     <%= @user.last_name %>
   </li>
 
   <li>
-    <strong>Middlename:</strong>
+    <strong><%= gettext "Middlename:" %></strong>
     <%= @user.middlename %>
   </li>
 
   <li>
-    <strong>Nickname:</strong>
+    <strong><%= gettext "Nickname:" %></strong>
     <%= @user.nickname %>
   </li>
 
   <li>
-    <strong>Honorific prefix:</strong>
+    <strong><%= gettext "Honorific prefix:" %></strong>
     <%= @user.honorific_prefix %>
   </li>
 
   <li>
-    <strong>Honorific suffix:</strong>
+    <strong><%= gettext "Honorific suffix:" %></strong>
     <%= @user.honorific_suffix %>
   </li>
 
   <li>
-    <strong>Gender:</strong>
+    <strong><%= gettext "Gender:" %></strong>
     <%= @user.gender %>
   </li>
 
   <li>
-    <strong>Birthdate:</strong>
+    <strong><%= gettext "Birthdate:" %></strong>
     <%= @user.birthdate %>
   </li>
 
   <li>
-    <strong>Verified:</strong>
+    <strong><%= gettext "Verified:" %></strong>
     <%= @user.verified %>
   </li>
 
 </ul>
 
-<%= link "Edit", to: user_path(@conn, :edit, @user) %>
-<%= link "Back", to: user_path(@conn, :index) %>
+<%= link gettext("Edit"), to: user_path(@conn, :edit, @user) %>
+<%= link gettext("Back"), to: user_path(@conn, :index) %>

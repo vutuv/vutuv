@@ -1,0 +1,129 @@
+## This file is a PO Template file.
+##
+## `msgid`s here are often extracted from source code.
+## Add new translations manually only if they're dynamic
+## translations that can't be statically extracted.
+##
+## Run `mix gettext.extract` to bring this file up to
+## date. Leave `msgstr`s empty as changing them here as no
+## effect: edit them in PO (`.po`) files instead.
+msgid ""
+msgstr ""
+"Language: INSERT LANGUAGE HERE\n"
+
+#: web/templates/user/index.html.eex:35
+msgid "Are you sure?"
+msgstr ""
+
+#: web/templates/user/edit.html.eex:6 web/templates/user/new.html.eex:6
+#: web/templates/user/show.html.eex:53
+msgid "Back"
+msgstr ""
+
+#: web/templates/user/index.html.eex:13
+msgid "Birthdate"
+msgstr ""
+
+#: web/templates/user/show.html.eex:41
+msgid "Birthdate:"
+msgstr ""
+
+#: web/templates/user/index.html.eex:35
+msgid "Delete"
+msgstr ""
+
+#: web/templates/user/index.html.eex:34 web/templates/user/show.html.eex:52
+msgid "Edit"
+msgstr ""
+
+#: web/templates/user/edit.html.eex:1
+msgid "Edit user"
+msgstr ""
+
+#: web/templates/user/index.html.eex:6
+msgid "First name"
+msgstr ""
+
+#: web/templates/user/show.html.eex:6
+msgid "First name:"
+msgstr ""
+
+#: web/templates/user/index.html.eex:12
+msgid "Gender"
+msgstr ""
+
+#: web/templates/user/show.html.eex:36
+msgid "Gender:"
+msgstr ""
+
+#: web/templates/user/index.html.eex:10
+msgid "Honorific prefix"
+msgstr ""
+
+#: web/templates/user/show.html.eex:26
+msgid "Honorific prefix:"
+msgstr ""
+
+#: web/templates/user/index.html.eex:11
+msgid "Honorific suffix"
+msgstr ""
+
+#: web/templates/user/show.html.eex:31
+msgid "Honorific suffix:"
+msgstr ""
+
+#: web/templates/user/index.html.eex:7
+msgid "Last name"
+msgstr ""
+
+#: web/templates/user/show.html.eex:11
+msgid "Last name:"
+msgstr ""
+
+#: web/templates/user/index.html.eex:8
+msgid "Middlename"
+msgstr ""
+
+#: web/templates/user/show.html.eex:16
+msgid "Middlename:"
+msgstr ""
+
+#: web/templates/user/new.html.eex:1
+msgid "New user"
+msgstr ""
+
+#: web/templates/user/index.html.eex:9
+msgid "Nickname"
+msgstr ""
+
+#: web/templates/user/show.html.eex:21
+msgid "Nickname:"
+msgstr ""
+
+#: web/templates/user/form.html.eex:4
+msgid "Oops, something went wrong! Please check the errors below."
+msgstr ""
+
+#: web/templates/user/index.html.eex:33
+msgid "Show"
+msgstr ""
+
+#: web/templates/user/show.html.eex:1
+msgid "Show user"
+msgstr ""
+
+#: web/templates/user/form.html.eex:63
+msgid "Submit"
+msgstr ""
+
+#: web/templates/user/index.html.eex:14
+msgid "Verified"
+msgstr ""
+
+#: web/templates/user/show.html.eex:46
+msgid "Verified:"
+msgstr ""
+
+#: web/templates/page/index.html.eex:2
+msgid "Welcome to %{name}"
+msgstr ""
