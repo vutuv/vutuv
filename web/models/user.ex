@@ -10,11 +10,12 @@ defmodule Vutuv.User do
     field :honorific_suffix, :string
     field :gender, :string
     field :birthdate, Ecto.Date
+    field :verified, :boolean, default: false
 
     timestamps
   end
 
-  @required_fields ~w(first_name last_name middlename nickname honorific_prefix honorific_suffix gender birthdate)
+  @required_fields ~w(first_name last_name middlename nickname honorific_prefix honorific_suffix gender birthdate verified)
   @optional_fields ~w()
 
   @doc """

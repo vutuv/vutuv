@@ -11,6 +11,7 @@
       <th>Honorific suffix</th>
       <th>Gender</th>
       <th>Birthdate</th>
+      <th>Verified</th>
 
       <th></th>
     </tr>
@@ -26,6 +27,7 @@
       <td><%= user.honorific_suffix %></td>
       <td><%= user.gender %></td>
       <td><%= user.birthdate %></td>
+      <td><%= user.verified %></td>
 
       <td class="text-right">
         <%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %>

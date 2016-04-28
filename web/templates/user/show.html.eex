@@ -42,6 +42,11 @@
     <%= @user.birthdate %>
   </li>
 
+  <li>
+    <strong>Verified:</strong>
+    <%= @user.verified %>
+  </li>
+
 </ul>
 
 <%= link "Edit", to: user_path(@conn, :edit, @user) %>

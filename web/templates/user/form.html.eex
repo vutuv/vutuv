@@ -54,6 +54,12 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :verified, class: "control-label" %>
+    <%= checkbox f, :verified, class: "form-control" %>
+    <%= error_tag f, :verified %>
+  </div>
+
+  <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>
