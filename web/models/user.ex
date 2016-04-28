@@ -15,8 +15,8 @@ defmodule Vutuv.User do
     timestamps
   end
 
-  @required_fields ~w(first_name last_name middlename nickname honorific_prefix honorific_suffix gender birthdate verified)
-  @optional_fields ~w()
+  @required_fields ~w()
+  @optional_fields ~w(first_name last_name middlename nickname honorific_prefix honorific_suffix gender birthdate verified)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -27,5 +27,28 @@ defmodule Vutuv.User do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> validate_first_name_or_last_name_or_nickname(params)
+  end
+
+  def validate_first_name_or_last_name_or_nickname(changeset, :empty) do
+    changeset
+  end
+
+  def validate_first_name_or_last_name_or_nickname(changeset, _) do
+    first_name = get_field(changeset, :first_name)
+    last_name = get_field(changeset, :last_name)
+    nickname = get_field(changeset, :nickname)
+
+    if first_name || last_name || nickname do
+      # No error if any of those 3 are present.
+      changeset
+    else
+      # All the 3 fields are nil.
+      message = "Fist name or last name or nickname must be present"
+      changeset
+      |> add_error(:first_name, message)
+      |> add_error(:last_name, message)
+      |> add_error(:nickname, message)
+    end
   end
 end

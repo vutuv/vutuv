@@ -3,12 +3,19 @@ defmodule Vutuv.UserTest do
 
   alias Vutuv.User
 
-  @valid_attrs %{birthdate: "2010-04-17", first_name: "some content", gender: "some content", honorific_prefix: "some content", honorific_suffix: "some content", last_name: "some content", middlename: "some content", nickname: "some content", verified: true}
+  @valid_attrs [%{first_name: "John", last_name: "Smith", nickname: "john"},
+                %{first_name: "John", last_name: "Smith"},
+                %{first_name: "John"},
+                %{last_name: "Smith", nickname: "john"},
+                %{last_name: "Smith"},
+                %{nickname: "john"}]
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
-    changeset = User.changeset(%User{}, @valid_attrs)
-    assert changeset.valid?
+    for valid_attrs <- @valid_attrs do
+      changeset = User.changeset(%User{}, valid_attrs)
+      assert changeset.valid?
+    end
   end
 
   test "changeset with invalid attributes" do
