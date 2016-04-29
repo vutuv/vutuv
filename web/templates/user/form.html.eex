@@ -1,4 +1,4 @@
-<%= form_for @changeset, @action, fn f -> %>
+<%= form_for @changeset, @action, [multipart: true], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p><%= gettext "Oops, something went wrong! Please check the errors below." %></p>
@@ -57,6 +57,11 @@
     <%= label f, :verified, class: "control-label" %>
     <%= checkbox f, :verified, class: "form-control" %>
     <%= error_tag f, :verified %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :avatar, class: "control-label" %>
+    <%= file_input f, :avatar, class: "form-control" %>
   </div>
 
   <div class="form-group">

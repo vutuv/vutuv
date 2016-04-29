@@ -1,5 +1,6 @@
 defmodule Vutuv.User do
   use Vutuv.Web, :model
+  use Arc.Ecto.Model
 
   schema "users" do
     field :first_name, :string
@@ -11,12 +12,16 @@ defmodule Vutuv.User do
     field :gender, :string
     field :birthdate, Ecto.Date
     field :verified, :boolean, default: false
+    field :avatar, Vutuv.Avatar.Type
 
     timestamps
   end
 
   @required_fields ~w()
   @optional_fields ~w(first_name last_name middlename nickname honorific_prefix honorific_suffix gender birthdate verified)
+
+  @required_file_fields ~w()
+  @optional_file_fields ~w(avatar)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -27,6 +32,7 @@ defmodule Vutuv.User do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> cast_attachments(params, @required_file_fields, @optional_file_fields)
     |> validate_first_name_or_last_name_or_nickname(params)
   end
 

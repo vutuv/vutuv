@@ -49,5 +49,7 @@
 
 </ul>
 
+<%= Vutuv.Avatar.url({@user.avatar, @user}, :original) %>
+
 <%= link gettext("Edit"), to: user_path(@conn, :edit, @user) %>
 <%= link gettext("Back"), to: user_path(@conn, :index) %>
