@@ -41,7 +41,7 @@ defmodule Vutuv.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user = Repo.get!(User, id) |> Repo.preload([:groups])
+    user = Repo.get!(User, id) |> Repo.preload([:groups, :followers, :followees])
     render(conn, "show.html", user: user)
   end
 

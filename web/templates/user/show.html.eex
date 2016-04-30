@@ -61,6 +61,21 @@
 <% end %>
 </ul>
 
+<h2>Followers</h2>
+
+<ul>
+<%= for follower <- @user.followers do %>
+  <li><%= full_name(follower) %></li>
+<% end %>
+</ul>
+
+<h2>Followees</h2>
+
+<ul>
+<%= for followee <- @user.followees do %>
+  <li><%= full_name(followee) %></li>
+<% end %>
+</ul>
 
 <%= link gettext("Edit"), to: user_path(@conn, :edit, @user) %>
 <%= link gettext("Back"), to: user_path(@conn, :index) %>

@@ -2,8 +2,8 @@ defmodule Vutuv.Connection do
   use Vutuv.Web, :model
 
   schema "connections" do
-    belongs_to :follower, Vutuv.Follower
-    belongs_to :followee, Vutuv.Followee
+    belongs_to :follower, Vutuv.User
+    belongs_to :followee, Vutuv.User
 
     timestamps
   end

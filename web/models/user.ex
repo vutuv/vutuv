@@ -15,10 +15,11 @@ defmodule Vutuv.User do
     field :avatar, Vutuv.Avatar.Type
     has_many :groups, Vutuv.Group
 
-    has_many :follower_connections, Vutuv.Connection, foreign_key: :follower_id
-    has_many :follower, 
+    has_many :follower_connections, Vutuv.Connection, foreign_key: :followee_id
+    has_many :followers, through: [:follower_connections, :follower]
 
-    has_many :followee_connections, Vutuv.Connection, foreign_key: :followee_id
+    has_many :followee_connections, Vutuv.Connection, foreign_key: :follower_id
+    has_many :followees, through: [:followee_connections, :followee]
 
 
     timestamps
