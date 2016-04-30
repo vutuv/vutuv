@@ -2,7 +2,7 @@ defmodule Vutuv.UserControllerTest do
   use Vutuv.ConnCase
 
   alias Vutuv.User
-  @valid_attrs %{birthdate: "2010-04-17", first_name: "some content", gender: "some content", honorific_prefix: "some content", honorific_suffix: "some content", last_name: "some content", middlename: "some content", nickname: "some content", verified: true}
+  @valid_attrs %{honorific_prefix: "Dr.", first_name: "John", last_name: "Smith", nickname: "john"}
   @invalid_attrs %{}
 
   test "lists all entries on index", %{conn: conn} do
@@ -29,7 +29,7 @@ defmodule Vutuv.UserControllerTest do
   test "shows chosen resource", %{conn: conn} do
     user = Repo.insert! %User{}
     conn = get conn, user_path(conn, :show, user)
-    assert html_response(conn, 200) =~ "Show user"
+    assert html_response(conn, 200) =~ "Dr. John Smith"
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
