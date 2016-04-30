@@ -47,10 +47,12 @@ defmodule Vutuv.User do
 
     if first_name || last_name || nickname do
       # No error if any of those 3 are present.
+      #
       changeset
     else
       # All the 3 fields are nil.
-      message = "Fist name or last name or nickname must be present"
+      #
+      message = "First name or last name or nickname must be present"
       changeset
       |> add_error(:first_name, message)
       |> add_error(:last_name, message)

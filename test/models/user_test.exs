@@ -3,13 +3,15 @@ defmodule Vutuv.UserTest do
 
   alias Vutuv.User
 
-  @valid_attrs [%{first_name: "John", last_name: "Smith", nickname: "john"},
+  @valid_attrs [%{honorific_prefix: "Dr.", first_name: "John", last_name: "Smith", nickname: "john"},
+                %{first_name: "John", last_name: "Smith", nickname: "john"},
                 %{first_name: "John", last_name: "Smith"},
                 %{first_name: "John"},
                 %{last_name: "Smith", nickname: "john"},
                 %{last_name: "Smith"},
                 %{nickname: "john"}]
-  @invalid_attrs %{}
+  @invalid_attrs [%{},
+                  %{honorific_prefix: "Dr."}]
 
   test "changeset with valid attributes" do
     for valid_attrs <- @valid_attrs do
@@ -19,7 +21,14 @@ defmodule Vutuv.UserTest do
   end
 
   test "changeset with invalid attributes" do
-    changeset = User.changeset(%User{}, @invalid_attrs)
-    refute changeset.valid?
+    for invalid_attrs <- @invalid_attrs do
+      changeset = User.changeset(%User{}, invalid_attrs)
+      refute changeset.valid?
+    end
   end
+
+  # test "changeset with invalid attributes" do
+  #   changeset = User.changeset(%User{}, @invalid_attrs)
+  #   refute changeset.valid?
+  # end
 end
