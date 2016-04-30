@@ -13,6 +13,7 @@ defmodule Vutuv.User do
     field :birthdate, Ecto.Date
     field :verified, :boolean, default: false
     field :avatar, Vutuv.Avatar.Type
+    has_many :groups, Vutuv.Group
 
     timestamps
   end

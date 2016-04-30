@@ -1,0 +1,6 @@
+<h2>Edit group</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: group_path(@conn, :update, @group) %>
+
+<%= link "Back", to: group_path(@conn, :index) %>

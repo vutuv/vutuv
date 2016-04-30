@@ -53,5 +53,14 @@
 <p><img src="<%= avatar_url(@user) %>" alt="Avatar of <%= full_name(@user) %>"></p>
 <% end %>
 
+<h2>Groups</h2>
+
+<ul>
+<%= for group <- @user.groups do %>
+  <li><%= group.name %></li>
+<% end %>
+</ul>
+
+
 <%= link gettext("Edit"), to: user_path(@conn, :edit, @user) %>
 <%= link gettext("Back"), to: user_path(@conn, :index) %>
