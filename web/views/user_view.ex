@@ -10,4 +10,9 @@ defmodule Vutuv.UserView do
     |> Enum.reject(&(&1 == ""))
     |> Enum.join(" ")
   end
+
+  def avatar_url(user) do
+    Vutuv.Avatar.url({user.avatar, user}, :original)
+    |> String.replace("web/static/assets", "")
+  end
 end

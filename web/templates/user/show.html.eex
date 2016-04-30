@@ -49,7 +49,9 @@
 
 </ul>
 
-<%= Vutuv.Avatar.url({@user.avatar, @user}, :original) %>
+<%= if @user.avatar do %>
+<p><img src="<%= avatar_url(@user) %>" alt="Avatar of <%= full_name(@user) %>"></p>
+<% end %>
 
 <%= link gettext("Edit"), to: user_path(@conn, :edit, @user) %>
 <%= link gettext("Back"), to: user_path(@conn, :index) %>
