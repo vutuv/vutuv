@@ -12,8 +12,8 @@
   <tbody>
 <%= for connection <- @connections do %>
     <tr>
-      <td><%= connection.follower_id %></td>
-      <td><%= connection.followee_id %></td>
+      <td><%= full_name(connection.follower) %></td>
+      <td><%= full_name(connection.followee) %></td>
 
       <td class="text-right">
         <%= link "Show", to: connection_path(@conn, :show, connection), class: "btn btn-default btn-xs" %>

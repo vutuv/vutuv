@@ -6,7 +6,7 @@ defmodule Vutuv.ConnectionController do
   plug :scrub_params, "connection" when action in [:create, :update]
 
   def index(conn, _params) do
-    connections = Repo.all(Connection)
+    connections = Repo.all(Connection) |> Repo.preload([:follower, :followee])
     render(conn, "index.html", connections: connections)
   end
 

@@ -13,7 +13,7 @@
 <%= for group <- @groups do %>
     <tr>
       <td><%= group.name %></td>
-      <td><%= group.user_id %></td>
+      <td><%= full_name(group.user) %></td>
 
       <td class="text-right">
         <%= link "Show", to: group_path(@conn, :show, group), class: "btn btn-default btn-xs" %>
