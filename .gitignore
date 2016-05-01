@@ -26,3 +26,7 @@ erl_crash.dump
 # avatars in local storage
 #
 /web/static/assets/images/avatars
+
+# OS X stuff
+#
+.DS_Store
