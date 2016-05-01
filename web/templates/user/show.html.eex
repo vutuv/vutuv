@@ -1,81 +1,104 @@
 <h2><%= full_name(@user) %></h2>
 
 <ul>
+  <%= if @user.first_name do %>
+    <li>
+      <strong><%= gettext "First name:" %></strong>
+      <%= @user.first_name %>
+    </li>
+  <% end %>
 
-  <li>
-    <strong><%= gettext "First name:" %></strong>
-    <%= @user.first_name %>
-  </li>
+  <%= if @user.last_name do %>
+    <li>
+      <strong><%= gettext "Last name:" %></strong>
+      <%= @user.last_name %>
+    </li>
+  <% end %>
 
-  <li>
-    <strong><%= gettext "Last name:" %></strong>
-    <%= @user.last_name %>
-  </li>
+  <%= if @user.middlename do %>
+    <li>
+      <strong><%= gettext "Middlename:" %></strong>
+      <%= @user.middlename %>
+    </li>
+  <% end %>
 
-  <li>
-    <strong><%= gettext "Middlename:" %></strong>
-    <%= @user.middlename %>
-  </li>
+  <%= if @user.nickname do %>
+    <li>
+      <strong><%= gettext "Nickname:" %></strong>
+      <%= @user.nickname %>
+    </li>
+  <% end %>
 
-  <li>
-    <strong><%= gettext "Nickname:" %></strong>
-    <%= @user.nickname %>
+  <%= if @user.honorific_prefix do %>
+    <li>
+      <strong><%= gettext "Honorific prefix:" %></strong>
+      <%= @user.honorific_prefix %>
   </li>
+  <% end %>
 
-  <li>
-    <strong><%= gettext "Honorific prefix:" %></strong>
-    <%= @user.honorific_prefix %>
+  <%= if @user.honorific_suffix do %>
+    <li>
+      <strong><%= gettext "Honorific suffix:" %></strong>
+      <%= @user.honorific_suffix %>
   </li>
+  <% end %>
 
-  <li>
-    <strong><%= gettext "Honorific suffix:" %></strong>
-    <%= @user.honorific_suffix %>
-  </li>
+  <%= if @user.gender do %>
+    <li>
+      <strong><%= gettext "Gender:" %></strong>
+      <%= @user.gender %>
+    </li>
+  <% end %>
 
-  <li>
-    <strong><%= gettext "Gender:" %></strong>
-    <%= @user.gender %>
-  </li>
+  <%= if @user.birthdate do %>
+    <li>
+      <strong><%= gettext "Birthdate:" %></strong>
+      <%= @user.birthdate %>
+    </li>
+  <% end %>
 
-  <li>
-    <strong><%= gettext "Birthdate:" %></strong>
-    <%= @user.birthdate %>
-  </li>
-
-  <li>
-    <strong><%= gettext "Verified:" %></strong>
-    <%= @user.verified %>
-  </li>
+  <%= if @user.verified do %>
+    <li>
+      <strong><%= gettext "Verified:" %></strong>
+      <%= @user.verified %>
+    </li>
+  <% end %>
 
 </ul>
 
 <%= if @user.avatar do %>
-<p><img src="<%= avatar_url(@user) %>" alt="Avatar of <%= full_name(@user) %>"></p>
+  <p><img src="<%= avatar_url(@user) %>" alt="Avatar of <%= full_name(@user) %>"></p>
 <% end %>
 
-<h2>Groups</h2>
+<%= unless Enum.empty?(@user.groups) do %>
+  <h2>Groups</h2>
 
-<ul>
-<%= for group <- @user.groups do %>
-  <li><%= group.name %></li>
+  <ul>
+  <%= for group <- @user.groups do %>
+    <li><%= group.name %></li>
+  <% end %>
+  </ul>
 <% end %>
-</ul>
 
-<h2>Followers</h2>
+<%= unless Enum.empty?(@user.followers) do %>
+  <h2>Followers</h2>
 
-<ul>
-<%= for follower <- @user.followers do %>
-  <li><%= full_name(follower) %></li>
+  <ul>
+  <%= for follower <- @user.followers do %>
+    <li><%= full_name(follower) %></li>
+  <% end %>
+  </ul>
 <% end %>
-</ul>
 
-<h2>Followees</h2>
+<%= unless Enum.empty?(@user.followees) do %>
+  <h2>Followees</h2>
 
-<ul>
-<%= for followee <- @user.followees do %>
-  <li><%= full_name(followee) %></li>
+  <ul>
+  <%= for followee <- @user.followees do %>
+    <li><%= full_name(followee) %></li>
+  <% end %>
+  </ul>
 <% end %>
-</ul>
 
 <%= link gettext("Edit"), to: user_path(@conn, :edit, @user) %>
 <%= link gettext("Back"), to: user_path(@conn, :index) %>
