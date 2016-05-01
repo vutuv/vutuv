@@ -70,6 +70,16 @@
   <p><img src="<%= avatar_url(@user) %>" alt="Avatar of <%= full_name(@user) %>"></p>
 <% end %>
 
+<%= unless Enum.empty?(@user.emails) do %>
+  <h2>E-Mails</h2>
+
+  <ul>
+  <%= for email <- @user.emails do %>
+    <li><%= email.value %></li>
+  <% end %>
+  </ul>
+<% end %>
+
 <%= unless Enum.empty?(@user.groups) do %>
   <h2>Groups</h2>
 

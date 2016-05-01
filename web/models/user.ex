@@ -14,13 +14,13 @@ defmodule Vutuv.User do
     field :verified, :boolean, default: false
     field :avatar, Vutuv.Avatar.Type
     has_many :groups, Vutuv.Group, on_delete: :delete_all
+    has_many :emails, Vutuv.Email, on_delete: :delete_all
 
     has_many :follower_connections, Vutuv.Connection, foreign_key: :followee_id, on_delete: :delete_all
     has_many :followers, through: [:follower_connections, :follower]
 
     has_many :followee_connections, Vutuv.Connection, foreign_key: :follower_id, on_delete: :delete_all
     has_many :followees, through: [:followee_connections, :followee]
-
 
     timestamps
   end

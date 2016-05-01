@@ -3,20 +3,20 @@ defmodule Vutuv.UserController do
   import Vutuv.UserHelpers
 
   alias Vutuv.User
-  alias Vutuv.Group
+  # alias Vutuv.Group
 
   plug :scrub_params, "user" when action in [:create, :update]
 
-  plug :load_groups when action in [:show, :index]
-
-  defp load_groups(conn, _) do
-    query =
-      Group
-      |> Group.alphabetical
-      |> Group.names_and_ids
-    groups = Repo.all query
-    assign(conn, :groups, groups)
-  end
+  # plug :load_groups when action in [:show, :index]
+  #
+  # defp load_groups(conn, _) do
+  #   query =
+  #     Group
+  #     |> Group.alphabetical
+  #     |> Group.names_and_ids
+  #   groups = Repo.all query
+  #   assign(conn, :groups, groups)
+  # end
 
   def index(conn, _params) do
     users = Repo.all(User)
@@ -42,7 +42,7 @@ defmodule Vutuv.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user = Repo.get!(User, id) |> Repo.preload([:groups, :followers, :followees])
+    user = Repo.get!(User, id) |> Repo.preload([:groups, :followers, :followees, :emails])
 
     conn
     |> assign(:page_title, full_name(user))

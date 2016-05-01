@@ -1,0 +1,6 @@
+<h2>Edit email</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: email_path(@conn, :update, @email) %>
+
+<%= link "Back", to: email_path(@conn, :index) %>
