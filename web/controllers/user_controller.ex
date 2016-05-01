@@ -1,5 +1,6 @@
 defmodule Vutuv.UserController do
   use Vutuv.Web, :controller
+  import Vutuv.UserHelpers
 
   alias Vutuv.User
   alias Vutuv.Group
@@ -42,7 +43,11 @@ defmodule Vutuv.UserController do
 
   def show(conn, %{"id" => id}) do
     user = Repo.get!(User, id) |> Repo.preload([:groups, :followers, :followees])
-    render(conn, "show.html", user: user)
+
+    conn
+    |> assign(:page_title, full_name(user))
+    |> assign(:user, user)
+    |> render("show.html")
   end
 
   def edit(conn, %{"id" => id}) do
