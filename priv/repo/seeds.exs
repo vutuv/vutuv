@@ -6,6 +6,8 @@
 # repositories directly:
 #
 #     Vutuv.Repo.insert!(%Vutuv.SomeModel{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+
+Vutuv.Repo.insert! (%Vutuv.User{first_name: "Stefan", last_name: "Wintermeyer"})
+Vutuv.Repo.insert! (%Vutuv.User{first_name: "Oliver", last_name: "Andrich"})
+Vutuv.Repo.insert! (%Vutuv.User{first_name: "Lennex", last_name: "Zinyando"})
+Vutuv.Repo.insert! (%Vutuv.User{first_name: "Kasper", last_name: "Tidemann"})
