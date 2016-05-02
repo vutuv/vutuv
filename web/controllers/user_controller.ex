@@ -1,22 +1,11 @@
 defmodule Vutuv.UserController do
   use Vutuv.Web, :controller
+  plug :authenticate when action in [:index, :show]
   import Vutuv.UserHelpers
 
   alias Vutuv.User
-  # alias Vutuv.Group
 
   plug :scrub_params, "user" when action in [:create, :update]
-
-  # plug :load_groups when action in [:show, :index]
-  #
-  # defp load_groups(conn, _) do
-  #   query =
-  #     Group
-  #     |> Group.alphabetical
-  #     |> Group.names_and_ids
-  #   groups = Repo.all query
-  #   assign(conn, :groups, groups)
-  # end
 
   def index(conn, _params) do
     users = Repo.all(User)
@@ -32,9 +21,10 @@ defmodule Vutuv.UserController do
     changeset = User.changeset(%User{}, user_params)
 
     case Repo.insert(changeset) do
-      {:ok, _user} ->
+      {:ok, user} ->
         conn
-        |> put_flash(:info, "User created successfully.")
+        |> Vutuv.Auth.login(user)
+        |> put_flash(:info, "User #{user.first_name} #{user.last_name} created successfully.")
         |> redirect(to: user_path(conn, :index))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -80,5 +70,16 @@ defmodule Vutuv.UserController do
     conn
     |> put_flash(:info, "User deleted successfully.")
     |> redirect(to: user_path(conn, :index))
+  end
+
+  defp authenticate(conn, _opts) do
+    if conn.assigns.current_user do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must be logged in to access that page")
+      |> redirect(to: page_path(conn, :index))
+      |> halt()
+    end
   end
 end
