@@ -20,6 +20,9 @@ defmodule Vutuv.Auth do
   end
 
   def login_by_email(conn, email, _opts) do
+    email
+    |> String.downcase
+    
     user =
       Vutuv.User
       |> join(:inner, [u], e in assoc(u, :emails))
