@@ -15,7 +15,7 @@
     <div class="header">
       <ol class="breadcrumb text-right">
         <%= if @current_user do %>
-          <li><%= @current_user.first_name %> <%= @current_user.last_name %></li>
+          <li><%= full_name(@current_user) %></li>
           <li>
             <%= link "Log out", to: session_path(@conn, :delete, @current_user), method: "delete" %>
           </li>
