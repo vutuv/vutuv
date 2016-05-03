@@ -6,6 +6,13 @@
   <% end %>
 
   <div class="form-group">
+    <%= label f, :gender, class: "control-label" %>
+    <%= select f, :gender, [{gettext("Mr"), "male"},
+      {gettext("Mrs"), "female"}, {gettext("Other"), "other"}], class: "form-control" %>
+    <%= error_tag f, :gender %>
+  </div>
+
+  <div class="form-group">
     <%= label f, :first_name, class: "control-label" %>
     <%= text_input f, :first_name, class: "form-control" %>
     <%= error_tag f, :first_name %>
@@ -42,21 +49,9 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :gender, class: "control-label" %>
-    <%= text_input f, :gender, class: "form-control" %>
-    <%= error_tag f, :gender %>
-  </div>
-
-  <div class="form-group">
     <%= label f, :birthdate, class: "control-label" %>
     <%= date_select f, :birthdate, class: "form-control" %>
     <%= error_tag f, :birthdate %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :verified, class: "control-label" %>
-    <%= checkbox f, :verified, class: "form-control" %>
-    <%= error_tag f, :verified %>
   </div>
 
   <div class="form-group">
