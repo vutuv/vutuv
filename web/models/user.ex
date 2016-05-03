@@ -41,6 +41,7 @@ defmodule Vutuv.User do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> cast_attachments(params, @required_file_fields, @optional_file_fields)
+    |> cast_assoc(:emails)
     |> validate_first_name_or_last_name_or_nickname(params)
   end
 

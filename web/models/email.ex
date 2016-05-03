@@ -9,8 +9,8 @@ defmodule Vutuv.Email do
     timestamps
   end
 
-  @required_fields ~w(value user_id)
-  @optional_fields ~w()
+  @required_fields ~w(value)
+  @optional_fields ~w(user_id)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

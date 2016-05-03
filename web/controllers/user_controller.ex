@@ -4,6 +4,7 @@ defmodule Vutuv.UserController do
   import Vutuv.UserHelpers
 
   alias Vutuv.User
+  alias Vutuv.Email
 
   plug :scrub_params, "user" when action in [:create, :update]
 
@@ -13,8 +14,13 @@ defmodule Vutuv.UserController do
   end
 
   def new(conn, _params) do
-    changeset = User.changeset(%User{})
-    render(conn, "new.html", changeset: changeset, current_user: @current_user)
+    # changeset = User.changeset(%User{})
+    # render(conn, "new.html", changeset: changeset, current_user: @current_user)
+
+    changeset =
+      User.changeset(%User{})
+      |> Ecto.Changeset.put_assoc(:emails, [%Email{}])
+    render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -41,7 +47,7 @@ defmodule Vutuv.UserController do
   end
 
   def edit(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
+    user = Repo.get!(User, id) |> Repo.preload([:emails])
     changeset = User.changeset(user)
     render(conn, "edit.html", user: user, changeset: changeset)
   end

@@ -24,6 +24,14 @@
     <%= error_tag f, :last_name %>
   </div>
 
+  <%= inputs_for f, :emails, fn ef -> %>
+    <div class="form-group">
+      <%= label ef, :value, class: "control-label" %>
+      <%= text_input ef, :value, class: "form-control" %>
+      <%= error_tag ef, :value %>
+    </div>
+  <% end %>
+
   <%= if @current_user do %>
     <div class="form-group">
       <%= label f, :middlename, class: "control-label" %>
