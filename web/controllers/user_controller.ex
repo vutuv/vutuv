@@ -14,9 +14,6 @@ defmodule Vutuv.UserController do
   end
 
   def new(conn, _params) do
-    # changeset = User.changeset(%User{})
-    # render(conn, "new.html", changeset: changeset, current_user: @current_user)
-
     changeset =
       User.changeset(%User{})
       |> Ecto.Changeset.put_assoc(:emails, [%Email{}])
