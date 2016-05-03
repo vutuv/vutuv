@@ -26,7 +26,7 @@
 
   <%= inputs_for f, :emails, fn ef -> %>
     <div class="form-group">
-      <%= label ef, :value, class: "control-label" %>
+      <%= label ef, :email_address, class: "control-label" %>
       <%= text_input ef, :value, class: "form-control" %>
       <%= error_tag ef, :value %>
     </div>
