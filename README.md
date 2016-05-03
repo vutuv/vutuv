@@ -9,7 +9,7 @@ vutuv is a social network service to host and share information about humans and
 
 This is a [Phoenix Framework](http://www.phoenixframework.org/) application. Please install it before going forward.
 
-Make sure that your database configuration in `config/dev.exs` is correct.
+Make sure that your database configuration in `config/dev.exs` is correct (we use MySQL by default).
 
 ```bash
 $ cd vutuv
