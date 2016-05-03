@@ -1,6 +1,8 @@
 <h2><%= gettext "New user" %></h2>
 
 <%= render "form.html", changeset: @changeset,
-                        action: user_path(@conn, :create) %>
+                        action: user_path(@conn, :create), current_user: @current_user %>
 
-<%= link gettext("Back"), to: user_path(@conn, :index) %>
+<%= if @current_user do %>
+  <%= link gettext("Back"), to: user_path(@conn, :index) %>
+<% end %>

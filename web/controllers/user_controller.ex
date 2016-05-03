@@ -14,7 +14,7 @@ defmodule Vutuv.UserController do
 
   def new(conn, _params) do
     changeset = User.changeset(%User{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, current_user: @current_user)
   end
 
   def create(conn, %{"user" => user_params}) do

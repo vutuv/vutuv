@@ -14,7 +14,7 @@
 
   <div class="form-group">
     <%= label f, :first_name, class: "control-label" %>
-    <%= text_input f, :first_name, class: "form-control" %>
+    <%= text_input f, :first_name, class: "form-control", autofocus: true %>
     <%= error_tag f, :first_name %>
   </div>
 
@@ -24,40 +24,42 @@
     <%= error_tag f, :last_name %>
   </div>
 
-  <div class="form-group">
-    <%= label f, :middlename, class: "control-label" %>
-    <%= text_input f, :middlename, class: "form-control" %>
-    <%= error_tag f, :middlename %>
-  </div>
+  <%= if @current_user do %>
+    <div class="form-group">
+      <%= label f, :middlename, class: "control-label" %>
+      <%= text_input f, :middlename, class: "form-control" %>
+      <%= error_tag f, :middlename %>
+    </div>
 
-  <div class="form-group">
-    <%= label f, :nickname, class: "control-label" %>
-    <%= text_input f, :nickname, class: "form-control" %>
-    <%= error_tag f, :nickname %>
-  </div>
+    <div class="form-group">
+      <%= label f, :nickname, class: "control-label" %>
+      <%= text_input f, :nickname, class: "form-control" %>
+      <%= error_tag f, :nickname %>
+    </div>
 
-  <div class="form-group">
-    <%= label f, :honorific_prefix, class: "control-label" %>
-    <%= text_input f, :honorific_prefix, class: "form-control" %>
-    <%= error_tag f, :honorific_prefix %>
-  </div>
+    <div class="form-group">
+      <%= label f, :honorific_prefix, class: "control-label" %>
+      <%= text_input f, :honorific_prefix, class: "form-control" %>
+      <%= error_tag f, :honorific_prefix %>
+    </div>
 
-  <div class="form-group">
-    <%= label f, :honorific_suffix, class: "control-label" %>
-    <%= text_input f, :honorific_suffix, class: "form-control" %>
-    <%= error_tag f, :honorific_suffix %>
-  </div>
+    <div class="form-group">
+      <%= label f, :honorific_suffix, class: "control-label" %>
+      <%= text_input f, :honorific_suffix, class: "form-control" %>
+      <%= error_tag f, :honorific_suffix %>
+    </div>
 
-  <div class="form-group">
-    <%= label f, :birthdate, class: "control-label" %>
-    <%= date_select f, :birthdate, class: "form-control" %>
-    <%= error_tag f, :birthdate %>
-  </div>
+    <div class="form-group">
+      <%= label f, :birthdate, class: "control-label" %>
+      <%= date_select f, :birthdate, class: "form-control" %>
+      <%= error_tag f, :birthdate %>
+    </div>
 
-  <div class="form-group">
-    <%= label f, :avatar, class: "control-label" %>
-    <%= file_input f, :avatar, class: "form-control" %>
-  </div>
+    <div class="form-group">
+      <%= label f, :avatar, class: "control-label" %>
+      <%= file_input f, :avatar, class: "form-control" %>
+    </div>
+  <% end %>
 
   <div class="form-group">
     <%= submit gettext("Submit"), class: "btn btn-primary" %>
