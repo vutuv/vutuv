@@ -28,7 +28,7 @@ defmodule Vutuv.UserController do
         conn
         |> Vutuv.Auth.login(user)
         |> put_flash(:info, "User #{full_name(user)} created successfully.")
-        |> redirect(to: user_path(conn, :index))
+        |> redirect(to: user_path(conn, :show, user))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
