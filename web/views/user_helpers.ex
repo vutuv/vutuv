@@ -13,7 +13,7 @@ defmodule Vutuv.UserHelpers do
   def gravatar_url(user) do
     case user.emails do
       [email | _tail] -> "http://www.gravatar.com/avatar/#{email.md5sum}"
-      _               -> "some-default-avatar"
+      _               -> nil
     end
   end
 end

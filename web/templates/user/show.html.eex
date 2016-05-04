@@ -1,5 +1,7 @@
 <h2><%= full_name(@user) %></h2>
-<img src="<%= gravatar_url(@user) %>"  />
+<%= if gravatar_url(@user) do %>
+<img src="<%= gravatar_url(@user) %>" />
+<% end %>
 <ul>
   <%= if @user.first_name do %>
     <li>
