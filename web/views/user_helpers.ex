@@ -8,5 +8,12 @@ defmodule Vutuv.UserHelpers do
     [honorific_prefix, first_name, last_name, honorific_suffix]
     |> Enum.reject(&(&1 == ""))
     |> Enum.join(" ")
-  end 
+  end
+
+  def gravatar_url(user) do
+    case user.emails do
+      [email | _tail] -> "http://www.gravatar.com/avatar/#{email.md5sum}"
+      _               -> "some-default-avatar"
+    end
+  end
 end
