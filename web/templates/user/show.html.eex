@@ -80,6 +80,7 @@
     <li><%= email.value %></li>
   <% end %>
   </ul>
+
 <% end %>
 
 <%= unless Enum.empty?(@user.groups) do %>

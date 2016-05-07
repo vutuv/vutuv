@@ -18,10 +18,11 @@ defmodule Vutuv.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    resources "/emails", EmailController
     resources "/connections", ConnectionController
     resources "/groups", GroupController
-    resources "/users", UserController
+    resources "/users", UserController do
+      resources "/emails", EmailController
+    end
     resources "/sessions", SessionController, only: [:new, :create, :delete]
   end
 
