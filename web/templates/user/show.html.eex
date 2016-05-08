@@ -72,6 +72,17 @@
   <p><img src="<%= avatar_url(@user) %>" alt="Avatar of <%= full_name(@user) %>"></p>
 <% end %>
 
+<%= if @user.id != @current_user.id do %>
+  <%= form_for @changeset, connection_path(@conn, :create), fn f -> %>
+    <%= hidden_input f, :follower_id %>
+    <%= hidden_input f, :followee_id %>
+
+    <div class="form-group">
+      <%= submit gettext("Follow"), class: "btn btn-primary" %>
+    </div>
+  <% end %>
+<% end %>
+
 <%= unless Enum.empty?(@user.emails) do %>
   <%= render Vutuv.EmailView, "index.html", conn: @conn, emails: @user.emails, user: @user %>
 <% end %>

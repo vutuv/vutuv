@@ -6,6 +6,7 @@ defmodule Vutuv.UserController do
   alias Vutuv.User
   alias Vutuv.Email
   alias Vutuv.Group
+  alias Vutuv.Connection
 
   plug :scrub_params, "user" when action in [:create, :update]
 
@@ -45,10 +46,12 @@ defmodule Vutuv.UserController do
   def show(conn, %{"id" => id}) do
     user = Repo.get!(User, id) |> Repo.preload([:groups, :followers, :followees, :emails])
 
+    changeset = Connection.changeset(%Connection{},%{follower_id: conn.assigns.current_user.id, followee_id: user.id})
+
     conn
     |> assign(:page_title, full_name(user))
     |> assign(:user, user)
-    |> render("show.html")
+    |> render("show.html", changeset: changeset)
   end
 
   def edit(conn, %{"id" => id}) do
