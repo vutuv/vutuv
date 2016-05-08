@@ -1,9 +1,9 @@
-<h2>Listing emails</h2>
+<h2><%= gettext "E-Mails" %></h2>
 
 <table class="table">
   <thead>
     <tr>
-      <th>Value</th>
+      <th><%= gettext "Address" %></th>
       <th></th>
     </tr>
   </thead>

@@ -77,13 +77,7 @@
 <% end %>
 
 <%= unless Enum.empty?(@user.groups) do %>
-  <h2>Groups</h2>
-
-  <ul>
-  <%= for group <- @user.groups do %>
-    <li><%= group.name %></li>
-  <% end %>
-  </ul>
+  <%= render Vutuv.GroupView, "index.html", conn: @conn, groups: @user.groups, user: @user %>
 <% end %>
 
 <%= unless Enum.empty?(@user.followers) do %>
@@ -106,5 +100,6 @@
   </ul>
 <% end %>
 
+<p><hr/></p>
 <%= link gettext("Edit"), to: user_path(@conn, :edit, @user) %>
 <%= link gettext("Back"), to: user_path(@conn, :index) %>
