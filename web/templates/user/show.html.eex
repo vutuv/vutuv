@@ -73,14 +73,7 @@
 <% end %>
 
 <%= unless Enum.empty?(@user.emails) do %>
-  <h2>E-Mails</h2>
-
-  <ul>
-  <%= for email <- @user.emails do %>
-    <li><%= email.value %></li>
-  <% end %>
-  </ul>
-
+  <%= render Vutuv.EmailView, "index.html", conn: @conn, emails: @user.emails, user: @user %>
 <% end %>
 
 <%= unless Enum.empty?(@user.groups) do %>
