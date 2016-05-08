@@ -13,13 +13,13 @@
       <td><%= group.name %></td>
 
       <td class="text-right">
-        <%= link "Show", to: group_path(@conn, :show, group), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: group_path(@conn, :edit, group), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: group_path(@conn, :delete, group), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <%= link "Show", to: user_group_path(@conn, :show, @user, group), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: user_group_path(@conn, :edit, @user, group), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: user_group_path(@conn, :delete, @user, group), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<%= link "New group", to: group_path(@conn, :new) %>
+<%= link "New group", to: user_group_path(@conn, :new, @user) %>

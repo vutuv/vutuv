@@ -19,9 +19,9 @@ defmodule Vutuv.Router do
 
     get "/", PageController, :index
     resources "/connections", ConnectionController
-    resources "/groups", GroupController
     resources "/users", UserController do
       resources "/emails", EmailController
+      resources "/groups", GroupController
     end
     resources "/sessions", SessionController, only: [:new, :create, :delete]
   end

@@ -12,12 +12,6 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :user_id, class: "control-label" %>
-    <%= text_input f, :user_id, class: "form-control" %>
-    <%= error_tag f, :user_id %>
-  </div>
-
-  <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>

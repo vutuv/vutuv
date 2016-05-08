@@ -1,5 +1,6 @@
 defmodule Vutuv.GroupController do
   use Vutuv.Web, :controller
+  plug :assign_user
 
   alias Vutuv.Group
 
@@ -16,13 +17,16 @@ defmodule Vutuv.GroupController do
   end
 
   def create(conn, %{"group" => group_params}) do
-    changeset = Group.changeset(%Group{}, group_params)
+    changeset =
+      conn.assigns[:user]
+      |> build_assoc(:groups)
+      |> Group.changeset(group_params)
 
     case Repo.insert(changeset) do
       {:ok, _group} ->
         conn
         |> put_flash(:info, "Group created successfully.")
-        |> redirect(to: group_path(conn, :index))
+        |> redirect(to: user_group_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -47,7 +51,7 @@ defmodule Vutuv.GroupController do
       {:ok, group} ->
         conn
         |> put_flash(:info, "Group updated successfully.")
-        |> redirect(to: group_path(conn, :show, group))
+        |> redirect(to: user_group_path(conn, :show, conn.assigns[:user], group))
       {:error, changeset} ->
         render(conn, "edit.html", group: group, changeset: changeset)
     end
@@ -62,6 +66,24 @@ defmodule Vutuv.GroupController do
 
     conn
     |> put_flash(:info, "Group deleted successfully.")
-    |> redirect(to: group_path(conn, :index))
+    |> redirect(to: user_group_path(conn, :index, conn.assigns[:user]))
+  end
+
+  defp assign_user(conn, _opts) do
+    case conn.params do
+      %{"user_id" => user_id} ->
+        case Repo.get(Vutuv.User, user_id) do
+          nil  -> invalid_user(conn)
+          user -> assign(conn, :user, user)
+        end
+      _ -> invalid_user(conn)
+    end
+  end
+
+  defp invalid_user(conn) do
+    conn
+    |> put_flash(:error, "Invalid user!")
+    |> redirect(to: page_path(conn, :index))
+    |> halt
   end
 end

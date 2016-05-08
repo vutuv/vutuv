@@ -1,6 +1,6 @@
 <h2>New group</h2>
 
 <%= render "form.html", changeset: @changeset,
-                        action: group_path(@conn, :create) %>
+                        action: user_group_path(@conn, :create, @user) %>
 
-<%= link "Back", to: group_path(@conn, :index) %>
+<%= link "Back", to: user_group_path(@conn, :index, @user) %>
