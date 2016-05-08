@@ -8,8 +8,8 @@ defmodule Vutuv.Group do
     timestamps
   end
 
-  @required_fields ~w(name user_id)
-  @optional_fields ~w()
+  @required_fields ~w(name)
+  @optional_fields ~w(user_id)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
