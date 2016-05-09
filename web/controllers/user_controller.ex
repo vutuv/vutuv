@@ -89,7 +89,7 @@ defmodule Vutuv.UserController do
   def follow_back(conn, %{"id" => id}) do
     user = Repo.get!(User, id)
 
-    changeset = Connection.changeset(%Connection{follower: conn.assigns.current_user, followee: user})
+    changeset = Connection.changeset(%Connection{},%{follower_id: conn.assigns.current_user.id, followee_id: user.id})
 
     conn
     |> assign(:page_title, full_name(user))
