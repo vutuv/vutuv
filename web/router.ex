@@ -24,6 +24,7 @@ defmodule Vutuv.Router do
       resources "/groups", GroupController
     end
     resources "/sessions", SessionController, only: [:new, :create, :delete]
+    get "/follow_back/:id", UserController, :follow_back
   end
 
   # Other scopes may use custom stacks.

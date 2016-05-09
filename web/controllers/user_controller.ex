@@ -44,7 +44,7 @@ defmodule Vutuv.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user = Repo.get!(User, id) |> Repo.preload([:groups, :followers, :followees, :emails])
+    user = Repo.get!(User, id) |> Repo.preload([:groups, :followers, :followees, :emails, :followee_connections, :follower_connections])
 
     changeset = Connection.changeset(%Connection{},%{follower_id: conn.assigns.current_user.id, followee_id: user.id})
 
@@ -84,6 +84,27 @@ defmodule Vutuv.UserController do
     conn
     |> put_flash(:info, "User deleted successfully.")
     |> redirect(to: user_path(conn, :index))
+  end
+
+  def follow_back(conn, %{"id" => id}) do
+    user = Repo.get!(User, id)
+
+    changeset = Connection.changeset(%Connection{follower: conn.assigns.current_user, followee: user})
+
+    conn
+    |> assign(:page_title, full_name(user))
+    |> assign(:user, user)
+
+    case Repo.insert(changeset) do
+      {:ok, _connection} ->
+        conn
+        |> put_flash(:info, "You follow back #{full_name(user)}.")
+        |> redirect(to: user_path(conn, :show, conn.assigns.current_user))
+      {:error, _changeset} ->
+        conn
+        |> put_flash(:error, "Couldn't follow back to #{full_name(user)}.")
+        |> redirect(to: user_path(conn, :show, conn.assigns.current_user))
+    end
   end
 
   defp authenticate(conn, _opts) do

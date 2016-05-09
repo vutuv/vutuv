@@ -94,21 +94,48 @@
 <%= unless Enum.empty?(@user.followers) do %>
   <h2>Followers</h2>
 
-  <ul>
-  <%= for follower <- @user.followers do %>
-    <li><%= full_name(follower) %></li>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+  <%= for connection <- @user.follower_connections do %>
+      <tr>
+        <td><%= link full_name(connection.follower), to: user_path(@conn, :show, connection.follower) %></td>
+        <td class="text-right">
+          <%= link "Follow back", to: user_path(@conn, :follow_back, connection.follower) %>
+        </td>
+      </tr>
   <% end %>
-  </ul>
+    </tbody>
+  </table>
+
 <% end %>
 
 <%= unless Enum.empty?(@user.followees) do %>
   <h2>Followees</h2>
 
-  <ul>
-  <%= for followee <- @user.followees do %>
-    <li><%= full_name(followee) %></li>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+  <%= for connection <- @user.followee_connections do %>
+      <tr>
+        <td><%= link full_name(connection.followee), to: user_path(@conn, :show, connection.followee) %></td>
+        <td class="text-right">
+          <%= link gettext("Unfollow"), to: connection_path(@conn, :delete, connection), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        </td>
+      </tr>
   <% end %>
-  </ul>
+    </tbody>
+  </table>
 <% end %>
 
 <p><hr/></p>
