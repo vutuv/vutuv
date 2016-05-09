@@ -84,7 +84,7 @@
 <% end %>
 
 <%= unless Enum.empty?(@user.emails) do %>
-  <%= render Vutuv.EmailView, "index.html", conn: @conn, emails: @user.emails, user: @user %>
+  <%= render Vutuv.EmailView, "index.html", conn: @conn, emails: @user.emails, user: @user, emails_counter: @emails_counter %>
 <% end %>
 
 <%= unless Enum.empty?(@user.groups) do %>

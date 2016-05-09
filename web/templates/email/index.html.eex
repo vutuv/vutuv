@@ -14,7 +14,9 @@
       <td class="text-right">
         <%= link "Show", to: user_email_path(@conn, :show, @user, email), class: "btn btn-default btn-xs" %>
         <%= link "Edit", to: user_email_path(@conn, :edit, @user, email), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: user_email_path(@conn, :delete, @user, email), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <%= if @emails_counter > 1 do %>
+          <%= link "Delete", to: user_email_path(@conn, :delete, @user, email), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <% end %>
       </td>
     </tr>
 <% end %>

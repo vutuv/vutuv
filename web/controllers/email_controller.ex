@@ -8,7 +8,8 @@ defmodule Vutuv.EmailController do
 
   def index(conn, _params) do
     emails = Repo.all(assoc(conn.assigns[:user], :emails))
-    render(conn, "index.html", emails: emails)
+    emails_counter = length(emails)
+    render(conn, "index.html", emails: emails, emails_counter: emails_counter)
   end
 
   def new(conn, _params) do

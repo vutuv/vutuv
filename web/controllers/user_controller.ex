@@ -48,10 +48,12 @@ defmodule Vutuv.UserController do
 
     changeset = Connection.changeset(%Connection{},%{follower_id: conn.assigns.current_user.id, followee_id: user.id})
 
+    emails_counter = length(user.emails)
+
     conn
     |> assign(:page_title, full_name(user))
     |> assign(:user, user)
-    |> render("show.html", changeset: changeset)
+    |> render("show.html", changeset: changeset, emails_counter: emails_counter)
   end
 
   def edit(conn, %{"id" => id}) do
