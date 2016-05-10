@@ -10,7 +10,8 @@ defmodule Vutuv.SessionController do
       {:ok, conn} ->
         conn
         |> put_flash(:info, "Welcome!")
-        |> redirect(to: page_path(conn, :index))
+        |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
+        # |> redirect(to: page_path(conn, :index))
       {:error, _reason, conn} ->
         conn
         |> put_flash(:error, "Invalid email")
