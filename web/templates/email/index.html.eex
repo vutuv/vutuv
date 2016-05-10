@@ -1,6 +1,6 @@
 <h2><%= gettext "E-Mails" %></h2>
 
-<table class="table">
+<table class="table table-striped">
   <thead>
     <tr>
       <th><%= gettext "Address" %></th>

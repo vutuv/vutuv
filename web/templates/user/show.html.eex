@@ -1,143 +1,159 @@
 <h2><%= full_name(@user) %></h2>
-<%= if gravatar_url(@user) do %>
-<img src="<%= gravatar_url(@user) %>?d=404" />
-<% end %>
-<ul>
-  <%= if @user.first_name do %>
-    <li>
-      <strong><%= gettext "First name:" %></strong>
-      <%= @user.first_name %>
-    </li>
-  <% end %>
 
-  <%= if @user.last_name do %>
-    <li>
-      <strong><%= gettext "Last name:" %></strong>
-      <%= @user.last_name %>
-    </li>
-  <% end %>
+<div class="row">
+  <div class="col-lg-6">
+    <ul>
+      <%= if @user.first_name do %>
+        <li>
+          <strong><%= gettext "First name:" %></strong>
+          <%= @user.first_name %>
+        </li>
+      <% end %>
 
-  <%= if @user.middlename do %>
-    <li>
-      <strong><%= gettext "Middlename:" %></strong>
-      <%= @user.middlename %>
-    </li>
-  <% end %>
+      <%= if @user.last_name do %>
+        <li>
+          <strong><%= gettext "Last name:" %></strong>
+          <%= @user.last_name %>
+        </li>
+      <% end %>
 
-  <%= if @user.nickname do %>
-    <li>
-      <strong><%= gettext "Nickname:" %></strong>
-      <%= @user.nickname %>
-    </li>
-  <% end %>
+      <%= if @user.middlename do %>
+        <li>
+          <strong><%= gettext "Middlename:" %></strong>
+          <%= @user.middlename %>
+        </li>
+      <% end %>
 
-  <%= if @user.honorific_prefix do %>
-    <li>
-      <strong><%= gettext "Honorific prefix:" %></strong>
-      <%= @user.honorific_prefix %>
-  </li>
-  <% end %>
+      <%= if @user.nickname do %>
+        <li>
+          <strong><%= gettext "Nickname:" %></strong>
+          <%= @user.nickname %>
+        </li>
+      <% end %>
 
-  <%= if @user.honorific_suffix do %>
-    <li>
-      <strong><%= gettext "Honorific suffix:" %></strong>
-      <%= @user.honorific_suffix %>
-  </li>
-  <% end %>
+      <%= if @user.honorific_prefix do %>
+        <li>
+          <strong><%= gettext "Honorific prefix:" %></strong>
+          <%= @user.honorific_prefix %>
+      </li>
+      <% end %>
 
-  <%= if @user.gender do %>
-    <li>
-      <strong><%= gettext "Gender:" %></strong>
-      <%= @user.gender %>
-    </li>
-  <% end %>
+      <%= if @user.honorific_suffix do %>
+        <li>
+          <strong><%= gettext "Honorific suffix:" %></strong>
+          <%= @user.honorific_suffix %>
+      </li>
+      <% end %>
 
-  <%= if @user.birthdate do %>
-    <li>
-      <strong><%= gettext "Birthdate:" %></strong>
-      <%= @user.birthdate %>
-    </li>
-  <% end %>
+      <%= if @user.gender do %>
+        <li>
+          <strong><%= gettext "Gender:" %></strong>
+          <%= @user.gender %>
+        </li>
+      <% end %>
 
-  <%= if @user.verified do %>
-    <li>
-      <strong><%= gettext "Verified:" %></strong>
-      <%= @user.verified %>
-    </li>
-  <% end %>
+      <%= if @user.birthdate do %>
+        <li>
+          <strong><%= gettext "Birthdate:" %></strong>
+          <%= @user.birthdate %>
+        </li>
+      <% end %>
 
-</ul>
+      <%= if @user.verified do %>
+        <li>
+          <strong><%= gettext "Verified:" %></strong>
+          <%= @user.verified %>
+        </li>
+      <% end %>
+    </ul>
+    <%= link gettext("Edit"), to: user_path(@conn, :edit, @user) %>
+  </div>
 
-<%= if @user.avatar do %>
-  <p><img src="<%= avatar_url(@user) %>" alt="Avatar of <%= full_name(@user) %>"></p>
-<% end %>
+  <div class="col-lg-6">
+    <%= if gravatar_url(@user) do %>
+      <img src="<%= gravatar_url(@user) %>"  class="img-responsive img-rounded" alt="Avatar <%= full_name(@user) %>" />
+    <% end %>
 
-<%= if @user.id != @current_user.id do %>
-  <%= form_for @changeset, connection_path(@conn, :create), fn f -> %>
-    <%= hidden_input f, :follower_id %>
-    <%= hidden_input f, :followee_id %>
+    <%= if @user.id != @current_user.id do %>
+      <%= form_for @changeset, connection_path(@conn, :create), fn f -> %>
+        <%= hidden_input f, :follower_id %>
+        <%= hidden_input f, :followee_id %>
 
-    <div class="form-group">
-      <%= submit gettext("Follow"), class: "btn btn-primary" %>
-    </div>
-  <% end %>
-<% end %>
+        <div class="form-group">
+          <%= submit gettext("Follow"), class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
 
-<%= unless Enum.empty?(@user.emails) do %>
-  <%= render Vutuv.EmailView, "index.html", conn: @conn, emails: @user.emails, user: @user, emails_counter: @emails_counter %>
-<% end %>
+<div class="row">
+  <div class="col-lg-12">
+    <%= unless Enum.empty?(@user.emails) do %>
+      <%= render Vutuv.EmailView, "index.html", conn: @conn, emails: @user.emails, user: @user, emails_counter: @emails_counter %>
+    <% end %>
 
-<%= unless Enum.empty?(@user.groups) do %>
-  <%= render Vutuv.GroupView, "index.html", conn: @conn, groups: @user.groups, user: @user %>
-<% end %>
+    <%= unless Enum.empty?(@user.groups) do %>
+      <%= render Vutuv.GroupView, "index.html", conn: @conn, groups: @user.groups, user: @user %>
+    <% end %>
 
-<%= unless Enum.empty?(@user.followers) do %>
-  <h2>Followers</h2>
+    <%= unless Enum.empty?(@user.followers) do %>
+      <h2>Followers</h2>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-  <%= for connection <- @user.follower_connections do %>
-      <tr>
-        <td><%= link full_name(connection.follower), to: user_path(@conn, :show, connection.follower) %></td>
-        <td class="text-right">
-          <%= link "Follow back", to: user_path(@conn, :follow_back, connection.follower) %>
-        </td>
-      </tr>
-  <% end %>
-    </tbody>
-  </table>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+      <%= for connection <- @user.follower_connections do %>
+          <tr>
+            <td>
+              <%= if gravatar_url(connection.follower) do %>
+              <img src="<%= gravatar_url(connection.follower) %>?s=20" />
+              <% end %>
+            </td>
+            <td><%= link full_name(connection.follower), to: user_path(@conn, :show, connection.follower) %></td>
+            <td class="text-right">
+              <%= link "Follow back", to: user_path(@conn, :follow_back, connection.follower), class: "btn btn-default", role: "button" %>
+            </td>
+          </tr>
+      <% end %>
+        </tbody>
+      </table>
 
-<% end %>
+    <% end %>
 
-<%= unless Enum.empty?(@user.followees) do %>
-  <h2>Followees</h2>
+    <%= unless Enum.empty?(@user.followees) do %>
+      <h2>Followees</h2>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-  <%= for connection <- @user.followee_connections do %>
-      <tr>
-        <td><%= link full_name(connection.followee), to: user_path(@conn, :show, connection.followee) %></td>
-        <td class="text-right">
-          <%= link gettext("Unfollow"), to: connection_path(@conn, :delete, connection), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-        </td>
-      </tr>
-  <% end %>
-    </tbody>
-  </table>
-<% end %>
-
-<p><hr/></p>
-<%= link gettext("Edit"), to: user_path(@conn, :edit, @user) %>
-<%= link gettext("Back"), to: user_path(@conn, :index) %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+      <%= for connection <- @user.followee_connections do %>
+          <tr>
+            <td>
+              <%= if gravatar_url(connection.followee) do %>
+              <img src="<%= gravatar_url(connection.followee) %>?s=20" />
+              <% end %>
+            </td>
+            <td><%= link full_name(connection.followee), to: user_path(@conn, :show, connection.followee) %></td>
+            <td class="text-right">
+              <%= link gettext("Unfollow"), to: connection_path(@conn, :delete, connection), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+            </td>
+          </tr>
+      <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>
