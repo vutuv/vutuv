@@ -62,6 +62,6 @@ defmodule Vutuv.ConnectionController do
 
     conn
     |> put_flash(:info, "Connection deleted successfully.")
-    |> redirect(to: connection_path(conn, :index))
+    |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
   end
 end

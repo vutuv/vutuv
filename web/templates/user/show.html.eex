@@ -118,7 +118,11 @@
             </td>
             <td><%= link full_name(connection.follower), to: user_path(@conn, :show, connection.follower) %></td>
             <td class="text-right">
-              <%= link "Follow back", to: user_path(@conn, :follow_back, connection.follower), class: "btn btn-default btn-xs", role: "button" %>
+              <%= if Enum.any?(@user.followee_connections, fn(x) -> x.followee_id == connection.follower_id end) do %>
+                 You already follow back.
+              <% else %>
+                <%= link "Follow back", to: user_path(@conn, :follow_back, connection.follower), class: "btn btn-default btn-xs", role: "button" %>
+              <% end %>
             </td>
           </tr>
       <% end %>
