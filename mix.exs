@@ -19,7 +19,7 @@ defmodule Vutuv.Mixfile do
   def application do
     [mod: {Vutuv, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :mariaex]]
+                    :phoenix_ecto, :mariaex, :ex_machina]]
   end
 
   # Specifies which paths to compile per environment.
@@ -38,7 +38,8 @@ defmodule Vutuv.Mixfile do
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
      {:arc, "~> 0.5.2"},
-     {:arc_ecto, "~> 0.3.2"}]
+     {:arc_ecto, "~> 0.3.2"},
+     {:ex_machina, "~> 0.6.1"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
