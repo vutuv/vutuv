@@ -1,18 +1,3 @@
-<h2>Show connection</h2>
+<h2><%= full_name(@connection.follower) %> <%= gettext("follows") %> <%= full_name(@connection.followee) %></h2>
 
-<ul>
-
-  <li>
-    <strong>Follower:</strong>
-    <%= @connection.follower_id %>
-  </li>
-
-  <li>
-    <strong>Followee:</strong>
-    <%= @connection.followee_id %>
-  </li>
-
-</ul>
-
-<%= link "Edit", to: connection_path(@conn, :edit, @connection) %>
 <%= link "Back", to: connection_path(@conn, :index) %>

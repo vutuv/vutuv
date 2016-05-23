@@ -4,6 +4,7 @@ defmodule Vutuv.Group do
   schema "groups" do
     field :name, :string
     belongs_to :user, Vutuv.User
+    has_many :memberships, Vutuv.Membership
 
     timestamps
   end

@@ -1,15 +1,14 @@
-defmodule Vutuv.Connection do
+defmodule Vutuv.Membership do
   use Vutuv.Web, :model
 
-  schema "connections" do
-    belongs_to :follower, Vutuv.User
-    belongs_to :followee, Vutuv.User
-    has_many :memberships, Vutuv.Membership
+  schema "memberships" do
+    belongs_to :connection, Vutuv.Connection
+    belongs_to :group, Vutuv.Group
 
     timestamps
   end
 
-  @required_fields ~w(follower_id followee_id)
+  @required_fields ~w(connection_id group_id)
   @optional_fields ~w()
 
   @doc """

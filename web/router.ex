@@ -19,6 +19,13 @@ defmodule Vutuv.Router do
 
     get "/", PageController, :index
     resources "/connections", ConnectionController
+
+    # TODO: delete the following route entries
+    resources "/memberships", MembershipController
+    resources "/connections", ConnectionController do
+      resources "/memberships", MembershipController
+    end
+
     resources "/users", UserController do
       resources "/emails", EmailController
       resources "/groups", GroupController
