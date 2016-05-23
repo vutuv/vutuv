@@ -7,8 +7,11 @@ defmodule Vutuv.GroupController do
   plug :scrub_params, "group" when action in [:create, :update]
 
   def index(conn, _params) do
-    groups = Repo.all(Group) |> Repo.preload([:user])
-    render(conn, "index.html", groups: groups)
+    user =
+      Repo.get!(Vutuv.User, conn.assigns[:user].id)
+      |> Repo.preload([:groups])
+
+    render(conn, "index.html", groups: user.groups)
   end
 
   def new(conn, _params) do
