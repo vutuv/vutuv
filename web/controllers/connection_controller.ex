@@ -34,28 +34,8 @@ defmodule Vutuv.ConnectionController do
     connection =
       Repo.get!(Connection, id)
       |> Repo.preload([:follower, :followee])
-    
+
     render(conn, "show.html", connection: connection)
-  end
-
-  def edit(conn, %{"id" => id}) do
-    connection = Repo.get!(Connection, id)
-    changeset = Connection.changeset(connection)
-    render(conn, "edit.html", connection: connection, changeset: changeset)
-  end
-
-  def update(conn, %{"id" => id, "connection" => connection_params}) do
-    connection = Repo.get!(Connection, id)
-    changeset = Connection.changeset(connection, connection_params)
-
-    case Repo.update(changeset) do
-      {:ok, connection} ->
-        conn
-        |> put_flash(:info, "Connection updated successfully.")
-        |> redirect(to: connection_path(conn, :show, connection))
-      {:error, changeset} ->
-        render(conn, "edit.html", connection: connection, changeset: changeset)
-    end
   end
 
   def delete(conn, %{"id" => id}) do
