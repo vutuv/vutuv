@@ -10,14 +10,13 @@
     </tr>
   </thead>
   <tbody>
-<%= for membership <- @memberships do %>
+<%= for membership <- @connection.memberships do %>
     <tr>
       <td><%= membership.connection_id %></td>
       <td><%= membership.group_id %></td>
 
       <td class="text-right">
         <%= link "Show", to: connection_membership_path(@conn, :show, @connection, membership), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: connection_membership_path(@conn, :edit, @connection, membership), class: "btn btn-default btn-xs" %>
         <%= link "Delete", to: connection_membership_path(@conn, :delete, @connection, membership), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>
     </tr>

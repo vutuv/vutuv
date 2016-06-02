@@ -33,7 +33,7 @@ defmodule Vutuv.ConnectionController do
   def show(conn, %{"id" => id}) do
     connection =
       Repo.get!(Connection, id)
-      |> Repo.preload([:follower, :followee])
+      |> Repo.preload([:groups, :follower, :followee])
 
     render(conn, "show.html", connection: connection)
   end

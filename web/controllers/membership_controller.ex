@@ -55,7 +55,8 @@ defmodule Vutuv.MembershipController do
   defp assign_connection(conn, _opts) do
     case conn.params do
       %{"connection_id" => connection_id} ->
-        case Repo.get(Connection, connection_id) |> Repo.preload([:memberships, :groups, :follower, :followee]) do
+        case Repo.get(Connection, connection_id)
+             |> Repo.preload([:memberships, :groups, :follower, :followee]) do
           nil  -> invalid_connection(conn)
           connection -> assign(conn, :connection, connection)
         end
