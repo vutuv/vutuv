@@ -5,11 +5,7 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= label f, :connection_id, class: "control-label" %>
-    <%= text_input f, :connection_id, class: "form-control" %>
-    <%= error_tag f, :connection_id %>
-  </div>
+  <%= hidden_input f, :connection_id, class: "form-control" %>
 
   <div class="form-group">
     <%= label f, :group_id, class: "control-label" %>

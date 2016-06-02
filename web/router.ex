@@ -22,7 +22,7 @@ defmodule Vutuv.Router do
     # TODO: delete the following route entries
     resources "/memberships", MembershipController
     resources "/connections", ConnectionController, only: [:new, :create, :show, :delete, :index] do
-      resources "/memberships", MembershipController
+      resources "/memberships", MembershipController, only: [:new, :create, :show, :delete, :index]
     end
 
     resources "/users", UserController do

@@ -4,7 +4,9 @@ defmodule Vutuv.Connection do
   schema "connections" do
     belongs_to :follower, Vutuv.User
     belongs_to :followee, Vutuv.User
-    has_many :memberships, Vutuv.Membership
+
+    has_many :memberships, Vutuv.Membership, on_delete: :delete_all
+    has_many :groups, through: [:memberships, :group]
 
     timestamps
   end

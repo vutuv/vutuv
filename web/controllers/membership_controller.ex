@@ -3,19 +3,19 @@ defmodule Vutuv.MembershipController do
   plug :assign_connection
 
   alias Vutuv.Membership
+  alias Vutuv.Connection
 
   plug :scrub_params, "membership" when action in [:create, :update]
 
   def index(conn, _params) do
-    connection =
-      Repo.get!(Vutuv.Connection, conn.assigns[:connection].id)
-      |> Repo.preload([:memberships])
-
-    render(conn, "index.html", memberships: connection.memberships)
+    render(conn, "index.html", connection: conn.assigns[:connection])
   end
 
   def new(conn, _params) do
-    changeset = Membership.changeset(%Membership{})
+    changeset =
+      conn.assigns[:connection]
+      |> build_assoc(:memberships)
+      |> Membership.changeset()
     render(conn, "new.html", changeset: changeset)
   end
 
@@ -40,26 +40,6 @@ defmodule Vutuv.MembershipController do
     render(conn, "show.html", membership: membership)
   end
 
-  def edit(conn, %{"id" => id}) do
-    membership = Repo.get!(Membership, id)
-    changeset = Membership.changeset(membership)
-    render(conn, "edit.html", membership: membership, changeset: changeset)
-  end
-
-  def update(conn, %{"id" => id, "membership" => membership_params}) do
-    membership = Repo.get!(Membership, id)
-    changeset = Membership.changeset(membership, membership_params)
-
-    case Repo.update(changeset) do
-      {:ok, membership} ->
-        conn
-        |> put_flash(:info, "Membership updated successfully.")
-        |> redirect(to: membership_path(conn, :show, membership))
-      {:error, changeset} ->
-        render(conn, "edit.html", membership: membership, changeset: changeset)
-    end
-  end
-
   def delete(conn, %{"id" => id}) do
     membership = Repo.get!(Membership, id)
 
@@ -75,7 +55,7 @@ defmodule Vutuv.MembershipController do
   defp assign_connection(conn, _opts) do
     case conn.params do
       %{"connection_id" => connection_id} ->
-        case Repo.get(Vutuv.Connection, connection_id) do
+        case Repo.get(Connection, connection_id) |> Repo.preload([:memberships, :groups, :follower, :followee]) do
           nil  -> invalid_connection(conn)
           connection -> assign(conn, :connection, connection)
         end
