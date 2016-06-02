@@ -18,11 +18,10 @@ defmodule Vutuv.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    resources "/connections", ConnectionController
 
     # TODO: delete the following route entries
     resources "/memberships", MembershipController
-    resources "/connections", ConnectionController, only: [:create, :show, :delete] do
+    resources "/connections", ConnectionController, only: [:new, :create, :show, :delete, :index] do
       resources "/memberships", MembershipController
     end
 
