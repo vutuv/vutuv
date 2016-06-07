@@ -103,7 +103,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th></th>
+            <th>Inserted At</th>
             <th>Name</th>
             <th></th>
           </tr>
@@ -112,9 +112,7 @@
       <%= for connection <- @user.follower_connections do %>
           <tr>
             <td>
-              <%= if gravatar_url(connection.follower) do %>
-              <img src="<%= gravatar_url(connection.follower) %>?s=20" />
-              <% end %>
+              <%= time_ago_in_words connection.inserted_at %> ago
             </td>
             <td><%= link full_name(connection.follower), to: user_path(@conn, :show, connection.follower) %></td>
             <td class="text-right">
@@ -137,7 +135,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th></th>
+            <th>Inserted At</th>
             <th>Name</th>
             <th></th>
           </tr>
@@ -146,9 +144,7 @@
       <%= for connection <- @user.followee_connections do %>
           <tr>
             <td>
-              <%= if gravatar_url(connection.followee) do %>
-              <img src="<%= gravatar_url(connection.followee) %>?s=20" />
-              <% end %>
+              <%= time_ago_in_words connection.inserted_at %> ago
             </td>
             <td><%= link full_name(connection.followee), to: user_path(@conn, :show, connection.followee) %></td>
             <td class="text-right">

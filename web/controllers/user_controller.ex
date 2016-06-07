@@ -47,9 +47,7 @@ defmodule Vutuv.UserController do
     user =
       Repo.get!(User, id)
       |> Repo.preload([:groups, :emails,
-                       :followers, :followees,
-                       :followee_connections,
-                       :follower_connections])
+                       :followers, :followees])
 
     changeset = Connection.changeset(%Connection{},%{follower_id: conn.assigns.current_user.id, followee_id: user.id})
 
