@@ -1,0 +1,24 @@
+<h2>Listing Followees</h2>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Inserted At</th>
+      <th>Follower</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for connection <- @user.followee_connections do %>
+    <tr>
+      <td>
+        <%= time_ago_in_words connection.inserted_at %> ago
+      </td>
+      <td><%= full_name(connection.followee) %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: connection_path(@conn, :show, connection), class: "btn btn-default btn-xs" %>      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
