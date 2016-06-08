@@ -126,7 +126,9 @@
       <% end %>
         </tbody>
       </table>
-      <%= link gettext("List of all Followers"), to: user_follower_path(@conn, :index, @user) %>
+      <p>
+        <%= link gettext("List of all Followers (%{followers_count}).", followers_count: @followers_count), to: user_follower_path(@conn, :index, @user) %>
+      </p>
     <% end %>
 
     <%= unless Enum.empty?(@user.followees) do %>
@@ -154,7 +156,9 @@
       <% end %>
         </tbody>
       </table>
-      <%= link gettext("List of all Followees"), to: user_followee_path(@conn, :index, @user) %>
+      <p>
+        <%= link gettext("List of all Followees (%{followees_count}).", followees_count: @followees_count), to: user_followee_path(@conn, :index, @user) %>
+      </p>
     <% end %>
   </div>
 </div>

@@ -49,6 +49,9 @@ defmodule Vutuv.UserController do
       |> Repo.preload([:groups, :emails,
                        :followers, :followees])
 
+    followers_count = Repo.one(from c in Connection, where: c.follower_id == ^user.id, select: count("*"))
+    followees_count = Repo.one(from c in Connection, where: c.followee_id == ^user.id, select: count("*"))
+
     changeset = Connection.changeset(%Connection{},%{follower_id: conn.assigns.current_user.id, followee_id: user.id})
 
     emails_counter = length(user.emails)
@@ -56,7 +59,7 @@ defmodule Vutuv.UserController do
     conn
     |> assign(:page_title, full_name(user))
     |> assign(:user, user)
-    |> render("show.html", changeset: changeset, emails_counter: emails_counter)
+    |> render("show.html", changeset: changeset, emails_counter: emails_counter, followers_count: followers_count, followees_count: followees_count)
   end
 
   def edit(conn, %{"id" => id}) do
