@@ -47,7 +47,10 @@ defmodule Vutuv.UserController do
     user =
       Repo.get!(User, id)
       |> Repo.preload([:groups, :emails,
-                       :followers, :followees])
+                      followee_connections:
+                        {Connection.latest(5), [:followee]},
+                      follower_connections:
+                        {Connection.latest(5), [:follower]}])
 
     followers_count = Repo.one(from c in Connection, where: c.follower_id == ^user.id, select: count("*"))
     followees_count = Repo.one(from c in Connection, where: c.followee_id == ^user.id, select: count("*"))

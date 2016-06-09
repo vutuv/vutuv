@@ -24,4 +24,8 @@ defmodule Vutuv.Connection do
     model
     |> cast(params, @required_fields, @optional_fields)
   end
+
+  def latest(n) do
+    Ecto.Query.from(u in Vutuv.Connection, order_by: [desc: :inserted_at], limit: ^n)
+  end
 end

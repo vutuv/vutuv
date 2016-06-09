@@ -97,7 +97,7 @@
       <%= render Vutuv.GroupView, "index.html", conn: @conn, groups: @user.groups, user: @user %>
     <% end %>
 
-    <%= unless Enum.empty?(@user.followers) do %>
+    <%= unless Enum.empty?(@user.follower_connections) do %>
       <h2>Followers</h2>
 
       <table class="table table-striped">
@@ -131,7 +131,7 @@
       </p>
     <% end %>
 
-    <%= unless Enum.empty?(@user.followees) do %>
+    <%= unless Enum.empty?(@user.followee_connections) do %>
       <h2>Followees</h2>
 
       <table class="table table-striped">
