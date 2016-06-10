@@ -98,7 +98,11 @@
     <% end %>
 
     <%= unless Enum.empty?(@user.follower_connections) do %>
-      <h2>Followers</h2>
+      <%= if Enum.count(@user.follower_connections) > 5 do %>
+        <h2>The Latest Followers</h2>
+      <%= else %>
+        <h2>Followers</h2>
+      <%= end %>
 
       <table class="table table-striped">
         <thead>
@@ -126,13 +130,20 @@
       <% end %>
         </tbody>
       </table>
-      <p>
-        <%= link gettext("List of all Followers (%{followers_count}).", followers_count: @followers_count), to: user_follower_path(@conn, :index, @user) %>
-      </p>
+
+      <%= if Enum.count(@user.follower_connections) > 5 do %>
+        <p>
+          <%= link gettext("List of all Followers (%{followers_count}).", followers_count: @followers_count), to: user_follower_path(@conn, :index, @user) %>
+        </p>
+      <%= end %>
     <% end %>
 
     <%= unless Enum.empty?(@user.followee_connections) do %>
-      <h2>Followees</h2>
+      <%= if Enum.count(@user.followee_connections) > 5 do %>
+        <h2>The Latest Followees</h2>
+      <%= else %>
+        <h2>Followees</h2>
+      <%= end %>
 
       <table class="table table-striped">
         <thead>
@@ -156,9 +167,11 @@
       <% end %>
         </tbody>
       </table>
-      <p>
-        <%= link gettext("List of all Followees (%{followees_count}).", followees_count: @followees_count), to: user_followee_path(@conn, :index, @user) %>
-      </p>
+      <%= if Enum.count(@user.followee_connections) > 5 do %>
+        <p>
+          <%= link gettext("List of all Followees (%{followees_count}).", followees_count: @followees_count), to: user_followee_path(@conn, :index, @user) %>
+        </p>
+      <%= end %>
     <% end %>
   </div>
 </div>
