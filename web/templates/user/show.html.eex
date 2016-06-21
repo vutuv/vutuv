@@ -75,13 +75,15 @@
     <% end %>
 
     <%= if @user.id != @current_user.id do %>
-      <%= form_for @changeset, connection_path(@conn, :create), fn f -> %>
-        <%= hidden_input f, :follower_id %>
-        <%= hidden_input f, :followee_id %>
+      <%= unless Enum.any?(@user.follower_connections, fn(x) -> x.follower_id == @current_user.id end) do %>
+        <%= form_for @changeset, connection_path(@conn, :create), fn f -> %>
+          <%= hidden_input f, :follower_id %>
+          <%= hidden_input f, :followee_id %>
 
-        <div class="form-group">
-          <%= submit gettext("Follow"), class: "btn btn-primary" %>
-        </div>
+          <div class="form-group">
+            <%= submit gettext("Follow"), class: "btn btn-primary" %>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>
