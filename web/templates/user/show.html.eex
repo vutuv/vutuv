@@ -169,7 +169,7 @@
       <% end %>
         </tbody>
       </table>
-      <%= if Enum.count(@user.followee_connections) > 5 do %>
+      <%= if @followees_count > 5 do %>
         <p>
           <%= link gettext("List of all Followees (%{followees_count}).", followees_count: @followees_count), to: user_followee_path(@conn, :index, @user) %>
         </p>
