@@ -52,13 +52,13 @@ defmodule Vutuv.UserController do
                       follower_connections:
                         {Connection.latest(5), [:follower]}])
 
-    followers_count = Repo.one(from c in Connection, where: c.follower_id == ^user.id, select: count("*"))
-    followees_count = Repo.one(from c in Connection, where: c.followee_id == ^user.id, select: count("*"))
+    followees_count = Repo.one(from c in Connection, where: c.follower_id == ^user.id, select: count("followee_id"))
+    followers_count = Repo.one(from c in Connection, where: c.followee_id == ^user.id, select: count("follower_id"))
 
     changeset = Connection.changeset(%Connection{},%{follower_id: conn.assigns.current_user.id, followee_id: user.id})
 
     emails_counter = length(user.emails)
-
+    
     conn
     |> assign(:page_title, full_name(user))
     |> assign(:user, user)
