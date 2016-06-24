@@ -65,6 +65,12 @@ defmodule Vutuv.UserController do
     |> render("show.html", changeset: changeset, emails_counter: emails_counter, followers_count: followers_count, followees_count: followees_count)
   end
 
+  # Function calls helper function in Connection to check 
+  # if a connection exists between given user id and current user
+  def visitor_is_follower?(conn, id) do
+    Connection.contains(id,conn.assigns.current_user.id)
+  end
+
   def edit(conn, %{"id" => id}) do
     user = Repo.get!(User, id) |> Repo.preload([:emails])
     changeset = User.changeset(user)
