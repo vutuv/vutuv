@@ -28,4 +28,8 @@ defmodule Vutuv.Connection do
   def latest(n) do
     Ecto.Query.from(u in Vutuv.Connection, order_by: [desc: :inserted_at], limit: ^n)
   end
+
+  def contains(followee_id, follower_id) do
+    Vutuv.Repo.one(from u in Vutuv.Connection, where: u.follower_id==^follower_id and u.followee_id==^followee_id, select: count("followee_id"))>=1
+  end
 end
