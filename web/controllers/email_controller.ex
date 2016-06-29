@@ -61,7 +61,6 @@ defmodule Vutuv.EmailController do
   end
 
   def delete(conn, %{"id" => id}) do
-    IO.puts("\n\nWorking\n\n")
     email = Repo.get!(assoc(conn.assigns[:user], :emails), id)
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
