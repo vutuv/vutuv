@@ -27,17 +27,19 @@ defmodule Vutuv.Auth do
       Vutuv.User
       |> join(:inner, [u], e in assoc(u, :emails))
       |> where([u, e], e.value == ^email)
-      |> Vutuv.Repo.one!()
+      |> Vutuv.Repo.one()
 
     cond do
-      user ->
+      user != nil ->
         {:ok, login(conn, user)}
-      true ->
+      user == nil ->
         {:error, :not_found, conn}
     end
   end
 
   def logout(conn) do
-    configure_session(conn, drop: true)
+    conn
+    |> configure_session(drop: true)
+    |> delete_session(:user_id)
   end
 end
