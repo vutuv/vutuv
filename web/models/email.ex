@@ -44,4 +44,9 @@ defmodule Vutuv.Email do
       changeset
     end
   end
+
+  def can_delete?(id) do
+    Vutuv.Repo.one(from u in Vutuv.Email, where: u.user_id==^id, select: count("value"))>1
+  end
+
 end
