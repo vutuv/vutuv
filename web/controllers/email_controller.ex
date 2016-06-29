@@ -61,13 +61,21 @@ defmodule Vutuv.EmailController do
   end
 
   def delete(conn, %{"id" => id}) do
+    IO.puts("\n\nWorking\n\n")
     email = Repo.get!(assoc(conn.assigns[:user], :emails), id)
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
-    Repo.delete!(email)
-    conn
-    |> put_flash(:info, "Email deleted successfully.")
-    |> redirect(to: user_email_path(conn, :index, conn.assigns[:user]))
+    case Vutuv.Email.can_delete?(conn.assigns.current_user.id) do
+    true ->
+      Repo.delete!(email)
+      conn
+      |> put_flash(:info, "Email deleted successfully.")
+      |> redirect(to: user_email_path(conn, :index, conn.assigns[:user]))
+    false ->
+      conn
+      |> put_flash(:error, "Cannot delete final email.")
+      |> redirect(to: user_email_path(conn, :index, conn.assigns[:user]))
+    end
   end
 
   defp assign_user(conn, _opts) do
