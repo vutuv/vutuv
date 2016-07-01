@@ -10,10 +10,9 @@ defmodule Vutuv do
       # Start the endpoint when the application starts
       supervisor(Vutuv.Endpoint, []),
       # Start the Ecto repository
-      supervisor(Vutuv.Repo, []),
+      supervisor(Vutuv.Repo, [])
       # Here you could define other workers and supervisors as children
       # worker(Vutuv.Worker, [arg1, arg2, arg3]),
-      worker(Vutuv.MagicLink,[])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

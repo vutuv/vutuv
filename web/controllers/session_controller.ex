@@ -21,14 +21,15 @@ defmodule Vutuv.SessionController do
 
   def show(conn, %{"magiclink"=>link}) do
     case Vutuv.MagicLink.login_magic_link(link) do
-      {:ok, id} -> 
-        conn=Vutuv.Auth.login(conn,id)
+      {:ok, user} -> 
+        conn=Vutuv.Auth.login(conn,user)
         conn
         |> put_flash(:info, gettext("Welcome back"))
         |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
       {:error, reason} ->
         conn
         |> put_flash(:error, reason)
+        |> redirect(to: page_path(conn, :index))
     end
     
   end

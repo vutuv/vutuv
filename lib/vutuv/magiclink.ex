@@ -1,40 +1,46 @@
 defmodule Vutuv.MagicLink do
-	use GenServer
-
-	def start_link do
-		GenServer.start_link(__MODULE__,%{},[name: Vutuv.MagicLink])
-	end
+	import Ecto.Query
 
 	#Generates a magic link for the user and stores it for __ mintues
 	def gen_magic_link(user) do
-		:gen_server.call(Vutuv.MagicLink, {:generate, user})
+		link = Base.encode32(:crypto.hash(:sha256,Integer.to_string(user.id)<>Float.to_string(:rand.uniform())<>Integer.to_string(:calendar.datetime_to_gregorian_seconds(:calendar.universal_time()))))
+		user = %{user | magic_link: link, magic_link_expiration: Ecto.DateTime.from_erl(:calendar.universal_time())}
+		Vutuv.Repo.update!(user) #With a bang because this should never fail
+		link
 	end
 
 	#Returns User ID (user) if a match is found, otherwise returns nil.
 	def check_magic_link(link) do
-		:gen_server.call(Vutuv.MagicLink, {:check, link})
+		Vutuv.Repo.one(from u in Vutuv.User, where: u.magic_link==^link)
+	end
+
+	def expire_magic_link(user) do
+		user = %{user | magic_link_expiration: nil}
+		Vutuv.Repo.update!(user)
+	end
+
+	def link_expired?(user) do
+		case user.magic_link_expiration do
+			nil -> true
+			t->
+				time = Ecto.DateTime.to_erl(t)
+				:calendar.datetime_to_gregorian_seconds(:calendar.universal_time)-:calendar.datetime_to_gregorian_seconds(time)>3600
+		end
 	end
 
 	#returns {:ok, user} if match is found to link, returns {:error, reason} otherwise
 	def login_magic_link(link) do
 		case check_magic_link(link) do
 			nil->	{:error, "No Match Found"}
-			user-> {:ok, user}
+			user-> 
+				case link_expired?(user) do
+					true-> 
+						expire_magic_link(user)
+						{:error, "Link expired"}
+				false ->
+					expire_magic_link(user)
+					{:ok, user}
+				end
 		end
 	end
-
-	#############
-	# Callbacks #
-	#############
-
-	def handle_call({:generate, user}, _from, state) do
-		link = Base.encode32(:crypto.hash(:sha256,Integer.to_string(user.id)<>Float.to_string(:rand.uniform())<>Integer.to_string(:calendar.datetime_to_gregorian_seconds(:calendar.universal_time()))))
-		
-		{:reply,link, Map.put_new(state, link, user)}
-	end
-
-	def handle_call({:check, link}, _from, state) do
-		{:reply, Map.get(state,link),state}
-	end
-
 end
