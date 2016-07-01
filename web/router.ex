@@ -32,6 +32,7 @@ defmodule Vutuv.Router do
       resources "/followees", FolloweeController, only: [:index]
     end
     resources "/sessions", SessionController, only: [:new, :create, :delete]
+    get "/magic/:magiclink", SessionController, :show
     get "/follow_back/:id", UserController, :follow_back
   end
 

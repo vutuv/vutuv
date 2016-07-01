@@ -43,6 +43,13 @@ defmodule Vutuv.User do
     |> cast_attachments(params, @required_file_fields, @optional_file_fields)
     |> cast_assoc(:emails)
     |> validate_first_name_or_last_name_or_nickname(params)
+    |> validate_length(:first_name, max: 50)
+    |> validate_length(:last_name, max: 50)
+    |> validate_length(:middlename, max: 50)
+    |> validate_length(:nickname, max: 50)
+    |> validate_length(:honorific_prefix, max: 50)
+    |> validate_length(:honorific_suffix, max: 50)
+    |> validate_length(:gender, max: 50)
   end
 
   def validate_first_name_or_last_name_or_nickname(changeset, :empty) do
@@ -65,7 +72,7 @@ defmodule Vutuv.User do
       changeset
       |> add_error(:first_name, message)
       |> add_error(:last_name, message)
-      |> add_error(:nickname, message)
+      |> add_error(:nickname, message)  
     end
   end
 end
