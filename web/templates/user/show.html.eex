@@ -108,6 +108,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
+            <th></th>
             <th>Inserted At</th>
             <th>Name</th>
             <th></th>
@@ -116,6 +117,11 @@
         <tbody>
       <%= for connection <- @user.follower_connections do %>
           <tr>
+            <td>
+              <%= if gravatar_url(connection.follower) do %>
+                <img src="<%= gravatar_url(connection.follower) %>"  class="img-responsive img-rounded" height = 25 width = 25 alt="Avatar <%= full_name(connection.follower) %>" />
+              <% end %>
+            </td>
             <td>
               <%= time_ago_in_words connection.inserted_at %> ago
             </td>

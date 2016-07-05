@@ -11,6 +11,7 @@ defmodule Vutuv.UserHelpers do
   end
 
   def gravatar_url(user) do
+    user = Vutuv.Repo.preload(user, [:emails])
     case user.emails do
       [email | _tail] -> "http://www.gravatar.com/avatar/#{email.md5sum}"
       _               -> nil
