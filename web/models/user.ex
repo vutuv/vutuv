@@ -14,7 +14,7 @@ defmodule Vutuv.User do
     field :verified, :boolean, default: false
     field :avatar, Vutuv.Avatar.Type
     field :magic_link, :string
-    field :magic_link_expiration, Ecto.DateTime
+    field :magic_link_created_at, Ecto.DateTime
     has_many :groups, Vutuv.Group, on_delete: :delete_all
     has_many :emails, Vutuv.Email, on_delete: :delete_all
 

@@ -16,8 +16,12 @@
       <ol class="breadcrumb text-right">
         <%= if @current_user do %>
           <li>
-            <%= link to: user_path(@conn, :show, @current_user) do %>
+            <%= if is_current_user_page?(@conn) do %>
               <%= full_name(@current_user) %>
+            <% else %>
+              <%= link to: user_path(@conn, :show, @current_user) do %>
+                <%= full_name(@current_user) %>
+              <% end %>
             <% end %>
           </li>
           <li>
