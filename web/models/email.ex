@@ -21,9 +21,11 @@ defmodule Vutuv.Email do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
-    |> validate_format(:value, ~r/@/)
     |> downcase_value
+    |> unique_constraint(:value, name: :emails_value_index)
+    |> validate_format(:value, ~r/@/)
     |> fill_md5sum
+    
   end
 
   def downcase_value(changeset) do
