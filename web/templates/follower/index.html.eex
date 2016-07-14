@@ -1,4 +1,4 @@
-<h2>Listing Followers</h2>
+<h2>Followers</h2>
 
 <table class="table table-striped">
   <thead>
@@ -13,8 +13,8 @@
 <%= for connection <- @user.follower_connections do %>
     <tr>
       <td>
-        <%= if gravatar_url(connection.followee) do %>
-          <img src="<%= gravatar_url(connection.followee) %>"  class="img-responsive img-rounded" height = 25 width = 25 alt="Avatar <%= full_name(connection.followee) %>" />
+        <%= if gravatar_url(connection.follower) do %>
+          <img src="<%= gravatar_url(connection.follower) %>"  class="img-responsive img-rounded" height = 25 width = 25 alt="Avatar <%= full_name(connection.follower) %>" />
         <% end %>
       </td>
       <td>

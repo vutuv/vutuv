@@ -88,6 +88,7 @@
   </div>
 </div>
 
+
 <div class="row">
   <div class="col-lg-12">
     <%= unless Enum.empty?(@user.emails) do %>
@@ -98,93 +99,24 @@
       <%= render Vutuv.GroupView, "index.html", conn: @conn, groups: @user.groups, user: @user %>
     <% end %>
 
-    <%= unless Enum.empty?(@user.follower_connections) do %>
-      <%= if Enum.count(@user.follower_connections) > 5 do %>
-        <h2>The Latest Followers</h2>
-      <%= else %>
-        <h2>Followers</h2>
-      <%= end %>
+    <%= unless @followers_count<=0 do %>
+      <%= render Vutuv.FollowerView, "index.html", assigns %>
 
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Inserted At</th>
-            <th>Name</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-      <%= for connection <- @user.follower_connections do %>
-          <tr>
-            <td>
-              <%= if gravatar_url(connection.follower) do %>
-                <img src="<%= gravatar_url(connection.follower) %>"  class="img-responsive img-rounded" height = 25 width = 25 alt="Avatar <%= full_name(connection.follower) %>" />
-              <% end %>
-            </td>
-            <td>
-              <%= time_ago_in_words connection.inserted_at %> ago
-            </td>
-            <td><%= link full_name(connection.follower), to: user_path(@conn, :show, connection.follower) %></td>
-            <td class="text-right">
-              <%= if Enum.any?(@user.followee_connections, fn(x) -> x.followee_id == connection.follower_id end) do %>
-                 You already follow back.
-              <% else %>
-                <%= link "Follow back", to: user_path(@conn, :follow_back, connection.follower), class: "btn btn-default btn-xs", role: "button" %>
-              <% end %>
-            </td>
-          </tr>
-      <% end %>
-        </tbody>
-      </table>
-
-      <%= if Enum.count(@user.follower_connections) > 5 do %>
+      <%= if @followers_count > 5 do %>
         <p>
           <%= link gettext("List of all Followers (%{followers_count}).", followers_count: @followers_count), to: user_follower_path(@conn, :index, @user) %>
         </p>
       <%= end %>
-    <% end %>
+    <%= end %>
 
-    <%= unless Enum.empty?(@user.followee_connections) do %>
-      <%= if Enum.count(@user.followee_connections) > 5 do %>
-        <h2>The Latest Followees</h2>
-      <%= else %>
-        <h2>Followees</h2>
-      <%= end %>
+    <%= unless @followees_count<=0 do %>
+      <%= render Vutuv.FolloweeView, "index.html", assigns %>
 
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Inserted At</th>
-            <th>Name</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-      <%= for connection <- @user.followee_connections do %>
-          <tr>
-            <td>
-              <%= if gravatar_url(connection.followee) do %>
-                <img src="<%= gravatar_url(connection.followee) %>"  class="img-responsive img-rounded" height = 25 width = 25 alt="Avatar <%= full_name(connection.followee) %>" />
-              <% end %>
-            </td>
-            <td>
-              <%= time_ago_in_words connection.inserted_at %> ago
-            </td>
-            <td><%= link full_name(connection.followee), to: user_path(@conn, :show, connection.followee) %></td>
-            <td class="text-right">
-              <%= link gettext("Unfollow"), to: connection_path(@conn, :delete, connection), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-            </td>
-          </tr>
-      <% end %>
-        </tbody>
-      </table>
       <%= if @followees_count > 5 do %>
         <p>
           <%= link gettext("List of all Followees (%{followees_count}).", followees_count: @followees_count), to: user_followee_path(@conn, :index, @user) %>
         </p>
       <%= end %>
-    <% end %>
+    <%= end %>
   </div>
 </div>
