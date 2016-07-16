@@ -1,6 +1,6 @@
 <h2>Listing Followees</h2>
 
-<table class="table table-striped">
+<table class="pure-table pure-table-horizontal">
   <thead>
     <tr>
       <th></th>

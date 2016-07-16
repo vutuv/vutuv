@@ -1,14 +1,9 @@
-<div class="jumbotron">
-  <h2><%= gettext "Welcome to vutuv!" %></h2>
-  <p class="lead"><%= gettext "User Count" %>: <%= @user_count %></p>
-</div>
-
-<div class="row marketing">
-  <div class="col-lg-6">
+<div class="pure-g">
+  <div class="pure-u-1-1">
+    <h2><%= gettext "Welcome to vutuv!" %></h2>
+    <p><%= gettext "User Count" %>: <%= @user_count %></p>
     <p><%= gettext "vutuv is a social network service to host and share information about humans and organizations." %></p>
-  </div>
 
-  <div class="col-lg-6">
     <p>It's like <a href="https://www.linkedin.com/">LinkedIn</a> or <a href="https://www.xing.com/">XING</a> but faster and free.<br />Bonus: <a href="https://github.com/vutuv/vutuv">It's open source</a>!</p>
   </div>
 </div>

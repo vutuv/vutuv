@@ -13,45 +13,43 @@
 
   <body>
     <div class="header">
-      <ol class="breadcrumb text-right">
-        <%= if @current_user do %>
-          <li>
-            <%= if is_current_user_page?(@conn) do %>
-              <%= full_name(@current_user) %>
+      <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+          <a class="pure-menu-heading" href="/">vutuv</a>
+
+          <ul class="pure-menu-list">
+            <%= if @current_user do %>
+              <li class="pure-menu-item">
+                <%= if is_current_user_page?(@conn) do %>
+                  <%= full_name(@current_user) %>
+                <% else %>
+                  <%= link to: user_path(@conn, :show, @current_user, class: 'pure-menu-link') do %>
+                    <%= full_name(@current_user) %>
+                  <% end %>
+                <% end %>
+              </li>
+              <li class="pure-menu-item">
+                <%= link "Log out", to: session_path(@conn, :delete, @current_user, class: 'pure-menu-link'), method: "delete" %>
+              </li>
             <% else %>
-              <%= link to: user_path(@conn, :show, @current_user) do %>
-                <%= full_name(@current_user) %>
-              <% end %>
+              <li class="pure-menu-item"><%= link "Register", to: user_path(@conn, :new), class: 'pure-menu-link' %></li>
+              <li class="pure-menu-item"><%= link "Log in", to: session_path(@conn, :new), class: 'pure-menu-link' %></li>
             <% end %>
-          </li>
-          <li>
-            <%= link "Log out", to: session_path(@conn, :delete, @current_user), method: "delete" %>
-          </li>
-        <% else %>
-          <li><%= link "Register", to: user_path(@conn, :new) %></li>
-          <li><%= link "Log in", to: session_path(@conn, :new) %></li>
-        <% end %>
-      </ol>
+          </ul>
+      </div>
     </div>
 
-    <div class="container">
-      <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-          </ul>
-        </nav>
-        <span class="logo"></span>
-      </header>
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="pure-g">
+          <div class="pure-u-1-1">
+            <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+            <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+          </div>
+        </div>
 
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-
-      <main role="main">
         <%= render @view_module, @view_template, assigns %>
-      </main>
+      </div>
+    </div>
 
-    </div> <!-- /container -->
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

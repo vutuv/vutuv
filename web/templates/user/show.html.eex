@@ -1,7 +1,11 @@
-<h2><%= full_name(@user) %></h2>
+<div class="pure-g">
+  <div class="pure-u-1-1">
+    <h2><%= full_name(@user) %></h2>
+  </div>
+</div>
 
-<div class="row">
-  <div class="col-lg-6">
+<div class="pure-g">
+  <div class="pure-u-1-2">
     <ul>
       <%= if @user.first_name do %>
         <li>
@@ -69,7 +73,7 @@
     <%= link gettext("Edit"), to: user_path(@conn, :edit, @user) %>
   </div>
 
-  <div class="col-lg-6">
+  <div class="pure-u-1-2">
     <%= if gravatar_url(@user) do %>
       <img src="<%= gravatar_url(@user) %>"  class="img-responsive img-rounded" alt="Avatar <%= full_name(@user) %>" />
     <% end %>
@@ -88,9 +92,8 @@
   </div>
 </div>
 
-
-<div class="row">
-  <div class="col-lg-12">
+<div class="pure-g">
+  <div class="pure-u-1-1">
     <%= unless Enum.empty?(@user.emails) do %>
       <%= render Vutuv.EmailView, "index.html", conn: @conn, emails: @user.emails, user: @user, emails_counter: @emails_counter %>
     <% end %>
