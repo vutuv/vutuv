@@ -5,20 +5,21 @@
 </div>
 
 <div class="pure-g">
-  <div class="pure-u-1-2">
-    <p><%= gettext "vutuv is a social network service to host and share information about humans and organizations." %> <%= gettext "User Count" %>: <%= @user_count %></p>
-  </div>
-  <div class="pure-u-1-2">
+  <div class="pure-u-1 pure-u-md-1-2">
+    <p><%= gettext "vutuv is a social network service to host and share information about humans and organizations." %></p>
+    <p><strong><%= gettext "User Count" %>: <%= @user_count %></strong></p>
     <p>It's like <a href="https://www.linkedin.com/">LinkedIn</a> or <a href="https://www.xing.com/">XING</a> but faster and free.<br />Bonus: <a href="https://github.com/vutuv/vutuv">It's open source</a>!</p>
+  </div>
+  <div class="pure-u-1 pure-u-md-1-2">
+    <%= unless @current_user do %>
+      <h2><%= gettext "Create your Account:" %></h2>
+      <%= render Vutuv.UserView, "form.html", changeset: @changeset,
+                              action: user_path(@conn, :create), current_user: @current_user %>
+    <% end %>
   </div>
 </div>
 
 <div class="pure-g">
   <div class="pure-u-1-1">
-    <%= unless @current_user do %>
-      <h2><%= gettext "Become part of it!" %></h2>
-      <%= render Vutuv.UserView, "form.html", changeset: @changeset,
-                              action: user_path(@conn, :create), current_user: @current_user %>
-    <% end %>
   </div>
 </div>
