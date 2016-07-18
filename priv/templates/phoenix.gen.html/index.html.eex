@@ -12,7 +12,7 @@
       </thead>
       <tbody>
     <%= "<%=" %> for {<%= singular %>, index} <- Enum.with_index(@<%= plural %>) do <%= "%\>" %>
-        <tr class="<%= if rem(index, 2) == 1, do: "pure-table-odd" %>">
+        <tr class="<%= "<%=" %> if rem(index, 2) == 1, do: "pure-table-odd" <%= "%\>" %>">
     <%= for {k, _} <- attrs do %>      <td><%= "<%=" %> <%= singular %>.<%= k %> <%= "%\>" %></td>
     <% end %>
           <td class="text-right">
