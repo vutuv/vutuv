@@ -1,6 +1,6 @@
 <h2>Listing memberships</h2>
 
-<table class="table">
+<table class="pure-table pure-table-horizontal">
   <thead>
     <tr>
       <th>Connection</th>

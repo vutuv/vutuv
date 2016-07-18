@@ -1,75 +1,53 @@
-<%= form_for @changeset, @action, [multipart: true], fn f -> %>
+<%= form_for @changeset, @action, [multipart: true, class: "pure-form pure-form-stacked"], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p><%= gettext "Oops, something went wrong! Please check the errors below." %></p>
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= label f, :gender, class: "control-label" %>
-    <%= select f, :gender, [{gettext("Mr"), "male"},
-      {gettext("Mrs"), "female"}, {gettext("Other"), "other"}], class: "form-control" %>
-    <%= error_tag f, :gender %>
-  </div>
+  <%= label f, :gender, class: "control-label" %>
+  <%= select f, :gender, [{gettext("Mr"), "male"},
+    {gettext("Mrs"), "female"}, {gettext("Other"), "other"}], class: "form-control" %>
+  <%= error_tag f, :gender %>
 
-  <div class="form-group">
-    <%= label f, :first_name, class: "control-label" %>
-    <%= text_input f, :first_name, class: "form-control", autofocus: true %>
-    <%= error_tag f, :first_name %>
-  </div>
+  <%= label f, :first_name, class: "control-label" %>
+  <%= text_input f, :first_name, class: "form-control", autofocus: true %>
+  <%= error_tag f, :first_name %>
 
-  <div class="form-group">
-    <%= label f, :last_name, class: "control-label" %>
-    <%= text_input f, :last_name, class: "form-control" %>
-    <%= error_tag f, :last_name %>
-  </div>
+  <%= label f, :last_name, class: "control-label" %>
+  <%= text_input f, :last_name, class: "form-control" %>
+  <%= error_tag f, :last_name %>
 
   <%= inputs_for f, :emails, fn ef -> %>
-    <div class="form-group">
-      <%= label ef, :email_address, class: "control-label" %>
-      <%= text_input ef, :value, class: "form-control" %>
-      <%= error_tag ef, :value %>
-    </div>
+    <%= label ef, :email_address, class: "control-label" %>
+    <%= text_input ef, :value, class: "form-control" %>
+    <%= error_tag ef, :value %>
   <% end %>
 
   <%= if @current_user do %>
-    <div class="form-group">
-      <%= label f, :middlename, class: "control-label" %>
-      <%= text_input f, :middlename, class: "form-control" %>
-      <%= error_tag f, :middlename %>
-    </div>
+    <%= label f, :middlename, class: "control-label" %>
+    <%= text_input f, :middlename, class: "form-control" %>
+    <%= error_tag f, :middlename %>
 
-    <div class="form-group">
-      <%= label f, :nickname, class: "control-label" %>
-      <%= text_input f, :nickname, class: "form-control" %>
-      <%= error_tag f, :nickname %>
-    </div>
+    <%= label f, :nickname, class: "control-label" %>
+    <%= text_input f, :nickname, class: "form-control" %>
+    <%= error_tag f, :nickname %>
 
-    <div class="form-group">
-      <%= label f, :honorific_prefix, class: "control-label" %>
-      <%= text_input f, :honorific_prefix, class: "form-control" %>
-      <%= error_tag f, :honorific_prefix %>
-    </div>
+    <%= label f, :honorific_prefix, class: "control-label" %>
+    <%= text_input f, :honorific_prefix, class: "form-control" %>
+    <%= error_tag f, :honorific_prefix %>
 
-    <div class="form-group">
-      <%= label f, :honorific_suffix, class: "control-label" %>
-      <%= text_input f, :honorific_suffix, class: "form-control" %>
-      <%= error_tag f, :honorific_suffix %>
-    </div>
+    <%= label f, :honorific_suffix, class: "control-label" %>
+    <%= text_input f, :honorific_suffix, class: "form-control" %>
+    <%= error_tag f, :honorific_suffix %>
 
-    <div class="form-group">
-      <%= label f, :birthdate, class: "control-label" %>
-      <%= date_select f, :birthdate, class: "form-control" %>
-      <%= error_tag f, :birthdate %>
-    </div>
+    <%= label f, :birthdate, class: "control-label" %>
+    <%= date_select f, :birthdate, class: "form-control" %>
+    <%= error_tag f, :birthdate %>
 
-    <div class="form-group">
-      <%= label f, :avatar, class: "control-label" %>
-      <%= file_input f, :avatar, class: "form-control" %>
-    </div>
+    <%= label f, :avatar, class: "control-label" %>
+    <%= file_input f, :avatar, class: "form-control" %>
   <% end %>
 
-  <div class="form-group">
-    <%= submit gettext("Submit"), class: "btn btn-primary" %>
-  </div>
+  <%= submit gettext("Submit"), class: "pure-button pure-button-primary" %>
 <% end %>
