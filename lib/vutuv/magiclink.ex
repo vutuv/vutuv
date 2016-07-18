@@ -4,7 +4,7 @@ defmodule Vutuv.MagicLink do
 	#Generates a magic link for the user and stores it for __ mintues
 	def gen_magic_link(user) do
 		link = Base.encode32(:crypto.hash(:sha256,Integer.to_string(user.id)<>Float.to_string(:rand.uniform())<>Integer.to_string(:calendar.datetime_to_gregorian_seconds(:calendar.universal_time()))))
-		changeset = Ecto.Changeset.cast(user, %{magic_link: link, magic_link_created_at: Ecto.DateTime.from_erl(:calendar.universal_time())}, [:magic_link, :magic_link_created_at])
+		changeset = Ecto.Changeset.cast(user, %{magic_link: link, magic_link_created_at: Ecto.DateTime.from_erl(:calendar.universal_time())}, [], [:magic_link, :magic_link_created_at])
 		Vutuv.Repo.update!(changeset) #With a bang because this should never fail
 		link
 	end
