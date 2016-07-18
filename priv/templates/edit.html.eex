@@ -1,0 +1,10 @@
+<div class="pure-g">
+  <div class="pure-u-1-1">
+    <h2><%= "<%= gettext \"" %>Edit <%= template_singular %><%= "\" %\>" %></h2>
+
+    <%= "<%=" %> render "form.html", changeset: @changeset,
+                            action: <%= singular %>_path(@conn, :update, @<%= singular %>) <%= "%\>" %>
+
+    <%= "<%=" %> link gettext("Back"), to: <%= singular %>_path(@conn, :index), class: "pure-button" <%= "%\>" %>
+  </div>
+</div>
