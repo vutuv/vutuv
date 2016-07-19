@@ -15,8 +15,9 @@ defmodule Vutuv.User do
     field :avatar, Vutuv.Avatar.Type
     field :magic_link, :string
     field :magic_link_created_at, Ecto.DateTime
-    has_many :groups, Vutuv.Group, on_delete: :delete_all
-    has_many :emails, Vutuv.Email, on_delete: :delete_all
+    has_many :groups,      Vutuv.Group,       on_delete: :delete_all
+    has_many :emails,      Vutuv.Email,       on_delete: :delete_all
+    has_many :competences, Vutuv.Competence,  on_delete: :delete_all
 
     has_many :follower_connections, Vutuv.Connection, foreign_key: :followee_id, on_delete: :delete_all
     has_many :followers, through: [:follower_connections, :follower]
