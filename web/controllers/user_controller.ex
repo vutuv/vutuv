@@ -46,7 +46,7 @@ defmodule Vutuv.UserController do
   def show(conn, %{"id" => id}) do
     user =
       Repo.get!(User, id)
-      |> Repo.preload([:groups, :emails, :competences,
+      |> Repo.preload([:groups, :emails, :user_skills,
                       followee_connections:
                         {Connection.latest(5), [:followee]},
                       follower_connections:

@@ -1,0 +1,37 @@
+<div class="pure-g">
+  <div class="pure-u-1-1">
+    <h2><%= gettext "Skills" %></h2>
+
+    <table class="pure-table pure-table-horizontal">
+      <thead>
+        <tr>
+          <th><%= gettext "User" %></th>
+          <th><%= gettext "Skill" %></th>
+          <th><%= gettext "Endorsements" %></th>
+    
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    <%= for {user_skill, index} <- Enum.with_index(@user_skills) do %>
+        <tr class="<%= if rem(index, 2) == 1, do: "pure-table-odd" %>">
+          <td><%= user_skill.user_id %></td>
+          <td><%= user_skill.skill_id %></td>
+          <td><%= Vutuv.Endorsement.count(user_skill.id) %></td>
+          <td class="text-right">
+            <%= link "Show", to: user_user_skill_path(@conn, :show, @user, user_skill), class: "pure-button" %>
+            <%= link "Delete", to: user_user_skill_path(@conn, :delete, @user, user_skill), method: :delete, data: [confirm: "Are you sure?"], class: "pure-button" %>
+            <%= if Vutuv.Endorsement.skill_endorsed?(user_skill.id, @conn.assigns[:current_user].id) do %>
+              <%= link "Unendorse", to: user_endorsement_path(@conn, :delete, @user, user_skill), method: :delete , class: "pure-button" %>
+            <%= else %>
+              <%= link "Endorse", to: user_endorsement_path(@conn, :create, @user, id: user_skill), method: :post , class: "pure-button" %>
+            <%= end %>
+          </td>
+        </tr>
+    <% end %>
+      </tbody>
+    </table>
+
+    <%= link "New Skill", to: user_user_skill_path(@conn, :new, @user), class: "pure-button" %>
+  </div>
+</div>

@@ -1,50 +1,49 @@
-defmodule Vutuv.CompetenceController do
+defmodule Vutuv.UserSkillController do
   use Vutuv.Web, :controller
   plug :assign_user
 
-  alias Vutuv.Competence
+  alias Vutuv.UserSkill
 
   def index(conn, _params) do
     user =
       Repo.get!(Vutuv.User, conn.assigns[:user].id)
-      |> Repo.preload([:competences])
-
-    render(conn, "index.html", competences: user.competences)
+      |> Repo.preload([:user_skills])
+    render(conn, "index.html", user_skills: user.user_skills)
   end
 
   def new(conn, _params) do
-    changeset = Competence.changeset(%Competence{})
+    changeset = UserSkill.changeset(%UserSkill{})
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"competence" => competence_params}) do
-    changeset = Competence.changeset(%Competence{}, competence_params)
+  def create(conn, %{"user_skill" => user_skill_params}) do
+    changeset = UserSkill.changeset(%UserSkill{}, user_skill_params)
 
     case Repo.insert(changeset) do
-      {:ok, _competence} ->
+      {:ok, _user_skill} ->
         conn
-        |> put_flash(:info, gettext("Competence created successfully."))
-        |> redirect(to: user_competence_path(conn, :index, conn.assigns[:user]))
+        |> put_flash(:info, gettext("UserSkill created successfully."))
+        |> redirect(to: user_user_skill_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
   end
 
   def show(conn, %{"id" => id}) do
-    competence = Repo.get!(Competence, id)
-    render(conn, "show.html", competence: competence)
+    user_skill = Repo.get!(UserSkill, id)
+    render(conn, "show.html", user_skill: user_skill)
   end
 
   def delete(conn, %{"id" => id}) do
-    competence = Repo.get!(Competence, id)
+    user_skill = Repo.get!(UserSkill, id)
 
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
-    Repo.delete!(competence)
+    Repo.delete!(user_skill)
 
     conn
-    |> put_flash(:info, gettext("Competence deleted successfully."))
-    |> redirect(to: user_competence_path(conn, :index, conn.assigns[:user]))
+    |> put_flash(:info, gettext("UserSkill deleted successfully."))
+    |> redirect(to: user_user_skill_path(conn, :index, conn.assigns[:user]))
   end
 
   defp assign_user(conn, _opts) do

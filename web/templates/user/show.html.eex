@@ -135,11 +135,11 @@
       <%= end %>
     <%= end %>
 
-    <%= unless Enum.empty?(@user.competences) do %>
-      <%= render Vutuv.CompetenceView, "index.html", conn: @conn, competences: @user.competences, user: @user %>
+    <%= unless Enum.empty?(@user.user_skills) do %>
+      <%= render Vutuv.UserSkillView, "index.html", conn: @conn, user_skills: @user.user_skills, user: @user %>
     <% else %>
-      <h2><%= gettext "Competences" %></h2>
-      <%= link "New Competence", to: user_competence_path(@conn, :new, @user), class: "pure-button" %>
+      <h2><%= gettext "UserSkills" %></h2>
+      <%= link "New UserSkill", to: user_user_skill_path(@conn, :new, @user), class: "pure-button" %>
     <% end %>
   </div>
 </div>

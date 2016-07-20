@@ -1,20 +1,20 @@
 <div class="pure-g">
   <div class="pure-u-1-1">
-    <h2><%= gettext "Show competence" %></h2>
+    <h2><%= gettext "Show user_skill" %></h2>
 
     <ul>
     
       <li>
         <strong><%= gettext "User" %>:</strong>
-        <%= @competence.user_id %>
+        <%= @user_skill.user_id %>
       </li>
     
       <li>
         <strong><%= gettext "Skill" %>:</strong>
-        <%= @competence.skill_id %>
+        <%= @user_skill.skill_id %>
       </li>
     
     </ul>
-    <%= link gettext("Back"), to: user_competence_path(@conn, :index, @user), class: "pure-button" %>
+    <%= link gettext("Back"), to: user_user_skill_path(@conn, :index, @user), class: "pure-button" %>
   </div>
 </div>

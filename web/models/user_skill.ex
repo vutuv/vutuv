@@ -1,9 +1,11 @@
-defmodule Vutuv.Competence do
+defmodule Vutuv.UserSkill do
   use Vutuv.Web, :model
 
-  schema "competences" do
+  schema "user_skills" do
     belongs_to :user, Vutuv.User
     belongs_to :skill, Vutuv.Skill
+
+    has_many :endorsements, Vutuv.Endorsement
 
     timestamps
   end
@@ -20,6 +22,7 @@ defmodule Vutuv.Competence do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> cast_assoc(:endorsements)
     |> foreign_key_constraint(:user_id)
     |> foreign_key_constraint(:skill_id)
     |> unique_constraint(:user_id_skill_id)
