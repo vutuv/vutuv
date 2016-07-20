@@ -22,5 +22,6 @@ defmodule Vutuv.Competence do
     |> cast(params, @required_fields, @optional_fields)
     |> foreign_key_constraint(:user_id)
     |> foreign_key_constraint(:skill_id)
+    |> unique_constraint(:user_id_skill_id)
   end
 end
