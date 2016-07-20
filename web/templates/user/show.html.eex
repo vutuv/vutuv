@@ -139,7 +139,7 @@
       <%= render Vutuv.CompetenceView, "index.html", conn: @conn, competences: @user.competences, user: @user %>
     <% else %>
       <h2><%= gettext "Competences" %></h2>
-      <%= link gettext("New competence"), to: competence_path(@conn, :new), class: "pure-button" %>
+      <%= link "New Competence", to: user_competence_path(@conn, :new, @user), class: "pure-button" %>
     <% end %>
   </div>
 </div>

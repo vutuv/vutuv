@@ -3,8 +3,8 @@
     <h2><%= gettext "New competence"%></h2>
 
     <%= render "form.html", changeset: @changeset,
-                            action: competence_path(@conn, :create) %>
+                        action: user_competence_path(@conn, :create, @user) %>
 
-    <%= link gettext("Back"), to: competence_path(@conn, :index), class: "pure-button" %>
+		<%= link "Back", to: user_competence_path(@conn, :index, @user) %>
   </div>
 </div>

@@ -15,8 +15,6 @@
       </li>
     
     </ul>
-
-    <%= link gettext("Edit"), to: competence_path(@conn, :edit, @competence), class: "pure-button" %>
-    <%= link gettext("Back"), to: competence_path(@conn, :index), class: "pure-button" %>
+    <%= link gettext("Back"), to: user_competence_path(@conn, :index, @user), class: "pure-button" %>
   </div>
 </div>

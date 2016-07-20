@@ -19,8 +19,7 @@ defmodule Vutuv.Router do
 
     get "/", PageController, :index
 
-    resources "/skills", SkillController
-    resources "/competences", CompetenceController
+    resources "/addskills", SkillController
 
     # TODO: delete the following route entries
     resources "/memberships", MembershipController
@@ -33,6 +32,7 @@ defmodule Vutuv.Router do
       resources "/groups", GroupController
       resources "/followers", FollowerController, only: [:index]
       resources "/followees", FolloweeController, only: [:index]
+      resources "/skills", CompetenceController, only: [:new, :create, :show, :delete, :index]
     end
     resources "/sessions", SessionController, only: [:new, :create, :delete]
     get "/magic/:magiclink", SessionController, :show

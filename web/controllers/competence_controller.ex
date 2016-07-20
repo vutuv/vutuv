@@ -1,11 +1,15 @@
 defmodule Vutuv.CompetenceController do
   use Vutuv.Web, :controller
+  plug :assign_user
 
   alias Vutuv.Competence
 
   def index(conn, _params) do
-    competences = Repo.all(Competence)
-    render(conn, "index.html", competences: competences)
+    user =
+      Repo.get!(Vutuv.User, conn.assigns[:user].id)
+      |> Repo.preload([:competences])
+
+    render(conn, "index.html", competences: user.competences)
   end
 
   def new(conn, _params) do
@@ -20,7 +24,7 @@ defmodule Vutuv.CompetenceController do
       {:ok, _competence} ->
         conn
         |> put_flash(:info, gettext("Competence created successfully."))
-        |> redirect(to: competence_path(conn, :index))
+        |> redirect(to: user_competence_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -29,26 +33,6 @@ defmodule Vutuv.CompetenceController do
   def show(conn, %{"id" => id}) do
     competence = Repo.get!(Competence, id)
     render(conn, "show.html", competence: competence)
-  end
-
-  def edit(conn, %{"id" => id}) do
-    competence = Repo.get!(Competence, id)
-    changeset = Competence.changeset(competence)
-    render(conn, "edit.html", competence: competence, changeset: changeset)
-  end
-
-  def update(conn, %{"id" => id, "competence" => competence_params}) do
-    competence = Repo.get!(Competence, id)
-    changeset = Competence.changeset(competence, competence_params)
-
-    case Repo.update(changeset) do
-      {:ok, competence} ->
-        conn
-        |> put_flash(:info, gettext("Competence updated successfully."))
-        |> redirect(to: competence_path(conn, :show, competence))
-      {:error, changeset} ->
-        render(conn, "edit.html", competence: competence, changeset: changeset)
-    end
   end
 
   def delete(conn, %{"id" => id}) do
@@ -60,6 +44,25 @@ defmodule Vutuv.CompetenceController do
 
     conn
     |> put_flash(:info, gettext("Competence deleted successfully."))
-    |> redirect(to: competence_path(conn, :index))
+    |> redirect(to: user_competence_path(conn, :index, conn.assigns[:user]))
   end
+
+  defp assign_user(conn, _opts) do
+    case conn.params do
+      %{"user_id" => user_id} ->
+        case Repo.get(Vutuv.User, user_id) do
+          nil  -> invalid_user(conn)
+          user -> assign(conn, :user, user)
+        end
+      _ -> invalid_user(conn)
+    end
+  end
+
+  defp invalid_user(conn) do
+    conn
+    |> put_flash(:error, "Invalid user!")
+    |> redirect(to: page_path(conn, :index))
+    |> halt
+  end
+
 end
