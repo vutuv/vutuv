@@ -63,6 +63,7 @@ defmodule Vutuv.UserController do
     conn
     |> assign(:page_title, full_name(user))
     |> assign(:user, user)
+    |> assign(:user_show, true)
     |> render("show.html", changeset: changeset, emails_counter: emails_counter, followers_count: followers_count, followees_count: followees_count)
   end
 

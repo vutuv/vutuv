@@ -4,25 +4,20 @@ defmodule Vutuv.SlugController do
 
   alias Vutuv.Slug
 
-  def create(conn, %{"email" => email_params}) do
+  def create(conn, %{"slug" => slug_params}) do
     changeset =
       conn.assigns[:user]
       |> build_assoc(:slugs)
-      |> Email.changeset(email_params)
+      |> Slug.changeset(slug_params)
 
     case Repo.insert(changeset) do
-      {:ok, _email} ->
+      {:ok, _slug} ->
         conn
-        |> put_flash(:info, "Email created successfully.")
-        |> redirect(to: user_email_path(conn, :index, conn.assigns[:user]))
+        |> put_flash(:info, "Slug updated successfully.")
+        |> redirect(to: user_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
-  end
-
-  def show(conn, %{"id" => id}) do
-    email = Repo.get!(assoc(conn.assigns[:user], :emails), id)
-    render(conn, "show.html", email: email)
   end
 
   def edit(conn, %{"id" => id}) do
