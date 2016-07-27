@@ -24,14 +24,14 @@ defmodule Vutuv.UserController do
   end 
 
   def create(conn, %{"user" => user_params}) do
-    #groups =
-    #  for name <- ["Friends and Family", "Business acquaintances"] do
-    #    Group.changeset(%Group{}, %{name: name})
-    #  end
+    groups =
+      for name <- ["Friends and Family", "Business acquaintances"] do
+        Group.changeset(%Group{}, %{name: name})
+      end
 
     changeset =
       User.changeset(%User{}, user_params)
-    #  |> Ecto.Changeset.put_assoc(:groups, groups)
+      |> Ecto.Changeset.put_assoc(:groups, groups)
 
     case Repo.insert(changeset) do
       {:ok, user} ->

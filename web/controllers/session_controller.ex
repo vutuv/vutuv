@@ -8,8 +8,10 @@ defmodule Vutuv.SessionController do
   def create(conn, %{"session" => %{"email" => email}}) do
     case Vutuv.Auth.login_by_email(conn, email, repo: Repo) do
       {:ok, link, conn} ->
+        #Vutuv.Emailer.login_email(email, link)                           #Uncomment this when smtp server is prepared
+        #|>Vutuv.Mailer.deliver_now                                       #this too
         conn
-        |> put_flash(:info, gettext("localhost:4000/magic/")<>link)
+        |> put_flash(:info, gettext("localhost:4000/magic/")<>link)       #comment or delete this too
         |> redirect(to: page_path(conn, :index))
         #|> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
       {:error, _reason, conn} ->

@@ -27,3 +27,13 @@ import_config "#{Mix.env}.exs"
 config :phoenix, :generators,
   migration: true,
   binary_id: false
+
+config :vutuv, Vutuv.Mailer,
+  adapter: Bamboo.SMTPAdapter,
+  server: "<server address here>",
+  port: 1025,
+  username: "<username here>",
+  password: "<password here>",
+  tls: :if_available, # can be `:always` or `:never`
+  ssl: false, # can be `true`
+  retries: 1
