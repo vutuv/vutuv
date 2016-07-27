@@ -25,4 +25,8 @@ defmodule Vutuv.Skill do
     |> cast(params, @required_fields, @optional_fields)
     |> unique_constraint(:downcase_name)
   end
+
+  def resolve_name(skill_id) do
+    Vutuv.Repo.one!(from s in Vutuv.Skill, where: s.id == ^skill_id, select: [s.name])
+  end
 end

@@ -5,7 +5,6 @@
     <table class="pure-table pure-table-horizontal">
       <thead>
         <tr>
-          <th><%= gettext "User" %></th>
           <th><%= gettext "Skill" %></th>
           <th><%= gettext "Endorsements" %></th>
     
@@ -15,8 +14,7 @@
       <tbody>
     <%= for {user_skill, index} <- Enum.with_index(@user_skills) do %>
         <tr class="<%= if rem(index, 2) == 1, do: "pure-table-odd" %>">
-          <td><%= user_skill.user_id %></td>
-          <td><%= user_skill.skill_id %></td>
+          <td><%= Vutuv.Skill.resolve_name(user_skill.skill_id) %></td>
           <td><%= Vutuv.Endorsement.count(user_skill.id) %></td>
           <td class="text-right">
             <%= link "Show", to: user_user_skill_path(@conn, :show, @user, user_skill), class: "pure-button" %>
