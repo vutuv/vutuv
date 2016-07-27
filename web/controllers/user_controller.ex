@@ -1,6 +1,7 @@
 defmodule Vutuv.UserController do
   use Vutuv.Web, :controller
   plug :authenticate when action in [:index, :show]
+  plug :auth_user when action in [:edit, :update]
   import Vutuv.UserHelpers
 
   alias Vutuv.Slug
@@ -156,6 +157,15 @@ defmodule Vutuv.UserController do
       |> put_flash(:error, "You must be logged in to access that page")
       |> redirect(to: page_path(conn, :index))
       |> halt()
+    end
+  end
+
+  defp auth_user(conn, _opts) do
+    if(conn.params["id"] == Integer.to_string(conn.assigns[:current_user].id)) do
+      conn
+    else
+      redirect(conn, to: user_path(conn, :show, conn.assigns[:current_user]))
+      |> halt
     end
   end
 end

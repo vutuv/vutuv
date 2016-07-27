@@ -1,6 +1,7 @@
 defmodule Vutuv.GroupController do
   use Vutuv.Web, :controller
   plug :assign_user
+  plug :auth_user
 
   alias Vutuv.Group
 
@@ -88,5 +89,14 @@ defmodule Vutuv.GroupController do
     |> put_flash(:error, "Invalid user!")
     |> redirect(to: page_path(conn, :index))
     |> halt
+  end
+  
+  defp auth_user(conn, _opts) do
+    if(conn.assigns[:user].id == conn.assigns[:current_user].id) do
+      conn
+    else
+      redirect(conn, to: user_path(conn, :show, conn.assigns[:current_user]))
+      |> halt
+    end
   end
 end
