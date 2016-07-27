@@ -22,10 +22,9 @@ defmodule Vutuv.Email do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> downcase_value
-    |> unique_constraint(:value, name: :emails_value_index)
     |> validate_format(:value, ~r/@/)
+    |> unique_constraint(:value)
     |> fill_md5sum
-    
   end
 
   def downcase_value(changeset) do
@@ -45,5 +44,9 @@ defmodule Vutuv.Email do
     else
       changeset
     end
+  end
+
+  def can_delete?(id) do
+    Vutuv.Repo.one(from u in Vutuv.Email, where: u.user_id==^id, select: count("value"))>1
   end
 end

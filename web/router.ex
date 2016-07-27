@@ -29,6 +29,7 @@ defmodule Vutuv.Router do
 
     resources "/users", UserController do
       resources "/emails", EmailController
+      resources "/slugs", SlugController
       resources "/groups", GroupController
       resources "/followers", FollowerController, only: [:index]
       resources "/followees", FolloweeController, only: [:index]

@@ -3,6 +3,7 @@ defmodule Vutuv.UserController do
   plug :authenticate when action in [:index, :show]
   import Vutuv.UserHelpers
 
+  alias Vutuv.Slug
   alias Vutuv.User
   alias Vutuv.Email
   alias Vutuv.Group
@@ -20,17 +21,17 @@ defmodule Vutuv.UserController do
       User.changeset(%User{})
       |> Ecto.Changeset.put_assoc(:emails, [%Email{}])
     render(conn, "new.html", changeset: changeset)
-  end
+  end 
 
   def create(conn, %{"user" => user_params}) do
-    groups =
-      for name <- ["Friends and Family", "Business acquaintances"] do
-        Group.changeset(%Group{}, %{name: name})
-      end
+    #groups =
+    #  for name <- ["Friends and Family", "Business acquaintances"] do
+    #    Group.changeset(%Group{}, %{name: name})
+    #  end
 
     changeset =
       User.changeset(%User{}, user_params)
-      |> Ecto.Changeset.put_assoc(:groups, groups)
+    #  |> Ecto.Changeset.put_assoc(:groups, groups)
 
     case Repo.insert(changeset) do
       {:ok, user} ->
@@ -43,9 +44,9 @@ defmodule Vutuv.UserController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
+  def show(conn, %{"id" => input}) do
     user =
-      Repo.get!(User, id)
+      Repo.get!(User, resolve_slug(input))
       |> Repo.preload([:groups, :emails, :user_skills,
                       followee_connections:
                         {Connection.latest(5), [:followee]},
@@ -72,13 +73,15 @@ defmodule Vutuv.UserController do
   end
 
   def edit(conn, %{"id" => id}) do
-    user = Repo.get!(User, id) |> Repo.preload([:emails])
+    user = Repo.get!(User, id) |> Repo.preload([:emails, :slugs])
     changeset = User.changeset(user)
-    render(conn, "edit.html", user: user, changeset: changeset)
+    slug_changeset = Slug.changeset(%Slug{})
+    render(conn, "edit.html", user: user, changeset: changeset, slug_changeset: slug_changeset)
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Repo.get!(User, id)
+    |> Repo.preload([:emails,:slugs])
     changeset = User.changeset(user, user_params)
 
     case Repo.update(changeset) do
@@ -89,6 +92,20 @@ defmodule Vutuv.UserController do
       {:error, changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)
     end
+  end
+
+  def insert_slug(conn, %{"id" => id, "params" => params}) do
+    user = Repo.get!(User, id)
+    slug_changeset = Slug.changeset(%Slug{user_id: id}, params)
+    case Repo.insert(slug_changeset) do
+      {:ok, slug} ->
+        conn
+        |> put_flash(:info, "Slug updated successfully.")
+        |> redirect(to: user_path(conn, :show, user))
+      {:error, changeset} ->
+        changeset = User.changeset(user)
+        render(conn, "edit.html", user: user, changeset: changeset, slug_changeset: slug_changeset)
+      end
   end
 
   def delete(conn, %{"id" => id}) do
@@ -122,6 +139,12 @@ defmodule Vutuv.UserController do
         |> put_flash(:error, "Couldn't follow back to #{full_name(user)}.")
         |> redirect(to: user_path(conn, :show, conn.assigns.current_user))
     end
+  end
+
+  def resolve_slug(slug) do
+    id = Repo.one(from s in Slug, where: s.value == ^slug, select: s.user_id)
+    if(id==nil) do id=slug end
+    id
   end
 
   defp authenticate(conn, _opts) do

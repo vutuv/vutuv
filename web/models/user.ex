@@ -17,7 +17,8 @@ defmodule Vutuv.User do
     field :magic_link_created_at, Ecto.DateTime
     has_many :groups,      Vutuv.Group,       on_delete: :delete_all
     has_many :emails,      Vutuv.Email,       on_delete: :delete_all
-    has_many :user_skills, Vutuv.UserSkill,  on_delete: :delete_all
+    has_many :user_skills, Vutuv.UserSkill,   on_delete: :delete_all
+    has_many :slugs,       Vutuv.Slug
 
     has_many :follower_connections, Vutuv.Connection, foreign_key: :followee_id, on_delete: :delete_all
     has_many :followers, through: [:follower_connections, :follower]
@@ -45,6 +46,7 @@ defmodule Vutuv.User do
     |> cast(params, @required_fields, @optional_fields)
     |> cast_attachments(params, @required_file_fields, @optional_file_fields)
     |> cast_assoc(:emails)
+    |> cast_assoc(:slugs)
     |> validate_first_name_or_last_name_or_nickname(params)
     |> validate_length(:first_name, max: 50)
     |> validate_length(:last_name, max: 50)
