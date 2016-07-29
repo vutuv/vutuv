@@ -89,6 +89,7 @@
       <% end %>
     </ul>
     <%= link gettext("Edit"), to: user_path(@conn, :edit, @user) %>
+    <%= link gettext("Slugs"), to: user_slug_path(@conn, :index, @user) %>
   </div>
 
   <div class="pure-u-1 pure-u-md-1-3">

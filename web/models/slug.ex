@@ -8,7 +8,7 @@ defmodule Vutuv.Slug do
   end
 
   @required_fields ~w(value)
-  @optional_fields ~w(user_id)
+  @optional_fields ~w(id user_id)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -18,7 +18,8 @@ defmodule Vutuv.Slug do
   """
   def changeset(model, params \\ :empty) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_format(:value, ~r/^\D{1}\S+$/u)
     |> unique_constraint(:value)
   end
 end

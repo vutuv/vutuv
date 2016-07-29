@@ -37,3 +37,5 @@ config :vutuv, Vutuv.Mailer,
   tls: :if_available, # can be `:always` or `:never`
   ssl: false, # can be `true`
   retries: 1
+
+config :vutuv, ecto_repos: [Vutuv.Repo]

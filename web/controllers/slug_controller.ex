@@ -1,76 +1,93 @@
 defmodule Vutuv.SlugController do
   use Vutuv.Web, :controller
-  plug :assign_user
-
   alias Vutuv.Slug
+  alias Ecto.Multi
+  import Ecto
 
-  def create(conn, %{"slug" => slug_params}) do
+  plug :resolve_slug
+
+  def index(conn, _params) do
+    slugs = Repo.all(assoc(conn.assigns[:user], :slugs))
+    render(conn, "index.html", slugs: slugs)
+  end
+
+  def new(conn, _params) do
     changeset =
       conn.assigns[:user]
       |> build_assoc(:slugs)
-      |> Slug.changeset(slug_params)
+      |> Slug.changeset()
+    render(conn, "new.html", changeset: changeset)
+  end
 
-    case Repo.insert(changeset) do
-      {:ok, _slug} ->
+  def create(conn, %{"slug"=>params}) do
+
+    IO.puts inspect params
+
+    case Repo.transaction(new_slug(conn.assigns[:user], params)) do
+      {:ok, %{user: user, slug: _slug}} ->
         conn
         |> put_flash(:info, "Slug updated successfully.")
-        |> redirect(to: user_path(conn, :index, conn.assigns[:user]))
-      {:error, changeset} ->
+        |> redirect(to: user_path(conn, :show, user))
+      {:error, _failure, changeset, _} ->
         render(conn, "new.html", changeset: changeset)
     end
   end
 
-  def edit(conn, %{"id" => id}) do
-    email = Repo.get!(assoc(conn.assigns[:user], :emails), id)
-    changeset = Email.changeset(email)
-    render(conn, "edit.html", email: email, changeset: changeset)
+  def show(conn, %{"id" => id}) do
+    slug = Repo.get!(assoc(conn.assigns[:user], :slugs), id)
+    render(conn, "show.html", slug: slug)
   end
 
-  def update(conn, %{"id" => id, "email" => email_params}) do
-    email = Repo.get!(assoc(conn.assigns[:user], :emails), id)
-    changeset = Email.changeset(email, email_params)
+  def update(conn, %{"id" => id}) do
+    IO.puts("\n\nactivating\n\n")
+    slug = Repo.get!(assoc(conn.assigns[:user], :slugs), id)
+    changeset = Ecto.Changeset.cast(conn.assigns[:current_user], %{active_slug: slug.value}, [:active_slug])
     case Repo.update(changeset) do
-      {:ok, email} ->
+      {:ok, user} ->
         conn
-        |> put_flash(:info, "Email updated successfully.")
-        |> redirect(to: user_email_path(conn, :show, conn.assigns[:user], email))
+        |> put_flash(:info, "Slug activated successfully")
+        |> redirect(to: user_slug_path(conn, :index, user))
       {:error, changeset} ->
-        render(conn, "edit.html", email: email, changeset: changeset)
+        redirect(conn, to: user_slug_path(conn, :index,conn.assigns[:current_user]))
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    email = Repo.get!(assoc(conn.assigns[:user], :emails), id)
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    case Vutuv.Email.can_delete?(conn.assigns.current_user.id) do
-    true ->
-      Repo.delete!(email)
-      conn
-      |> put_flash(:info, "Email deleted successfully.")
-      |> redirect(to: user_email_path(conn, :index, conn.assigns[:user]))
-    false ->
-      conn
-      |> put_flash(:error, "Cannot delete final email.")
-      |> redirect(to: user_email_path(conn, :index, conn.assigns[:user]))
-    end
-  end
-
-  defp assign_user(conn, _opts) do
+  def resolve_slug(conn, _opts) do
+    IO.puts("\n\n\n\n")
     case conn.params do
-      %{"user_id" => user_id} ->
-        case Repo.get(Vutuv.User, user_id) do
-          nil  -> invalid_user(conn)
-          user -> assign(conn, :user, user)
+      %{"user_slug" => slug} ->
+        case Repo.one(from s in Slug, where: s.value == ^slug, select: s.user_id) do
+          nil  -> invalid_slug(conn)
+          user_id ->
+            user = Repo.one(from u in Vutuv.User, where: u.id == ^user_id)
+            assign(conn, :user, user)
         end
-      _ -> invalid_user(conn)
+      _ -> invalid_slug(conn)
     end
   end
 
-  defp invalid_user(conn) do
+  defp invalid_slug(conn) do
+    IO.puts"\n\n\n\ninvalid\n\n\n\n"
     conn
-    |> put_flash(:error, "Invalid user!")
+    |> put_flash(:error, "404")
     |> redirect(to: page_path(conn, :index))
     |> halt
+  end
+
+  def new_slug(user, params) do
+    slug_changeset =
+      user
+      |> build_assoc(:slugs)
+      |> Slug.changeset(params)
+    case params do
+      %{"value"=>value} ->
+          user_changeset = Ecto.Changeset.cast(user,%{"active_slug"=> value},[:active_slug],[])
+    end
+
+
+    multi = 
+    Ecto.Multi.new
+    |>Ecto.Multi.insert(:slug, slug_changeset)
+    |>Ecto.Multi.update(:user, user_changeset)
   end
 end

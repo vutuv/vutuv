@@ -26,7 +26,11 @@ defmodule Vutuv.ErrorHelpers do
     #
     #     dngettext "errors", "1 file", "%{count} files", count
     #
-    Gettext.dngettext(Vutuv.Gettext, "errors", msg, msg, opts[:count], opts)
+    if count = opts[:count] do
+      Gettext.dngettext(Vutuv.Gettext, "errors", msg, msg, count, opts)
+    else
+      Gettext.dgettext(Vutuv.Gettext, "errors", msg, opts)
+    end
   end
 
   def translate_error(msg) do

@@ -1,6 +1,7 @@
 defmodule Vutuv.User do
   use Vutuv.Web, :model
-  use Arc.Ecto.Model
+  use Arc.Ecto.Schema
+  @derive {Phoenix.Param, key: :active_slug}
 
   schema "users" do
     field :first_name, :string
@@ -15,6 +16,7 @@ defmodule Vutuv.User do
     field :avatar, Vutuv.Avatar.Type
     field :magic_link, :string
     field :magic_link_created_at, Ecto.DateTime
+    field :active_slug, :string
     has_many :groups,      Vutuv.Group,       on_delete: :delete_all
     has_many :emails,      Vutuv.Email,       on_delete: :delete_all
     has_many :user_skills, Vutuv.UserSkill,   on_delete: :delete_all
@@ -41,10 +43,10 @@ defmodule Vutuv.User do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
-    |> cast_attachments(params, @required_file_fields, @optional_file_fields)
+    |> cast(params, @optional_fields)
+    |> cast_attachments(params, [:avatar])
     |> cast_assoc(:emails)
     |> cast_assoc(:slugs)
     |> validate_first_name_or_last_name_or_nickname(params)

@@ -1,6 +1,6 @@
 defmodule Vutuv.EmailController do
   use Vutuv.Web, :controller
-  plug :assign_user
+  plug :resolve_slug
   plug :auth_user
 
   alias Vutuv.Email
@@ -78,20 +78,24 @@ defmodule Vutuv.EmailController do
     end
   end
 
-  defp assign_user(conn, _opts) do
+  def resolve_slug(conn, _opts) do
+    IO.puts("\n\n\n\n")
     case conn.params do
-      %{"user_id" => user_id} ->
-        case Repo.get(Vutuv.User, user_id) do
-          nil  -> invalid_user(conn)
-          user -> assign(conn, :user, user)
+      %{"user_slug" => slug} ->
+        case Repo.one(from s in Vutuv.Slug, where: s.value == ^slug, select: s.user_id) do
+          nil  -> invalid_slug(conn)
+          user_id ->
+            user = Repo.one(from u in Vutuv.User, where: u.id == ^user_id)
+            assign(conn, :user, user)
         end
-      _ -> invalid_user(conn)
+      _ -> invalid_slug(conn)
     end
   end
 
-  defp invalid_user(conn) do
+  defp invalid_slug(conn) do
+    IO.puts"\n\n\n\ninvalid\n\n\n\n"
     conn
-    |> put_flash(:error, "Invalid user!")
+    |> put_flash(:error, "404")
     |> redirect(to: page_path(conn, :index))
     |> halt
   end

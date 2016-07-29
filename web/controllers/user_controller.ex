@@ -1,7 +1,8 @@
 defmodule Vutuv.UserController do
   use Vutuv.Web, :controller
-  plug :authenticate when action in [:index, :show]
-  plug :auth_user when action in [:edit, :update]
+  plug :resolve_slug when action in [:edit, :update, :index, :show]
+  plug :logged_in? when action in [:index, :show]
+  plug :auth when action in [:edit, :update]
   import Vutuv.UserHelpers
 
   alias Vutuv.Slug
@@ -30,29 +31,39 @@ defmodule Vutuv.UserController do
         Group.changeset(%Group{}, %{name: name})
       end
 
-    changeset =
-      User.changeset(%User{}, user_params)
-      |> Ecto.Changeset.put_assoc(:groups, groups)
+    slug = user_params["first_name"]
+    <>user_params["last_name"]
+    <>Integer.to_string(Repo.one(from s in Slug, select: count("*")))
+
+    slugs = [Slug.changeset(%Slug{}, %{value: slug})]
+
+    changeset = User.changeset(%User{}, user_params)
+    |> Ecto.Changeset.put_assoc(:groups, groups)
+    |> Ecto.Changeset.put_assoc(:slugs, slugs)
+    |> Ecto.Changeset.put_change(:active_slug, slug)
 
     case Repo.insert(changeset) do
       {:ok, user} ->
+        IO.puts("\n\n\n")
         conn
         |> Vutuv.Auth.login(user)
         |> put_flash(:info, "User #{full_name(user)} created successfully.")
         |> redirect(to: user_path(conn, :show, user))
       {:error, changeset} ->
+        IO.puts("\n\n\n")
         render(conn, "new.html", changeset: changeset)
     end
   end
 
-  def show(conn, %{"id" => input}) do
+  def show(conn, _params) do
     user =
-      Repo.get!(User, resolve_slug(input))
+      Repo.get!(User, conn.assigns[:user_id])
       |> Repo.preload([:groups, :emails, :user_skills,
                       followee_connections:
                         {Connection.latest(5), [:followee]},
                       follower_connections:
-                        {Connection.latest(5), [:follower]}])
+                        {Connection.latest(5), [:follower]},
+                      slugs: from(s in Vutuv.Slug, order_by: [desc: s.updated_at], limit: 1)])
 
     followees_count = Repo.one(from c in Connection, where: c.follower_id == ^user.id, select: count("followee_id"))
     followers_count = Repo.one(from c in Connection, where: c.followee_id == ^user.id, select: count("follower_id"))
@@ -77,8 +88,7 @@ defmodule Vutuv.UserController do
   def edit(conn, %{"id" => id}) do
     user = Repo.get!(User, id) |> Repo.preload([:emails, :slugs])
     changeset = User.changeset(user)
-    slug_changeset = Slug.changeset(%Slug{})
-    render(conn, "edit.html", user: user, changeset: changeset, slug_changeset: slug_changeset)
+    render(conn, "edit.html", user: user, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
@@ -143,13 +153,27 @@ defmodule Vutuv.UserController do
     end
   end
 
-  def resolve_slug(slug) do
-    id = Repo.one(from s in Slug, where: s.value == ^slug, select: s.user_id)
-    if(id==nil) do id=slug end
-    id
+  def resolve_slug(conn, _opts) do
+    IO.puts("\n\n\n\n")
+    case conn.params do
+      %{"slug" => slug} ->
+        case Repo.one(from s in Slug, where: s.value == ^slug, select: s.user_id) do
+          nil  -> invalid_slug(conn)
+          user_id -> IO.puts("user_id")
+            assign(conn, :user_id, user_id)
+        end
+      _ -> invalid_slug(conn)
+    end
   end
 
-  defp authenticate(conn, _opts) do
+  defp invalid_slug(conn) do
+    conn
+    |> put_flash(:error, "404")
+    |> redirect(to: page_path(conn, :index))
+    |> halt
+  end
+
+  defp logged_in?(conn, _opts) do
     if conn.assigns.current_user do
       conn
     else
@@ -160,7 +184,7 @@ defmodule Vutuv.UserController do
     end
   end
 
-  defp auth_user(conn, _opts) do
+  defp auth(conn, _opts) do
     if(conn.params["id"] == Integer.to_string(conn.assigns[:current_user].id)) do
       conn
     else
