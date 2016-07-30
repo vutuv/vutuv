@@ -14,6 +14,7 @@ Make sure that your database configuration in `config/dev.exs` is correct (we us
 ```bash
 $ cd vutuv
 $ mix deps.get
+$ mix deps.compile
 $ npm install
 $ mix ecto.create
 $ mix ecto.migrate
