@@ -8,8 +8,7 @@ defmodule Vutuv.Auth do
 
   def call(conn, repo) do
     user_id = get_session(conn, :user_id)
-    user = user_id && repo.get(Vutuv.User, user_id) 
-      |> repo.preload(slugs: from(s in Vutuv.Slug, order_by: [desc: s.updated_at], limit: 1))
+    user = user_id && repo.get(Vutuv.User, user_id)
     assign(conn, :current_user, user)
   end
 
