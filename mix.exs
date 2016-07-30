@@ -19,7 +19,7 @@ defmodule Vutuv.Mixfile do
   def application do
     [mod: {Vutuv, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :mariaex, :ex_machina, :phoenix_html_simplified_helpers]]
+                    :phoenix_ecto, :postgrex, :ex_machina, :phoenix_html_simplified_helpers, :bamboo, :bamboo_smtp]]
   end
 
   # Specifies which paths to compile per environment.
@@ -30,17 +30,20 @@ defmodule Vutuv.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.1.0"},
-     {:phoenix_ecto, "~> 2.0"},
-     {:mariaex, ">= 0.0.0"},
+    [{:ecto, "~> 2.0.0", override: true},
+     {:bamboo, "~> 0.6"},
+     {:bamboo_smtp, "~> 1.1.0"},
+     {:phoenix, "~> 1.1.0"},
+     {:phoenix_ecto, "~> 3.0.0-rc"},
+     {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.3"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
      {:arc, "~> 0.5.2"},
-     {:arc_ecto, "~> 0.3.2"},
+     {:arc_ecto, "~> 0.4.2"},
      {:ex_machina, "~> 0.6.1"},
-     {:phoenix_html_simplified_helpers, "~> 0.3.3"}]
+     {:phoenix_html_simplified_helpers, "~> 0.6.0"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
@@ -51,6 +54,7 @@ defmodule Vutuv.Mixfile do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-     "ecto.reset": ["ecto.drop", "ecto.setup"]]
+     "ecto.reset": ["ecto.drop", "ecto.setup"],
+     "test": ["ecto.create --quiet", "ecto.migrate", "test"]]
   end
 end
