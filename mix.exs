@@ -43,7 +43,7 @@ defmodule Vutuv.Mixfile do
      {:arc, "~> 0.5.2"},
      {:arc_ecto, "~> 0.4.2"},
      {:ex_machina, "~> 0.6.1"},
-     {:phoenix_html_simplified_helpers, "~> 0.6.0"}
+     {:phoenix_html_simplified_helpers, "~> 0.6.0"},
      {:mariaex, ">= 0.0.0"}]
   end
 
