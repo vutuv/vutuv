@@ -19,7 +19,8 @@ defmodule Vutuv.Mixfile do
   def application do
     [mod: {Vutuv, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :ex_machina, :phoenix_html_simplified_helpers, :bamboo, :bamboo_smtp]]
+                    :phoenix_ecto, :ex_machina,:phoenix_html_simplified_helpers,
+                    :bamboo, :bamboo_smtp, :mariaex]]
   end
 
   # Specifies which paths to compile per environment.
@@ -35,7 +36,6 @@ defmodule Vutuv.Mixfile do
      {:bamboo_smtp, "~> 1.1.0"},
      {:phoenix, "~> 1.1.0"},
      {:phoenix_ecto, "~> 3.0.0-rc"},
-     {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.3"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
