@@ -27,9 +27,9 @@ defmodule Vutuv.Router do
       resources "/memberships", MembershipController, only: [:new, :create, :show, :delete, :index]
     end
 
-    resources "/users", UserController do
+    resources "/users", UserController, param: "slug" do
       resources "/emails", EmailController
-      resources "/slugs", SlugController
+      resources "/slugs", SlugController, only: [:index, :new, :create, :show, :update]
       resources "/groups", GroupController
       resources "/followers", FollowerController, only: [:index]
       resources "/followees", FolloweeController, only: [:index]

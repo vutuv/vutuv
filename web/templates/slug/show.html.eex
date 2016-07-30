@@ -1,0 +1,18 @@
+<h2>Slugs</h2>
+
+<ul>
+
+  <li>
+    <strong>Value:</strong>
+    <%= @slug.value %>
+  </li>
+
+  <li>
+    <strong>User:</strong>
+    <%= @slug.user_id %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: user_slug_path(@conn, :edit, @user, @slug) %>
+<%= link "Back", to: user_slug_path(@conn, :index, @user) %>
