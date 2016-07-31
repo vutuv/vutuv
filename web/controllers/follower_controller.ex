@@ -2,8 +2,6 @@ defmodule Vutuv.FollowerController do
   use Vutuv.Web, :controller
   plug :resolve_slug
 
-  alias Vutuv.Connection
-
   def index(conn, _params) do
     render(conn, "index.html", user: conn.assigns[:user])
   end

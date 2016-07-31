@@ -23,7 +23,7 @@ defmodule Vutuv.UserController do
       User.changeset(%User{})
       |> Ecto.Changeset.put_assoc(:emails, [%Email{}])
     render(conn, "new.html", changeset: changeset)
-  end 
+  end
 
   def create(conn, %{"user" => user_params}) do
     groups =
@@ -71,7 +71,7 @@ defmodule Vutuv.UserController do
     changeset = Connection.changeset(%Connection{},%{follower_id: conn.assigns.current_user.id, followee_id: user.id})
 
     emails_counter = length(user.emails)
-    
+
     conn
     |> assign(:page_title, full_name(user))
     |> assign(:user, user)
@@ -79,7 +79,7 @@ defmodule Vutuv.UserController do
     |> render("show.html", changeset: changeset, emails_counter: emails_counter, followers_count: followers_count, followees_count: followees_count)
   end
 
-  # Function calls helper function in Connection to check 
+  # Function calls helper function in Connection to check
   # if a connection exists between given user id and current user
   def visitor_is_follower?(conn, id) do
     Connection.contains(id,conn.assigns.current_user.id)
@@ -110,11 +110,11 @@ defmodule Vutuv.UserController do
     user = Repo.get!(User, id)
     slug_changeset = Slug.changeset(%Slug{user_id: id}, params)
     case Repo.insert(slug_changeset) do
-      {:ok, slug} ->
+      {:ok, _slug} ->
         conn
         |> put_flash(:info, "Slug updated successfully.")
         |> redirect(to: user_path(conn, :show, user))
-      {:error, changeset} ->
+      {:error, _changeset} ->
         changeset = User.changeset(user)
         render(conn, "edit.html", user: user, changeset: changeset, slug_changeset: slug_changeset)
       end

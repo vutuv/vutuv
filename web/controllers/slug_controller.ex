@@ -1,7 +1,6 @@
 defmodule Vutuv.SlugController do
   use Vutuv.Web, :controller
   alias Vutuv.Slug
-  alias Ecto.Multi
   import Ecto
 
   plug :resolve_slug
@@ -47,7 +46,7 @@ defmodule Vutuv.SlugController do
         conn
         |> put_flash(:info, "Slug activated successfully")
         |> redirect(to: user_slug_path(conn, :index, user))
-      {:error, changeset} ->
+      {:error, _changeset} ->
         redirect(conn, to: user_slug_path(conn, :index,conn.assigns[:current_user]))
     end
   end
@@ -85,7 +84,7 @@ defmodule Vutuv.SlugController do
     end
 
 
-    multi = 
+    multi =
     Ecto.Multi.new
     |>Ecto.Multi.insert(:slug, slug_changeset)
     |>Ecto.Multi.update(:user, user_changeset)

@@ -11,7 +11,7 @@ defmodule Vutuv.EndorsementController do
         conn
         |> put_flash(:info, gettext("Endorsement successful."))
         |> redirect(to: user_path(conn, :show, conn.assigns[:user]))
-      {:error, changeset} ->
+      {:error, _changeset} ->
         conn
         |> put_flash(:info, gettext("Endorsement unsuccessful."))
         |> redirect(to: user_path(conn, :show, conn.assigns[:user]))
