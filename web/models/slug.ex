@@ -19,7 +19,14 @@ defmodule Vutuv.Slug do
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields ++ @optional_fields)
-    |> validate_format(:value, ~r/^\D{1}\S+$/u)
+    |> downcase_value
+    |> validate_format(:value, ~r/^[a-z0-9-.]*$/u)
     |> unique_constraint(:value)
   end
+
+  def downcase_value(changeset) do
+    # If the value has been changed, downcase it.
+    update_change(changeset, :value, &String.downcase/1)
+  end
+
 end
