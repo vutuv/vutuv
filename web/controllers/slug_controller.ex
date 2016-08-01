@@ -62,8 +62,8 @@ defmodule Vutuv.SlugController do
 
   defp invalid_slug(conn) do
     conn
-    |> put_flash(:error, "404")
-    |> redirect(to: page_path(conn, :index))
+    |> put_status(:not_found)
+    |> render(Vutuv.ErrorView, "404.html")
     |> halt
   end
 
