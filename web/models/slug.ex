@@ -20,7 +20,7 @@ defmodule Vutuv.Slug do
     model
     |> cast(params, @required_fields ++ @optional_fields)
     |> downcase_value
-    |> validate_format(:value, ~r/^[a-z0-9-.]*$/u)
+    |> validate_format(:value, ~r/^[a-z]{1}[a-z0-9-.]*$/u)
     |> unique_constraint(:value)
   end
 
