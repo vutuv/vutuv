@@ -31,9 +31,15 @@ defmodule Vutuv.UserController do
         Group.changeset(%Group{}, %{name: name})
       end
 
+    user_count = Repo.one(from u in User, 
+      where: u.first_name == ^user_params["first_name"]
+      and u.last_name == ^user_params["last_name"],
+      select: count("*"))
     slug = user_params["first_name"]
+    <>"."
     <>user_params["last_name"]
-    <>Integer.to_string(Repo.one(from s in Slug, select: count("*")))
+
+    if(user_count>0) do slug=slug<>Integer.to_string(user_count) end
 
     slugs = [Slug.changeset(%Slug{}, %{value: slug})]
 

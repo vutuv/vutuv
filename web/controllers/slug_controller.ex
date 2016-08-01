@@ -72,8 +72,11 @@ defmodule Vutuv.SlugController do
       user
       |> build_assoc(:slugs)
       |> Slug.changeset(params)
+    IO.puts("\n\n\n")
+    IO.puts(inspect slug_changeset)
+    IO.puts("\n\n\n")
 
-    user_changeset = Ecto.Changeset.cast(user,%{"active_slug"=> params.value},[:active_slug],[])
+    user_changeset = Ecto.Changeset.cast(user,%{"active_slug"=> slug_changeset.changes.value},[:active_slug],[])
 
     Ecto.Multi.new
     |>Ecto.Multi.insert(:slug, slug_changeset)
