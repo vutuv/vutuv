@@ -19,9 +19,6 @@ defmodule Vutuv.SlugController do
   end
 
   def create(conn, %{"slug"=>params}) do
-
-    IO.puts inspect params
-
     case Repo.transaction(new_slug(conn.assigns[:user], params)) do
       {:ok, %{user: user, slug: _slug}} ->
         conn
@@ -38,7 +35,6 @@ defmodule Vutuv.SlugController do
   end
 
   def update(conn, %{"id" => id}) do
-    IO.puts("\n\nactivating\n\n")
     slug = Repo.get!(assoc(conn.assigns[:user], :slugs), id)
     changeset = Ecto.Changeset.cast(conn.assigns[:current_user], %{active_slug: slug.value}, [:active_slug])
     case Repo.update(changeset) do
@@ -52,7 +48,6 @@ defmodule Vutuv.SlugController do
   end
 
   def resolve_slug(conn, _opts) do
-    IO.puts("\n\n\n\n")
     case conn.params do
       %{"user_slug" => slug} ->
         case Repo.one(from s in Slug, where: s.value == ^slug, select: s.user_id) do
@@ -66,7 +61,6 @@ defmodule Vutuv.SlugController do
   end
 
   defp invalid_slug(conn) do
-    IO.puts"\n\n\n\ninvalid\n\n\n\n"
     conn
     |> put_flash(:error, "404")
     |> redirect(to: page_path(conn, :index))
@@ -78,13 +72,9 @@ defmodule Vutuv.SlugController do
       user
       |> build_assoc(:slugs)
       |> Slug.changeset(params)
-    case params do
-      %{"value"=>value} ->
-          user_changeset = Ecto.Changeset.cast(user,%{"active_slug"=> value},[:active_slug],[])
-    end
 
+    user_changeset = Ecto.Changeset.cast(user,%{"active_slug"=> params.value},[:active_slug],[])
 
-    multi =
     Ecto.Multi.new
     |>Ecto.Multi.insert(:slug, slug_changeset)
     |>Ecto.Multi.update(:user, user_changeset)
