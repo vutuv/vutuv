@@ -2,9 +2,6 @@ defmodule Vutuv.SlugController do
   use Vutuv.Web, :controller
   alias Vutuv.Slug
   import Ecto
-
-  plug :resolve_slug
-
   def index(conn, _params) do
     slugs = Repo.all(assoc(conn.assigns[:user], :slugs))
     render(conn, "index.html", slugs: slugs)
@@ -45,26 +42,6 @@ defmodule Vutuv.SlugController do
       {:error, _changeset} ->
         redirect(conn, to: user_slug_path(conn, :index,conn.assigns[:current_user]))
     end
-  end
-
-  def resolve_slug(conn, _opts) do
-    case conn.params do
-      %{"user_slug" => slug} ->
-        case Repo.one(from s in Slug, where: s.value == ^slug, select: s.user_id) do
-          nil  -> invalid_slug(conn)
-          user_id ->
-            user = Repo.one(from u in Vutuv.User, where: u.id == ^user_id)
-            assign(conn, :user, user)
-        end
-      _ -> invalid_slug(conn)
-    end
-  end
-
-  defp invalid_slug(conn) do
-    conn
-    |> put_status(:not_found)
-    |> render(Vutuv.ErrorView, "404.html")
-    |> halt
   end
 
   def new_slug(user, params) do

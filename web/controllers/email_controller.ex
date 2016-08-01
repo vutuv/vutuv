@@ -1,6 +1,5 @@
 defmodule Vutuv.EmailController do
   use Vutuv.Web, :controller
-  plug :resolve_slug
   plug :auth_user
 
   alias Vutuv.Email
@@ -76,26 +75,6 @@ defmodule Vutuv.EmailController do
       |> put_flash(:error, "Cannot delete final email.")
       |> redirect(to: user_email_path(conn, :index, conn.assigns[:user]))
     end
-  end
-
-  def resolve_slug(conn, _opts) do
-    case conn.params do
-      %{"user_slug" => slug} ->
-        case Repo.one(from s in Vutuv.Slug, where: s.value == ^slug, select: s.user_id) do
-          nil  -> invalid_slug(conn)
-          user_id ->
-            user = Repo.one(from u in Vutuv.User, where: u.id == ^user_id)
-            assign(conn, :user, user)
-        end
-      _ -> invalid_slug(conn)
-    end
-  end
-
-  defp invalid_slug(conn) do
-    conn
-    |> put_status(:not_found)
-    |> render(Vutuv.ErrorView, "404.html")
-    |> halt
   end
 
   defp auth_user(conn, _opts) do

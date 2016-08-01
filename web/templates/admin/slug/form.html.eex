@@ -1,0 +1,5 @@
+<%= form_for @conn, admin_slug_path(@conn, :update), [as: :slug_disable, multipart: true, class: "pure-form pure-form-stacked"], fn f -> %>
+  <%= label f, :slug_name, class: "control-label" %>
+  <%= text_input f, :value, class: "form-control" %>
+    <%= submit gettext("Disable"), class: "pure-button pure-button-primary" %>
+<% end %>

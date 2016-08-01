@@ -169,7 +169,7 @@ defmodule Vutuv.UserController do
     end
   end
 
-  defp invalid_slug(conn) do
+  def invalid_slug(conn) do
     conn
     |> put_status(:not_found)
     |> render(Vutuv.ErrorView, "404.html")

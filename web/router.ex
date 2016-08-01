@@ -10,6 +10,10 @@ defmodule Vutuv.Router do
     plug Vutuv.Auth, repo: Vutuv.Repo
   end
 
+  pipeline :user_pipe do
+    plug Vutuv.UserResolveSlug
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -28,6 +32,7 @@ defmodule Vutuv.Router do
     end
 
     resources "/users", UserController, param: "slug" do
+      pipe_through [:browser, :user_pipe]
       resources "/emails", EmailController
       resources "/slugs", SlugController, only: [:index, :new, :create, :show, :update]
       resources "/groups", GroupController
@@ -36,9 +41,16 @@ defmodule Vutuv.Router do
       resources "/userskills", UserSkillController, only: [:new, :create, :show, :delete, :index]
       resources "/endorsements", EndorsementController, only: [:create, :delete]
     end
+
+    pipe_through :browser
     resources "/sessions", SessionController, only: [:new, :create, :delete]
     get "/magic/:magiclink", SessionController, :show
     get "/follow_back/:id", UserController, :follow_back
+  end
+
+  scope "/admin", as: :admin do
+    pipe_through :browser
+    resources "/slugs", Vutuv.Admin.SlugController, only: [:index, :update]
   end
 
   # Other scopes may use custom stacks.
