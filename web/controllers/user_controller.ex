@@ -44,13 +44,11 @@ defmodule Vutuv.UserController do
 
     case Repo.insert(changeset) do
       {:ok, user} ->
-        IO.puts("\n\n\n")
         conn
         |> Vutuv.Auth.login(user)
         |> put_flash(:info, "User #{full_name(user)} created successfully.")
         |> redirect(to: user_path(conn, :show, user))
       {:error, changeset} ->
-        IO.puts("\n\n\n")
         render(conn, "new.html", changeset: changeset)
     end
   end
@@ -154,12 +152,11 @@ defmodule Vutuv.UserController do
   end
 
   def resolve_slug(conn, _opts) do
-    IO.puts("\n\n\n\n")
     case conn.params do
       %{"slug" => slug} ->
         case Repo.one(from s in Slug, where: s.value == ^slug, select: s.user_id) do
           nil  -> invalid_slug(conn)
-          user_id -> IO.puts("user_id")
+          user_id ->
             assign(conn, :user_id, user_id)
         end
       _ -> invalid_slug(conn)

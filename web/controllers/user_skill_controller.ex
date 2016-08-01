@@ -48,7 +48,6 @@ defmodule Vutuv.UserSkillController do
   end
 
   def resolve_slug(conn, _opts) do
-    IO.puts("\n\n\n\n")
     case conn.params do
       %{"user_slug" => slug} ->
         case Repo.one(from s in Vutuv.Slug, where: s.value == ^slug, select: s.user_id) do
@@ -62,7 +61,6 @@ defmodule Vutuv.UserSkillController do
   end
 
   defp invalid_slug(conn) do
-    IO.puts"\n\n\n\ninvalid\n\n\n\n"
     conn
     |> put_flash(:error, "404")
     |> redirect(to: page_path(conn, :index))
