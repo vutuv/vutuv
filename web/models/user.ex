@@ -50,6 +50,7 @@ defmodule Vutuv.User do
     |> cast_assoc(:emails)
     |> cast_assoc(:slugs)
     |> validate_first_name_or_last_name_or_nickname(params)
+    |> capitalize_names
     |> validate_length(:first_name, max: 50)
     |> validate_length(:last_name, max: 50)
     |> validate_length(:middlename, max: 50)
@@ -57,6 +58,15 @@ defmodule Vutuv.User do
     |> validate_length(:honorific_prefix, max: 50)
     |> validate_length(:honorific_suffix, max: 50)
     |> validate_length(:gender, max: 50)
+  end
+
+  def capitalize_names(changeset) do
+    # If a name has been changed, capitalize it.
+    changeset
+    |> update_change(:first_name, &String.capitalize/1)
+    |> update_change(:last_name,  &String.capitalize/1)
+    |> update_change(:middlename, &String.capitalize/1)
+    |> update_change(:nickname,   &String.capitalize/1)
   end
 
   def validate_first_name_or_last_name_or_nickname(changeset, :empty) do
