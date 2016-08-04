@@ -35,7 +35,7 @@ defmodule Vutuv.UserController do
       where: u.first_name == ^user_params["first_name"]
       and u.last_name == ^user_params["last_name"],
       select: count("*"))
-    slug = user_params["first_name"]
+      slug = user_params["first_name"]
       <>"."
       <>user_params["last_name"]
       |>WordSmith.remove_accents

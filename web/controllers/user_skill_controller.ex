@@ -3,6 +3,7 @@ defmodule Vutuv.UserSkillController do
   plug :auth_user
 
   alias Vutuv.UserSkill
+  alias Vutuv.Skill
 
   def index(conn, _params) do
     user =
@@ -12,18 +13,25 @@ defmodule Vutuv.UserSkillController do
   end
 
   def new(conn, _params) do
-    changeset = UserSkill.changeset(%UserSkill{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html")
   end
 
-  def create(conn, %{"user_skill" => user_skill_params}) do
-    changeset = UserSkill.changeset(%UserSkill{}, user_skill_params)
-      |> Ecto.Changeset.put_change(:user_id, conn.assigns[:current_user].id)
-
+  def create(conn, %{"skill_param" => skill_param}) do
+    changeset = 
+      case Repo.one(from s in Skill, where: s.name == ^skill_param["name"]) do
+        nil ->
+          skill = Skill.changeset(%Skill{},skill_param)
+          UserSkill.changeset(%UserSkill{}, %{user_id: conn.assigns[:current_user].id})
+            |> Ecto.Changeset.put_assoc(:skill, skill)
+        skill ->
+          UserSkill.changeset(%UserSkill{}, %{
+            skill_id: skill.id,
+            user_id: conn.assigns[:current_user].id})
+      end
     case Repo.insert(changeset) do
       {:ok, _user_skill} ->
         conn
-        |> put_flash(:info, gettext("UserSkill created successfully."))
+        |> put_flash(:info, gettext("Skill added successfully."))
         |> redirect(to: user_user_skill_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
