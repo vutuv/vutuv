@@ -30,3 +30,7 @@ erl_crash.dump
 # OS X stuff
 #
 .DS_Store
+
+# Misc
+#
+log.csv
