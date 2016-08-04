@@ -170,7 +170,12 @@ defmodule Vutuv.UserController do
         case Repo.one(from s in Slug, where: s.value == ^slug, select: s.user_id) do
           nil  -> invalid_slug(conn)
           user_id ->
-            assign(conn, :user_id, user_id)
+            user = Repo.get!(Vutuv.User, user_id)
+            if(user.active_slug != slug) do
+              redirect(conn, to: user_path(conn, :show, user))
+            else
+              assign(conn, :user_id, user_id)
+            end
         end
       _ -> invalid_slug(conn)
     end
