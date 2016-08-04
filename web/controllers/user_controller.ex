@@ -89,14 +89,14 @@ defmodule Vutuv.UserController do
     Connection.contains(id,conn.assigns.current_user.id)
   end
 
-  def edit(conn, %{"id" => id}) do
-    user = Repo.get!(User, id) |> Repo.preload([:emails, :slugs])
+  def edit(conn, _params) do
+    user = Repo.get!(User, conn.assigns[:user_id]) |> Repo.preload([:emails, :slugs])
     changeset = User.changeset(user)
     render(conn, "edit.html", user: user, changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Repo.get!(User, id)
+  def update(conn, %{"user" => user_params}) do
+    user = Repo.get!(User, conn.assigns[:user_id])
     |> Repo.preload([:emails,:slugs])
     changeset = User.changeset(user, user_params)
 
@@ -188,11 +188,21 @@ defmodule Vutuv.UserController do
   end
 
   defp auth(conn, _opts) do
-    if(conn.params["id"] == Integer.to_string(conn.assigns[:current_user].id)) do
-      conn
-    else
-      redirect(conn, to: user_path(conn, :show, conn.assigns[:current_user]))
-      |> halt
+    case conn.params do
+      %{"slug" => slug} ->
+        case Repo.one(from s in Slug, where: s.value == ^slug, select: s.user_id) do
+          nil  -> invalid_slug(conn)
+          user_id ->
+            if(user_id == conn.assigns[:current_user].id) do
+              conn
+            else
+              conn
+              |> put_status(403)
+              |> render(Vutuv.ErrorView, "403.html")
+              |> halt
+            end
+        end
+      _ -> invalid_slug(conn)
     end
   end
 end
