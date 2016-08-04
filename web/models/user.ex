@@ -33,7 +33,7 @@ defmodule Vutuv.User do
   end
 
   @required_fields ~w()
-  @optional_fields ~w(first_name last_name middlename nickname honorific_prefix honorific_suffix gender birthdate verified)
+  @optional_fields ~w(first_name last_name middlename nickname honorific_prefix honorific_suffix gender birthdate)
 
   @required_file_fields ~w()
   @optional_file_fields ~w(avatar)
@@ -90,7 +90,7 @@ defmodule Vutuv.User do
       changeset
       |> add_error(:first_name, message)
       |> add_error(:last_name, message)
-      |> add_error(:nickname, message)  
+      |> add_error(:nickname, message)
     end
   end
 end
