@@ -3,7 +3,7 @@ defmodule Vutuv.Repo.Migrations.AddAdminField do
 
   def change do
   	alter table(:users) do
-  		add :adminstrator, :boolean, default: false
+  		add :administrator, :boolean, default: false
   	end
   end
 end

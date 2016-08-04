@@ -3,6 +3,7 @@ defmodule Vutuv.Slug do
 
   schema "slugs" do
     field :value, :string
+    field :disabled, :boolean
     belongs_to :user, Vutuv.User
     timestamps
   end

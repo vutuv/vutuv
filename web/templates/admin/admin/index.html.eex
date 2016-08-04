@@ -1,0 +1,3 @@
+<h2>Admin Control panel</h2>
+
+<%= render Vutuv.Admin.SlugView, "index.html", conn: @conn%>

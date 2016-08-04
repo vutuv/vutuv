@@ -50,7 +50,8 @@ defmodule Vutuv.Router do
 
   scope "/admin", as: :admin do
     pipe_through :browser
-    resources "/slugs", Vutuv.Admin.SlugController, only: [:index, :update]
+    resources "/", Vutuv.Admin.AdminController, only: [:index]
+    post "/slugs", Vutuv.Admin.SlugController, :update
   end
 
   # Other scopes may use custom stacks.

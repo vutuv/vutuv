@@ -17,6 +17,7 @@ defmodule Vutuv.User do
     field :magic_link, :string
     field :magic_link_created_at, Ecto.DateTime
     field :active_slug, :string
+    field :administrator, :boolean
     has_many :groups,      Vutuv.Group,       on_delete: :delete_all
     has_many :emails,      Vutuv.Email,       on_delete: :delete_all
     has_many :user_skills, Vutuv.UserSkill,   on_delete: :delete_all
