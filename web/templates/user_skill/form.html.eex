@@ -4,11 +4,7 @@
       <p><%= gettext "Oops, something went wrong! Please check the errors below." %></p>
     </div>
   <% end %>
-
-  <%= label f, :user_id, class: "control-label" %>
-  <%= text_input f, :user_id, class: "form-control" %>
-  <%= error_tag f, :user_id %>
-
+  
   <%= label f, :skill_id, class: "control-label" %>
   <%= text_input f, :skill_id, class: "form-control" %>
   <%= error_tag f, :skill_id %>

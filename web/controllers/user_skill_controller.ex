@@ -18,6 +18,7 @@ defmodule Vutuv.UserSkillController do
 
   def create(conn, %{"user_skill" => user_skill_params}) do
     changeset = UserSkill.changeset(%UserSkill{}, user_skill_params)
+      |> Ecto.Changeset.put_change(:user_id, conn.assigns[:current_user].id)
 
     case Repo.insert(changeset) do
       {:ok, _user_skill} ->
