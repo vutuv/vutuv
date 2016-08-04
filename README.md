@@ -29,6 +29,12 @@ After creating a couple of example users you can login to them and
 connect to other others by browsing to their page
 e.g. http://localhost:4000/users/1 and click on the "Follow" button.
 
+To view the admin control panel, you'll need to flag your account as an admin. This can be done with the following sql query:
+`update users set administrator = true where id = <user_id>;`
+replacing `<user_id>` with your user id.
+
+You can then view the admin control panel at http://localhost:4000/admin
+
 # Do you want to participate?
 
 Great! This is an open-source project. Please feel free to create a pull request for stuff you want to change.
