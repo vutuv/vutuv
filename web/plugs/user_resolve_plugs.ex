@@ -1,7 +1,6 @@
 defmodule Vutuv.UserResolveSlug do
   import Plug.Conn
   import Ecto.Query
-  alias Plug.Conn
   alias Vutuv.Repo
 
   def init(opts) do
