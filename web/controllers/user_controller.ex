@@ -41,7 +41,12 @@ defmodule Vutuv.UserController do
       |>WordSmith.remove_accents
       |>String.downcase
 
-    if(user_count>0) do slug=slug<>Integer.to_string(user_count) end
+    slug=
+      if(user_count>0) do 
+        slug<>Integer.to_string(user_count) 
+      else
+        slug
+      end
 
     slugs = [Slug.changeset(%Slug{}, %{value: slug})]
 

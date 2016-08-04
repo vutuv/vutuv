@@ -6,8 +6,6 @@ defmodule Vutuv.Admin.SlugController do
   alias Vutuv.Slug
 
   def index(conn, _params) do
-    slug = Repo.all(from s in Slug)
-    changeset = Slug.changeset(%Slug{})
     render(conn, "index.html")
   end
 
