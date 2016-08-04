@@ -38,6 +38,8 @@ defmodule Vutuv.UserController do
     slug = user_params["first_name"]
       <>"."
       <>user_params["last_name"]
+      |>WordSmith.remove_accents
+      |>String.downcase
 
     if(user_count>0) do slug=slug<>Integer.to_string(user_count) end
 

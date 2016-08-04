@@ -44,7 +44,8 @@ defmodule Vutuv.Mixfile do
      {:arc_ecto, "~> 0.4.2"},
      {:ex_machina, "~> 0.6.1"},
      {:phoenix_html_simplified_helpers, "~> 0.6.0"},
-     {:mariaex, ">= 0.0.0"}]
+     {:mariaex, ">= 0.0.0"},
+     {:word_smith, "~> 0.1.0"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
