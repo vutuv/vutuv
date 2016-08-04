@@ -67,7 +67,6 @@ defmodule Vutuv.User do
     |> update_change(:first_name, &String.capitalize/1)
     |> update_change(:last_name,  &String.capitalize/1)
     |> update_change(:middlename, &String.capitalize/1)
-    |> update_change(:nickname,   &String.capitalize/1)
   end
 
   def validate_first_name_or_last_name_or_nickname(changeset, :empty) do
