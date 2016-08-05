@@ -93,11 +93,11 @@ defmodule Vutuv.User do
     update_change(changeset, :active_slug, &String.downcase/1)
   end
 
-  defimpl String.Chars, for: Vutuv.User do   
+  defimpl String.Chars, for: Vutuv.User do
     def to_string(user), do: "#{user.first_name} #{user.last_name}"
   end
 
-  defimpl List.Chars, for: Vutuv.User do   
-    def to_charlist(user), do: '#{user.first_name} #{user.last_name}'
+  defimpl List.Chars, for: Vutuv.User do
+    def to_charlist(user), do: "#{user.first_name} #{user.last_name}"
   end
 end

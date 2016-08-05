@@ -5,11 +5,15 @@ Status](https://travis-ci.org/vutuv/vutuv.svg?branch=master)](https://travis-ci.
 # vutuv
 vutuv is a social network service to host and share information about humans and organizations.
 
-# Run the application
+# Before you start
+
+Make sure you're running the latest version of erlang/elixir. You can download it [here.](http://elixir-lang.org/install.html)
 
 This is a [Phoenix Framework](http://www.phoenixframework.org/) application. Please install it before going forward.
 
 Make sure that your database configuration in `config/dev.exs` is correct (we use MySQL by default).
+
+# Run the application
 
 ```bash
 $ cd vutuv
