@@ -21,6 +21,7 @@ defmodule Vutuv.Email do
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields++@optional_fields)
+    |> validate_required([:value])
     |> downcase_value
     |> validate_format(:value, ~r/@/)
     |> unique_constraint(:value)

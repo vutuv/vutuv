@@ -30,29 +30,30 @@ defmodule Vutuv.UserController do
       for name <- ["Friends and Family", "Business acquaintances"] do
         Group.changeset(%Group{}, %{name: name})
       end
-    slugs = 
-      if(user_params["first_name"] != nil and user_params["last_name"] != nil) do
+    slug = 
+      if(user_params["first_name"] != nil or user_params["last_name"] != nil) do
         struct = %User{first_name: user_params["first_name"], last_name: user_params["last_name"]}
 
-        slug = Slugger.slugify_downcase(struct, ?.)
+        slug_value = Slugger.slugify_downcase(struct, ?.)
 
+        f = fn val -> if val, do: val, else: "" end
         user_count = Repo.one(from u in User, 
-          where: u.first_name == ^user_params["first_name"]
-          and u.last_name == ^user_params["last_name"],
+          where: u.first_name == ^f.(struct.first_name)
+          and u.last_name == ^f.(struct.last_name),
           select: count("*"))
-        slug=
+        slug_value=
           if(user_count>0) do 
-            slug<>Integer.to_string(user_count) 
+            slug_value<>Integer.to_string(user_count) 
           else
-            slug
+            slug_value
           end
 
-        [Slug.changeset(%Slug{}, %{value: slug})]
+        Slug.changeset(%Slug{}, %{value: slug_value})
       end
     changeset = User.changeset(%User{}, user_params)
     |> Ecto.Changeset.put_assoc(:groups, groups)
-    |> Ecto.Changeset.put_assoc(:slugs, slugs)
-    |> Ecto.Changeset.put_change(:active_slug, slug)
+    |> Ecto.Changeset.put_assoc(:slugs, [slug])
+    |> Ecto.Changeset.put_change(:active_slug, slug.changes.value)
 
     case Repo.insert(changeset) do
       {:ok, user} ->
