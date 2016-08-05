@@ -23,6 +23,7 @@ defmodule Vutuv.Slug do
     |> downcase_value
     |> validate_format(:value, ~r/^[a-z]{1}[a-z0-9-.]*$/u)
     |> unique_constraint(:value)
+    |> validate_length(:value, min: 3)
   end
 
   def downcase_value(changeset) do
