@@ -112,6 +112,12 @@
       <%= render Vutuv.EmailView, "index.html", conn: @conn, emails: @user.emails, user: @user, emails_counter: @emails_counter %>
     <% end %>
 
+    <%= render Vutuv.PhoneNumberView, "index.html", conn: @conn, phone_numbers: @user.phone_numbers, user: @user%>
+
+    <%= render Vutuv.UserUrlView, "index.html", conn: @conn, urls: @user.user_urls, user: @user%>
+
+    <%= render Vutuv.UserDateView, "index.html", conn: @conn, user_dates: @user.user_dates, user: @user%>
+
     <%= unless Enum.empty?(@user.groups) do %>
       <%= render Vutuv.GroupView, "index.html", conn: @conn, groups: @user.groups, user: @user %>
     <% end %>

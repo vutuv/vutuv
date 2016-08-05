@@ -1,0 +1,6 @@
+<h2>Edit Date</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: user_user_date_path(@conn, :update, @user, @user_date) %>
+
+<%= link "Back", to: user_user_date_path(@conn, :index, @user) %>

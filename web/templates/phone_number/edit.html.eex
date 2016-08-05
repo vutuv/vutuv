@@ -1,0 +1,6 @@
+<h2>Edit Phone Numbers</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: user_phone_number_path(@conn, :update, @user, @phone_number) %>
+
+<%= link "Back", to: user_phone_number_path(@conn, :index, @user) %>

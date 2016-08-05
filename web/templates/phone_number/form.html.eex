@@ -1,0 +1,23 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :value, class: "control-label" %>
+    <%= telephone_input f, :value, class: "form-control" %>
+    <%= error_tag f, :value %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :number_type, class: "control-label" %>
+    <%= select f, :number_type, ["Choose One": nil, "Work": "Work", "Cell": "Cell", "Home": "Home", "Fax": "Fax"], class: "form-control" %>
+    <%= error_tag f, :number_type %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

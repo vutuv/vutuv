@@ -1,0 +1,23 @@
+<h2>Show link</h2>
+
+<ul>
+
+  <li>
+    <strong>Value:</strong>
+    <%= @url.value %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @url.description %>
+  </li>
+
+  <li>
+    <strong>User:</strong>
+    <%= @url.user_id %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: user_user_url_path(@conn, :edit, @user, @url) %>
+<%= link "Back", to: user_user_url_path(@conn, :index, @user) %>
