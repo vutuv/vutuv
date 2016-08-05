@@ -7,7 +7,7 @@ vutuv is a social network service to host and share information about humans and
 
 # Before you start
 
-Make sure you're running the latest version of erlang/elixir. You can download it (here.)[http://elixir-lang.org/install.html]
+Make sure you're running the latest version of erlang/elixir. You can download it [here.](http://elixir-lang.org/install.html)
 
 This is a [Phoenix Framework](http://www.phoenixframework.org/) application. Please install it before going forward.
 
