@@ -30,24 +30,25 @@ defmodule Vutuv.UserController do
       for name <- ["Friends and Family", "Business acquaintances"] do
         Group.changeset(%Group{}, %{name: name})
       end
-    if(user_params["first_name"] != nil and user_params["last_name"] != nil) do
-      struct = %User{first_name: user_params["first_name"], last_name: user_params["last_name"]}
+    slugs = 
+      if(user_params["first_name"] != nil and user_params["last_name"] != nil) do
+        struct = %User{first_name: user_params["first_name"], last_name: user_params["last_name"]}
 
-      slug = Slugger.slugify_downcase(struct, ?.)
+        slug = Slugger.slugify_downcase(struct, ?.)
 
-      user_count = Repo.one(from u in User, 
-        where: u.first_name == ^user_params["first_name"]
-        and u.last_name == ^user_params["last_name"],
-        select: count("*"))
-      slug=
-        if(user_count>0) do 
-          slug<>Integer.to_string(user_count) 
-        else
-          slug
-        end
+        user_count = Repo.one(from u in User, 
+          where: u.first_name == ^user_params["first_name"]
+          and u.last_name == ^user_params["last_name"],
+          select: count("*"))
+        slug=
+          if(user_count>0) do 
+            slug<>Integer.to_string(user_count) 
+          else
+            slug
+          end
 
-      slugs = [Slug.changeset(%Slug{}, %{value: slug})]
-    end
+        [Slug.changeset(%Slug{}, %{value: slug})]
+      end
     changeset = User.changeset(%User{}, user_params)
     |> Ecto.Changeset.put_assoc(:groups, groups)
     |> Ecto.Changeset.put_assoc(:slugs, slugs)
