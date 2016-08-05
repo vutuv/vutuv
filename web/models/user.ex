@@ -58,6 +58,7 @@ defmodule Vutuv.User do
     |> validate_length(:honorific_prefix, max: 50)
     |> validate_length(:honorific_suffix, max: 50)
     |> validate_length(:gender, max: 50)
+    |> downcase_value
   end
 
   def validate_first_name_or_last_name_or_nickname(changeset, :empty) do
@@ -82,5 +83,18 @@ defmodule Vutuv.User do
       |> add_error(:last_name, message)
       |> add_error(:nickname, message)
     end
+  end
+
+  def downcase_value(changeset) do
+    # If the value has been changed, downcase it.
+    update_change(changeset, :active_slug, &String.downcase/1)
+  end
+
+  defimpl String.Chars, for: Vutuv.User do   
+    def to_string(user), do: "#{user.first_name} #{user.last_name}"
+  end
+
+  defimpl List.Chars, for: Vutuv.User do   
+    def to_charlist(user), do: '#{user.first_name} #{user.last_name}'
   end
 end

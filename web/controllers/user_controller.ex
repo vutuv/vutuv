@@ -31,16 +31,14 @@ defmodule Vutuv.UserController do
         Group.changeset(%Group{}, %{name: name})
       end
     if(user_params["first_name"] != nil and user_params["last_name"] != nil) do
+      struct = %User{first_name: user_params["first_name"], last_name: user_params["last_name"]}
+
+      slug = Slugger.slugify_downcase(struct, ?.)
+
       user_count = Repo.one(from u in User, 
         where: u.first_name == ^user_params["first_name"]
         and u.last_name == ^user_params["last_name"],
         select: count("*"))
-      slug = user_params["first_name"]
-      <>"."
-      <>user_params["last_name"]
-      |>WordSmith.remove_accents
-      |>String.downcase
-
       slug=
         if(user_count>0) do 
           slug<>Integer.to_string(user_count) 
