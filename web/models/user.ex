@@ -95,6 +95,6 @@ defmodule Vutuv.User do
   end
 
   defimpl List.Chars, for: Vutuv.User do
-    def to_charlist(user), do: "#{user.first_name} #{user.last_name}"
+    def to_charlist(user), do: '#{user.first_name} #{user.last_name}'
   end
 end
