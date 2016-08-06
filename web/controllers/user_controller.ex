@@ -8,7 +8,6 @@ defmodule Vutuv.UserController do
   alias Vutuv.Slug
   alias Vutuv.User
   alias Vutuv.Email
-  alias Vutuv.Group
   alias Vutuv.Connection
 
   plug :scrub_params, "user" when action in [:create, :update]
@@ -26,24 +25,20 @@ defmodule Vutuv.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    groups =
-      for name <- ["Friends and Family", "Business acquaintances"] do
-        Group.changeset(%Group{}, %{name: name})
-      end
-    slug = 
+    slug =
       if(user_params["first_name"] != nil or user_params["last_name"] != nil) do
         struct = %User{first_name: user_params["first_name"], last_name: user_params["last_name"]}
 
         slug_value = Slugger.slugify_downcase(struct, ?.)
 
         f = fn val -> if val, do: val, else: "" end
-        user_count = Repo.one(from u in User, 
+        user_count = Repo.one(from u in User,
           where: u.first_name == ^f.(struct.first_name)
           and u.last_name == ^f.(struct.last_name),
           select: count("*"))
         slug_value=
-          if(user_count>0) do 
-            slug_value<>Integer.to_string(user_count) 
+          if(user_count>0) do
+            slug_value<>Integer.to_string(user_count)
           else
             slug_value
           end
@@ -51,7 +46,6 @@ defmodule Vutuv.UserController do
         Slug.changeset(%Slug{}, %{value: slug_value})
       end
     changeset = User.changeset(%User{}, user_params)
-    |> Ecto.Changeset.put_assoc(:groups, groups)
     |> Ecto.Changeset.put_assoc(:slugs, [slug])
     |> Ecto.Changeset.put_change(:active_slug, slug.changes.value)
 
@@ -69,8 +63,7 @@ defmodule Vutuv.UserController do
   def show(conn, _params) do
     user =
       Repo.get!(User, conn.assigns[:user_id])
-      |> Repo.preload([:groups, :emails, :user_skills, :work_experiences,
-                      :social_media_accounts, :addresses,
+      |> Repo.preload([:emails, :user_skills,
                       :user_urls, :user_dates, :phone_numbers,
                       followee_connections:
                         {Connection.latest(5), [:followee]},
