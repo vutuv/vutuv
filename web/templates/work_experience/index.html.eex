@@ -1,0 +1,44 @@
+<div class="pure-g">
+  <div class="pure-u-1-1">
+    <h2><%= gettext "Listing work experience" %></h2>
+
+    <table class="pure-table pure-table-horizontal">
+      <thead>
+        <tr>
+    
+          <th>Organization</th>
+          <th>Job Title</th>
+          <th>Job Description</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    <%= for {work_experience, index} <- Enum.with_index(@work_experience) do %>
+        <tr class="<%= if rem(index, 2) == 1, do: "pure-table-odd" %>">
+          <td><%=work_experience.organization%></td>
+          <td><%=work_experience.title%></td>
+          <td><%=work_experience.description%></td>
+          <td>
+            <%=String.rjust(Integer.to_string(work_experience.start_month),2, ?0)
+            <>"/"<>Integer.to_string(work_experience.start_year)%>
+          </td>
+          <td>
+            <%=String.rjust(Integer.to_string(work_experience.end_month),2, ?0)
+            <>"/"<>Integer.to_string(work_experience.end_year)%>
+          </td>
+
+          <td class="text-right">
+            <%= link gettext("Show"), to: user_work_experience_path(@conn, :show, @user, work_experience), class: "pure-button" %>
+            <%= link gettext("Edit"), to: user_work_experience_path(@conn, :edit, @user, work_experience), class: "pure-button" %>
+            <%= link gettext("Delete"), to: user_work_experience_path(@conn, :delete, @user, work_experience), method: :delete, data: [confirm: gettext("Are you sure?")], class: "pure-button" %>
+          </td>
+        </tr>
+    <% end %>
+      </tbody>
+    </table>
+
+    <%= link gettext("New work experience"), to: user_work_experience_path(@conn, :new, @user), class: "pure-button" %>
+  </div>
+</div>

@@ -118,6 +118,12 @@
 
     <%= render Vutuv.UserDateView, "index.html", conn: @conn, user_dates: @user.user_dates, user: @user%>
 
+    <%= render Vutuv.WorkExperienceView, "index.html", conn: @conn, work_experience: @user.work_experiences, user: @user%>
+
+    <%= render Vutuv.SocialMediaAccountView, "index.html", conn: @conn, social_media_accounts: @user.social_media_accounts, user: @user%>
+
+    <%= render Vutuv.AddressView, "index.html", conn: @conn, addresses: @user.addresses, user: @user%>
+
     <%= unless Enum.empty?(@user.groups) do %>
       <%= render Vutuv.GroupView, "index.html", conn: @conn, groups: @user.groups, user: @user %>
     <% end %>

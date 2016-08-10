@@ -1,0 +1,25 @@
+<div class="pure-g">
+  <div class="pure-u-1-1">
+    <h2><%= gettext "Show social media account" %></h2>
+
+    <ul>
+    	<li>
+		    <strong>Provider:</strong>
+		    <%= @social_media_account.provider %>
+		  </li>
+
+		  <li>
+		    <strong>Account:</strong>
+		    <%= @social_media_account.account %>
+		  </li>
+
+		  <li>
+		    <strong>User:</strong>
+		    <%= @social_media_account.user_id %>
+		  </li>
+    </ul>
+
+    <%= link gettext("Edit"), to: user_social_media_account_path(@conn, :edit, @user, @social_media_account), class: "pure-button" %>
+    <%= link gettext("Back"), to: user_social_media_account_path(@conn, :index, @user), class: "pure-button" %>
+  </div>
+</div>
