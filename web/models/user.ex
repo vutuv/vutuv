@@ -14,14 +14,14 @@ defmodule Vutuv.User do
     field :birthdate, Ecto.Date
     field :verified, :boolean, default: false
     field :avatar, Vutuv.Avatar.Type
-    field :magic_link, :string
-    field :magic_link_created_at, Ecto.DateTime
     field :active_slug, :string
     field :administrator, :boolean
+
+    has_many :magic_links,            Vutuv.MagicLink,          on_delete: :delete_all
     has_many :groups,                 Vutuv.Group,              on_delete: :delete_all
     has_many :emails,                 Vutuv.Email,              on_delete: :delete_all
     has_many :user_skills,            Vutuv.UserSkill,          on_delete: :delete_all
-    has_many :slugs,                  Vutuv.Slug
+    has_many :slugs,                  Vutuv.Slug,               on_delete: :delete_all
     has_many :user_urls,              Vutuv.UserUrl,            on_delete: :delete_all
     has_many :user_dates,             Vutuv.UserDate,           on_delete: :delete_all
     has_many :phone_numbers,          Vutuv.PhoneNumber,        on_delete: :delete_all

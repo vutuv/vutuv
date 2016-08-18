@@ -127,16 +127,29 @@ defmodule Vutuv.UserController do
       end
   end
 
-  def delete(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
+  def magicdelete(conn, %{"magiclink" => link}) do
+    case Vutuv.MagicLinkHelpers.check_magic_link(link, "delete") do
+      {:ok, user} ->
+        # Here we use delete! (with a bang) because we expect
+        # it to always work (and if it does not, it will raise).
+        Repo.delete!(conn.assigns[:current_user])
 
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(user)
+        conn
+        |> Vutuv.Auth.logout
+        |> put_flash(:info, "User deleted successfully.")
+        |> redirect(to: page_path(conn, :index))
+      {:error, reason} ->
+        conn
+        |> put_flash(:error, reason)
+        |> redirect(to: page_path(conn, :index))
+    end
+  end
 
+  def delete(conn, _params) do
+    link = Vutuv.MagicLinkHelpers.gen_magic_link(conn.assigns[:current_user], "delete")
     conn
-    |> put_flash(:info, "User deleted successfully.")
-    |> redirect(to: user_path(conn, :index))
+    |> put_flash(:info, gettext("localhost:4000/magicdelete/")<>link)
+    |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
   end
 
   def follow_back(conn, %{"id" => id}) do

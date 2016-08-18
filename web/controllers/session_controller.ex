@@ -22,7 +22,7 @@ defmodule Vutuv.SessionController do
   end
 
   def show(conn, %{"magiclink"=>link}) do
-    case Vutuv.MagicLink.login_magic_link(link) do
+    case Vutuv.MagicLinkHelpers.check_magic_link(link, "login") do
       {:ok, user} -> 
         conn=Vutuv.Auth.login(conn,user)
         conn

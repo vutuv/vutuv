@@ -150,5 +150,11 @@
       <h2><%= gettext "UserSkills" %></h2>
       <%= link "New UserSkill", to: user_user_skill_path(@conn, :new, @user), class: "pure-button" %>
     <% end %>
+
+    <%= if Vutuv.LayoutView.is_current_user_page?(@conn) do %>
+     <%= link gettext("Delete Account"), to: user_path(@conn, :delete, @user), method: :delete, data: [confirm: "Are you sure?"] %>
+    <% end %>
+
   </div>
 </div>
+    

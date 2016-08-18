@@ -31,7 +31,7 @@ defmodule Vutuv.Auth do
 
     cond do
       user != nil ->
-        {:ok, Vutuv.MagicLink.gen_magic_link(user), conn}
+        {:ok, Vutuv.MagicLinkHelpers.gen_magic_link(user, "login"), conn}
       user == nil ->
         {:error, :not_found, conn}
     end
