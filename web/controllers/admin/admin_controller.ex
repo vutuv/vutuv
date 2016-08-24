@@ -3,8 +3,11 @@ defmodule Vutuv.Admin.AdminController do
   plug :logged_in?
   plug :authorize
 
+  alias Vutuv.User
+
   def index(conn, _params) do
-    render conn, "index.html"
+    users = Repo.all(from u in User, where: u.verified != true)
+    render conn, "index.html", users: users
   end
 
   defp logged_in?(conn, _opts) do
