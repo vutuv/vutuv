@@ -11,7 +11,7 @@
   <tbody>
 <%= for phone_number <- @phone_numbers do %>
     <tr>
-      <td><%= phone_number.value %></td>
+      <td><%= link phone_number.value, to: "tel:"<>phone_number.value %></td>
       <td><%= phone_number.number_type %></td>
       <td class="text-right">
         <%= link "Show", to: user_phone_number_path(@conn, :show, @user, phone_number), class: "btn btn-default btn-xs" %>
