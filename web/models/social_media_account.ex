@@ -29,7 +29,7 @@ defmodule Vutuv.SocialMediaAccount do
 
   def parse_account(account) do
     account
-    |>String.replace(~r/^(http:\/\/)?(www\.)?\S*\.[a-z]*$/u,"")
+    |>String.replace(~r/^(http:\/\/)?(www\.)?\w*\.[a-z]*\/$/u,"")
     |>String.split(~r/\//, [trim: true])
     |>List.last
   end
