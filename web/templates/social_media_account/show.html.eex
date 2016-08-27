@@ -10,7 +10,7 @@
 
 		  <li>
 		    <strong>Account:</strong>
-		    <%= @social_media_account.account %>
+		    <%= @social_media_account.value %>
 		  </li>
 
 		  <li>

@@ -15,7 +15,7 @@
     <%= for {social_media_account, index} <- Enum.with_index(@social_media_accounts) do %>
         <tr class="<%= if rem(index, 2) == 1, do: "pure-table-odd" %>">
           <td><%=social_media_account.provider%>
-          <td><%=gettext("@")<>social_media_account.account%>
+          <td><%=gettext("@")<>social_media_account.value%>
           <td class="text-right">
             <%= link gettext("Show"), to: user_social_media_account_path(@conn, :show, @user, social_media_account), class: "pure-button" %>
             <%= link gettext("Edit"), to: user_social_media_account_path(@conn, :edit, @user, social_media_account), class: "pure-button" %>

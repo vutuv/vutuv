@@ -3,13 +3,13 @@ defmodule Vutuv.SocialMediaAccount do
 
   schema "social_media_accounts" do
     field :provider, :string
-    field :account, :string
+    field :value, :string
 
     belongs_to :user, Vutuv.User
     timestamps
   end
 
-  @required_fields ~w(provider account)
+  @required_fields ~w(provider value)
   @optional_fields ~w()
 
   @doc """
@@ -21,21 +21,21 @@ defmodule Vutuv.SocialMediaAccount do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields ++ @optional_fields)
-    |> validate_required([:provider, :account])
-    |> update_change(:account, &parse_account/1)
-    |> validate_change(:account, &validate_parse/2)
-    |> validate_format(:account, ~r/^[a-z0-9-\.]*$/u)
+    |> validate_required([:provider, :value])
+    |> update_change(:value, &parse_value/1)
+    |> validate_change(:value, &validate_parse/2)
+    |> validate_format(:value, ~r/^[a-z0-9-\.]*$/u)
   end
 
-  def parse_account(account) do
-    account
+  def parse_value(value) do
+    value
     |>String.replace(~r/^(http:\/\/)?(www\.)?\w*\.[a-z]*\/$/u,"")
     |>String.split(~r/\//, [trim: true])
     |>List.last
   end
 
-  def validate_parse(_, account) do
-    if account, do: [], else: [account: {"Invalid account", []}]
+  def validate_parse(_, value) do
+    if value, do: [], else: [value: {"Invalid account name", []}]
   end
 
 end

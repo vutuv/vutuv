@@ -13,8 +13,8 @@
 
 	<div class="form-group">
     <%= label f, :account, class: "control-label" %>
-    <%= text_input f, :account, class: "form-control" %>
-    <%= error_tag f, :account %>
+    <%= text_input f, :value, class: "form-control" %>
+    <%= error_tag f, :value %>
   </div>
 
   <%= submit gettext("Submit"), class: "pure-button pure-button-primary" %>

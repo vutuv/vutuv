@@ -41,7 +41,7 @@ defmodule Vutuv.Router do
       resources "/phonenumbers", PhoneNumberController
       resources "/dates", UserDateController
       resources "/links", UserUrlController
-      resources "/socialmedia", SocialMediaAccountController
+      resources "/social_media_accounts", SocialMediaAccountController
       resources "/workexperience", WorkExperienceController
       resources "/addresses", AddressController
     end
