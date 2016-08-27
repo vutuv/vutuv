@@ -9,8 +9,7 @@ defmodule Vutuv.AddressController do
   end
 
   def new(conn, _params) do
-    changeset = Address.changeset(%Address{})
-    render(conn, "new.html", changeset: changeset)
+    render conn, "new.html", country: nil
   end
 
   def create(conn, %{"address" => address_params}) do
@@ -18,15 +17,19 @@ defmodule Vutuv.AddressController do
       conn.assigns[:user]
       |> build_assoc(:addresses)
       |> Address.changeset(address_params)
-
     case Repo.insert(changeset) do
       {:ok, _address} ->
         conn
         |> put_flash(:info, gettext("Address created successfully."))
         |> redirect(to: user_address_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, country: changeset.changes.country)
     end
+  end
+
+  def create(conn, %{"country_select" => country_param}) do
+    changeset = Address.changeset(%Address{}, country_param)
+    render conn, "new.html", changeset: changeset, country: country_param["country"]
   end
 
   def show(conn, %{"id" => id}) do

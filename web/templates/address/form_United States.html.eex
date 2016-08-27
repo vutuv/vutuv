@@ -1,0 +1,46 @@
+<%= form_for @changeset, @action, [class: "pure-form pure-form-stacked"], fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p><%= gettext "Oops, something went wrong! Please check the errors below." %></p>
+    </div>
+  <% end %>
+  
+  <%= hidden_input f, :country, class: "form-control" %>
+
+  <div class="form-group">
+    <%= label f, :description, class: "control-label" %>
+    <%= text_input f, :description, class: "form-control" %>
+    <%= error_tag f, :description %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :line_1, class: "control-label" %>
+    <%= text_input f, :line_1, class: "form-control" %>
+    <%= error_tag f, :line_1 %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :line_2, class: "control-label" %>
+    <%= text_input f, :line_2, class: "form-control" %>
+    <%= error_tag f, :line_2 %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :city, class: "control-label" %>
+    <%= text_input f, :city, class: "form-control" %>
+    <%= error_tag f, :city %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :state, class: "control-label" %>
+    <%= text_input f, :state, class: "form-control" %>
+    <%= error_tag f, :state %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :zip_code, class: "control-label" %>
+    <%= text_input f, :zip_code, class: "form-control" %>
+    <%= error_tag f, :zip_code %>
+  </div>
+  <%= submit gettext("Submit"), class: "pure-button pure-button-primary" %>
+<% end %>

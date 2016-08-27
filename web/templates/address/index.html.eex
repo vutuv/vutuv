@@ -16,9 +16,14 @@
         <tr class="<%= if rem(index, 2) == 1, do: "pure-table-odd" %>">
           <td><%=address.description%></td>
           <td>
-            <%=address.line_1<>" "<>address.line_2%><br>
-              <%=address.city<>", "<>address.state<>" "<>address.zip_code%><br>
-              <%=address.country %>
+            Line 1: <%= address.line_1 %><br>
+            Line 2: <%= address.line_2 %><br>
+            Line 3: <%= address.line_3 %><br>
+            Line 4: <%= address.line_4 %><br>
+            City/Town: <%= address.city %><br>
+            State/Province: <%= address.state %><br>
+            Zip/Postal Code: <%= address.zip_code %><br>
+            Country: <%=address.country %><br>
           </td>
           <td class="text-right">
             <%= link gettext("Show"), to: user_address_path(@conn, :show, @user, address), class: "pure-button" %>
