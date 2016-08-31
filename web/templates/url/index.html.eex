@@ -1,0 +1,26 @@
+<h2><%= gettext "Links" %></h2>
+
+<table class="pure-table pure-table-horizontal">
+  <thead>
+    <tr>
+      <th><%= gettext "URL" %></th>
+      <th><%= gettext "Description" %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for url <- @urls do %>
+    <tr>
+      <td><%= url.value %></td>
+      <td><%= url.description %></td>
+      <td class="text-right">
+        <%= link "Show", to: user_url_path(@conn, :show, @user, url), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: user_url_path(@conn, :edit, @user, url), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: user_url_path(@conn, :delete, @user, url), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New link", to: user_url_path(@conn, :new, @user) %>

@@ -1,0 +1,23 @@
+<h2>Show Date</h2>
+
+<ul>
+
+  <li>
+    <strong>Value:</strong>
+    <%= @date.value %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @date.description %>
+  </li>
+
+  <li>
+    <strong>User:</strong>
+    <%= @date.user_id %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: user_date_path(@conn, :edit, @user, @date) %>
+<%= link "Back", to: user_date_path(@conn, :index, @user) %>

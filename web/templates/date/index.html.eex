@@ -1,0 +1,24 @@
+<h2><%= gettext "Dates" %></h2>
+
+<table class="pure-table pure-table-horizontal">
+  <thead>
+    <tr>
+      <th><%= gettext "Date" %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for date <- @dates do %>
+    <tr>
+      <td><%= date.value %></td>
+      <td class="text-right">
+        <%= link "Show", to: user_date_path(@conn, :show, @user, date), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: user_date_path(@conn, :edit, @user, date), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: user_date_path(@conn, :delete, @user, date), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New Date", to: user_date_path(@conn, :new, @user) %>

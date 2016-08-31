@@ -39,8 +39,8 @@ defmodule Vutuv.Router do
       resources "/skills", UserSkillController, only: [:new, :create, :show, :delete, :index]
       resources "/endorsements", EndorsementController, only: [:create, :delete]
       resources "/phonenumbers", PhoneNumberController
-      resources "/dates", UserDateController
-      resources "/links", UserUrlController
+      resources "/dates", DateController
+      resources "/links", UrlController
       resources "/social_media_accounts", SocialMediaAccountController
       resources "/workexperience", WorkExperienceController
       resources "/addresses", AddressController

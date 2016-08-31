@@ -1,73 +1,73 @@
-defmodule Vutuv.UserUrlController do
+defmodule Vutuv.UrlController do
   use Vutuv.Web, :controller
   plug :auth_user
 
-  alias Vutuv.UserUrl
+  alias Vutuv.Url
 
-  plug :scrub_params, "user_url" when action in [:create, :update]
+  plug :scrub_params, "url" when action in [:create, :update]
 
   def index(conn, _params) do
-    urls = Repo.all(assoc(conn.assigns[:user], :user_urls))
+    urls = Repo.all(assoc(conn.assigns[:user], :urls))
     render(conn, "index.html", urls: urls)
   end
 
   def new(conn, _params) do
     changeset =
       conn.assigns[:user]
-      |> build_assoc(:user_urls)
-      |> UserUrl.changeset()
+      |> build_assoc(:urls)
+      |> Url.changeset()
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"user_url" => url_params}) do
+  def create(conn, %{"url" => url_params}) do
     changeset =
       conn.assigns[:user]
-      |> build_assoc(:user_urls)
-      |> UserUrl.changeset(url_params)
+      |> build_assoc(:urls)
+      |> Url.changeset(url_params)
 
     case Repo.insert(changeset) do
       {:ok, _url} ->
         conn
         |> put_flash(:info, "Link created successfully.")
-        |> redirect(to: user_user_url_path(conn, :index, conn.assigns[:user]))
+        |> redirect(to: user_url_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
   end
 
   def show(conn, %{"id" => id}) do
-    url = Repo.get!(assoc(conn.assigns[:user], :user_urls), id)
+    url = Repo.get!(assoc(conn.assigns[:user], :urls), id)
     render(conn, "show.html", url: url)
   end
 
   def edit(conn, %{"id" => id}) do
-    url = Repo.get!(assoc(conn.assigns[:user], :user_urls), id)
-    changeset = UserUrl.changeset(url)
+    url = Repo.get!(assoc(conn.assigns[:user], :urls), id)
+    changeset = Url.changeset(url)
     render(conn, "edit.html", url: url, changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "user_url" => url_params}) do
-    url = Repo.get!(assoc(conn.assigns[:user], :user_urls), id)
-    changeset = UserUrl.changeset(url, url_params)
+  def update(conn, %{"id" => id, "url" => url_params}) do
+    url = Repo.get!(assoc(conn.assigns[:user], :urls), id)
+    changeset = Url.changeset(url, url_params)
     case Repo.update(changeset) do
       {:ok, url} ->
         conn
         |> put_flash(:info, "Link updated successfully.")
-        |> redirect(to: user_user_url_path(conn, :show, conn.assigns[:user], url))
+        |> redirect(to: user_url_path(conn, :show, conn.assigns[:user], url))
       {:error, changeset} ->
         render(conn, "edit.html", url: url, changeset: changeset)
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    url = Repo.get!(assoc(conn.assigns[:user], :user_urls), id)
+    url = Repo.get!(assoc(conn.assigns[:user], :urls), id)
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
     
     Repo.delete!(url)
     conn
     |> put_flash(:info, "Link deleted successfully.")
-    |> redirect(to: user_user_url_path(conn, :index, conn.assigns[:user]))
+    |> redirect(to: user_url_path(conn, :index, conn.assigns[:user]))
   end
 
   defp auth_user(conn, _opts) do

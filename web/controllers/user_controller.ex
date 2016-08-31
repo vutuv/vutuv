@@ -65,7 +65,7 @@ defmodule Vutuv.UserController do
       Repo.get!(User, conn.assigns[:user_id])
       |>Repo.preload([:emails, :user_skills, :work_experiences,
                       :social_media_accounts, :addresses,
-                      :user_urls, :user_dates, :phone_numbers,
+                      :urls, :dates, :phone_numbers,
                       followee_connections:
                         {Connection.latest(5), [:followee]},
                       follower_connections:

@@ -1,8 +1,8 @@
-defmodule Vutuv.UserDate do
+defmodule Vutuv.Url do
   use Vutuv.Web, :model
 
-  schema "user_dates" do
-    field :value, Ecto.Date
+  schema "urls" do
+    field :value, :string
     field :description, :string
 
     belongs_to :user, Vutuv.User
@@ -19,5 +19,6 @@ defmodule Vutuv.UserDate do
     model
     |> cast(params, [:value, :description])
     |> validate_required([:value])
+    |> validate_format(:value, ~r/^http:\/\/(www\.)?[a-z0-9]+.[a-z]+$/u)
   end
 end

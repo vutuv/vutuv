@@ -22,8 +22,8 @@ defmodule Vutuv.User do
     has_many :emails,                 Vutuv.Email,              on_delete: :delete_all
     has_many :user_skills,            Vutuv.UserSkill,          on_delete: :delete_all
     has_many :slugs,                  Vutuv.Slug,               on_delete: :delete_all
-    has_many :user_urls,              Vutuv.UserUrl,            on_delete: :delete_all
-    has_many :user_dates,             Vutuv.UserDate,           on_delete: :delete_all
+    has_many :urls,                   Vutuv.Url,                on_delete: :delete_all
+    has_many :dates,                  Vutuv.Date,               on_delete: :delete_all
     has_many :phone_numbers,          Vutuv.PhoneNumber,        on_delete: :delete_all
     has_many :addresses,              Vutuv.Address,            on_delete: :delete_all
     has_many :work_experiences,       Vutuv.WorkExperience,     on_delete: :delete_all

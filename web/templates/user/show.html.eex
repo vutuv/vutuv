@@ -114,9 +114,9 @@
 
     <%= render Vutuv.PhoneNumberView, "index.html", conn: @conn, phone_numbers: @user.phone_numbers, user: @user%>
 
-    <%= render Vutuv.UserUrlView, "index.html", conn: @conn, urls: @user.user_urls, user: @user%>
+    <%= render Vutuv.UrlView, "index.html", conn: @conn, urls: @user.urls, user: @user%>
 
-    <%= render Vutuv.UserDateView, "index.html", conn: @conn, user_dates: @user.user_dates, user: @user%>
+    <%= render Vutuv.DateView, "index.html", conn: @conn, dates: @user.dates, user: @user%>
 
     <%= render Vutuv.WorkExperienceView, "index.html", conn: @conn, work_experience: @user.work_experiences, user: @user%>
 
