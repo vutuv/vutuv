@@ -42,7 +42,7 @@
     <%= error_tag f, :honorific_suffix %>
 
     <%= label f, :birthdate, class: "control-label" %>
-    <%= date_select f, :birthdate, class: "form-control" %>
+    <%= date_select f, :birthdate, year: [options: 1900..2100], class: "form-control" %>
     <%= error_tag f, :birthdate %>
 
     <%= label f, :avatar, class: "control-label" %>

@@ -116,8 +116,6 @@
 
     <%= render Vutuv.UrlView, "index.html", conn: @conn, urls: @user.urls, user: @user%>
 
-    <%= render Vutuv.DateView, "index.html", conn: @conn, dates: @user.dates, user: @user%>
-
     <%= render Vutuv.WorkExperienceView, "index.html", conn: @conn, work_experience: @user.work_experiences, user: @user%>
 
     <%= render Vutuv.SocialMediaAccountView, "index.html", conn: @conn, social_media_accounts: @user.social_media_accounts, user: @user%>
