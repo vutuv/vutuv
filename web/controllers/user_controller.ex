@@ -24,24 +24,30 @@ defmodule Vutuv.UserController do
     render(conn, "new.html", changeset: changeset)
   end
 
+  def generate_slug(user) do
+    slug_value = Slugger.slugify_downcase(user, ?.)
+
+    f = fn val -> if val, do: val, else: "" end
+
+    user_count = Repo.one(from u in User,
+      where: u.first_name == ^f.(user.first_name)
+      and u.last_name == ^f.(user.last_name),
+      select: count("*"))
+
+    slug_value=
+      if(user_count>0) do
+        slug_value<>Integer.to_string(user_count)
+      else
+        slug_value
+      end
+  end
+
   def create(conn, %{"user" => user_params}) do
     slug =
       if(user_params["first_name"] != nil or user_params["last_name"] != nil) do
         struct = %User{first_name: user_params["first_name"], last_name: user_params["last_name"]}
 
-        slug_value = Slugger.slugify_downcase(struct, ?.)
-
-        f = fn val -> if val, do: val, else: "" end
-        user_count = Repo.one(from u in User,
-          where: u.first_name == ^f.(struct.first_name)
-          and u.last_name == ^f.(struct.last_name),
-          select: count("*"))
-        slug_value=
-          if(user_count>0) do
-            slug_value<>Integer.to_string(user_count)
-          else
-            slug_value
-          end
+        slug_value = generate_slug(struct)
 
         Slug.changeset(%Slug{}, %{value: slug_value})
       end
@@ -176,15 +182,16 @@ defmodule Vutuv.UserController do
   def resolve_slug(conn, _opts) do
     case conn.params do
       %{"slug" => slug} ->
-        case Repo.one(from s in Slug, where: s.value == ^slug, select: s.user_id) do
+        case Repo.one(from s in Slug, where: s.value == ^slug) do
           nil  -> invalid_slug(conn)
-          user_id ->
+          %{disabled: false, user_id: user_id} ->
             user = Repo.get!(Vutuv.User, user_id)
             if(user.active_slug != slug) do
               redirect(conn, to: user_path(conn, :show, user))
             else
               assign(conn, :user_id, user_id)
             end
+          _ -> invalid_slug(conn)
         end
       _ -> invalid_slug(conn)
     end

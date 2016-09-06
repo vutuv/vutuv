@@ -19,11 +19,27 @@ defmodule Vutuv.Admin.SlugController do
         changeset = Ecto.Changeset.cast(slug, %{disabled: true}, [:disabled])
         case Repo.update(changeset) do
           {:ok, slug} ->
-            conn
-            |> put_flash(:info, "Slug disabled successfully.")
-            |> redirect(to: admin_admin_path(conn, :index))
+            user = Repo.get(Vutuv.User, slug.user_id)
+              |>Repo.preload(:slugs)
+
+            user_changeset = 
+            case Repo.all(from s in Slug, where: s.user_id == ^slug.user_id and s.disabled == false, select: s.value) do
+              [] ->
+                slug_value = Vutuv.UserController.generate_slug(user)
+                Ecto.Changeset.cast(user, %{active_slug: slug_value}, [:active_slug])
+                |>Ecto.Changeset.put_assoc(:slugs, [Slug.changeset(%Slug{}, %{value: slug_value})], [:value])
+              new -> Ecto.Changeset.cast(user, %{active_slug: hd(new)}, [:active_slug])
+            end
+            case Repo.update(user_changeset) do
+              {:ok, user} ->
+                conn
+                |> put_flash(:info, "Slug disabled successfully.")
+                |> redirect(to: admin_admin_path(conn, :index))
+              {:error, user_changeset} ->
+                redirect(conn, to: admin_admin_path(conn, :index))
+            end
           {:error, changeset} ->
-            render(conn, "index.html")
+            redirect(conn, to: admin_admin_path(conn, :index))
         end
     end
   end

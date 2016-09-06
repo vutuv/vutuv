@@ -22,7 +22,7 @@ defmodule Vutuv.User do
     has_many :groups,                 Vutuv.Group,              on_delete: :delete_all
     has_many :emails,                 Vutuv.Email,              on_delete: :delete_all
     has_many :user_skills,            Vutuv.UserSkill,          on_delete: :delete_all
-    has_many :slugs,                  Vutuv.Slug,               on_delete: :delete_all
+    has_many :slugs,                  Vutuv.Slug,               on_delete: :delete_all, on_replace: :nilify
     has_many :urls,                   Vutuv.Url,                on_delete: :delete_all
     has_many :phone_numbers,          Vutuv.PhoneNumber,        on_delete: :delete_all
     has_many :addresses,              Vutuv.Address,            on_delete: :delete_all
