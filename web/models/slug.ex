@@ -1,5 +1,6 @@
 defmodule Vutuv.Slug do
   use Vutuv.Web, :model
+  alias Vutuv.Slug
 
   schema "slugs" do
     field :value, :string
@@ -24,11 +25,30 @@ defmodule Vutuv.Slug do
     |> validate_format(:value, ~r/^[a-z]{1}[a-z0-9-.]*$/u)
     |> unique_constraint(:value)
     |> validate_length(:value, min: 3)
+    |> can_create_slug?(model)
   end
 
   def downcase_value(changeset) do
     # If the value has been changed, downcase it.
     update_change(changeset, :value, &String.downcase/1)
+  end
+
+  def can_create_slug?(changeset, model) do
+    slug_count = Vutuv.Repo.one(from s in Slug, where: s.user_id == ^model.user_id, select: count("*"))
+    last_slug_inserted_days = 
+        (:calendar.datetime_to_gregorian_seconds(:calendar.universal_time()) -
+         :calendar.datetime_to_gregorian_seconds(
+           Ecto.DateTime.to_erl(hd(Vutuv.Repo.all(from s in Slug, where: s.user_id == ^model.user_id, order_by: [desc: s.inserted_at], select: s.inserted_at)))))/86400
+        
+    user_age_days = 
+        (:calendar.datetime_to_gregorian_seconds(:calendar.universal_time()) -
+         :calendar.datetime_to_gregorian_seconds(Ecto.DateTime.to_erl(Vutuv.Repo.get(Vutuv.User, model.user_id).inserted_at)))/86400
+        
+    cond do
+      slug_count<3 and user_age_days<30 -> changeset
+      slug_count>=3 and last_slug_inserted_days>90 -> changeset
+      true -> add_error(changeset, :value, "Reached max new slugs in time period.")
+    end
   end
 
 end
