@@ -21,12 +21,12 @@
           <td><%=work_experience.title%></td>
           <td><%=work_experience.description%></td>
           <td>
-            <%=String.rjust(Integer.to_string(work_experience.start_month),2, ?0)
-            <>"/"<>Integer.to_string(work_experience.start_year)%>
+            <%=Regex.replace(~r/nil\/?/,String.rjust(inspect(work_experience.start_month),2, ?0)
+            <>"/"<>inspect(work_experience.start_year),"")%>
           </td>
           <td>
-            <%=String.rjust(Integer.to_string(work_experience.end_month),2, ?0)
-            <>"/"<>Integer.to_string(work_experience.end_year)%>
+            <%=Regex.replace(~r/nil\/?/,String.rjust(inspect(work_experience.end_month),2, ?0)
+            <>"/"<>inspect(work_experience.end_year),"")%>
           </td>
 
           <td class="text-right">

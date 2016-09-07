@@ -5,10 +5,10 @@ defmodule Vutuv.WorkExperience do
     field :organization, :string
     field :title, :string
     field :description, :string
-    field :start_month, :integer
-    field :start_year, :integer
-    field :end_month, :integer
-    field :end_year, :integer
+    field :start_month, :integer, allow_nil: true
+    field :start_year, :integer, allow_nil: true
+    field :end_month, :integer, allow_nil: true
+    field :end_year, :integer, allow_nil: true
 
     has_one :company, Vutuv.Company
 
@@ -29,39 +29,55 @@ defmodule Vutuv.WorkExperience do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields ++ @optional_fields)
-    |> validate_required([:title, :description, :start_year, :start_month, :organization])
-    |> validate_end_dates
+    |> validate_required([:title, :organization])
+    |> validate_dates
   end
 
-  def validate_end_dates(changeset) do
+  def validate_dates(changeset) do
     end_month = get_field(changeset, :end_month)
     end_year = get_field(changeset, :end_year)
-    if(end_month || end_year) do
-      if(end_month && end_year) do
-        validate_date_range(changeset)
-      else
-        message = "Both end month and end year must be present or empty"
-        changeset
-        |> add_error(:end_month, message)
-        |> add_error(:end_year, message)
-      end
+    start_month = get_field(changeset, :start_month)
+    start_year = get_field(changeset, :start_year)
+
+    changeset =  
+      if(!presence_correct?(start_year, start_month), 
+      do: add_error(changeset, :start_year, "If month is present, year must be present."),
+      else: changeset)
+    changeset =
+      if(!presence_correct?(end_year, end_month),
+      do: add_error(changeset, :start_year, "If month is present, year must be present."),
+      else: changeset)
+    changeset =
+      if(!date_range_correct?(start_year, end_year),
+      do: add_error(changeset, :end_month, "End date must be later than start date"),
+      else: changeset)
+    changeset = 
+    if((start_year&&end_year) && (start_year == end_year)) do
+      if(!date_range_correct?(start_month, end_month),
+      do: add_error(changeset, :end_month, "End date must be later than start date"),
+      else: changeset)
     else
       changeset
     end
   end
 
-  def validate_date_range(changeset) do
-    end_month = get_field(changeset, :end_month)
-    end_year = get_field(changeset, :end_year)
-    start_month = get_field(changeset, :start_month)
-    start_year = get_field(changeset, :start_year)
+  def presence_correct?(year, month) do
     cond do
-      start_year>end_year ->
-        add_error(changeset, :end_year, "End date must be later than start date")
-      (start_year==end_year)&&(start_month>end_month) ->
-        add_error(changeset, :end_month, "End date must be later than start date")
-      start_year<=end_year ->
-        changeset
+      year && month -> true
+      year -> true
+      month -> false
+      true -> true
+    end
+  end
+
+  def date_range_correct?(start, finish) do
+    if(start && finish) do
+      cond do
+        start>finish -> false
+        start<=finish -> true
+      end
+    else
+      true
     end
   end
 end

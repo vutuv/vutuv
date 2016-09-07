@@ -24,19 +24,25 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :start_year, class: "control-label" %>
+    <%= select f, :start_year, 1900..2100, prompt: "Select a year", selected: nil, class: "form-control" %>
+    <%= error_tag f, :start_year %>
+  </div>
+
+  <div class="form-group">
     <%= label f, :start_month, class: "control-label" %>
     <%= select f, :start_month,
     ["January": 1, "February": 2, "March": 3, "April": 4,
      "May": 5, "June": 6, "July": 7, "August": 8,
      "September": 9, "October": 10, "November": 11, "December": 12],
-    prompt: "Select a month", class: "form-control" %>
+    prompt: "Select a month", selected: nil, class: "form-control" %>
     <%= error_tag f, :start_month %>
   </div>
 
   <div class="form-group">
-    <%= label f, :start_year, class: "control-label" %>
-    <%= select f, :start_year, 1920..2100, prompt: "Select a year", class: "form-control" %>
-    <%= error_tag f, :start_year %>
+    <%= label f, :end_year, class: "control-label" %>
+    <%= select f, :end_year, 1900..2100, prompt: "Select a year", selected: nil, class: "form-control" %>
+    <%= error_tag f, :end_year %>
   </div>
 
   <div class="form-group">
@@ -45,14 +51,8 @@
     ["January": 1, "February": 2, "March": 3, "April": 4,
      "May": 5, "June": 6, "July": 7, "August": 8,
      "September": 9, "October": 10, "November": 11, "December": 12],
-    prompt: "Select a month", class: "form-control" %>
+    prompt: "Select a month", selected: nil, class: "form-control" %>
     <%= error_tag f, :end_month %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :end_year, class: "control-label" %>
-    <%= select f, :end_year, 1920..2100, prompt: "Select a year", class: "form-control" %>
-    <%= error_tag f, :end_year %>
   </div>
 
   <%= submit gettext("Submit"), class: "pure-button pure-button-primary" %>

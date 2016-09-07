@@ -1,6 +1,7 @@
 defmodule Vutuv.WorkExperienceController do
   use Vutuv.Web, :controller
   plug :auth_user when action in [:new, :create, :edit, :update]
+  plug :scrub_params, "work_experience" when action in [:create, :update]
   alias Vutuv.WorkExperience
 
   def index(conn, _params) do
