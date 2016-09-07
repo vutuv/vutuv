@@ -34,7 +34,7 @@ defmodule Vutuv.UserController do
       and u.last_name == ^f.(user.last_name),
       select: count("*"))
 
-    slug_value=
+    
       if(user_count>0) do
         slug_value<>Integer.to_string(user_count)
       else
@@ -135,7 +135,7 @@ defmodule Vutuv.UserController do
 
   def magicdelete(conn, %{"magiclink" => link}) do
     case Vutuv.MagicLinkHelpers.check_magic_link(link, "delete") do
-      {:ok, user} ->
+      {:ok, _user} ->
         # Here we use delete! (with a bang) because we expect
         # it to always work (and if it does not, it will raise).
         Repo.delete!(conn.assigns[:current_user])

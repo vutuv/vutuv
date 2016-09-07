@@ -1,7 +1,6 @@
 defmodule Vutuv.Admin.SlugController do
   use Vutuv.Web, :controller
   plug :logged_in?
-  import Vutuv.UserHelpers
 
   alias Vutuv.Slug
 
@@ -31,14 +30,14 @@ defmodule Vutuv.Admin.SlugController do
               new -> Ecto.Changeset.cast(user, %{active_slug: hd(new)}, [:active_slug])
             end
             case Repo.update(user_changeset) do
-              {:ok, user} ->
+              {:ok, _user} ->
                 conn
                 |> put_flash(:info, "Slug disabled successfully.")
                 |> redirect(to: admin_admin_path(conn, :index))
-              {:error, user_changeset} ->
+              {:error, _user_changeset} ->
                 redirect(conn, to: admin_admin_path(conn, :index))
             end
-          {:error, changeset} ->
+          {:error, _changeset} ->
             redirect(conn, to: admin_admin_path(conn, :index))
         end
     end

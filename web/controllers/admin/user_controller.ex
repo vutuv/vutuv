@@ -1,19 +1,18 @@
 defmodule Vutuv.Admin.UserController do
   use Vutuv.Web, :controller
   plug :logged_in?
-  import Vutuv.UserHelpers
 
   alias Vutuv.User
 
-  def update(conn, %{"user_id"=> user_id}=params) do
+  def update(conn, %{"user_id"=> user_id}) do
     user = Repo.get(User, user_id)
     changeset = Ecto.Changeset.cast(user, %{verified: true}, [:verified])
     case Repo.update(changeset) do
-      {:ok, user} ->
+      {:ok, _user} ->
         conn
         |> put_flash(:info, "User verified successfully.")
         |> redirect(to: admin_admin_path(conn, :index))
-      {:error, changeset} ->
+      {:error, _changeset} ->
         render(conn, "index.html")
     end
   end

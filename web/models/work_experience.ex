@@ -51,7 +51,6 @@ defmodule Vutuv.WorkExperience do
       if(!date_range_correct?(start_year, end_year),
       do: add_error(changeset, :end_month, "End date must be later than start date"),
       else: changeset)
-    changeset = 
     if((start_year&&end_year) && (start_year == end_year)) do
       if(!date_range_correct?(start_month, end_month),
       do: add_error(changeset, :end_month, "End date must be later than start date"),

@@ -14,9 +14,9 @@ defmodule Vutuv.Avatar do
   #
   def __storage, do: Arc.Storage.Local
 
-  def filename(version,  {file, scope}), do: "#{version}-#{file.file_name}"
+  def filename(version,  {file, _scope}), do: "#{version}-#{file.file_name}"
 
-  def storage_dir(version, {file, scope}) do
+  def storage_dir(_version, {_file, scope}) do
     "web/static/assets/images/avatars/#{scope.id}"
   end
 
