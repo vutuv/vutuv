@@ -60,8 +60,9 @@ defmodule Vutuv.Router do
     post "/users", Vutuv.Admin.UserController, :update
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Vutuv do
-  #   pipe_through :api
-  # end
+  scope "/api/1.0/", Vutuv do
+    pipe_through :api
+    resources "/vcard", VCardController, only: [:index, :show]
+  end
+
 end
