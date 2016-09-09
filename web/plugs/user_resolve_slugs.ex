@@ -1,4 +1,4 @@
-defmodule Vutuv.Plugs.UserResolveSlug do
+defmodule Vutuv.Plug.UserResolveSlug do
   import Plug.Conn
   import Ecto.Query
   import Phoenix.Controller

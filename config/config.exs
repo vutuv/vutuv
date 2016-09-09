@@ -12,7 +12,8 @@ config :vutuv, Vutuv.Endpoint,
   secret_key_base: "bKsyV5xWMWlC+AY8O14/aUcN8xPsa2GjIiE364y/bgBlIhzNnTHhNy0pLyucwVpl",
   render_errors: [accepts: ~w(html json)],
   pubsub: [name: Vutuv.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+           adapter: Phoenix.PubSub.PG2],
+  locales: ~w(en de)
 
 # Configures Elixir's Logger
 config :logger, :console,

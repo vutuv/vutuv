@@ -1,4 +1,4 @@
-defmodule Vutuv.Plugs.PutAPIHeaders do
+defmodule Vutuv.Plug.PutAPIHeaders do
 
   def init(opts) do 
   	opts

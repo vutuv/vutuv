@@ -1,6 +1,6 @@
 defmodule Vutuv.Router do
   use Vutuv.Web, :router
-  alias Vutuv.Plugs, as: Plug
+  alias Vutuv.Plug, as: Plug
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -9,6 +9,7 @@ defmodule Vutuv.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug Vutuv.Auth, repo: Vutuv.Repo
+    plug Plug.Locale
   end
 
   pipeline :user_pipe do
