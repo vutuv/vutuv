@@ -1,0 +1,19 @@
+{
+	"SublimeLinter":
+	{
+		"linters":
+		{
+			"elixirc":
+			{
+				"chdir": "C:\\Users\\Chris\\vutuvmaster\\vutuv",
+				"mix_project": true
+			}
+		}
+	},
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	]
+}

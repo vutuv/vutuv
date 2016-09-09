@@ -1,12 +1,12 @@
-defmodule Vutuv.VCardView do
+defmodule Vutuv.Api.VCardView do
   use Vutuv.Web, :view
 
   def render("index.json", %{v_cards: v_cards}) do
-    %{v_cards: render_many(v_cards, Vutuv.VCardView, "show.json")}
+    %{v_cards: render_many(v_cards, Vutuv.Api.VCardView, "show.json")}
   end
 
   def render("show.json", %{v_card: v_card}) do
-    ["v_card", render_one(v_card, Vutuv.VCardView, "v_card.json")]
+    ["v_card", render_one(v_card, Vutuv.Api.VCardView, "v_card.json")]
   end
 
   def render("v_card.json", %{v_card: v_card}) do

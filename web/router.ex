@@ -1,5 +1,6 @@
 defmodule Vutuv.Router do
   use Vutuv.Web, :router
+  alias Vutuv.Plugs, as: Plug
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -11,11 +12,12 @@ defmodule Vutuv.Router do
   end
 
   pipeline :user_pipe do
-    plug Vutuv.UserResolveSlug
+    plug Plug.UserResolveSlug
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug :accepts, ["json-api"]
+    plug Plug.PutAPIHeaders
   end
 
   scope "/", Vutuv do
@@ -60,9 +62,12 @@ defmodule Vutuv.Router do
     post "/users", Vutuv.Admin.UserController, :update
   end
 
-  scope "/api/1.0/", Vutuv do
+  scope "/api/1.0/", as: :api do
     pipe_through :api
-    resources "/vcard", VCardController, only: [:index, :show]
+    resources "/users", Vutuv.Api.UserController, param: "slug" do
+      pipe_through :user_pipe
+      get "/vcard", Vutuv.Api.VCardController, :get
+    end
   end
 
 end
