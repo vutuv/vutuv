@@ -70,5 +70,4 @@ defmodule Vutuv.Router do
       get "/vcard", Vutuv.Api.VCardController, :get
     end
   end
-
 end

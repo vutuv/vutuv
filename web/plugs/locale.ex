@@ -8,7 +8,6 @@ defmodule Vutuv.Plug.Locale do
     |>hd
     |>String.split(",")
     |>hd
-    IO.puts "\n\n"<>loc<>"\n\n"
     assign(conn, :locale, loc)
   end
 end

@@ -1,7 +1,8 @@
 defmodule Vutuv.SocialMediaAccountController do
   use Vutuv.Web, :controller
-  plug :auth_user when action in [:new, :create, :edit, :update]
   alias Vutuv.SocialMediaAccount
+
+  plug Vutuv.Plug.AuthUser when action in [:new, :create, :edit, :update]
 
   def index(conn, _params) do
     social_media_accounts = Repo.all(SocialMediaAccount)
@@ -64,14 +65,5 @@ defmodule Vutuv.SocialMediaAccountController do
     conn
     |> put_flash(:info, gettext("Social media account deleted successfully."))
     |> redirect(to: user_social_media_account_path(conn, :index, conn.assigns[:user]))
-  end
-
-  defp auth_user(conn, _opts) do
-    if(conn.assigns[:user].id == conn.assigns[:current_user].id) do
-      conn
-    else
-      redirect(conn, to: user_path(conn, :show, conn.assigns[:current_user]))
-      |> halt
-    end
   end
 end

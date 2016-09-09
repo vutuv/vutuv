@@ -1,9 +1,9 @@
 defmodule Vutuv.UserSkillController do
   use Vutuv.Web, :controller
-  plug :auth_user
-
   alias Vutuv.UserSkill
   alias Vutuv.Skill
+
+  plug Vutuv.Plug.AuthUser
 
   def index(conn, _params) do
     user =
@@ -53,14 +53,5 @@ defmodule Vutuv.UserSkillController do
     conn
     |> put_flash(:info, gettext("UserSkill deleted successfully."))
     |> redirect(to: user_user_skill_path(conn, :index, conn.assigns[:user]))
-  end
-
-  defp auth_user(conn, _opts) do
-    if(conn.assigns[:user].id == conn.assigns[:current_user].id) do
-      conn
-    else
-      redirect(conn, to: user_path(conn, :show, conn.assigns[:current_user]))
-      |> halt
-    end
   end
 end

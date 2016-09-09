@@ -5,6 +5,10 @@ defmodule Vutuv.ErrorView do
     "Page not found"
   end
 
+  def render("403.html", _assigns) do
+    "403 Forbidden"
+  end
+
   def render("500.html", _assigns) do
     "Server internal error"
   end

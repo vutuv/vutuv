@@ -1,9 +1,8 @@
 defmodule Vutuv.GroupController do
   use Vutuv.Web, :controller
-  plug :auth_user
-
   alias Vutuv.Group
-
+  
+  plug Vutuv.Plug.AuthUser
   plug :scrub_params, "group" when action in [:create, :update]
 
   def index(conn, _params) do
@@ -70,14 +69,5 @@ defmodule Vutuv.GroupController do
     conn
     |> put_flash(:info, "Group deleted successfully.")
     |> redirect(to: user_group_path(conn, :index, conn.assigns[:user]))
-  end
-
-  defp auth_user(conn, _opts) do
-    if(conn.assigns[:user].id == conn.assigns[:current_user].id) do
-      conn
-    else
-      redirect(conn, to: user_path(conn, :show, conn.assigns[:current_user]))
-      |> halt
-    end
   end
 end

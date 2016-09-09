@@ -3,7 +3,7 @@ defmodule Vutuv.Api.VCardController do
 
   plug :scrub_params, "v_card" when action in [:create, :update]
 
-  def get(conn, params) do
+  def get(conn, _params) do
     vcard = conn.assigns[:user]
       |>Repo.preload([:emails, :addresses,
                       :phone_numbers])
