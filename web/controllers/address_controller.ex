@@ -10,7 +10,14 @@ defmodule Vutuv.AddressController do
   end
 
   def new(conn, _params) do
-    render conn, "new.html", country: nil
+    changeset = Address.changeset(%Address{}, %{})
+    {:ok, config} = Application.fetch_env(:vutuv, Vutuv.Endpoint)
+    supported_locales = config[:locales] 
+    loc = conn.assigns[:locale]
+    locale = 
+    if Enum.any?(supported_locales,fn f -> String.contains?(loc,f) end), do: loc, else: "generic"
+    IO.puts locale
+    render conn, "new.html", country: locale, changeset: changeset
   end
 
   def create(conn, %{"address" => address_params}) do

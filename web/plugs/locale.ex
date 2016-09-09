@@ -8,6 +8,8 @@ defmodule Vutuv.Plug.Locale do
     |>hd
     |>String.split(",")
     |>hd
+    IO.puts inspect Plug.Conn.get_req_header(conn,"accept-language")
+    IO.puts loc
     Gettext.put_locale(Vutuv.Gettext, loc)
     assign(conn, :locale, loc)
   end

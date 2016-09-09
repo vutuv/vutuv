@@ -36,5 +36,14 @@
     <%= text_input f, :zip_code, class: "form-control" %>
     <%= error_tag f, :zip_code %>
   </div>
+
+  <div class="form-group">
+    <%= label f, :country, class: "control-label" %>
+    <%= select f, :country,
+     ["Germany", "United States"],
+     prompt: "Select a Country",
+     class: "form-control" %>
+  </div>
+  
   <%= submit gettext("Submit"), class: "pure-button pure-button-primary" %>
 <% end %>
