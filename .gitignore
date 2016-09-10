@@ -34,3 +34,8 @@ erl_crash.dump
 # Misc
 #
 log.csv
+
+# Sublime configuration
+#
+vutuv.sublime-project
+vutuv.sublime-workspace
