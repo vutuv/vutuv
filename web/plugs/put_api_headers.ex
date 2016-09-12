@@ -5,6 +5,7 @@ defmodule Vutuv.Plug.PutAPIHeaders do
   end
 
   def call(conn, _default) do
-    Plug.Conn.put_resp_header(conn,"Content-Type", "application/vnd.api+json")
+  	#put standard api headers here
+  	conn
   end
 end
