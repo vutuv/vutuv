@@ -1,9 +1,8 @@
 defmodule Vutuv.Plug.AuthUser do
   import Plug.Conn
   import Phoenix.Controller
-  alias Vutuv.Router.Helpers
 
-  def init(opts) do 
+  def init(opts) do
   	opts
   end
 
