@@ -24,7 +24,7 @@ defmodule Vutuv.Admin.SlugController do
             user_changeset = 
             case Repo.all(from s in Slug, where: s.user_id == ^slug.user_id and s.disabled == false, select: s.value) do
               [] ->
-                slug_value = Vutuv.UserController.generate_slug(user)
+                slug_value = Vutuv.Registration.generate_slug(user)
                 Ecto.Changeset.cast(user, %{active_slug: slug_value}, [:active_slug])
                 |>Ecto.Changeset.put_assoc(:slugs, [Slug.changeset(%Slug{}, %{value: slug_value})], [:value])
               new -> Ecto.Changeset.cast(user, %{active_slug: hd(new)}, [:active_slug])

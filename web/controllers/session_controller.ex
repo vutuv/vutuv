@@ -42,13 +42,15 @@ defmodule Vutuv.SessionController do
   end
 
   def facebook_login(conn, _params) do
+    redirect_url = Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:redirect_url]
     conn
-    |>redirect(external: "https://www.facebook.com/dialog/oauth?client_id=615815025247201&redirect_uri=http://test.vutuv.de:4000/sessions/facebook/auth")
+    |>redirect(external: "https://www.facebook.com/dialog/oauth?client_id=615815025247201&redirect_uri=#{redirect_url}/sessions/facebook/auth")
   end
 
   def facebook_auth(conn, %{"code"=> code}) do
+    redirect_url = Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:redirect_url]
     HTTPoison.start
-    %HTTPoison.Response{body: body} = HTTPoison.get!("https://graph.facebook.com/v2.3/oauth/access_token?client_id=615815025247201&redirect_uri=http://test.vutuv.de:4000/sessions/facebook/auth&client_secret=839a7f0b468aaaf0256495c40041ecf1&code=#{code}")
+    %HTTPoison.Response{body: body} = HTTPoison.get!("https://graph.facebook.com/v2.3/oauth/access_token?client_id=615815025247201&redirect_uri=#{redirect_url}/sessions/facebook/auth&client_secret=839a7f0b468aaaf0256495c40041ecf1&code=#{code}")
     %{"access_token" => token} = Poison.decode! body
     %HTTPoison.Response{body: body} = HTTPoison.get!("https://graph.facebook.com/v2.2/me?access_token=#{token}")
     %{"id"=> id} = Poison.decode! body
@@ -68,7 +70,7 @@ defmodule Vutuv.SessionController do
             |> Vutuv.Auth.login(user)
             |> put_flash(:info, "User #{full_name(user)} created successfully.")
             |> redirect(to: user_path(conn, :show, user))
-          {:error, changeset} ->
+          {:error, _changeset} ->
             render(conn, "new.html")
         end
     end
