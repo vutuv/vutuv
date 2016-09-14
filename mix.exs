@@ -20,7 +20,7 @@ defmodule Vutuv.Mixfile do
     [mod: {Vutuv, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
                     :phoenix_ecto, :ex_machina,:phoenix_html_simplified_helpers,
-                    :bamboo, :bamboo_smtp, :mariaex]]
+                    :bamboo, :bamboo_smtp, :mariaex, :httpoison]]
   end
 
   # Specifies which paths to compile per environment.
@@ -46,7 +46,8 @@ defmodule Vutuv.Mixfile do
      {:phoenix_html_simplified_helpers, "~> 0.6.0"},
      {:mariaex, ">= 0.0.0"},
      {:word_smith, "~> 0.1.0"},
-     {:slugger, "~> 0.1.0"}]
+     {:slugger, "~> 0.1.0"},
+     {:httpoison, "~> 0.9.0"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

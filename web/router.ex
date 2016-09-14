@@ -47,10 +47,14 @@ defmodule Vutuv.Router do
       resources "/social_media_accounts", SocialMediaAccountController
       resources "/workexperience", WorkExperienceController
       resources "/addresses", AddressController
+      resources "/oauthproviders", OAuthProviderController
     end
 
 
     resources "/sessions", SessionController, only: [:new, :create, :delete]
+    get "/sessions/facebook", SessionController, :facebook_login
+    get "/sessions/facebook/auth", SessionController, :facebook_auth
+    post "/sessions/facebook/auth", SessionController, :facebook_return
     get "/magic/:magiclink", SessionController, :show
     get "/magicdelete/:magiclink", UserController, :magicdelete
     get "/follow_back/:id", UserController, :follow_back

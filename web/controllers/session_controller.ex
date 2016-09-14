@@ -1,5 +1,6 @@
 defmodule Vutuv.SessionController do
   use Vutuv.Web, :controller
+  import Vutuv.UserHelpers
 
   def new(conn, _) do
     render conn, "new.html"
@@ -24,8 +25,7 @@ defmodule Vutuv.SessionController do
   def show(conn, %{"magiclink"=>link}) do
     case Vutuv.MagicLinkHelpers.check_magic_link(link, "login") do
       {:ok, user} -> 
-        conn=Vutuv.Auth.login(conn,user)
-        conn
+        Vutuv.Auth.login(conn,user)
         |> put_flash(:info, gettext("Welcome back"))
         |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
       {:error, reason} ->
@@ -33,12 +33,54 @@ defmodule Vutuv.SessionController do
         |> put_flash(:error, reason)
         |> redirect(to: page_path(conn, :index))
     end
-    
   end
 
   def delete(conn, _) do
     conn
     |> Vutuv.Auth.logout()
     |> redirect(to: page_path(conn, :index))
+  end
+
+  def facebook_login(conn, _params) do
+    conn
+    |>redirect(external: "https://www.facebook.com/dialog/oauth?client_id=615815025247201&redirect_uri=http://test.vutuv.de:4000/sessions/facebook/auth")
+  end
+
+  def facebook_auth(conn, %{"code"=> code}) do
+    HTTPoison.start
+    %HTTPoison.Response{body: body} = HTTPoison.get!("https://graph.facebook.com/v2.3/oauth/access_token?client_id=615815025247201&redirect_uri=http://test.vutuv.de:4000/sessions/facebook/auth&client_secret=839a7f0b468aaaf0256495c40041ecf1&code=#{code}")
+    %{"access_token" => token} = Poison.decode! body
+    %HTTPoison.Response{body: body} = HTTPoison.get!("https://graph.facebook.com/v2.2/me?access_token=#{token}")
+    %{"id"=> id} = Poison.decode! body
+    %HTTPoison.Response{body: body} = HTTPoison.get!("https://graph.facebook.com/v2.2/#{id}?fields=email,first_name,last_name&access_token=#{token}")
+    fields = Poison.decode!(body)
+    user_params =  Map.drop(fields,["id", "email"])
+    IO.puts inspect fields
+    case Vutuv.Auth.login_by_facebook(fields) do
+      {:ok, user} ->
+        Vutuv.Auth.login(conn, user)
+        |> put_flash(:info, gettext("Welcome back"))
+        |> redirect(to: user_path(conn, :show, user))
+      {:error, :not_found}->
+        case Vutuv.Registration.register_user(user_params, [{:oauth_providers, %Vutuv.OAuthProvider{provider: "facebook", provider_id: fields["id"]}}]) do
+          {:ok, user} ->
+            conn
+            |> Vutuv.Auth.login(user)
+            |> put_flash(:info, "User #{full_name(user)} created successfully.")
+            |> redirect(to: user_path(conn, :show, user))
+          {:error, changeset} ->
+            render(conn, "new.html")
+        end
+    end
+    conn
+    |>redirect(to: session_path(conn, :new))
+  end
+
+  def facebook_return(conn, params) do
+    IO.puts "\n\n\n"
+    IO.puts inspect params
+    IO.puts "\n\n\n"
+    conn
+    |>redirect(to: session_path(conn, :new))
   end
 end

@@ -26,7 +26,6 @@ defmodule Vutuv.Plug.Locale do
         |>String.split("-")
         |>hd
     end
-    IO.puts "\n\n#{loc}\n\n"
     Gettext.put_locale(Vutuv.Gettext, loc)
     assign(conn, :locale, loc)
   end

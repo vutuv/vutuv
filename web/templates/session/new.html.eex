@@ -4,3 +4,7 @@
   <%= text_input f, :email, placeholder: "email", class: "form-control" %>
   <%= submit "Log in", class: "pure-button pure-button-primary" %>
 <% end %>
+
+
+<%= link gettext("Login Via Facebook"), to: session_path(@conn, :facebook_login) %>
+

@@ -17,7 +17,7 @@ defmodule Vutuv.User do
     field :active_slug, :string
     field :administrator, :boolean
 
-
+    has_many :oauth_providers,        Vutuv.OAuthProvider,      on_delete: :nothing
     has_many :magic_links,            Vutuv.MagicLink,          on_delete: :delete_all
     has_many :groups,                 Vutuv.Group,              on_delete: :delete_all
     has_many :emails,                 Vutuv.Email,              on_delete: :delete_all
@@ -56,6 +56,7 @@ defmodule Vutuv.User do
     |> cast_attachments(params, [:avatar])
     |> cast_assoc(:emails)
     |> cast_assoc(:slugs)
+    |> cast_assoc(:oauth_providers)
     |> validate_first_name_or_last_name_or_nickname(params)
     |> validate_length(:first_name, max: 50)
     |> validate_length(:last_name, max: 50)

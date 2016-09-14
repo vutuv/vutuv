@@ -29,12 +29,15 @@ defmodule Vutuv.Auth do
       |> where([u, e], e.value == ^email)
       |> Vutuv.Repo.one()
 
-    cond do
-      user != nil ->
-        {:ok, Vutuv.MagicLinkHelpers.gen_magic_link(user, "login"), conn}
-      user == nil ->
-        {:error, :not_found, conn}
-    end
+    if user == nil, do: {:error, :not_found, conn}, else: {:ok, Vutuv.MagicLinkHelpers.gen_magic_link(user, "login"), conn}
+  end
+
+  def login_by_facebook(params) do
+    fb_id = params["id"]
+    user = Vutuv.Repo.one(from u in Vutuv.User, join: o in assoc(u, :oauth_providers), where: o.provider_id == ^fb_id and o.provider == "facebook")
+    IO.puts "\nUser\n\n\n#{inspect user}\n\n"
+
+    if user == nil, do: {:error, :not_found}, else: {:ok, user}
   end
 
   def logout(conn) do
