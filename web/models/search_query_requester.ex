@@ -19,6 +19,6 @@ defmodule Vutuv.SearchQueryRequester do
   """
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, [:search_query_id])
+    |> cast(params, [:search_query_id, :user_id])
   end
 end

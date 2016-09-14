@@ -9,6 +9,7 @@ defmodule Vutuv.SearchQueryController do
   end
 
   def create(conn, %{"search_query" => search_query_params}) do
+    requester_id = if conn.assigns[:current_user], do: conn.assigns[:current_user].id, else: nil
 
     results = Repo.all(from u in Vutuv.User, join: e in assoc(u, :emails), where: e.value == ^search_query_params["value"])
 
@@ -19,8 +20,7 @@ defmodule Vutuv.SearchQueryController do
         Ecto.build_assoc(user, :search_query_results)
       end
       changeset = 
-      Ecto.build_assoc(conn.assigns[:current_user], :searches)
-      |>Vutuv.SearchQueryRequester.changeset(%{"search_query_id" => id})
+      Vutuv.SearchQueryRequester.changeset(%Vutuv.SearchQueryRequester{}, %{"search_query_id" => id, "user_id" => requester_id})
       |>Ecto.Changeset.put_assoc(:search_results, results_assocs)
       case Repo.insert(changeset) do
         {:ok, _search_query_requester} ->
@@ -35,9 +35,8 @@ defmodule Vutuv.SearchQueryController do
       for(user <- results) do
         Ecto.build_assoc(user, :search_query_results)
       end
-      requesters_assoc = 
-      Ecto.build_assoc(conn.assigns[:current_user], :searches)
-      |>Vutuv.SearchQueryRequester.changeset
+      requesters_assoc =
+      Vutuv.SearchQueryRequester.changeset(%Vutuv.SearchQueryRequester{}, %{"search_query_id" => id, "user_id" => requester_id})
       |>Ecto.Changeset.put_assoc(:search_results, results_assocs)
       changeset = SearchQuery.changeset(%SearchQuery{}, search_query_params)
                   |>Ecto.Changeset.put_assoc(:requesters, [requesters_assoc])

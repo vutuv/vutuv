@@ -27,7 +27,7 @@ defmodule Vutuv.SessionController do
       {:ok, user} -> 
         Vutuv.Auth.login(conn,user)
         |> put_flash(:info, gettext("Welcome back"))
-        |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
+        |> redirect(to: user_path(conn, :show, user))
       {:error, reason} ->
         conn
         |> put_flash(:error, reason)

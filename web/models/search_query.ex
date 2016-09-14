@@ -29,10 +29,10 @@ defmodule Vutuv.SearchQuery do
 
   def validate_email(changeset) do
     value = get_field(changeset, :value)
-    if(Regex.match?(@email_regex, value))do
-      put_change(changeset, :is_email?, true)
-    else
-      put_change(changeset, :is_email?, false)
+    cond do
+      value == nil -> put_change(changeset, :is_email?, false)
+      Regex.match?(@email_regex, value) -> put_change(changeset, :is_email?, true)
+      true -> put_change(changeset, :is_email?, false)
     end
   end
 end
