@@ -38,4 +38,17 @@ defmodule Vutuv.SocialMediaAccount do
     if value, do: [], else: [value: {"Invalid account name", []}]
   end
 
+  def get_full_urls(user) do
+    for account <- Vutuv.Repo.all(from s in Vutuv.SocialMediaAccount, where: s.user_id == ^user.id) do
+      case (account.provider) do
+        "Facebook" -> "http://facebook.com/#{account.value}"
+        "Twitter" -> "http://twitter.com/#{account.value}"
+        "Instagram" -> "http://instagram.com/#{account.value}"
+        "Youtube" -> "http://youtube.com/channel/#{account.value}"
+        "Snapchat" -> ""
+        "Stackoverflow" -> "http://stackoverflow.com/users/#{account.value}"
+        _ -> ""
+      end
+    end
+  end
 end

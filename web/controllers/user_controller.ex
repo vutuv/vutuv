@@ -55,11 +55,14 @@ defmodule Vutuv.UserController do
 
     emails_counter = length(user.emails)
 
+    social_media_links = Vutuv.SocialMediaAccount.get_full_urls(user)
+
     conn
     |> assign(:page_title, full_name(user))
     |> assign(:user, user)
     |> assign(:user_show, true)
-    |> render("show.html", changeset: changeset, emails_counter: emails_counter, followers_count: followers_count, followees_count: followees_count)
+    |> render("show.html", changeset: changeset, emails_counter: emails_counter, followers_count: followers_count,
+                           followees_count: followees_count, social_media_links: social_media_links)
   end
 
   # Function calls helper function in Connection to check
