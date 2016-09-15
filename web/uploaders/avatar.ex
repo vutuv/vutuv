@@ -13,11 +13,11 @@ defmodule Vutuv.Avatar do
   end
 
   def transform(:medium, _) do
-    {:convert, "-strip -gravity center -resize 256x256"}
+    {:convert, "-strip -gravity center -resize 256x256^ -extent 256x256"}
   end
 
   def transform(:large, _) do
-    {:convert, "-strip -gravity center -resize 512x512"}
+    {:convert, "-strip -gravity center -resize 512x512^ -extent 512x512"}
   end
 
   # Use local storage
