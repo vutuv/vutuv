@@ -4,9 +4,17 @@ defmodule Vutuv.Avatar do
   # Include ecto support (requires package arc_ecto installed):
   use Arc.Ecto.Definition
 
-  @versions [:original, :thumb]
+  @versions [:original, :thumb, :medium, :large]
 
   def transform(:thumb, _) do
+    {:convert, "-strip -thumbnail 100x100^ -gravity center -extent 100x100"}
+  end
+
+  def transform(:medium, _) do
+    {:convert, "-strip -thumbnail 100x100^ -gravity center -extent 100x100"}
+  end
+
+  def transform(:large, _) do
     {:convert, "-strip -thumbnail 100x100^ -gravity center -extent 100x100"}
   end
 

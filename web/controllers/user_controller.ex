@@ -76,7 +76,7 @@ defmodule Vutuv.UserController do
 
   def update(conn, %{"user" => user_params}) do
     user = Repo.get!(User, conn.assigns[:user_id])
-    |> Repo.preload([:emails,:slugs])
+    |> Repo.preload([:emails, :slugs, :oauth_providers])
     changeset = User.changeset(user, user_params)
 
     case Repo.update(changeset) do
