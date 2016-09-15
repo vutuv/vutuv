@@ -32,7 +32,7 @@ defmodule Vutuv.Router do
       resources "/memberships", MembershipController, only: [:new, :create, :show, :delete, :index]
     end
 
-    resources "/search_queries", SearchQueryController, only: [:create, :index]
+    resources "/search_queries", SearchQueryController, only: [:create, :index, :new, :show]
 
     resources "/users", UserController, param: "slug" do
       pipe_through :user_pipe

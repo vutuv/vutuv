@@ -1,14 +1,36 @@
-<div class="pure-g">
-  <div class="pure-u-1-1">
-    <h2><%= gettext "Search"%></h2>
+<h2><%= gettext "E-Mails" %></h2>
 
-    <%= render "form.html", changeset: @changeset,
-                            action: search_query_path(@conn, :create) %>
-  </div>
+<table class="pure-table pure-table-horizontal">
+  <thead>
+    <tr>
+      <th><%= gettext "Search Term" %></th>
+      <th><%= gettext "Requesters" %></th>
+      <th><%= gettext "Results" %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for query <- @queries do %>
+    <tr>
+      <td><%= query.value %></td>
+      <td>
+        <%= for(requester <- query.requesters) do %> 
+          <%= if(requester.user_id) do %>
+            <%=Vutuv.UserHelpers.full_name(Vutuv.Repo.get(Vutuv.User, requester.user_id))%><br> 
+          <% end %>
+        <% end %>
+      </td>
+      <td>
+        <%= for(result <- hd(query.requesters).search_results) do %>
+          <%= Vutuv.UserHelpers.full_name(Vutuv.Repo.get(Vutuv.User, result.user_id)) %>
+        <% end %>
+      </td>
+      <td class="text-right">
+        <%= link "Show", to: search_query_path(@conn, :show, query), class: "btn btn-default btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
 
-  <%= if(assigns[:results]) do %>
-	  <div class="pure-u-1-1">
-	    <%= render "show.html", conn: @conn, results: @results %>
-	  </div>
-  <%= end %>
-</div>
+<%= link "New search", to: search_query_path(@conn, :new) %>

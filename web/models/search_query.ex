@@ -4,8 +4,7 @@ defmodule Vutuv.SearchQuery do
   schema "search_queries" do
     field :value, :string
     field :is_email?, :boolean
-
-    has_many :results, Vutuv.User, on_delete: :nothing
+    
     has_many :requesters, Vutuv.SearchQueryRequester, on_delete: :nothing
     timestamps
   end
