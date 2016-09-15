@@ -1,5 +1,4 @@
 defmodule Vutuv.UserHelpers do
-  import Ecto
   import Ecto.Query
   alias Vutuv.User
   alias Vutuv.Repo

@@ -47,6 +47,7 @@
 
     <%= label f, :avatar, class: "control-label" %>
     <%= file_input f, :avatar, class: "form-control" %>
+    <%= error_tag f, :avatar %>
   <% end %>
 
   <%= submit gettext("Submit"), class: "pure-button pure-button-primary" %>

@@ -5,27 +5,39 @@ defmodule Vutuv.Avatar do
   use Arc.Ecto.Definition
 
   @versions [:original, :thumb, :medium, :large]
+  @extension_whitelist ~w(.jpg .jpeg .gif .png)
+
 
   def transform(:thumb, _) do
-    {:convert, "-strip -thumbnail 100x100^ -gravity center -extent 100x100"}
+    {:convert, "-strip -thumbnail 64x64^ -gravity center -extent 64x64"}
   end
 
   def transform(:medium, _) do
-    {:convert, "-strip -thumbnail 100x100^ -gravity center -extent 100x100"}
+    {:convert, "-strip -gravity center -resize 256x256"}
   end
 
   def transform(:large, _) do
-    {:convert, "-strip -thumbnail 100x100^ -gravity center -extent 100x100"}
+    {:convert, "-strip -gravity center -resize 512x512"}
   end
 
   # Use local storage
   #
   def __storage, do: Arc.Storage.Local
 
-  def filename(version,  {file, _scope}), do: "#{version}-#{file.file_name}"
+  def filename(version,  {_file, scope}), do: "#{scope}_#{version}"
 
   def storage_dir(_version, {_file, scope}) do
     "web/static/assets/images/avatars/#{scope.id}"
+  end
+
+  def user_url(user, version) do
+    Vutuv.Avatar.url({user.avatar, user}, version, signed: true)
+    |>String.replace("web/static/assets", "")
+  end
+
+  def validate({file, _}) do
+    file_extension = file.file_name |> Path.extname() |> String.downcase()
+    Enum.member?(@extension_whitelist, file_extension)
   end
 
   # To add a thumbnail version:

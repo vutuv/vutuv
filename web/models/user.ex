@@ -46,6 +46,8 @@ defmodule Vutuv.User do
   @required_file_fields ~w()
   @optional_file_fields ~w(avatar)
 
+  @max_image_filesize Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:max_image_filesize]
+
   @doc """
   Creates a changeset based on the `model` and `params`.
 
@@ -60,6 +62,7 @@ defmodule Vutuv.User do
     |> cast_assoc(:slugs)
     |> cast_assoc(:oauth_providers)
     |> validate_first_name_or_last_name_or_nickname(params)
+    |> validate_avatar(params)
     |> validate_length(:first_name, max: 50)
     |> validate_length(:last_name, max: 50)
     |> validate_length(:middlename, max: 50)
@@ -70,9 +73,20 @@ defmodule Vutuv.User do
     |> downcase_value
   end
 
-  def validate_first_name_or_last_name_or_nickname(changeset, :empty) do
-    changeset
+  def validate_avatar(changeset, %{"avatar" => avatar}) do
+    stat = 
+      avatar.path
+      |>File.stat!
+    if(stat.size>@max_image_filesize) do
+      add_error(changeset, :avatar, "Avatar filesize is greater than 2MB. Please upload a smaller image.")
+    else
+      changeset
+    end
   end
+
+  def validate_avatar(changeset, %{}), do: changeset
+
+  def validate_first_name_or_last_name_or_nickname(changeset, %{}), do: changeset
 
   def validate_first_name_or_last_name_or_nickname(changeset, _) do
     first_name = get_field(changeset, :first_name)
@@ -93,6 +107,8 @@ defmodule Vutuv.User do
       |> add_error(:nickname, message)
     end
   end
+
+  
 
   def downcase_value(changeset) do
     # If the value has been changed, downcase it.
