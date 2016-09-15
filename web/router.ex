@@ -32,7 +32,7 @@ defmodule Vutuv.Router do
       resources "/memberships", MembershipController, only: [:new, :create, :show, :delete, :index]
     end
 
-    resources "/search", SearchQueryController, only: [:create, :index]
+    resources "/search_queries", SearchQueryController, only: [:create, :index]
 
     resources "/users", UserController, param: "slug" do
       pipe_through :user_pipe
@@ -43,13 +43,12 @@ defmodule Vutuv.Router do
       resources "/followees", FolloweeController, only: [:index]
       resources "/skills", UserSkillController, only: [:new, :create, :show, :delete, :index]
       resources "/endorsements", EndorsementController, only: [:create, :delete]
-      resources "/phonenumbers", PhoneNumberController
+      resources "/phone_numbers", PhoneNumberController
       resources "/dates", DateController
       resources "/links", UrlController
       resources "/social_media_accounts", SocialMediaAccountController
-      resources "/workexperience", WorkExperienceController
+      resources "/work_experiences", WorkExperienceController
       resources "/addresses", AddressController
-      resources "/oauthproviders", OAuthProviderController
     end
 
 
