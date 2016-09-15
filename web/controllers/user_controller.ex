@@ -69,7 +69,7 @@ defmodule Vutuv.UserController do
   end
 
   def edit(conn, _params) do
-    user = Repo.get!(User, conn.assigns[:user_id]) |> Repo.preload([:emails, :slugs])
+    user = Repo.get!(User, conn.assigns[:user_id]) |> Repo.preload([:emails, :slugs, :oauth_providers])
     changeset = User.changeset(user)
     render(conn, "edit.html", user: user, changeset: changeset)
   end
