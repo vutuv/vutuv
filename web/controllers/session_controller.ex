@@ -79,9 +79,6 @@ defmodule Vutuv.SessionController do
   end
 
   def facebook_return(conn, params) do
-    IO.puts "\n\n\n"
-    IO.puts inspect params
-    IO.puts "\n\n\n"
     conn
     |>redirect(to: session_path(conn, :new))
   end
