@@ -49,6 +49,7 @@ defmodule Vutuv.Router do
       resources "/social_media_accounts", SocialMediaAccountController
       resources "/work_experiences", WorkExperienceController
       resources "/addresses", AddressController
+      resources "/oauth_providers", OAuthProviderController
     end
 
 
