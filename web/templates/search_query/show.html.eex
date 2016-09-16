@@ -14,8 +14,8 @@
       <tbody>
     <%= for user <- @results do %>
         <tr class="pure-table-odd">
-          <td><%="#{user.first_name} #{user.last_name}"%></td>
-          <td><%=hd(Vutuv.Repo.preload(user, [:emails]).emails).value%></td>
+          <td><%= "#{user.first_name} #{user.last_name}" %></td>
+          <td><%= hd(Vutuv.Repo.preload(user, [:emails]).emails).value %></td>
         </tr>
     <% end %>
       </tbody>

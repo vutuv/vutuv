@@ -15,8 +15,8 @@
     <div class="header">
       <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
           <a class="pure-menu-heading" href="/">vutuv</a>
-
           <ul class="pure-menu-list">
+          <a class="pure-menu-item" href="<%= search_query_path(@conn, :new) %>">Search for users</a>
             <%= if @current_user do %>
               <li class="pure-menu-item">
                 <%= if is_current_user_page?(@conn) do %>

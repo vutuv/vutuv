@@ -5,7 +5,6 @@ defmodule Vutuv.Registration do
 	alias Vutuv.Repo
 
 	def register_user(user_params, assocs \\ []) do
-		IO.puts "\n\n\n#{inspect user_params}\n\n\n"
 		slug =
 	      if(user_params["first_name"] != nil or user_params["last_name"] != nil) do
 	        struct = %User{first_name: user_params["first_name"], last_name: user_params["last_name"]}
@@ -24,6 +23,11 @@ defmodule Vutuv.Registration do
 	    end)
 
 	   	Repo.insert(changeset)
+	end
+
+	def generate_search_terms(user) do
+		[user["first_name"]]
+
 	end
 
 	def generate_slug(user) do

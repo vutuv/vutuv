@@ -57,7 +57,6 @@ defmodule Vutuv.SessionController do
     %HTTPoison.Response{body: body} = HTTPoison.get!("https://graph.facebook.com/v2.2/#{id}?fields=email,first_name,last_name&access_token=#{token}")
     fields = Poison.decode!(body)
     user_params =  Map.drop(fields,["id", "email"])
-    IO.puts inspect fields
     case Vutuv.Auth.login_by_facebook(fields) do
       {:ok, user} ->
         Vutuv.Auth.login(conn, user)

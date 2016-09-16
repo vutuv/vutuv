@@ -1,0 +1,11 @@
+<div class="pure-g">
+  <div class="pure-u-1-1">
+    <h2><%= gettext "New search term"%></h2>
+
+    <%= render "form.html", changeset: @changeset,
+                            action: user_search_term_path(@conn, :create, @user),
+                            user: @user %>
+
+    <%= link gettext("Back"), to: user_search_term_path(@conn, :index, @user), class: "pure-button" %>
+  </div>
+</div>

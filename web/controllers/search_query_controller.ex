@@ -18,7 +18,7 @@ defmodule Vutuv.SearchQueryController do
 
   def create(conn, %{"search_query" => search_query_params}) do
     id = if conn.assigns[:current_user], do: conn.assigns[:current_user].id, else: nil
-    results = users_by_email search_query_params["value"]
+    results = search search_query_params["value"]
     results_assocs = 
       for(user <- results) do
         Ecto.build_assoc(user, :search_query_results)
@@ -51,4 +51,12 @@ defmodule Vutuv.SearchQueryController do
 
   def query_changeset(changeset, _, _), do: changeset
 
+  def search(value) do
+    for(term<- Repo.all(from t in Vutuv.SearchTerm, where: ^value == t.value)) do
+      %{similarity: term.similarity, user_id: term.user_id}
+    end
+    |>Enum.sort(&(&1.similarity> &2.similarity)) #sorts by similarity
+    |>Enum.dedup_by(&(&1.user_id)) #filters duplicates
+    |>Enum.map(&(Repo.get!(Vutuv.User, &1.user_id))) #maps to flat list of users
+  end
 end
