@@ -17,9 +17,9 @@ defmodule Vutuv.User do
     field :active_slug, :string
     field :administrator, :boolean
 
-    has_many :search_query_results,   Vutuv.SearchQueryResult,  on_delete: :nothing
-    has_many :searches,               Vutuv.SearchQueryRequester, on_delete: :nothing
-    has_many :oauth_providers,        Vutuv.OAuthProvider,      on_delete: :nothing
+    has_many :search_query_results,   Vutuv.SearchQueryResult,  on_delete: :delete_all
+    has_many :searches,               Vutuv.SearchQueryRequester, on_delete: :delete_all
+    has_many :oauth_providers,        Vutuv.OAuthProvider,      on_delete: :delete_all
     has_many :magic_links,            Vutuv.MagicLink,          on_delete: :delete_all
     has_many :groups,                 Vutuv.Group,              on_delete: :delete_all
     has_many :emails,                 Vutuv.Email,              on_delete: :delete_all

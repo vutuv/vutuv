@@ -1,6 +1,5 @@
 defmodule Vutuv.SearchQueryController do
   use Vutuv.Web, :controller
-  import Vutuv.UserHelpers
   alias Vutuv.SearchQuery
 
   def index(conn, _params) do

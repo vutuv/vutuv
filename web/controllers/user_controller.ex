@@ -108,10 +108,10 @@ defmodule Vutuv.UserController do
 
   def magicdelete(conn, %{"magiclink" => link}) do
     case Vutuv.MagicLinkHelpers.check_magic_link(link, "delete") do
-      {:ok, _user} ->
+      {:ok, user} ->
         # Here we use delete! (with a bang) because we expect
         # it to always work (and if it does not, it will raise).
-        Repo.delete!(conn.assigns[:current_user])
+        Repo.delete!(user)
 
         conn
         |> Vutuv.Auth.logout

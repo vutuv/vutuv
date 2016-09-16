@@ -11,5 +11,11 @@
     <%= error_tag f, :value %>
   </div>
 
+  <div class="form-group">
+    <%= label f, :similarity, class: "control-label" %>
+    <%= number_input f, :similarity, class: "form-control" %>
+    <%= error_tag f, :value %>
+  </div>
+
   <%= submit gettext("Submit"), class: "pure-button pure-button-primary" %>
 <% end %>
