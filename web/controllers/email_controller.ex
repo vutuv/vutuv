@@ -25,12 +25,21 @@ defmodule Vutuv.EmailController do
       |> build_assoc(:emails)
       |> Email.changeset(email_params)
 
-    case Repo.insert(changeset) do
-      {:ok, _email} ->
+    search_term_changeset =   
+      conn.assigns[:user]
+      |> build_assoc(:search_terms)
+      |> Vutuv.SearchTerm.changeset(%{value: email_params["value"], score: 100})
+
+    Ecto.Multi.new #Will fail if either of the insertions fail
+    |> Ecto.Multi.insert(:email, changeset)
+    |> Ecto.Multi.insert(:search_term, search_term_changeset)
+    |> Repo.transaction
+    |> case do
+      {:ok, %{email: _email, search_term: _search_term}} ->
         conn
         |> put_flash(:info, "Email created successfully.")
         |> redirect(to: user_email_path(conn, :index, conn.assigns[:user]))
-      {:error, changeset} ->
+      {:error, _failure, changeset, _} ->
         render(conn, "new.html", changeset: changeset)
     end
   end
