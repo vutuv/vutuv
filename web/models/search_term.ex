@@ -3,7 +3,7 @@ defmodule Vutuv.SearchTerm do
 
   schema "search_terms" do
     field :value, :string
-    field :similarity, :integer
+    field :score, :integer
 
     belongs_to :user, Vutuv.User
     timestamps
@@ -17,6 +17,12 @@ defmodule Vutuv.SearchTerm do
   """
   def changeset(model, params \\ :empty) do
     model
-    |> cast(params, [:value, :similarity])
+    |> cast(params, [:value, :score])
+    |>downcase_value
+  end
+
+  def downcase_value(changeset) do
+    # If the value has been changed, downcase it.
+    update_change(changeset, :value, &String.downcase/1)
   end
 end

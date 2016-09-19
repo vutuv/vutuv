@@ -5,13 +5,13 @@
     </div>
   <% end %>
 
-	<div class="form-group">
+  <div class="form-group">
     <%= label f, :provider, class: "control-label" %>
     <%= select f, :provider, ["Facebook", "Twitter", "Instagram", "Youtube", "Snapchat", "Stackoverflow"], prompt: "Select a Social Media Provider", class: "form-control" %>
     <%= error_tag f, :provider %>
   </div>
 
-	<div class="form-group">
+  <div class="form-group">
     <%= label f, :account, class: "control-label" %>
     <%= text_input f, :value, class: "form-control" %>
     <%= error_tag f, :value %>

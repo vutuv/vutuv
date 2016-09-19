@@ -5,6 +5,6 @@
     <%= render "form.html", conn: @conn,
                         action: user_user_skill_path(@conn, :create, @user) %>
 
-		<%= link "Back", to: user_user_skill_path(@conn, :index, @user) %>
+    <%= link "Back", to: user_user_skill_path(@conn, :index, @user) %>
   </div>
 </div>

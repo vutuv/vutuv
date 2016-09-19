@@ -51,10 +51,11 @@ defmodule Vutuv.SearchQueryController do
   def query_changeset(changeset, _, _), do: changeset
 
   def search(value) do
+    value = String.downcase(value)
     for(term<- Repo.all(from t in Vutuv.SearchTerm, where: ^value == t.value)) do
-      %{similarity: term.similarity, user_id: term.user_id}
+      %{score: term.score, user_id: term.user_id}
     end
-    |>Enum.sort(&(&1.similarity> &2.similarity)) #sorts by similarity
+    |>Enum.sort(&(&1.score> &2.score)) #sorts by score
     |>Enum.dedup_by(&(&1.user_id)) #filters duplicates
     |>Enum.map(&(Repo.get!(Vutuv.User, &1.user_id))) #maps to flat list of users
   end

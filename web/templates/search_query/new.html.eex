@@ -7,8 +7,8 @@
   </div>
 
   <%= if(assigns[:results]) do %>
-	  <div class="pure-u-1-1">
-	    <%= render "show.html", conn: @conn, results: @results %>
-	  </div>
+    <div class="pure-u-1-1">
+      <%= render "show.html", conn: @conn, results: @results %>
+    </div>
   <%= end %>
 </div>

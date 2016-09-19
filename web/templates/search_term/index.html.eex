@@ -7,7 +7,7 @@
         <tr>
     
           <th><%= gettext("Value") %></th>
-          <th><%= gettext("Similarity") %></th>
+          <th><%= gettext("Score") %></th>
           <th></th>
         </tr>
       </thead>
@@ -16,7 +16,7 @@
         
         <tr class="<%= if rem(index, 2) == 1, do: "pure-table-odd" %>">
           <td> <%= search_term.value %> </td>
-          <td> <%= search_term.similarity %> </td>
+          <td> <%= search_term.score %> </td>
           <td class="text-right">
             <%= link gettext("Show"), to: user_search_term_path(@conn, :show, @user, search_term), class: "pure-button" %>
             <%= link gettext("Edit"), to: user_search_term_path(@conn, :edit, @user, search_term), class: "pure-button" %>

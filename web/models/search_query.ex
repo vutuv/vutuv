@@ -23,6 +23,7 @@ defmodule Vutuv.SearchQuery do
     model
     |> cast(params, [:value, :is_email?])
     |> unique_constraint(:value)
+    |> downcase_value
     |> validate_email
   end
 
@@ -33,5 +34,10 @@ defmodule Vutuv.SearchQuery do
       Regex.match?(@email_regex, value) -> put_change(changeset, :is_email?, true)
       true -> put_change(changeset, :is_email?, false)
     end
+  end
+
+  def downcase_value(changeset) do
+    # If the value has been changed, downcase it.
+    update_change(changeset, :value, &String.downcase/1)
   end
 end

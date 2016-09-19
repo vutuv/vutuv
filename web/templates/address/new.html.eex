@@ -3,7 +3,7 @@
     <h2><%= gettext "New address"%></h2>
 
     <%= if @country != nil and @country != "" do %>
-    	<%= render "form_"<>@country<>".html", changeset: @changeset, conn: @conn,
+      <%= render "form_"<>@country<>".html", changeset: @changeset, conn: @conn,
                             action: user_address_path(@conn, :create, @user) %>
     <%= end %>
     <%= link gettext("Back"), to: user_address_path(@conn, :index, @user), class: "pure-button" %>

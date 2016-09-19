@@ -3,7 +3,7 @@ defmodule Vutuv.Plug.AuthUser do
   import Phoenix.Controller
 
   def init(opts) do
-  	opts
+    opts
   end
 
   def call(conn, _default) do
