@@ -5,10 +5,4 @@
     <%= render "form.html", changeset: @changeset,
                             action: search_query_path(@conn, :create) %>
   </div>
-
-  <%= if(assigns[:results]) do %>
-    <div class="pure-u-1-1">
-      <%= render "show.html", conn: @conn, results: @results %>
-    </div>
-  <%= end %>
 </div>

@@ -1,4 +1,4 @@
-<h2><%= gettext "E-Mails" %></h2>
+<h2><%= gettext "Search History" %></h2>
 
 <table class="pure-table pure-table-horizontal">
   <thead>
@@ -14,14 +14,14 @@
     <tr>
       <td><%= query.value %></td>
       <td>
-        <%= for(requester <- query.requesters) do %> 
+        <%= for(requester <- query.search_query_requesters) do %> 
           <%= if(requester.user_id) do %>
             <%=Vutuv.UserHelpers.full_name(Vutuv.Repo.get(Vutuv.User, requester.user_id))%><br> 
           <% end %>
         <% end %>
       </td>
       <td>
-        <%= for(result <- hd(query.requesters).search_results) do %>
+        <%= for(result <- query.search_query_results) do %>
           <%= Vutuv.UserHelpers.full_name(Vutuv.Repo.get(Vutuv.User, result.user_id)) %>
         <% end %>
       </td>

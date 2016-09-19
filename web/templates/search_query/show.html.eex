@@ -1,24 +1,37 @@
 <div class="pure-g">
   <div class="pure-u-1-1">
     <h2><%= gettext "Results"%></h2>
+    <ul>
 
-    <table class="pure-table pure-table-horizontal">
-      <thead>
-        <tr>
-    
-          <th>Name</th>
-          <th>Email</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-    <%= for results <- @results do %>
-        <tr class="pure-table-odd">
-          <td><%= "#{user.first_name} #{user.last_name}" %></td>
-          <td><%= email(user) %></td>
-        </tr>
-    <% end %>
-      </tbody>
-    </table>
+      <li>
+        <strong>Value:</strong>
+        <%= @query.value %>
+      </li>
+
+      <li>
+        <strong> Is email?</strong>
+        <%= @query.is_email? %>
+      </li>
+
+      <li>
+        <table class="pure-table pure-table-horizontal">
+          <thead>
+            <tr>
+              <th>Results</th>
+            </tr>
+          </thead>
+          <tbody>
+        <%= for user <- @results do %>
+            <tr class="pure-table-odd">
+              <td><%= "#{user.first_name} #{user.last_name}" %></td>
+              <td><%= email(user) %></td>
+            </tr>
+        <% end %>
+          </tbody>
+        </table>
+      </li><br>
+      <%= link "New Search", to: search_query_path(@conn, :new) %><br>
+      <%= link "Back", to: search_query_path(@conn, :index) %>
+    </ul>
   </div>
 </div>

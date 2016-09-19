@@ -4,7 +4,7 @@ defmodule Vutuv.Repo.Migrations.CreateSearchTerm do
   def change do
     create table(:search_terms) do
     	add :value, :string
-    	add :similarity, :integer
+    	add :score, :integer
     	add :user_id, references(:users, on_delete: :nothing)
       timestamps
     end
