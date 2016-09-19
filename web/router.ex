@@ -51,6 +51,7 @@ defmodule Vutuv.Router do
       resources "/addresses", AddressController
       resources "/oauth_providers", OAuthProviderController
       resources "/search_terms", SearchTermController
+      resources "/search_queries", SearchQueryController, only: [:create, :index, :new, :show]
     end
 
 
