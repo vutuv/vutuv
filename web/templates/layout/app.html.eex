@@ -15,9 +15,9 @@
     <div class="header">
       <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
           <a class="pure-menu-heading" href="/">vutuv</a>
-
           <ul class="pure-menu-list">
             <%= if @current_user do %>
+              <li class="pure-menu-item"><%= link "Search for users", to: search_query_path(@conn, :index), class: "pure-menu-link" %></li>
               <li class="pure-menu-item">
                 <%= if is_current_user_page?(@conn) do %>
                   <%= full_name(@current_user) %>
@@ -31,6 +31,7 @@
                 <%= link "Log out", to: session_path(@conn, :delete, @current_user), class: "pure-menu-link", method: "delete" %>
               </li>
             <% else %>
+              <li class="pure-menu-item"><%= link "Search for users", to: search_query_path(@conn, :new), class: "pure-menu-link" %></li>
               <li class="pure-menu-item"><%= link "Register", to: user_path(@conn, :new), class: "pure-menu-link" %></li>
               <li class="pure-menu-item"><%= link "Log in", to: session_path(@conn, :new), class: "pure-menu-link" %></li>
             <% end %>

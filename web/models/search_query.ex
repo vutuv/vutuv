@@ -5,7 +5,8 @@ defmodule Vutuv.SearchQuery do
     field :value, :string
     field :is_email?, :boolean
     
-    has_many :requesters, Vutuv.SearchQueryRequester, on_delete: :nothing
+    has_many :search_query_results, Vutuv.SearchQueryResult, on_delete: :delete_all, on_replace: :delete
+    has_many :search_query_requesters, Vutuv.SearchQueryRequester, on_delete: :delete_all
     timestamps
   end
 
@@ -22,7 +23,10 @@ defmodule Vutuv.SearchQuery do
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, [:value, :is_email?])
+    |> cast_assoc(:search_query_results)
+    |> cast_assoc(:search_query_requesters)
     |> unique_constraint(:value)
+    |> downcase_value
     |> validate_email
   end
 
@@ -33,5 +37,10 @@ defmodule Vutuv.SearchQuery do
       Regex.match?(@email_regex, value) -> put_change(changeset, :is_email?, true)
       true -> put_change(changeset, :is_email?, false)
     end
+  end
+
+  def downcase_value(changeset) do
+    # If the value has been changed, downcase it.
+    update_change(changeset, :value, &String.downcase/1)
   end
 end

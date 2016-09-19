@@ -22,13 +22,13 @@ defmodule Vutuv.Admin.AdminController do
   end
 
   defp authorize(conn, _params) do
-  	if conn.assigns[:current_user].administrator==false do
-  		conn
+    if conn.assigns[:current_user].administrator==false do
+      conn
       |> put_status(403)
       |> render(Vutuv.ErrorView, "403.html")
       |> halt
     else
-    	conn
+      conn
     end
   end
 end

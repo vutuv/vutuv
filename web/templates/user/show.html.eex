@@ -19,7 +19,9 @@
     <%= if @user.avatar do %>
       <img src="<%= Vutuv.Avatar.user_url(@user, :thumb) %>"  class="pure-img" alt="failed" />
       <img src="<%= Vutuv.Avatar.user_url(@user, :medium) %>"  class="pure-img" alt="failed" />
-      <img src="<%= Vutuv.Avatar.user_url(@user, :large) %>"  class="pure-img" alt="failed" />      
+      <img src="<%= Vutuv.Avatar.user_url(@user, :large) %>"  class="pure-img" alt="failed" />  
+    <%= else %>   
+       <img src="<%= gravatar_url(@user) %>"  class="pure-img" alt="Avatar <%= full_name(@user) %>" /> 
     <% end %>
     <%= if @user.id != @current_user.id do %>
       <%= unless Vutuv.UserController.visitor_is_follower?(@conn, @user.id) do %>
@@ -131,6 +133,8 @@
     <%= render Vutuv.WorkExperienceView, "index.html", conn: @conn, work_experience: @user.work_experiences, user: @user%>
 
     <%= render Vutuv.SocialMediaAccountView, "index.html", conn: @conn, social_media_accounts: @user.social_media_accounts, user: @user%>
+    
+    <%= render Vutuv.SearchTermView, "index.html", conn: @conn, search_terms: @user.search_terms, user: @user%>
 
     <%= render Vutuv.AddressView, "index.html", conn: @conn, addresses: @user.addresses, user: @user%>
 

@@ -2,6 +2,7 @@ defmodule Vutuv.SlugController do
   use Vutuv.Web, :controller
   alias Vutuv.Slug
   import Ecto
+  
   def index(conn, _params) do
     slugs = Repo.all(assoc(conn.assigns[:user], :slugs))
     render(conn, "index.html", slugs: slugs)

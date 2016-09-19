@@ -20,6 +20,15 @@ defmodule Vutuv.UserHelpers do
     end
   end
 
+  def email(user, index \\ 0) do
+    Repo.preload(user, [:emails]).emails
+    |>case do
+      [] -> ""
+      nil -> ""
+      emails -> Enum.at(emails, index, %{value: ""}).value
+    end
+  end
+
   def users_by_email(email) do
     Repo.all(from u in Vutuv.User, join: e in assoc(u, :emails), where: e.value == ^email)
   end

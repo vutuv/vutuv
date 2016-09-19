@@ -4,7 +4,6 @@ defmodule Vutuv.SearchQueryRequester do
   schema "search_query_requesters" do
     belongs_to :user, Vutuv.User
     belongs_to :search_query, Vutuv.SearchQuery
-    has_many :search_results, Vutuv.SearchQueryResult
     timestamps
   end
 

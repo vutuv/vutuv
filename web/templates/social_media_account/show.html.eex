@@ -3,20 +3,20 @@
     <h2><%= gettext "Show social media account" %></h2>
 
     <ul>
-    	<li>
-		    <strong>Provider:</strong>
-		    <%= @social_media_account.provider %>
-		  </li>
+      <li>
+        <strong>Provider:</strong>
+        <%= @social_media_account.provider %>
+      </li>
 
-		  <li>
-		    <strong>Account:</strong>
-		    <%= @social_media_account.value %>
-		  </li>
+      <li>
+        <strong>Account:</strong>
+        <%= @social_media_account.value %>
+      </li>
 
-		  <li>
-		    <strong>User:</strong>
-		    <%= @social_media_account.user_id %>
-		  </li>
+      <li>
+        <strong>User:</strong>
+        <%= @social_media_account.user_id %>
+      </li>
     </ul>
 
     <%= link gettext("Edit"), to: user_social_media_account_path(@conn, :edit, @user, @social_media_account), class: "pure-button" %>
