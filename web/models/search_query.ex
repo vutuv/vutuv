@@ -12,7 +12,6 @@ defmodule Vutuv.SearchQuery do
 
   @required_fields ~w()
   @optional_fields ~w()
-  @email_regex ~r/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -27,16 +26,6 @@ defmodule Vutuv.SearchQuery do
     |> cast_assoc(:search_query_requesters)
     |> unique_constraint(:value)
     |> downcase_value
-    |> validate_email
-  end
-
-  def validate_email(changeset) do
-    value = get_field(changeset, :value)
-    cond do
-      value == nil -> put_change(changeset, :is_email?, false)
-      Regex.match?(@email_regex, value) -> put_change(changeset, :is_email?, true)
-      true -> put_change(changeset, :is_email?, false)
-    end
   end
 
   def downcase_value(changeset) do

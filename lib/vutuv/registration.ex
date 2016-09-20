@@ -4,6 +4,7 @@ defmodule Vutuv.Registration do
   alias Vutuv.Slug
   alias Vutuv.Repo
   alias Vutuv.SearchTerm
+  alias Vutuv.ColognePhonetics
 
   def register_user(user_params, assocs \\ []) do
     slug =
@@ -27,23 +28,35 @@ defmodule Vutuv.Registration do
      Repo.insert(changeset)
   end
 
-  def generate_search_terms(%{"first_name" => first_name,
-                              "last_name" => last_name} = user) do
-    terms = 
-      [first_name,
-      last_name,
-      user["emails"]["0"]["value"],
-      "#{first_name} #{last_name}",
-      "#{last_name} #{first_name}",
-      "#{first_name}, #{last_name}",
-      "#{last_name}, #{first_name}"]
-      |>Enum.filter(&(&1)) #filters out nil values
+  #Generates search terms from user data
+  def generate_search_terms(%{"first_name" => first_name, "last_name" => last_name} = user) do
+    email = user["emails"]["0"]["value"]
+
+    terms = #if email is not nil, add to search terms
+      if (email), do: [email|combine_terms(first_name, last_name)], else: combine_terms(first_name, last_name) 
+
+    fuzzy_terms = 
+      combine_terms(ColognePhonetics.to_cologne(first_name), ColognePhonetics.to_cologne(last_name))
+
     for(term <- terms) do #generates changesets for terms
       SearchTerm.changeset(%SearchTerm{}, %{value: term, score: 100})
+    end
+    ++
+    for(term <- fuzzy_terms) do #generates changesets for fuzzy_terms with lower match score
+      SearchTerm.changeset(%SearchTerm{}, %{value: term, score: 80})
     end
   end
 
   def generate_search_terms(_), do: []
+
+  defp combine_terms(first_name, last_name) do
+      [first_name,
+      last_name,
+      "#{first_name} #{last_name}",
+      "#{last_name} #{first_name}",
+      "#{first_name}, #{last_name}",
+      "#{last_name}, #{first_name}"]
+  end
 
   def normalize(string) do
     string

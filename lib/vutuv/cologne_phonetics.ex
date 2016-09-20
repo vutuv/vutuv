@@ -1,5 +1,10 @@
 defmodule Vutuv.ColognePhonetics do
 
+  @doc """
+  This module is an implementation of the Cologne Phonetics algorithm, designed to encode names of Germanic origin into a phonetic code representing
+  the pronunciation of the name. For more information on the rules of the alorithm, visit the following wikipedia page: https://en.wikipedia.org/wiki/Cologne_phonetics
+  """
+
   cologne_replacements_with_rules = 
   [
     #This is the replacement list with rules included. The order is very imporant for the correct functionality of the algorithm.
@@ -60,8 +65,9 @@ defmodule Vutuv.ColognePhonetics do
   ]
   
 
-  def to_cologne(string) do #The three steps of the cologne phonetics algorithm, see https://en.wikipedia.org/wiki/Cologne_phonetics for more info.
-    encode_string(string) #Converts the string to representative coded numbers in a char list
+  def to_cologne(string) do #The three steps of the cologne phonetics algorithm.
+    String.downcase(string) #Downcase to prevent unwanted behavior
+    |> encode_string #Converts the string to representative coded numbers in a char list
     |> Enum.dedup #Removes consecutive duplicates
     |> remove_zeroes #Removes all zeroes, ignoring the first character
     |> to_string #Converts char_list to string for return
@@ -105,6 +111,8 @@ defmodule Vutuv.ColognePhonetics do
   end
 
   defp encode(_,nil,_), do: '' #If the recursion is just starting, the selected character will be nil, so don't add to the encoded string.
+
+  defp encode(_,_,_), do: '' #This prevents the algorithm from failing due to unexpected characters.
 
   defp remove_zeroes([head|tail]) do
     [head|Enum.reject(tail, &(&1 == ?0))]

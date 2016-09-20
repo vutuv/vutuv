@@ -5,11 +5,12 @@ defmodule Vutuv.SearchQueryController do
   alias Vutuv.SearchTerm
   alias Vutuv.User
 
+  @email_regex ~r/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/
+
   def index(conn, _params) do
     if(conn.assigns[:current_user]) do
       queries = Repo.all(from q in SearchQuery, join: r in assoc(q, :search_query_requesters), where: r.user_id == ^conn.assigns[:current_user].id, preload: [search_query_requesters: r])
       |>Repo.preload([:search_query_results])
-      IO.puts "\n\n#{inspect queries}\n\n"
       render(conn, "index.html", queries: queries)
     else
       redirect(conn, to: search_query_path(conn, :new))
@@ -34,7 +35,8 @@ defmodule Vutuv.SearchQueryController do
 
   def create(conn, %{"search_query" => search_query_params}) do
     user = conn.assigns[:current_user]
-    results = search search_query_params["value"]
+    search_query_params = Map.put(search_query_params, "is_email?", validate_email(search_query_params["value"]))
+    results = search search_query_params["value"], search_query_params["is_email?"]
     results_assocs = #build assocs from results
       for(user <- results) do
         Ecto.build_assoc(user, :search_query_results)
@@ -90,14 +92,40 @@ defmodule Vutuv.SearchQueryController do
     |> Repo.transaction
   end
 
-  #Check database for matches between search.value and search_terms
-  def search(value) do
+  defp validate_email(nil), do: false
+
+  defp validate_email(value) do
+    Regex.match?(@email_regex, value)
+  end
+
+
+  #Checks database for matches between search.value and search_terms
+  defp search(value, false) do
     value = String.downcase(value)
-    for(term<- Repo.all(from t in SearchTerm, where: ^value == t.value)) do
+    fuzzy_value = phoneticize_search_value(value)
+    for(term<- Repo.all(from t in SearchTerm, where: ^value == t.value or ^fuzzy_value == t.value)) do
       %{score: term.score, user_id: term.user_id}
     end
-    |> Enum.sort(&(&1.score> &2.score)) #sorts by score
-    |> Enum.dedup_by(&(&1.user_id)) #filters duplicates
-    |> Enum.map(&(Repo.get!(User, &1.user_id))) #maps to flat list of users
+    |> Enum.sort(&(&1.score> &2.score)) #Sorts by score
+    |> Enum.uniq_by(&(&1.user_id)) #Filters duplicates
+    |> Enum.map(&(Repo.get!(User, &1.user_id))) #Maps to flat list of users
+  end
+
+  #Because the search value was detected to be an email, a much more efficiant database call and handling of results is used
+  defp search(value, true) do
+    value = String.downcase(value)
+    Repo.all(from u in User, join: e in assoc(u, :emails), where: ^value == e.value)
+    |> Enum.uniq_by(&(&1.id)) #Filters duplicates
+  end
+
+  defp phoneticize_search_value(value) do 
+    for(section <- Regex.split(~r/[^a-z]+/, value, include_captures: true)) do #Split the value by non words
+      if(Regex.match?(~r/^[a-z]+$/, section)) do
+        Vutuv.ColognePhonetics.to_cologne(section) #Phoneticize the words
+      else
+        section #Retain the non-words
+      end
+    end
+    |>Enum.join #Recombine the search value with phoneticized words
   end
 end
