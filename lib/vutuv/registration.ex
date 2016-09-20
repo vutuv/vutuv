@@ -43,13 +43,13 @@ defmodule Vutuv.Registration do
     end
   end
 
+  def generate_search_terms(_), do: []
+
   def normalize(string) do
     string
     |> String.normalize(:nfd)
     |> String.replace(~r/\W/u, "")
   end
-
-  def generate_search_terms(_), do: []
 
   def generate_slug(user) do
     slug_value = Slugger.slugify_downcase(user, ?.)

@@ -2,7 +2,6 @@ defmodule Vutuv.SearchQueryController do
   use Vutuv.Web, :controller
   alias Vutuv.SearchQuery
   alias Vutuv.SearchQueryRequester
-  alias Vutuv.SearchQueryResult
   alias Vutuv.SearchTerm
   alias Vutuv.User
 
@@ -43,7 +42,7 @@ defmodule Vutuv.SearchQueryController do
     Repo.one(from q in SearchQuery, where: q.value == ^search_query_params["value"])
     |> insert_or_update(search_query_params, requester_assoc(user), results_assocs)
     |> case do #Multiple possible transaction results are covered by 4 different cases
-      {:ok, %{search_query: query, search_query_requester: search_query_requester}} ->
+      {:ok, %{search_query: query, search_query_requester: _search_query_requester}} ->
         conn
         |> put_flash(:info, gettext("Search query executed successfully."))
         |> redirect(to: search_query_path(conn, :show, query))
