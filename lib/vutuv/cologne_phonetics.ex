@@ -1,8 +1,8 @@
 defmodule Vutuv.ColognePhonetics do
 
   @doc """
-  This module is an implementation of the Cologne Phonetics algorithm, designed to encode names of Germanic origin into a phonetic code representing
-  the pronunciation of the name. For more information on the rules of the alorithm, visit the following wikipedia page: https://en.wikipedia.org/wiki/Cologne_phonetics
+  ColognePhonetics is an implementation of the Cologne Phonetics algorithm, designed to encode names of Germanic origin into a phonetic code representing
+  the pronunciation of the name. For more information on the rules of the algorithm, visit the following wikipedia page: https://en.wikipedia.org/wiki/Cologne_phonetics
   """
 
   cologne_replacements_with_rules = 
@@ -119,7 +119,7 @@ defmodule Vutuv.ColognePhonetics do
     [head|Enum.reject(tail, &(&1 == ?0))]
   end
 
-  def normalize(string) do #replaces special characters with their a-z equivelants
+  defp normalize(string) do #replaces special characters with their a-z equivelants
     string
     |> String.normalize(:nfd)
     |> String.replace(~r/\W/u, "")

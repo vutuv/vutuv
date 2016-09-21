@@ -5,6 +5,7 @@ defmodule Vutuv.Registration do
   alias Vutuv.Repo
   alias Vutuv.SearchTerm
   alias Vutuv.ColognePhonetics
+  alias Vutuv.Soundex
 
   def register_user(user_params, assocs \\ []) do
     slug =
@@ -37,6 +38,8 @@ defmodule Vutuv.Registration do
 
     fuzzy_terms = 
       combine_terms(ColognePhonetics.to_cologne(first_name), ColognePhonetics.to_cologne(last_name))
+      ++
+      combine_terms(Soundex.to_soundex(first_name), Soundex.to_soundex(last_name))
 
     for(term <- terms) do #generates changesets for terms
       SearchTerm.changeset(%SearchTerm{}, %{value: term, score: 100})

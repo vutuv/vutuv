@@ -102,8 +102,9 @@ defmodule Vutuv.SearchQueryController do
   #Checks database for matches between search.value and search_terms
   defp search(value, false) do
     value = String.downcase(value)
-    fuzzy_value = phoneticize_search_value(value)
-    for(term<- Repo.all(from t in SearchTerm, where: ^value == t.value or ^fuzzy_value == t.value)) do
+    cologne_fuzzy_value = phoneticize_search_value(value, :cologne)
+    soundex_fuzzy_value = phoneticize_search_value(value, :soundex)
+    for(term<- Repo.all(from t in SearchTerm, where: ^value == t.value or ^cologne_fuzzy_value == t.value or ^soundex_fuzzy_value == t.value)) do
       %{score: term.score, user_id: term.user_id}
     end
     |> Enum.sort(&(&1.score> &2.score)) #Sorts by score
@@ -118,14 +119,17 @@ defmodule Vutuv.SearchQueryController do
     |> Enum.uniq_by(&(&1.id)) #Filters duplicates
   end
 
-  defp phoneticize_search_value(value) do 
+  defp phoneticize_search_value(value, algorithm) do 
     for(section <- Regex.split(~r/[^a-z]+/, value, include_captures: true)) do #Split the value by non words
       if(Regex.match?(~r/^[a-z]+$/, section)) do
-        Vutuv.ColognePhonetics.to_cologne(section) #Phoneticize the words
+        case algorithm do #Phoneticize the words based on the algorithm parameter
+          :cologne -> Vutuv.ColognePhonetics.to_cologne(section)
+          :soundex -> Vutuv.Soundex.to_soundex(section)
+        end
       else
         section #Retain the non-words
       end
     end
-    |>Enum.join #Recombine the search value with phoneticized words
+    |> Enum.join #Recombine the search value with phoneticized words
   end
 end
