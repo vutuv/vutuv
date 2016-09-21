@@ -34,7 +34,7 @@ defmodule Vutuv.Mixfile do
     [{:ecto, "~> 2.0.0", override: true},
      {:bamboo, "~> 0.6"},
      {:bamboo_smtp, "~> 1.1.0"},
-     {:phoenix, "~> 1.1.0"},
+     {:phoenix, "~> 1.2.0"},
      {:phoenix_ecto, "~> 3.0.0-rc"},
      {:phoenix_html, "~> 2.3"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},

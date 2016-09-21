@@ -1,5 +1,6 @@
 defmodule Vutuv.SearchQuery do
   use Vutuv.Web, :model
+  @derive {Phoenix.Param, key: :value}
 
   schema "search_queries" do
     field :value, :string
@@ -22,6 +23,7 @@ defmodule Vutuv.SearchQuery do
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, [:value, :is_email?])
+    |> validate_required([:value, :is_email?])
     |> cast_assoc(:search_query_results)
     |> cast_assoc(:search_query_requesters)
     |> unique_constraint(:value)

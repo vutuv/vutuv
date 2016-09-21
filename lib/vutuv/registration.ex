@@ -58,12 +58,6 @@ defmodule Vutuv.Registration do
       "#{last_name}, #{first_name}"]
   end
 
-  def normalize(string) do
-    string
-    |> String.normalize(:nfd)
-    |> String.replace(~r/\W/u, "")
-  end
-
   def generate_slug(user) do
     slug_value = Slugger.slugify_downcase(user, ?.)
 

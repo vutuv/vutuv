@@ -19,7 +19,7 @@ defmodule Vutuv.SearchQueryController do
 
   def show(conn, %{"id" => query_id}) do
     query = 
-      Repo.get(SearchQuery, query_id)
+      Repo.one!(from q in SearchQuery, where: q.value == ^query_id)
       |> Repo.preload([:search_query_results])
     results = 
       for(result <- query.search_query_results) do

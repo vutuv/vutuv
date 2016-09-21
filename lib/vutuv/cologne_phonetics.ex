@@ -67,6 +67,7 @@ defmodule Vutuv.ColognePhonetics do
 
   def to_cologne(string) do #The three steps of the cologne phonetics algorithm.
     String.downcase(string) #Downcase to prevent unwanted behavior
+    |> normalize #Normalizes special characters
     |> encode_string #Converts the string to representative coded numbers in a char list
     |> Enum.dedup #Removes consecutive duplicates
     |> remove_zeroes #Removes all zeroes, ignoring the first character
@@ -116,5 +117,11 @@ defmodule Vutuv.ColognePhonetics do
 
   defp remove_zeroes([head|tail]) do
     [head|Enum.reject(tail, &(&1 == ?0))]
+  end
+
+  def normalize(string) do #replaces special characters with their a-z equivelants
+    string
+    |> String.normalize(:nfd)
+    |> String.replace(~r/\W/u, "")
   end
 end
