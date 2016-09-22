@@ -11,8 +11,8 @@ defmodule Vutuv.GroupTest do
   #   assert changeset.valid?
   # end
 
-  test "changeset with invalid attributes" do
-    changeset = Group.changeset(%Group{}, @invalid_attrs)
-    refute changeset.valid?
-  end
+  # test "changeset with invalid attributes" do
+  #   changeset = Group.changeset(%Group{}, @invalid_attrs)
+  #   refute changeset.valid?
+  # end
 end
