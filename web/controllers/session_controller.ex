@@ -26,7 +26,7 @@ defmodule Vutuv.SessionController do
 
   def show(conn, %{"magiclink"=>link}) do
     case Vutuv.MagicLinkHelpers.check_magic_link(link, "login") do
-      {:ok, user} -> 
+      {:ok, user} ->
         Vutuv.Auth.login(conn,user)
         |> put_flash(:info, gettext("Welcome back"))
         |> redirect(to: user_path(conn, :show, user))
@@ -49,30 +49,30 @@ defmodule Vutuv.SessionController do
     |>redirect(external: "https://www.facebook.com/dialog/oauth?client_id=615815025247201&redirect_uri=#{redirect_url}/sessions/facebook/auth")
   end
 
-  def facebook_auth(conn, %{"code"=> code}) do #Recieves the redirect from facebook
-    HTTPoison.start #Start HTTP library
+  def facebook_auth(conn, %{"code"=> code}) do
+    HTTPoison.start
 
     code
-    |> get_token #Get token from API call
-    |> get_id #Get ID from API call
-    |> get_fields #Get user fields from API call
-    |> Vutuv.Auth.login_by_facebook #Try to log the user in with the info from facebook
-    |> handle_facebook_login_attempt(conn) #Handle the result of the login attempt
+    |> get_token
+    |> get_facebook_id
+    |> get_fields
+    |> Vutuv.Auth.login_by_facebook
+    |> handle_facebook_login_attempt(conn)
   end
 
-  defp handle_facebook_login_attempt({:ok, user}, conn) do #If user is found, log them in
-    Vutuv.Auth.login(conn, user) #Log the user in
+  defp handle_facebook_login_attempt({:ok, user}, conn) do
+    Vutuv.Auth.login(conn, user)
     |> put_flash(:info, gettext("Welcome back"))
     |> redirect(to: user_path(conn, :show, user))
   end
 
-  defp handle_facebook_login_attempt({:error, :not_found, fields}, conn) do #Else, create the user
+  defp handle_facebook_login_attempt({:error, :not_found, fields}, conn) do
     Map.drop(fields,["id", "email"])
     |> Vutuv.Registration.register_user([{:oauth_providers, %Vutuv.OAuthProvider{provider: "facebook", provider_id: fields["id"]}}])
     |> case do
       {:ok, user} ->
         conn
-        |> Vutuv.Auth.login(user) #Log the newly created user in
+        |> Vutuv.Auth.login(user)
         |> put_flash(:info, "User #{full_name(user)} created successfully.")
         |> redirect(to: user_path(conn, :show, user))
       {:error, _changeset} ->
@@ -82,25 +82,25 @@ defmodule Vutuv.SessionController do
     end
   end
 
-  defp get_token(code) do #Uses the code recieved from the facebook login to get an access token
-    redirect_url = Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:redirect_url] #Get URL from config                    
-    api_call("oauth/access_token", [{"client_id","615815025247201"}, {"redirect_uri", "#{redirect_url}/sessions/facebook/auth"},  #Build the request string
+  defp get_token(code) do
+    redirect_url = Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:redirect_url]
+    api_call("oauth/access_token", [{"client_id","615815025247201"}, {"redirect_uri", "#{redirect_url}/sessions/facebook/auth"},
                                     {"client_secret","839a7f0b468aaaf0256495c40041ecf1"}, {"code", "#{code}"}])
-    |> HTTPoison.get! #Make the request
-    |> decode_body #Decode and return the reply body
+    |> HTTPoison.get!
+    |> decode_body
   end
 
-  defp get_id(%{"access_token" => token}) do #Uses the token to get the user's facebook id
-    api_call("me", [{"access_token", token}]) #Build the request string
-    |> HTTPoison.get!  #Make the request
-    |> decode_body #Decode and return the reply body
+  defp get_facebook_id(%{"access_token" => token}) do
+    api_call("me", [{"access_token", token}])
+    |> HTTPoison.get!
+    |> decode_body
     |> Map.put("access_token", token) #Add the access token to the reply
   end
 
-  defp get_fields(%{"id"=> id, "access_token" => token}) do #Uses the access token and id to get the user's facebook info
-    api_call(id, [{"fields", "email,first_name,last_name"}, {"access_token", token}]) #Build the request string
-    |> HTTPoison.get! #Make the request
-    |> decode_body #Decode and return the reply body
+  defp get_fields(%{"id"=> id, "access_token" => token}) do
+    api_call(id, [{"fields", "email,first_name,last_name"}, {"access_token", token}])
+    |> HTTPoison.get!
+    |> decode_body
   end
 
   defp decode_body(%HTTPoison.Response{body: body}), do: Poison.decode! body #Turns the reply body into a map that elixir can work with
