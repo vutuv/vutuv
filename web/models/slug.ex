@@ -28,12 +28,12 @@ defmodule Vutuv.Slug do
     |> can_create_slug?(model)
   end
 
-  def downcase_value(changeset) do
+  defp downcase_value(changeset) do
     # If the value has been changed, downcase it.
     update_change(changeset, :value, &String.downcase/1)
   end
 
-  def can_create_slug?(changeset, model) do
+  defp can_create_slug?(changeset, model) do
     slug_count = 
     if(model.user_id != nil) do
       Vutuv.Repo.one(from s in Slug, where: s.user_id == ^model.user_id, select: count("*"))
@@ -59,5 +59,4 @@ defmodule Vutuv.Slug do
       end
     end
   end
-
 end

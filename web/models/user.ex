@@ -74,7 +74,7 @@ defmodule Vutuv.User do
     |> downcase_value
   end
 
-  def validate_avatar(changeset, %{"avatar" => avatar}) do
+  defp validate_avatar(changeset, %{"avatar" => avatar}) do
     stat = 
       avatar.path
       |>File.stat!
@@ -85,11 +85,11 @@ defmodule Vutuv.User do
     end
   end
 
-  def validate_avatar(changeset, %{}), do: changeset
+  defp validate_avatar(changeset, %{}), do: changeset
 
-  def validate_first_name_or_last_name_or_nickname(changeset, %{}), do: changeset
+  defp validate_first_name_or_last_name_or_nickname(changeset, %{}), do: changeset
 
-  def validate_first_name_or_last_name_or_nickname(changeset, _) do
+  defp validate_first_name_or_last_name_or_nickname(changeset, _) do
     first_name = get_field(changeset, :first_name)
     last_name = get_field(changeset, :last_name)
     nickname = get_field(changeset, :nickname)
@@ -109,9 +109,7 @@ defmodule Vutuv.User do
     end
   end
 
-  
-
-  def downcase_value(changeset) do
+  defp downcase_value(changeset) do
     # If the value has been changed, downcase it.
     update_change(changeset, :active_slug, &String.downcase/1)
   end

@@ -30,7 +30,7 @@ defmodule Vutuv.Registration do
   end
 
   #Generates search terms from user data
-  def generate_search_terms(%{"first_name" => first_name, "last_name" => last_name} = user) do
+  defp generate_search_terms(%{"first_name" => first_name, "last_name" => last_name} = user) do
     email = user["emails"]["0"]["value"]
 
     terms = #if email is not nil, add to search terms
@@ -50,7 +50,7 @@ defmodule Vutuv.Registration do
     end
   end
 
-  def generate_search_terms(_), do: []
+  defp generate_search_terms(_), do: []
 
   defp combine_terms(first_name, last_name) do
       [first_name,

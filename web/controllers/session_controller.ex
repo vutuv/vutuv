@@ -60,13 +60,13 @@ defmodule Vutuv.SessionController do
     |> handle_facebook_login_attempt(conn) #Handle the result of the login attempt
   end
 
-  def handle_facebook_login_attempt({:ok, user}, conn) do #If user is found, log them in
+  defp handle_facebook_login_attempt({:ok, user}, conn) do #If user is found, log them in
     Vutuv.Auth.login(conn, user) #Log the user in
     |> put_flash(:info, gettext("Welcome back"))
     |> redirect(to: user_path(conn, :show, user))
   end
 
-  def handle_facebook_login_attempt({:error, :not_found, fields}, conn) do #Else, create the user
+  defp handle_facebook_login_attempt({:error, :not_found, fields}, conn) do #Else, create the user
     Map.drop(fields,["id", "email"])
     |> Vutuv.Registration.register_user([{:oauth_providers, %Vutuv.OAuthProvider{provider: "facebook", provider_id: fields["id"]}}])
     |> case do

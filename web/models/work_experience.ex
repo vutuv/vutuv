@@ -60,7 +60,7 @@ defmodule Vutuv.WorkExperience do
     end
   end
 
-  def presence_correct?(year, month) do
+  defp presence_correct?(year, month) do
     cond do
       year && month -> true
       year -> true
@@ -69,7 +69,7 @@ defmodule Vutuv.WorkExperience do
     end
   end
 
-  def date_range_correct?(start, finish) do
+  defp date_range_correct?(start, finish) do
     if(start && finish) do
       cond do
         start>finish -> false

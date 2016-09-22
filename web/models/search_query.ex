@@ -30,7 +30,7 @@ defmodule Vutuv.SearchQuery do
     |> downcase_value
   end
 
-  def downcase_value(changeset) do
+  defp downcase_value(changeset) do
     # If the value has been changed, downcase it.
     update_change(changeset, :value, &String.downcase/1)
   end
