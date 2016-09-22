@@ -18,14 +18,17 @@ defmodule Vutuv.SearchQueryController do
   end
 
   def show(conn, %{"id" => query_id}) do
-    query = 
-      Repo.one!(from q in SearchQuery, where: q.value == ^query_id)
-      |> Repo.preload([:search_query_results])
-    results = 
-      for(result <- query.search_query_results) do
-        Repo.get(User, result.user_id)
-      end
-    render(conn, "show.html", query: query, results: results)
+    Repo.one(from q in SearchQuery, where: q.value == ^query_id)
+    |> case do #if query is nil, it doesn't yet exist, so create it.
+      nil -> create(conn, %{"search_query" => %{"value" => query_id}})
+      query ->
+        query = Repo.preload(query, [:search_query_results])
+        results = 
+          for(result <- query.search_query_results) do
+            Repo.get(User, result.user_id)
+          end
+        render(conn, "show.html", query: query, results: results)
+    end
   end
 
   def new(conn, _params) do
@@ -34,6 +37,7 @@ defmodule Vutuv.SearchQueryController do
   end
 
   def create(conn, %{"search_query" => search_query_params}) do
+    IO.puts "\n\n#{inspect conn.params}\n\n"
     user = conn.assigns[:current_user]
     search_query_params = Map.put(search_query_params, "is_email?", validate_email(search_query_params["value"]))
     results = search search_query_params["value"], search_query_params["is_email?"]
