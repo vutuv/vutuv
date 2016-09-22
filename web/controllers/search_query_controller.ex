@@ -37,7 +37,6 @@ defmodule Vutuv.SearchQueryController do
   end
 
   def create(conn, %{"search_query" => search_query_params}) do
-    IO.puts "\n\n#{inspect conn.params}\n\n"
     user = conn.assigns[:current_user]
     search_query_params = Map.put(search_query_params, "is_email?", validate_email(search_query_params["value"]))
     results = search search_query_params["value"], search_query_params["is_email?"]
