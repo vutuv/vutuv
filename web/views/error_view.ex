@@ -13,6 +13,10 @@ defmodule Vutuv.ErrorView do
     "Server internal error"
   end
 
+  def render("error.json", _assigns) do
+    %{errors: "not found"}
+  end
+
   # In case no render clause matches or no
   # template is found, let's render it as 500
   def template_not_found(_template, assigns) do

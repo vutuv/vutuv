@@ -39,7 +39,7 @@ defmodule Vutuv.UserController do
   def show(conn, _params) do
     user =
       Repo.get!(User, conn.assigns[:user_id])
-      |>Repo.preload([:emails, :user_skills, :work_experiences,
+      |> Repo.preload([:emails, :user_skills, :work_experiences,
                       :social_media_accounts, :addresses,
                       :urls, :phone_numbers, :search_terms,
                       followee_connections:
@@ -79,16 +79,28 @@ defmodule Vutuv.UserController do
 
   def update(conn, %{"user" => user_params}) do
     user = Repo.get!(User, conn.assigns[:user_id])
-    |> Repo.preload([:emails, :slugs, :oauth_providers])
-    changeset = User.changeset(user, user_params)
-
-    case Repo.update(changeset) do
+    user
+    |> Repo.preload([:emails, :slugs, :oauth_providers, :search_terms])
+    |> User.changeset(user_params)
+    |> update_search_terms(user_params)
+    |> Repo.update
+    |> case do
       {:ok, user} ->
         conn
         |> put_flash(:info, "User updated successfully.")
         |> redirect(to: user_path(conn, :show, user))
       {:error, changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)
+    end
+  end
+
+  def update_search_terms(changeset, params) do
+    first_name = Ecto.Changeset.get_change(changeset, :first_name)
+    last_name = Ecto.Changeset.get_change(changeset, :last_name)
+    if(first_name || last_name) do #if first or last name is changed, update search terms
+      Ecto.Changeset.put_assoc(changeset, :search_terms, Vutuv.SearchTerm.create_search_terms(params))
+    else
+      changeset
     end
   end
 
