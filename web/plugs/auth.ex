@@ -29,7 +29,7 @@ defmodule Vutuv.Auth do
     |> send_email(conn, email)
   end
 
-  defp send_email(nil, _, _), do: {:error, :not_found, conn}
+  defp send_email(nil, conn, _), do: {:error, :not_found, conn}
 
   defp send_email(user, conn, email) do
     Vutuv.MagicLinkHelpers.gen_magic_link(user, "login")

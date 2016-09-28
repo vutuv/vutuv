@@ -1,6 +1,5 @@
 defmodule Vutuv.Api.UserSkillView do
   use Vutuv.Web, :view
-  import Vutuv.Api.ApiHelpers
 
   def render("index.json", %{user_skills: user_skills}) do
     %{data: render_many(user_skills, Vutuv.Api.UserSkillView, "user_skill.json")}
