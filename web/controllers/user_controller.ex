@@ -3,6 +3,7 @@ defmodule Vutuv.UserController do
   plug :resolve_slug when action in [:edit, :update, :index, :show]
   plug :logged_in? when action in [:index, :show]
   plug :auth when action in [:edit, :update]
+  plug :put_layout, "user.html" when action in [:show]
   import Vutuv.UserHelpers
 
   alias Vutuv.Slug
@@ -56,12 +57,16 @@ defmodule Vutuv.UserController do
     emails_counter = length(user.emails)
 
     social_media_links = Vutuv.SocialMediaAccount.get_full_urls(user)
-
+    job = current_job(user)
+    skills = Repo.all(from s in Vutuv.Skill, join: u in assoc(s, :user_skills), where: u.user_id == ^user.id, limit: 3)
     conn
     |> assign(:page_title, full_name(user))
     |> assign(:user, user)
     |> assign(:user_show, true)
-    |> render("show.html", changeset: changeset, emails_counter: emails_counter, followers_count: followers_count,
+    |> assign(:organization, if(job, do: job.organization, else: ""))
+    |> assign(:title, if(job, do: job.title, else: ""))
+    |> assign(:skills, skills)
+    |> render("show_new.html", changeset: changeset, emails_counter: emails_counter, followers_count: followers_count,
                            followees_count: followees_count, social_media_links: social_media_links)
   end
 

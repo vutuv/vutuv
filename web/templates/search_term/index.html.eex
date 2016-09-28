@@ -19,14 +19,10 @@
           <td> <%= search_term.score %> </td>
           <td class="text-right">
             <%= link gettext("Show"), to: user_search_term_path(@conn, :show, @user, search_term), class: "pure-button" %>
-            <%= link gettext("Edit"), to: user_search_term_path(@conn, :edit, @user, search_term), class: "pure-button" %>
-            <%= link gettext("Delete"), to: user_search_term_path(@conn, :delete, @user, search_term), method: :delete, data: [confirm: gettext("Are you sure?")], class: "pure-button" %>
           </td>
         </tr>
     <% end %>
       </tbody>
     </table>
-
-    <%= link gettext("New search term"), to: user_search_term_path(@conn, :new, @user), class: "pure-button" %>
   </div>
 </div>

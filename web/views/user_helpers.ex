@@ -32,4 +32,26 @@ defmodule Vutuv.UserHelpers do
   def users_by_email(email) do
     Repo.all(from u in Vutuv.User, join: e in assoc(u, :emails), where: e.value == ^email)
   end
+
+  def current_job(user) do
+    Repo.one(from w in Vutuv.WorkExperience, 
+      join: u in assoc(w, :user),
+      where:
+        u.id == ^user.id #belongs to user
+        and (w.start_month and w.start_year) #has a start date
+        and is_nil(w.end_month) and is_nil(w.end_year), #has no end date
+      limit: 1)
+  end
+
+  def username(user) do
+    Repo.one(from s in Vutuv.SocialMediaAccount, 
+      join: u in assoc(s, :user),
+      where:
+        u.id == ^user.id, #belongs to user
+      limit: 1)
+    |> case do
+      nil -> ""
+      account -> account.value
+    end
+  end
 end

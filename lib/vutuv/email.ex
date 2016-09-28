@@ -4,9 +4,11 @@ defmodule Vutuv.Emailer do
 
   def login_email(email, link) do
     new_email
+    |> put_html_layout({Vutuv.EmailView, "email.html"})
+    |> assign(:link, link)
     |> to(email)
     |> from("mailer@localhost")
     |> subject("Login")
-    |> render("email.html", link: link)
+    |> render("email.html")
   end
 end

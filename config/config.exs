@@ -31,10 +31,10 @@ config :phoenix, :generators,
 
 config :vutuv, Vutuv.Mailer,
   adapter: Bamboo.SMTPAdapter,
-  server: "<server address here>",
-  port: 1025,
-  username: "<username here>",
-  password: "<password here>",
+  server: "127.0.0.1",
+  port: 25,
+  username: "",
+  password: "asdf",
   tls: :if_available, # can be `:always` or `:never`
   ssl: false, # can be `true`
   retries: 1

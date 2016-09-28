@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title><%= "#{assigns[:page_title]} - vutuv" %></title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="utf-8">
+
+    <link rel="shortcut icon" href="<%= static_path(@conn, "/images/favicon.ico") %>">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/layout.css") %>">
+
+  </head>
+
+  <body>
+
+    <header>
+      <p>
+      <a href="/people">People</a> / 
+        <%= link to: user_path(@conn, :show, @current_user) do %>
+          <%= full_name(@current_user) %>
+        <% end %>
+      </p>
+
+      <a class="logo" href="/"><img src="<%= static_path(@conn, "/images/logo.svg") %>"></a>
+
+      <input type="text" placeholder="Search for people">
+
+      <div class="clear"></div>
+
+    </header>
+
+    <%= render @view_module, @view_template, assigns %>
+
+    <footer>
+
+      <p>Copyright &copy; 2016 AMOOMA, MIT licensed.</p>
+
+    </footer>
+
+  </body>
+</html>

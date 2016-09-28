@@ -1,0 +1,61 @@
+<section class="summary">
+
+  <div class="content">
+
+    <div class="photo">
+      <%= if @user.avatar do %>
+      <img src="<%= Vutuv.Avatar.user_url(@user, :thumb) %>"  class="pure-img" alt="failed" />
+      <%= else %>   
+         <img src="<%= gravatar_url(@user) %>"  class="pure-img" alt="Avatar <%= full_name(@user) %>" /> 
+      <% end %>
+    </div>
+
+    <h1><%= full_name(@user) %></h1>
+
+    <h2><%= username(@user) %></h2>
+
+    <%= if @title != "" do %>
+      <p><%= @user.first_name %> is a <%= @title %> at <%= @organization %>.
+    <%= else %>
+      <p> This page belongs to <%= @user.first_name %>.
+    <%= end %>
+    <%= if Enum.count(@skills) == 1 do %>
+      He works with <%= link "#{hd(@skills).name}", to: "/" %>.</p>
+    <%= end %>
+    <%= if Enum.count(@skills) > 1 do %>
+        He works with
+        <%= for skill <- tl(@skills) do %>
+          <%= link "#{skill.name}", to: "/" %>,
+        <%= end %>
+        and <%= link "#{hd(@skills).name}", to: "/" %>.
+      </p>
+    <%= end %>
+
+    <p>You can reach him at <a href="mailto:<%= email(@user) %>"><%= email(@user) %></a>.</p>
+
+    <div class="clear"></div>
+
+  </div>
+
+</section>
+
+<section class="details">
+
+  <h1>Experience</h1>
+
+  <%= for experience <- @user.work_experiences do %>
+    <h2> <%= experience.organization %> </h2>
+    <p> <%= experience.title %> </p>
+  <% end %>
+
+</section>
+
+<section class="details">
+
+  <h1>Following</h1>
+
+  <%= for connection <- @user.followee_connections do %>
+    <h2><%= link full_name(connection.followee), to: user_path(@conn, :show, connection.followee) %></h2>
+  <% end %>
+
+</section>

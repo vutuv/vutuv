@@ -8,6 +8,8 @@ defmodule Vutuv.Skill do
     field :description, :string
     field :url, :string
 
+    has_many :user_skills, Vutuv.UserSkill, on_delete: :delete_all
+
     timestamps
   end
 

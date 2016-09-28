@@ -19,7 +19,6 @@
       </li>
     </ul>
 
-    <%= link gettext("Edit"), to: user_search_term_path(@conn, :edit, @user, @search_term), class: "pure-button" %>
     <%= link gettext("Back"), to: user_search_term_path(@conn, :index, @user), class: "pure-button" %>
   </div>
 </div>
