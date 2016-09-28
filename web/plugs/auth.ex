@@ -20,16 +20,22 @@ defmodule Vutuv.Auth do
   end
 
   def login_by_email(conn, email, _opts) do
-    email
-    |> String.downcase
-    
-    user =
-      Vutuv.User
-      |> join(:inner, [u], e in assoc(u, :emails))
-      |> where([u, e], e.value == ^email)
-      |> Vutuv.Repo.one()
+    email = String.downcase(email)
 
-    if user == nil, do: {:error, :not_found, conn}, else: {:ok, Vutuv.MagicLinkHelpers.gen_magic_link(user, "login"), conn}
+    Vutuv.User
+    |> join(:inner, [u], e in assoc(u, :emails))
+    |> where([u, e], e.value == ^email)
+    |> Vutuv.Repo.one()
+    |> send_email(conn, email)
+  end
+
+  defp send_email(nil, _, _), do: {:error, :not_found, conn}
+
+  defp send_email(user, conn, email) do
+    Vutuv.MagicLinkHelpers.gen_magic_link(user, "login")
+    |> Vutuv.Emailer.login_email(email)
+    |> Vutuv.Mailer.deliver_now
+    {:ok, conn}
   end
 
   def login_by_facebook(params) do

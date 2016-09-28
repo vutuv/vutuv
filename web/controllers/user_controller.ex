@@ -26,12 +26,19 @@ defmodule Vutuv.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
+    email = user_params["emails"]["0"]["value"]
     case Vutuv.Registration.register_user(user_params) do
       {:ok, user} ->
-        conn
-        |> Vutuv.Auth.login(user)
-        |> put_flash(:info, "User #{full_name(user)} created successfully.")
-        |> redirect(to: user_path(conn, :show, user))
+        case Vutuv.Auth.login_by_email(conn, email, repo: Repo) do
+          {:ok, conn} ->
+            conn
+            |> put_flash(:info, "User #{full_name(user)} created successfully. An email has been sent with your login link.")
+            |> redirect(to: page_path(conn, :index))
+          {:error, _reason, conn} ->
+            conn
+            |> put_flash(:error, gettext(""))
+            |> redirect(to: page_path(conn, :index))
+        end
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
