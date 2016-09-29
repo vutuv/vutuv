@@ -1,0 +1,4 @@
+<html lang="en">
+<b>Login with the following link:<b>
+<p><a href = "http://localhost/magic/login/<%=@link%>">http://localhost/magic/login/<%=@link%></a></p>
+</html>

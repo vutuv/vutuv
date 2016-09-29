@@ -130,7 +130,7 @@ defmodule Vutuv.UserController do
       end
   end
 
-  def magicdelete(conn, %{"magiclink" => link}) do
+  def magic_delete(conn, %{"magiclink" => link}) do
     case Vutuv.MagicLinkHelpers.check_magic_link(link, "delete") do
       {:ok, user} ->
         # Here we use delete! (with a bang) because we expect
@@ -151,7 +151,7 @@ defmodule Vutuv.UserController do
   def delete(conn, _params) do
     link = Vutuv.MagicLinkHelpers.gen_magic_link(conn.assigns[:current_user], "delete")
     conn
-    |> put_flash(:info, gettext("localhost:4000/magicdelete/")<>link)
+    |> put_flash(:info, gettext("localhost:4000/magic/delete/")<>link)
     |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
   end
 

@@ -2,7 +2,7 @@ defmodule Vutuv.EmailController do
   use Vutuv.Web, :controller
   alias Vutuv.Email
 
-  plug Vutuv.Plug.AuthUser
+  plug Vutuv.Plug.AuthUser when not action in [:magic_create]
   plug :scrub_params, "email" when action in [:create, :update]
 
   def index(conn, _params) do
@@ -20,27 +20,34 @@ defmodule Vutuv.EmailController do
   end
 
   def create(conn, %{"email" => email_params}) do
-    changeset =
-      conn.assigns[:user]
-      |> build_assoc(:emails)
-      |> Email.changeset(email_params)
+    email = email_params["value"]
+    Vutuv.MagicLinkHelpers.gen_magic_link(conn.assigns[:user], "email", email)
+    |> Vutuv.Emailer.email_creation_email(email)
+    |> Vutuv.Mailer.deliver_now
+    |> IO.inspect
+    redirect conn, to: page_path(conn, :index)
+  end
 
-    search_term_changeset =   
-      conn.assigns[:user]
-      |> build_assoc(:search_terms)
-      |> Vutuv.SearchTerm.changeset(%{value: email_params["value"], score: 100})
-
-    Ecto.Multi.new #Will fail if either of the insertions fail
-    |> Ecto.Multi.insert(:email, changeset)
-    |> Ecto.Multi.insert(:search_term, search_term_changeset)
-    |> Repo.transaction
+  def magic_create(conn, %{"magiclink" => link}) do
+    Vutuv.MagicLinkHelpers.check_magic_link(link, "email")
     |> case do
-      {:ok, %{email: _email, search_term: _search_term}} ->
+      {:ok, email, user} ->
+        user
+        |> build_assoc(:emails)
+        |> Email.changeset(%{value: email})
+        |> Repo.insert
+        |> case do
+          {:ok, _email} ->
+            conn
+            |> put_flash(:info, "Email created successfully.")
+            |> redirect(to: page_path(conn, :index))
+          {:error, _changeset} ->
+            redirect(conn, to: page_path(conn, :index))
+        end
+      {:error, reason} ->
         conn
-        |> put_flash(:info, "Email created successfully.")
-        |> redirect(to: user_email_path(conn, :index, conn.assigns[:user]))
-      {:error, _failure, changeset, _} ->
-        render(conn, "new.html", changeset: changeset)
+        |> put_flash(:error, reason)
+        |> redirect(to: page_path(conn, :index))
     end
   end
 

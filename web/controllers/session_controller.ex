@@ -41,9 +41,12 @@ defmodule Vutuv.SessionController do
   end
 
   def facebook_login(conn, _params) do
-    redirect_url = Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:redirect_url]
+    env = Application.fetch_env!(:vutuv, Vutuv.Endpoint)
+    IO.puts "\n\n#{inspect env}\n\n"
+    url = "#{env[:url][:host]}/sessions/facebook/auth"
+    client_id = env[:facebook_client_id]
     conn
-    |>redirect(external: "https://www.facebook.com/dialog/oauth?client_id=615815025247201&redirect_uri=#{redirect_url}/sessions/facebook/auth")
+    |>redirect(external: "https://www.facebook.com/dialog/oauth?client_id=#{client_id}&redirect_uri=#{url}")
   end
 
   def facebook_auth(conn, %{"code"=> code}) do
@@ -80,9 +83,13 @@ defmodule Vutuv.SessionController do
   end
 
   defp get_token(code) do
-    redirect_url = Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:redirect_url]
-    api_call("oauth/access_token", [{"client_id","615815025247201"}, {"redirect_uri", "#{redirect_url}/sessions/facebook/auth"},
-                                    {"client_secret","839a7f0b468aaaf0256495c40041ecf1"}, {"code", "#{code}"}])
+    env = Application.fetch_env!(:vutuv, Vutuv.Endpoint)
+    host = env[:url][:host]
+    client_id = env[:facebook_client_id]
+    client_secret = env[:facebook_client_secret]
+
+    api_call("oauth/access_token", [{"client_id","#{client_id}"}, {"redirect_uri", "#{host}/sessions/facebook/auth"},
+                                    {"client_secret","#{client_secret}"}, {"code", "#{code}"}])
     |> HTTPoison.get!
     |> decode_body
   end

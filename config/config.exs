@@ -7,7 +7,6 @@ use Mix.Config
 
 # Configures the endpoint
 config :vutuv, Vutuv.Endpoint,
-  url: [host: "localhost"],
   root: Path.dirname(__DIR__),
   secret_key_base: "bKsyV5xWMWlC+AY8O14/aUcN8xPsa2GjIiE364y/bgBlIhzNnTHhNy0pLyucwVpl",
   render_errors: [accepts: ~w(html json)],
@@ -23,6 +22,7 @@ config :logger, :console,
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
+import_config "#{Mix.env}.secret.exs"
 
 # Configure phoenix generators
 config :phoenix, :generators,

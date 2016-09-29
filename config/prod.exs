@@ -14,8 +14,7 @@ use Mix.Config
 config :vutuv, Vutuv.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/manifest.json",
-  redirect_url: "http://www.vutuv.de"
+  cache_static_manifest: "priv/static/manifest.json"
 
 # Do not print debug messages in production
 config :logger, level: :info

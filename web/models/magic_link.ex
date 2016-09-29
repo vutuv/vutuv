@@ -2,6 +2,7 @@ defmodule Vutuv.MagicLink do
   use Vutuv.Web, :model
 
   schema "magic_links" do
+    field :value, :string
     field :magic_link, :string
     field :magic_link_type, :string
     field :magic_link_created_at, Ecto.DateTime
@@ -10,9 +11,7 @@ defmodule Vutuv.MagicLink do
     timestamps 
   end
 
-  @required_fields ~w()
-  @optional_fields ~w()
-
+  
   @doc """
   Creates a changeset based on the `model` and `params`.
 
@@ -21,6 +20,6 @@ defmodule Vutuv.MagicLink do
   """
   def changeset(model, params \\ :empty) do
     model
-    |> cast(params, [:magic_link, :magic_link_created_at, :magic_link_type])
+    |> cast(params, [:value, :magic_link, :magic_link_created_at, :magic_link_type])
   end
 end

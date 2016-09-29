@@ -30,11 +30,9 @@ defmodule Vutuv.SearchTerm do
   end
 
   #Generates search terms from user data
-  def create_search_terms(%{"first_name" => first_name, "last_name" => last_name} = user) do
-    email = user["emails"]["0"]["value"]
+  def create_search_terms(%{"first_name" => first_name, "last_name" => last_name}) do
 
-    terms = #if email is not nil, add to search terms
-      if (email), do: [email|combine_terms(first_name, last_name)], else: combine_terms(first_name, last_name) 
+    terms = combine_terms(first_name, last_name)
 
     fuzzy_terms = 
       combine_terms(Vutuv.ColognePhonetics.to_cologne(first_name), Vutuv.ColognePhonetics.to_cologne(last_name))

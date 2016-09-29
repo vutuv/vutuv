@@ -8,13 +8,13 @@ use Mix.Config
 # with brunch.io to recompile .js and .css sources.
 config :vutuv, Vutuv.Endpoint,
   http: [port: 4000],
+  url: [host: "http://test.vutuv.de:4000", port: 4000],
   debug_errors: true,
   code_reloader: true,
   cache_static_lookup: false,
   check_origin: false,
   watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin"]],
-  locales: ~w(en de),
-  redirect_url: "http://test.vutuv.de:4000"
+  locales: ~w(en de)
 
 # Watch static and templates for browser reloading.
 config :vutuv, Vutuv.Endpoint,
