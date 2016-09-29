@@ -13,7 +13,7 @@ This is a [Phoenix Framework](http://www.phoenixframework.org/) application. Ple
 
 Make sure that your database configuration in `config/dev.exs` is correct (we use MySQL by default).
 
-# create your secret config
+# Create your secret config
 
 In order to compile your application, You'll need to create a secret.config file.
 This file isn't included with the source files. It wouldn't be secret if it was! 
