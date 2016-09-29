@@ -13,6 +13,17 @@ This is a [Phoenix Framework](http://www.phoenixframework.org/) application. Ple
 
 Make sure that your database configuration in `config/dev.exs` is correct (we use MySQL by default).
 
+# Create your secret config
+
+In order to compile your application, You'll need to create a secret.config file.
+This file isn't included with the source files. It wouldn't be secret if it was! 
+You'll need to create it manually. Browse to `/config` and create two files named 
+`dev.secret.exs` and `prod.secret.exs` They should each look like this:
+```
+use Mix.Config
+```
+You should now be able to run the application by following the steps below.
+
 # Run the application
 
 ```bash
@@ -38,6 +49,23 @@ To view the admin control panel, you'll need to flag your account as an admin. T
 replacing `<user_id>` with your user id.
 
 You can then view the admin control panel at http://localhost:4000/admin
+
+# Configuring your secret config
+
+An example secret config looks like this
+```
+use Mix.Config
+
+config :vutuv, Vutuv.Endpoint,
+  facebook_client_id: "<client id>",
+  facebook_client_secret: "<secret key>"
+```
+
+To use facebook login, sign up for facebook's api to get your own client id and secret key,
+then replace the placeholders in the above example with the respective information. You will
+also need to do some configuration in facebook's developer portal to match your host machine's
+configuration. For more information refer to facebooks documentation on their developer
+portal [here](https://developers.facebook.com/docs/apps/register).
 
 # Do you want to participate?
 
