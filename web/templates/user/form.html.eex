@@ -45,6 +45,10 @@
     <%= date_select f, :birthdate, year: [options: 1900..2100], class: "form-control" %>
     <%= error_tag f, :birthdate %>
 
+    <%= label f, :language, class: "control-label" %>
+    <%= select f, :locale, ["English": "en", "German": "de"], class: "form-control" %>
+    <%= error_tag f, :locale %>
+
     <%= label f, :avatar, class: "control-label" %>
     <%= file_input f, :avatar, class: "form-control" %>
     <%= error_tag f, :avatar %>

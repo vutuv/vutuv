@@ -34,6 +34,6 @@ defmodule Vutuv.Endpoint do
     store: :cookie,
     key: "_vutuv_key",
     signing_salt: "UOTk6kQ0"
-
+    
   plug Vutuv.Router
 end

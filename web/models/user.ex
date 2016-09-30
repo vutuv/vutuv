@@ -12,6 +12,7 @@ defmodule Vutuv.User do
     field :honorific_suffix, :string
     field :gender, :string
     field :birthdate, Ecto.Date
+    field :locale, :string
     field :verified, :boolean, default: false
     field :avatar, Vutuv.Avatar.Type
     field :active_slug, :string
@@ -42,7 +43,7 @@ defmodule Vutuv.User do
   end
 
   @required_fields ~w()
-  @optional_fields ~w(first_name last_name middlename nickname honorific_prefix honorific_suffix gender birthdate)
+  @optional_fields ~w(first_name last_name middlename nickname honorific_prefix honorific_suffix gender birthdate locale)
 
   @required_file_fields ~w()
   @optional_file_fields ~w(avatar)

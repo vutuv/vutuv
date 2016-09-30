@@ -40,7 +40,7 @@ defmodule Vutuv.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
-     {:arc, "~> 0.5.2"},
+     {:arc, "~> 0.5.3"},
      {:arc_ecto, "~> 0.4.2"},
      {:ex_machina, "~> 0.6.1"},
      {:phoenix_html_simplified_helpers, "~> 0.6.0"},

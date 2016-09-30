@@ -54,4 +54,12 @@ defmodule Vutuv.UserHelpers do
       account -> account.value
     end
   end
+
+  def locale(conn, %User{locale: nil}) do
+    conn.assigns[:locale]
+  end
+
+  def locale(_conn, %User{locale: locale}) do
+    locale
+  end
 end

@@ -67,8 +67,9 @@ defmodule Vutuv.SessionController do
   end
 
   defp handle_facebook_login_attempt({:error, :not_found, fields}, conn) do
-    Map.drop(fields,["id", "email"])
-    |> Vutuv.Registration.register_user([{:oauth_providers, %Vutuv.OAuthProvider{provider: "facebook", provider_id: fields["id"]}}])
+    fields = Map.drop(fields,["id", "email"])
+    conn
+    |> Vutuv.Registration.register_user(fields, [{:oauth_providers, %Vutuv.OAuthProvider{provider: "facebook", provider_id: fields["id"]}}])
     |> case do
       {:ok, user} ->
         conn
