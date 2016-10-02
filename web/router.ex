@@ -6,9 +6,8 @@ defmodule Vutuv.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-    plug :protect_from_forgery
+    plug Vutuv.Plug.ManageCookies
     plug :put_secure_browser_headers
-    #plug Vutuv.Plug.ManageCookies
     plug Vutuv.Auth, repo: Vutuv.Repo
     plug Plug.Locale
   end
