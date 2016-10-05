@@ -26,7 +26,9 @@ defmodule Vutuv.Soundex do
   ]
 
 
-  def to_soundex(""), do: ""   
+  def to_soundex(""), do: ""
+
+  def to_soundex(nil), do: nil
 
   def to_soundex(string) do
     String.downcase(string) #Downcase to prevent unwanted behavior

@@ -30,8 +30,7 @@ defmodule Vutuv.UserController do
     email = user_params["emails"]["0"]["value"]
     case Vutuv.Registration.register_user(conn, user_params) do
       {:ok, user} ->
-        IO.puts "\n\n#{inspect store_gravatar(user)}\n\n"
-        case Vutuv.Auth.login_by_email(conn, email, repo: Repo) do
+        case Vutuv.Auth.login_by_email(conn, email) do
           {:ok, conn} ->
             conn
             |> put_flash(:info, "User #{full_name(user)} created successfully. An email has been sent with your login link.")
@@ -61,7 +60,6 @@ defmodule Vutuv.UserController do
           %Plug.Upload{content_type: content_type,
           filename: filename,
           path: path<>filename}
-          IO.puts "\n\n#{path<>filename}\n\n"
         File.write(path<>filename, body) #Write the file temporarily to the disk
         user
         |> Repo.preload([:slugs, :oauth_providers, :emails])
@@ -123,7 +121,6 @@ defmodule Vutuv.UserController do
   end
 
   def update(conn, %{"user" => user_params}) do
-    IO.puts "\n\n#{inspect user_params}\n\n"
     user = Repo.get!(User, conn.assigns[:user_id])
     user
     |> Repo.preload([:emails, :slugs, :oauth_providers, :search_terms])

@@ -64,6 +64,9 @@ defmodule Vutuv.ColognePhonetics do
     {?s, '8'}, {?z, '8'}, {?c, '8'},
   ]
   
+  def to_cologne(""), do: ""
+
+  def to_cologne(nil), do: nil
 
   def to_cologne(string) do #The three steps of the cologne phonetics algorithm.
     String.downcase(string) #Downcase to prevent unwanted behavior

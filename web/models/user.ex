@@ -88,9 +88,7 @@ defmodule Vutuv.User do
 
   defp validate_avatar(changeset, %{}), do: changeset
 
-  defp validate_first_name_or_last_name_or_nickname(changeset, %{}), do: changeset
-
-  defp validate_first_name_or_last_name_or_nickname(changeset, _) do
+  defp validate_first_name_or_last_name_or_nickname(changeset, %{}) do
     first_name = get_field(changeset, :first_name)
     last_name = get_field(changeset, :last_name)
     nickname = get_field(changeset, :nickname)

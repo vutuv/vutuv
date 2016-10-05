@@ -19,7 +19,7 @@ defmodule Vutuv.Auth do
     |> configure_session(renew: true)
   end
 
-  def login_by_email(conn, email, _opts) do
+  def login_by_email(conn, email) do
     email = String.downcase(email)
 
     Vutuv.User

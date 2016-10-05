@@ -20,7 +20,6 @@ defmodule Vutuv.SearchTerm do
     model
     |> cast(params, [:value, :score])
     |> downcase_value
-    IO.puts "\n\n#{inspect changeset}\n\n"
     changeset
   end
 

@@ -9,7 +9,7 @@ defmodule Vutuv.SessionController do
   end
 
   def create(conn, %{"session" => %{"email" => email}}) do
-    case Vutuv.Auth.login_by_email(conn, email, repo: Repo) do
+    case Vutuv.Auth.login_by_email(conn, email) do
       {:ok, conn} ->
         conn
         |> put_flash(:info, gettext("An email has been sent with your login link."))
@@ -42,7 +42,6 @@ defmodule Vutuv.SessionController do
 
   def facebook_login(conn, _params) do
     env = Application.fetch_env!(:vutuv, Vutuv.Endpoint)
-    IO.puts "\n\n#{inspect env}\n\n"
     url = "#{env[:url][:host]}/sessions/facebook/auth"
     client_id = env[:facebook_client_id]
     conn

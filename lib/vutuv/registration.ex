@@ -13,6 +13,9 @@ defmodule Vutuv.Registration do
         slug_value = generate_slug(struct)
 
         Slug.changeset(%Slug{}, %{value: slug_value})
+      else
+        Slug.changeset(%Slug{}, %{value: "invalid"})
+        |> Ecto.Changeset.add_error(:value, "Invalid slug")
       end
     search_terms = SearchTerm.create_search_terms(user_params)
     changeset = User.changeset(%User{}, user_params)
