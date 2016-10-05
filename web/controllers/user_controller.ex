@@ -30,6 +30,7 @@ defmodule Vutuv.UserController do
     email = user_params["emails"]["0"]["value"]
     case Vutuv.Registration.register_user(conn, user_params) do
       {:ok, user} ->
+        store_gravatar(user)
         case Vutuv.Auth.login_by_email(conn, email) do
           {:ok, conn} ->
             conn
