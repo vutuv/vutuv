@@ -1,5 +1,6 @@
 defmodule Vutuv.Skill do
   use Vutuv.Web, :model
+  @derive {Phoenix.Param, key: :downcase_name}
 
   schema "skills" do
     field :name, :string
@@ -25,6 +26,7 @@ defmodule Vutuv.Skill do
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields++@optional_fields)
+    |> validate_required([:name])
     |> put_change(:downcase_name, params["name"])
     |> update_change(:downcase_name, &String.downcase/1)
     |> unique_constraint(:downcase_name)

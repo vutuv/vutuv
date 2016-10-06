@@ -1,0 +1,52 @@
+<div class="pure-g">
+  <div class="pure-u-1-1">
+    
+
+    <ul>
+    <h1><%= @skill.name %></h1>
+      <h3><%= @skill.description %></h3>
+      <h2>Top people with this skill</h2>
+    <table class="pure-table pure-table-horizontal">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Endorsements</th>
+        </tr>
+      </thead>
+      <tbody>
+      <%= for userskill <- @top_users do %>
+          <tr>
+            <td class="text-right">
+              <%= full_name(userskill.user) %>
+            </td>
+            <td class="text-right">
+              <%= Enum.count(userskill.endorsements) %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+      <h2>Top people you follow with this skill</h2>
+    <table class="pure-table pure-table-horizontal">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Endorsements</th>
+        </tr>
+      </thead>
+      <tbody>
+      <%= for userskill <- @top_related do %>
+          <tr>
+            <td class="text-right">
+              <%= full_name(userskill.user) %>
+            </td>
+            <td class="text-right">
+              <%= Enum.count(userskill.endorsements) %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    </ul>
+  </div>
+</div>
