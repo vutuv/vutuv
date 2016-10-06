@@ -17,3 +17,6 @@ config :vutuv, Vutuv.Repo,
   database: "vutuv_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :vutuv, Vutuv.Mailer,
+  adapter: Bamboo.TestAdapter
