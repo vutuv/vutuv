@@ -4,8 +4,10 @@ defmodule Vutuv.Api.SocialMediaAccountController do
   alias Vutuv.SocialMediaAccount
 
   def index(conn, _params) do
-    social_media_accounts = Repo.all(SocialMediaAccount)
-    render(conn, "index.json", social_media_accounts: social_media_accounts)
+    user =
+      conn.assigns[:user]
+      |> Repo.preload([:social_media_accounts])
+    render(conn, "index.json", social_media_accounts: user.social_media_accounts)
   end
 
   # def create(conn, %{"social_media_account" => social_media_account_params}) do

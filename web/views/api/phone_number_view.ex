@@ -22,7 +22,7 @@ defmodule Vutuv.Api.PhoneNumberView do
 
   def render("phone_number.json", %{phone_number: phone_number} = params) do
     render("phone_number_lite.json", params)
-    |> Map.put(:attributes, to_attributes(phone_number, @attributes))
+    |> put_attributes(phone_number, @attributes)
   end
 
   def render("phone_number_lite.json", %{phone_number: phone_number}) do

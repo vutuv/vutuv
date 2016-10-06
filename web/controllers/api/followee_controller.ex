@@ -1,24 +1,24 @@
-defmodule Vutuv.Api.UrlController do
+defmodule Vutuv.Api.FolloweeController do
   use Vutuv.Web, :controller
 
-  alias Vutuv.Url
+  alias Vutuv.Followee
 
   def index(conn, _params) do
     user =
       conn.assigns[:user]
-      |> Repo.preload([:urls])
-    render(conn, "index.json", urls: user.urls)
+      |> Repo.preload([:followees])
+    render(conn, "index.json", followees: user.followees)
   end
 
-  # def create(conn, %{"url" => url_params}) do
-  #   changeset = Url.changeset(%Url{}, url_params)
+  # def create(conn, %{"followee" => followee_params}) do
+  #   changeset = Followee.changeset(%Followee{}, followee_params)
 
   #   case Repo.insert(changeset) do
-  #     {:ok, url} ->
+  #     {:ok, followee} ->
   #       conn
   #       |> put_status(:created)
-  #       |> put_resp_header("location", api_user_url_path(conn, :show, url))
-  #       |> render("show.json", url: url)
+  #       |> put_resp_header("location", followee_path(conn, :show, followee))
+  #       |> render("show.json", followee: followee)
   #     {:error, changeset} ->
   #       conn
   #       |> put_status(:unprocessable_entity)
@@ -26,18 +26,13 @@ defmodule Vutuv.Api.UrlController do
   #   end
   # end
 
-  def show(conn, %{"id" => id}) do
-    url = Repo.get!(Url, id)
-    render(conn, "show.json", url: url)
-  end
-
-  # def update(conn, %{"id" => id, "url" => url_params}) do
-  #   url = Repo.get!(Url, id)
-  #   changeset = Url.changeset(url, url_params)
+  # def update(conn, %{"id" => id, "followee" => followee_params}) do
+  #   followee = Repo.get!(Followee, id)
+  #   changeset = Followee.changeset(followee, followee_params)
 
   #   case Repo.update(changeset) do
-  #     {:ok, url} ->
-  #       render(conn, "show.json", url: url)
+  #     {:ok, followee} ->
+  #       render(conn, "show.json", followee: followee)
   #     {:error, changeset} ->
   #       conn
   #       |> put_status(:unprocessable_entity)
@@ -46,11 +41,11 @@ defmodule Vutuv.Api.UrlController do
   # end
 
   # def delete(conn, %{"id" => id}) do
-  #   url = Repo.get!(Url, id)
+  #   followee = Repo.get!(Followee, id)
 
   #   # Here we use delete! (with a bang) because we expect
   #   # it to always work (and if it does not, it will raise).
-  #   Repo.delete!(url)
+  #   Repo.delete!(followee)
 
   #   send_resp(conn, :no_content, "")
   # end

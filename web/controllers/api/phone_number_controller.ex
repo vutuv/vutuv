@@ -4,8 +4,10 @@ defmodule Vutuv.Api.PhoneNumberController do
   alias Vutuv.PhoneNumber
 
   def index(conn, _params) do
-    phone_numbers = Repo.all(PhoneNumber)
-    render(conn, "index.json", phone_numbers: phone_numbers)
+    user =
+      conn.assigns[:user]
+      |> Repo.preload([:phone_numbers])
+    render(conn, "index.json", phone_numbers: user.phone_numbers)
   end
 
   # def create(conn, %{"phone_number" => phone_number_params}) do

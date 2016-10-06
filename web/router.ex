@@ -77,17 +77,20 @@ defmodule Vutuv.Router do
       pipe_through :user_pipe
       resources "/emails", Vutuv.Api.EmailController, only: [:index, :show]
       resources "/slugs", Vutuv.Api.SlugController, only: [:index, :show]
-      #resources "/groups", Vutuv.Api.GroupController, only: [:index, :show]
-      #resources "/followers", Vutuv.Api.FollowerController, only: [:index, :show]
-      #resources "/followees", Vutuv.Api.FolloweeController, only: [:index, :show]
+
+      resources "/groups", Vutuv.Api.GroupController, only: [:index, :show]
+      resources "/followers", Vutuv.Api.FollowerController, only: [:index]
+      resources "/followees", Vutuv.Api.FolloweeController, only: [:index]
+
       resources "/skills", Vutuv.Api.UserSkillController, only: [:index, :show]
-      #resources "/endorsements", Vutuv.Api.EndorsementController, only: [:index, :show]
+      #resources "/endorsements", Vutuv.Api.EndorsementController, only: [:create, :delete]
       resources "/phone_numbers", Vutuv.Api.PhoneNumberController, only: [:index, :show]
       resources "/links", Vutuv.Api.UrlController, only: [:index, :show]
       resources "/social_media_accounts", Vutuv.Api.SocialMediaAccountController, only: [:index, :show]
       resources "/work_experiences", Vutuv.Api.WorkExperienceController, only: [:index, :show]
       resources "/addresses", Vutuv.Api.AddressController, only: [:index, :show]
       resources "/search_terms", Vutuv.Api.SearchTermController, only: [:index, :show]
+
       get "/vcard", Vutuv.Api.VCardController, :get
     end
   end

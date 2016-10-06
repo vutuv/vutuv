@@ -22,7 +22,7 @@ defmodule Vutuv.Api.UrlView do
 
   def render("url.json", %{url: url} = params) do
     render("url_lite.json", params)
-    |> Map.put(:attributes, to_attributes(url, @attributes))
+    |> put_attributes(url, @attributes)
   end
 
   def render("url_lite.json", %{url: url}) do

@@ -4,9 +4,10 @@ defmodule Vutuv.Api.UserSkillController do
   alias Vutuv.UserSkill
 
   def index(conn, _params) do
-    user_skills = Repo.all(UserSkill)
-    |> Repo.preload([:skill])
-    render(conn, "index.json", user_skills: user_skills)
+    user =
+      conn.assigns[:user]
+      |> Repo.preload([user_skills: [:skill]])
+    render(conn, "index.json", user_skills:  user.user_skills)
   end
 
   # def create(conn, %{"user_skill" => user_skill_params}) do

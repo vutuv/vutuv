@@ -25,7 +25,7 @@ defmodule Vutuv.Api.WorkExperienceView do
 
   def render("work_experience.json", %{work_experience: work_experience} = params) do
     render("work_experience_lite.json", params)
-    |> Map.put(:attributes, to_attributes(work_experience, @attributes))
+    |> put_attributes(work_experience, @attributes)
   end
 
   def render("work_experience_lite.json", %{work_experience: work_experience}) do

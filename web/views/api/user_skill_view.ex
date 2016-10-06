@@ -1,5 +1,6 @@
 defmodule Vutuv.Api.UserSkillView do
   use Vutuv.Web, :view
+  import Vutuv.Api.ApiHelpers
 
   def render("index.json", %{user_skills: user_skills}) do
     %{data: render_many(user_skills, Vutuv.Api.UserSkillView, "user_skill.json")}
@@ -10,9 +11,7 @@ defmodule Vutuv.Api.UserSkillView do
   end
 
   def render("user_skill.json", %{user_skill: user_skill}) do
-    %{id: user_skill.id, type: "user_skill",
-      relationships: %{
-        skill: Vutuv.Api.SkillView.render("show_lite.json", user_skill)
-      }}
+    %{id: user_skill.id, type: "user_skill"}
+    |> put_relationship(:skill, Vutuv.Api.SkillView, "show_lite.json", user_skill)
   end
 end

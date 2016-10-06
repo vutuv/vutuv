@@ -19,18 +19,17 @@ defmodule Vutuv.Api.UserView do
   end
 
   def render("user.json", %{user: user}) do
-    %{id: user.id,
-      type: "user",
-      attributes: to_attributes(user, @attributes),
-      relationships: %{
-        emails: Vutuv.Api.EmailView.render("index_lite.json", user),
-        work_experiences: Vutuv.Api.WorkExperienceView.render("index_lite.json", user),
-        addresses: Vutuv.Api.AddressView.render("index_lite.json", user),
-        phone_numbers: Vutuv.Api.PhoneNumberView.render("index_lite.json", user),
-        social_media_accounts: Vutuv.Api.SocialMediaAccountView.render("index_lite.json", user),
-        urls: Vutuv.Api.UrlView.render("index_lite.json", user),
-        user_skills: Vutuv.Api.UserSkillView.render("index.json", user)
-      }
-    }
+    %{id: user.id, type: "user"}
+    |> put_attributes(user, @attributes)
+    |> put_relationship(:emails, Vutuv.Api.EmailView, "index_lite.json", user)
+    |> put_relationship(:work_experiences, Vutuv.Api.WorkExperienceView, "index_lite.json", user)
+    |> put_relationship(:addresses, Vutuv.Api.AddressView, "index_lite.json", user)
+    |> put_relationship(:phone_numbers, Vutuv.Api.PhoneNumberView, "index_lite.json", user)
+    |> put_relationship(:social_media_accounts, Vutuv.Api.SocialMediaAccountView, "index_lite.json", user)
+    |> put_relationship(:urls, Vutuv.Api.UrlView, "index_lite.json", user)
+    |> put_relationship(:user_skills, Vutuv.Api.UserSkillView, "index.json", user)
+    |> put_relationship(:followers, Vutuv.Api.FollowerView, "index_lite.json", user)
+    |> put_relationship(:followees, Vutuv.Api.FolloweeView, "index_lite.json", user)
+    |> put_relationship(:groups, Vutuv.Api.GroupView, "index_lite.json", user)
   end
 end

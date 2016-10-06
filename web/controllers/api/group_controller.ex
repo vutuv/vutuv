@@ -1,24 +1,24 @@
-defmodule Vutuv.Api.AddressController do
+defmodule Vutuv.Api.GroupController do
   use Vutuv.Web, :controller
 
-  alias Vutuv.Address
+  alias Vutuv.Group
 
   def index(conn, _params) do
     user =
       conn.assigns[:user]
-      |> Repo.preload([:addresses])
-    render(conn, "index.json", addresses: user.addresses)
+      |> Repo.preload([:groups])
+    render(conn, "index.json", groups: user.groups)
   end
 
-  # def create(conn, %{"address" => address_params}) do
-  #   changeset = Address.changeset(%Address{}, address_params)
+  # def create(conn, %{"group" => group_params}) do
+  #   changeset = Group.changeset(%Group{}, group_params)
 
   #   case Repo.insert(changeset) do
-  #     {:ok, address} ->
+  #     {:ok, group} ->
   #       conn
   #       |> put_status(:created)
-  #       |> put_resp_header("location", api_user_address_path(conn, :show, address))
-  #       |> render("show.json", address: address)
+  #       |> put_resp_header("location", group_path(conn, :show, group))
+  #       |> render("show.json", group: group)
   #     {:error, changeset} ->
   #       conn
   #       |> put_status(:unprocessable_entity)
@@ -27,17 +27,17 @@ defmodule Vutuv.Api.AddressController do
   # end
 
   def show(conn, %{"id" => id}) do
-    address = Repo.get!(Address, id)
-    render(conn, "show.json", address: address)
+    group = Repo.get!(Group, id)
+    render(conn, "show.json", group: group)
   end
 
-  # def update(conn, %{"id" => id, "address" => address_params}) do
-  #   address = Repo.get!(Address, id)
-  #   changeset = Address.changeset(address, address_params)
+  # def update(conn, %{"id" => id, "group" => group_params}) do
+  #   group = Repo.get!(Group, id)
+  #   changeset = Group.changeset(group, group_params)
 
   #   case Repo.update(changeset) do
-  #     {:ok, address} ->
-  #       render(conn, "show.json", address: address)
+  #     {:ok, group} ->
+  #       render(conn, "show.json", group: group)
   #     {:error, changeset} ->
   #       conn
   #       |> put_status(:unprocessable_entity)
@@ -46,11 +46,11 @@ defmodule Vutuv.Api.AddressController do
   # end
 
   # def delete(conn, %{"id" => id}) do
-  #   address = Repo.get!(Address, id)
+  #   group = Repo.get!(Group, id)
 
   #   # Here we use delete! (with a bang) because we expect
   #   # it to always work (and if it does not, it will raise).
-  #   Repo.delete!(address)
+  #   Repo.delete!(group)
 
   #   send_resp(conn, :no_content, "")
   # end

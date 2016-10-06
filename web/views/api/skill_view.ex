@@ -22,7 +22,7 @@ defmodule Vutuv.Api.SkillView do
 
   def render("skill.json", %{skill: skill} = params) do
     render("skill_lite.json", params)
-    |> Map.put(:attributes, to_attributes(skill, @attributes))
+    |> put_attributes(skill, @attributes)
   end
 
   def render("skill_lite.json", %{skill: skill}) do

@@ -4,8 +4,10 @@ defmodule Vutuv.Api.WorkExperienceController do
   alias Vutuv.WorkExperience
 
   def index(conn, _params) do
-    work_experiences = Repo.all(WorkExperience)
-    render(conn, "index.json", work_experiences: work_experiences)
+    user =
+      conn.assigns[:user]
+      |> Repo.preload([:work_experiences])
+    render(conn, "index.json", work_experiences: user.work_experiences)
   end
 
   # def create(conn, %{"work_experience" => work_experience_params}) do

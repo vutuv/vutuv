@@ -4,8 +4,10 @@ defmodule Vutuv.Api.EmailController do
   alias Vutuv.Email
 
   def index(conn, _params) do
-    emails = Repo.all(Email)
-    render(conn, "index.json", emails: emails)
+    user =
+      conn.assigns[:user]
+      |> Repo.preload([:emails])
+    render(conn, "index.json", emails: user.emails)
   end
 
   # def create(conn, %{"email" => email_params}) do

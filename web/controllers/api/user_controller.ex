@@ -32,7 +32,8 @@ use Vutuv.Web, :controller
     |> Repo.preload([:emails, :work_experiences,
                     :addresses, :phone_numbers,
                     :social_media_accounts, :urls,
-                    user_skills: :skill])
+                    :followers, :followees,
+                    :groups, user_skills: :skill])
     render(conn, "show.json", user: user)
   end
 

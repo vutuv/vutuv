@@ -23,7 +23,7 @@ defmodule Vutuv.Api.SocialMediaAccountView do
 
   def render("social_media_account.json", %{social_media_account: social_media_account} = params) do
     render("social_media_account_lite.json", params)
-    |> Map.put(:attributes, to_attributes(social_media_account, @attributes))
+    |> put_attributes(social_media_account, @attributes)
   end
 
   def render("social_media_account_lite.json", %{social_media_account: social_media_account}) do

@@ -22,7 +22,7 @@ defmodule Vutuv.Api.EmailView do
 
   def render("email.json", %{email: email} = params) do
     render("email_lite.json", params)
-    |> Map.put(:attributes, to_attributes(email, @attributes))
+    |> put_attributes(email, @attributes)
   end
 
   def render("email_lite.json", %{email: email}) do

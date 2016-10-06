@@ -25,7 +25,7 @@ defmodule Vutuv.Api.AddressView do
 
   def render("address.json", %{address: address} = params) do
     render("address_lite.json", params)
-    |> Map.put(:attributes, to_attributes(address, @attributes))
+    |> put_attributes(address, @attributes)
   end
 
   def render("address_lite.json", %{address: address}) do
