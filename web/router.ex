@@ -55,9 +55,6 @@ defmodule Vutuv.Router do
 
 
     resources "/sessions", SessionController, only: [:new, :create, :delete]
-    get "/sessions/facebook", SessionController, :facebook_login
-    get "/sessions/facebook/auth", SessionController, :facebook_auth
-    post "/sessions/facebook/auth", SessionController, :facebook_return
     get "/magic/login/:magiclink", SessionController, :show
     get "/magic/delete/:magiclink", UserController, :magic_delete
     get "/magic/email/:magiclink", EmailController, :magic_create

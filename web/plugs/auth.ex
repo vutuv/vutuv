@@ -38,13 +38,6 @@ defmodule Vutuv.Auth do
     {:ok, conn}
   end
 
-  def login_by_facebook(params) do
-    fb_id = params["id"]
-    user = Vutuv.Repo.one(from u in Vutuv.User, join: o in assoc(u, :oauth_providers), where: o.provider_id == ^fb_id and o.provider == "facebook")
-
-    if user == nil, do: {:error, :not_found, params}, else: {:ok, user}
-  end
-
   def logout(conn) do
     conn
     |> configure_session(drop: true)
