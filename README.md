@@ -22,6 +22,20 @@ You'll need to create it manually. Browse to `/config` and create two files name
 ```
 use Mix.Config
 ```
+
+# Configure your SMTP setup
+
+To login, an smtp server or smtp test utility is required. A test utility is more convienant, but generally will not actually send the emails—which is usually preferred for testing. You could try [FakeSMTP](https://nilhcem.github.io/FakeSMTP/) for OS X and [Papercut](https://papercut.codeplex.com/) for Windows. The default setup is a local server on port 25 with no authentication. You can change this in the `config.exs` in the following section:
+```
+config :vutuv, Vutuv.Mailer,
+  adapter: Bamboo.SMTPAdapter,
+  server: "127.0.0.1",
+  port: 25,
+  username: "",
+  password: "",
+```
+For more information on the these settings, consult the bamboo docs [here.](https://github.com/thoughtbot/bamboo)
+
 You should now be able to run the application by following the steps below.
 
 # Run the application
@@ -50,22 +64,6 @@ replacing `<user_id>` with your user id.
 
 You can then view the admin control panel at http://localhost:4000/admin
 
-# Configuring your secret config
-
-An example secret config looks like this
-```
-use Mix.Config
-
-config :vutuv, Vutuv.Endpoint,
-  facebook_client_id: "<client id>",
-  facebook_client_secret: "<secret key>"
-```
-
-To use facebook login, sign up for facebook's api to get your own client id and secret key,
-then replace the placeholders in the above example with the respective information. You will
-also need to do some configuration in facebook's developer portal to match your host machine's
-configuration. For more information refer to facebooks documentation on their developer
-portal [here](https://developers.facebook.com/docs/apps/register).
 
 # Do you want to participate?
 
