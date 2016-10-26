@@ -16,8 +16,8 @@ Make sure that your database configuration in `config/dev.exs` is correct (we us
 # Create your secret config
 
 In order to compile your application, You'll need to create a secret.config file.
-This file isn't included with the source files. It wouldn't be secret if it was! 
-You'll need to create it manually. Browse to `/config` and create two files named 
+This file isn't included with the source files. It wouldn't be secret if it was!
+You'll need to create it manually. Browse to `/config` and create two files named
 `dev.secret.exs` and `prod.secret.exs` They should each look like this:
 ```
 use Mix.Config
@@ -25,7 +25,17 @@ use Mix.Config
 
 # Configure your SMTP setup
 
-To login, an smtp server or smtp test utility is required. A test utility is more convienant, but generally will not actually send the emails—which is usually preferred for testing. You could try [FakeSMTP](https://nilhcem.github.io/FakeSMTP/) for OS X and [Papercut](https://papercut.codeplex.com/) for Windows. The default setup is a local server on port 25 with no authentication. You can change this in the `config.exs` in the following section:
+The system uses the [Bamboo](https://github.com/thoughtbot/bamboo) email
+library by [thoughtbot](https://thoughtbot.com/) to send emails via SMTP.
+
+## Development
+
+In the development environment emails are not sent to an actual SMTP
+server but displayed in the browser via [Bamboo.EmailPreviewPlug](https://hexdocs.pm/bamboo/Bamboo.EmailPreviewPlug.html). To see which emails have been send you have to visit http://localhost:4000/sent_emails
+
+## Production
+
+The default setup is a local SMTP server on port 25 with no authentication. You can change this in `config/prod.exs` in the following section:
 ```
 config :vutuv, Vutuv.Mailer,
   adapter: Bamboo.SMTPAdapter,
@@ -34,11 +44,11 @@ config :vutuv, Vutuv.Mailer,
   username: "",
   password: "",
 ```
-For more information on the these settings, consult the bamboo docs [here.](https://github.com/thoughtbot/bamboo)
-
-You should now be able to run the application by following the steps below.
+For more information on the these settings, consult the [bamboo docs](https://github.com/thoughtbot/bamboo).
 
 # Run the application
+
+You should now be able to run the application by following the steps below.
 
 ```bash
 $ cd vutuv

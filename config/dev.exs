@@ -43,3 +43,7 @@ config :vutuv, Vutuv.Repo,
   database: "vutuv_dev",
   hostname: "localhost",
   pool_size: 10
+
+# Bamboo Email
+config :vutuv, Vutuv.Mailer,
+  adapter: Bamboo.LocalAdapter
