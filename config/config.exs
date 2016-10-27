@@ -24,7 +24,7 @@ config :vutuv, Vutuv.Mailer,
   server: "127.0.0.1",
   port: 25,
   username: "",
-  password: "asdf",
+  password: "",
   tls: :if_available, # can be `:always` or `:never`
   ssl: false, # can be `true`
   retries: 1

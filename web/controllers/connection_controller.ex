@@ -18,13 +18,14 @@ defmodule Vutuv.ConnectionController do
   end
 
   def create(conn, %{"connection" => connection_params}) do
+    IO.puts "\n\n#{inspect connection_params}\n\n"
     changeset = Connection.changeset(%Connection{}, connection_params)
 
     case Repo.insert(changeset) do
       {:ok, _connection} ->
         conn
         |> put_flash(:info, "Connection created successfully.")
-        |> redirect(to: connection_path(conn, :index))
+        |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -44,7 +45,6 @@ defmodule Vutuv.ConnectionController do
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
     Repo.delete!(connection)
-
     conn
     |> put_flash(:info, "Connection deleted successfully.")
     |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))

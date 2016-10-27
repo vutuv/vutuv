@@ -9,11 +9,11 @@ defmodule Vutuv.Avatar do
 
 
   def transform(:thumb, _) do
-    {:convert, "-strip -thumbnail 64x64^ -gravity center -extent 64x64"}
+    {:convert, "-strip -thumbnail 50x50^ -gravity center -extent 50x50"}
   end
 
   def transform(:medium, _) do
-    {:convert, "-strip -gravity center -resize 256x256^ -extent 256x256"}
+    {:convert, "-strip -gravity center -resize 130x130^ -extent 130x130"}
   end
 
   def transform(:large, _) do
@@ -33,6 +33,16 @@ defmodule Vutuv.Avatar do
   def user_url(user, version) do
     Vutuv.Avatar.url({user.avatar, user}, version, signed: true)
     |>String.replace("web/static/assets", "")
+  end
+
+  def binary(user, version) do
+    path = Vutuv.Avatar.url({user.avatar, user}, version, signed: true)
+    binary = 
+      path
+      |> File.read!
+      |> Base.encode64
+    type = hd(tl(String.split(path,".")))
+    "data:image/#{type};base64,#{binary}"
   end
 
   def validate({file, _}) do

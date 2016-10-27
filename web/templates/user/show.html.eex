@@ -24,7 +24,7 @@
        <img src="<%= gravatar_url(@user) %>"  class="pure-img" alt="Avatar <%= full_name(@user) %>" /> 
     <% end %>
     <%= if @user.id != @current_user.id do %>
-      <%= unless Vutuv.UserController.visitor_is_follower?(@conn, @user.id) do %>
+      <%= unless user_follows_user?(@conn.assigns[:current_user], @user.id) do %>
         <%= form_for @changeset, connection_path(@conn, :create), fn f -> %>
           <%= hidden_input f, :follower_id %>
           <%= hidden_input f, :followee_id %>

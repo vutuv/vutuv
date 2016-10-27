@@ -24,7 +24,6 @@ defmodule Vutuv.EmailController do
     Vutuv.MagicLinkHelpers.gen_magic_link(conn.assigns[:user], "email", email)
     |> Vutuv.Emailer.email_creation_email(email)
     |> Vutuv.Mailer.deliver_now
-    |> IO.inspect
     redirect conn, to: page_path(conn, :index)
   end
 

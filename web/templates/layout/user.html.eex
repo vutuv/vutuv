@@ -1,35 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-
     <title><%= "#{assigns[:page_title]} - vutuv" %></title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="utf-8">
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="shortcut icon" href="<%= static_path(@conn, "/images/favicon.ico") %>">
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/layout.css") %>">
-
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/styles.min.css") %>">
   </head>
 
   <body>
-
     <header>
-      <p>
-      <a href="/people">People</a> / 
-        <%= link to: user_path(@conn, :show, @current_user) do %>
-          <%= full_name(@current_user) %>
-        <% end %>
-      </p>
-
-      <a class="logo" href="/"><img src="<%= static_path(@conn, "/images/logo.svg") %>"></a>
-
-      <input type="text" placeholder="Search for people">
-
-      <div class="clear"></div>
-
-    </header>
-
+      <nav class="navigation">
+        <div>
+          <a href="#" class="navigation__back"></a>
+          <a href="/"><img src="<%= static_path(@conn, "/images/logo.svg") %>"></a>
+          <a href="#" class="navigation__search"></a>
+        </div>
+      </nav>
+    <!-- header tag ends in rendered template -->
     <%= render @view_module, @view_template, assigns %>
 
     <footer>
@@ -37,6 +28,8 @@
       <p>Copyright &copy; 2016 AMOOMA, MIT licensed.</p>
 
     </footer>
+
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
 
   </body>
 </html>

@@ -5,6 +5,8 @@ defmodule Vutuv.SearchQueryController do
   alias Vutuv.SearchTerm
   alias Vutuv.User
 
+  plug :put_layout, "user.html" when action in [:new, :show]
+
   @email_regex ~r/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/
 
   def index(conn, _params) do
@@ -17,23 +19,27 @@ defmodule Vutuv.SearchQueryController do
     end
   end
 
+  def new(conn, _params) do
+    changeset = SearchQuery.changeset(%SearchQuery{})
+    render(conn, "new2.html", changeset: changeset)
+  end
+
   def show(conn, %{"id" => query_id}) do
     Repo.one(from q in SearchQuery, where: q.value == ^query_id)
     |> case do #if query is nil, it doesn't yet exist, so create it.
       nil -> create(conn, %{"search_query" => %{"value" => query_id}})
       query ->
+        changeset = 
+          query
+          |> Repo.preload([:search_query_results, :search_query_requesters])
+          |> SearchQuery.changeset
         query = Repo.preload(query, [:search_query_results])
         results = 
           for(result <- query.search_query_results) do
             Repo.get(User, result.user_id)
           end
-        render(conn, "show.html", query: query, results: results)
+        render(conn, "new2.html", query: query, results: results, changeset: changeset)
     end
-  end
-
-  def new(conn, _params) do
-    changeset = SearchQuery.changeset(%SearchQuery{})
-    render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"search_query" => search_query_params}) do
@@ -56,9 +62,9 @@ defmodule Vutuv.SearchQueryController do
         |> put_flash(:info, gettext("Search query executed successfully."))
         |> redirect(to: search_query_path(conn, :show, query))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new2.html", changeset: changeset)
       {:error, _failure, changeset, _} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new2.html", changeset: changeset)
     end
   end
 

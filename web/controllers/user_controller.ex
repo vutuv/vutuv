@@ -79,13 +79,14 @@ defmodule Vutuv.UserController do
   def show(conn, _params) do
     user =
       Repo.get!(User, conn.assigns[:user_id])
-      |> Repo.preload([:emails, :user_skills, :work_experiences,
+      |> Repo.preload([:emails, :work_experiences,
                       :social_media_accounts, :addresses,
                       :urls, :phone_numbers, :search_terms,
+                      user_skills: from(u in Vutuv.UserSkill, order_by: [desc: u.updated_at], limit: 4, preload: [:endorsements]),
                       followee_connections:
-                        {Connection.latest(5), [:followee]},
+                        {Connection.latest(3), [:followee]},
                       follower_connections:
-                        {Connection.latest(5), [:follower]},
+                        {Connection.latest(3), [:follower]},
                       slugs: from(s in Vutuv.Slug, order_by: [desc: s.updated_at], limit: 1)])
 
     followees_count = Repo.one(from c in Connection, where: c.follower_id == ^user.id, select: count("followee_id"))
@@ -97,7 +98,7 @@ defmodule Vutuv.UserController do
 
     social_media_links = Vutuv.SocialMediaAccount.get_full_urls(user)
     job = current_job(user)
-    skills = Repo.all(from s in Vutuv.Skill, join: u in assoc(s, :user_skills), where: u.user_id == ^user.id, limit: 3)
+    skills = Repo.all(from s in Vutuv.Skill, join: u in assoc(s, :user_skills), where: u.user_id == ^user.id, limit: 4)
     conn
     |> assign(:page_title, full_name(user))
     |> assign(:user, user)
@@ -107,12 +108,6 @@ defmodule Vutuv.UserController do
     |> assign(:skills, skills)
     |> render("show_new.html", changeset: changeset, emails_counter: emails_counter, followers_count: followers_count,
                            followees_count: followees_count, social_media_links: social_media_links)
-  end
-
-  # Function calls helper function in Connection to check
-  # if a connection exists between given user id and current user
-  def visitor_is_follower?(conn, id) do
-    Connection.contains(id,conn.assigns.current_user.id)
   end
 
   def edit(conn, _params) do

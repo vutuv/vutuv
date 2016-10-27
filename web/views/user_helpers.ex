@@ -43,6 +43,10 @@ defmodule Vutuv.UserHelpers do
       limit: 1)
   end
 
+  def current_organization(user) do
+    
+  end
+
   def username(user) do
     Repo.one(from s in Vutuv.SocialMediaAccount, 
       join: u in assoc(s, :user),
@@ -61,5 +65,9 @@ defmodule Vutuv.UserHelpers do
 
   def locale(_conn, %User{locale: locale}) do
     locale
+  end
+
+  def user_follows_user?(%User{id: follower_id}, %User{id: followee_id}) do
+    Repo.one(from c in Vutuv.Connection, where: c.follower_id==^follower_id and c.followee_id==^followee_id, select: c.id)
   end
 end

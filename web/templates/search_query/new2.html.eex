@@ -1,0 +1,38 @@
+<!-- header begins in parent template -->
+  <%= render "form.html", changeset: @changeset,
+                            action: search_query_path(@conn, :create) %>
+</header>
+
+<div class="search-results card-list">
+  <aside>
+    <section class="ad">
+      <label>Ad</label>
+      <h1>Lorem ipsum dolor</h1>
+      <p>Sit amet, consectetur adipiscing elit. Phasellus venenatis porttitor
+        libero, vel rutrum magna fringilla eget. Fusce metus</p>
+      <a href="#">http://lorem.ipsum.com</a>
+    </section>
+  </aside>
+<%= if @conn.assigns[:results] do %>
+  <section class="card card--simple">
+    <ul class="button-list profiles">
+      <%= for user <- @results do %>
+        <li>
+          <div><img src="<%= Vutuv.Avatar.binary(user, :medium) %>"></div>
+          <p><strong><%= full_name(user) %></strong>
+          <%= if (current_job(user)) do %>
+          <%= current_job(user).title %>
+             @ <%= current_job(user).organization %>
+          <% end %></p>
+          <a href="#" class="button button--icon button--follow"></a>
+        </li>
+      <% end %>
+      <%= if(Enum.count(@results) == 0) do %>
+        <li>
+          <p><strong> No Results </strong></p>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>
+</div>
