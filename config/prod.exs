@@ -19,6 +19,17 @@ config :vutuv, Vutuv.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+# Bamboo Email
+config :vutuv, Vutuv.Mailer,
+  adapter: Bamboo.SMTPAdapter,
+  server: "127.0.0.1",
+  port: 25,
+  username: "",
+  password: "",
+  tls: :if_available, # can be `:always` or `:never`
+  ssl: false, # can be `true`
+  retries: 3
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key
