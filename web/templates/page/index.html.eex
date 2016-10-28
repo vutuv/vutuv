@@ -1,25 +1,60 @@
-<div class="pure-g">
-  <div class="pure-u-1-1">
-    <h2><%= gettext "Welcome to vutuv!" %></h2>
-  </div>
-</div>
+<!doctype html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Vutuv</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="apple-touch-icon" href="apple-touch-icon.png">
+      <link rel="shortcut icon" href="images/favicon.png">
 
-<div class="pure-g">
-  <div class="pure-u-1 pure-u-md-1-2">
-    <p><%= gettext "vutuv is a social network service to host and share contact information about humans and organizations." %></p>
-    <p><strong><%= gettext "User Count" %>: <%= @user_count %></strong></p>
-    <p>It's like <a href="https://www.linkedin.com/">LinkedIn</a> or <a href="https://www.xing.com/">XING</a> but faster and free.<br />Bonus: <a href="https://github.com/vutuv/vutuv">It's open source</a>!</p>
-  </div>
-  <div class="pure-u-1 pure-u-md-1-2">
-    <%= unless @current_user do %>
-      <h2><%= gettext "Create your Account:" %></h2>
-      <%= render Vutuv.UserView, "form.html", changeset: @changeset,
-                              action: user_path(@conn, :create), current_user: @current_user %>
-    <% end %>
-  </div>
-</div>
+      <!--build:css css/styles.min.css-->
+      <link rel="stylesheet" href="css/styles.min.css">
+      <!--endbuild-->
+  </head>
+  <body class="stretch">
 
-<div class="pure-g">
-  <div class="pure-u-1-1">
-  </div>
-</div>
+    <header>
+      <nav class="navigation">
+        <div>
+          <a href="#" class="navigation__icon"><i class="icon icon--menu"></i></a>
+          <a href="/" title="Vutuv"><img src="images/logo.svg"></a>
+          <a href="#" class="navigation__icon navigation__icon--right"><i class="icon icon--lock"></i></a>
+        </div>
+      </nav>
+    </header>
+    <div class="imagebox">
+      <section class="card imagebox__card">
+        <div class="imagebox__intro">
+          <h1>Welcome to vutuv</h1>
+          <p>vutuv is a social network service to host and share contact information about humans and organizations.</p>
+          <p>It's like <a href="https://www.linkedin.com/">LinkedIn</a> or <a href="https://www.xing.com/">XING</a> but faster and free.<br />Bonus: <a href="https://github.com/vutuv/vutuv">It's open source</a>!</p>
+          <a href="#">Read more ▸</a>
+        </div>
+        <%= form_for @changeset, user_path(@conn, :create), [multipart: true, class: "imagebox__form"], fn f -> %>
+          <%= if @changeset.action do %>
+            <div class="alert alert-danger">
+              <p><%= gettext "Oops, something went wrong! Please check the errors below." %></p>
+            </div>
+          <% end %>
+          <h2>Get started now</h2>
+          <%= text_input f, :first_name, class: "imagebox__input", placeholder: "Type your first name", autofocus: true %>
+          <%= error_tag f, :first_name %>
+          <%= text_input f, :last_name, class: "imagebox__input", placeholder: "Type your last name" %>
+          <%= error_tag f, :last_name %>
+          <%= inputs_for f, :emails, fn ef -> %>
+            <%= text_input ef, :value, class: "imagebox__input", placeholder: "Type your email" %>
+            <%= error_tag ef, :value %>
+          <% end %>
+          <%= submit gettext("Sign up now"), class: "imagebox__input" %>
+        <% end %>
+        <a href="<%= session_path(@conn, :new) %>" class="imagebox__alreadymember">Already a member? Sign in here.</a>
+      </section>
+    </div>
+    <footer>
+      <p>Copyright © 2016 <a href="#">AMOOMA</a>, MIT licensed
+    <a href="#">Give us feedback</a> | <a href="#">Privacy</a></p>
+    </footer>
+  </body>
+</html>

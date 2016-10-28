@@ -3,7 +3,6 @@ defmodule Vutuv.UserController do
   plug :resolve_slug when action in [:edit, :update, :index, :show]
   plug :logged_in? when action in [:index, :show]
   plug :auth when action in [:edit, :update]
-  plug :put_layout, "user.html" when action in [:show]
   import Vutuv.UserHelpers
   use Arc.Ecto.Schema
 
@@ -106,7 +105,7 @@ defmodule Vutuv.UserController do
     |> assign(:organization, if(job, do: job.organization, else: ""))
     |> assign(:title, if(job, do: job.title, else: ""))
     |> assign(:skills, skills)
-    |> render("show_new.html", changeset: changeset, emails_counter: emails_counter, followers_count: followers_count,
+    |> render("show.html", changeset: changeset, emails_counter: emails_counter, followers_count: followers_count,
                            followees_count: followees_count, social_media_links: social_media_links)
   end
 

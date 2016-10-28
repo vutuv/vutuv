@@ -36,7 +36,7 @@ defmodule Vutuv.Router do
       resources "/memberships", MembershipController, only: [:new, :create, :show, :delete, :index]
     end
 
-    resources "/search_queries", SearchQueryController, only: [:create, :index, :new, :show, :update]
+    resources "/search_queries", SearchQueryController, only: [:create, :index, :new, :show]
 
     resources "/skills", SkillController, only: [:show, :index], param: "slug"
 

@@ -1,7 +1,9 @@
-<h1>Login</h1>
+<!-- header begins in parent template -->
 
-<%= form_for @conn, session_path(@conn, :create), [as: :session, class: "pure-form pure-form-stacked"], fn f -> %>
-  <%= text_input f, :email, placeholder: "email", class: "form-control" %>
-  <%= submit "Log in", class: "pure-button pure-button-primary" %>
+</header>
+<h1 style="text-align: center;">Login</h1>
+
+<%= form_for @conn, session_path(@conn, :create), [as: :session, class: "imagebox__form"], fn f -> %>
+  <%= text_input f, :email, placeholder: "email", class: "imagebox__input" %>
+  <%= submit "Log in", class: "imagebox__input" %>
 <% end %>
-

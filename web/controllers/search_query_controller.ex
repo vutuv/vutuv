@@ -5,8 +5,6 @@ defmodule Vutuv.SearchQueryController do
   alias Vutuv.SearchTerm
   alias Vutuv.User
 
-  plug :put_layout, "user.html" when action in [:new, :show]
-
   @email_regex ~r/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/
 
   def index(conn, _params) do
@@ -21,10 +19,12 @@ defmodule Vutuv.SearchQueryController do
 
   def new(conn, _params) do
     changeset = SearchQuery.changeset(%SearchQuery{})
-    render(conn, "new2.html", changeset: changeset)
+    render(conn, "new.html", conn: conn, changeset: changeset)
   end
 
-  def show(conn, %{"id" => query_id}) do
+  def show(conn, %{"id" => query_id} = params) do
+    empty_changeset = SearchQuery.changeset(%SearchQuery{})
+    IO.puts "\n\n#{inspect params}\n\n"
     Repo.one(from q in SearchQuery, where: q.value == ^query_id)
     |> case do #if query is nil, it doesn't yet exist, so create it.
       nil -> create(conn, %{"search_query" => %{"value" => query_id}})
@@ -38,7 +38,7 @@ defmodule Vutuv.SearchQueryController do
           for(result <- query.search_query_results) do
             Repo.get(User, result.user_id)
           end
-        render(conn, "new2.html", query: query, results: results, changeset: changeset)
+        render(conn, "new.html", query: query, results: results, changeset: empty_changeset)
     end
   end
 
@@ -62,10 +62,15 @@ defmodule Vutuv.SearchQueryController do
         |> put_flash(:info, gettext("Search query executed successfully."))
         |> redirect(to: search_query_path(conn, :show, query))
       {:error, changeset} ->
-        render(conn, "new2.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset)
       {:error, _failure, changeset, _} ->
-        render(conn, "new2.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset)
     end
+  end
+
+  def update(conn, %{"search_query" => search_query_params}) do
+    IO.puts "\n\n#{inspect search_query_params}\n\n"
+    redirect(conn, to: search_query_path(conn, :new))
   end
 
   #build assoc from existing user unless user is nil
