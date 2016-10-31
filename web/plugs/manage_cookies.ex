@@ -14,10 +14,10 @@ defmodule Vutuv.Plug.ManageCookies do
   # CSRF errors.
 
   def call(conn, opts) do
-    if(conn.assigns[:current_user]) do
+    if(conn.assigns[:current_user] || get_session(conn, "phoenix_flash")) do
       super(conn, opts) # Calls CSRFProtection
     else
-       configure_session(conn, ignore: true) # Drop the session, preventing cookies
+       configure_session(conn, drop: true) # Drop the session, preventing cookies
     end
   end
 end

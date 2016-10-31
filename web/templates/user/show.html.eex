@@ -15,20 +15,24 @@
           <div>
             <h3><span><%= String.capitalize(@user.first_name) %> has</span><strong><%= @followers_count %></strong> followers</h3>
           </div>
-          <%= if(@current_user.id != @user.id) do %>
+          <%= if(@current_user.id == @user.id) do %>
             <%= if user_follows_user?(@current_user, @user) do %>
-              <%= link "Unfollow", to: connection_path(@conn, :delete, user_follows_user?(@current_user, @user)), method: :delete , class: "button button--withicon button--plus" %>
+              <%= link to: connection_path(@conn, :delete, user_follows_user?(@current_user, @user)), method: :delete , class: "button" do %>
+                <i class="icon icon--minus"></i> Unfollow
+              <% end %>
             <%= else %>
-              <%= link "Follow", to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: @user.id}), method: :post , class: "button button--withicon button--plus" %>
+              <%= link to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: @user.id}), method: :post , class: "button" do %>
+                <i class="icon icon--plus"></i> Follow
+              <% end %>
             <% end %>
           <% end %>
       </div>
     </div>
   </div>
-
 </header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
 
-<div class="profile">
+<div class="card-list">
 
   <section class="card">
     <h1>Headline</h1>
@@ -69,9 +73,9 @@
       <h1>Contact</h1>
       <dl>
         <dt>Email</dt>
-        <dd><a href="#"><%= email(@user) %></a></dd>
+        <dd><a href="mailto:<%= email(@user) %>"><%= email(@user) %></a></dd>
         <dt>Twitter</dt>
-        <dd><a href="#">@thayes80</a></dd>
+        <dd><a href="#">TBI</a></dd>
       </dl>
     </section>
   </aside>
@@ -84,9 +88,13 @@
           <span><%= Skill.resolve_name(skill.skill_id) %>
           <em><%= Enum.count(skill.endorsements) %> upvotes</em></span>
           <%= if Vutuv.Endorsement.skill_endorsed?(skill.id, @conn.assigns[:current_user].id) do %>
-            <%= link "", to: user_endorsement_path(@conn, :delete, @user, skill), method: :delete , class: "button button--icon button--upvote-remove" %>
+            <%= link to: user_endorsement_path(@conn, :delete, @user, skill), method: :delete , class: "button button--icon" do %>
+              <i class="icon icon--upvote-remove"></i>
+            <% end %>
           <%= else %>
-            <%= link "", to: user_endorsement_path(@conn, :create, @user, id: skill), method: :post , class: "button button--icon button--upvote" %>
+            <%= link to: user_endorsement_path(@conn, :create, @user, id: skill), method: :post , class: "button button--icon" do %>
+              <i class="icon icon--upvote"></i>
+            <% end %>
           <%= end %>
           <hr style="width: 100%" />
 
@@ -108,9 +116,13 @@
               @ <%= current_job(fconn.follower).organization %>
             <% end %></p>
             <%= if user_follows_user?(@current_user, fconn.follower) do %>
-              <%= link "", to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.follower)), method: :delete , class: "button button--icon button--unfollow" %>
+              <%= link to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.follower)), method: :delete , class: "button button--icon" do %>
+                  <i class="icon icon--unfollow">
+              <% end %>
             <%= else %>
-              <%= link "", to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: fconn.follower.id}), method: :post , class: "button button--icon button--follow" %>
+              <%= link to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: fconn.follower.id}), method: :post , class: "button button--icon" do %>
+                  <i class="icon icon--follow">
+              <% end %>
             <% end %>
           </li>
         <% end %>
@@ -121,7 +133,7 @@
       <% end %>
     </ul>
     <%= if(@followers_count > 3) do %>
-      <%= link "#{@followers_count-3} more", to: user_follower_path(@conn, :index, @user), class: "profiles__morelink" %>
+      <%= link "#{@followers_count-3} more", to: user_follower_path(@conn, :index, @user), class: "card__morelink" %>
     <% end %>
   </section>
 
@@ -138,9 +150,13 @@
               @ <%= current_job(fconn.followee).organization %>
             <% end %></p>
             <%= if user_follows_user?(@current_user, fconn.followee) do %>
-              <%= link "", to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.followee)), method: :delete , class: "button button--icon button--unfollow" %>
+              <%= link to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.followee)), method: :delete , class: "button button--icon" do %>
+                <i class="icon icon--unfollow"></i>
+              <% end %>
             <%= else %>
-              <%= link "", to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: fconn.followee.id}), method: :post , class: "button button--icon button--follow" %>
+              <%= link to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: fconn.followee.id}), method: :post , class: "button button--icon" do %>
+                <i class="icon icon--follow"></i>
+              <% end %>
             <% end %>
           </li>
         <% end %>
@@ -151,7 +167,7 @@
       <% end %>
     </ul>
     <%= if(@followees_count > 3) do %>
-      <%= link "#{@followees_count-3} more", to: user_followee_path(@conn, :index, @user), class: "profiles__morelink" %>
+      <%= link "#{@followees_count-3} more", to: user_followee_path(@conn, :index, @user), class: "card__morelink" %>
     <% end %>
   </section>
 </div>

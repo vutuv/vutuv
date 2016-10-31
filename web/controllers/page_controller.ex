@@ -3,8 +3,6 @@ defmodule Vutuv.PageController do
   alias Vutuv.User
   alias Vutuv.Email
 
-  plug :put_layout, "no_layout.html" when action in [:index]
-
   def index(conn, _params) do
     user_count = Repo.one(from u in User, select: count("*"))
 

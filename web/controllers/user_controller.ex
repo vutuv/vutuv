@@ -26,6 +26,7 @@ defmodule Vutuv.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
+    IO.puts "\n\ncreating user with params #{inspect user_params}\n\n"
     email = user_params["emails"]["0"]["value"]
     case Vutuv.Registration.register_user(conn, user_params) do
       {:ok, user} ->
@@ -37,7 +38,7 @@ defmodule Vutuv.UserController do
             |> redirect(to: page_path(conn, :index))
           {:error, _reason, conn} ->
             conn
-            |> put_flash(:error, gettext(""))
+            |> put_flash(:error, gettext("There was an error"))
             |> redirect(to: page_path(conn, :index))
         end
       {:error, changeset} ->

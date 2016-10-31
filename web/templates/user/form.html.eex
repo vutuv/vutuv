@@ -1,58 +1,78 @@
-<%= form_for @changeset, @action, [multipart: true, class: "pure-form pure-form-stacked"], fn f -> %>
+  <%= form_for @changeset, @action, [multipart: true, class: "editform"], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p><%= gettext "Oops, something went wrong! Please check the errors below." %></p>
     </div>
   <% end %>
-
-  <%= label f, :gender, class: "control-label" %>
-  <%= select f, :gender, [{gettext("Mr"), "male"},
-    {gettext("Mrs"), "female"}, {gettext("Other"), "other"}], class: "form-control" %>
+  <div class="editform__field">
+    <%= label f, :gender %>
+    <div class="editform__inputwrap">
+      <%= select f, :gender, [{gettext("Mr"), "male"},
+        {gettext("Mrs"), "female"}, {gettext("Other"), "other"}], id: "gender" %>
+    </div>
+  </div>
   <%= error_tag f, :gender %>
-
-  <%= label f, :first_name, class: "control-label" %>
-  <%= text_input f, :first_name, class: "form-control", autofocus: true %>
+  <div class="editform__field">
+  <%= label f, :first_name %>
+  <%= text_input f, :first_name, autofocus: true %>
   <%= error_tag f, :first_name %>
-
-  <%= label f, :last_name, class: "control-label" %>
-  <%= text_input f, :last_name, class: "form-control" %>
+  </div>
+  <div class="editform__field">
+  <%= label f, :last_name %>
+  <%= text_input f, :last_name %>
   <%= error_tag f, :last_name %>
-
+  </div>
+  <div class="editform__field">
   <%= inputs_for f, :emails, fn ef -> %>
-    <%= label ef, :email_address, class: "control-label" %>
-    <%= text_input ef, :value, class: "form-control" %>
+    <%= label ef, :email_address %>
+    <%= text_input ef, :value %>
     <%= error_tag ef, :value %>
   <% end %>
+  </div>
 
   <%= if @current_user do %>
-    <%= label f, :middlename, class: "control-label" %>
-    <%= text_input f, :middlename, class: "form-control" %>
+    <div class="editform__field">
+    <%= label f, :middlename %>
+    <%= text_input f, :middlename %>
     <%= error_tag f, :middlename %>
-
-    <%= label f, :nickname, class: "control-label" %>
-    <%= text_input f, :nickname, class: "form-control" %>
+    </div>
+    <div class="editform__field">
+    <%= label f, :nickname %>
+    <%= text_input f, :nickname %>
     <%= error_tag f, :nickname %>
-
-    <%= label f, :honorific_prefix, class: "control-label" %>
-    <%= text_input f, :honorific_prefix, class: "form-control" %>
+    </div>
+    <div class="editform__field">
+    <%= label f, :honorific_prefix %>
+    <%= text_input f, :honorific_prefix %>
     <%= error_tag f, :honorific_prefix %>
-
-    <%= label f, :honorific_suffix, class: "control-label" %>
-    <%= text_input f, :honorific_suffix, class: "form-control" %>
+    </div>
+    <div class="editform__field">
+    <%= label f, :honorific_suffix %>
+    <%= text_input f, :honorific_suffix %>
     <%= error_tag f, :honorific_suffix %>
-
-    <%= label f, :birthdate, class: "control-label" %>
-    <%= date_select f, :birthdate, year: [options: 1900..2100], class: "form-control" %>
+    </div>
+    <div class="editform__field">
+    <%= label f, :birthdate %>
+    <div class="editform__inputwrap">
+      <%= date_select f, :birthdate, year: [options: 1900..2100] %>
+    </div>
     <%= error_tag f, :birthdate %>
-
-    <%= label f, :language, class: "control-label" %>
-    <%= select f, :locale, ["English": "en", "German": "de"], class: "form-control" %>
+    </div>
+    <div class="editform__field">
+    <%= label f, :language %>
+    <%= select f, :locale, ["English": "en", "German": "de"] %>
     <%= error_tag f, :locale %>
-
-    <%= label f, :avatar, class: "control-label" %>
-    <%= file_input f, :avatar, class: "form-control" %>
+    </div>
+    <div class="editform__field">
+    <%= label f, :avatar %>
+    <div class="editform__inputwrap">
+      <%= file_input f, :avatar %>
+    </div>
     <%= error_tag f, :avatar %>
+    </div>
   <% end %>
-
-  <%= submit gettext("Submit"), class: "pure-button pure-button-primary" %>
+  <div class="editform__actions">
+    <button href = "<%= user_path(@conn, :show, @conn.assigns[:current_user]) %>" class="button button--big button--cancel">Cancel</button>
+    <%= submit gettext("Save"), class: "pure-button pure-button-primary" %>
+  </div>
 <% end %>

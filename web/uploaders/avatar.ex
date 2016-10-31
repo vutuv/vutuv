@@ -36,11 +36,20 @@ defmodule Vutuv.Avatar do
   end
 
   def binary(user, version) do
-    path = Vutuv.Avatar.url({user.avatar, user}, version, signed: true)
-    binary = 
-      path
-      |> File.read!
-      |> Base.encode64
+    Vutuv.Avatar.url({user.avatar, user}, version, signed: true)
+    |> read_file
+  end
+
+  defp read_file(nil), do: ""
+
+  defp read_file(path) do
+    path
+    |> File.read!
+    |> Base.encode64
+    |> add_mimetype(path)
+  end
+
+  defp add_mimetype(binary, path) do
     type = hd(tl(String.split(path,".")))
     "data:image/#{type};base64,#{binary}"
   end
