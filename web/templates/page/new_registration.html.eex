@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Vutuv</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="apple-touch-icon" href="apple-touch-icon.png">
+      <link rel="shortcut icon" href="images/favicon.png">
+
+      <!--build:css css/styles.min.css-->
+      <link rel="stylesheet" href="css/styles.min.css">
+      <!--endbuild-->
+  </head>
+  <body class="stretch">
+
+    <header>
+      <nav class="navigation">
+        <div>
+          <a href="#" class="navigation__icon"><i class="icon icon--menu"></i></a>
+          <a href="/" title="Vutuv"><img src="images/logo.svg"></a>
+          <a href="#" class="navigation__icon navigation__icon--right"><i class="icon icon--lock"></i></a>
+        </div>
+      </nav>
+    </header>
+    <div class="imagebox">
+      <section class="card imagebox__card">
+        <div class="imagebox__intro">
+          <h1>Registration Successfull!</h1>
+          <p>You're account has been created and an e-mail with a
+          login link is on it's way. Please check your inbox and just in case your spam folder.</p>
+          <%= if @dev_env? do %>
+            <p>It looks like this runs in a <strong>development environment</strong>. In this case you'll find the e-mail here: <a href="http://localhost:4000/sent_emails">http://localhost:4000/sent_emails</a></p>
+          <% end %>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <p>Copyright © 2016 <a href="http://www.amooma.de/">AMOOMA</a>, MIT licensed
+    <a href="#">Give us feedback</a> | <a href="#">Privacy</a></p>
+    </footer>
+  </body>
+</html>

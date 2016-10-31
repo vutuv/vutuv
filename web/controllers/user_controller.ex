@@ -35,7 +35,7 @@ defmodule Vutuv.UserController do
           {:ok, conn} ->
             conn
             |> put_flash(:info, "User #{full_name(user)} created successfully. An email has been sent with your login link.")
-            |> redirect(to: page_path(conn, :index))
+            |> redirect(to: page_path(conn, :new_registration))
           {:error, _reason, conn} ->
             conn
             |> put_flash(:error, gettext("There was an error"))
@@ -47,11 +47,11 @@ defmodule Vutuv.UserController do
   end
 
   # This downloads and stores a users gravatar. It then updates
-  # the user's model with the information for arc-ecto to 
+  # the user's model with the information for arc-ecto to
   # retrieve the file later. If they do not have one, it stores
   # the default gravatar avatar. It times out at 1 second.
 
-  defp store_gravatar(user) do 
+  defp store_gravatar(user) do
     case HTTPoison.get("https://www.gravatar.com/avatar/#{hd(user.emails).md5sum}", [], [timeout: 1000, recv_timeout: 1000])  do
       {:ok, %HTTPoison.Response{body: body, headers: headers}} ->
         content_type = find_content_type(headers)
