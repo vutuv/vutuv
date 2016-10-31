@@ -24,12 +24,6 @@
         <% end %>
       </div>
     </nav>
-    <%= if get_flash(@conn, :info) do %>
-      <div class="message message--success"><p><%= get_flash(@conn, :info) %></p></div>
-    <% end %>
-    <%= if get_flash(@conn, :error) do %>
-      <div class="message message--error"><p><%= get_flash(@conn, :error) %></p></div>
-    <% end %>
     <!-- header tag ends in rendered template -->
     <%= render @view_module, @view_template, assigns %>
     <footer>

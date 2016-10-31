@@ -6,29 +6,37 @@ defmodule Vutuv.Registration do
   alias Vutuv.SearchTerm
 
   def register_user(conn, user_params, assocs \\ []) do
-    slug =
-      if(user_params["first_name"] != nil or user_params["last_name"] != nil) do
-        struct = %User{first_name: user_params["first_name"], last_name: user_params["last_name"]}
+    user_params
+    |> slug_changeset
+    |> user_changeset(conn, user_params, assocs)
+    |> Repo.insert
+  end
 
-        slug_value = generate_slug(struct)
+  defp slug_changeset(user_params) do
+    if(user_params["first_name"] != nil or user_params["last_name"] != nil) do
+      struct = %User{first_name: user_params["first_name"], last_name: user_params["last_name"]}
 
-        Slug.changeset(%Slug{}, %{value: slug_value})
-      else
-        Slug.changeset(%Slug{}, %{value: "invalid"})
-        |> Ecto.Changeset.add_error(:value, "Invalid slug")
-      end
+      slug_value = generate_slug(struct)
+
+      Slug.changeset(%Slug{}, %{value: slug_value})
+    else
+      Slug.changeset(%Slug{}, %{value: "invalid"})
+      |> Ecto.Changeset.add_error(:value, "Invalid slug")
+    end
+  end
+
+  defp user_changeset(slug_changeset, conn, user_params, assocs) do
     search_terms = SearchTerm.create_search_terms(user_params)
     changeset = User.changeset(%User{}, user_params)
-    |> Ecto.Changeset.put_assoc(:slugs, [slug])
-    |> Ecto.Changeset.put_assoc(:search_terms, search_terms)
-    |> Ecto.Changeset.put_change(:active_slug, slug.changes.value)
-    |> Ecto.Changeset.put_change(:locale, conn.assigns[:locale])
+      |> Ecto.Changeset.put_assoc(:slugs, [slug_changeset])
+      |> Ecto.Changeset.put_assoc(:search_terms, search_terms)
+      |> Ecto.Changeset.put_change(:active_slug, slug_changeset.changes.value)
+      |> Ecto.Changeset.put_change(:locale, conn.assigns[:locale])
     changeset = 
     Enum.reduce([changeset | assocs], fn {type, params}, changeset ->
       changeset
       |>Ecto.Changeset.put_assoc(type, [params])
     end)
-     Repo.insert(changeset)
   end
 
   def generate_slug(user) do

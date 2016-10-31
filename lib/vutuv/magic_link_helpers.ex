@@ -3,16 +3,36 @@ defmodule Vutuv.MagicLinkHelpers do
 
   alias Vutuv.MagicLink
 
+  @magic_link_expire_time 3600  #in seconds
+
   #Generates a magic link for the user and stores it for 60 mintues
   def gen_magic_link(user, type, value \\ nil) do
-    link = Base.encode32(:crypto.hash(:sha256,Integer.to_string(user.id)<>Float.to_string(:rand.uniform())<>Integer.to_string(:calendar.datetime_to_gregorian_seconds(:calendar.universal_time()))))
+    hash = gen_hash(user.id)
     case Vutuv.Repo.one(from m in MagicLink, where: m.user_id == ^user.id and m.magic_link_type == ^type) do
       nil -> Ecto.build_assoc(user, :magic_links)
       magic_link -> magic_link
     end
-    |>MagicLink.changeset(%{magic_link: link, magic_link_type: type, value: value, magic_link_created_at: Ecto.DateTime.from_erl(:calendar.universal_time())})
+    |>MagicLink.changeset(%{
+      magic_link: hash, magic_link_type: type, 
+      value: value, magic_link_created_at: Ecto.DateTime.from_erl(:calendar.universal_time())})
     |>Vutuv.Repo.insert_or_update! #With a bang because this should never fail
-    link
+    hash
+  end
+
+  #Generates a hash from "<current_time><random_integer><user_id>"
+  defp gen_hash(user_id) do
+    seconds_string = 
+      :calendar.universal_time
+      |> :calendar.datetime_to_gregorian_seconds
+      |> Integer.to_string
+    rand_string = 
+      :rand.uniform
+      |> Float.to_string
+    id_string =
+      user_id
+      |> Integer.to_string
+    :crypto.hash(:sha256, "#{seconds_string}#{rand_string}#{id_string}")
+    |> Base.encode32
   end
 
   defp expire_magic_link(magic_link) do
@@ -20,14 +40,18 @@ defmodule Vutuv.MagicLinkHelpers do
     Vutuv.Repo.update!(changeset)
   end
 
-  defp link_expired?(magic_link) do
-    case magic_link.magic_link_created_at do
-      nil -> true
-      t->
-        time = Ecto.DateTime.to_erl(t)
-        :calendar.datetime_to_gregorian_seconds(:calendar.universal_time)-:calendar.datetime_to_gregorian_seconds(time)>3600
-    end
+  defp link_expired?(%{magic_link_created_at: date_time}) do
+    time_created = 
+      date_time
+      |> Ecto.DateTime.to_erl
+      |> :calendar.datetime_to_gregorian_seconds
+    now = 
+      :calendar.universal_time
+      |> :calendar.datetime_to_gregorian_seconds
+    now - time_created > @magic_link_expire_time
   end
+
+  defp link_expired?(_), do: true
 
   #returns {:ok, user} if match is found to link, returns {:error, reason} otherwise
   def check_magic_link(link, type) do
