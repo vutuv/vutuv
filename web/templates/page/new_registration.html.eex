@@ -4,8 +4,9 @@
   <section class="card imagebox__card">
     <div class="imagebox__intro">
       <h1>Registration Successfull!</h1>
-      <p>You're account has been created and an e-mail with a
-      login link is on it's way. Please check your inbox and just in case your spam folder.</p>
+      <p>You're account has been created. We don't use passwords because they are insecure anyway. We just sent you an e-mail with a
+      login link. Click on that link to prove that you own that e-mail address and you'll be logged in for the next 30 days on this devise.</p>
+      <p>Please check your inbox and just in case your spam folder.</p>
       <%= if @dev_env? do %>
         <p>It looks like this runs in a <strong>development environment</strong>. In this case you'll find the e-mail here: <a href="http://localhost:4000/sent_emails">http://localhost:4000/sent_emails</a></p>
       <% end %>

@@ -3,10 +3,8 @@
 <div class="imagebox">
   <section class="card imagebox__card">
     <div class="imagebox__intro">
-      <h1>Welcome to vutuv</h1>
-      <p>vutuv is a social network service to host and share contact information about humans and organizations.</p>
-      <p>It's like <a href="https://www.linkedin.com/">LinkedIn</a> or <a href="https://www.xing.com/">XING</a> but faster and free.<br />Bonus: <a href="https://github.com/vutuv/vutuv">It's open source</a>!</p>
-      <a href="#">Read more ▸</a>
+      <p>vutuv is more than just a career network:<br/>Share what you want to share with whom you want to share it.</p>
+      <p><small>It's a little bit like <a href="https://www.linkedin.com/">LinkedIn</a> or <a href="https://www.xing.com/">XING</a> but <strong>faster and free</strong>. And we will not flood your inbox with senseless e-mails. Bonus: <a href="https://github.com/vutuv/vutuv">It's open-source</a>.</small></p>
     </div>
     <%= form_for @changeset, user_path(@conn, :create), [multipart: true, class: "imagebox__form"], fn f -> %>
       <%= if @changeset.action do %>
@@ -14,7 +12,7 @@
           <p><%= gettext "Oops, something went wrong! Please check the errors below." %></p>
         </div>
       <% end %>
-      <h2>Get started now</h2>
+      <h2>Get started now. It only takes 30 seconds.</h2>
       <%= text_input f, :first_name, class: "imagebox__input", placeholder: "Type your first name", autofocus: true %>
       <%= error_tag f, :first_name %>
       <%= text_input f, :last_name, class: "imagebox__input", placeholder: "Type your last name" %>
