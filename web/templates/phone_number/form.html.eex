@@ -1,23 +1,24 @@
-<%= form_for @changeset, @action, fn f -> %>
+<%= form_for @changeset, @action, [class: "editform"], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below.</p>
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= label f, :value, class: "control-label" %>
-    <%= telephone_input f, :value, class: "form-control" %>
+  <div class="editform__field">
+    <%= label f, :phone_number%>
+    <%= telephone_input f, :value%>
     <%= error_tag f, :value %>
   </div>
-
-  <div class="form-group">
-    <%= label f, :number_type, class: "control-label" %>
-    <%= select f, :number_type, ["Choose One": nil, "Work": "Work", "Cell": "Cell", "Home": "Home", "Fax": "Fax"], class: "form-control" %>
-    <%= error_tag f, :number_type %>
-  </div>
-
-  <div class="form-group">
-    <%= submit "Submit", class: "btn btn-primary" %>
+  <div class="editform__inputwrap">
+    <div class="editform__field">
+      <%= label f, :type%>
+      <%= select f, :number_type, ["Choose One": nil, "Work": "Work", "Cell": "Cell", "Home": "Home", "Fax": "Fax"]%>
+      <%= error_tag f, :number_type %>
+    </div>
+    </div>
+  <div class="editform__actions">
+    <a href = "<%= @backlink %>" class="button button--big button--cancel">Cancel</a>
+    <%= submit "Submit"%>
   </div>
 <% end %>

@@ -6,14 +6,14 @@
     <div class="profile-header__info">
       <h1><%= full_name(@user) %></h1>
       <h2>
-        <%= current_job(@user) %>
+        <%= current_title(@job) %>
         <%= if(@organization != "" and @organization) do %>
           @ <%= @organization %>
         <% end %>
       </h2>
       <div class="profile-header__followstatus">
           <div>
-            <h3><span><%= String.capitalize(@user.first_name) %> has</span><strong><%= @followers_count %></strong> followers</h3>
+            <h3><span><%= String.capitalize(@user.first_name) %> has</span><strong><%= @follower_count %></strong> followers</h3>
           </div>
           <%= if(@current_user.id == @user.id) do %>
             <%= if user_follows_user?(@current_user, @user) do %>
@@ -41,17 +41,6 @@
     <%= else %>
       <p> This page belongs to <%= @user.first_name %>.
     <%= end %>
-    <%= if Enum.count(@skills) == 1 do %>
-      He works with <%= link "#{hd(@skills).name}", to: "/" %>.</p>
-    <%= end %>
-    <%= if Enum.count(@skills) > 1 do %>
-        He works with
-        <%= for skill <- tl(@skills) do %>
-          <%= link "#{skill.name}", to: "/" %>,
-        <%= end %>
-        and <%= link "#{hd(@skills).name}", to: "/" %>.
-      </p>
-    <%= end %>
     <dl>
       <dt>Gender</dt>
       <dd><%= @user.gender %></dd>
@@ -68,7 +57,7 @@
         libero, vel rutrum magna fringilla eget. Fusce metus</p>
       <a href="#">http://lorem.ipsum.com</a>
     </section>
-
+    <p> Interested in advertising? <a href="#">Link!</a></p>
     <section class="card">
       <h1>Contact</h1>
       <dl>
@@ -106,24 +95,26 @@
   <section class="card half">
     <h1>Followers</h1>
     <ul class="button-list profiles">
-      <%= if(@followers_count > 0) do %>
+      <%= if(@follower_count > 0) do %>
         <%= for fconn <- @user.follower_connections do %>
           <li>
             <div><img src="<%= Vutuv.Avatar.binary(fconn.follower, :thumb) %>"></div>
             <p><strong><%= full_name(fconn.follower) %></strong>
-            <%= current_job(fconn.follower) %>
-            <%= if current_job(fconn.follower) do %>
-              @ <%= current_job(fconn.follower).organization %>
-            <% end %></p>
+            <%= current_title(fconn.follower) %>
+              @ <%= current_organization(fconn.follower) %>
+            </p>
+            <!--
             <%= if user_follows_user?(@current_user, fconn.follower) do %>
               <%= link to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.follower)), method: :delete , class: "button button--icon" do %>
                   <i class="icon icon--unfollow">
               <% end %>
             <%= else %>
+              
               <%= link to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: fconn.follower.id}), method: :post , class: "button button--icon" do %>
                   <i class="icon icon--follow">
               <% end %>
             <% end %>
+            -->
           </li>
         <% end %>
       <% else %>
@@ -132,7 +123,7 @@
         </li>
       <% end %>
     </ul>
-    <%= if(@followers_count > 3) do %>
+    <%= if(@follower_count > 3) do %>
       <%= link "#{@followers_count-3} more", to: user_follower_path(@conn, :index, @user), class: "card__morelink" %>
     <% end %>
   </section>
@@ -140,15 +131,14 @@
   <section class="card half last">
   <h1>Following</h1>
     <ul class="button-list profiles">
-      <%= if(@followees_count > 0) do %>
+      <%= if(@followee_count > 0) do %>
         <%= for fconn <- @user.followee_connections do %>
           <li>
             <div><img src="<%= Vutuv.Avatar.binary(fconn.followee, :thumb) %>"></div>
             <p><strong><%= full_name(fconn.followee) %></strong>
-            <%= current_job(fconn.followee) %>
-            <%= if current_job(fconn.followee) do %>
-              @ <%= current_job(fconn.followee).organization %>
-            <% end %></p>
+            <%= current_title(fconn.followee) %>
+              @ <%= current_organization(fconn.followee) %>
+            </p>
             <%= if user_follows_user?(@current_user, fconn.followee) do %>
               <%= link to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.followee)), method: :delete , class: "button button--icon" do %>
                 <i class="icon icon--unfollow"></i>
@@ -166,8 +156,75 @@
         </li>
       <% end %>
     </ul>
-    <%= if(@followees_count > 3) do %>
-      <%= link "#{@followees_count-3} more", to: user_followee_path(@conn, :index, @user), class: "card__morelink" %>
+    <%= if(@followee_count > 3) do %>
+      <%= link "#{@followee_count-3} more", to: user_followee_path(@conn, :index, @user), class: "card__morelink" %>
     <% end %>
+  </section>
+
+  <section class="card">
+    <h1>Work Experience</h1>
+    <dl>
+    <%= for job <- @user.work_experiences do %>
+      <dt>
+        <%= job.title %><br>
+        <%= job.description %>
+      </dt>
+      <dd>
+        <%= job.organization %><br>
+        <%= "#{job.start_month}/#{job.start_year}" %>
+        <%= if(Vutuv.WorkExperience.has_end_date? job) do %>
+         <%= "- #{job.end_month}/#{job.end_year}" %>
+        <% end %>
+      </dd>
+    <% end %>
+    </dl>
+  </section>
+
+  <section class="card">
+    <h1>Phone Numbers</h1>
+    <dl>
+    <%= for number <- @user.phone_numbers do %>
+      <dt><%= number.value %></dt>
+      <dd><%= number.number_type %></dd>
+    <% end %>
+    </dl>
+  </section>
+
+  <section class="card">
+    <h1>Links</h1>
+    <dl>
+    <%= for url <- @user.urls do %>
+      <dt><a href="<%= url.value %>"><%= url.value %></a></dt>
+      <dd><%= url.description %></dd>
+    <% end %>
+    </dl>
+  </section>
+
+  <section class="card">
+    <h1>Addresses</h1>
+    <dl>
+    <%= for address <- @user.addresses do %>
+      <dt>
+        Line 1:<br>
+        Line 2:<br>
+        Line 3:<br>
+        Line 4:<br>
+        City/Town:<br>
+        State/Province:<br>
+        Zip/Postal Code:<br>
+        Country:<br>
+      </dt>
+      <dd>
+        <%= address.line_1 %><br>
+        <%= address.line_2 %><br>
+        <%= address.line_3 %><br>
+        <%= address.line_4 %><br>
+        <%= address.city %><br>
+        <%= address.state %><br>
+        <%= address.zip_code %><br>
+        <%=address.country %><br>
+      </dd>
+    <% end %>
+    </dl>
   </section>
 </div>

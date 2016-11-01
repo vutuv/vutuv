@@ -15,10 +15,10 @@
       <h2>Get started now. It only takes 30 seconds.</h2>
       <%= text_input f, :first_name, class: "imagebox__input", placeholder: "Type your first name", autofocus: true %>
       <%= error_tag f, :first_name %>
-      <%= text_input f, :last_name, class: "imagebox__input", placeholder: "Type your last name" %>
+      <%= text_input f, :last_name, class: "imagebox__input", placeholder: "Enter your last name" %>
       <%= error_tag f, :last_name %>
       <%= inputs_for f, :emails, fn ef -> %>
-        <%= text_input ef, :value, class: "imagebox__input", placeholder: "Type your email" %>
+        <%= text_input ef, :value, class: "imagebox__input", placeholder: "Enter your email" %>
         <%= error_tag ef, :value %>
       <% end %>
       <%= submit gettext("Sign up now"), class: "imagebox__input" %>

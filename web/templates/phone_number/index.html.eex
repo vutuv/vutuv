@@ -1,26 +1,36 @@
-<h2><%= gettext "Phone Numbers" %></h2>
+<!-- header tag begins in parent template -->
+  <div class="profile-header">
+      <div class="profile-header__followstatus">
+      <%= link to: user_phone_number_path(@conn, :new, @user), class: "button" do %>
+        <i class="icon icon--plus"></i> New Phone Number
+      <% end %>
+      </div>
+    <div class="profile-header__info">
+      <h1>Phone numbers belonging to <%= full_name(@user) %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
 
-<table class="pure-table pure-table-horizontal">
-  <thead>
-    <tr>
-      <th><%= gettext "Number" %></th>
-      <th><%= gettext "Type" %></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for phone_number <- @phone_numbers do %>
-    <tr>
-      <td><%= link phone_number.value, to: "tel:"<>phone_number.value %></td>
-      <td><%= phone_number.number_type %></td>
-      <td class="text-right">
-        <%= link "Show", to: user_phone_number_path(@conn, :show, @user, phone_number), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: user_phone_number_path(@conn, :edit, @user, phone_number), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: user_phone_number_path(@conn, :delete, @user, phone_number), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+<div class="card-list">
 
-<%= link "New phone number", to: user_phone_number_path(@conn, :new, @user) %>
+  <section class="card">
+    <dl>
+    <%= for number <- @phone_numbers do %>
+      <dt><%= number.value %></dt>
+      <dd><%= number.number_type %></dd>
+    <% end %>
+    </dl>
+  </section>
+
+  <aside>
+    <section class="ad">
+      <label>Ad</label>
+      <h1>Lorem ipsum dolor</h1>
+      <p>Sit amet, consectetur adipiscing elit. Phasellus venenatis porttitor
+        libero, vel rutrum magna fringilla eget. Fusce metus</p>
+      <a href="#">http://lorem.ipsum.com</a>
+    </section>
+    <p style="text-align: center"> Interested in advertising? <a href="#">Link!</a></p>
+  </aside>
+</div>

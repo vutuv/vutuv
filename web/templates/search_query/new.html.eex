@@ -18,8 +18,14 @@
     <ul class="button-list profiles">
       <%= for user <- @results do %>
         <li>
-          <div><img src="<%= Vutuv.Avatar.binary(user, :medium) %>"></div>
-          <p><strong><%= full_name(user) %></strong>
+          <div>
+            <%= link to: user_path(@conn, :show, user) do %>
+            <img src="<%= Vutuv.Avatar.binary(user, :medium) %>">
+            <% end %>
+          </div>
+          <p><strong>
+            <%= link full_name(user), to: user_path(@conn, :show, user) %>
+          </strong>
           <%= if (current_job(user)) do %>
           <%= current_job(user).title %>
              @ <%= current_job(user).organization %>

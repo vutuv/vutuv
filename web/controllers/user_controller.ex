@@ -79,35 +79,24 @@ defmodule Vutuv.UserController do
   def show(conn, _params) do
     user =
       Repo.get!(User, conn.assigns[:user_id])
-      |> Repo.preload([:emails, :work_experiences,
-                      :social_media_accounts, :addresses,
-                      :urls, :phone_numbers, :search_terms,
-                      user_skills: from(u in Vutuv.UserSkill, order_by: [desc: u.updated_at], limit: 4, preload: [:endorsements]),
-                      followee_connections:
-                        {Connection.latest(3), [:followee]},
-                      follower_connections:
-                        {Connection.latest(3), [:follower]},
-                      slugs: from(s in Vutuv.Slug, order_by: [desc: s.updated_at], limit: 1)])
-
-    followees_count = Repo.one(from c in Connection, where: c.follower_id == ^user.id, select: count("followee_id"))
-    followers_count = Repo.one(from c in Connection, where: c.followee_id == ^user.id, select: count("follower_id"))
-
-    changeset = Connection.changeset(%Connection{},%{follower_id: conn.assigns.current_user.id, followee_id: user.id})
-
-    emails_counter = length(user.emails)
-
-    social_media_links = Vutuv.SocialMediaAccount.get_full_urls(user)
+      |> Repo.preload([
+        user_skills: from(u in Vutuv.UserSkill, order_by: [desc: u.updated_at], limit: 4, preload: [:endorsements]),
+        followee_connections: {Connection.latest(3), [:followee]},
+        follower_connections: {Connection.latest(3), [:follower]},
+        phone_numbers: from(u in Vutuv.PhoneNumber, order_by: [desc: u.updated_at], limit: 3),
+        urls: from(u in Vutuv.Url, order_by: [desc: u.updated_at], limit: 3),
+        addresses: from(u in Vutuv.Address, order_by: [desc: u.updated_at], limit: 3),
+        work_experiences: from(u in Vutuv.WorkExperience, order_by: [desc: u.updated_at], limit: 3)
+        ])
     job = current_job(user)
-    skills = Repo.all(from s in Vutuv.Skill, join: u in assoc(s, :user_skills), where: u.user_id == ^user.id, limit: 4)
     conn
-    |> assign(:page_title, full_name(user))
+    |> assign(:follower_count, follower_count(user))
+    |> assign(:followee_count, followee_count(user))
     |> assign(:user, user)
-    |> assign(:user_show, true)
-    |> assign(:organization, if(job, do: job.organization, else: ""))
-    |> assign(:title, if(job, do: job.title, else: ""))
-    |> assign(:skills, skills)
-    |> render("show.html", changeset: changeset, emails_counter: emails_counter, followers_count: followers_count,
-                           followees_count: followees_count, social_media_links: social_media_links)
+    |> assign(:job, job)
+    |> assign(:organization, current_organization(job))
+    |> assign(:title, current_title(job))
+    |> render("show.html", conn: conn)
   end
 
   def edit(conn, _params) do

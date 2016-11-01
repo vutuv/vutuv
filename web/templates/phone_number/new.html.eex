@@ -1,6 +1,16 @@
-<h2>New Phone Number</h2>
+</header>
+<div class="card-list">
 
-<%= render "form.html", changeset: @changeset,
-                        action: user_phone_number_path(@conn, :create, @user) %>
+  <aside>
+    <section class="ad">
+      <label>Ad</label>
+      <h1>Lorem ipsum dolor</h1>
+      <p>Sit amet, consectetur adipiscing elit. Phasellus venenatis porttitor
+        libero, vel rutrum magna fringilla eget. Fusce metus</p>
+      <a href="#">http://lorem.ipsum.com</a>
+    </section>
+  </aside>
+  <section class="card">
 
-<%= link "Back", to: user_phone_number_path(@conn, :index, @user) %>
+  <%= render "form.html", backlink: user_phone_number_path(@conn, :index, @user), changeset: @changeset, action: user_phone_number_path(@conn, :create, @user) %>
+</div>

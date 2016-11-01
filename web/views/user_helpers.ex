@@ -2,6 +2,8 @@ defmodule Vutuv.UserHelpers do
   import Ecto.Query
   alias Vutuv.User
   alias Vutuv.Repo
+  alias Vutuv.WorkExperience
+  alias Vutuv.Connection
 
   def full_name(%User{first_name: first_name,
                       last_name: last_name,
@@ -34,7 +36,7 @@ defmodule Vutuv.UserHelpers do
   end
 
   def current_job(user) do
-    Repo.one(from w in Vutuv.WorkExperience, 
+    Repo.one(from w in WorkExperience, 
       join: u in assoc(w, :user),
       where:
         u.id == ^user.id #belongs to user
@@ -43,8 +45,32 @@ defmodule Vutuv.UserHelpers do
       limit: 1)
   end
 
-  def current_organization(user) do
-    
+  def current_organization(nil), do: ""
+
+  def current_organization(%User{}=user) do
+    current_organization(current_job(user))
+  end
+
+  def current_organization(%WorkExperience{organization: nil}), do: ""
+
+  def current_organization(%WorkExperience{organization: org}), do: org
+
+  def current_title(nil), do: ""
+
+  def current_title(%User{}=user) do
+    current_title(current_job(user))
+  end
+
+  def current_title(%WorkExperience{title: nil}), do: ""
+
+  def current_title(%WorkExperience{title: org}), do: org
+
+  def follower_count(user) do
+    Repo.one(from c in Connection, where: c.followee_id == ^user.id, select: count("follower_id"))
+  end
+
+  def followee_count(user) do
+    Repo.one(from c in Connection, where: c.follower_id == ^user.id, select: count("followee_id"))
   end
 
   def username(user) do
