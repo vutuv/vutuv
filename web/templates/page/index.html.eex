@@ -3,8 +3,8 @@
 <div class="imagebox">
   <section class="card imagebox__card">
     <div class="imagebox__intro">
-      <p>vutuv is more than just a career network:<br/>Share what you want to share with whom you want to share it.</p>
-      <p><small>It's a little bit like <a href="https://www.linkedin.com/">LinkedIn</a> or <a href="https://www.xing.com/">XING</a> but <strong>faster and free</strong>. And we will not flood your inbox with senseless e-mails. Bonus: <a href="https://github.com/vutuv/vutuv">It's open-source</a>.</small></p>
+      <p>vutuv is more than just a career network:<br/>Securly share whatever you want with whomever you want.</p>
+      <p><small>It's a little bit like <a href="https://www.linkedin.com/">LinkedIn</a> but <strong>fast and free</strong>. And we will not flood your inbox with senseless e-mails. Bonus: <a href="https://github.com/vutuv/vutuv">It's open-source</a>.</small></p>
     </div>
     <%= form_for @changeset, user_path(@conn, :create), [multipart: true, class: "imagebox__form"], fn f -> %>
       <%= if @changeset.action do %>
