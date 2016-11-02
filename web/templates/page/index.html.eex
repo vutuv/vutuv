@@ -4,7 +4,7 @@
   <section class="card imagebox__card">
     <div class="imagebox__intro">
       <h1>More than just a career network.</h1>
-      <p>Vutuv is <strong>fast and free</strong>. We don't track your moves and we will not flood your inbox with senseless e-mails. Bonus: <a href="https://github.com/vutuv/vutuv">It's open-source</a>.</p>
+      <p>Vutuv is <strong>fast and free</strong>. We respect your privacy, don't track your moves and will not flood your inbox with senseless e-mails.<br/>Bonus: <a href="https://github.com/vutuv/vutuv">It's open-source</a>.</p>
     </div>
     <%= form_for @changeset, user_path(@conn, :create), [multipart: true, class: "imagebox__form"], fn f -> %>
       <%= if @changeset.action do %>
