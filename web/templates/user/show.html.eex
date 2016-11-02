@@ -42,10 +42,14 @@
       <p> This page belongs to <%= @user.first_name %>.
     <%= end %>
     <dl>
+      <%= if(@user.gender != "other" && @user.gender) do %>
       <dt>Gender</dt>
       <dd><%= @user.gender %></dd>
+      <% end %>
+      <%= if(@user.birthdate) do %>
       <dt>Birthday</dt>
       <dd><%= @user.birthdate %></dd>
+      <% end %>
     </dl>
   </section>
 
@@ -103,18 +107,16 @@
             <%= current_title(fconn.follower) %>
               @ <%= current_organization(fconn.follower) %>
             </p>
-            <!--
             <%= if user_follows_user?(@current_user, fconn.follower) do %>
-              <%= link to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.follower)), method: :delete , class: "button button--icon" do %>
+              <%= link to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.follower)), method: :delete , class: "button button--icon", form: [class: "button-list__button"] do %>
                   <i class="icon icon--unfollow">
               <% end %>
             <%= else %>
               
-              <%= link to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: fconn.follower.id}), method: :post , class: "button button--icon" do %>
+              <%= link to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: fconn.follower.id}), method: :post , class: "button button--icon", form: [class: "button-list__button"] do %>
                   <i class="icon icon--follow">
               <% end %>
             <% end %>
-            -->
           </li>
         <% end %>
       <% else %>
