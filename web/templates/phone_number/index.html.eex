@@ -15,12 +15,24 @@
 <div class="card-list">
 
   <section class="card">
-    <dl>
+    <table>
+      <tr>
+        <th>Phone Number</th>
+        <th>Number Type</th>
+        <th/>
+      </tr>
     <%= for number <- @phone_numbers do %>
-      <dt><%= number.value %></dt>
-      <dd><%= number.number_type %></dd>
+      <tr>
+        <td><%= number.value %></td>
+        <td><%= number.number_type %></td>
+        <td>
+        <a href="#">Show</a>
+        <a href="#">Edit</a>
+        <a href="#">Delete</a>
+        </td>
+      <tr>
     <% end %>
-    </dl>
+    </table>
   </section>
 
   <aside>

@@ -13,6 +13,8 @@
         </div>
       <% end %>
       <h2>Get started now. It only takes 30 seconds.</h2>
+      <%= select f, :first_name, [{gettext("Mr"), "male"},
+        {gettext("Mrs"), "female"}, {gettext("Other"), "other"}], class: "imagebox__input" %>
       <%= text_input f, :first_name, class: "imagebox__input", placeholder: "Enter your first name", autofocus: true %>
       <%= error_tag f, :first_name %>
       <%= text_input f, :last_name, class: "imagebox__input", placeholder: "Enter your last name" %>
