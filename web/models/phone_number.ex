@@ -19,6 +19,7 @@ defmodule Vutuv.PhoneNumber do
     model
     |> cast(params, [:value, :number_type])
     |> validate_required([:value, :number_type])
-    |> validate_format(:value, ~r/^\d*$/u)
+    #|> update_change(:value, &String.replace(&1,~r/[^+0-9]/, ""))
+    |> validate_format(:value, ~r/^\S[+\d\(\)\s-]*\S$/u)
   end
 end
