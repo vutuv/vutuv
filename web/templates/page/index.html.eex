@@ -24,7 +24,8 @@
         <%= error_tag ef, :value %>
       <% end %>
       <%= submit gettext("Sign up"), class: "imagebox__input" %>
-      <a href="<%= session_path(@conn, :new) %>" class="imagebox__alreadymember">Already a member? Sign in here.</a>
+      <p><a href="<%= session_path(@conn, :new) %>" class="imagebox__alreadymember">Already a member? Sign in here.</a></p>
+      <p>Legal mumbo-jumbo: We reserve the right to stop this service or delete your account anytime without warning.</p>
     <% end %>
   </section>
 </div>
