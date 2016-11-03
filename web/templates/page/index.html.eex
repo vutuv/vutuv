@@ -3,8 +3,8 @@
 <div class="imagebox">
   <section class="card imagebox__card">
     <div class="imagebox__intro">
-      <h1>More than just a career network.</h1>
-      <p>Vutuv is <strong>fast and free</strong>. We respect your privacy, don't track your moves and will not flood your inbox with senseless e-mails.<br/>Bonus: <a href="https://github.com/vutuv/vutuv">It's open-source</a>.</p>
+      <h1>More than Just a Career Network</h1>
+      <p>Vutuv is <strong>fast and free</strong>. Yes, it's free! No premium accounts.<br/>Bonus: We won't flood your inbox with senseless emails.<br/>Read more about it in <a href="https://medium.com/@vutuv">our blog</a>.</p>
     </div>
     <%= form_for @changeset, user_path(@conn, :create), [multipart: true, class: "imagebox__form"], fn f -> %>
       <%= if @changeset.action do %>
@@ -13,17 +13,27 @@
         </div>
       <% end %>
       <h2>Get started now. It only takes 30 seconds.</h2>
+      <p>
       <%= select f, :first_name, [{gettext("Mr"), "male"},
         {gettext("Mrs"), "female"}, {gettext("Other"), "other"}], class: "imagebox__input" %>
+      </p>
+      <p>
       <%= text_input f, :first_name, class: "imagebox__input", placeholder: "Enter your first name", autofocus: true %>
       <%= error_tag f, :first_name %>
+      </p>
+      <p>
       <%= text_input f, :last_name, class: "imagebox__input", placeholder: "Enter your last name" %>
       <%= error_tag f, :last_name %>
+      </p>
+      <p>
       <%= inputs_for f, :emails, fn ef -> %>
         <%= text_input ef, :value, class: "imagebox__input", placeholder: "Enter your email address" %>
         <%= error_tag ef, :value %>
       <% end %>
+      </p>
+      <p>
       <%= submit gettext("Sign up"), class: "imagebox__input" %>
+      </p>
       <p><a href="<%= session_path(@conn, :new) %>" class="imagebox__alreadymember">Already a member? Sign in here.</a></p>
       <p>Legal mumbo-jumbo: We reserve the right to stop this service or delete your account anytime without warning.</p>
     <% end %>

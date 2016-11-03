@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>  
+  <head>
     <title><%= "#{assigns[:page_title]} - vutuv" %></title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -28,8 +28,8 @@
     <%= render @view_module, @view_template, assigns %>
     <footer>
       <p>
-        Copyright © 2016 <a href="#">AMOOMA</a>, MIT licensed
-        <a href="#">Give us feedback</a> | <a href="#">Privacy</a>
+        Copyright © 2016 <a href="http://www.amooma.de">AMOOMA</a>, MIT licensed | <a href="https://github.com/vutuv/vutuv">Yes, it's open-source</a>. |
+        <a href="https://github.com/vutuv/vutuv/issues/new">Report bugs or request features.</a> | <a href="#">Privacy</a>
       </p>
     </footer>
   </body>
