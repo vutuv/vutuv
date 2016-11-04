@@ -31,7 +31,6 @@
   </div>
 </header>
 <%= render Vutuv.LayoutView, "flash.html", assigns %>
-
 <div class="card-list">
 
   <section class="card">
@@ -107,16 +106,6 @@
             <%= current_title(fconn.follower) %>
               @ <%= current_organization(fconn.follower) %>
             </p>
-            <%= if user_follows_user?(@current_user, fconn.follower) do %>
-              <%= link to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.follower)), method: :delete , class: "button button--icon", form: [class: "button-list__button"] do %>
-                  <i class="icon icon--unfollow">
-              <% end %>
-            <%= else %>
-              
-              <%= link to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: fconn.follower.id}), method: :post , class: "button button--icon", form: [class: "button-list__button"] do %>
-                  <i class="icon icon--follow">
-              <% end %>
-            <% end %>
           </li>
         <% end %>
       <% else %>
@@ -141,15 +130,6 @@
             <%= current_title(fconn.followee) %>
               @ <%= current_organization(fconn.followee) %>
             </p>
-            <%= if user_follows_user?(@current_user, fconn.followee) do %>
-              <%= link to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.followee)), method: :delete , class: "button button--icon" do %>
-                <i class="icon icon--unfollow"></i>
-              <% end %>
-            <%= else %>
-              <%= link to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: fconn.followee.id}), method: :post , class: "button button--icon" do %>
-                <i class="icon icon--follow"></i>
-              <% end %>
-            <% end %>
           </li>
         <% end %>
       <% else %>

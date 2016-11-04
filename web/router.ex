@@ -29,7 +29,8 @@ defmodule Vutuv.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    get "/new_registration", PageController, :new_registration
+    get "/new_registration", PageController, :redirect_index
+    post "/new_registration", PageController, :new_registration
 
     # TODO: delete the following route entries
     resources "/memberships", MembershipController

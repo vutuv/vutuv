@@ -26,7 +26,6 @@ defmodule Vutuv.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    IO.puts "\n\ncreating user with params #{inspect user_params}\n\n"
     email = user_params["emails"]["0"]["value"]
     case Vutuv.Registration.register_user(conn, user_params) do
       {:ok, user} ->
@@ -51,7 +50,7 @@ defmodule Vutuv.UserController do
   # retrieve the file later. If they do not have one, it stores
   # the default gravatar avatar. It times out at 1 second.
 
-  defp store_gravatar(user) do
+  def store_gravatar(user) do
     case HTTPoison.get("https://www.gravatar.com/avatar/#{hd(user.emails).md5sum}", [], [timeout: 1000, recv_timeout: 1000])  do
       {:ok, %HTTPoison.Response{body: body, headers: headers}} ->
         content_type = find_content_type(headers)

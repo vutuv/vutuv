@@ -6,7 +6,7 @@
       <h1>More than Just a Career Network</h1>
       <p>Vutuv is <strong>fast and free</strong>. Yes, it's free! No premium accounts.<br/>Bonus: We won't flood your inbox with senseless emails.<br/>Read more about it in <a href="https://medium.com/@vutuv">our blog</a>.</p>
     </div>
-    <%= form_for @changeset, user_path(@conn, :create), [multipart: true, class: "imagebox__form"], fn f -> %>
+    <%= form_for @changeset, page_path(@conn, :new_registration), [multipart: true, class: "imagebox__form"], fn f -> %>
       <%= if @changeset.action do %>
         <div class="alert alert-danger">
           <p><%= gettext "Oops, something went wrong! Please check the errors below." %></p>
