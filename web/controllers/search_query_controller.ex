@@ -24,7 +24,6 @@ defmodule Vutuv.SearchQueryController do
 
   def show(conn, %{"id" => query_id} = params) do
     empty_changeset = SearchQuery.changeset(%SearchQuery{})
-    IO.puts "\n\n#{inspect params}\n\n"
     Repo.one(from q in SearchQuery, where: q.value == ^query_id)
     |> case do #if query is nil, it doesn't yet exist, so create it.
       nil -> create(conn, %{"search_query" => %{"value" => query_id}})
@@ -108,7 +107,6 @@ defmodule Vutuv.SearchQueryController do
   end
 
   def update(conn, %{"search_query" => search_query_params}) do
-    IO.puts "\n\n#{inspect search_query_params}\n\n"
     redirect(conn, to: search_query_path(conn, :new))
   end
 end

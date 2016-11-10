@@ -27,7 +27,6 @@ defmodule Vutuv.Connection do
   end
 
   defp validate_not_following_self(%{changes: %{followee_id: same, follower_id: same}} = changeset) do
-    IO.puts ("\n\n#{inspect changeset}\n\n")
     changeset
     |> add_error(:follower_id, "Cannot follow yourself")
   end
