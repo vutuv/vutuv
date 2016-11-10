@@ -18,7 +18,6 @@ defmodule Vutuv.ConnectionController do
   end
 
   def create(conn, %{"connection" => connection_params}) do
-    IO.puts "\n\n#{inspect connection_params}\n\n"
     changeset = Connection.changeset(%Connection{}, connection_params)
 
     case Repo.insert(changeset) do
@@ -27,7 +26,9 @@ defmodule Vutuv.ConnectionController do
         |> put_flash(:info, "Connection created successfully.")
         |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        conn
+        |> put_flash(:error, "Something went wrong")
+        |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
     end
   end
 

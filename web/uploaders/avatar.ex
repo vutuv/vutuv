@@ -16,6 +16,20 @@ defmodule Vutuv.Avatar do
     {:convert, "-strip -gravity center -resize 130x130^ -extent 130x130"}
   end
 
+  # def transform(:circle, {file, scope}) do
+  #   {:convert,
+  #     fn path, new_path ->
+  #       IO.puts "\n\n#{path}\n#{new_path}\n\n"
+  #       [
+  #         "-size", "130x130",
+  #         "xc:none",
+  #         "-fill", "#{path}",
+  #         "-draw", "circle 65,65 65,1",
+  #         new_path
+  #       ]
+  #     end}
+  # end
+
   def transform(:large, _) do
     {:convert, "-strip -gravity center -resize 512x512^ -extent 512x512"}
   end

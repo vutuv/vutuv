@@ -1,0 +1,25 @@
+<ol>
+<%= for job <- @work_experience do %>
+  <li class="job">
+    <h2 class="job__title"><%= link job.title, to: user_work_experience_path(@conn, :show, @user, job) %>
+      <%= if same_user?(@user, @current_user) do %>
+      <%= link to: user_work_experience_path(@conn, :delete, @user, job), method: :delete, class: "job__edit button button--icon button--small", form: [class: "job__edit button button--icon button--small"], data: [confirm: "Are you sure?"] do %>
+      <i class="icon icon--delete"></i>
+      <% end %>
+      <%= link to: user_work_experience_path(@conn, :edit, @user, job), class: "job__edit button button--icon button--small" do %>
+      <i class="icon icon--edit"></i>
+      <% end %>
+      <% end %>
+    </h2>
+    <span class="job__organization"><%= job.organization %></span>
+    <span class="job__date">
+      <%= "#{job.start_month}/#{job.start_year}" %>
+      <%= if(Vutuv.WorkExperience.has_end_date? job) do %>
+      <%= "- #{job.end_month}/#{job.end_year}" %>
+      <% else %>
+      - Present
+      <% end %>
+    </span>
+  </li>      
+<% end %>
+</ol>

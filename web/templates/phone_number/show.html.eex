@@ -1,23 +1,37 @@
-<h2>Show Phone Number</h2>
+<!-- header tag begins in parent template -->
+  <div class="profile-header">
+      <div class="profile-header__followstatus">
+      <%= if same_user?(@user, @current_user) do %>
+        <%= link to: user_phone_number_path(@conn, :edit, @user, @phone_number), class: "button" do %>
+          Edit
+        <% end %>
+        <%= link "Delete", to: user_phone_number_path(@conn, :delete, @user, @phone_number), method: :delete, class: "button button--cancel", data: [confirm: "Are you sure?"] %>
+      <% end %>
+      </div>
+    <div class="profile-header__info">
+      <h1><%= gettext("About this Phone Number") %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+<div class="breadcrumbs">
+  <%= gen_breadcrumbs([
+    gettext("Users"), 
+    {full_name(@user), user_path(@conn, :show, @user)},
+    {gettext("Phone Numbers"), user_phone_number_path(@conn, :index, @user)},
+    gettext("More Info")]) %>
+</div>
 
-<ul>
+<div class="card-list">
 
-  <li>
-    <strong>Value:</strong>
-    <%= @phone_number.value %>
-  </li>
+  <section class="card">
+    <h1><%= gettext("Number Type") %></h1>
+    <p><%= @phone_number.number_type %></p>
+    <h1><%= gettext("Number") %></h1>
+    <p><%= @phone_number.value %></p>
+  </section>
 
-  <li>
-    <strong>Type:</strong>
-    <%= @phone_number.number_type %>
-  </li>
-
-  <li>
-    <strong>User:</strong>
-    <%= @phone_number.user_id %>
-  </li>
-
-</ul>
-
-<%= link "Edit", to: user_phone_number_path(@conn, :edit, @user, @phone_number) %>
-<%= link "Back", to: user_phone_number_path(@conn, :index, @user) %>
+  <aside>
+  <%= render Vutuv.LayoutView, "ad.html", assigns %>
+  </aside>
+</div>

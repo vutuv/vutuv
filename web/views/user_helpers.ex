@@ -4,6 +4,7 @@ defmodule Vutuv.UserHelpers do
   alias Vutuv.Repo
   alias Vutuv.WorkExperience
   alias Vutuv.Connection
+  alias Vutuv.Address
 
   def full_name(%User{first_name: first_name,
                       last_name: last_name,
@@ -22,13 +23,8 @@ defmodule Vutuv.UserHelpers do
     end
   end
 
-  def email(user, index \\ 0) do
-    Repo.preload(user, [:emails]).emails
-    |>case do
-      [] -> ""
-      nil -> ""
-      emails -> Enum.at(emails, index, %{value: ""}).value
-    end
+  def email(%User{id: id}, index \\ 0) do
+    Repo.one(from e in Vutuv.Email, where: e.user_id == ^id and e.public? == true, limit: 1, select: e.value)
   end
 
   def users_by_email(email) do
@@ -95,5 +91,31 @@ defmodule Vutuv.UserHelpers do
 
   def user_follows_user?(%User{id: follower_id}, %User{id: followee_id}) do
     Repo.one(from c in Vutuv.Connection, where: c.follower_id==^follower_id and c.followee_id==^followee_id, select: c.id)
+  end
+  
+  def same_user?(%User{id: id}, %User{id: id}), do: true
+  def same_user?(_, _), do: false
+
+  def format_address(%Address{country: "United States", line_1: line_1, line_2: line_2, city: city, state: state, zip_code: zip_code}) do
+    "#{line_1}#{if line_2, do: "\n"<>line_2}
+    #{city}, #{state} #{zip_code}
+    United States"
+    |> Phoenix.HTML.Format.text_to_html
+  end
+
+  def gen_breadcrumbs(args) do
+    Enum.reduce(tl(args), gen_breadcrumb(hd(args)), fn f, acc ->
+      "#{acc} / #{gen_breadcrumb(f)}"
+    end)
+    |> Phoenix.HTML.raw
+  end
+
+  defp gen_breadcrumb({value, href}) do
+    Phoenix.HTML.Link.link(value, to: href)
+    |> Phoenix.HTML.safe_to_string
+  end
+
+  defp gen_breadcrumb(value) do
+    value
   end
 end

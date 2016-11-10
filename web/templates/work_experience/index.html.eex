@@ -1,44 +1,42 @@
-<div class="pure-g">
-  <div class="pure-u-1-1">
-    <h2><%= gettext "Listing work experience" %></h2>
-
-    <table class="pure-table pure-table-horizontal">
-      <thead>
-        <tr>
-    
-          <th>Organization</th>
-          <th>Job Title</th>
-          <th>Job Description</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-    <%= for {work_experience, index} <- Enum.with_index(@work_experience) do %>
-        <tr class="<%= if rem(index, 2) == 1, do: "pure-table-odd" %>">
-          <td><%=work_experience.organization%></td>
-          <td><%=work_experience.title%></td>
-          <td><%=work_experience.description%></td>
-          <td>
-            <%=Regex.replace(~r/nil\/?/,String.rjust(inspect(work_experience.start_month),2, ?0)
-            <>"/"<>inspect(work_experience.start_year),"")%>
-          </td>
-          <td>
-            <%=Regex.replace(~r/nil\/?/,String.rjust(inspect(work_experience.end_month),2, ?0)
-            <>"/"<>inspect(work_experience.end_year),"")%>
-          </td>
-
-          <td class="text-right">
-            <%= link gettext("Show"), to: user_work_experience_path(@conn, :show, @user, work_experience), class: "pure-button" %>
-            <%= link gettext("Edit"), to: user_work_experience_path(@conn, :edit, @user, work_experience), class: "pure-button" %>
-            <%= link gettext("Delete"), to: user_work_experience_path(@conn, :delete, @user, work_experience), method: :delete, data: [confirm: gettext("Are you sure?")], class: "pure-button" %>
-          </td>
-        </tr>
-    <% end %>
-      </tbody>
-    </table>
-
-    <%= link gettext("New work experience"), to: user_work_experience_path(@conn, :new, @user), class: "pure-button" %>
+<!-- header tag begins in parent template -->
+  <div class="profile-header">
+      <div class="profile-header__followstatus">
+      <%= link to: user_work_experience_path(@conn, :new, @user), class: "button" do %>
+        <i class="icon icon--plus"></i> Add Experience
+      <% end %>
+      </div>
+    <div class="profile-header__info">
+      <h1><%= full_name(@user) %>'s Experience</h1>
+    </div>
   </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+
+<div class="breadcrumbs">
+  <%= gen_breadcrumbs([
+    gettext("Users"), 
+    {full_name(@user), user_path(@conn, :show, @user)},
+    gettext("Experience")]) %>
+</div>
+
+<div class="card-list">
+
+  <section class="card">
+    <h1>Experience</h1>
+
+    <%= render "card_list.html", assigns %>
+    
+    <%= if same_user?(@user, @current_user) do %>
+      <%= link "Add experience", to: user_work_experience_path(@conn, :new, @current_user), class: "card__morelink" %>
+    <% end %>
+  </section>
+  <aside>
+    <section class="ad">
+      <label>Ad</label>
+      <h1>Lorem ipsum dolor</h1>
+      <p>Sit amet, consectetur adipiscing elit. Phasellus venenatis porttitor
+        libero, vel rutrum magna fringilla eget. Fusce metus</p>
+      <a href="#">http://lorem.ipsum.com</a>
+    </section>
+  </aside>
 </div>

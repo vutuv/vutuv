@@ -11,7 +11,7 @@ defmodule Vutuv.PageController do
       User.changeset(%User{})
       |> Ecto.Changeset.put_assoc(:emails, [%Email{}])
 
-    render conn, "index.html", changeset: changeset, user_count: user_count
+    render conn, "index.html", changeset: changeset, user_count: user_count, body_class: "stretch"
   end
 
   def redirect_index(conn, _params) do
@@ -27,14 +27,14 @@ defmodule Vutuv.PageController do
           {:ok, conn} ->
             conn
             |> put_flash(:info, "User #{full_name(user)} created successfully. An email has been sent with your login link.")
-            |> render("new_registration.html", dev_env?: Mix.env == :dev)
+            |> render("new_registration.html", dev_env?: Mix.env == :dev, body_class: "stretch")
           {:error, _reason, conn} ->
             conn
             |> put_flash(:error, gettext("There was an error"))
             |> redirect(to: page_path(conn, :index))
         end
       {:error, changeset} ->
-        render(conn, "index.html", changeset: changeset)
+        render(conn, "index.html", changeset: changeset, body_class: "stretch")
     end
     
   end

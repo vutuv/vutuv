@@ -1,26 +1,56 @@
-<h2><%= gettext "Links" %></h2>
+<!-- header tag begins in parent template -->
+  <div class="profile-header">
+      <div class="profile-header__followstatus">
+      <%= link to: user_url_path(@conn, :new, @user), class: "button" do %>
+        <i class="icon icon--plus"></i> New Phone Number
+      <% end %>
+      </div>
+    <div class="profile-header__info">
+      <h1><%= gettext("Phone Numbers Belonging to ") %><%= full_name(@user) %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
 
-<table class="pure-table pure-table-horizontal">
-  <thead>
-    <tr>
-      <th><%= gettext "URL" %></th>
-      <th><%= gettext "Description" %></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for url <- @urls do %>
-    <tr>
-      <td><%= url.value %></td>
-      <td><%= url.description %></td>
-      <td class="text-right">
-        <%= link "Show", to: user_url_path(@conn, :show, @user, url), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: user_url_path(@conn, :edit, @user, url), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: user_url_path(@conn, :delete, @user, url), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+<div class="breadcrumbs">
+  <%= gen_breadcrumbs([
+    gettext("Users"), 
+    {full_name(@user), user_path(@conn, :show, @user)},
+    gettext("Links")]) %>
+</div>
 
-<%= link "New link", to: user_url_path(@conn, :new, @user) %>
+
+<div class="card-list">
+
+  <section class="card">
+      <dl>
+    <%= for url <- @urls do %>
+        <dt>
+          <%= link url.description, to: user_url_path(@conn, :show, @user, url) %>
+          <%= if same_user?(@user, @current_user) do %>
+          <%= link to: user_url_path(@conn, :edit, @user, url), class: "button button--icon button--small" do %>
+          <i class="icon icon--edit"></i>
+          <% end %>
+          <%= link to: user_url_path(@conn, :delete, @user, url), method: :delete, class: "button button--icon button--small", data: [confirm: "Are you sure?"] do %>
+          <i class="icon icon--delete"></i>
+          <% end %>
+          <% end %>   
+        </dt>
+        <dd><%= link url.value, to: url.value %></dd>
+    <% end %>
+    </dl>
+    <%= if same_user?(@user, @current_user) do %>
+      <%= link "Add Link", to: user_url_path(@conn, :new, @current_user), class: "card__morelink" %>
+    <% end %>
+  </section>
+
+  <aside>
+    <section class="ad">
+      <label>Ad</label>
+      <h1>Lorem ipsum dolor</h1>
+      <p>Sit amet, consectetur adipiscing elit. Phasellus venenatis porttitor
+        libero, vel rutrum magna fringilla eget. Fusce metus</p>
+      <a href="#">http://lorem.ipsum.com</a>
+    </section>
+  </aside>
+</div>

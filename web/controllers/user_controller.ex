@@ -51,7 +51,7 @@ defmodule Vutuv.UserController do
   # the default gravatar avatar. It times out at 1 second.
 
   def store_gravatar(user) do
-    case HTTPoison.get("https://www.gravatar.com/avatar/#{hd(user.emails).md5sum}", [], [timeout: 1000, recv_timeout: 1000])  do
+    case HTTPoison.get("https://www.gravatar.com/avatar/#{hd(user.emails).md5sum}?s=130", [], [timeout: 1000, recv_timeout: 1000])  do
       {:ok, %HTTPoison.Response{body: body, headers: headers}} ->
         content_type = find_content_type(headers)
         filename = "/#{user.active_slug}.#{String.replace(content_type,"image/", "")}"
@@ -79,7 +79,7 @@ defmodule Vutuv.UserController do
     user =
       Repo.get!(User, conn.assigns[:user_id])
       |> Repo.preload([
-        user_skills: from(u in Vutuv.UserSkill, order_by: [desc: u.updated_at], limit: 4, preload: [:endorsements]),
+        user_skills: from(u in Vutuv.UserSkill, preload: [:endorsements]),
         followee_connections: {Connection.latest(3), [:followee]},
         follower_connections: {Connection.latest(3), [:follower]},
         phone_numbers: from(u in Vutuv.PhoneNumber, order_by: [desc: u.updated_at], limit: 3),
@@ -87,8 +87,14 @@ defmodule Vutuv.UserController do
         addresses: from(u in Vutuv.Address, order_by: [desc: u.updated_at], limit: 3),
         work_experiences: from(u in Vutuv.WorkExperience, order_by: [desc: u.updated_at], limit: 3)
         ])
+    user_skills = 
+      user.user_skills
+      |> Enum.sort(&(Enum.count(&1.endorsements)>Enum.count(&2.endorsements)))
+      |> Enum.slice(0..3)
     job = current_job(user)
     conn
+    |> assign(:user_skills, user_skills)
+    |> assign(:work_experience, user.work_experiences)
     |> assign(:follower_count, follower_count(user))
     |> assign(:followee_count, followee_count(user))
     |> assign(:user, user)

@@ -1,0 +1,23 @@
+<ol class="button-list skills">
+  <%= for skill <- @user_skills do %>
+    <li>
+      <span><%= Skill.resolve_name(skill.skill_id) %>
+      <%= if same_user?(@user, @current_user) do %>
+      <%= link to: user_user_skill_path(@conn, :delete, @user, skill), method: :delete, class: "button button--icon button--small", data: [confirm: "Are you sure?"] do %>
+      <i class="icon icon--delete"></i>
+      <% end %>
+      <% end %>
+      <em><%= Enum.count(skill.endorsements) %> upvotes</em></span>
+      <%= if Vutuv.Endorsement.skill_endorsed?(skill.id, @conn.assigns[:current_user].id) do %>
+        <%= link to: user_endorsement_path(@conn, :delete, @user, skill), method: :delete , class: "button button--icon", form: [class: "button button--icon"] do %>
+          <i class="icon icon--upvote-remove"></i>
+        <% end %>
+      <%= else %>
+        <%= link to: user_endorsement_path(@conn, :create, @user, id: skill), method: :post , class: "button button--icon", form: [class: "button button--icon"] do %>
+          <i class="icon icon--upvote"></i>
+        <% end %>
+      <%= end %>
+      <hr style="width: <%= (Enum.count(skill.endorsements)+1)/(Enum.count(hd(@user_skills).endorsements)+1)*100 %>%" />
+    </li>
+  <% end %>
+</ol>

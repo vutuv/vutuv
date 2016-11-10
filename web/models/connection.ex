@@ -23,7 +23,17 @@ defmodule Vutuv.Connection do
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields++@optional_fields)
+    |> validate_not_following_self
   end
+
+  defp validate_not_following_self(%{changes: %{followee_id: same, follower_id: same}} = changeset) do
+    IO.puts ("\n\n#{inspect changeset}\n\n")
+    changeset
+    |> add_error(:follower_id, "Cannot follow yourself")
+  end
+
+  defp validate_not_following_self(changeset), do: changeset
+
 
   def latest(n) do
     Ecto.Query.from(u in Vutuv.Connection, order_by: [desc: :inserted_at], limit: ^n)

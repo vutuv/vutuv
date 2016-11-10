@@ -1,9 +1,15 @@
-<!-- header begins in parent template -->
-
 </header>
-<h1 style="text-align: center;">Login</h1>
-
-<%= form_for @conn, session_path(@conn, :create), [as: :session, class: "imagebox__form"], fn f -> %>
-  <%= text_input f, :email, placeholder: "email", class: "imagebox__input" %>
-  <%= submit "Log in", class: "imagebox__input" %>
-<% end %>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+<div class="imagebox">
+  <section class="card imagebox__card">
+    <div class="imagebox__intro">
+      <h1>Login</h1>
+      <p>Vutuv is <strong>fast and free</strong>. Yes, it's free! No premium accounts.<br/>Bonus: We won't flood your inbox with senseless emails.<br/>Read more about it in <a href="https://medium.com/@vutuv">our blog</a>.</p>
+    </div>
+    <%= form_for @conn, session_path(@conn, :create), [as: :session, class: "imagebox__form"], fn f -> %>
+      <%= text_input f, :email, placeholder: "email", class: "imagebox__input" %>
+      <%= submit "Log in", class: "imagebox__input" %>
+      <p>Legal mumbo-jumbo: We reserve the right to stop this service or delete your account anytime without warning.</p>
+    <% end %>
+  </section>
+</div>

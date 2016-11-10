@@ -4,12 +4,13 @@ defmodule Vutuv.Email do
   schema "emails" do
     field :value, :string
     field :md5sum, :string
+    field :public?, :boolean, default: true
     belongs_to :user, Vutuv.User
 
     timestamps
   end
 
-  @required_fields ~w(value)
+  @required_fields ~w(value public?)
   @optional_fields ~w(user_id)
 
   @doc """

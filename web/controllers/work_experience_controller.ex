@@ -2,13 +2,15 @@ defmodule Vutuv.WorkExperienceController do
   use Vutuv.Web, :controller
   alias Vutuv.WorkExperience
   
-  plug Vutuv.Plug.AuthUser when action in [:new, :create, :edit, :update]
+  plug Vutuv.Plug.AuthUser when action in [:new, :create, :edit, :update, :delete]
   plug :scrub_params, "work_experience" when action in [:create, :update]
   
 
   def index(conn, _params) do
-    work_experience = Repo.all(WorkExperience)
-    render(conn, "index.html", user: conn.assigns[:user], work_experience: work_experience)
+    user = 
+      conn.assigns[:user]
+      |> Repo.preload([:work_experiences])
+    render(conn, "index.html", user: user, work_experience: user.work_experiences)
   end
 
   def new(conn, _params) do

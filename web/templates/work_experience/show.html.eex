@@ -1,45 +1,46 @@
-<div class="pure-g">
-  <div class="pure-u-1-1">
-    <h2><%= gettext "Show work experience" %></h2>
-
-    <ul>
-      <li>
-        <strong>Organization:</strong>
-        <%= @work_experience.organization %>
-      </li>
-
-      <li>
-        <strong>Job Title:</strong>
-        <%= @work_experience.title %>
-      </li>
-
-      <li>
-        <strong>Job Description:</strong>
-        <%= @work_experience.description %>
-      </li>
-
-      <li>
-        <strong>Start Month:</strong>
-        <%= @work_experience.start_month %>
-      </li>
-
-      <li>
-        <strong>Start Year:</strong>
-        <%= @work_experience.start_year %>
-      </li>
-
-      <li>
-        <strong>End Month:</strong>
-        <%= @work_experience.end_month %>
-      </li>
-
-      <li>
-        <strong>End Year:</strong>
-        <%= @work_experience.end_year %>
-      </li>
-    </ul>
-
-    <%= link gettext("Edit"), to: user_work_experience_path(@conn, :edit, @user, @work_experience), class: "pure-button" %>
-    <%= link gettext("Back"), to: user_work_experience_path(@conn, :index, @user), class: "pure-button" %>
+<!-- header tag begins in parent template -->
+  <div class="profile-header">
+      <div class="profile-header__followstatus">
+      <%= if same_user?(@user, @current_user) do %>
+        <%= link to: user_work_experience_path(@conn, :edit, @user, @work_experience), class: "button" do %>
+          Edit
+        <% end %>
+        <%= link "Delete", to: user_work_experience_path(@conn, :delete, @user, @work_experience), method: :delete, class: "button button--cancel", data: [confirm: "Are you sure?"] %>
+      <% end %>
+      </div>
+    <div class="profile-header__info">
+      <h1><%= gettext("About this Experience") %></h1>
+    </div>
   </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+<div class="breadcrumbs">
+  <%= gen_breadcrumbs([
+    gettext("Users"), 
+    {full_name(@user), user_path(@conn, :show, @user)},
+    {gettext("Experience"), user_work_experience_path(@conn, :index, @user)},
+    gettext("Show")]) %>
+</div>
+
+<div class="card-list">
+
+  <section class="card">
+    <h1><%= gettext("Job Title") %></h1>
+    <p><%= @work_experience.title %></p>
+    <h1><%= gettext("Organization") %></h1>
+    <p><%= @work_experience.organization %></p>
+    <h1><%= gettext("Time Period") %></h1>
+    <p>
+      <%= "#{@work_experience.start_month}/#{@work_experience.start_year}" %>
+      <%= if(Vutuv.WorkExperience.has_end_date? @work_experience) do %>
+      <%= "- #{@work_experience.end_month}/#{@work_experience.end_year}" %>
+      <% else %>
+      - Present
+      <% end %>
+    </p>
+  </section>
+
+  <aside>
+  <%= render Vutuv.LayoutView, "ad.html", assigns %>
+  </aside>
 </div>

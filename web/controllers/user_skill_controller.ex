@@ -3,17 +3,20 @@ defmodule Vutuv.UserSkillController do
   alias Vutuv.UserSkill
   alias Vutuv.Skill
 
-  plug Vutuv.Plug.AuthUser
+  plug Vutuv.Plug.AuthUser when action in [:new, :create, :edit, :update, :delete]
 
   def index(conn, _params) do
     user =
       Repo.get!(Vutuv.User, conn.assigns[:user].id)
-      |> Repo.preload([:user_skills])
-    render(conn, "index.html", user_skills: user.user_skills)
+      |> Repo.preload([user_skills: [:endorsements]])
+    user_skills = 
+      user.user_skills
+      |> Enum.sort(&(Enum.count(&1.endorsements)>Enum.count(&2.endorsements)))
+    render(conn, "index.html", user_skills: user_skills)
   end
 
   def new(conn, _params) do
-    render(conn, "new.html")
+    render(conn, "new.html", conn: conn)
   end
 
   def create(conn, %{"skill_param" => skill_param}) do
@@ -40,6 +43,7 @@ defmodule Vutuv.UserSkillController do
 
   def show(conn, %{"id" => id}) do
     user_skill = Repo.get!(UserSkill, id)
+      |> Repo.preload([:skill, :endorsements])
     render(conn, "show.html", user_skill: user_skill)
   end
 

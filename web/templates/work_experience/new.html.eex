@@ -1,10 +1,22 @@
-<div class="pure-g">
-  <div class="pure-u-1-1">
-    <h2><%= gettext "New work experience"%></h2>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
 
-    <%= render "form.html", changeset: @changeset,
-                            action: user_work_experience_path(@conn, :create, @user) %>
+<div class="breadcrumbs">
+  <%= gen_breadcrumbs([
+    gettext("Users"), 
+    {full_name(@user), user_path(@conn, :show, @user)},
+    {gettext("Experience"), user_work_experience_path(@conn, :index, @user)},
+    gettext("New")]) %>
+</div>
 
-    <%= link gettext("Back"), to: user_work_experience_path(@conn, :index, @user), class: "pure-button" %>
-  </div>
+
+<div class="card-list">
+
+  <aside>
+    <%= render Vutuv.LayoutView, "ad.html", assigns %>
+  </aside>
+  <section class="card">
+
+  <%= render "form.html", backlink: user_work_experience_path(@conn, :index, @user), changeset: @changeset, action: user_work_experience_path(@conn, :create, @user) %>
+  </section>
 </div>

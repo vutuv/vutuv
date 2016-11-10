@@ -1,8 +1,12 @@
-<%= form_for @conn, @action, [as: :skill_param, class: "pure-form pure-form-stacked"], fn f -> %>
-  
-  <%= label f, :name, class: "control-label" %>
-  <%= text_input f, :name, class: "form-control" %>
-  <%= error_tag f, :name %>
+<%= form_for @conn, @action, [as: :skill_param, class: "editform"], fn f -> %>
+  <div class="editform__field">
+    <%= label f, :name%>
+    <%= text_input f, :name%>
+    <%= error_tag f, :name %>
+  </div>
 
-  <%= submit gettext("Submit"), class: "pure-button pure-button-primary" %>
+  <div class="editform__actions">
+    <button type="button" class="button button--cancel", onclick="location.href='<%= @backlink %>'"><%= gettext("Cancel") %></button>
+    <%= submit gettext("Add"), class: "button" %>
+  </div>
 <% end %>
