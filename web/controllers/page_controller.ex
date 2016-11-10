@@ -27,7 +27,7 @@ defmodule Vutuv.PageController do
           {:ok, conn} ->
             conn
             |> put_flash(:info, "User #{full_name(user)} created successfully. An email has been sent with your login link.")
-            |> render("new_registration.html", dev_env?: Mix.env == :dev, body_class: "stretch")
+            |> render("new_registration.html", body_class: "stretch")
           {:error, _reason, conn} ->
             conn
             |> put_flash(:error, gettext("There was an error"))
@@ -36,6 +36,5 @@ defmodule Vutuv.PageController do
       {:error, changeset} ->
         render(conn, "index.html", changeset: changeset, body_class: "stretch")
     end
-    
   end
 end
