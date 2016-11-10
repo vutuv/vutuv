@@ -18,9 +18,19 @@ defmodule Vutuv.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Vutuv, []},
-     applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :ex_machina,:phoenix_html_simplified_helpers,
-                    :bamboo, :bamboo_smtp, :mariaex, :httpoison]]
+     applications: [:phoenix,
+                    :phoenix_pubsub,
+                    :phoenix_html,
+                    :cowboy,
+                    :logger,
+                    :gettext,
+                    :phoenix_ecto,
+                    :ex_machina,
+                    :phoenix_html_simplified_helpers,
+                    :bamboo,
+                    :bamboo_smtp,
+                    :mariaex,
+                    :httpoison]]
   end
 
   # Specifies which paths to compile per environment.
