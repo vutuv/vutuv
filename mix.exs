@@ -47,7 +47,8 @@ defmodule Vutuv.Mixfile do
      {:mariaex, ">= 0.0.0"},
      {:word_smith, "~> 0.1.0"},
      {:slugger, "~> 0.1.0"},
-     {:httpoison, "~> 0.9.0"}]
+     {:httpoison, "~> 0.9.0"},
+     {:distillery, "~> 0.10"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

@@ -13,11 +13,25 @@ use Mix.Config
 # which you typically run after static files are built.
 config :vutuv, Vutuv.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/manifest.json"
+  url: [host: "localhost", port: {:system, "PORT"}],
+  cache_static_manifest: "priv/static/manifest.json",
+  server: true,
+  root: ".",
+  version: Mix.Project.config[:version]
 
 # Do not print debug messages in production
 config :logger, level: :info
+
+# Configure database
+# These are demo values.
+# You have to change them for your prod env.
+config :vutuv, Vutuv.Repo,
+  adapter: Ecto.Adapters.MySQL,
+  username: "root",
+  password: "",
+  database: "vutuv_prod",
+  hostname: "localhost",
+  pool_size: 10
 
 # Bamboo Email
 config :vutuv, Vutuv.Mailer,

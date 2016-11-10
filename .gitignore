@@ -36,6 +36,10 @@ erl_crash.dump
 #
 log.csv
 
+# Distillery
+#
+rel/vutuv
+
 # Sublime configuration
 #
 vutuv.sublime-project
