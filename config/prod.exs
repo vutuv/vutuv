@@ -17,7 +17,8 @@ config :vutuv, Vutuv.Endpoint,
   cache_static_manifest: "priv/static/manifest.json",
   server: true,
   root: ".",
-  version: Mix.Project.config[:version]
+  version: Mix.Project.config[:version],
+  locales: ~w(en de)
 
 # Do not print debug messages in production
 config :logger, level: :info
