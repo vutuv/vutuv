@@ -14,6 +14,6 @@ defmodule Vutuv.PageController do
   end
 
   def new_registration(conn, _params) do
-    render conn, "new_registration.html", dev_env?: Mix.env == :dev
+    render conn, "new_registration.html"
   end
 end
