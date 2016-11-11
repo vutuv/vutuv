@@ -1,6 +1,6 @@
 defmodule Vutuv.User do
   use Vutuv.Web, :model
-  use Arc.Ecto.Schema
+  use Arc.Ecto.Model
   @derive {Phoenix.Param, key: :active_slug}
 
   schema "users" do
@@ -76,7 +76,7 @@ defmodule Vutuv.User do
   end
 
   defp validate_avatar(changeset, %{"avatar" => avatar}) do
-    stat = 
+    stat =
       avatar.path
       |>File.stat!
     if(stat.size>@max_image_filesize) do

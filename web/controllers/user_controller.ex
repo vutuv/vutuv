@@ -4,7 +4,7 @@ defmodule Vutuv.UserController do
   plug :logged_in? when action in [:index, :show]
   plug :auth when action in [:edit, :update]
   import Vutuv.UserHelpers
-  use Arc.Ecto.Schema
+  use Arc.Ecto.Model
 
   alias Vutuv.Slug
   alias Vutuv.User
@@ -87,7 +87,7 @@ defmodule Vutuv.UserController do
         addresses: from(u in Vutuv.Address, order_by: [desc: u.updated_at], limit: 3),
         work_experiences: from(u in Vutuv.WorkExperience, order_by: [desc: u.updated_at], limit: 3)
         ])
-    user_skills = 
+    user_skills =
       user.user_skills
       |> Enum.sort(&(Enum.count(&1.endorsements)>Enum.count(&2.endorsements)))
       |> Enum.slice(0..3)
