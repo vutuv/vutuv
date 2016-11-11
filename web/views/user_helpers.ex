@@ -23,7 +23,7 @@ defmodule Vutuv.UserHelpers do
     end
   end
 
-  def email(%User{id: id}, index \\ 0) do
+  def email(%User{id: id}, _index \\ 0) do
     Repo.one(from e in Vutuv.Email, where: e.user_id == ^id and e.public? == true, limit: 1, select: e.value)
   end
 
@@ -32,7 +32,7 @@ defmodule Vutuv.UserHelpers do
   end
 
   def current_job(user) do
-    Repo.one(from w in WorkExperience, 
+    Repo.one(from w in WorkExperience,
       join: u in assoc(w, :user),
       where:
         u.id == ^user.id #belongs to user
@@ -70,7 +70,7 @@ defmodule Vutuv.UserHelpers do
   end
 
   def username(user) do
-    Repo.one(from s in Vutuv.SocialMediaAccount, 
+    Repo.one(from s in Vutuv.SocialMediaAccount,
       join: u in assoc(s, :user),
       where:
         u.id == ^user.id, #belongs to user
@@ -92,7 +92,7 @@ defmodule Vutuv.UserHelpers do
   def user_follows_user?(%User{id: follower_id}, %User{id: followee_id}) do
     Repo.one(from c in Vutuv.Connection, where: c.follower_id==^follower_id and c.followee_id==^followee_id, select: c.id)
   end
-  
+
   def same_user?(%User{id: id}, %User{id: id}), do: true
   def same_user?(_, _), do: false
 
