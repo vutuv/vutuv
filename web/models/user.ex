@@ -1,6 +1,6 @@
 defmodule Vutuv.User do
   use Vutuv.Web, :model
-  use Arc.Ecto.Model
+  use Arc.Ecto.Schema
   @derive {Phoenix.Param, key: :active_slug}
 
   schema "users" do

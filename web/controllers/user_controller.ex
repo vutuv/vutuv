@@ -4,7 +4,7 @@ defmodule Vutuv.UserController do
   plug :logged_in? when action in [:index, :show]
   plug :auth when action in [:edit, :update]
   import Vutuv.UserHelpers
-  use Arc.Ecto.Model
+  use Arc.Ecto.Schema
 
   alias Vutuv.Slug
   alias Vutuv.User
