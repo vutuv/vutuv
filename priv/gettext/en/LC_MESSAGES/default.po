@@ -411,11 +411,11 @@ msgid "follows"
 msgstr ""
 
 #: web/controllers/session_controller.ex:14
-msgid "localhost:4000/magic/"
+msgid "www.vutuv.de/magic/"
 msgstr ""
 
 #: web/controllers/user_controller.ex:157
-msgid "localhost:4000/magicdelete/"
+msgid "www.vutuv.de/magicdelete/"
 msgstr ""
 
 #: web/templates/page/index.html.eex:9

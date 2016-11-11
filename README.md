@@ -42,7 +42,7 @@ library by [thoughtbot](https://thoughtbot.com/) to send emails via SMTP.
 ### Development
 
 In the development environment emails are not sent to an actual SMTP
-server but displayed in the browser via [Bamboo.EmailPreviewPlug](https://hexdocs.pm/bamboo/Bamboo.EmailPreviewPlug.html). To see which emails have been send you have to visit http://localhost:4000/sent_emails
+server but displayed in the browser via [Bamboo.EmailPreviewPlug](https://hexdocs.pm/bamboo/Bamboo.EmailPreviewPlug.html). To see which emails have been send you have to visit https://www.vutuv.de/sent_emails
 
 ### Production
 
@@ -82,4 +82,4 @@ To view the admin control panel, you'll need to flag your account as an admin. T
 `update users set administrator = true where id = <user_id>;`
 replacing `<user_id>` with your user id.
 
-You can then view the admin control panel at http://localhost:4000/admin
+You can then view the admin control panel at https://www.vutuv.de/admin

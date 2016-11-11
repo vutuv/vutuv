@@ -172,7 +172,7 @@ defmodule Vutuv.UserController do
   def delete(conn, _params) do
     link = Vutuv.MagicLinkHelpers.gen_magic_link(conn.assigns[:current_user], "delete")
     conn
-    |> put_flash(:info, gettext("localhost:4000/magic/delete/")<>link)
+    |> put_flash(:info, gettext("www.vutuv.de/magic/delete/")<>link)
     |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
   end
 
