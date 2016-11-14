@@ -1,13 +1,15 @@
 defmodule Vutuv.UserController do
   use Vutuv.Web, :controller
-  plug :resolve_slug when action in [:edit, :update, :index, :show]
+  plug :resolve_slug when action in [:edit, :update, :index, :show, :skills_create]
   plug :logged_in? when action in [:index, :show]
-  plug :auth when action in [:edit, :update]
+  plug :auth when action in [:edit, :update, :skills_create, :skills_create]
   import Vutuv.UserHelpers
   use Arc.Ecto.Schema
 
   alias Vutuv.Slug
   alias Vutuv.User
+  alias Vutuv.UserSkill
+  alias Vutuv.Skill
   alias Vutuv.Email
   alias Vutuv.Connection
 
@@ -19,10 +21,16 @@ defmodule Vutuv.UserController do
   end
 
   def new(conn, _params) do
-    changeset =
-      User.changeset(%User{})
-      |> Ecto.Changeset.put_assoc(:emails, [%Email{}])
-    render(conn, "new.html", changeset: changeset)
+    if(conn.assigns[:current_user]) do
+      user = Repo.get!(User, conn.assigns[:user_id]) |> Repo.preload([:emails, :slugs, :oauth_providers])
+      changeset = User.changeset(user)
+      render(conn, "edit.html", changeset: changeset, conn: conn, user: user)
+    else
+      changeset =
+        User.changeset(%User{})
+        |> Ecto.Changeset.put_assoc(:emails, [%Email{}])
+      render(conn, "new.html", changeset: changeset, conn: conn)
+    end
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -51,7 +59,8 @@ defmodule Vutuv.UserController do
   # the default gravatar avatar. It times out at 1 second.
 
   def store_gravatar(user) do
-    case HTTPoison.get("https://www.gravatar.com/avatar/#{hd(user.emails).md5sum}?s=130", [], [timeout: 1000, recv_timeout: 1000])  do
+    case HTTPoison.get("https://www.gravatar.com/avatar/#{hd(user.emails).md5sum}?s=130&d=404", [], [timeout: 1000, recv_timeout: 1000])  do
+      {:ok, %HTTPoison.Response{status_code: 404}} -> nil
       {:ok, %HTTPoison.Response{body: body, headers: headers}} ->
         content_type = find_content_type(headers)
         filename = "/#{user.active_slug}.#{String.replace(content_type,"image/", "")}"
@@ -79,6 +88,7 @@ defmodule Vutuv.UserController do
     user =
       Repo.get!(User, conn.assigns[:user_id])
       |> Repo.preload([
+        :social_media_accounts,
         user_skills: from(u in Vutuv.UserSkill, preload: [:endorsements]),
         followee_connections: {Connection.latest(3), [:followee]},
         follower_connections: {Connection.latest(3), [:follower]},
@@ -92,7 +102,9 @@ defmodule Vutuv.UserController do
       |> Enum.sort(&(Enum.count(&1.endorsements)>Enum.count(&2.endorsements)))
       |> Enum.slice(0..3)
     job = current_job(user)
+    emails = Vutuv.UserHelpers.emails_for_display(user, conn.assigns[:current_user])
     conn
+    |> assign(:emails, emails)
     |> assign(:user_skills, user_skills)
     |> assign(:work_experience, user.work_experiences)
     |> assign(:follower_count, follower_count(user))
@@ -174,6 +186,45 @@ defmodule Vutuv.UserController do
     conn
     |> put_flash(:info, gettext("localhost:4000/magic/delete/")<>link)
     |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
+  end
+
+  def skills_create(conn, %{"skills" => %{"skills" => skills}}) do
+    user = 
+      Repo.get!(User, conn.assigns[:user_id])
+      |> Repo.preload([user_skills: [:skill]])
+    skill_list = 
+      skills
+      |> String.split(",")
+    results = 
+      for(skill <- skill_list) do
+        downcase_skill = 
+          skill
+          |> String.trim
+          |> String.downcase
+        case Repo.one(from s in Skill, where: s.downcase_name == ^downcase_skill) do
+          nil ->
+            skill_changeset = Skill.changeset(%Skill{},%{"name" => String.trim(skill)})
+            user
+            |> Ecto.build_assoc(:user_skills, %{})
+            |> UserSkill.changeset
+            |> Ecto.Changeset.put_assoc(:skill, skill_changeset)
+          existing_skill ->
+            user
+            |> Ecto.build_assoc(:user_skills, %{skill_id: existing_skill.id})
+            |> UserSkill.changeset
+        end
+        |> Repo.insert
+      end
+    failures = 
+      Enum.reduce(results, 0, fn {result, _}, acc ->
+        case result do
+          :error -> acc+1
+          :ok -> acc
+        end
+      end)
+    conn
+    |> put_flash(:info, "Successfully added #{Enum.count(skill_list)-failures} skills with #{failures} failures.")
+    |> redirect(to: user_path(conn, :show, user)) 
   end
 
   def follow_back(conn, %{"id" => id}) do

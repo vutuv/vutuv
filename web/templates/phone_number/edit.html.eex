@@ -20,6 +20,6 @@
     </section>
   </aside>
   <section class="card">
-    <%= render "form.html", backlink: user_phone_number_path(@conn, :index, @user), changeset: @changeset, action: user_phone_number_path(@conn, :edit, @user, @phone_number) %>
+    <%= render "form.html", backlink: user_phone_number_path(@conn, :index, @user), changeset: @changeset, action: user_phone_number_path(@conn, :update, @user, @phone_number) %>
   </section>
 </div>

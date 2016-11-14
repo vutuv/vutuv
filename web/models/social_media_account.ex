@@ -12,6 +12,15 @@ defmodule Vutuv.SocialMediaAccount do
   @required_fields ~w(provider value)
   @optional_fields ~w()
 
+  base_urls = [
+    {"Facebook" , "http://facebook.com/"},
+    {"Twitter" , "http://twitter.com/"},
+    {"Instagram" , "http://instagram.com/"},
+    {"Youtube" , "http://youtube.com/channel/"},
+    {"Stackoverflow" , "http://stackoverflow.com/users/"},
+    {"Snapchat" , ""}
+  ]
+
   @doc """
   Creates a changeset based on the `model` and `params`.
 
@@ -24,7 +33,7 @@ defmodule Vutuv.SocialMediaAccount do
     |> validate_required([:provider, :value])
     |> update_change(:value, &parse_value/1)
     |> validate_change(:value, &validate_parse/2)
-    |> validate_format(:value, ~r/^[a-z0-9-\.]*$/u)
+    |> validate_format(:value, ~r/^[A-z0-9-\.]*$/u)
   end
 
   def parse_value(value) do
@@ -38,17 +47,9 @@ defmodule Vutuv.SocialMediaAccount do
     if value, do: [], else: [value: {"Invalid account name", []}]
   end
 
-  def get_full_urls(user) do
-    for account <- Vutuv.Repo.all(from s in Vutuv.SocialMediaAccount, where: s.user_id == ^user.id) do
-      case (account.provider) do
-        "Facebook" -> "http://facebook.com/#{account.value}"
-        "Twitter" -> "http://twitter.com/#{account.value}"
-        "Instagram" -> "http://instagram.com/#{account.value}"
-        "Youtube" -> "http://youtube.com/channel/#{account.value}"
-        "Snapchat" -> ""
-        "Stackoverflow" -> "http://stackoverflow.com/users/#{account.value}"
-        _ -> ""
-      end
-    end
+  for {provider, url} <- base_urls do #This generates special rule matches
+    def get_full_url(%__MODULE__{provider: unquote(provider), value: value}), do: unquote(url)<>value
   end
+
+  def get_full_url(_), do: ""
 end

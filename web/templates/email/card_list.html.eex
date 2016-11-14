@@ -1,0 +1,29 @@
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Visibility</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for email <- @emails do %>
+    <tr>
+      <td>
+      <%= link email.value, to: user_email_path(@conn, :show, @user, email) %>
+      </td>
+      <td><%= if email.public?, do: gettext("Public"), else: gettext("Private") %></td>
+      <td>
+      <%= if same_user?(@user, @current_user) do %>
+      <%= link to: user_email_path(@conn, :edit, @user, email), class: "button button--icon button--small" do %>
+      <i class="icon icon--edit"></i>
+      <% end %>
+      <%= link to: user_email_path(@conn, :delete, @user, email), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
+      <i class="icon icon--delete"></i>
+      <% end %>
+      <% end %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

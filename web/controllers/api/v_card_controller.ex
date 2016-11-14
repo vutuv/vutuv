@@ -6,7 +6,7 @@ defmodule Vutuv.Api.VCardController do
     vcard = conn.assigns[:user]
       |>Repo.preload([:emails, :addresses,
                       :phone_numbers])
-    render(conn, "show.json", v_card: vcard)
+    render(conn, "show.vcard", v_card: vcard)
     
 
     #v_cards = Repo.all(User)
@@ -16,8 +16,7 @@ defmodule Vutuv.Api.VCardController do
   end
 
   defp headers(conn, _opts) do
-    file = conn.assigns[:user].active_slug<>".vcard"
     conn
-    |>Plug.Conn.put_resp_header("Content-Disposition", "inline;filename=\""<>file<>"\"")
+    |> Plug.Conn.put_resp_header("Content-Type", "text/vcard")
   end
 end

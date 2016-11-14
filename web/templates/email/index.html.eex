@@ -1,26 +1,37 @@
-<h2><%= gettext "E-Mails" %></h2>
+<!-- header tag begins in parent template -->
+  <div class="profile-header">
+      <div class="profile-header__followstatus">
+      <%= link to: user_email_path(@conn, :new, @user), class: "button" do %>
+        <i class="icon icon--plus"></i> New Email
+      <% end %>
+      </div>
+    <div class="profile-header__info">
+      <h1><%= gettext("Emails belonging to ") %><%= full_name(@user) %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
 
-<table class="pure-table pure-table-horizontal">
-  <thead>
-    <tr>
-      <th><%= gettext "Address" %></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for email <- @emails do %>
-    <tr>
-      <td><%= email.value %></td>
-      <td class="text-right">
-        <%= link "Show", to: user_email_path(@conn, :show, @user, email), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: user_email_path(@conn, :edit, @user, email), class: "btn btn-default btn-xs" %>
-        <%= if @emails_counter > 1 do %>
-          <%= link "Delete", to: user_email_path(@conn, :delete, @user, email), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-        <% end %>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+<div class="breadcrumbs">
+  <%= gen_breadcrumbs([
+    gettext("Users"), 
+    {full_name(@user), user_path(@conn, :show, @user)},
+    gettext("Emails")]) %>
+</div>
 
-<%= link "New email", to: user_email_path(@conn, :new, @user) %>
+
+<div class="card-list">
+  <section class="card">
+    <%= render "card_list.html", assigns %>
+  </section>
+
+  <aside>
+    <section class="ad">
+      <label>Ad</label>
+      <h1>Lorem ipsum dolor</h1>
+      <p>Sit amet, consectetur adipiscing elit. Phasellus venenatis porttitor
+        libero, vel rutrum magna fringilla eget. Fusce metus</p>
+      <a href="#">http://lorem.ipsum.com</a>
+    </section>
+  </aside>
+</div>

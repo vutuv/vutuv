@@ -5,10 +5,13 @@ defmodule Vutuv.Registration do
   alias Vutuv.Repo
   alias Vutuv.SearchTerm
 
+  @stefan_email ~s"stefan.wintermeyer@amooma.de"
+
   def register_user(conn, user_params, assocs \\ []) do
     user_params
     |> slug_changeset
     |> user_changeset(conn, user_params, assocs)
+    |> welcome_wagon
     |> Repo.insert
   end
 
@@ -32,7 +35,6 @@ defmodule Vutuv.Registration do
       |> Ecto.Changeset.put_assoc(:search_terms, search_terms)
       |> Ecto.Changeset.put_change(:active_slug, slug_changeset.changes.value)
       |> Ecto.Changeset.put_change(:locale, conn.assigns[:locale])
-    changeset = 
     Enum.reduce([changeset | assocs], fn {type, params}, changeset ->
       changeset
       |>Ecto.Changeset.put_assoc(type, [params])
@@ -53,6 +55,17 @@ defmodule Vutuv.Registration do
       slug_value<>Integer.to_string(user_count)
     else
       slug_value
+    end
+  end
+
+  defp welcome_wagon(changeset) do
+    Repo.one(from u in User, join: e in assoc(u, :emails), where: e.value == @stefan_email, select: u.id)
+    |> case do
+      nil -> changeset
+      stefan_id ->
+        connection_changeset = Vutuv.Connection.changeset(%Vutuv.Connection{}, %{follower_id: stefan_id})
+        changeset
+        |> Ecto.Changeset.put_assoc(:follower_connections, [connection_changeset])
     end
   end
 end

@@ -2,7 +2,7 @@ defmodule Vutuv.EmailController do
   use Vutuv.Web, :controller
   alias Vutuv.Email
 
-  plug Vutuv.Plug.AuthUser when not action in [:magic_create]
+  plug Vutuv.Plug.AuthUser when not action in [:magic_create, :index, :show]
   plug :scrub_params, "email" when action in [:create, :update]
 
   def index(conn, _params) do

@@ -34,11 +34,11 @@ defmodule Vutuv.Router do
 
     # TODO: delete the following route entries
     resources "/memberships", MembershipController
-    resources "/connections", ConnectionController, only: [:new, :create, :show, :delete, :index] do
-      resources "/memberships", MembershipController, only: [:new, :create, :show, :delete, :index]
+    resources "/connections", ConnectionController, only: [:create, :show, :delete, :index] do
+      resources "/memberships", MembershipController, only: [:create, :show, :delete, :index]
     end
 
-    resources "/search_queries", SearchQueryController, only: [:create, :index, :new, :show]
+    resources "/search_queries", SearchQueryController, only: [:create, :new, :show]
 
     resources "/skills", SkillController, only: [:show, :index], param: "slug"
 
@@ -61,6 +61,7 @@ defmodule Vutuv.Router do
       resources "/search_terms", SearchTermController, only: [:show,:index]
     end
 
+    post "/users/:slug/skills_create", UserController, :skills_create
 
     resources "/sessions", SessionController, only: [:new, :create, :delete]
     get "/magic/login/:magiclink", SessionController, :show

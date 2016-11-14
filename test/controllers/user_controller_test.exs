@@ -12,17 +12,17 @@ defmodule Vutuv.UserControllerTest do
   test "creates resource when valid and redirects", %{conn: conn} do
     conn = post conn, user_path(conn, :create), user: @valid_attrs
     assert Repo.one(from u in User, join: e in assoc(u, :emails), where: e.value == ^@valid_attrs["emails"]["0"]["value"])
-    assert redirected_to(conn) == page_path(conn, :index)
+    assert redirected_to(conn) == page_path(conn, :new_registration)
   end
 
   test "renders form for new resources", %{conn: conn} do
     conn = get conn, user_path(conn, :new)
-    assert html_response(conn, 200) =~ "New user"
+    assert html_response(conn, 200) =~ "Users / New"
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
     conn = post conn, user_path(conn, :create), user: @invalid_attrs
-    assert html_response(conn, 200) =~ "New user"
+    assert html_response(conn, 200) =~ "Users / New"
   end
 
   test "shows chosen resource", %{conn: conn} do
@@ -39,7 +39,7 @@ defmodule Vutuv.UserControllerTest do
   test "renders form for editing chosen resource", %{conn: conn} do
     {conn, user} = create_and_login_user conn
     conn = get conn, user_path(conn, :edit, user)
-    assert html_response(conn, 200) =~ "Edit user"
+    assert html_response(conn, 200) =~ "Edit"
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
@@ -52,7 +52,7 @@ defmodule Vutuv.UserControllerTest do
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
     {conn, user} = create_and_login_user conn
     conn = put conn, user_path(conn, :update, user), user: @invalid_update_attrs
-    assert html_response(conn, 200) =~ "Edit user"
+    assert html_response(conn, 200) =~ "Edit"
   end
 
   test "deletes chosen resource", %{conn: conn} do

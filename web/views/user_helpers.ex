@@ -23,12 +23,20 @@ defmodule Vutuv.UserHelpers do
     end
   end
 
-  def email(%User{id: id}, index \\ 0) do
+  def email(%User{id: id}) do
     Repo.one(from e in Vutuv.Email, where: e.user_id == ^id and e.public? == true, limit: 1, select: e.value)
   end
 
   def users_by_email(email) do
     Repo.all(from u in Vutuv.User, join: e in assoc(u, :emails), where: e.value == ^email)
+  end
+
+  def emails_for_display(user, visitor) do
+    if(user_follows_user? user, visitor) do
+      Repo.all(from e in Vutuv.Email, where: e.user_id == ^user.id)
+    else
+      Repo.all(from e in Vutuv.Email, where: e.user_id == ^user.id and e.public? == true)
+    end
   end
 
   def current_job(user) do
@@ -97,6 +105,14 @@ defmodule Vutuv.UserHelpers do
   def same_user?(_, _), do: false
 
   def format_address(%Address{country: "United States", line_1: line_1, line_2: line_2, city: city, state: state, zip_code: zip_code}) do
+    "#{line_1}#{if line_2, do: "\n"<>line_2}
+    #{city}, #{state} #{zip_code}
+    United States"
+    |> Phoenix.HTML.Format.text_to_html
+  end
+
+  def format_address(%Address{country: "Germany", line_1: line_1, line_2: line_2, city: city, state: state, zip_code: zip_code}) do
+    #This needs to be rewritten to format german addresses
     "#{line_1}#{if line_2, do: "\n"<>line_2}
     #{city}, #{state} #{zip_code}
     United States"

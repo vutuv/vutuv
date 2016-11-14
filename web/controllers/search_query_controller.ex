@@ -105,8 +105,4 @@ defmodule Vutuv.SearchQueryController do
   defp requester_assoc(user) do
     Ecto.build_assoc(user, :search_query_requesters)
   end
-
-  def update(conn, %{"search_query" => search_query_params}) do
-    redirect(conn, to: search_query_path(conn, :new))
-  end
 end

@@ -1,0 +1,29 @@
+<table>
+  <thead>
+    <tr>
+      <th>Profile Provider</th>
+      <th>Username</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for account <- @social_media_accounts do %>
+    <tr>
+      <td>
+      <%= link account.provider, to: user_social_media_account_path(@conn, :show, @user, account) %>
+      </td>
+      <td><%= account.value %></td>
+      <td>
+      <%= if same_user?(@user, @current_user) do %>
+      <%= link to: user_social_media_account_path(@conn, :edit, @user, account), class: "button button--icon button--small" do %>
+      <i class="icon icon--edit"></i>
+      <% end %>
+      <%= link to: user_social_media_account_path(@conn, :delete, @user, account), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
+      <i class="icon icon--delete"></i>
+      <% end %>
+      <% end %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

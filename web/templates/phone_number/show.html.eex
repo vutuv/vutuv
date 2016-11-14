@@ -2,10 +2,7 @@
   <div class="profile-header">
       <div class="profile-header__followstatus">
       <%= if same_user?(@user, @current_user) do %>
-        <%= link to: user_phone_number_path(@conn, :edit, @user, @phone_number), class: "button" do %>
-          Edit
-        <% end %>
-        <%= link "Delete", to: user_phone_number_path(@conn, :delete, @user, @phone_number), method: :delete, class: "button button--cancel", data: [confirm: "Are you sure?"] %>
+        <%= link gettext("Edit"), to: user_phone_number_path(@conn, :edit, @user, @phone_number), class: "button" %>
       <% end %>
       </div>
     <div class="profile-header__info">
@@ -23,8 +20,12 @@
 </div>
 
 <div class="card-list">
-
   <section class="card">
+  <%= if same_user?(@user, @current_user) do %>
+    <%= link to: user_phone_number_path(@conn, :delete, @user, @phone_number), method: :delete, class: "card__edit button button--icon button--small", data: [confirm: "Are you sure?"] do %>
+        <i class="icon icon--delete"></i>
+    <% end %>
+  <% end %>
     <h1><%= gettext("Number Type") %></h1>
     <p><%= @phone_number.number_type %></p>
     <h1><%= gettext("Number") %></h1>

@@ -6,7 +6,7 @@
       <% end %>
       </div>
     <div class="profile-header__info">
-      <h1><%= gettext("Phone numbers belonging to ") %><%= full_name(@user) %></h1>
+      <h1><%= gettext("Phone Numbers Belonging to ") %><%= full_name(@user) %></h1>
     </div>
   </div>
 </header>
@@ -21,27 +21,8 @@
 
 
 <div class="card-list">
-
   <section class="card">
-      <dl>
-    <%= for number <- @phone_numbers do %>
-        <dt>
-          <%= link number.number_type, to: user_phone_number_path(@conn, :show, @user, number) %>
-          <%= if same_user?(@user, @current_user) do %>
-          <%= link to: user_phone_number_path(@conn, :edit, @user, number), class: "button button--icon button--small" do %>
-          <i class="icon icon--edit"></i>
-          <% end %>
-          <%= link to: user_phone_number_path(@conn, :delete, @user, number), method: :delete, class: "button button--icon button--small", data: [confirm: "Are you sure?"] do %>
-          <i class="icon icon--delete"></i>
-          <% end %>
-          <% end %>   
-        </dt>
-        <dd><%= number.value %></dd>
-    <% end %>
-    </dl>
-    <%= if same_user?(@user, @current_user) do %>
-      <%= link "Add phone number", to: user_phone_number_path(@conn, :new, @current_user), class: "card__morelink" %>
-    <% end %>
+    <%= render "card_list.html", assigns %>
   </section>
 
   <aside>

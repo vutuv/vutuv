@@ -1,7 +1,7 @@
 defmodule Vutuv.Api.FolloweeController do
   use Vutuv.Web, :controller
 
-  alias Vutuv.Followee
+  #alias Vutuv.Followee
 
   def index(conn, _params) do
     user =

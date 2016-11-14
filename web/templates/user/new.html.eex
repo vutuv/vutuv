@@ -1,8 +1,23 @@
-<h2><%= gettext "New user" %></h2>
+</header>
 
-<%= render "form.html", changeset: @changeset,
-                        action: user_path(@conn, :create), current_user: @current_user %>
+<div class="breadcrumbs">
+  <%= gen_breadcrumbs([
+    gettext("Users"), 
+    gettext("New")]) %>
+</div>
 
-<%= if @current_user do %>
-  <%= link gettext("Back"), to: user_path(@conn, :index) %>
-<% end %>
+<div class="card-list">
+
+  <aside>
+    <section class="ad">
+      <label>Ad</label>
+      <h1>Lorem ipsum dolor</h1>
+      <p>Sit amet, consectetur adipiscing elit. Phasellus venenatis porttitor
+        libero, vel rutrum magna fringilla eget. Fusce metus</p>
+      <a href="#">http://lorem.ipsum.com</a>
+    </section>
+  </aside>
+  <section class="card">
+    <%= render "form.html", backlink: page_path(@conn, :index), changeset: @changeset, current_user: @current_user, action: user_path(@conn, :create) %>
+  </section>
+</div>

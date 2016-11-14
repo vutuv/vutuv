@@ -1,23 +1,38 @@
-<h2>Show email</h2>
+<!-- header tag begins in parent template -->
+  <div class="profile-header">
+      <div class="profile-header__followstatus">
+      <%= if same_user?(@user, @current_user) do %>
+        <%= link gettext("Edit"), to: user_email_path(@conn, :edit, @user, @email), class: "button" %>
+      <% end %>
+      </div>
+    <div class="profile-header__info">
+      <h1><%= gettext("About this Email") %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+<div class="breadcrumbs">
+  <%= gen_breadcrumbs([
+    gettext("Users"), 
+    {full_name(@user), user_path(@conn, :show, @user)},
+    {gettext("Emails"), user_email_path(@conn, :index, @user)},
+    gettext("More Info")]) %>
+</div>
 
-<ul>
+<div class="card-list">
+  <section class="card">
+  <%= if same_user?(@user, @current_user) do %>
+    <%= link to: user_email_path(@conn, :delete, @user, @email), method: :delete, class: "card__edit button button--icon button--small", data: [confirm: "Are you sure?"] do %>
+        <i class="icon icon--delete"></i>
+    <% end %>
+  <% end %>
+    <h1><%= gettext("Email") %></h1>
+    <p><%= @email.value %></p>
+    <h1><%= gettext("Visibility") %></h1>
+    <p><%= if @email.public?, do: gettext("Public"), else: gettext("Private") %></p>
+  </section>
 
-  <li>
-    <strong>Value:</strong>
-    <%= @email.value %>
-  </li>
-
-  <li>
-    <strong>Md5sum:</strong>
-    <%= @email.md5sum %>
-  </li>
-
-  <li>
-    <strong>User:</strong>
-    <%= @email.user_id %>
-  </li>
-
-</ul>
-
-<%= link "Edit", to: user_email_path(@conn, :edit, @user, @email) %>
-<%= link "Back", to: user_email_path(@conn, :index, @user) %>
+  <aside>
+  <%= render Vutuv.LayoutView, "ad.html", assigns %>
+  </aside>
+</div>

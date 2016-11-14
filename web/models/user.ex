@@ -17,6 +17,8 @@ defmodule Vutuv.User do
     field :avatar, Vutuv.Avatar.Type
     field :active_slug, :string
     field :administrator, :boolean
+    field :headline, :string
+    field :noindex?, :boolean, default: false
 
     has_many :search_query_results,   Vutuv.SearchQueryResult,  on_delete: :delete_all
     has_many :search_query_requesters,Vutuv.SearchQueryRequester, on_delete: :delete_all
@@ -43,7 +45,7 @@ defmodule Vutuv.User do
   end
 
   @required_fields ~w()
-  @optional_fields ~w(first_name last_name middlename nickname honorific_prefix honorific_suffix gender birthdate locale)
+  @optional_fields ~w(noindex? headline first_name last_name middlename nickname honorific_prefix honorific_suffix gender birthdate locale)
 
   @required_file_fields ~w()
   @optional_file_fields ~w(avatar)
@@ -59,12 +61,11 @@ defmodule Vutuv.User do
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, @optional_fields)
-    |> cast_attachments(params, [:avatar])
+    |> validate_avatar(params)
     |> cast_assoc(:emails)
     |> cast_assoc(:slugs)
     |> cast_assoc(:oauth_providers)
     |> validate_first_name_or_last_name_or_nickname(params)
-    |> validate_avatar(params)
     |> validate_length(:first_name, max: 50)
     |> validate_length(:last_name, max: 50)
     |> validate_length(:middlename, max: 50)
@@ -72,17 +73,20 @@ defmodule Vutuv.User do
     |> validate_length(:honorific_prefix, max: 50)
     |> validate_length(:honorific_suffix, max: 50)
     |> validate_length(:gender, max: 50)
+    |> validate_length(:headline, max: 255)
     |> downcase_value
   end
 
-  defp validate_avatar(changeset, %{"avatar" => avatar}) do
+  defp validate_avatar(changeset, %{avatar: avatar}), do: validate_avatar(changeset, %{"avatar" => avatar})
+
+  defp validate_avatar(changeset, %{"avatar" => avatar} = params) do
     stat = 
       avatar.path
       |>File.stat!
     if(stat.size>@max_image_filesize) do
       add_error(changeset, :avatar, "Avatar filesize is greater than 2MB. Please upload a smaller image.")
     else
-      changeset
+      cast_attachments(changeset, params, [:avatar])
     end
   end
 

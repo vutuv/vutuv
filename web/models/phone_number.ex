@@ -9,6 +9,9 @@ defmodule Vutuv.PhoneNumber do
     timestamps
   end
 
+  @format_message ~s/Please enter a phone number/
+  @requred_message ~s/This field is required/
+
   @doc """
   Creates a changeset based on the `model` and `params`.
 
@@ -18,8 +21,8 @@ defmodule Vutuv.PhoneNumber do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, [:value, :number_type])
-    |> validate_required([:value, :number_type])
+    |> validate_required([:value, :number_type], message: @requred_message)
     #|> update_change(:value, &String.replace(&1,~r/[^+0-9]/, ""))
-    |> validate_format(:value, ~r/^\S[+\d\(\)\s-]*\S$/u)
+    |> validate_format(:value, ~r/^\S[+\d\(\)\s-]*\S$/u, message: @format_message)
   end
 end

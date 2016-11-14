@@ -1,25 +1,38 @@
-<div class="pure-g">
-  <div class="pure-u-1-1">
-    <h2><%= gettext "Show social media account" %></h2>
-
-    <ul>
-      <li>
-        <strong>Provider:</strong>
-        <%= @social_media_account.provider %>
-      </li>
-
-      <li>
-        <strong>Account:</strong>
-        <%= @social_media_account.value %>
-      </li>
-
-      <li>
-        <strong>User:</strong>
-        <%= @social_media_account.user_id %>
-      </li>
-    </ul>
-
-    <%= link gettext("Edit"), to: user_social_media_account_path(@conn, :edit, @user, @social_media_account), class: "pure-button" %>
-    <%= link gettext("Back"), to: user_social_media_account_path(@conn, :index, @user), class: "pure-button" %>
+<!-- header tag begins in parent template -->
+  <div class="profile-header">
+      <div class="profile-header__followstatus">
+      <%= if same_user?(@user, @current_user) do %>
+        <%= link gettext("Edit"), to: user_social_media_account_path(@conn, :edit, @user, @social_media_account), class: "button" %>
+      <% end %>
+      </div>
+    <div class="profile-header__info">
+      <h1><%= gettext("About this Social Media Profile") %></h1>
+    </div>
   </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+<div class="breadcrumbs">
+  <%= gen_breadcrumbs([
+    gettext("Users"), 
+    {full_name(@user), user_path(@conn, :show, @user)},
+    {gettext("Social Media Profiles"), user_social_media_account_path(@conn, :index, @user)},
+    gettext("More Info")]) %>
+</div>
+
+<div class="card-list">
+  <section class="card">
+  <%= if same_user?(@user, @current_user) do %>
+    <%= link to: user_social_media_account_path(@conn, :delete, @user, @social_media_account), method: :delete, class: "card__edit button button--icon button--small", data: [confirm: "Are you sure?"] do %>
+        <i class="icon icon--delete"></i>
+    <% end %>
+  <% end %>
+    <h1><%= gettext("Provider") %></h1>
+    <p><%= @social_media_account.provider %></p>
+    <h1><%= gettext("Username") %></h1>
+    <p><%= @social_media_account.value %></p>
+  </section>
+
+  <aside>
+  <%= render Vutuv.LayoutView, "ad.html", assigns %>
+  </aside>
 </div>

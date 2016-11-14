@@ -1,68 +1,60 @@
 <%= form_for @changeset, @action, [class: "editform"], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
-      <p><%= gettext "Oops, something went wrong! Please check the errors below." %></p>
+      <p class="editform__error"><%= gettext "Oops, something went wrong! Please check the errors below." %></p>
     </div>
   <% end %>
 
-  <div class="editform__field">
+  <div class="editform__field<%= if error_tag(f, :organization), do: " editform__field--error"%>">
     <%= label f, :organization %>
     <%= text_input f, :organization %>
     <%= error_tag f, :organization %>
   </div>
 
-  <div class="editform__field">
+  <div class="editform__field<%= if error_tag(f, :title), do: " editform__field--error"%>">
     <%= label f, :job_title %>
     <%= text_input f, :title %>
     <%= error_tag f, :title %>
   </div>
 
-  <div class="editform__field">
+  <div class="editform__field<%= if error_tag(f, :description), do: " editform__field--error"%>">
     <%= label f, :job_description %>
     <%= text_input f, :description %>
     <%= error_tag f, :description %>
   </div>
 
-  <div class="editform__field">
+  <div class="editform__field<%= if error_tag(f, :start_year), do: " editform__field--error"%>">
     <%= label f, :start_year %>
-    <div class="editform__inputwrap">
-      <%= select f, :start_year, 1900..2100, prompt: "Select a year", selected: 2015 %>
-    </div>
+    <%= select f, :start_year, 1900..2100, prompt: "Select a year", selected: 2015 %>
     <%= error_tag f, :start_year %>
   </div>
 
-  <div class="editform__field">
+  <div class="editform__field<%= if error_tag(f, :start_month), do: " editform__field--error"%>">
     <%= label f, :start_month %>
-    <div class="editform__inputwrap">
-      <%= select f, :start_month,
-      ["January": 1, "February": 2, "March": 3, "April": 4,
-       "May": 5, "June": 6, "July": 7, "August": 8,
-       "September": 9, "October": 10, "November": 11, "December": 12], selected: "January" %>
-    </div>
+    <%= select f, :start_month,
+    ["January": 1, "February": 2, "March": 3, "April": 4,
+     "May": 5, "June": 6, "July": 7, "August": 8,
+     "September": 9, "October": 10, "November": 11, "December": 12], selected: "January" %>
     <%= error_tag f, :start_month %>
   </div>
 
-  <div class="editform__field">
+  <div class="editform__field<%= if error_tag(f, :end_year), do: " editform__field--error"%>">
     <%= label f, :end_year %>
-    <div class="editform__inputwrap">
-      <%= select f, :end_year, 1900..2100, prompt: "Select a year", selected: 2016 %>
-    </div>
+    <%= select f, :end_year, 1900..2100, prompt: "Select a year", selected: 2016 %>
     <%= error_tag f, :end_year %>
   </div>
 
-  <div class="editform__field">
+  <div class="editform__field<%= if error_tag(f, :end_month), do: " editform__field--error"%>">
     <%= label f, :end_month %>
-    <div class="editform__inputwrap">
-      <%= select f, :end_month,
-      ["January": 1, "February": 2, "March": 3, "April": 4,
-       "May": 5, "June": 6, "July": 7, "August": 8,
-       "September": 9, "October": 10, "November": 11, "December": 12], selected: "January" %>
-      </div>
+    <%= select f, :end_month,
+    ["January": 1, "February": 2, "March": 3, "April": 4,
+     "May": 5, "June": 6, "July": 7, "August": 8,
+     "September": 9, "October": 10, "November": 11, "December": 12], selected: "January" %>
     <%= error_tag f, :end_month %>
   </div>
 
   <div class="editform__actions">
-    <button type="button" class="button button--cancel", onclick="location.href='<%= @backlink %>'"><%= gettext("Cancel") %></button>
+    <%= link gettext("Cancel"), to: @backlink, class: "button button--cancel" %>
     <%= submit gettext("Add"), class: "button" %>
   </div>
 <% end %>

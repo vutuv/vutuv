@@ -4,7 +4,7 @@ defmodule Vutuv.SessionController do
   @api_url ~s(https://graph.facebook.com/v2.3/)
 
   def new(conn, _) do
-    render conn, "new.html"
+    render conn, "new.html", body_class: "stretch"
   end
 
   def create(conn, %{"session" => %{"email" => email}}) do

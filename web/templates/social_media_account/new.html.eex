@@ -1,10 +1,25 @@
-<div class="pure-g">
-  <div class="pure-u-1-1">
-    <h2><%= gettext "New social media account"%></h2>
+</header>
 
-    <%= render "form.html", changeset: @changeset,
-                            action: user_social_media_account_path(@conn, :create, @user) %>
+<div class="breadcrumbs">
+  <%= gen_breadcrumbs([
+    gettext("Users"), 
+    {full_name(@user), user_path(@conn, :show, @user)},
+    {gettext("Social Media Accounts"), user_social_media_account_path(@conn, :index, @user)},
+    gettext("New")]) %>
+</div>
 
-    <%= link gettext("Back"), to: user_social_media_account_path(@conn, :index, @user), class: "pure-button" %>
-  </div>
+<div class="card-list">
+
+  <aside>
+    <section class="ad">
+      <label>Ad</label>
+      <h1>Lorem ipsum dolor</h1>
+      <p>Sit amet, consectetur adipiscing elit. Phasellus venenatis porttitor
+        libero, vel rutrum magna fringilla eget. Fusce metus</p>
+      <a href="#">http://lorem.ipsum.com</a>
+    </section>
+  </aside>
+  <section class="card">
+    <%= render "form.html", backlink: user_social_media_account_path(@conn, :index, @user), changeset: @changeset, action: user_social_media_account_path(@conn, :create, @user) %>
+  </section>
 </div>

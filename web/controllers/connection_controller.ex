@@ -25,7 +25,7 @@ defmodule Vutuv.ConnectionController do
         conn
         |> put_flash(:info, "Connection created successfully.")
         |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
-      {:error, changeset} ->
+      {:error, _changeset} ->
         conn
         |> put_flash(:error, "Something went wrong")
         |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))

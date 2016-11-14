@@ -1,24 +1,24 @@
 <%= form_for @changeset, @action, [class: "editform"], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+      <p class="editform__error"><%= gettext "Oops, something went wrong! Please check the errors below." %></p>
     </div>
   <% end %>
 
-  <div class="editform__field">
-    <%= label f, :phone_number%>
-    <%= telephone_input f, :value%>
+  <div class="editform__field<%= if error_tag(f, :value), do: " editform__field--error"%>">
+    <%= label f, :phone_number %>
+    <%= telephone_input f, :value, id: "textfield" %>
     <%= error_tag f, :value %>
   </div>
-  <div class="editform__inputwrap">
-    <div class="editform__field">
-      <%= label f, :type%>
-      <%= select f, :number_type, ["Choose One": nil, "Work": "Work", "Cell": "Cell", "Home": "Home", "Fax": "Fax"]%>
-      <%= error_tag f, :number_type %>
+  <div class="editform__field<%= if error_tag(f, :number_type), do: " editform__field--error"%>">
+    <%= label f, :type%>
+    <div class="select">
+    <%= select f, :number_type, ["Choose One": nil, "Work": "Work", "Cell": "Cell", "Home": "Home", "Fax": "Fax"]%>
     </div>
-    </div>
+    <%= error_tag f, :number_type %>
+  </div>
   <div class="editform__actions">
-    <button type="button" class="button button--cancel", onclick="location.href='<%= @backlink %>'"><%= gettext("Cancel") %></button>
+    <%= link gettext("Cancel"), to: @backlink, class: "button button--cancel" %>
     <%= submit gettext("Submit"), class: "button" %>
   </div>
 <% end %>

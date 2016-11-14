@@ -6,6 +6,7 @@
       <%= link to: user_work_experience_path(@conn, :delete, @user, job), method: :delete, class: "job__edit button button--icon button--small", form: [class: "job__edit button button--icon button--small"], data: [confirm: "Are you sure?"] do %>
       <i class="icon icon--delete"></i>
       <% end %>
+      <span>&nbsp;</span>
       <%= link to: user_work_experience_path(@conn, :edit, @user, job), class: "job__edit button button--icon button--small" do %>
       <i class="icon icon--edit"></i>
       <% end %>
