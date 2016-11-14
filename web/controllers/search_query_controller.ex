@@ -22,7 +22,7 @@ defmodule Vutuv.SearchQueryController do
     render(conn, "new.html", conn: conn, changeset: changeset)
   end
 
-  def show(conn, %{"id" => query_id} = params) do
+  def show(conn, %{"id" => query_id}) do
     empty_changeset = SearchQuery.changeset(%SearchQuery{})
     Repo.one(from q in SearchQuery, where: q.value == ^query_id)
     |> case do #if query is nil, it doesn't yet exist, so create it.
