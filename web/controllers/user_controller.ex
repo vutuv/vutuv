@@ -97,7 +97,7 @@ defmodule Vutuv.UserController do
         addresses: from(u in Vutuv.Address, order_by: [desc: u.updated_at], limit: 3),
         work_experiences: from(u in Vutuv.WorkExperience, order_by: [desc: u.updated_at], limit: 3)
         ])
-    user_skills = 
+    user_skills =
       user.user_skills
       |> Enum.sort(&(Enum.count(&1.endorsements)>Enum.count(&2.endorsements)))
       |> Enum.slice(0..3)
@@ -184,7 +184,7 @@ defmodule Vutuv.UserController do
   def delete(conn, _params) do
     link = Vutuv.MagicLinkHelpers.gen_magic_link(conn.assigns[:current_user], "delete")
     conn
-    |> put_flash(:info, gettext("localhost:4000/magic/delete/")<>link)
+    |> put_flash(:info, gettext("www.vutuv.de/magic/delete/")<>link)
     |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
   end
 

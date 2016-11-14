@@ -30,7 +30,10 @@ defmodule Vutuv.Mixfile do
                     :bamboo,
                     :bamboo_smtp,
                     :mariaex,
-                    :httpoison]]
+                    :httpoison,
+                    :slugger,
+                    :timex_ecto,
+                    :word_smith]]
   end
 
   # Specifies which paths to compile per environment.

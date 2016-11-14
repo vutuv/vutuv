@@ -77,6 +77,7 @@ defmodule Vutuv.User do
     |> downcase_value
   end
 
+
   defp validate_avatar(changeset, %{avatar: avatar}), do: validate_avatar(changeset, %{"avatar" => avatar})
 
   defp validate_avatar(changeset, %{"avatar" => avatar} = params) do
