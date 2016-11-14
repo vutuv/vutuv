@@ -24,7 +24,7 @@ defmodule Vutuv.SessionController do
     case Vutuv.MagicLinkHelpers.check_magic_link(link, "login") do
       {:ok, user} ->
         Vutuv.Auth.login(conn,user)
-        |> put_flash(:info, gettext("Welcome back"))
+        |> put_flash(:info, gettext("Welcome back!"))
         |> redirect(to: user_path(conn, :show, user))
       {:error, reason} ->
         conn

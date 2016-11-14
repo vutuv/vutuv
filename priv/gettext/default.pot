@@ -388,7 +388,7 @@ msgid "Value"
 msgstr ""
 
 #: web/controllers/session_controller.ex:29
-msgid "Welcome back"
+msgid "Welcome back!"
 msgstr ""
 
 #: web/templates/page/index.html.eex:3
