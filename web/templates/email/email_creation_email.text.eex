@@ -1,4 +1,4 @@
 <html lang="en">
 <b>Use the following link to validate your email address:<b>
-<p><a href = "https://www.vutuv.de/magic/email/<%=@link%>">https://www.vutuv.de/magic/email/<%=@link%></a></p>
+<p><a href = "<%= @url %>magic/email/<%=@link%>"><%= @url %>magic/email/<%=@link%></a></p>
 </html>

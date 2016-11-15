@@ -1,4 +1,4 @@
 <html lang="en">
 <b>Login with the following link:<b>
-<p><a href = "http://localhost/<%=@link%>">http://localhost/<%=@link%></a></p>
+<p><a href = "<%= @url %><%=@link%>"><%= @url %><%=@link%></a></p>
 </html>

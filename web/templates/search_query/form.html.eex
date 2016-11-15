@@ -4,7 +4,7 @@
       <p><%= gettext "Oops, something went wrong! Please check the errors below." %></p>
     </div>
   <% end %>
-  <%= text_input f, :value, placeholder: "Search here"%>
+  <%= text_input f, :value, placeholder: "Search here", autofocus: true %>
   <%= error_tag f, :value %>
 
   <%= submit gettext("Submit")%>

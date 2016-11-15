@@ -3,6 +3,7 @@ defmodule Vutuv.UserController do
   plug :resolve_slug when action in [:edit, :update, :index, :show, :skills_create]
   plug :logged_in? when action in [:index, :show]
   plug :auth when action in [:edit, :update, :skills_create, :skills_create]
+  plug Vutuv.Plug.RequireUserLoggedOut when action in [:new, :create]
   import Vutuv.UserHelpers
   use Arc.Ecto.Schema
 
@@ -21,16 +22,10 @@ defmodule Vutuv.UserController do
   end
 
   def new(conn, _params) do
-    if(conn.assigns[:current_user]) do
-      user = Repo.get!(User, conn.assigns[:user_id]) |> Repo.preload([:emails, :slugs, :oauth_providers])
-      changeset = User.changeset(user)
-      render(conn, "edit.html", changeset: changeset, conn: conn, user: user)
-    else
-      changeset =
-        User.changeset(%User{})
-        |> Ecto.Changeset.put_assoc(:emails, [%Email{}])
-      render(conn, "new.html", changeset: changeset, conn: conn)
-    end
+    changeset =
+      User.changeset(%User{})
+      |> Ecto.Changeset.put_assoc(:emails, [%Email{}])
+    render(conn, "new.html", changeset: changeset, conn: conn)
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -183,8 +178,11 @@ defmodule Vutuv.UserController do
 
   def delete(conn, _params) do
     link = Vutuv.MagicLinkHelpers.gen_magic_link(conn.assigns[:current_user], "delete")
+    url = 
+      Application.get_env(:vutuv, Vutuv.Endpoint)[:url]
+      |> Keyword.get(:host)
     conn
-    |> put_flash(:info, gettext("www.vutuv.de/magic/delete/")<>link)
+    |> put_flash(:info, url<>link)
     |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
   end
 

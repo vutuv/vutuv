@@ -1,5 +1,6 @@
 defmodule Vutuv.PageController do
   use Vutuv.Web, :controller
+  plug Vutuv.Plug.RequireUserLoggedOut when action in [:index, :new_registration]
   import Vutuv.UserHelpers
   alias Vutuv.User
   alias Vutuv.Email

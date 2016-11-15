@@ -115,18 +115,23 @@
     <%= render Vutuv.UserSkillView, "card_list.html", assigns %>
 
     <%= if same_user?(@user, @current_user) do %>
-      <%= form_for @conn, user_path(@conn, :skills_create, @user), [as: :skills, class: "editform"], fn f -> %>
-        <div class="editform__field<%= if error_tag(f, :name), do: " editform__field--error"%>">
-          <%= label f, :"Enter comma seperated skills here" %>
-          <%= text_input f, :skills%>
-          <%= error_tag f, :skills %>
-        </div>
-        <div class="editform__actions">
-          <%= submit gettext("Add"), class: "button" %>
-        </div>
+
+      <% #Form for easy skill entry %>
+      <%= if Enum.count(@user_skills) == 0 do %>
+        <%= form_for @conn, user_path(@conn, :skills_create, @user), [as: :skills, class: "editform"], fn f -> %>
+          <div class="editform__field<%= if error_tag(f, :name), do: " editform__field--error"%>">
+            <%= label f, :"Enter comma seperated skills here" %>
+            <%= text_input f, :skills%>
+            <%= error_tag f, :skills %>
+          </div>
+          <div class="editform__actions">
+            <%= submit gettext("Add"), class: "button" %>
+          </div>
+        <% end %>
+      <% else %>
+        <%= link "Add skills", to: user_user_skill_path(@conn, :new, @current_user), class: "card__morelink" %>
+        <%= link "View all skills", to: user_user_skill_path(@conn, :index, @user), class: "card__morelink" %>
       <% end %>
-      <%= link "Add skills", to: user_user_skill_path(@conn, :new, @current_user), class: "card__morelink" %>
-      <%= link "View all skills", to: user_user_skill_path(@conn, :index, @user), class: "card__morelink" %>
     <% else %>
     <%= if Enum.count(@user.user_skills) > 4 do %>
       <%= link "View #{Enum.count(@user.user_skills)-4} More", to: user_user_skill_path(@conn, :index, @user), class: "card__morelink" %>
@@ -203,10 +208,12 @@
       <ul class="button-list profiles">
         <%= for fconn <- @user.follower_connections do %>
           <li>
-            <div class="profile-image"><img src="<%= Vutuv.Avatar.binary(fconn.follower, :thumb) %>"></div>
-            <p><strong><%= full_name(fconn.follower) %></strong>
-            <%= current_title(fconn.follower) %>
-              @ <%= current_organization(fconn.follower) %>
+            <div class="profile-image">
+              <%= link to: user_path(@conn, :show, fconn.follower) do %>
+                <img src="<%= Vutuv.Avatar.binary(fconn.follower, :thumb) %>">
+              <% end %>
+            </div>
+            <p><strong><%= link full_name(fconn.follower), to: user_path(@conn, :show, fconn.follower) %></strong>
             </p>
             <%= if user_follows_user?(@current_user, fconn.follower) do %>
               <%= link to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.follower)), method: :delete , class: "button button--icon", form: [class: "button-list"] do %>
@@ -230,14 +237,16 @@
 
   <section class="card half last">
   <h1>Following</h1>
-    <ul class="button-list profiles">
-      <%= if(@followee_count > 0) do %>
+    <%= if(@followee_count > 0) do %>
+      <ul class="button-list profiles">
         <%= for fconn <- @user.followee_connections do %>
           <li>
-            <div><img src="<%= Vutuv.Avatar.binary(fconn.followee, :thumb) %>"></div>
-            <p><strong><%= full_name(fconn.followee) %></strong>
-            <%= current_title(fconn.followee) %>
-              @ <%= current_organization(fconn.followee) %>
+            <div class="profile-image">
+              <%= link to: user_path(@conn, :show, fconn.followee) do %>
+                <img src="<%= Vutuv.Avatar.binary(fconn.followee, :thumb) %>">
+              <%= end %>
+            </div>
+            <p><strong><%= link full_name(fconn.followee), to: user_path(@conn, :show, fconn.followee) %></strong>
             </p>
             <%= if user_follows_user?(@current_user, fconn.followee) do %>
               <%= link to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.followee)), method: :delete , class: "button button--icon", form: [class: "button button--icon"] do %>
@@ -250,12 +259,10 @@
             <% end %>
           </li>
         <% end %>
-      <% else %>
-        <li>
-          <p class="card__empty">Nobody following yet!</p>
-        </li>
-      <% end %>
-    </ul>
+      </ul>
+    <% else %>
+      <p class="card__empty">Not following anyone yet!</p>
+    <% end %>
     <%= if(@followee_count > 3) do %>
       <%= link "#{@followee_count-3} more", to: user_followee_path(@conn, :index, @user), class: "card__morelink" %>
     <% end %>

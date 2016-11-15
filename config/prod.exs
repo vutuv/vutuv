@@ -13,7 +13,7 @@ use Mix.Config
 # which you typically run after static files are built.
 config :vutuv, Vutuv.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "localhost", port: {:system, "PORT"}],
+  url: [host: "http://vutuv.de/", port: {:system, "PORT"}],
   cache_static_manifest: "priv/static/manifest.json",
   server: true,
   root: ".",

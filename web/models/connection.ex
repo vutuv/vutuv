@@ -23,6 +23,7 @@ defmodule Vutuv.Connection do
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields++@optional_fields)
+    |> validate_required(@required_fields)
     |> validate_not_following_self
   end
 
