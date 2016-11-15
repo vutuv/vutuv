@@ -33,7 +33,9 @@ defmodule Vutuv.Mixfile do
                     :httpoison,
                     :slugger,
                     :timex_ecto,
-                    :word_smith]]
+                    :word_smith,
+                    :arc,
+                    :arc_ecto]]
   end
 
   # Specifies which paths to compile per environment.
