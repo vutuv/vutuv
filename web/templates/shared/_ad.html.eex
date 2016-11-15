@@ -1,5 +1,5 @@
 <section class="ad">
-  <label>Ad</label>
+  <label><%= gettext("Ad") %></label>
   <h1>Lorem ipsum dolor</h1>
   <p>Sit amet, consectetur adipiscing elit. Phasellus venenatis porttitor
     libero, vel rutrum magna fringilla eget. Fusce metus</p>
