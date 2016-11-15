@@ -3,13 +3,13 @@ defmodule Vutuv.LayoutView do
   import Vutuv.UserHelpers
 
   defp embed_css(conn) do
-    filepath = File.cwd!<>"/priv/static"<>static_path(conn, "/css/app.css")
+    filepath = File.cwd!<>static_path(conn, "/css/app.css")
     debug = ~s[<!--
       file debug\n
       just static_path: #{File.exists?(static_path(conn, "/css/app.css"))}\n
       static_path with /priv/static appended: #{File.exists?("/priv/static"<>static_path(conn, "/css/app.css"))}\n
       static_path priv/static and cwd: #{File.exists?(File.cwd!<>"/priv/static"<>static_path(conn, "/css/app.css"))}\n
-      static_path with cwd: #{File.exists?(File.cwd!<>"/priv/static"<>static_path(conn, "/css/app.css"))}\n
+      static_path with cwd: #{File.exists?(File.cwd!<>static_path(conn, "/css/app.css"))}\n
       cwd: #{File.exists?(File.cwd!)}\n
       -->\n
     ]
