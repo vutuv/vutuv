@@ -11,12 +11,9 @@
         <title><%= if @conn.assigns[:user], do: full_name(@conn.assigns[:user]), else: "vutuv" %></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAABSlBMVEUAAAAaGRkfHh4xLCwbGhoaGBgZGBgQEBAcHBwrJCQjICA9OjooJiYaGhoYGBgaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkbGhoaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkbGhoaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGhoaGRkaGRkbGhoaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRn///9Hl2M/AAAAbHRSTlMAAAAAAAAAAAAAAAAAAAAZTk9QJRoy6fz7lnH9DcHMEgWtgPE7Id4/8ndT+hHItwiUheYqFc/+ZEL0D8SoBIR8IsU061rwCLOgAn9i2x5jH9lXOo+li5A87+7oPQlbyxZycyDY1/j5JgIxRkWE/74JAAABW0lEQVR4Ac2OaXvSUBCF5+iIu6AIRAEXdg2IKKKCigKKYlvoTltKF0rLkv//udwJaQnkB/B+SOac+95nLi0JcHseT3jixQ0zP5XsccMSfP6ApmnGs5usIuN5cBIDft+VEAobihcvIfHVa4nhkCXwrYg00ZgpxBMSIy6mKUimpHoDVhve6iqkkiALpDMivMtiEm6/l5BJXwvsykn34aMS8p8k5GSDfUfhM+4Qvny1bRBQLMmtb9/B+CFjqTgrMMrSJn4CxV8ylsE0AypV1QZqQOy3mqoVkE34U5d7f/+hIUM9axcY/4OqX1kNyWuCa2CygWZLHWjrG1H1bzVBdvjupqHY2pbfzj0mO/ex21Yne/vq2z7AA5oDHfOZQr0DmodR061z/RAPaQHku5bQPQItwjguTIUTMDmA054h9OIgJ+BqmELkEZMj8J7p/f557wLkDAbD0Xg8Gg5Ay8UlKD9uJjN5L5MAAAAASUVORK5CYII=" sizes="32x32">
-        <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAvVBMVEUAAAAbGRkaGRkZGBgbGhocGxscHBwdGxsaGhoaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRkaGRn////OIJm3AAAAPXRSTlMAAAAAAAAAAAABWaF3BgNtXfzgIhjUI9/7VkX1BKaYhVvTFg3FHdj3RjfwkY6Akj/x20ALtrdc+hTHyE6bnw+8hgAAAJRJREFUGNONiDEKwkAUBee/v/sxKBaCpYWClZ33P0GaHCBgmQsEm7ju2gQLK6eZYeAHN22q2tqbasmrdZg92VmhIUHEPeKrVBRGGIQRjSKI4JqdfCEChCYf8dM5M/okEkU5CDNj3yg42HzstosfeD9qQ1BLmpkSc3pVSADJuEGuAAI0aIHFBq2jIIGLsg6iV2vW8x8fYE4pfoTWYZsAAAAASUVORK5CYII=" sizes="16x16">
-        <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
         <link rel="manifest" href="manifest.json">
-        <link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#5bbad5">
-        <link rel="shortcut icon" href="images/favicon.ico">
+        <link rel="shortcut icon" href="/favicon.ico">
+        <link rel="icon" href="/favicon.ico">
         <meta name="msapplication-config" content="browserconfig.xml">
         <meta name="theme-color" content="#ffffff">
 
