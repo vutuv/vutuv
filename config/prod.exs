@@ -19,6 +19,7 @@ config :vutuv, Vutuv.Endpoint,
   root: ".",
   version: Mix.Project.config[:version],
   locales: ~w(en de)
+  public_url: "http://vutuv.de/"
 
 # Do not print debug messages in production
 config :logger, level: :info

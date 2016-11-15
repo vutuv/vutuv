@@ -11,9 +11,7 @@ defmodule Vutuv.Emailer do
   end
 
   defp gen_email(link, email, template) do
-    url = 
-      Application.get_env(:vutuv, Vutuv.Endpoint)[:url]
-      |> Keyword.get(:host)
+    url = Application.get_env(:vutuv, Vutuv.Endpoint)[:public_url]
 
     new_email
     |> put_html_layout({Vutuv.EmailView, "#{template}.html"})
