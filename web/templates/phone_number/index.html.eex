@@ -14,7 +14,7 @@
 
 <div class="breadcrumbs">
   <%= gen_breadcrumbs([
-    gettext("Users"), 
+    gettext("Users"),
     {full_name(@user), user_path(@conn, :show, @user)},
     gettext("Phone Numbers")]) %>
 </div>
@@ -26,12 +26,6 @@
   </section>
 
   <aside>
-    <section class="ad">
-      <label>Ad</label>
-      <h1>Lorem ipsum dolor</h1>
-      <p>Sit amet, consectetur adipiscing elit. Phasellus venenatis porttitor
-        libero, vel rutrum magna fringilla eget. Fusce metus</p>
-      <a href="#">http://lorem.ipsum.com</a>
-    </section>
+    <%= render Vutuv.SharedView, "_ad.html" %>
   </aside>
 </div>

@@ -5,13 +5,7 @@
 
 <div class="search-results card-list">
   <aside>
-    <section class="ad">
-      <label>Ad</label>
-      <h1>Lorem ipsum dolor</h1>
-      <p>Sit amet, consectetur adipiscing elit. Phasellus venenatis porttitor
-        libero, vel rutrum magna fringilla eget. Fusce metus</p>
-      <a href="#">http://lorem.ipsum.com</a>
-    </section>
+    <%= render Vutuv.SharedView, "_ad.html" %>
   </aside>
 <%= if @conn.assigns[:results] do %>
   <section class="card card--simple">

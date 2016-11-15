@@ -2,7 +2,7 @@
 
 <div class="breadcrumbs">
   <%= gen_breadcrumbs([
-    gettext("Users"), 
+    gettext("Users"),
     {full_name(@user), user_path(@conn, :show, @user)},
     {gettext("Emails"), user_email_path(@conn, :index, @user)},
     gettext("New")]) %>
@@ -11,13 +11,7 @@
 <div class="card-list">
 
   <aside>
-    <section class="ad">
-      <label>Ad</label>
-      <h1>Lorem ipsum dolor</h1>
-      <p>Sit amet, consectetur adipiscing elit. Phasellus venenatis porttitor
-        libero, vel rutrum magna fringilla eget. Fusce metus</p>
-      <a href="#">http://lorem.ipsum.com</a>
-    </section>
+    <%= render Vutuv.SharedView, "_ad.html" %>
   </aside>
   <section class="card">
     <%= render "form.html", backlink: user_email_path(@conn, :index, @user), changeset: @changeset, action: user_email_path(@conn, :update, @user, @email), edit: true %>

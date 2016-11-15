@@ -20,8 +20,8 @@ defmodule Vutuv.Emailer do
     |> assign(:link, link)
     |> assign(:url, url)
     |> to(email)
-    |> from("info@vutuv.de")
-    |> subject("Verification Email From Vutuv")
+    |> from("vutuv <info@vutuv.de>")
+    |> subject("Verification email from vutuv")
     |> render("#{template}.html")
   end
 end

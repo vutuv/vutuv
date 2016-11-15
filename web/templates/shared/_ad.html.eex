@@ -1,0 +1,6 @@
+<section class="ad">
+  <label><%= gettext("Ad") %></label>
+  <h1>AMOOMA GmbH</h1>
+  <p>Phoenix Framework, Ruby on Rails und WebPerformance Consulting und Training durch das vutuv Entwicklerteam.</p>
+  <a href="https://www.amooma.de">https://www.amooma.de</a>
+</section>
