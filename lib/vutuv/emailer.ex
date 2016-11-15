@@ -15,8 +15,8 @@ defmodule Vutuv.Emailer do
     |> put_html_layout({Vutuv.EmailView, "#{template}.html"})
     |> assign(:link, link)
     |> to(email)
-    |> from("info@vutuv.de")
-    |> subject("Verification Email From Vutuv")
+    |> from("vutuv <info@vutuv.de>")
+    |> subject("Verification email from vutuv")
     |> render("#{template}.html")
   end
 end

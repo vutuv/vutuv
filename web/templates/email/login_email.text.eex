@@ -1,4 +1,7 @@
 <html lang="en">
-<b>Login with the following link:<b>
+<p>Hello @user!</p>
+<p>Please click on the following link to log into vutuv.de.</p>
 <p><a href = "http://localhost/magic/login/<%=@link%>">http://localhost/magic/login/<%=@link%></a></p>
+<p>Regards</p>
+<p>A Robot</p>
 </html>
