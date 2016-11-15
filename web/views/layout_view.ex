@@ -3,7 +3,9 @@ defmodule Vutuv.LayoutView do
   import Vutuv.UserHelpers
 
   defp embed_css(conn) do
-    filepath = "/home/vutuv/Github/vutuv/priv/static/css/app.css"
+    filepath = 
+    Application.app_dir(:vutuv, "/priv/static")<>static_path(conn, "/css/app.css")
+    |> String.replace("?vsn=d", "")
     debug = ~s[<!--
       file debug\n
       filepath #{inspect filepath}\n
