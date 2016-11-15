@@ -5,7 +5,7 @@ use Mix.Config
 config :vutuv, Vutuv.Endpoint,
   url: [host: "http://localhost:4000/", port: 4001],
   http: [port: 4001],
-  server: false
+  server: false,
   public_url: "http://localhost:4000/"
 
 # Print only warnings and errors during test
