@@ -1,20 +1,14 @@
 </header>
 
 <div class="breadcrumbs">
-  Users / <%= link full_name(@user), to: user_path(@conn, :show, @user), class: 
+  Users / <%= link full_name(@user), to: user_path(@conn, :show, @user), class:
   "breadcrumbs__link" %> / Edit
 </div>
 
 <div class="card-list">
 
   <aside>
-    <section class="ad">
-      <label>Ad</label>
-      <h1>Lorem ipsum dolor</h1>
-      <p>Sit amet, consectetur adipiscing elit. Phasellus venenatis porttitor
-        libero, vel rutrum magna fringilla eget. Fusce metus</p>
-      <a href="#">http://lorem.ipsum.com</a>
-    </section>
+    <%= render Vutuv.SharedView, "_ad.html" %>
   </aside>
   <section class="card">
 	<%= render "form.html", changeset: @changeset,

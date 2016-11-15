@@ -3,7 +3,7 @@
 
 <div class="breadcrumbs">
   <%= gen_breadcrumbs([
-    gettext("Users"), 
+    gettext("Users"),
     {full_name(@user), user_path(@conn, :show, @user)},
     {gettext("Addresses"), user_address_path(@conn, :index, @user)},
     gettext("Edit")]) %>
@@ -13,7 +13,7 @@
 <div class="card-list">
 
   <aside>
-    <%= render Vutuv.LayoutView, "ad.html", assigns %>
+    <%= render Vutuv.SharedView, "_ad.html" %>
   </aside>
   <section class="card">
 
