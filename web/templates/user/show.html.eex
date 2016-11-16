@@ -134,6 +134,73 @@
   </section>
   <% end %>
 
+
+    <section class="card half<%= if @follower_count == 0, do: " card--empty" %>">
+      <h1>Followers</h1>
+      <%= if(@follower_count > 0) do %>
+        <ul class="button-list profiles">
+          <%= for fconn <- @user.follower_connections do %>
+            <li>
+              <div class="profile-image">
+                <%= link to: user_path(@conn, :show, fconn.follower) do %>
+                  <img src="<%= Vutuv.Avatar.binary(fconn.follower, :thumb) %>">
+                <% end %>
+              </div>
+              <p><strong><%= link full_name(fconn.follower), to: user_path(@conn, :show, fconn.follower) %></strong>
+              </p>
+              <%= if user_follows_user?(@current_user, fconn.follower) do %>
+                <%= link to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.follower)), method: :delete , class: "button button--icon", form: [class: "button-list"] do %>
+                  <i class="icon icon--unfollow"></i>
+                <% end %>
+              <%= else %>
+                <%= link to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: fconn.follower.id}), method: :post , class: "button button--icon", form: [class: "button-list"] do %>
+                  <i class="icon icon--follow"></i>
+                <% end %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="card__empty">No Followers yet!</p>
+      <% end %>
+      <%= if(@follower_count > 3) do %>
+        <%= link "#{@followers_count-3} more", to: user_follower_path(@conn, :index, @user), class: "card__morelink" %>
+      <% end %>
+    </section>
+
+    <section class="card half last">
+    <h1>Following</h1>
+      <%= if(@followee_count > 0) do %>
+        <ul class="button-list profiles">
+          <%= for fconn <- @user.followee_connections do %>
+            <li>
+              <div class="profile-image">
+                <%= link to: user_path(@conn, :show, fconn.followee) do %>
+                  <img src="<%= Vutuv.Avatar.binary(fconn.followee, :thumb) %>">
+                <%= end %>
+              </div>
+              <p><strong><%= link full_name(fconn.followee), to: user_path(@conn, :show, fconn.followee) %></strong>
+              </p>
+              <%= if user_follows_user?(@current_user, fconn.followee) do %>
+                <%= link to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.followee)), method: :delete , class: "button button--icon", form: [class: "button button--icon"] do %>
+                  <i class="icon icon--unfollow"></i>
+                <% end %>
+              <%= else %>
+                <%= link to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: fconn.followee.id}), method: :post , class: "button button--icon", form: [class: "button button--icon"] do %>
+                  <i class="icon icon--follow"></i>
+                <% end %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="card__empty">Not following anyone yet!</p>
+      <% end %>
+      <%= if(@followee_count > 3) do %>
+        <%= link "#{@followee_count-3} more", to: user_followee_path(@conn, :index, @user), class: "card__morelink" %>
+      <% end %>
+    </section>
+
   <%= if Enum.count(@user.work_experiences) > 0 or same_user?(@user, @current_user) do %>
   <section class="card">
     <h1>Experience</h1>
@@ -196,69 +263,4 @@
   </section>
   <% end %>
 
-  <section class="card half<%= if @follower_count == 0, do: " card--empty" %>">
-    <h1>Followers</h1>
-    <%= if(@follower_count > 0) do %>
-      <ul class="button-list profiles">
-        <%= for fconn <- @user.follower_connections do %>
-          <li>
-            <div class="profile-image">
-              <%= link to: user_path(@conn, :show, fconn.follower) do %>
-                <img src="<%= Vutuv.Avatar.binary(fconn.follower, :thumb) %>">
-              <% end %>
-            </div>
-            <p><strong><%= link full_name(fconn.follower), to: user_path(@conn, :show, fconn.follower) %></strong>
-            </p>
-            <%= if user_follows_user?(@current_user, fconn.follower) do %>
-              <%= link to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.follower)), method: :delete , class: "button button--icon", form: [class: "button-list"] do %>
-                <i class="icon icon--unfollow"></i>
-              <% end %>
-            <%= else %>
-              <%= link to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: fconn.follower.id}), method: :post , class: "button button--icon", form: [class: "button-list"] do %>
-                <i class="icon icon--follow"></i>
-              <% end %>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p class="card__empty">No Followers yet!</p>
-    <% end %>
-    <%= if(@follower_count > 3) do %>
-      <%= link "#{@followers_count-3} more", to: user_follower_path(@conn, :index, @user), class: "card__morelink" %>
-    <% end %>
-  </section>
-
-  <section class="card half last">
-  <h1>Following</h1>
-    <%= if(@followee_count > 0) do %>
-      <ul class="button-list profiles">
-        <%= for fconn <- @user.followee_connections do %>
-          <li>
-            <div class="profile-image">
-              <%= link to: user_path(@conn, :show, fconn.followee) do %>
-                <img src="<%= Vutuv.Avatar.binary(fconn.followee, :thumb) %>">
-              <%= end %>
-            </div>
-            <p><strong><%= link full_name(fconn.followee), to: user_path(@conn, :show, fconn.followee) %></strong>
-            </p>
-            <%= if user_follows_user?(@current_user, fconn.followee) do %>
-              <%= link to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.followee)), method: :delete , class: "button button--icon", form: [class: "button button--icon"] do %>
-                <i class="icon icon--unfollow"></i>
-              <% end %>
-            <%= else %>
-              <%= link to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: fconn.followee.id}), method: :post , class: "button button--icon", form: [class: "button button--icon"] do %>
-                <i class="icon icon--follow"></i>
-              <% end %>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p class="card__empty">Not following anyone yet!</p>
-    <% end %>
-    <%= if(@followee_count > 3) do %>
-      <%= link "#{@followee_count-3} more", to: user_followee_path(@conn, :index, @user), class: "card__morelink" %>
-    <% end %>
-  </section>
 </div>
