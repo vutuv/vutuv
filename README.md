@@ -84,4 +84,4 @@ To view the admin control panel, you'll need to flag your account as an admin. T
 `update users set administrator = true where id = <user_id>;`
 replacing `<user_id>` with your user id.
 
-You can then view the admin control panel at https://www.vutuv.de/admin
+You can then view the admin control panel at http://localhost:4000/admin
