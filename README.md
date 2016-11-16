@@ -3,7 +3,7 @@
 Status](https://travis-ci.org/vutuv/vutuv.svg?branch=master)](https://travis-ci.org/vutuv/vutuv)
 
 # vutuv
-vutuv is a free, fast and open source social network service to host and share information about humans and organizations.
+vutuv is a free, fast and open source social network service to host and share information about humans and organizations. It's hosted at https://www.vutuv.de. Please have a look at our (blog)[https://medium.com/@vutuv] for more information about it.
 
 # Do you want to participate in the development?
 
@@ -12,6 +12,8 @@ Great! We encourage new developers to participate in this project. Even a one li
 We use (MIT License)[https://mit-license.org/].
 
 And please do add an issue for any problem or feature request.
+
+We run a private Slack channel. Once you get involved by commiting code we'll invite you to it.
 
 # Development How-To
 
