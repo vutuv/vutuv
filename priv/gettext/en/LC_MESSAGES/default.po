@@ -8,7 +8,7 @@
 ## to merge POT files into PO files.
 msgid ""
 msgstr ""
-"Language: de\n"
+"Language: en\n"
 
 #: web/templates/user/index.html.eex:35
 msgid "Are you sure?"
