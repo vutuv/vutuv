@@ -153,6 +153,10 @@ a, button{
     font-size: 0.9em;
     margin-right: 0.5em; }
 
+.button--full {
+  width: 100%;
+}
+
 .button--big {
   font-size: 15px;
   font-weight: bold;

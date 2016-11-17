@@ -118,92 +118,22 @@
             <%= error_tag f, :skills %>
           </div>
           <div class="editform__actions">
-            <%= submit gettext("Add"), class: "button" %>
+            <%= submit gettext("Add"), class: "button button--full" %>
           </div>
         <% end %>
-        <span class="card__morelink">
-      <% else %>
-        <span class="card__morelink">
-        <%= link gettext("Add"), to: user_user_skill_path(@conn, :new, @current_user) %>
       <% end %>
-    <% else %>
+    <% end %>
+    <%= if Enum.count(@user_skills) > 0 do %>
       <span class="card__morelink">
+        <%= if same_user?(@user, @current_user) do %>
+          <%= link gettext("Add"), to: user_user_skill_path(@conn, :new, @current_user) %>
+        <% end %>
+        <%= if same_user?(@user, @current_user) and Enum.count(@user.user_skills) > 4 do %> | <% end %>
+        <%= if Enum.count(@user.user_skills) > 4 do %>
+          <%= link gettext("View All"), to: user_user_skill_path(@conn, :index, @user)%></span>
+        <% end %>
+      </span>
     <% end %>
-    <%= if same_user?(@user, @current_user) and Enum.count(@user.user_skills) > 4 do %> | <% end %>
-    <%= if Enum.count(@user.user_skills) > 4 do %>
-      <%= link gettext("View All"), to: user_user_skill_path(@conn, :index, @user)%></span>
-    <% else %>
-    </span>
-    <% end %>
-  </section>
-  <% end %>
-
-  <%= if @total_jobs > 0 or same_user?(@user, @current_user) do %>
-  <section class="card">
-    <h1><%= gettext "Experience" %></h1>
-
-    <%= render Vutuv.WorkExperienceView, "card_list.html", assigns %>
-    <span class="card__morelink card__morelink-border">
-    <%= if same_user?(@user, @current_user) do %>
-      <%= link gettext("Add"), to: user_work_experience_path(@conn, :new, @current_user) %>
-    <% end %>
-    <%= if same_user?(@user, @current_user) and @total_jobs>3 do %> | <% end %>
-    <%= if @total_jobs>3 do %>
-      <%= link gettext("View All"), to: user_work_experience_path(@conn, :index, @user) %>
-    <% end %>
-    </span>
-  </section>
-  <% end %>
-
-  <%= if @total_numbers > 3 or same_user?(@user, @current_user) do %>
-  <section class="card">
-    <h1><%= gettext "Phone Numbers" %></h1>
-    <%= render Vutuv.PhoneNumberView, "card_list.html", phone_numbers: @user.phone_numbers, user: @user, conn: @conn, current_user: @current_user %>
-
-    <span class="card__morelink">
-      <%= if same_user?(@user, @current_user) do %>
-        <%= link gettext("Add"), to: user_phone_number_path(@conn, :new, @current_user) %>
-      <% end %>
-      <%= if same_user?(@user, @current_user) and @total_numbers > 3 do %> | <% end %>
-      <%= if @total_numbers>3 do %>
-        <%= link gettext("View All"), to: user_phone_number_path(@conn, :index, @user) %>
-      <% end %>
-    </span>
-  </section>
-  <% end %>
-
-  <%= if @total_links > 3 or same_user?(@user, @current_user) do %>
-  <section class="card">
-    <h1><%= gettext "Links" %></h1>
-    <%= render Vutuv.UrlView, "card_list.html", urls: @user.urls, user: @user, conn: @conn, current_user: @current_user %>
-
-    <span class="card__morelink">
-      <%= if same_user?(@user, @current_user) do %>
-        <%= link gettext("Add"), to: user_url_path(@conn, :new, @current_user) %>
-      <% end %>
-      <%= if same_user?(@user, @current_user) and @total_links > 3 do %> | <% end %>
-      <%= if @total_links>3 do %>
-        <%= link gettext("View All"), to: user_url_path(@conn, :index, @user) %>
-      <% end %>
-    </span>
-  </section>
-  <% end %>
-
-  <%= if @total_addresses > 3 or same_user?(@user, @current_user) do %>
-  <section class="card">
-    <h1><%= gettext "Addresses" %></h1>
-    <%= render Vutuv.AddressView, "card_list.html", addresses: @user.addresses, user: @user, conn: @conn, current_user: @current_user %>
-
-    <span class="card__morelink">
-      <%= if same_user?(@user, @current_user) do %>
-        <%= link gettext("Add"), to: user_address_path(@conn, :new, @current_user) %>
-      <% end %>
-      <%= if same_user?(@user, @current_user) and @total_addresses > 3 do %> | <% end %>
-      <%= if @total_addresses>3 do %>
-        <%= link gettext("View All"), to: user_address_path(@conn, :index, @user) %>
-      <% end %>
-    </span>
-
   </section>
   <% end %>
 
@@ -272,4 +202,73 @@
       <%= link "#{@followee_count-3} #{gettext "More"}", to: user_followee_path(@conn, :index, @user), class: "card__morelink" %>
     <% end %>
   </section>
+
+    <%= if @total_jobs > 0 or same_user?(@user, @current_user) do %>
+    <section class="card">
+    <h1><%= gettext "Experience" %></h1>
+
+    <%= render Vutuv.WorkExperienceView, "card_list.html", assigns %>
+    <span class="card__morelink card__morelink-border">
+      <%= if same_user?(@user, @current_user) do %>
+        <%= link gettext("Add"), to: user_work_experience_path(@conn, :new, @current_user) %>
+      <% end %>
+      <%= if same_user?(@user, @current_user) and @total_jobs>3 do %> | <% end %>
+      <%= if @total_jobs>3 do %>
+        <%= link gettext("View All"), to: user_work_experience_path(@conn, :index, @user) %>
+      <% end %>
+    </span>
+  </section>
+  <% end %>
+
+  <%= if @total_numbers > 3 or same_user?(@user, @current_user) do %>
+  <section class="card">
+    <h1><%= gettext "Phone Numbers" %></h1>
+    <%= render Vutuv.PhoneNumberView, "card_list.html", phone_numbers: @user.phone_numbers, user: @user, conn: @conn, current_user: @current_user %>
+
+    <span class="card__morelink">
+      <%= if same_user?(@user, @current_user) do %>
+        <%= link gettext("Add"), to: user_phone_number_path(@conn, :new, @current_user) %>
+      <% end %>
+      <%= if same_user?(@user, @current_user) and @total_numbers > 3 do %> | <% end %>
+      <%= if @total_numbers>3 do %>
+        <%= link gettext("View All"), to: user_phone_number_path(@conn, :index, @user) %>
+      <% end %>
+    </span>
+  </section>
+  <% end %>
+
+  <%= if @total_links > 3 or same_user?(@user, @current_user) do %>
+  <section class="card">
+    <h1><%= gettext "Links" %></h1>
+    <%= render Vutuv.UrlView, "card_list.html", urls: @user.urls, user: @user, conn: @conn, current_user: @current_user %>
+
+    <span class="card__morelink">
+      <%= if same_user?(@user, @current_user) do %>
+        <%= link gettext("Add"), to: user_url_path(@conn, :new, @current_user) %>
+      <% end %>
+      <%= if same_user?(@user, @current_user) and @total_links > 3 do %> | <% end %>
+      <%= if @total_links>3 do %>
+        <%= link gettext("View All"), to: user_url_path(@conn, :index, @user) %>
+      <% end %>
+    </span>
+  </section>
+  <% end %>
+
+  <%= if @total_addresses > 3 or same_user?(@user, @current_user) do %>
+  <section class="card">
+    <h1><%= gettext "Addresses" %></h1>
+    <%= render Vutuv.AddressView, "card_list.html", addresses: @user.addresses, user: @user, conn: @conn, current_user: @current_user %>
+
+    <span class="card__morelink">
+      <%= if same_user?(@user, @current_user) do %>
+        <%= link gettext("Add"), to: user_address_path(@conn, :new, @current_user) %>
+      <% end %>
+      <%= if same_user?(@user, @current_user) and @total_addresses > 3 do %> | <% end %>
+      <%= if @total_addresses>3 do %>
+        <%= link gettext("View All"), to: user_address_path(@conn, :index, @user) %>
+      <% end %>
+    </span>
+
+  </section>
+  <% end %>
 </div>

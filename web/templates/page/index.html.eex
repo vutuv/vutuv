@@ -51,10 +51,13 @@
       <%= error_tag f, :noindex? %>
       </p>
       <p>
+        By signing up you agree that we set a cookie in your browser.
+      </p>
+      <p>
       <%= submit gettext("Sign up"), class: "imagebox__input" %>
       </p>
       <p><a href="<%= session_path(@conn, :new) %>" class="imagebox__alreadymember"><%= gettext "Already a member? Sign in here." %></a></p>
-      <p><%= gettext "Legal mumbo-jumbo: We reserve the right to stop this service or delete your account anytime without warning." %></p>
+      <p><%= gettext "We reserve the right to stop this service or delete your account anytime without warning." %></p>
     <% end %>
   </section>
 </div>

@@ -13,10 +13,10 @@
 <div class="imagebox">
   <section class="card imagebox__card">
     <div class="imagebox__intro">
-      <h1>Registration Successfull!</h1>
-      <p>You're account has been created. We don't use passwords because they are insecure anyway. We just sent you an e-mail with a
-      login link. Click on that link to prove that you own that e-mail address and you'll be logged in for the next 30 days on this devise.</p>
-      <p>Please check your inbox and just in case your spam folder.</p>
+      <h1>Please check your INBOX.</h1>
+      <p>You're account has been created. We don't use passwords because they are insecure anyway. We just sent you an email with a
+      login link. Click on that link to prove that you own that e-mail address and you'll be logged in for the next 90 days on this devise.</p>
+      <p>Please check your spam folder in case you don't find the email in your inbox.</p>
     </div>
   </section>
 </div>
