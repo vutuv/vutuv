@@ -1,13 +1,12 @@
 Hi <%= full_name(@user)%>,
 
 vutuv is ready for you to login. Here's your magic link:
-<a href = "<%= @url %>magic/login/<%=@link%>"><%= @url %>magic/login/<%=@link%>
+<%= @url %>magic/login/<%=@link%>
 
-Thank you for using vutuv. Please tell your friends
-about it.
+Thank you for using vutuv. Please tell your friends about it.
 
 Regards
-Your vutuv roboter
+Your vutuv team
 
 -- 
 vutuv is a service provided by AMOOMA GmbH. https://www.amooma.de
