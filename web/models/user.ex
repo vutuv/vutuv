@@ -45,7 +45,7 @@ defmodule Vutuv.User do
   end
 
   @required_fields ~w()
-  @optional_fields ~w(noindex? headline first_name last_name middlename nickname honorific_prefix honorific_suffix gender birthdate locale)
+  @optional_fields ~w(noindex? headline first_name last_name middlename nickname honorific_prefix honorific_suffix gender birthdate locale active_slug)a
 
   @required_file_fields ~w()
   @optional_file_fields ~w(avatar)

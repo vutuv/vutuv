@@ -92,10 +92,6 @@ defmodule Vutuv.UserController do
         addresses: from(u in Vutuv.Address, order_by: [desc: u.updated_at], limit: 3),
         work_experiences: from(u in Vutuv.WorkExperience, order_by: [desc: u.updated_at], limit: 3)
         ])
-    user2 =
-      Repo.get!(User, conn.assigns[:user_id])
-      |> Repo.preload([work_experiences: from(u in Vutuv.WorkExperience, order_by: [desc: u.updated_at], limit: 3)])
-    IO.puts "\n\n#{inspect user2}\n\n"
     user_skills =
       user.user_skills
       |> Enum.sort(&(Enum.count(&1.endorsements)>Enum.count(&2.endorsements)))

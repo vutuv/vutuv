@@ -42,8 +42,8 @@
         <%= error_tag ef, :value %>
       </p>
       <p>
-        <%= select f, :public?, ["Create a public account (Email will be visible to everyone)": true, "Create a private account(Email will be visible to those you follow)": false] %>
-        <%= error_tag f, :public? %>
+        <%= select ef, :public?, ["Create a public account (Email will be visible to everyone)": true, "Create a private account(Email will be visible to those you follow)": false] %>
+        <%= error_tag ef, :public? %>
       </p>
       <% end %>
       <p>
