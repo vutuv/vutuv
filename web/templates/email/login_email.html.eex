@@ -1,5 +1,0 @@
-<html lang="en">
-<h1><%= gettext "Hello" %> <%= full_name(@user)%></h1>
-<b><%= gettext "Login with the following link:" %><b>
-<p><a href = "<%= @url %>magic/login/<%=@link%>"><%= @url %>magic/login/<%=@link%></a></p>
-</html>

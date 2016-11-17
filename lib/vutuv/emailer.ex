@@ -14,13 +14,13 @@ defmodule Vutuv.Emailer do
     url = Application.get_env(:vutuv, Vutuv.Endpoint)[:public_url]
 
     new_email
-    |> put_html_layout({Vutuv.EmailView, "#{template}.html"})
+    |> put_text_layout({Vutuv.EmailView, "#{template}.text"})
     |> assign(:link, link)
     |> assign(:url, url)
     |> assign(:user, user)
     |> to(email)
     |> from("vutuv <info@vutuv.de>")
     |> subject("Verification email from vutuv")
-    |> render("#{template}.html")
+    |> render("#{template}.text")
   end
 end

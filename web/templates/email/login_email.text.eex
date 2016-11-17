@@ -1,7 +1,16 @@
-<html lang="en">
-<p>Hello @user!</p>
-<p>Please click on the following link to log into vutuv.de.</p>
-<p><a href = "<%= @url %>magic/login/<%=@link%>"><%= @url %>magic/login/<%=@link%></a></p>
-<p>Regards</p>
-<p>A Robot</p>
-</html>
+Hi <%= full_name(@user)%>,
+
+vutuv is ready for you to login. Here's your magic link:
+<a href = "<%= @url %>magic/login/<%=@link%>"><%= @url %>magic/login/<%=@link%>
+
+Thank you for using vutuv. Please tell your friends
+about it.
+
+Regards
+Your vutuv roboter
+
+-- 
+vutuv is a service provided by AMOOMA GmbH. https://www.amooma.de
+AMOOMA GmbH - Bachstr. 124 - 56566 Neuwied - Germany 
+Geschäftsführer: Stefan Wintermeyer, Handelsregister Montabaur B14998
+Updates about vutuv: https://twitter.com/vutuv
