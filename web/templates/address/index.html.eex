@@ -1,10 +1,5 @@
 <!-- header tag begins in parent template -->
   <div class="profile-header">
-      <div class="profile-header__followstatus">
-      <%= link to: user_address_path(@conn, :new, @user), class: "button" do %>
-        <i class="icon icon--plus"></i> Add Address
-      <% end %>
-      </div>
     <div class="profile-header__info">
       <h1><%= full_name(@user) %>'s Addresses</h1>
     </div>
@@ -22,9 +17,11 @@
 <div class="card-list">
 
   <section class="card">
+
     <%= render "card_list.html", assigns %>
+
     <%= if same_user?(@user, @current_user) do %>
-      <%= link "Add addresses", to: user_address_path(@conn, :new, @current_user), class: "card__morelink" %>
+      <%= link gettext("Add"), to: user_address_path(@conn, :new, @current_user), class: "card__morelink" %>
     <% end %>
   </section>
   <aside>

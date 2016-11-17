@@ -1,13 +1,5 @@
 <!-- header tag begins in parent template -->
   <div class="profile-header">
-      <div class="profile-header__followstatus">
-      <%= if same_user?(@user, @current_user) do %>
-        <%= link to: user_url_path(@conn, :edit, @user, @url), class: "button" do %>
-          Edit
-        <% end %>
-        <%= link "Delete", to: user_url_path(@conn, :delete, @user, @url), method: :delete, class: "button button--cancel", data: [confirm: "Are you sure?"] %>
-      <% end %>
-      </div>
     <div class="profile-header__info">
       <h1><%= gettext("About this Link") %></h1>
     </div>
@@ -25,6 +17,14 @@
 <div class="card-list">
 
   <section class="card">
+    <%= if same_user?(@user, @current_user) do %>
+    <%= button to: user_url_path(@conn, :edit, @user, @url), class: "card__edit button button-link button--icon button--small", form: [class: "card__edit button button--icon button--small"] do %>
+      <i class="icon icon--delete"></i>
+    <% end %>
+    <%= button to: user_url_path(@conn, :delete, @user, @url), class: "card__edit button button-link button--icon button-link button--small", form: [class: "card__edit button-link button button--icon button--small"] do %>
+      <i class="icon icon--edit"></i>
+    <% end %>
+    <% end %>
     <h1><%= gettext("Description") %></h1>
     <p><%= @url.description %></p>
     <h1><%= gettext("URL") %></h1>

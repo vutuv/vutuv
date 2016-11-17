@@ -1,8 +1,8 @@
 <table>
   <thead>
     <tr>
-      <th>Email</th>
-      <th>Visibility</th>
+      <th><%= gettext "Email" %></th>
+      <th><%= gettext "Visibility" %></th>
       <th></th>
     </tr>
   </thead>

@@ -1,10 +1,5 @@
 <!-- header tag begins in parent template -->
   <div class="profile-header">
-      <div class="profile-header__followstatus">
-      <%= if same_user?(@user, @current_user) do %>
-        <%= link gettext("Edit"), to: user_phone_number_path(@conn, :edit, @user, @phone_number), class: "button" %>
-      <% end %>
-      </div>
     <div class="profile-header__info">
       <h1><%= gettext("About this Phone Number") %></h1>
     </div>

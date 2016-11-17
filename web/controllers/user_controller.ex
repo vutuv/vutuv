@@ -92,12 +92,22 @@ defmodule Vutuv.UserController do
         addresses: from(u in Vutuv.Address, order_by: [desc: u.updated_at], limit: 3),
         work_experiences: from(u in Vutuv.WorkExperience, order_by: [desc: u.updated_at], limit: 3)
         ])
+    user2 =
+      Repo.get!(User, conn.assigns[:user_id])
+      |> Repo.preload([work_experiences: from(u in Vutuv.WorkExperience, order_by: [desc: u.updated_at], limit: 3)])
+    IO.puts "\n\n#{inspect user2}\n\n"
     user_skills =
       user.user_skills
       |> Enum.sort(&(Enum.count(&1.endorsements)>Enum.count(&2.endorsements)))
       |> Enum.slice(0..3)
     job = current_job(user)
     emails = Vutuv.UserHelpers.emails_for_display(user, conn.assigns[:current_user])
+    
+    total_jobs = count_user_assoc Vutuv.WorkExperience, user
+    total_numbers = count_user_assoc Vutuv.PhoneNumber, user
+    total_links = count_user_assoc Vutuv.Url, user
+    total_addresses = count_user_assoc Vutuv.Address, user
+
     conn
     |> assign(:emails, emails)
     |> assign(:user_skills, user_skills)
@@ -108,7 +118,15 @@ defmodule Vutuv.UserController do
     |> assign(:job, job)
     |> assign(:organization, current_organization(job))
     |> assign(:title, current_title(job))
+    |> assign(:total_jobs, total_jobs)
+    |> assign(:total_numbers, total_numbers)
+    |> assign(:total_links, total_links)
+    |> assign(:total_addresses, total_addresses)
     |> render("show.html", conn: conn)
+  end
+
+  def count_user_assoc(schema, user) do
+    Repo.one(from a in schema, where: a.user_id== ^user.id, select: count("*"))
   end
 
   def edit(conn, _params) do

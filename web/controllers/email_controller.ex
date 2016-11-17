@@ -22,7 +22,7 @@ defmodule Vutuv.EmailController do
   def create(conn, %{"email" => email_params}) do
     email = email_params["value"]
     Vutuv.MagicLinkHelpers.gen_magic_link(conn.assigns[:user], "email", email)
-    |> Vutuv.Emailer.email_creation_email(email)
+    |> Vutuv.Emailer.email_creation_email(email, conn.assigns[:user])
     |> Vutuv.Mailer.deliver_now
     redirect conn, to: page_path(conn, :index)
   end

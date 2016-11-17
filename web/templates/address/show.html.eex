@@ -1,13 +1,5 @@
 <!-- header tag begins in parent template -->
   <div class="profile-header">
-      <div class="profile-header__followstatus">
-      <%= if same_user?(@user, @current_user) do %>
-        <%= link to: user_address_path(@conn, :edit, @user, @address), class: "button" do %>
-          Edit
-        <% end %>
-        <%= link "Delete", to: user_address_path(@conn, :delete, @user, @address), method: :delete, class: "button button--cancel", data: [confirm: "Are you sure?"] %>
-      <% end %>
-      </div>
     <div class="profile-header__info">
       <h1><%= gettext("About this Address") %></h1>
     </div>

@@ -13,8 +13,8 @@
 <div class="imagebox">
   <section class="card imagebox__card">
     <div class="imagebox__intro">
-      <h1>The Fast and Free Career Network</h1>
-      <p>No expensive premium accounts! Read more about it in <a href="https://medium.com/@vutuv">our blog</a>.</p>
+      <h1><%= gettext "The Fast and Free Career Network" %></h1>
+      <p><%= gettext "No expensive premium accounts! Read more about it in" %> <a href="https://medium.com/@vutuv"><%= gettext "our blog" %></a>.</p>
     </div>
     <%= form_for @changeset, page_path(@conn, :new_registration), [multipart: true, class: "imagebox__form"], fn f -> %>
       <%= if @changeset.action do %>
@@ -35,17 +35,26 @@
       <%= text_input f, :last_name, class: "imagebox__input", placeholder: "Enter your last name" %>
       <%= error_tag f, :last_name %>
       </p>
-      <p>
+      
       <%= inputs_for f, :emails, fn ef -> %>
+      <p>
         <%= text_input ef, :value, class: "imagebox__input", placeholder: "Enter your email address" %>
         <%= error_tag ef, :value %>
+      </p>
+      <p>
+        <%= select f, :public?, ["Create a public account (Email will be visible to everyone)": true, "Create a private account(Email will be visible to those you follow)": false] %>
+        <%= error_tag f, :public? %>
+      </p>
       <% end %>
+      <p>
+      <%= select f, :noindex?, [{gettext("Prevent search engines from indexing my profile"), false}, {gettext("Allow search engines to index my profile"), true}] %>
+      <%= error_tag f, :noindex? %>
       </p>
       <p>
       <%= submit gettext("Sign up"), class: "imagebox__input" %>
       </p>
-      <p><a href="<%= session_path(@conn, :new) %>" class="imagebox__alreadymember">Already a member? Sign in here.</a></p>
-      <p>Legal mumbo-jumbo: We reserve the right to stop this service or delete your account anytime without warning.</p>
+      <p><a href="<%= session_path(@conn, :new) %>" class="imagebox__alreadymember"><%= gettext "Already a member? Sign in here." %></a></p>
+      <p><%= gettext "Legal mumbo-jumbo: We reserve the right to stop this service or delete your account anytime without warning." %></p>
     <% end %>
   </section>
 </div>

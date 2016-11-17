@@ -21,16 +21,16 @@
       <div class="profile-header__followstatus">
         <%= if(@follower_count>0) do %>
         <div>
-          <h3><span><%= String.capitalize(@user.first_name) %> has</span><strong><%= @follower_count %></strong> followers</h3>
+          <h3><span><%= String.capitalize(@user.first_name) %> <%= gettext "has" %></span><strong><%= @follower_count %></strong> <%= gettext "followers" %></h3>
         </div>
         <% end %>
         <%= if(!same_user?(@current_user, @user)) do %>
           <%= if user_follows_user?(@current_user, @user) do %>
-            <%= link to: connection_path(@conn, :delete, user_follows_user?(@current_user, @user)), method: :delete , class: "button" do %>
+            <%= button to: connection_path(@conn, :delete, user_follows_user?(@current_user, @user)), method: :delete , class: "button button-link" do %>
               <i class="icon icon--minus"></i> Unfollow
             <% end %>
           <%= else %>
-            <%= link to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: @user.id}), method: :post , class: "button" do %>
+            <%= button to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: @user.id}), method: :post , class: "button button-link" do %>
               <i class="icon icon--plus"></i> Follow
             <% end %>
           <% end %>
@@ -43,26 +43,26 @@
 <%= render Vutuv.LayoutView, "flash.html", assigns %>
 
 <div class="breadcrumbs">
-  Users / <%= full_name @user %>
+  <%= gettext "Users" %> / <%= full_name @user %>
 </div>
 
 <div class="card-list">
 
   <section class="card">
     <%= if same_user?(@user, @current_user) do %>
-      <%= link to: user_path(@conn, :edit, @user), class: "card__edit button button--icon button--small" do %>
-        <i class="icon icon--edit"></i>
-      <% end %>
-      <% end %>
-    <h1>Headline</h1>
+    <%= link to: user_path(@conn, :edit, @user), class: "card__edit button button--icon button--small" do %>
+      <i class="icon icon--edit"></i>
+    <% end %>
+    <% end %>
+    <h1><%= gettext "Headline" %></h1>
     <p><%= @user.headline %></p>
     <dl>
       <%= if(@user.gender != "other" && @user.gender) do %>
-      <dt>Gender</dt>
+      <dt><%= gettext "Gender" %></dt>
       <dd><%= @user.gender %></dd>
       <% end %>
       <%= if(@user.birthdate) do %>
-      <dt>Birthday</dt>
+      <dt><%= gettext "Birthday" %></dt>
       <dd><%= @user.birthdate %></dd>
       <% end %>
     </dl>
@@ -76,13 +76,13 @@
         <i class="icon icon--edit"></i>
       <% end %>
       <% end %>
-      <h1>Contact</h1>
+      <h1><%= gettext "Contact" %></h1>
       <dl>
         <dt><%= if (Enum.count(@emails) == 1), do: gettext("Email"), else: gettext("Emails") %></dt>
         <%= for email <- @emails do %>
         <dd><a href="mailto:<%= email(@user) %>"><%= email.value %></a></dd>
         <% end %>
-        <dt>Vcard</dt>
+        <dt><%= gettext "Vcard" %></dt>
         <dd><%= link gettext("Download"), to: api_user_v_card_path(@conn, :get, @user) %></dd>
       </dl>
     </section>
@@ -92,7 +92,7 @@
         <i class="icon icon--edit"></i>
       <% end %>
       <% end %>
-      <h1>Social Media</h1>
+      <h1><%= gettext "Social Media" %></h1>
       <dl>
         <%= for account <- @user.social_media_accounts do %>
         <dt><%= account.provider %></dt>
@@ -104,100 +104,111 @@
 
   <%= if Enum.count(@user_skills) > 0 or same_user?(@user, @current_user) do %>
   <section class="card">
-    <h1>Skills</h1>
+    <h1><%= gettext "Skills" %></h1>
 
     <%= render Vutuv.UserSkillView, "card_list.html", assigns %>
 
     <%= if same_user?(@user, @current_user) do %>
-
       <% #Form for easy skill entry %>
       <%= if Enum.count(@user_skills) == 0 do %>
         <%= form_for @conn, user_path(@conn, :skills_create, @user), [as: :skills, class: "editform"], fn f -> %>
           <div class="editform__field<%= if error_tag(f, :name), do: " editform__field--error"%>">
-            <%= label f, :"Enter comma seperated skills here" %>
-            <%= text_input f, :skills%>
+            <%= label f, :skills, gettext("Enter comma seperated skills here") %>
+            <%= text_input f, :skills, autofocus: true %>
             <%= error_tag f, :skills %>
           </div>
           <div class="editform__actions">
             <%= submit gettext("Add"), class: "button" %>
           </div>
         <% end %>
+        <span class="card__morelink">
       <% else %>
-        <%= link "Add skills", to: user_user_skill_path(@conn, :new, @current_user), class: "card__morelink" %>
-        <%= link "View all skills", to: user_user_skill_path(@conn, :index, @user), class: "card__morelink" %>
+        <span class="card__morelink">
+        <%= link gettext("Add"), to: user_user_skill_path(@conn, :new, @current_user) %>
       <% end %>
     <% else %>
-    <%= if Enum.count(@user.user_skills) > 4 do %>
-      <%= link "View #{Enum.count(@user.user_skills)-4} More", to: user_user_skill_path(@conn, :index, @user), class: "card__morelink" %>
+      <span class="card__morelink">
     <% end %>
+    <%= if same_user?(@user, @current_user) and Enum.count(@user.user_skills) > 4 do %> | <% end %>
+    <%= if Enum.count(@user.user_skills) > 4 do %>
+      <%= link gettext("View All"), to: user_user_skill_path(@conn, :index, @user)%></span>
+    <% else %>
+    </span>
     <% end %>
   </section>
   <% end %>
 
-  <%= if Enum.count(@user.work_experiences) > 0 or same_user?(@user, @current_user) do %>
+  <%= if @total_jobs > 0 or same_user?(@user, @current_user) do %>
   <section class="card">
-    <h1>Experience</h1>
+    <h1><%= gettext "Experience" %></h1>
 
     <%= render Vutuv.WorkExperienceView, "card_list.html", assigns %>
-
+    <span class="card__morelink card__morelink-border">
     <%= if same_user?(@user, @current_user) do %>
-      <%= link "Add experience", to: user_work_experience_path(@conn, :new, @current_user), class: "card__morelink" %>
-      <%= link "View all experience", to: user_work_experience_path(@conn, :index, @user), class: "card__morelink" %>
-    <% else %>
-    <%= if Enum.count(@user.work_experiences)>3 do %>
-      <%= link "View #{Enum.count(@user.work_experiences)-3} More", to: user_work_experience_path(@conn, :index, @user), class: "card__morelink" %>
+      <%= link gettext("Add"), to: user_work_experience_path(@conn, :new, @current_user) %>
     <% end %>
+    <%= if same_user?(@user, @current_user) and @total_jobs>3 do %> | <% end %>
+    <%= if @total_jobs>3 do %>
+      <%= link gettext("View All"), to: user_work_experience_path(@conn, :index, @user) %>
     <% end %>
+    </span>
   </section>
   <% end %>
 
-  <%= if Enum.count(@user.phone_numbers) > 0 or same_user?(@user, @current_user) do %>
+  <%= if @total_numbers > 3 or same_user?(@user, @current_user) do %>
   <section class="card">
-    <h1>Phone Numbers</h1>
+    <h1><%= gettext "Phone Numbers" %></h1>
     <%= render Vutuv.PhoneNumberView, "card_list.html", phone_numbers: @user.phone_numbers, user: @user, conn: @conn, current_user: @current_user %>
-    <%= if same_user?(@user, @current_user) do %>
-      <%= link "Add phone numbers", to: user_phone_number_path(@conn, :new, @current_user), class: "card__morelink" %>
-      <%= link "View all phone numbers", to: user_phone_number_path(@conn, :index, @user), class: "card__morelink" %>
-    <% else %>
-    <%= if Enum.count(@user.phone_numbers)>3 do %>
-      <%= link "View #{Enum.count(@user.phone_numbers)-3} More", to: user_phone_number_path(@conn, :index, @user), class: "card__morelink" %>
-    <% end %>
-    <% end %>
+
+    <span class="card__morelink">
+      <%= if same_user?(@user, @current_user) do %>
+        <%= link gettext("Add"), to: user_phone_number_path(@conn, :new, @current_user) %>
+      <% end %>
+      <%= if same_user?(@user, @current_user) and @total_numbers > 3 do %> | <% end %>
+      <%= if @total_numbers>3 do %>
+        <%= link gettext("View All"), to: user_phone_number_path(@conn, :index, @user) %>
+      <% end %>
+    </span>
   </section>
   <% end %>
 
-  <%= if Enum.count(@user.urls) > 0 or same_user?(@user, @current_user) do %>
+  <%= if @total_links > 3 or same_user?(@user, @current_user) do %>
   <section class="card">
-    <h1>Links</h1>
+    <h1><%= gettext "Links" %></h1>
     <%= render Vutuv.UrlView, "card_list.html", urls: @user.urls, user: @user, conn: @conn, current_user: @current_user %>
-    <%= if same_user?(@user, @current_user) do %>
-      <%= link "Add links", to: user_url_path(@conn, :new, @current_user), class: "card__morelink" %>
-      <%= link "View all links", to: user_url_path(@conn, :index, @user), class: "card__morelink" %>
-    <% else %>
-    <%= if Enum.count(@user.urls)>3 do %>
-      <%= link "View #{Enum.count(@user.urls)-3} More", to: user_url_path(@conn, :index, @user), class: "card__morelink" %>
-    <% end %>
-    <% end %>
+
+    <span class="card__morelink">
+      <%= if same_user?(@user, @current_user) do %>
+        <%= link gettext("Add"), to: user_url_path(@conn, :new, @current_user) %>
+      <% end %>
+      <%= if same_user?(@user, @current_user) and @total_links > 3 do %> | <% end %>
+      <%= if @total_links>3 do %>
+        <%= link gettext("View All"), to: user_url_path(@conn, :index, @user) %>
+      <% end %>
+    </span>
   </section>
   <% end %>
 
-  <%= if Enum.count(@user.addresses) > 0 or same_user?(@user, @current_user) do %>
+  <%= if @total_addresses > 3 or same_user?(@user, @current_user) do %>
   <section class="card">
-    <h1>Addresses</h1>
+    <h1><%= gettext "Addresses" %></h1>
     <%= render Vutuv.AddressView, "card_list.html", addresses: @user.addresses, user: @user, conn: @conn, current_user: @current_user %>
-    <%= if same_user?(@user, @current_user) do %>
-      <%= link "Add addresses", to: user_address_path(@conn, :new, @current_user), class: "card__morelink" %>
-      <%= link "View all addresses", to: user_address_path(@conn, :index, @user), class: "card__morelink" %>
-    <% else %>
-    <%= if Enum.count(@user.addresses)>3 do %>
-      <%= link "View #{Enum.count(@user.addresses)-3} More", to: user_address_path(@conn, :index, @user), class: "card__morelink" %>
-    <% end %>
-    <% end %>
+
+    <span class="card__morelink">
+      <%= if same_user?(@user, @current_user) do %>
+        <%= link gettext("Add"), to: user_address_path(@conn, :new, @current_user) %>
+      <% end %>
+      <%= if same_user?(@user, @current_user) and @total_addresses > 3 do %> | <% end %>
+      <%= if @total_addresses>3 do %>
+        <%= link gettext("View All"), to: user_address_path(@conn, :index, @user) %>
+      <% end %>
+    </span>
+
   </section>
   <% end %>
 
   <section class="card half<%= if @follower_count == 0, do: " card--empty" %>">
-    <h1>Followers</h1>
+    <h1><%= gettext "Followers" %></h1>
     <%= if(@follower_count > 0) do %>
       <ul class="button-list profiles">
         <%= for fconn <- @user.follower_connections do %>
@@ -210,11 +221,11 @@
             <p><strong><%= link full_name(fconn.follower), to: user_path(@conn, :show, fconn.follower) %></strong>
             </p>
             <%= if user_follows_user?(@current_user, fconn.follower) do %>
-              <%= link to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.follower)), method: :delete , class: "button button--icon", form: [class: "button-list"] do %>
+              <%= button to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.follower)), method: :delete , class: "button button--icon", form: [class: "button-list"] do %>
                 <i class="icon icon--unfollow"></i>
               <% end %>
             <%= else %>
-              <%= link to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: fconn.follower.id}), method: :post , class: "button button--icon", form: [class: "button-list"] do %>
+              <%= button to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: fconn.follower.id}), method: :post , class: "button button--icon", form: [class: "button-list"] do %>
                 <i class="icon icon--follow"></i>
               <% end %>
             <% end %>
@@ -222,15 +233,15 @@
         <% end %>
       </ul>
     <% else %>
-      <p class="card__empty">No Followers yet!</p>
+      <p class="card__empty"><%= gettext "No Followers yet!" %></p>
     <% end %>
     <%= if(@follower_count > 3) do %>
-      <%= link "#{@followers_count-3} more", to: user_follower_path(@conn, :index, @user), class: "card__morelink" %>
+      <%= link "#{@followers_count-3} #{gettext "More"}", to: user_follower_path(@conn, :index, @user), class: "card__morelink" %>
     <% end %>
   </section>
 
   <section class="card half last">
-  <h1>Following</h1>
+  <h1><%= gettext "Following" %></h1>
     <%= if(@followee_count > 0) do %>
       <ul class="button-list profiles">
         <%= for fconn <- @user.followee_connections do %>
@@ -243,11 +254,11 @@
             <p><strong><%= link full_name(fconn.followee), to: user_path(@conn, :show, fconn.followee) %></strong>
             </p>
             <%= if user_follows_user?(@current_user, fconn.followee) do %>
-              <%= link to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.followee)), method: :delete , class: "button button--icon", form: [class: "button button--icon"] do %>
+              <%= button to: connection_path(@conn, :delete, user_follows_user?(@current_user, fconn.followee)), method: :delete , class: "button button--icon", form: [class: "button button--icon"] do %>
                 <i class="icon icon--unfollow"></i>
               <% end %>
             <%= else %>
-              <%= link to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: fconn.followee.id}), method: :post , class: "button button--icon", form: [class: "button button--icon"] do %>
+              <%= button to: connection_path(@conn, :create, connection: %{follower_id: @current_user.id, followee_id: fconn.followee.id}), method: :post , class: "button button--icon", form: [class: "button button--icon"] do %>
                 <i class="icon icon--follow"></i>
               <% end %>
             <% end %>
@@ -255,10 +266,10 @@
         <% end %>
       </ul>
     <% else %>
-      <p class="card__empty">Not following anyone yet!</p>
+      <p class="card__empty"><%= gettext "Not following anyone yet!" %></p>
     <% end %>
     <%= if(@followee_count > 3) do %>
-      <%= link "#{@followee_count-3} more", to: user_followee_path(@conn, :index, @user), class: "card__morelink" %>
+      <%= link "#{@followee_count-3} #{gettext "More"}", to: user_followee_path(@conn, :index, @user), class: "card__morelink" %>
     <% end %>
   </section>
 </div>

@@ -1,8 +1,8 @@
 <table>
   <thead>
     <tr>
-      <th>Description</th>
-      <th>URL</th>
+      <th><%= gettext "Description" %></th>
+      <th><%= gettext "URL" %></th>
       <th></th>
     </tr>
   </thead>

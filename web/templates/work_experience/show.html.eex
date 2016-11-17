@@ -1,13 +1,5 @@
 <!-- header tag begins in parent template -->
   <div class="profile-header">
-      <div class="profile-header__followstatus">
-      <%= if same_user?(@user, @current_user) do %>
-        <%= link to: user_work_experience_path(@conn, :edit, @user, @work_experience), class: "button" do %>
-          Edit
-        <% end %>
-        <%= link "Delete", to: user_work_experience_path(@conn, :delete, @user, @work_experience), method: :delete, class: "button button--cancel", data: [confirm: "Are you sure?"] %>
-      <% end %>
-      </div>
     <div class="profile-header__info">
       <h1><%= gettext("About this Experience") %></h1>
     </div>
@@ -23,8 +15,15 @@
 </div>
 
 <div class="card-list">
-
   <section class="card">
+    <%= if same_user?(@user, @current_user) do %>
+    <%= button to: user_work_experience_path(@conn, :delete, @user, @work_experience), class: "card__edit button button-link button--icon button--small", form: [class: "card__edit button button--icon button--small"] do %>
+      <i class="icon icon--delete"></i>
+    <% end %>
+    <%= button to: user_work_experience_path(@conn, :edit, @user, @work_experience), class: "card__edit button button-link button--icon button-link button--small", form: [class: "card__edit button-link button button--icon button--small"] do %>
+      <i class="icon icon--edit"></i>
+    <% end %>
+    <% end %>
     <h1><%= gettext("Job Title") %></h1>
     <p><%= @work_experience.title %></p>
     <h1><%= gettext("Organization") %></h1>

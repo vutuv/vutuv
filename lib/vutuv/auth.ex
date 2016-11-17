@@ -23,7 +23,7 @@ defmodule Vutuv.Auth do
 
   defp send_email(user, conn, email) do
     Vutuv.MagicLinkHelpers.gen_magic_link(user, "login")
-    |> Vutuv.Emailer.login_email(email)
+    |> Vutuv.Emailer.login_email(email, user)
     |> Vutuv.Mailer.deliver_now
     {:ok, conn}
   end

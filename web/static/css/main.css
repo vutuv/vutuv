@@ -9,7 +9,7 @@
 ----------------------------------------------------------------*/
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
+a, button, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
@@ -120,7 +120,7 @@ p {
 strong {
   font-weight: bold; }
 
-a {
+a, button{
   color: #4A90E2;
   text-decoration: none; }
 
@@ -128,6 +128,7 @@ a {
   BUTTONS
 ----------------------------------------------------------------*/
 .button {
+  cursor: pointer;
   border: 0;
   background: #4A90E2;
   box-sizing: border-box;
@@ -273,7 +274,7 @@ textarea {
 
 [type="text"],
 [type="tel"],
-[type="submit"],
+[type="submit"]:not(.button-link),
 [type="date"] {
   height: 44px; }
 
@@ -478,16 +479,25 @@ footer {
   .breadcrumbs {
     max-width: 920px; } }
 
-.search-form {
+.search-form {  
   box-sizing: border-box;
   display: flex;
   padding: 0 10px;
   margin: 10px auto 15px auto;
-  max-width: 620px; }
-  .search-form input {
-    flex: 1; }
-    .search-form input[type="submit"] {
-      max-width: 100px; }
+  max-width: 620px;
+}
+
+.search-form input{
+  flex: 1;
+}
+
+.search-form button[type="submit"] {
+  max-width: 100px;
+  background: #4A90E2;
+  color: #FFF;
+  font-size: 18px;
+  font-weight: bold;
+}
 
 @media all and (min-width: 450px) {
   .search-form {
@@ -635,8 +645,11 @@ footer {
 .card__edit {
   float: right; }
 
-.card__morelink {
+.card__morelink-border {
   border-top: 1px solid #eee;
+}
+
+.card__morelink {
   box-sizing: border-box;
   display: block;
   font-size: 14px;
@@ -746,6 +759,15 @@ aside {
   border-top: 1px solid #eee;
   margin-top: 20px;
   padding-top: 20px; }
+
+.imagebox__input[type="submit"] {
+  background-color: #4A90E2;
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+}
 
 .imagebox__input, .imagebox__select {
   width: 100%; }

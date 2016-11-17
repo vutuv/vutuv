@@ -7,7 +7,7 @@ defmodule Vutuv.Mixfile do
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
-     build_embedded: Mix.env == :dev,
+     build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      aliases: aliases,
      deps: deps]
@@ -51,7 +51,7 @@ defmodule Vutuv.Mixfile do
      {:bamboo_smtp, "~> 1.1.0"},
      {:phoenix, "~> 1.2.0"},
      {:phoenix_ecto, "~> 3.0.0-rc"},
-     {:phoenix_html, "~> 2.3"},
+     {:phoenix_html, "~> 2.8"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},

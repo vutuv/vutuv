@@ -1,10 +1,5 @@
 <!-- header tag begins in parent template -->
   <div class="profile-header">
-      <div class="profile-header__followstatus">
-      <%= link to: user_work_experience_path(@conn, :new, @user), class: "button" do %>
-        <i class="icon icon--plus"></i> Add Experience
-      <% end %>
-      </div>
     <div class="profile-header__info">
       <h1><%= full_name(@user) %>'s Experience</h1>
     </div>
@@ -27,7 +22,7 @@
     <%= render "card_list.html", assigns %>
 
     <%= if same_user?(@user, @current_user) do %>
-      <%= link "Add experience", to: user_work_experience_path(@conn, :new, @current_user), class: "card__morelink" %>
+      <%= link gettext("Add"), to: user_work_experience_path(@conn, :new, @current_user), class: "card__morelink" %>
     <% end %>
   </section>
   <aside>

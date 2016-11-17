@@ -127,7 +127,7 @@ defmodule Vutuv.UserHelpers do
   end
 
   defp gen_breadcrumb({value, href}) do
-    Phoenix.HTML.Link.link(value, to: href)
+    Phoenix.HTML.Link.link(value, to: href, class: "breadcrumbs__link")
     |> Phoenix.HTML.safe_to_string
   end
 

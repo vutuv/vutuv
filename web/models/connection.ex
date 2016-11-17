@@ -11,7 +11,7 @@ defmodule Vutuv.Connection do
     timestamps
   end
 
-  @required_fields ~w(follower_id followee_id)
+  @required_fields ~w(follower_id followee_id)a
   @optional_fields ~w()
 
   @doc """

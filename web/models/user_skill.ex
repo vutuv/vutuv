@@ -5,7 +5,7 @@ defmodule Vutuv.UserSkill do
     belongs_to :user, Vutuv.User
     belongs_to :skill, Vutuv.Skill
 
-    has_many :endorsements, Vutuv.Endorsement
+    has_many :endorsements, Vutuv.Endorsement, on_delete: :delete_all
 
     timestamps
   end

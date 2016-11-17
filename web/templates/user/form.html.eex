@@ -5,58 +5,64 @@
     </div>
   <% end %>
   <div class="editform__field<%= if error_tag(f, :gender), do: " editform__field--error"%>">
-  <%= label f, :gender %>
+  <%= label f, :gender, gettext("Gender") %>
   <%= select f, :gender, [{gettext("Mr"), "male"}, {gettext("Mrs"), "female"}, {gettext("Other"), "other"}], id: "gender" %>
   <%= error_tag f, :gender %>
   </div>
 
   <div class="editform__field<%= if error_tag(f, :first_name), do: " editform__field--error"%>">
-  <%= label f, :first_name %>
+  <%= label f, :first_name, gettext("First Name") %>
   <%= text_input f, :first_name, autofocus: true %>
   <%= error_tag f, :first_name %>
   </div>
 
   <div class="editform__field<%= if error_tag(f, :last_name), do: " editform__field--error"%>">
-  <%= label f, :last_name %>
+  <%= label f, :last_name, gettext("Last Name") %>
   <%= text_input f, :last_name %>
   <%= error_tag f, :last_name %>
   </div>
 
   
   <%= inputs_for f, :emails, fn ef -> %>
-  <%= label ef, :email_address %><div class="editform__field<%= if error_tag(ef, :value), do: " editform__field--error"%>">
+  <%= label ef, :email_address, gettext("Email Address") %>
+  <div class="editform__field<%= if error_tag(ef, :value), do: " editform__field--error"%>">
     <%= text_input ef, :value %>
     <%= error_tag ef, :value %>
+  </div>
+  <div class="editform__field<%= if error_tag(f, :public?), do: " editform__field--error"%>">
+    <%= label f, :public?, gettext("Is this email public or private?") %>
+    <%= select f, :public?, ["Public": true, "Private": false] %>
+    <%= error_tag f, :public? %>
   </div>
   <% end %>
 
   <%= if @current_user do %>
     <div class="editform__field<%= if error_tag(f, :middlename), do: " editform__field--error"%>">
-    <%= label f, :middlename %>
+    <%= label f, :middlename, gettext("Middle Name") %>
     <%= text_input f, :middlename %>
     <%= error_tag f, :middlename %>
     </div>
 
     <div class="editform__field<%= if error_tag(f, :nickname), do: " editform__field--error"%>">
-    <%= label f, :nickname %>
+    <%= label f, :nickname, gettext("Nickname") %>
     <%= text_input f, :nickname %>
     <%= error_tag f, :nickname %>
     </div>
 
     <div class="editform__field<%= if error_tag(f, :honorific_prefix), do: " editform__field--error"%>">
-    <%= label f, :honorific_prefix %>
+    <%= label f, :honorific_prefix, gettext("Prefix") %>
     <%= text_input f, :honorific_prefix %>
     <%= error_tag f, :honorific_prefix %>
     </div>
 
     <div class="editform__field<%= if error_tag(f, :honorific_suffix), do: " editform__field--error"%>">
-    <%= label f, :honorific_suffix %>
+    <%= label f, :honorific_suffix, gettext("Suffix") %>
     <%= text_input f, :honorific_suffix %>
     <%= error_tag f, :honorific_suffix %>
     </div>
 
     <div class="editform__field<%= if error_tag(f, :birthdate), do: " editform__field--error"%>">
-    <%= label f, :birthdate %>
+    <%= label f, :birthdate, gettext("Birthdate") %>
     <div class="editform__inputwrap">
       <%= date_select f, :birthdate, year: [options: 1900..2100] %>
     </div>
@@ -64,25 +70,27 @@
     </div>
 
     <div class="editform__field<%= if error_tag(f, :headline), do: " editform__field--error"%>">
-    <%= label f, :headline %>
+    <%= label f, :headline, gettext("headline") %>
     <%= textarea f, :headline %>
     <%= error_tag f, :headline %>
     </div>
 
     <div class="editform__field<%= if error_tag(f, :locale), do: " editform__field--error"%>">
-    <%= label f, :language %>
-    <%= select f, :locale, ["English": "en", "German": "de"] %>
+    <%= label f, :locale, gettext("Language") %>
+    <%= select f, :locale, [{gettext("English"), "en"}, {gettext("German"), "de"}] %>
     <%= error_tag f, :locale %>
     </div>
+  <% end %>
 
     <div class="editform__field<%= if error_tag(f, :noindex?), do: " editform__field--error"%>">
-    <%= label f, :"Would you like to allow search engines to index your profile?" %>
-    <%= select f, :noindex?, ["Yes": false, "No": true] %>
+    <%= label f, :noindex?, gettext("Would you like to allow search engines to index your profile?") %>
+    <%= select f, :noindex?, [{gettext("Yes"), false}, {gettext("No"), true}] %>
     <%= error_tag f, :noindex? %>
     </div>
 
+  <%= if @current_user do %>
     <div class="editform__field<%= if error_tag(f, :avatar), do: " editform__field--error"%>">
-    <%= label f, :avatar %>
+    <%= label f, :avatar, gettext("Avater") %>
     <div class="editform__inputwrap<%= if error_tag(f, :avatar), do: " editform__field--error"%>">
       <%= file_input f, :avatar %>
     </div>

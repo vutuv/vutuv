@@ -33,7 +33,7 @@ defmodule Vutuv.Registration do
     changeset = User.changeset(%User{}, user_params)
       |> Ecto.Changeset.put_assoc(:slugs, [slug_changeset])
       |> Ecto.Changeset.put_assoc(:search_terms, search_terms)
-      |> Ecto.Changeset.put_change(:active_slug, slug_changeset.changes.value)
+      |> Ecto.Changeset.put_change(:active_slug, slug_changeset.changes["value"])
       |> Ecto.Changeset.put_change(:locale, conn.assigns[:locale])
     Enum.reduce([changeset | assocs], fn {type, params}, changeset ->
       changeset

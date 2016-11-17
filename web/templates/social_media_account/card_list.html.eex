@@ -1,8 +1,8 @@
 <table>
   <thead>
     <tr>
-      <th>Profile Provider</th>
-      <th>Username</th>
+      <th><%= gettext "Profile Provider" %></th>
+      <th><%= gettext "Username" %></th>
       <th></th>
     </tr>
   </thead>

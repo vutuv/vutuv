@@ -1,8 +1,8 @@
 <table>
   <thead>
     <tr>
-      <th>Number type</th>
-      <th>Phone number</th>
+      <th><%= gettext "Number type" %></th>
+      <th><%= gettext "Phone number" %></th>
       <th></th>
     </tr>
   </thead>

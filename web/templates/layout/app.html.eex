@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="<%= @locale %>">
     <head>
     <%= if @conn.assigns[:user] do %>
       <%= if @user.noindex? do %>
@@ -30,7 +30,7 @@
   <nav class="navigation">
     <div>
     <%= if @conn.assigns[:current_user] do %>
-      <%= link to: session_path(@conn, :delete, @current_user), method: "delete", class: "navigation__icon", form: [style: "flex: 1;"] do %>
+      <%= button to: session_path(@conn, :delete, @current_user), method: "delete", class: "button button--icon navigation__icon", form: [style: "flex: 1;", class: "button button--icon"] do %>
       <i title="<%= gettext("Log Out") %>" class="icon icon--lock"></i>
       <% end %>
     <% else %>
