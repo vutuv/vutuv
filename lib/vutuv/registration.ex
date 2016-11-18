@@ -59,13 +59,16 @@ defmodule Vutuv.Registration do
   end
 
   defp welcome_wagon(changeset) do
+    c = 
     Repo.one(from u in User, join: e in assoc(u, :emails), where: e.value == @stefan_email, select: u.id)
     |> case do
       nil -> changeset
       stefan_id ->
-        connection_changeset = Vutuv.Connection.changeset(%Vutuv.Connection{}, %{follower_id: stefan_id})
+        connection_changeset = Ecto.Changeset.cast(%Vutuv.Connection{}, %{follower_id: stefan_id}, [:follower_id, :followee_id])
         changeset
         |> Ecto.Changeset.put_assoc(:follower_connections, [connection_changeset])
     end
+    IO.puts "\n\n#{inspect c}\n\n"
+    c
   end
 end
