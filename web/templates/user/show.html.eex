@@ -114,7 +114,7 @@
         <%= form_for @conn, user_path(@conn, :skills_create, @user), [as: :skills, class: "editform"], fn f -> %>
           <div class="editform__field<%= if error_tag(f, :name), do: " editform__field--error"%>">
             <%= label f, :skills, gettext("Enter comma seperated skills here") %>
-            <%= text_input f, :skills, autofocus: true %>
+            <%= text_input f, :skills, placeholder: gettext("PHP, JavaScript, Tap Dancing, Origami"), autofocus: true %>
             <%= error_tag f, :skills %>
           </div>
           <div class="editform__actions">

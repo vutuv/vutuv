@@ -151,7 +151,7 @@ msgstr ""
 
 #: web/templates/url/edit.html.eex:7 web/templates/url/index.html.eex:14
 #: web/templates/url/new.html.eex:7 web/templates/url/show.html.eex:13
-#: web/templates/user/show.html.eex:177
+#: web/templates/user/show.html.eex:242
 msgid "Links"
 msgstr ""
 
@@ -179,7 +179,7 @@ msgstr ""
 #: web/templates/phone_number/index.html.eex:14
 #: web/templates/phone_number/new.html.eex:7
 #: web/templates/phone_number/show.html.eex:13
-#: web/templates/user/show.html.eex:160
+#: web/templates/user/show.html.eex:225
 msgid "Phone Numbers"
 msgstr ""
 
@@ -290,9 +290,9 @@ msgstr ""
 #: web/templates/phone_number/index.html.eex:24
 #: web/templates/social_media_account/index.html.eex:24
 #: web/templates/url/index.html.eex:25 web/templates/user/show.html.eex:121
-#: web/templates/user/show.html.eex:127 web/templates/user/show.html.eex:148
-#: web/templates/user/show.html.eex:165 web/templates/user/show.html.eex:182
-#: web/templates/user/show.html.eex:199
+#: web/templates/user/show.html.eex:129 web/templates/user/show.html.eex:213
+#: web/templates/user/show.html.eex:230 web/templates/user/show.html.eex:247
+#: web/templates/user/show.html.eex:264
 #: web/templates/user_skill/form.html.eex:10
 #: web/templates/user_skill/index.html.eex:25
 #: web/templates/work_experience/form.html.eex:58
@@ -302,7 +302,7 @@ msgstr ""
 
 #: web/templates/address/edit.html.eex:8 web/templates/address/index.html.eex:14
 #: web/templates/address/new.html.eex:8 web/templates/address/show.html.eex:13
-#: web/templates/user/show.html.eex:194
+#: web/templates/user/show.html.eex:259
 msgid "Addresses"
 msgstr ""
 
@@ -347,7 +347,7 @@ msgstr ""
 msgid "Emails belonging to "
 msgstr ""
 
-#: web/templates/user/show.html.eex:143
+#: web/templates/user/show.html.eex:208
 #: web/templates/work_experience/edit.html.eex:8
 #: web/templates/work_experience/index.html.eex:14
 #: web/templates/work_experience/new.html.eex:8
@@ -371,11 +371,11 @@ msgstr ""
 msgid "Listing skills"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:38
+#: web/templates/layout/app.html.eex:35
 msgid "Log In"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:34
+#: web/templates/layout/app.html.eex:31
 msgid "Log Out"
 msgstr ""
 
@@ -446,7 +446,7 @@ msgstr ""
 msgid "Score"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:44
+#: web/templates/layout/app.html.eex:41
 msgid "Search"
 msgstr ""
 
@@ -467,7 +467,7 @@ msgstr ""
 msgid "Show search term"
 msgstr ""
 
-#: web/templates/page/index.html.eex:54
+#: web/templates/page/index.html.eex:55
 msgid "Sign up"
 msgstr ""
 
@@ -536,11 +536,11 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: web/templates/user/show.html.eex:211
+#: web/templates/user/show.html.eex:141
 msgid "Followers"
 msgstr ""
 
-#: web/templates/user/show.html.eex:244
+#: web/templates/user/show.html.eex:174
 msgid "Following"
 msgstr ""
 
@@ -556,11 +556,11 @@ msgstr ""
 msgid "Vcard"
 msgstr ""
 
-#: web/templates/user/show.html.eex:236
+#: web/templates/user/show.html.eex:166
 msgid "No Followers yet!"
 msgstr ""
 
-#: web/templates/user/show.html.eex:269
+#: web/templates/user/show.html.eex:199
 msgid "Not following anyone yet!"
 msgstr ""
 
@@ -568,7 +568,7 @@ msgstr ""
 msgid "followers"
 msgstr ""
 
-#: web/templates/user/show.html.eex:239 web/templates/user/show.html.eex:272
+#: web/templates/user/show.html.eex:169 web/templates/user/show.html.eex:202
 msgid "More"
 msgstr ""
 
@@ -656,7 +656,7 @@ msgstr ""
 msgid "Allow search engines to index my profile"
 msgstr ""
 
-#: web/templates/page/index.html.eex:56
+#: web/templates/page/index.html.eex:57
 msgid "Already a member? Sign in here."
 msgstr ""
 
@@ -665,20 +665,11 @@ msgid "Enter comma seperated skills here"
 msgstr ""
 
 #: web/templates/email/email_creation_email.html.eex:2
-#: web/templates/email/login_email.html.eex:2
 msgid "Hello"
 msgstr ""
 
 #: web/templates/user/form.html.eex:33
 msgid "Is this email public or private?"
-msgstr ""
-
-#: web/templates/page/index.html.eex:57
-msgid "Legal mumbo-jumbo: We reserve the right to stop this service or delete your account anytime without warning."
-msgstr ""
-
-#: web/templates/email/login_email.html.eex:3
-msgid "Login with the following link:"
 msgstr ""
 
 #: web/templates/page/index.html.eex:17
@@ -705,9 +696,9 @@ msgstr ""
 msgid "Use the following link to validate your email address:"
 msgstr ""
 
-#: web/templates/user/show.html.eex:134 web/templates/user/show.html.eex:152
-#: web/templates/user/show.html.eex:169 web/templates/user/show.html.eex:186
-#: web/templates/user/show.html.eex:203
+#: web/templates/user/show.html.eex:133 web/templates/user/show.html.eex:217
+#: web/templates/user/show.html.eex:234 web/templates/user/show.html.eex:251
+#: web/templates/user/show.html.eex:268
 msgid "View All"
 msgstr ""
 
@@ -717,4 +708,60 @@ msgstr ""
 
 #: web/templates/page/index.html.eex:17
 msgid "our blog"
+msgstr ""
+
+#: web/templates/page/index.html.eex:25
+msgid "Get started now. It only takes 30 seconds."
+msgstr ""
+
+#: web/templates/page/index.html.eex:58
+msgid "We reserve the right to stop this service or delete your account anytime without warning."
+msgstr ""
+
+#: web/templates/page/index.html.eex:53
+msgid "By signing up you agree that we set a cookie in your browser."
+msgstr ""
+
+#: web/templates/page/index.html.eex:45
+msgid "Create a private account(Email will be visible to those you follow)"
+msgstr ""
+
+#: web/templates/page/index.html.eex:45
+msgid "Create a public account (Email will be visible to everyone)"
+msgstr ""
+
+#: web/templates/page/index.html.eex:41 web/templates/session/new.html.eex:19
+msgid "Enter your email address"
+msgstr ""
+
+#: web/templates/page/index.html.eex:31
+msgid "Enter your first name"
+msgstr ""
+
+#: web/templates/page/index.html.eex:35
+msgid "Enter your last name"
+msgstr ""
+
+#: web/templates/session/new.html.eex:20
+msgid "Log in"
+msgstr ""
+
+#: web/templates/user/show.html.eex:117
+msgid "PHP, JavaScript, Tap Dancing, Origami"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:51
+msgid "About us"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:51
+msgid "Privacy Policy"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:51
+msgid "Submit a bugreport or a feature request."
+msgstr ""
+
+#: web/templates/work_experience/index.html.eex:4
+msgid "Work Experiences"
 msgstr ""

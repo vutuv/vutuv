@@ -12,21 +12,21 @@ msgstr ""
 
 #: web/templates/user/index.html.eex:35
 msgid "Are you sure?"
-msgstr ""
+msgstr "Sind Sie sicher?"
 
 #: web/templates/admin/slug/edit.html.eex:6
 #: web/templates/admin/user/edit.html.eex:6
 #: web/templates/search_term/show.html.eex:22
 msgid "Back"
-msgstr ""
+msgstr "Zurück"
 
 #: web/templates/user/form.html.eex:65 web/templates/user/index.html.eex:13
 msgid "Birthdate"
-msgstr ""
+msgstr "Geburtstag"
 
 #: web/templates/user/index.html.eex:35
 msgid "Delete"
-msgstr ""
+msgstr "Löschen"
 
 #: web/templates/address/edit.html.eex:9
 #: web/templates/phone_number/edit.html.eex:8
@@ -35,25 +35,25 @@ msgstr ""
 #: web/templates/user/index.html.eex:34
 #: web/templates/work_experience/edit.html.eex:9
 msgid "Edit"
-msgstr ""
+msgstr "Ändern"
 
 #: web/templates/admin/slug/edit.html.eex:1
 #: web/templates/admin/user/edit.html.eex:1
 msgid "Edit user"
-msgstr ""
+msgstr "Userdaten ändern"
 
 #: web/templates/user/index.html.eex:6
 msgid "First name"
-msgstr ""
+msgstr "Vorname"
 
 #: web/templates/user/form.html.eex:8 web/templates/user/index.html.eex:12
 #: web/templates/user/show.html.eex:61
 msgid "Gender"
-msgstr ""
+msgstr "Geschlecht"
 
 #: web/templates/user/index.html.eex:10
 msgid "Honorific prefix"
-msgstr ""
+msgstr "Ehrentitel"
 
 #: web/templates/user/index.html.eex:11
 msgid "Honorific suffix"
@@ -61,15 +61,15 @@ msgstr ""
 
 #: web/templates/user/index.html.eex:7
 msgid "Last name"
-msgstr ""
+msgstr "Nachname"
 
 #: web/templates/user/index.html.eex:8
 msgid "Middlename"
-msgstr ""
+msgstr "Zweiter Vorname"
 
 #: web/templates/user/form.html.eex:47 web/templates/user/index.html.eex:9
 msgid "Nickname"
-msgstr ""
+msgstr "Spitzname"
 
 #: web/templates/address/form_de.html.eex:4
 #: web/templates/address/form_en.html.eex:4
@@ -82,7 +82,7 @@ msgstr ""
 #: web/templates/url/form.html.eex:4 web/templates/user/form.html.eex:4
 #: web/templates/work_experience/form.html.eex:4
 msgid "Oops, something went wrong! Please check the errors below."
-msgstr ""
+msgstr "Ups, es gab einen Validierungsfehler! Bitte überprüfen Sie Ihre Eingaben."
 
 #: web/templates/address/show.html.eex:14
 #: web/templates/search_term/index.html.eex:21
@@ -90,7 +90,7 @@ msgstr ""
 #: web/templates/user_skill/show.html.eex:14
 #: web/templates/work_experience/show.html.eex:14
 msgid "Show"
-msgstr ""
+msgstr "Anzeigen"
 
 #: web/templates/admin/user/form.html.eex:10
 #: web/templates/email/form.html.eex:23 web/templates/group/form.html.eex:16
@@ -101,187 +101,187 @@ msgstr ""
 #: web/templates/social_media_account/form.html.eex:22
 #: web/templates/url/form.html.eex:22
 msgid "Submit"
-msgstr ""
+msgstr "Absenden"
 
 #: web/templates/user/index.html.eex:14
 msgid "Verified"
-msgstr ""
+msgstr "Verifiziert"
 
 #: web/controllers/address_controller.ex:27
 msgid "Address created successfully."
-msgstr ""
+msgstr "Eine neue Adresse wurde angelegt."
 
 #: web/controllers/address_controller.ex:74
 msgid "Address deleted successfully."
-msgstr ""
+msgstr "Eine Adresse wurde gelöscht."
 
 #: web/controllers/address_controller.ex:59
 msgid "Address updated successfully."
-msgstr ""
+msgstr "Eine Adresse wurde geändert."
 
 #: web/templates/address/card_list.html.eex:4
 #: web/templates/url/card_list.html.eex:4 web/templates/url/show.html.eex:28
 #: web/templates/user_skill/show.html.eex:26
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #: web/templates/admin/slug/form.html.eex:9
 msgid "Disable"
-msgstr ""
+msgstr "Inaktivieren"
 
 #: web/controllers/endorsement_controller.ex:23
 msgid "Endorsement successful."
-msgstr ""
+msgstr "Endorsement eingetragen."
 
 #: web/controllers/endorsement_controller.ex:27
 msgid "Endorsement unsuccessful."
-msgstr ""
+msgstr "Endorsement konnte nicht eingetragen werden."
 
 #: web/templates/group/index.html.eex:3
 msgid "Groups"
-msgstr ""
+msgstr "Gruppen"
 
 #: web/templates/admin/user/index.html.eex:7
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: web/controllers/session_controller.ex:18
 msgid "Invalid email"
-msgstr ""
+msgstr "Ungültige E-Mail Adresse"
 
 #: web/templates/url/edit.html.eex:7 web/templates/url/index.html.eex:14
 #: web/templates/url/new.html.eex:7 web/templates/url/show.html.eex:13
-#: web/templates/user/show.html.eex:177
+#: web/templates/user/show.html.eex:242
 msgid "Links"
-msgstr ""
+msgstr "Links"
 
 #: web/templates/page/index.html.eex:27 web/templates/user/form.html.eex:9
 msgid "Mr"
-msgstr ""
+msgstr "Herr"
 
 #: web/templates/page/index.html.eex:28 web/templates/user/form.html.eex:9
 msgid "Mrs"
-msgstr ""
+msgstr "Frau"
 
 #: web/templates/group/index.html.eex:8
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: web/templates/phone_number/show.html.eex:26
 msgid "Number"
-msgstr ""
+msgstr "Nummer"
 
 #: web/templates/page/index.html.eex:28 web/templates/user/form.html.eex:9
 msgid "Other"
-msgstr ""
+msgstr "Sonstiges"
 
 #: web/templates/phone_number/edit.html.eex:7
 #: web/templates/phone_number/index.html.eex:14
 #: web/templates/phone_number/new.html.eex:7
 #: web/templates/phone_number/show.html.eex:13
-#: web/templates/user/show.html.eex:160
+#: web/templates/user/show.html.eex:225
 msgid "Phone Numbers"
-msgstr ""
+msgstr "Telefonnummer"
 
 #: web/templates/address/form.html.eex:9
 msgid "Select"
-msgstr ""
+msgstr "Auswählen"
 
 #: web/controllers/user_skill_controller.ex:37
 msgid "Skill added successfully."
-msgstr ""
+msgstr "Eine neue Fähigkeit wurde erstellt."
 
 #: web/templates/user/show.html.eex:107
 #: web/templates/user_skill/index.html.eex:14
 #: web/templates/user_skill/new.html.eex:8
 #: web/templates/user_skill/show.html.eex:13
 msgid "Skills"
-msgstr ""
+msgstr "Fähigkeiten"
 
 #: web/templates/slug/index.html.eex:1
 msgid "Slug"
-msgstr ""
+msgstr "Slug"
 
 #: web/controllers/social_media_account_controller.ex:26
 msgid "Social media account created successfully."
-msgstr ""
+msgstr "Ein neuer Social Media Account wurde eingetragen."
 
 #: web/controllers/social_media_account_controller.ex:66
 msgid "Social media account deleted successfully."
-msgstr ""
+msgstr "Ein Social Media Account wurde gelöscht."
 
 #: web/controllers/social_media_account_controller.ex:51
 msgid "Social media account updated successfully."
-msgstr ""
+msgstr "Ein Social Media Account wurde geändert."
 
 #: web/templates/url/card_list.html.eex:5 web/templates/url/show.html.eex:30
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: web/controllers/endorsement_controller.ex:51
 msgid "Unendorsed skill successfully."
-msgstr ""
+msgstr "Endorsement erfolgreich."
 
 #: web/templates/admin/user/index.html.eex:6
 msgid "User"
-msgstr ""
+msgstr "Benutzer"
 
 #: web/controllers/user_skill_controller.ex:58
 msgid "UserSkill deleted successfully."
-msgstr ""
+msgstr "Eine Fähigkeit wurde gelöscht."
 
 #: web/templates/search_term/index.html.eex:9
 #: web/templates/slug/index.html.eex:6
 msgid "Value"
-msgstr ""
+msgstr "Wert"
 
 #: web/controllers/session_controller.ex:27
 msgid "Welcome back!"
-msgstr ""
+msgstr "Willkommen zurück!"
 
 #: web/controllers/work_experience_controller.ex:30
 msgid "Work experience created successfully."
-msgstr ""
+msgstr "Ein Lebenslaufeintrag wurde erstellt."
 
 #: web/controllers/work_experience_controller.ex:69
 msgid "Work experience deleted successfully."
-msgstr ""
+msgstr "Ein Lebenlaufseintrag wurde gelöscht"
 
 #: web/controllers/work_experience_controller.ex:54
 msgid "Work experience updated successfully."
-msgstr ""
+msgstr "Ein Lebenslaufeintrag wurde geändert."
 
 #: web/templates/connection/show.html.eex:1
 msgid "follows"
-msgstr ""
+msgstr "folgen"
 
 #: web/templates/address/show.html.eex:4
 msgid "About this Address"
-msgstr ""
+msgstr "Über diese Adresse"
 
 #: web/templates/email/show.html.eex:4
 msgid "About this Email"
-msgstr ""
+msgstr "Über diese E-Mail Adresse"
 
 #: web/templates/work_experience/show.html.eex:4
 msgid "About this Experience"
-msgstr ""
+msgstr "Über diesen Lebenslaufeintrag"
 
 #: web/templates/url/show.html.eex:4
 msgid "About this Link"
-msgstr ""
+msgstr "Über diesen Link"
 
 #: web/templates/phone_number/show.html.eex:4
 msgid "About this Phone Number"
-msgstr ""
+msgstr "Über diese Telefonnummer"
 
 #: web/templates/social_media_account/show.html.eex:4
 msgid "About this Social Media Profile"
-msgstr ""
+msgstr "Über diesen Social Media Account"
 
 #: web/templates/shared/_ad.html.eex:2
 msgid "Ad"
-msgstr ""
+msgstr "Anzeige"
 
 #: web/templates/address/form_de.html.eex:52
 #: web/templates/address/form_en.html.eex:58
@@ -290,25 +290,25 @@ msgstr ""
 #: web/templates/phone_number/index.html.eex:24
 #: web/templates/social_media_account/index.html.eex:24
 #: web/templates/url/index.html.eex:25 web/templates/user/show.html.eex:121
-#: web/templates/user/show.html.eex:127 web/templates/user/show.html.eex:148
-#: web/templates/user/show.html.eex:165 web/templates/user/show.html.eex:182
-#: web/templates/user/show.html.eex:199
+#: web/templates/user/show.html.eex:129 web/templates/user/show.html.eex:213
+#: web/templates/user/show.html.eex:230 web/templates/user/show.html.eex:247
+#: web/templates/user/show.html.eex:264
 #: web/templates/user_skill/form.html.eex:10
 #: web/templates/user_skill/index.html.eex:25
 #: web/templates/work_experience/form.html.eex:58
 #: web/templates/work_experience/index.html.eex:25
 msgid "Add"
-msgstr ""
+msgstr "Eintrag hinzufügen"
 
 #: web/templates/address/edit.html.eex:8 web/templates/address/index.html.eex:14
 #: web/templates/address/new.html.eex:8 web/templates/address/show.html.eex:13
-#: web/templates/user/show.html.eex:194
+#: web/templates/user/show.html.eex:259
 msgid "Addresses"
 msgstr ""
 
 #: web/controllers/session_controller.ex:14
 msgid "An email has been sent with your login link."
-msgstr ""
+msgstr "Eine E-Mail mit einem Magic Link zum Einloggen wurde verschickt."
 
 #: web/templates/address/form_de.html.eex:51
 #: web/templates/address/form_en.html.eex:57
@@ -322,69 +322,69 @@ msgstr ""
 #: web/templates/user_skill/form.html.eex:9
 #: web/templates/work_experience/form.html.eex:57
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: web/templates/user/form.html.eex:103
 msgid "Create Account"
-msgstr ""
+msgstr "Account anlegen"
 
 #: web/templates/user/show.html.eex:86
 msgid "Download"
-msgstr ""
+msgstr "Download"
 
 #: web/templates/email/card_list.html.eex:4 web/templates/email/show.html.eex:24
 #: web/templates/user/show.html.eex:81
 msgid "Email"
-msgstr ""
+msgstr "E-Mail Adresse"
 
 #: web/templates/email/edit.html.eex:7 web/templates/email/index.html.eex:14
 #: web/templates/email/new.html.eex:7 web/templates/email/show.html.eex:13
 #: web/templates/user/show.html.eex:81
 msgid "Emails"
-msgstr ""
+msgstr "E-Mail Adressen"
 
 #: web/templates/email/index.html.eex:4
 msgid "Emails belonging to "
-msgstr ""
+msgstr "E-Mail Adresse von "
 
-#: web/templates/user/show.html.eex:143
+#: web/templates/user/show.html.eex:208
 #: web/templates/work_experience/edit.html.eex:8
 #: web/templates/work_experience/index.html.eex:14
 #: web/templates/work_experience/new.html.eex:8
 #: web/templates/work_experience/show.html.eex:13
 msgid "Experience"
-msgstr ""
+msgstr "Lebenslauf"
 
 #: web/templates/work_experience/show.html.eex:27
 msgid "Job Title"
-msgstr ""
+msgstr "Stellenbezeichnung"
 
 #: web/templates/url/index.html.eex:4
 msgid "Links belonging to "
-msgstr ""
+msgstr "Links von "
 
 #: web/templates/search_term/index.html.eex:3
 msgid "Listing search terms"
-msgstr ""
+msgstr "Liste der Suchbegriffe"
 
 #: web/templates/skill/index.html.eex:3
 msgid "Listing skills"
-msgstr ""
+msgstr "Liste der Fähigkeiten"
 
-#: web/templates/layout/app.html.eex:38
+#: web/templates/layout/app.html.eex:35
 msgid "Log In"
-msgstr ""
+msgstr "Einloggen"
 
-#: web/templates/layout/app.html.eex:34
+#: web/templates/layout/app.html.eex:31
 msgid "Log Out"
-msgstr ""
+msgstr "Ausloggen"
 
 #: web/templates/email/show.html.eex:14
 #: web/templates/phone_number/show.html.eex:14
 #: web/templates/social_media_account/show.html.eex:14
 #: web/templates/url/show.html.eex:14
 msgid "More Info"
-msgstr ""
+msgstr "Mehr Informationen"
 
 #: web/templates/address/new.html.eex:9 web/templates/email/edit.html.eex:8
 #: web/templates/email/new.html.eex:8 web/templates/phone_number/new.html.eex:8
@@ -393,110 +393,110 @@ msgstr ""
 #: web/templates/user_skill/new.html.eex:9
 #: web/templates/work_experience/new.html.eex:9
 msgid "New"
-msgstr ""
+msgstr "Neu"
 
 #: web/templates/user_skill/show.html.eex:28
 msgid "Nothing to see here!"
-msgstr ""
+msgstr "Hier gibt es nichts zu sehen!"
 
 #: web/templates/phone_number/show.html.eex:24
 msgid "Number Type"
-msgstr ""
+msgstr "Typ"
 
 #: web/templates/work_experience/show.html.eex:29
 msgid "Organization"
-msgstr ""
+msgstr "Organisation"
 
 #: web/templates/phone_number/index.html.eex:4
 msgid "Phone Numbers Belonging to "
-msgstr ""
+msgstr "Telefonnummern von "
 
 #: web/templates/email/card_list.html.eex:15
 #: web/templates/email/show.html.eex:27
 msgid "Private"
-msgstr ""
+msgstr "Privat"
 
 #: web/templates/social_media_account/index.html.eex:4
 msgid "Profiles belonging to "
-msgstr ""
+msgstr "Profile von "
 
 #: web/templates/social_media_account/show.html.eex:24
 msgid "Provider"
-msgstr ""
+msgstr "Provider"
 
 #: web/templates/email/card_list.html.eex:15
 #: web/templates/email/show.html.eex:27
 msgid "Public"
-msgstr ""
+msgstr "Öffentlich"
 
 #: web/templates/search_query/index.html.eex:7
 msgid "Requesters"
-msgstr ""
+msgstr "Anforderer"
 
 #: web/templates/search_query/index.html.eex:8
 #: web/templates/search_query/show.html.eex:3
 msgid "Results"
-msgstr ""
+msgstr "Ergebnisse"
 
 #: web/templates/user/form.html.eex:103
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #: web/templates/search_term/index.html.eex:10
 msgid "Score"
-msgstr ""
+msgstr "Score"
 
-#: web/templates/layout/app.html.eex:44
+#: web/templates/layout/app.html.eex:41
 msgid "Search"
-msgstr ""
+msgstr "Suche"
 
 #: web/templates/search_query/index.html.eex:1
 msgid "Search History"
-msgstr ""
+msgstr "Suchhistory"
 
 #: web/templates/search_query/index.html.eex:6
 msgid "Search Term"
-msgstr ""
+msgstr "Suchbegriff"
 
 #: web/controllers/search_query_controller.ex:57
 #: web/controllers/search_query_controller.ex:61
 msgid "Search query executed successfully."
-msgstr ""
+msgstr "Suche erfolgreich ausgeführt."
 
 #: web/templates/search_term/show.html.eex:3
 msgid "Show search term"
-msgstr ""
+msgstr "Suchbegriff anzeigen"
 
-#: web/templates/page/index.html.eex:54
+#: web/templates/page/index.html.eex:55
 msgid "Sign up"
-msgstr ""
+msgstr "Account erstellen"
 
 #: web/templates/social_media_account/new.html.eex:7
 msgid "Social Media Accounts"
-msgstr ""
+msgstr "Social Media Accounts"
 
 #: web/templates/social_media_account/edit.html.eex:7
 #: web/templates/social_media_account/index.html.eex:14
 #: web/templates/social_media_account/show.html.eex:13
 msgid "Social Media Profiles"
-msgstr ""
+msgstr "Social Media Profile"
 
 #: web/controllers/page_controller.ex:34 web/controllers/user_controller.ex:43
 msgid "There was an error"
-msgstr ""
+msgstr "Es gab einen Fehler"
 
 #: web/templates/user_skill/show.html.eex:29
 msgid "This skill doesnt have a description yet. We will be adding the ability to submit descriptions soon."
-msgstr ""
+msgstr "Diese Fähigkeit hat noch keine Beschreibung."
 
 #: web/templates/work_experience/show.html.eex:31
 msgid "Time Period"
-msgstr ""
+msgstr "Zeitraum"
 
 #: web/templates/social_media_account/card_list.html.eex:5
 #: web/templates/social_media_account/show.html.eex:26
 msgid "Username"
-msgstr ""
+msgstr "Name des Accounts"
 
 #: web/templates/address/edit.html.eex:6 web/templates/address/index.html.eex:12
 #: web/templates/address/new.html.eex:6 web/templates/address/show.html.eex:11
@@ -522,91 +522,91 @@ msgstr ""
 #: web/templates/work_experience/new.html.eex:6
 #: web/templates/work_experience/show.html.eex:11
 msgid "Users"
-msgstr ""
+msgstr "Benutzer"
 
 #: web/templates/email/card_list.html.eex:5 web/templates/email/show.html.eex:26
 msgid "Visibility"
-msgstr ""
+msgstr "Sichtbarkeit"
 
 #: web/templates/user/show.html.eex:65
 msgid "Birthday"
-msgstr ""
+msgstr "Geburtstag"
 
 #: web/templates/user/show.html.eex:79
 msgid "Contact"
-msgstr ""
+msgstr "Kontakt"
 
-#: web/templates/user/show.html.eex:211
+#: web/templates/user/show.html.eex:141
 msgid "Followers"
-msgstr ""
+msgstr "Followers"
 
-#: web/templates/user/show.html.eex:244
+#: web/templates/user/show.html.eex:174
 msgid "Following"
 msgstr ""
 
 #: web/templates/user/show.html.eex:57
 msgid "Headline"
-msgstr ""
+msgstr "Überschrift"
 
 #: web/templates/user/show.html.eex:95
 msgid "Social Media"
-msgstr ""
+msgstr "Social Media"
 
 #: web/templates/user/show.html.eex:85
 msgid "Vcard"
-msgstr ""
+msgstr "Vcard"
 
-#: web/templates/user/show.html.eex:236
+#: web/templates/user/show.html.eex:166
 msgid "No Followers yet!"
-msgstr ""
+msgstr "Noch keine Followers!"
 
-#: web/templates/user/show.html.eex:269
+#: web/templates/user/show.html.eex:199
 msgid "Not following anyone yet!"
-msgstr ""
+msgstr "Es wird noch keiner anderen Person ge-followered."
 
 #: web/templates/user/show.html.eex:24
 msgid "followers"
-msgstr ""
+msgstr "Followers"
 
-#: web/templates/user/show.html.eex:239 web/templates/user/show.html.eex:272
+#: web/templates/user/show.html.eex:169 web/templates/user/show.html.eex:202
 msgid "More"
-msgstr ""
+msgstr "Mehr"
 
 #: web/templates/user/form.html.eex:93
 msgid "Avater"
-msgstr ""
+msgstr "Avatar"
 
 #: web/templates/user/form.html.eex:27
 msgid "Email Address"
-msgstr ""
+msgstr "E-Mail Adresse"
 
 #: web/templates/user/form.html.eex:80
 msgid "English"
-msgstr ""
+msgstr "Englisch"
 
 #: web/templates/user/form.html.eex:14
 msgid "First Name"
-msgstr ""
+msgstr "Vorname"
 
 #: web/templates/user/form.html.eex:80
 msgid "German"
-msgstr ""
+msgstr "Deutsch"
 
 #: web/templates/user/form.html.eex:79
 msgid "Language"
-msgstr ""
+msgstr "Sprache"
 
 #: web/templates/user/form.html.eex:20
 msgid "Last Name"
-msgstr ""
+msgstr "Nachname"
 
 #: web/templates/user/form.html.eex:41
 msgid "Middle Name"
-msgstr ""
+msgstr "Zweiter Vorname"
 
 #: web/templates/user/form.html.eex:87
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
 #: web/templates/user/form.html.eex:53
 msgid "Prefix"
@@ -618,31 +618,31 @@ msgstr ""
 
 #: web/templates/user/form.html.eex:86
 msgid "Would you like to allow search engines to index your profile?"
-msgstr ""
+msgstr "Möchten Sie Suchmaschinen erlauben Ihr Profil zu durchsuchen?"
 
 #: web/templates/user/form.html.eex:87
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: web/templates/user/form.html.eex:73
 msgid "headline"
-msgstr ""
+msgstr "Überschrift"
 
 #: web/templates/address/card_list.html.eex:5
 msgid "Address"
-msgstr ""
+msgstr "Adresse"
 
 #: web/templates/phone_number/card_list.html.eex:4
 msgid "Number type"
-msgstr ""
+msgstr "Typ"
 
 #: web/templates/phone_number/card_list.html.eex:5
 msgid "Phone number"
-msgstr ""
+msgstr "Telefonnummer"
 
 #: web/templates/social_media_account/card_list.html.eex:4
 msgid "Profile Provider"
-msgstr ""
+msgstr "Provider"
 
 #: web/templates/user_skill/card_list.html.eex:8
 msgid "upvote"
@@ -654,67 +654,114 @@ msgstr ""
 
 #: web/templates/page/index.html.eex:50
 msgid "Allow search engines to index my profile"
-msgstr ""
+msgstr "Suchmaschinen erlauben mein Profil zu durchsuchen"
 
-#: web/templates/page/index.html.eex:56
+#: web/templates/page/index.html.eex:57
 msgid "Already a member? Sign in here."
-msgstr ""
+msgstr "Schon ein Mitglied? Einloggen."
 
 #: web/templates/user/show.html.eex:116
 msgid "Enter comma seperated skills here"
-msgstr ""
+msgstr "Bitte mit Komma separieren."
 
 #: web/templates/email/email_creation_email.html.eex:2
-#: web/templates/email/login_email.html.eex:2
 msgid "Hello"
-msgstr ""
+msgstr "Hallo"
 
 #: web/templates/user/form.html.eex:33
 msgid "Is this email public or private?"
-msgstr ""
-
-#: web/templates/page/index.html.eex:57
-msgid "Legal mumbo-jumbo: We reserve the right to stop this service or delete your account anytime without warning."
-msgstr ""
-
-#: web/templates/email/login_email.html.eex:3
-msgid "Login with the following link:"
-msgstr ""
+msgstr "Ist diese E-Mail Adresse privat oder öffentlich?"
 
 #: web/templates/page/index.html.eex:17
 msgid "No expensive premium accounts! Read more about it in"
-msgstr ""
+msgstr "Keine teuren Premium Accounts. Lesen Sie mehr im"
 
 #: web/templates/page/index.html.eex:50
 msgid "Prevent search engines from indexing my profile"
-msgstr ""
+msgstr "Verbieten Sie Suchmaschinen Ihr Profil zu indexieren."
 
 #: web/templates/email/form.html.eex:16
 msgid "Public (Everyone can view) or Private (Only those you follow can view)"
-msgstr ""
+msgstr "Public (jeder kann sie sehen) oder Privat (Nur Personen, denen Sie folgen können sie sehen)"
 
 #: web/templates/search_query/form.html.eex:7
 msgid "Search here"
-msgstr ""
+msgstr "Suche"
 
 #: web/templates/page/index.html.eex:16
 msgid "The Fast and Free Career Network"
-msgstr ""
+msgstr "Ihr Kontaktnetzwerk. Schnell und gratis!"
 
 #: web/templates/email/email_creation_email.html.eex:3
 msgid "Use the following link to validate your email address:"
-msgstr ""
+msgstr "Validieren Sie Ihre E-Mail Adresse mit dem folgenden Link:"
 
-#: web/templates/user/show.html.eex:134 web/templates/user/show.html.eex:152
-#: web/templates/user/show.html.eex:169 web/templates/user/show.html.eex:186
-#: web/templates/user/show.html.eex:203
+#: web/templates/user/show.html.eex:133 web/templates/user/show.html.eex:217
+#: web/templates/user/show.html.eex:234 web/templates/user/show.html.eex:251
+#: web/templates/user/show.html.eex:268
 msgid "View All"
-msgstr ""
+msgstr "Alles anzeigen"
 
 #: web/templates/user/show.html.eex:24
 msgid "has"
-msgstr ""
+msgstr "hat"
 
 #: web/templates/page/index.html.eex:17
 msgid "our blog"
+msgstr "unserem Blog"
+
+#: web/templates/page/index.html.eex:25
+msgid "Get started now. It only takes 30 seconds."
+msgstr "Ihr neuer Account ist in 30 Sekunden fertig."
+
+#: web/templates/page/index.html.eex:58
+msgid "We reserve the right to stop this service or delete your account anytime without warning."
+msgstr "Wir behalten uns das Recht vor Accounts ohne Warnung zu löschen oder den Dienst einzustellen."
+
+#: web/templates/page/index.html.eex:53
+msgid "By signing up you agree that we set a cookie in your browser."
+msgstr "Achtung: Ab hier benutzen wir Cookies."
+
+#: web/templates/page/index.html.eex:45
+msgid "Create a private account(Email will be visible to those you follow)"
+msgstr "Privat E-Mail Adresse die nur von Personen, denen Sie folgen gesehen werden kann."
+
+#: web/templates/page/index.html.eex:45
+msgid "Create a public account (Email will be visible to everyone)"
+msgstr "Öffentliche E-Mail Adresse die von allen gesehen werden kann."
+
+#: web/templates/page/index.html.eex:41 web/templates/session/new.html.eex:19
+msgid "Enter your email address"
+msgstr "E-Mail Adresse eingeben"
+
+#: web/templates/page/index.html.eex:31
+msgid "Enter your first name"
+msgstr "Vorname eingeben"
+
+#: web/templates/page/index.html.eex:35
+msgid "Enter your last name"
+msgstr "Nachname eingeben"
+
+#: web/templates/session/new.html.eex:20
+msgid "Log in"
 msgstr ""
+
+#: web/templates/user/show.html.eex:117
+msgid "PHP, JavaScript, Tap Dancing, Origami"
+msgstr "PHP, JavaScript, Stepptanz, Origami"
+
+#: web/templates/layout/app.html.eex:51
+msgid "About us"
+msgstr "Impressum"
+
+#: web/templates/layout/app.html.eex:51
+msgid "Privacy Policy"
+msgstr "Datenschutzerklärung"
+
+#: web/templates/layout/app.html.eex:51
+msgid "Submit a bugreport or a feature request."
+msgstr "Fehler auf der Seite melden."
+
+#: web/templates/work_experience/index.html.eex:4
+msgid "Work Experiences"
+msgstr "Lebenslauf"

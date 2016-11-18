@@ -22,27 +22,27 @@
           <p><%= gettext "Oops, something went wrong! Please check the errors below." %></p>
         </div>
       <% end %>
-      <h2>Get started now. It only takes 30 seconds.</h2>
+      <h2><%= gettext "Get started now. It only takes 30 seconds." %></h2>
       <p>
       <%= select f, :first_name, [{gettext("Mr"), "male"},
         {gettext("Mrs"), "female"}, {gettext("Other"), "other"}], class: "imagebox__input" %>
       </p>
       <p>
-      <%= text_input f, :first_name, class: "imagebox__input", placeholder: "Enter your first name", autofocus: true %>
+      <%= text_input f, :first_name, class: "imagebox__input", placeholder: gettext "Enter your first name", autofocus: true %>
       <%= error_tag f, :first_name %>
       </p>
       <p>
-      <%= text_input f, :last_name, class: "imagebox__input", placeholder: "Enter your last name" %>
+      <%= text_input f, :last_name, class: "imagebox__input", placeholder: gettext "Enter your last name" %>
       <%= error_tag f, :last_name %>
       </p>
-      
+
       <%= inputs_for f, :emails, fn ef -> %>
       <p>
-        <%= text_input ef, :value, class: "imagebox__input", placeholder: "Enter your email address" %>
+        <%= text_input ef, :value, class: "imagebox__input", placeholder: gettext "Enter your email address" %>
         <%= error_tag ef, :value %>
       </p>
       <p>
-        <%= select ef, :public?, ["Create a public account (Email will be visible to everyone)": true, "Create a private account(Email will be visible to those you follow)": false] %>
+        <%= select f, :noindex?, [{gettext("Create a public account (Email will be visible to everyone)"), false}, {gettext("Create a private account(Email will be visible to those you follow)"), true}] %>
         <%= error_tag ef, :public? %>
       </p>
       <% end %>
@@ -50,9 +50,7 @@
       <%= select f, :noindex?, [{gettext("Prevent search engines from indexing my profile"), false}, {gettext("Allow search engines to index my profile"), true}] %>
       <%= error_tag f, :noindex? %>
       </p>
-      <p>
-        By signing up you agree that we set a cookie in your browser.
-      </p>
+      <p><%= gettext "By signing up you agree that we set a cookie in your browser." %></p>
       <p>
       <%= submit gettext("Sign up"), class: "imagebox__input" %>
       </p>

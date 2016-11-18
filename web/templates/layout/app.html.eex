@@ -48,7 +48,7 @@
   <footer>
     <p>
       Copyright © 2016 <a href="https://www.amooma.de">AMOOMA</a> | MIT licensed |
-      <a href="https://github.com/vutuv/vutuv/issues/new">Submit a bugreport or a feature request.</a> | <a href="#">Privacy</a>
+      <a href="https://github.com/vutuv/vutuv/issues/new"><%= gettext "Submit a bugreport or a feature request." %></a> | <a href="/privacy-policy.html"><%= gettext "Privacy Policy" %></a> | <a href="/impressum.html"><%= gettext "About us" %></a>
     </p>
   </footer>
 </body>
