@@ -493,7 +493,7 @@ msgstr "Keine teuren Premium Accounts. Lesen Sie mehr im"
 
 #: web/templates/user/show.html.eex:177
 msgid "Not following anyone yet!"
-msgstr "Es wird noch keiner anderen Person ge-followered."
+msgstr "Keine"
 
 #: web/templates/user_skill/show.html.eex:28
 msgid "Nothing to see here!"
