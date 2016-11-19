@@ -87,26 +87,29 @@
         <dd><%= link gettext("Download"), to: api_user_v_card_path(@conn, :get, @user) %></dd>
       </dl>
     </section>
-    <section class="card">
-      <%= if same_user?(@user, @current_user) do %>
-      <%= link to: user_social_media_account_path(@conn, :index, @user), class: "card__edit button button--icon button--small" do %>
-        <i class="icon icon--edit"></i>
-      <% end %>
-      <% end %>
-      <h1><%= gettext "Social Media" %></h1>
-      <dl>
-        <%= for account <- @user.social_media_accounts do %>
-        <dt><%= account.provider %></dt>
-        <dd><%= link "@#{account.value}", to: Vutuv.SocialMediaAccount.get_full_url(account) %></dd>
-        <% end %>
-      </dl>
 
-      <span class="card__morelink">
+    <%= if Enum.count(@user.social_media_accounts) > 0 or same_user?(@user, @current_user) do %>
+      <section class="card">
         <%= if same_user?(@user, @current_user) do %>
-          <%= link gettext("Add"), to: user_social_media_account_path(@conn, :new, @current_user) %>
+        <%= link to: user_social_media_account_path(@conn, :index, @user), class: "card__edit button button--icon button--small" do %>
+          <i class="icon icon--edit"></i>
         <% end %>
-      </span>
-    </section>
+        <% end %>
+        <h1><%= gettext "Social Media" %></h1>
+        <dl>
+          <%= for account <- @user.social_media_accounts do %>
+          <dt><%= account.provider %></dt>
+          <dd><%= link "@#{account.value}", to: Vutuv.SocialMediaAccount.get_full_url(account) %></dd>
+          <% end %>
+        </dl>
+
+        <span class="card__morelink">
+          <%= if same_user?(@user, @current_user) do %>
+            <%= link gettext("Add"), to: user_social_media_account_path(@conn, :new, @current_user) %>
+          <% end %>
+        </span>
+      </section>
+    <% end %>
   </aside>
 
   <%= if Enum.count(@user_skills) > 0 or same_user?(@user, @current_user) do %>
