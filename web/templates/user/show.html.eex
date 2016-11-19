@@ -100,6 +100,12 @@
         <dd><%= link "@#{account.value}", to: Vutuv.SocialMediaAccount.get_full_url(account) %></dd>
         <% end %>
       </dl>
+
+      <span class="card__morelink">
+        <%= if same_user?(@user, @current_user) do %>
+          <%= link gettext("Add"), to: user_social_media_account_path(@conn, :new, @current_user) %>
+        <% end %>
+      </span>
     </section>
   </aside>
 
