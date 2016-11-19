@@ -27,7 +27,7 @@ defmodule Vutuv.PhoneNumberController do
     case Repo.insert(changeset) do
       {:ok, _phone_number} ->
         conn
-        |> put_flash(:info, "Phone number created successfully.")
+        |> put_flash(:info, gettext("Phone number created successfully."))
         |> redirect(to: user_phone_number_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -51,7 +51,7 @@ defmodule Vutuv.PhoneNumberController do
     case Repo.update(changeset) do
       {:ok, phone_number} ->
         conn
-        |> put_flash(:info, "Phone number updated successfully.")
+        |> put_flash(:info, gettext("Phone number updated successfully."))
         |> redirect(to: user_phone_number_path(conn, :show, conn.assigns[:user], phone_number))
       {:error, changeset} ->
         render(conn, "edit.html", phone_number: phone_number, changeset: changeset)
@@ -64,7 +64,7 @@ defmodule Vutuv.PhoneNumberController do
     # it to always work (and if it does not, it will raise).
     Repo.delete!(phone_number)
     conn
-    |> put_flash(:info, "Phone number deleted successfully.")
+    |> put_flash(:info, gettext("Phone number deleted successfully."))
     |> redirect(to: user_phone_number_path(conn, :index, conn.assigns[:user]))
   end
 end

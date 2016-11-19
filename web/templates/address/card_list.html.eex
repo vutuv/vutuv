@@ -18,7 +18,7 @@
       <%= link to: user_address_path(@conn, :edit, @user, address), class: "button button--icon button--small" do %>
       <i class="icon icon--edit"></i>
       <% end %>
-      <%= link to: user_address_path(@conn, :delete, @user, address), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"], data: [confirm: "Are you sure?"] do %>
+      <%= button to: user_address_path(@conn, :delete, @user, address), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
       <i class="icon icon--delete"></i>
       <% end %>
       <% end %> 

@@ -28,7 +28,7 @@ defmodule Vutuv.MembershipController do
     case Repo.insert(changeset) do
       {:ok, _membership} ->
         conn
-        |> put_flash(:info, "Membership created successfully.")
+        |> put_flash(:info, gettext("Membership created successfully."))
         |> redirect(to: connection_membership_path(conn, :index, conn.assigns[:connection]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -48,7 +48,7 @@ defmodule Vutuv.MembershipController do
     Repo.delete!(membership)
 
     conn
-    |> put_flash(:info, "Membership deleted successfully.")
+    |> put_flash(:info, gettext("Membership deleted successfully."))
     |> redirect(to: connection_membership_path(conn, :index, conn.assigns[:connection]))
   end
 
@@ -66,7 +66,7 @@ defmodule Vutuv.MembershipController do
 
   defp invalid_connection(conn) do
     conn
-    |> put_flash(:error, "Invalid connection!")
+    |> put_flash(:error, gettext("Invalid connection!"))
     |> redirect(to: page_path(conn, :index))
     |> halt
   end

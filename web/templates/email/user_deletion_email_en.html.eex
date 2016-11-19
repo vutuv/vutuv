@@ -1,0 +1,5 @@
+<html lang="en">
+<h1><%= gettext "Hello" %> <%= full_name(@user)%></h1>
+<b><%= gettext "Use the following link to delete your account:" %><b>
+<p><a href = "<%= @url %>magic/delete/<%=@link%>"><%= @url %>magic/delete/<%=@link%></a></p>
+</html>

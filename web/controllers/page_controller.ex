@@ -27,7 +27,7 @@ defmodule Vutuv.PageController do
         case Vutuv.Auth.login_by_email(conn, email) do
           {:ok, conn} ->
             conn
-            |> put_flash(:info, "User #{full_name(user)} created successfully. An email has been sent with your login link.")
+            |> put_flash(:info, Vutuv.Gettext.gettext("User %{name} created successfully. An email has been sent with your login link.", name: full_name(user)))
             |> render("new_registration.html", body_class: "stretch")
           {:error, _reason, conn} ->
             conn

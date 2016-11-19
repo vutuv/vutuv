@@ -23,6 +23,11 @@ defmodule Vutuv.Router do
   pipeline :api do
     plug :accepts, ["json-api"]
     plug Plug.PutAPIHeaders
+    plug Plug.Locale
+  end
+
+  pipeline :render_404 do
+    plug Plug.All404
   end
 
   scope "/", Vutuv do
@@ -62,6 +67,7 @@ defmodule Vutuv.Router do
     end
 
     post "/users/:slug/skills_create", UserController, :skills_create
+    post "/users/:slug/headline_update", UserController, :headline_update
 
     resources "/sessions", SessionController, only: [:new, :create, :delete]
     get "/magic/login/:magiclink", SessionController, :show
@@ -79,10 +85,14 @@ defmodule Vutuv.Router do
 
   scope "/api/1.0/", as: :api do
     pipe_through :api
-    resources "/skills", Vutuv.Api.SkillController, only: [:index, :show]
+
     resources "/users", Vutuv.Api.UserController, param: "slug" do
+
       pipe_through :user_pipe
+      get "/vcard", Vutuv.Api.VCardController, :get
+
       resources "/emails", Vutuv.Api.EmailController, only: [:index, :show]
+      pipe_through :render_404
       resources "/slugs", Vutuv.Api.SlugController, only: [:index, :show]
 
       resources "/groups", Vutuv.Api.GroupController, only: [:index, :show]
@@ -98,7 +108,10 @@ defmodule Vutuv.Router do
       resources "/addresses", Vutuv.Api.AddressController, only: [:index, :show]
       resources "/search_terms", Vutuv.Api.SearchTermController, only: [:index, :show]
 
-      get "/vcard", Vutuv.Api.VCardController, :get
     end
+
+    pipe_through :render_404
+    resources "/skills", Vutuv.Api.SkillController, only: [:index, :show]
+
   end
 end

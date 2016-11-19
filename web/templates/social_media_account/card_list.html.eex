@@ -18,7 +18,7 @@
       <%= link to: user_social_media_account_path(@conn, :edit, @user, account), class: "button button--icon button--small" do %>
       <i class="icon icon--edit"></i>
       <% end %>
-      <%= link to: user_social_media_account_path(@conn, :delete, @user, account), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
+      <%= button to: user_social_media_account_path(@conn, :delete, @user, account), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
       <i class="icon icon--delete"></i>
       <% end %>
       <% end %>

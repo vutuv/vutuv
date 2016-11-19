@@ -1,30 +1,25 @@
-<h2>Followers</h2>
+</header>
 
-<table class="pure-table pure-table-horizontal">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Inserted At</th>
-      <th>Follower</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for connection <- @user.follower_connections do %>
-    <tr>
-      <td>
-        <%= if gravatar_url(connection.follower) do %>
-          <img src="<%= gravatar_url(connection.follower) %>"  class="img-responsive img-rounded" height = 25 width = 25 alt="Avatar <%= full_name(connection.follower) %>" />
-        <% end %>
-      </td>
-      <td>
-        <%= time_ago_in_words connection.inserted_at %> ago
-      </td>
-      <td><%= full_name(connection.follower) %></td>
+<div class="breadcrumbs">
+  <%= gen_breadcrumbs([
+    gettext("Users"),
+    {full_name(@user), user_path(@conn, :show, @user)},
+    gettext("Followers")]) %>
+</div>
 
-      <td class="text-right">
-        <%= link "Show", to: connection_path(@conn, :show, connection), class: "btn btn-default btn-xs" %>      </td>
-    </tr>
+<div class="search-results card-list">
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
+<%= if @user.follower_connections do %>
+  <section class="card">
+    <h1><%= gettext "Followers" %></h1>
+    
+    <%= render Vutuv.UserView, "card_list.html", conn: @conn, users: @user.followers, current_user: @current_user, current_user_id: @current_user_id %>
+
+    <%= if(Enum.count(@user.followers) == 0) do %>
+      <p style="text-align:center"><%= gettext "You don't have any followers yet! If you want more followers, you could follow others, invite your friends, or link your Vutuv profile on other social media websites." %></p>
+    <% end %>
+  </section>
 <% end %>
-  </tbody>
-</table>
+</div>

@@ -1,8 +1,8 @@
 defmodule Vutuv.UserController do
   use Vutuv.Web, :controller
-  plug :resolve_slug when action in [:edit, :update, :index, :show, :skills_create]
-  plug :logged_in? when action in [:index, :show]
-  plug :auth when action in [:edit, :update, :skills_create, :skills_create]
+  plug :resolve_slug when action in [:edit, :update, :index, :show, :skills_create, :headline_update]
+  plug :logged_in? when action in [:index]
+  plug :auth when action in [:edit, :update, :skills_create, :skills_create, :headline_update]
   plug Vutuv.Plug.RequireUserLoggedOut when action in [:new, :create]
   import Vutuv.UserHelpers
   use Arc.Ecto.Schema
@@ -36,7 +36,7 @@ defmodule Vutuv.UserController do
         case Vutuv.Auth.login_by_email(conn, email) do
           {:ok, conn} ->
             conn
-            |> put_flash(:info, "User #{full_name(user)} created successfully. An email has been sent with your login link.")
+            |> put_flash(:info, Vutuv.Gettext.gettext("User %{name} created successfully. An email has been sent with your login link.", name: full_name(user)))
             |> redirect(to: page_path(conn, :new_registration))
           {:error, _reason, conn} ->
             conn
@@ -84,6 +84,8 @@ defmodule Vutuv.UserController do
       Repo.get!(User, conn.assigns[:user_id])
       |> Repo.preload([
         :social_media_accounts,
+        :followees,
+        :followers,
         user_skills: from(u in Vutuv.UserSkill, preload: [:endorsements]),
         followee_connections: {Connection.latest(3), [:followee]},
         follower_connections: {Connection.latest(3), [:follower]},
@@ -141,7 +143,7 @@ defmodule Vutuv.UserController do
     |> case do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "User updated successfully.")
+        |> put_flash(:info, gettext("User updated successfully."))
         |> redirect(to: user_path(conn, :show, user))
       {:error, changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)
@@ -164,7 +166,7 @@ defmodule Vutuv.UserController do
     case Repo.insert(slug_changeset) do
       {:ok, _slug} ->
         conn
-        |> put_flash(:info, "Slug updated successfully.")
+        |> put_flash(:info, gettext("Slug updated successfully."))
         |> redirect(to: user_path(conn, :show, user))
       {:error, _changeset} ->
         changeset = User.changeset(user)
@@ -181,7 +183,7 @@ defmodule Vutuv.UserController do
 
         conn
         |> Vutuv.Auth.logout
-        |> put_flash(:info, "User deleted successfully.")
+        |> put_flash(:info, gettext("User deleted successfully."))
         |> redirect(to: page_path(conn, :index))
       {:error, reason} ->
         conn
@@ -191,10 +193,11 @@ defmodule Vutuv.UserController do
   end
 
   def delete(conn, _params) do
-    link = Vutuv.MagicLinkHelpers.gen_magic_link(conn.assigns[:current_user], "delete")
-    url = Application.get_env(:vutuv, Vutuv.Endpoint)[:public_url]
+    Vutuv.MagicLinkHelpers.gen_magic_link(conn.assigns[:current_user], "delete")
+    |> Vutuv.Emailer.user_deletion_email(email(conn.assigns[:current_user]), conn.assigns[:current_user])
+    |> Vutuv.Mailer.deliver_now
     conn
-    |> put_flash(:info, url<>link)
+    |> put_flash(:info, gettext("An email has been sent with a link to delete your account. If you did not mean to click the delete button, just delete the email."))
     |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
   end
 
@@ -233,8 +236,26 @@ defmodule Vutuv.UserController do
         end
       end)
     conn
-    |> put_flash(:info, "Successfully added #{Enum.count(skill_list)-failures} skills with #{failures} failures.")
+    |> put_flash(:info, Vutuv.Gettext.gettext("Successfully added %{successes} skills with %{failures} failures.", successes: Enum.count(skill_list)-failures, failures: failures))
     |> redirect(to: user_path(conn, :show, user)) 
+  end
+
+  def headline_update(conn, %{"headline" => params}) do
+    user = Repo.get!(User, conn.assigns[:user_id])
+    changeset = 
+      user
+      |> Ecto.Changeset.cast(params,[:headline])
+      |> Ecto.Changeset.validate_length(:headline, max: 255)
+    case Repo.update(changeset) do
+      {:ok, result} ->
+        conn
+        |> put_flash(:info, gettext("Successfully set a headline"))
+        |> redirect(to: user_path(conn, :show, result))
+      {:error, _changeset} ->
+        conn
+        |> put_flash(:error, gettext("Something went wrong"))
+        |> redirect(to: user_path(conn, :show, user))
+    end
   end
 
   def follow_back(conn, %{"id" => id}) do
@@ -249,11 +270,11 @@ defmodule Vutuv.UserController do
     case Repo.insert(changeset) do
       {:ok, _connection} ->
         conn
-        |> put_flash(:info, "You follow back #{full_name(user)}.")
+        |> put_flash(:info, Vutuv.Gettext.gettext("You follow back %{name}.", name: full_name(user)))
         |> redirect(to: user_path(conn, :show, conn.assigns.current_user))
       {:error, _changeset} ->
         conn
-        |> put_flash(:error, "Couldn't follow back to #{full_name(user)}.")
+        |> put_flash(:error, Vutuv.Gettext.gettext("Couldn't follow back to %{name}.", name: full_name(user)))
         |> redirect(to: user_path(conn, :show, conn.assigns.current_user))
     end
   end
@@ -288,7 +309,7 @@ defmodule Vutuv.UserController do
       conn
     else
       conn
-      |> put_flash(:error, "You must be logged in to access that page")
+      |> put_flash(:error, gettext("You must be logged in to access that page"))
       |> redirect(to: page_path(conn, :index))
       |> halt()
     end

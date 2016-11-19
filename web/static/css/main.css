@@ -274,7 +274,8 @@ textarea {
 
 textarea {
   padding: 10px;
-  min-height: 100px; }
+  min-height: 100px;
+  resize: vertical; }
 
 [type="text"],
 [type="tel"],
@@ -332,7 +333,7 @@ select {
     margin: 0;
     padding: 16px;
     text-align: center;
-    animation: messageHide 0.3s ease-in 3s forwards; }
+    animation: messageHide 0.3s ease-in 6s forwards; }
 
 .message--success {
   background-color: #5FD790; }
@@ -745,10 +746,13 @@ aside {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 19px; }
-  .imagebox p, .imagebox a {
+  .imagebox p, .imagebox a, .imagebox dd, .imagebox dt, .imagebox dl {
     font-size: 14px; }
   .imagebox h2, .imagebox p {
     color: #444; }
+  .imagebox input[type="checkbox"] {
+    margin-bottom: 5px;
+  }
 
 .imagebox__card {
   max-width: 600px;
@@ -763,6 +767,7 @@ aside {
   border-top: 1px solid #eee;
   margin-top: 20px;
   padding-top: 20px; }
+
 
 .imagebox__input[type="submit"] {
   background-color: #4A90E2;

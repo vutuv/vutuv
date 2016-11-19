@@ -12,7 +12,7 @@ defmodule Vutuv.Admin.SlugController do
     case Repo.one(from s in Slug, where: s.value==^value) do
       nil ->
         conn
-        |> put_flash(:error, "Slug doesn't exist.")
+        |> put_flash(:error, gettext("Slug doesn't exist."))
         |> render("index.html")
       slug->
         changeset = Ecto.Changeset.cast(slug, %{disabled: true}, [:disabled])
@@ -32,7 +32,7 @@ defmodule Vutuv.Admin.SlugController do
             case Repo.update(user_changeset) do
               {:ok, _user} ->
                 conn
-                |> put_flash(:info, "Slug disabled successfully.")
+                |> put_flash(:info, gettext("Slug disabled successfully."))
                 |> redirect(to: admin_admin_path(conn, :index))
               {:error, _user_changeset} ->
                 redirect(conn, to: admin_admin_path(conn, :index))
@@ -48,7 +48,7 @@ defmodule Vutuv.Admin.SlugController do
       conn
     else
       conn
-      |> put_flash(:error, "You must be logged in to access that page")
+      |> put_flash(:error, gettext("You must be logged in to access that page"))
       |> redirect(to: page_path(conn, :index))
       |> halt()
     end

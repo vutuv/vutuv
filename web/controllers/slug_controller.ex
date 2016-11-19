@@ -20,7 +20,7 @@ defmodule Vutuv.SlugController do
     case Repo.transaction(new_slug(conn.assigns[:user], params)) do
       {:ok, %{user: user, slug: _slug}} ->
         conn
-        |> put_flash(:info, "Slug updated successfully.")
+        |> put_flash(:info, gettext("Slug updated successfully."))
         |> redirect(to: user_path(conn, :show, user))
       {:error, _failure, changeset, _} ->
         render(conn, "new.html", changeset: changeset)
@@ -38,7 +38,7 @@ defmodule Vutuv.SlugController do
     case Repo.update(changeset) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "Slug activated successfully")
+        |> put_flash(:info, gettext("Slug activated successfully"))
         |> redirect(to: user_slug_path(conn, :index, user))
       {:error, _changeset} ->
         redirect(conn, to: user_slug_path(conn, :index,conn.assigns[:current_user]))

@@ -10,7 +10,7 @@ defmodule Vutuv.Admin.UserController do
     case Repo.update(changeset) do
       {:ok, _user} ->
         conn
-        |> put_flash(:info, "User verified successfully.")
+        |> put_flash(:info, gettext("User verified successfully."))
         |> redirect(to: admin_admin_path(conn, :index))
       {:error, _changeset} ->
         render(conn, "index.html")
@@ -22,7 +22,7 @@ defmodule Vutuv.Admin.UserController do
       conn
     else
       conn
-      |> put_flash(:error, "You must be logged in to access that page")
+      |> put_flash(:error, gettext("You must be logged in to access that page"))
       |> redirect(to: page_path(conn, :index))
       |> halt()
     end

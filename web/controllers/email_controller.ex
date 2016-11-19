@@ -38,7 +38,7 @@ defmodule Vutuv.EmailController do
         |> case do
           {:ok, _email} ->
             conn
-            |> put_flash(:info, "Email created successfully.")
+            |> put_flash(:info, gettext("Email created successfully."))
             |> redirect(to: page_path(conn, :index))
           {:error, _changeset} ->
             redirect(conn, to: page_path(conn, :index))
@@ -67,7 +67,7 @@ defmodule Vutuv.EmailController do
     case Repo.update(changeset) do
       {:ok, email} ->
         conn
-        |> put_flash(:info, "Email updated successfully.")
+        |> put_flash(:info, gettext("Email updated successfully."))
         |> redirect(to: user_email_path(conn, :show, conn.assigns[:user], email))
       {:error, changeset} ->
         render(conn, "edit.html", email: email, changeset: changeset)
@@ -82,11 +82,11 @@ defmodule Vutuv.EmailController do
     true ->
       Repo.delete!(email)
       conn
-      |> put_flash(:info, "Email deleted successfully.")
+      |> put_flash(:info, gettext("Email deleted successfully."))
       |> redirect(to: user_email_path(conn, :index, conn.assigns[:user]))
     false ->
       conn
-      |> put_flash(:error, "Cannot delete final email.")
+      |> put_flash(:error, gettext("Cannot delete final email."))
       |> redirect(to: user_email_path(conn, :index, conn.assigns[:user]))
     end
   end

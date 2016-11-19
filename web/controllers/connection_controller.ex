@@ -23,11 +23,11 @@ defmodule Vutuv.ConnectionController do
     case Repo.insert(changeset) do
       {:ok, _connection} ->
         conn
-        |> put_flash(:info, "Connection created successfully.")
+        |> put_flash(:info, gettext("Connection created successfully."))
         |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
       {:error, _changeset} ->
         conn
-        |> put_flash(:error, "Something went wrong")
+        |> put_flash(:error, gettext("Something went wrong"))
         |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
     end
   end
@@ -47,7 +47,7 @@ defmodule Vutuv.ConnectionController do
     # it to always work (and if it does not, it will raise).
     Repo.delete!(connection)
     conn
-    |> put_flash(:info, "Connection deleted successfully.")
+    |> put_flash(:info, gettext("Connection deleted successfully."))
     |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
   end
 end

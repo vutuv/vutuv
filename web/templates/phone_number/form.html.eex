@@ -6,14 +6,14 @@
   <% end %>
 
   <div class="editform__field<%= if error_tag(f, :value), do: " editform__field--error"%>">
-    <%= label f, :phone_number %>
+    <%= label f, :value, gettext("Phone Number") %>
     <%= telephone_input f, :value, id: "textfield" %>
     <%= error_tag f, :value %>
   </div>
   <div class="editform__field<%= if error_tag(f, :number_type), do: " editform__field--error"%>">
-    <%= label f, :type%>
+    <%= label f, :number_type, gettext("Type of Number") %>
     <div class="select">
-    <%= select f, :number_type, ["Choose One": nil, "Work": "Work", "Cell": "Cell", "Home": "Home", "Fax": "Fax"]%>
+    <%= select f, :number_type, [{gettext("Choose One"), nil}, {gettext("Work"), "Work"}, {gettext("Cell"), "Cell"}, {gettext("Home"), "Home"}, {gettext("Fax"), "Fax"}]%>
     </div>
     <%= error_tag f, :number_type %>
   </div>

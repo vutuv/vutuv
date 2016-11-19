@@ -3,11 +3,15 @@ defmodule Vutuv.Emailer do
   use Bamboo.Phoenix, view: Vutuv.EmailView
 
   def login_email(link, email, user) do
-    gen_email(link, email, user, "login_email")
+    gen_email(link, email, user, "login_email_#{if (user.locale), do: user.locale, else: "en"}")
   end
 
   def email_creation_email(link, email, user) do
-    gen_email(link, email, user,"email_creation_email")
+    gen_email(link, email, user,"email_creation_email_#{if (user.locale), do: user.locale, else: "en"}")
+  end
+
+  def user_deletion_email(link, email, user) do
+    gen_email(link, email, user,"user_deletion_email_#{if (user.locale), do: user.locale, else: "en"}")
   end
 
   defp gen_email(link, email, user, template) do
@@ -21,6 +25,6 @@ defmodule Vutuv.Emailer do
     |> to(email)
     |> from("vutuv <info@vutuv.de>")
     |> subject("Verification email from vutuv")
-    |> render("#{template}.text")
+    |> render("#{template}.html")
   end
 end

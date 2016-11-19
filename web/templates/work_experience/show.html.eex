@@ -1,4 +1,4 @@
-<!-- header tag begins in parent template -->
+<%# header tag begins in parent template %>
   <div class="profile-header">
     <div class="profile-header__info">
       <h1><%= gettext("About this Experience") %></h1>
@@ -20,7 +20,7 @@
     <%= button to: user_work_experience_path(@conn, :delete, @user, @work_experience), class: "card__edit button button-link button--icon button--small", form: [class: "card__edit button button--icon button--small"] do %>
       <i class="icon icon--delete"></i>
     <% end %>
-    <%= button to: user_work_experience_path(@conn, :edit, @user, @work_experience), class: "card__edit button button-link button--icon button-link button--small", form: [class: "card__edit button-link button button--icon button--small"] do %>
+    <%= link to: user_work_experience_path(@conn, :edit, @user, @work_experience), class: "card__edit button button-link button--icon button-link button--small" do %>
       <i class="icon icon--edit"></i>
     <% end %>
     <% end %>

@@ -27,7 +27,7 @@ defmodule Vutuv.GroupController do
     case Repo.insert(changeset) do
       {:ok, _group} ->
         conn
-        |> put_flash(:info, "Group created successfully.")
+        |> put_flash(:info, gettext("Group created successfully."))
         |> redirect(to: user_group_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -52,7 +52,7 @@ defmodule Vutuv.GroupController do
     case Repo.update(changeset) do
       {:ok, group} ->
         conn
-        |> put_flash(:info, "Group updated successfully.")
+        |> put_flash(:info, gettext("Group updated successfully."))
         |> redirect(to: user_group_path(conn, :show, conn.assigns[:user], group))
       {:error, changeset} ->
         render(conn, "edit.html", group: group, changeset: changeset)
@@ -67,7 +67,7 @@ defmodule Vutuv.GroupController do
     Repo.delete!(group)
 
     conn
-    |> put_flash(:info, "Group deleted successfully.")
+    |> put_flash(:info, gettext("Group deleted successfully."))
     |> redirect(to: user_group_path(conn, :index, conn.assigns[:user]))
   end
 end

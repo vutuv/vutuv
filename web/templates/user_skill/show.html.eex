@@ -1,4 +1,4 @@
-<!-- header tag begins in parent template -->
+<%# header tag begins in parent template %>
   <div class="profile-header">
     <div class="profile-header__info">
       <h1>About <%= Skill.resolve_name(@user_skill.skill_id) %></h1>

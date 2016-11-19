@@ -27,7 +27,7 @@ defmodule Vutuv.UrlController do
     case Repo.insert(changeset) do
       {:ok, _url} ->
         conn
-        |> put_flash(:info, "Link created successfully.")
+        |> put_flash(:info, gettext("Link created successfully."))
         |> redirect(to: user_url_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -51,7 +51,7 @@ defmodule Vutuv.UrlController do
     case Repo.update(changeset) do
       {:ok, url} ->
         conn
-        |> put_flash(:info, "Link updated successfully.")
+        |> put_flash(:info, gettext("Link updated successfully."))
         |> redirect(to: user_url_path(conn, :show, conn.assigns[:user], url))
       {:error, changeset} ->
         render(conn, "edit.html", url: url, changeset: changeset)
@@ -65,7 +65,7 @@ defmodule Vutuv.UrlController do
     
     Repo.delete!(url)
     conn
-    |> put_flash(:info, "Link deleted successfully.")
+    |> put_flash(:info, gettext("Link deleted successfully."))
     |> redirect(to: user_url_path(conn, :index, conn.assigns[:user]))
   end
 end

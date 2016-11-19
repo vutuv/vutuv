@@ -1,8 +1,9 @@
 defmodule Vutuv.Api.UserController do
 use Vutuv.Web, :controller
 
+  plug Vutuv.Plug.All404
   plug :resolve_slug when action in [:show]
-
+  
   alias Vutuv.User
   alias Vutuv.Slug
 

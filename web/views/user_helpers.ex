@@ -101,6 +101,14 @@ defmodule Vutuv.UserHelpers do
     Repo.one(from c in Vutuv.Connection, where: c.follower_id==^follower_id and c.followee_id==^followee_id, select: c.id)
   end
 
+  def user_follows_user?(_, _), do: false;
+
+  def is_visitor?(conn, nil), do: false
+
+  def is_visitor?(conn, current_user) do
+    !same_user?(conn.assigns[:user], current_user)
+  end
+
   def same_user?(%User{id: id}, %User{id: id}), do: true
   def same_user?(_, _), do: false
 

@@ -38,16 +38,22 @@
 
       <%= inputs_for f, :emails, fn ef -> %>
       <p>
-        <%= text_input ef, :value, class: "imagebox__input", placeholder: gettext "Enter your email address" %>
+        <%= text_input ef, :value, class: "imagebox__input" , placeholder: gettext "Enter your email address" %>
         <%= error_tag ef, :value %>
       </p>
-      <p>
-        <%= select f, :noindex?, [{gettext("Create a public account (Email will be visible to everyone)"), false}, {gettext("Create a private account(Email will be visible to those you follow)"), true}] %>
-        <%= error_tag ef, :public? %>
-      </p>
+	  	<p style="float:left;width:90%;text-align: left;">
+	  	Allow others to view your email address
+	  	</p>
+	  	<p style="float:right;width:10%;text-align: right;">
+	    <%= checkbox ef, :public? %>
+	    <%= error_tag ef, :public? %>
+	    </p>
       <% end %>
-      <p>
-      <%= select f, :noindex?, [{gettext("Prevent search engines from indexing my profile"), false}, {gettext("Allow search engines to index my profile"), true}] %>
+    	<p style="float:left;width:90%;text-align: left;">
+    	Prevent search engines from indexing your profile
+    	</p>
+    	<p style="float:right;width:10%;text-align: right;">
+      <%= checkbox f, :noindex?, style: "margin-left:5%" %>
       <%= error_tag f, :noindex? %>
       </p>
       <p><%= gettext "By signing up you agree that we set a cookie in your browser." %></p>

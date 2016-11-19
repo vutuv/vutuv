@@ -9,30 +9,9 @@
   </aside>
 <%= if @conn.assigns[:results] do %>
   <section class="card card--simple">
-    <ul class="button-list profiles">
-      <%= for user <- @results do %>
-        <li>
-          <div>
-            <%= link to: user_path(@conn, :show, user) do %>
-            <img src="<%= Vutuv.Avatar.binary(user, :medium) %>">
-            <% end %>
-          </div>
-          <p><strong>
-            <%= link full_name(user), to: user_path(@conn, :show, user) %>
-          </strong>
-          <%= if (current_job(user)) do %>
-          <%= current_job(user).title %>
-             @ <%= current_job(user).organization %>
-          <% end %></p>
-          <a href="#" class="button button--icon button--follow"></a>
-        </li>
-      <% end %>
-      <%= if(Enum.count(@results) == 0) do %>
-        <li>
-          <p><strong> No Results </strong></p>
-        </li>
-      <% end %>
-    </ul>
+      
+    <%= render Vutuv.UserView, "card_list.html", conn: @conn, users: @results, current_user: @current_user, current_user_id: @current_user_id %>
+
   </section>
 <% end %>
 </div>

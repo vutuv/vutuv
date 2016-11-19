@@ -10,7 +10,6 @@ defmodule Vutuv.Plug.RequireUserLoggedOut do
   defp logged_in?(conn, nil), do: conn
   defp logged_in?(conn, user) do
     conn
-    #|> Phoenix.Controller.put_flash(:error, "You must be logged out to do this")
     |> Phoenix.Controller.redirect(to: Vutuv.Router.Helpers.user_path(conn, :show, user))
     |> halt
   end
