@@ -321,7 +321,7 @@ msgstr "Gruppen"
 
 #: web/templates/user/show.html.eex:57
 msgid "Headline"
-msgstr "Überschrift"
+msgstr "Headline"
 
 #: web/templates/email/email_creation_email_de.html.eex:2
 #: web/templates/email/email_creation_email_en.html.eex:2
@@ -741,10 +741,6 @@ msgstr "Absenden"
 msgid "Submit a bugreport or a feature request."
 msgstr "Fehler auf der Seite melden."
 
-#: web/controllers/user_controller.ex:252
-msgid "Successfully set a headline"
-msgstr ""
-
 #: web/templates/user/form.html.eex:59
 msgid "Suffix"
 msgstr ""
@@ -792,23 +788,23 @@ msgstr "Validieren Sie Ihre E-Mail Adresse mit dem folgenden Link:"
 
 #: web/templates/admin/user/index.html.eex:6
 msgid "User"
-msgstr "Benutzer"
+msgstr "User"
 
 #: web/controllers/user_controller.ex:39
-msgid "User %{name} created successfully. An email has been sent with your login link."
+msgid "User %{name} wurde angelegt. Eine E-Mail mit einem Login Link ist abgeschickt."
 msgstr ""
 
 #: web/controllers/user_controller.ex:186
 msgid "User deleted successfully."
-msgstr ""
+msgstr "User wurde gelöscht."
 
 #: web/controllers/user_controller.ex:146
 msgid "User updated successfully."
-msgstr ""
+msgstr "Userdaten wurde geändert."
 
 #: web/controllers/admin/user_controller.ex:13
 msgid "User verified successfully."
-msgstr ""
+msgstr "User wurde verifiziert."
 
 #: web/controllers/user_skill_controller.ex:58
 msgid "UserSkill deleted successfully."
@@ -817,7 +813,7 @@ msgstr "Eine Fähigkeit wurde gelöscht."
 #: web/templates/social_media_account/card_list.html.eex:5
 #: web/templates/social_media_account/show.html.eex:26
 msgid "Username"
-msgstr "Name des Accounts"
+msgstr "Name des Users"
 
 #: web/templates/address/edit.html.eex:6 web/templates/address/index.html.eex:12
 #: web/templates/address/new.html.eex:6 web/templates/address/show.html.eex:11
@@ -884,7 +880,7 @@ msgstr "Willkommen zurück!"
 
 #: web/templates/phone_number/form.html.eex:16
 msgid "Work"
-msgstr ""
+msgstr "Arbeit"
 
 #: web/templates/work_experience/index.html.eex:4
 msgid "Work Experiences"
@@ -916,14 +912,14 @@ msgstr ""
 
 #: web/controllers/user_controller.ex:273
 msgid "You follow back %{name}."
-msgstr ""
+msgstr "Sie folgen %{name}."
 
 #: web/controllers/admin/admin_controller.ex:18
 #: web/controllers/admin/slug_controller.ex:51
 #: web/controllers/admin/user_controller.ex:25
 #: web/controllers/user_controller.ex:312
 msgid "You must be logged in to access that page"
-msgstr ""
+msgstr "Sie müssen für diese Seite eingeloggt sein."
 
 #: web/templates/user/show.html.eex:24
 msgid "followers"
@@ -939,7 +935,7 @@ msgstr "hat"
 
 #: web/templates/user/form.html.eex:73
 msgid "headline"
-msgstr "Überschrift"
+msgstr "Headline"
 
 #: web/templates/page/index.html.eex:17
 msgid "our blog"
@@ -947,8 +943,8 @@ msgstr "unserem Blog"
 
 #: web/templates/user_skill/card_list.html.eex:8
 msgid "upvote"
-msgstr ""
+msgstr "Upvote"
 
 #: web/templates/user_skill/card_list.html.eex:11
 msgid "upvotes"
-msgstr ""
+msgstr "Upvotes"
