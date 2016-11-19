@@ -7,7 +7,7 @@
 
   <div class="editform__field<%= if error_tag(f, :provider), do: " editform__field--error"%>">
     <%= label f, :provider %>
-    <%= select f, :provider, ["Facebook", "Twitter", "Instagram", "Youtube", "Snapchat", "Stackoverflow"], prompt: "Select a Social Media Provider", class: "form-control" %>
+    <%= select f, :provider, ["Facebook", "Twitter", "Instagram", "Youtube", "Snapchat", "Stackoverflow"], prompt: "Select a Social Media Provider", autofocus: true, class: "form-control" %>
     <%= error_tag f, :provider %>
   </div>
 

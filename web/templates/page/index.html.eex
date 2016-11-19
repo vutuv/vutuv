@@ -28,7 +28,7 @@
         {gettext("Mrs"), "female"}, {gettext("Other"), "other"}], class: "imagebox__input" %>
       </p>
       <p>
-      <%= text_input f, :first_name, class: "imagebox__input", placeholder: gettext "Enter your first name", autofocus: true %>
+      <%= text_input f, :first_name, class: "imagebox__input", placeholder: gettext("Enter your first name"), autofocus: true %>
       <%= error_tag f, :first_name %>
       </p>
       <p>
