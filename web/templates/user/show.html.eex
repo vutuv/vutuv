@@ -82,6 +82,13 @@
         <%= for email <- @emails do %>
         <dd><a href="mailto:<%= email(@user) %>"><%= email.value %></a></dd>
         <% end %>
+      </dl>
+      <span class="card__morelink">
+        <%= if same_user?(@user, @current_user) do %>
+          <%= link gettext("Add"), to: user_email_path(@conn, :new, @current_user) %>
+        <% end %>
+      </span>
+      <dl>
         <br>
         <dt><%= gettext "Vcard" %></dt>
         <dd><%= link gettext("Download"), to: api_user_v_card_path(@conn, :get, @user) %></dd>
