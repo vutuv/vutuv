@@ -55,20 +55,7 @@
     <% end %>
     <% end %>
     <h1><%= gettext "Headline" %></h1>
-    <%= if(@user.headline) do %>
-      <p><%= @user.headline %></p>
-    <% else %>
-      <%= form_for @conn, user_path(@conn, :headline_update, @user), [as: :headline, class: "editform"], fn f -> %>
-        <div class="editform__field<%= if error_tag(f, :name), do: " editform__field--error"%>">
-          <%= label f, :headline, gettext("Enter a profile headline here") %>
-          <%= textarea f, :headline, placeholder: gettext("Hi! Welcome to my profile!") %>
-          <%= error_tag f, :headline %>
-        </div>
-        <div class="editform__actions">
-          <%= submit gettext("Set"), class: "button button--full" %>
-        </div>
-      <% end %>
-    <% end %>
+    <p><%= @user.headline %></p>
     <dl>
       <%= if(@user.gender != "other" && @user.gender) do %>
       <dt><%= gettext "Gender" %></dt>
@@ -156,7 +143,7 @@
   <section class="card half<%= if @follower_count == 0, do: " card--empty" %>">
     <h1><%= gettext "Followers" %></h1>
     <%= if(@follower_count > 0) do %>
-      
+
     <%= render "card_list.html", conn: @conn, users: @user.followers, current_user: @current_user, current_user_id: @current_user_id %>
 
     <% else %>

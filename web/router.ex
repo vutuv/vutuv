@@ -67,7 +67,6 @@ defmodule Vutuv.Router do
     end
 
     post "/users/:slug/skills_create", UserController, :skills_create
-    post "/users/:slug/headline_update", UserController, :headline_update
 
     resources "/sessions", SessionController, only: [:new, :create, :delete]
     get "/magic/login/:magiclink", SessionController, :show

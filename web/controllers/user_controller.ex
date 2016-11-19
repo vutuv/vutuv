@@ -1,8 +1,8 @@
 defmodule Vutuv.UserController do
   use Vutuv.Web, :controller
-  plug :resolve_slug when action in [:edit, :update, :index, :show, :skills_create, :headline_update]
+  plug :resolve_slug when action in [:edit, :update, :index, :show, :skills_create]
   plug :logged_in? when action in [:index]
-  plug :auth when action in [:edit, :update, :skills_create, :skills_create, :headline_update]
+  plug :auth when action in [:edit, :update, :skills_create, :skills_create]
   plug Vutuv.Plug.RequireUserLoggedOut when action in [:new, :create]
   import Vutuv.UserHelpers
   use Arc.Ecto.Schema
@@ -100,7 +100,7 @@ defmodule Vutuv.UserController do
       |> Enum.slice(0..3)
     job = current_job(user)
     emails = Vutuv.UserHelpers.emails_for_display(user, conn.assigns[:current_user])
-    
+
     total_jobs = count_user_assoc Vutuv.WorkExperience, user
     total_numbers = count_user_assoc Vutuv.PhoneNumber, user
     total_links = count_user_assoc Vutuv.Url, user
@@ -202,15 +202,15 @@ defmodule Vutuv.UserController do
   end
 
   def skills_create(conn, %{"skills" => %{"skills" => skills}}) do
-    user = 
+    user =
       Repo.get!(User, conn.assigns[:user_id])
       |> Repo.preload([user_skills: [:skill]])
-    skill_list = 
+    skill_list =
       skills
       |> String.split(",")
-    results = 
+    results =
       for(skill <- skill_list) do
-        downcase_skill = 
+        downcase_skill =
           skill
           |> String.trim
           |> String.downcase
@@ -228,7 +228,7 @@ defmodule Vutuv.UserController do
         end
         |> Repo.insert
       end
-    failures = 
+    failures =
       Enum.reduce(results, 0, fn {result, _}, acc ->
         case result do
           :error -> acc+1
@@ -237,25 +237,7 @@ defmodule Vutuv.UserController do
       end)
     conn
     |> put_flash(:info, Vutuv.Gettext.gettext("Successfully added %{successes} skills with %{failures} failures.", successes: Enum.count(skill_list)-failures, failures: failures))
-    |> redirect(to: user_path(conn, :show, user)) 
-  end
-
-  def headline_update(conn, %{"headline" => params}) do
-    user = Repo.get!(User, conn.assigns[:user_id])
-    changeset = 
-      user
-      |> Ecto.Changeset.cast(params,[:headline])
-      |> Ecto.Changeset.validate_length(:headline, max: 255)
-    case Repo.update(changeset) do
-      {:ok, result} ->
-        conn
-        |> put_flash(:info, gettext("Successfully set a headline"))
-        |> redirect(to: user_path(conn, :show, result))
-      {:error, _changeset} ->
-        conn
-        |> put_flash(:error, gettext("Something went wrong"))
-        |> redirect(to: user_path(conn, :show, user))
-    end
+    |> redirect(to: user_path(conn, :show, user))
   end
 
   def follow_back(conn, %{"id" => id}) do
