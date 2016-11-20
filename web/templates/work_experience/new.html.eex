@@ -17,6 +17,6 @@
   </aside>
   <section class="card">
 
-  <%= render "form.html", backlink: user_work_experience_path(@conn, :index, @user), changeset: @changeset, action: user_work_experience_path(@conn, :create, @user) %>
+  <%= render "form.html", backlink: user_work_experience_path(@conn, :index, @user), changeset: @changeset, action: user_work_experience_path(@conn, :create, @user), current_year: @current_year %>
   </section>
 </div>

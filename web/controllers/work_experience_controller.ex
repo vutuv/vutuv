@@ -15,7 +15,8 @@ defmodule Vutuv.WorkExperienceController do
 
   def new(conn, _params) do
     changeset = WorkExperience.changeset(%WorkExperience{})
-    render(conn, "new.html", changeset: changeset)
+    current_year = DateTime.utc_now |> Map.fetch!(:year)
+    render(conn, "new.html", changeset: changeset, current_year: current_year)
   end
 
   def create(conn, %{"work_experience" => work_experience_params}) do
@@ -42,7 +43,8 @@ defmodule Vutuv.WorkExperienceController do
   def edit(conn, %{"id" => id}) do
     work_experience = Repo.get!(WorkExperience, id)
     changeset = WorkExperience.changeset(work_experience)
-    render(conn, "edit.html", work_experience: work_experience, changeset: changeset)
+    current_year = DateTime.utc_now |> Map.fetch!(:year)
+    render(conn, "edit.html", work_experience: work_experience, changeset: changeset, current_year: current_year)
   end
 
   def update(conn, %{"id" => id, "work_experience" => work_experience_params}) do
