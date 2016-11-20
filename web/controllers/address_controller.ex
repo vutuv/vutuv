@@ -5,8 +5,10 @@ defmodule Vutuv.AddressController do
   plug Vutuv.Plug.AuthUser when action in [:new, :create, :edit, :update]
 
   def index(conn, _params) do
-    addresses = Repo.all(Address)
-    render(conn, "index.html", user: conn.assigns[:user], addresses: addresses)
+    user = 
+      conn.assigns[:user]
+      |> Repo.preload(:addresses)
+    render(conn, "index.html", user: user, addresses: user.addresses)
   end
 
   def new(conn, _params) do
