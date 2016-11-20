@@ -42,7 +42,7 @@
         <%= error_tag ef, :value %>
       </p>
 	  	<p style="float:left;width:90%;text-align: left;">
-	  	Allow others to view your email address
+	  	<%= gettext("Allow others to view your email address") %>
 	  	</p>
 	  	<p style="float:right;width:10%;text-align: right;">
 	    <%= checkbox ef, :public? %>
@@ -50,7 +50,7 @@
 	    </p>
       <% end %>
     	<p style="float:left;width:90%;text-align: left;">
-    	Prevent search engines from indexing your profile
+    	<%= gettext("Prevent search engines from indexing your profile") %>
     	</p>
     	<p style="float:right;width:10%;text-align: right;">
       <%= checkbox f, :noindex?, style: "margin-left:5%" %>

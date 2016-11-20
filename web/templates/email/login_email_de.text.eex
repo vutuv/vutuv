@@ -1,12 +1,17 @@
-Hi,
+Hallo,
 
-vutuv is ready for you to login. Here's your magic link:
+Ihr neuer vutuv Account ist angelegt. Zum Einloggen klicken Sie bitte auf 
+den folgenden Link:
 <%= @url %>magic/login/<%=@link%>
 
-Thank you for using vutuv. Please tell your friends about it.
+Vielen Dank das Sie vutuv benutzen! 
 
-Regards
-Your vutuv team
+Mit freundlichen Grüßen
+Ihr vutuv Team
+
+PS: Wir arbeiten ständig an Verbesserungen der Plattform und freuen uns 
+deshalb über Feedback und Anregungen. Bitte schicken Sie diese per E-Mail 
+an Stefan Wintermeyer <stefan.wintermeyer@amooma.de>.
 
 --
 vutuv is a service provided by AMOOMA GmbH. https://www.amooma.de
