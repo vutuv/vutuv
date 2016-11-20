@@ -24,11 +24,11 @@ defmodule Vutuv.ConnectionController do
       {:ok, _connection} ->
         conn
         |> put_flash(:info, gettext("Connection created successfully."))
-        |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
+        |> redirect(to: referrer_url(conn))
       {:error, _changeset} ->
         conn
         |> put_flash(:error, gettext("Something went wrong"))
-        |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
+        |> redirect(to: referrer_url(conn))
     end
   end
 
@@ -48,6 +48,21 @@ defmodule Vutuv.ConnectionController do
     Repo.delete!(connection)
     conn
     |> put_flash(:info, gettext("Connection deleted successfully."))
-    |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
+    |> redirect(to: referrer_url(conn))
+  end
+
+  def referrer_url(conn) do
+    referrer = 
+      conn
+      |> Plug.Conn.get_req_header("referer")
+      |> hd
+      |> URI.parse
+      |> Map.get(:path)
+    redirect_url = 
+      if(referrer) do
+        referrer
+      else
+        user_path(conn, :show, conn.assigns[:user])
+      end
   end
 end

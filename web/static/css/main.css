@@ -184,6 +184,11 @@ a, button{
   font-weight: bold;
   height: 44px; }
 
+.button--unfollow {
+  background-color: #eee;
+  color: #444;
+}
+
 .button--cancel {
   padding-top: 15px;
   background-color: #eee;
