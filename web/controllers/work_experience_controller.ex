@@ -31,7 +31,8 @@ defmodule Vutuv.WorkExperienceController do
         |> put_flash(:info, gettext("Work experience created successfully."))
         |> redirect(to: user_work_experience_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        current_year = DateTime.utc_now |> Map.fetch!(:year)
+        render(conn, "new.html", changeset: changeset, current_year: current_year)
     end
   end
 
@@ -56,7 +57,8 @@ defmodule Vutuv.WorkExperienceController do
         |> put_flash(:info, gettext("Work experience updated successfully."))
         |> redirect(to: user_work_experience_path(conn, :show, conn.assigns[:user], work_experience))
       {:error, changeset} ->
-        render(conn, "edit.html", work_experience: work_experience, changeset: changeset)
+        current_year = DateTime.utc_now |> Map.fetch!(:year)
+        render(conn, "edit.html", work_experience: work_experience, changeset: changeset, current_year: current_year)
     end
   end
 

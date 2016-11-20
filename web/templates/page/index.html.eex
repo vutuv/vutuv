@@ -37,7 +37,7 @@
 
       <%= inputs_for f, :emails, fn ef -> %>
       <p>
-        <%= text_input ef, :value, class: "imagebox__input" , placeholder: gettext "Enter your email address" %>
+        <%= email_input ef, :value, class: "imagebox__input" , placeholder: gettext "Enter your email address" %>
         <%= error_tag ef, :value %>
       </p>
 	  	<p style="float:left;width:90%;text-align: left;">

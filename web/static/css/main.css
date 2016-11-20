@@ -291,6 +291,7 @@ input:not([type="checkbox"]), textarea {
   border-radius: 0; }
 
 [type="text"],
+[type="email"],
 [type="tel"],
 [type="date"],
 textarea {
@@ -305,6 +306,7 @@ textarea {
   resize: vertical; }
 
 [type="text"],
+[type="email"],
 [type="tel"],
 [type="submit"]:not(.button-link),
 [type="date"] {
