@@ -586,14 +586,14 @@ footer {
   position: relative;
   margin-bottom: 16px; }
 
-.profile-header--verified::after {
+.profile-header--verified .profile-header__image::after {
   content: "";
   display: block;
   background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2790%27%20height%3D%2722%27%3E%3Cg%20fill%3D%27none%27%20fill-rule%3D%27evenodd%27%3E%3Crect%20width%3D%2790%27%20height%3D%2722%27%20fill%3D%27%234ACA7E%27%20rx%3D%2711%27%2F%3E%3Ctext%20fill%3D%27%23FFF%27%20font-family%3D%27Helvetica%27%20font-size%3D%2711%27%3E%3Ctspan%20x%3D%2728.135%27%20y%3D%2715%27%3EVERIFIED%3C%2Ftspan%3E%3C%2Ftext%3E%3Cpath%20fill%3D%27%23FFF%27%20d%3D%27M18.23%208.075l-.952-.952a.648.648%200%200%200-.476-.196.648.648%200%200%200-.476.196l-4.593%204.6-2.06-2.065a.648.648%200%200%200-.475-.196.648.648%200%200%200-.476.196l-.952.952a.648.648%200%200%200-.196.476c0%20.187.065.345.196.476l2.534%202.535.953.952c.13.13.29.195.476.195a.65.65%200%200%200%20.476-.196l.95-.953%205.07-5.07a.648.648%200%200%200%20.196-.476.648.648%200%200%200-.196-.475z%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
   width: 90px;
   height: 22px;
   position: absolute;
-  bottom: -20px;
+  bottom: -10px;
   left: 50%;
   margin-left: -45px; }
 
