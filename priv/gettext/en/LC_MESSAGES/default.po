@@ -42,7 +42,7 @@ msgstr ""
 msgid "Ad"
 msgstr ""
 
-#: web/templates/address/form_de.html.eex:52
+#: web/templates/address/form_de.html.eex:46
 #: web/templates/address/form_en.html.eex:58
 #: web/templates/address/form_generic.html.eex:58
 #: web/templates/address/index.html.eex:24 web/templates/email/index.html.eex:24
@@ -64,15 +64,15 @@ msgstr ""
 msgid "Address"
 msgstr ""
 
-#: web/controllers/address_controller.ex:27
+#: web/controllers/address_controller.ex:29
 msgid "Address created successfully."
 msgstr ""
 
-#: web/controllers/address_controller.ex:74
+#: web/controllers/address_controller.ex:76
 msgid "Address deleted successfully."
 msgstr ""
 
-#: web/controllers/address_controller.ex:59
+#: web/controllers/address_controller.ex:61
 msgid "Address updated successfully."
 msgstr ""
 
@@ -112,7 +112,7 @@ msgstr ""
 msgid "By signing up you agree that we set a cookie in your browser."
 msgstr ""
 
-#: web/templates/address/form_de.html.eex:51
+#: web/templates/address/form_de.html.eex:45
 #: web/templates/address/form_en.html.eex:57
 #: web/templates/address/form_generic.html.eex:57
 #: web/templates/email/form.html.eex:22 web/templates/group/form.html.eex:15
@@ -163,8 +163,9 @@ msgid "Delete"
 msgstr ""
 
 #: web/templates/address/card_list.html.eex:4
-#: web/templates/url/card_list.html.eex:4 web/templates/url/show.html.eex:30
-#: web/templates/user_skill/show.html.eex:29
+#: web/templates/url/card_list.html.eex:4 web/templates/url/form.html.eex:15
+#: web/templates/url/show.html.eex:30 web/templates/user_skill/show.html.eex:29
+#: web/templates/work_experience/form.html.eex:21
 msgid "Description"
 msgstr ""
 
@@ -312,16 +313,6 @@ msgstr ""
 msgid "Headline"
 msgstr ""
 
-#: web/templates/email/email_creation_email_de.html.eex:2
-#: web/templates/email/email_creation_email_en.html.eex:2
-#: web/templates/email/email_creation_email_en.text.eex:1
-#: web/templates/email/user_deletion_email.html.eex:2
-#: web/templates/email/user_deletion_email_de.html.eex:2
-#: web/templates/email/user_deletion_email_de.text.eex:2
-#: web/templates/email/user_deletion_email_en.html.eex:2
-msgid "Hello"
-msgstr ""
-
 #: web/templates/phone_number/form.html.eex:16
 msgid "Home"
 msgstr ""
@@ -354,6 +345,7 @@ msgstr ""
 msgid "It doesn't look like you're following anyone yet. Find someone a profile of someone you know, or someone you're interested in, and click the follow button!"
 msgstr ""
 
+#: web/templates/work_experience/form.html.eex:15
 #: web/templates/work_experience/show.html.eex:29
 msgid "Job Title"
 msgstr ""
@@ -509,6 +501,7 @@ msgstr ""
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
 
+#: web/templates/work_experience/form.html.eex:9
 #: web/templates/work_experience/show.html.eex:31
 msgid "Organization"
 msgstr ""
@@ -605,6 +598,7 @@ msgid "Score"
 msgstr ""
 
 #: web/templates/layout/app.html.eex:41
+#: web/templates/search_query/form.html.eex:10
 msgid "Search"
 msgstr ""
 
@@ -710,7 +704,6 @@ msgstr ""
 #: web/templates/email/form.html.eex:23 web/templates/group/form.html.eex:16
 #: web/templates/membership/form.html.eex:18
 #: web/templates/phone_number/form.html.eex:22
-#: web/templates/search_query/form.html.eex:10
 #: web/templates/slug/form.html.eex:16
 #: web/templates/social_media_account/form.html.eex:22
 #: web/templates/url/form.html.eex:22
@@ -745,24 +738,13 @@ msgstr ""
 msgid "Type of Number"
 msgstr ""
 
-#: web/templates/url/card_list.html.eex:5 web/templates/url/show.html.eex:32
+#: web/templates/url/card_list.html.eex:5 web/templates/url/form.html.eex:9
+#: web/templates/url/show.html.eex:32
 msgid "URL"
 msgstr ""
 
 #: web/controllers/endorsement_controller.ex:27
 msgid "Unendorsed skill successfully."
-msgstr ""
-
-#: web/templates/email/user_deletion_email.html.eex:3
-#: web/templates/email/user_deletion_email_de.html.eex:3
-#: web/templates/email/user_deletion_email_de.text.eex:3
-#: web/templates/email/user_deletion_email_en.html.eex:3
-msgid "Use the following link to delete your account:"
-msgstr ""
-
-#: web/templates/email/email_creation_email_de.html.eex:3
-#: web/templates/email/email_creation_email_en.html.eex:3
-msgid "Use the following link to validate your email address:"
 msgstr ""
 
 #: web/templates/admin/user/index.html.eex:6
@@ -984,4 +966,38 @@ msgstr ""
 
 #: lib/vutuv/emailer.ex:28
 msgid "vutuv verification email"
+msgstr ""
+
+#: web/templates/phone_number/form.html.eex:10
+msgid "+49 30 2270"
+msgstr ""
+
+#: web/templates/work_experience/form.html.eex:48
+msgid "End month"
+msgstr ""
+
+#: web/templates/work_experience/form.html.eex:42
+msgid "End year"
+msgstr ""
+
+#: web/templates/work_experience/form.html.eex:33
+msgid "Start month"
+msgstr ""
+
+#: web/templates/work_experience/form.html.eex:27
+msgid "Start year"
+msgstr ""
+
+#: web/templates/url/form.html.eex:10
+msgid "http://www.example.com"
+msgstr ""
+
+#: web/templates/work_experience/form.html.eex:37
+#: web/templates/work_experience/form.html.eex:52
+msgid "Select a month"
+msgstr ""
+
+#: web/templates/work_experience/form.html.eex:28
+#: web/templates/work_experience/form.html.eex:43
+msgid "Select a year"
 msgstr ""

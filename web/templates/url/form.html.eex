@@ -6,13 +6,13 @@
   <% end %>
 
   <div class="editform__field<%= if error_tag(f, :value), do: " editform__field--error"%>">
-    <%= label f, :value %>
-    <%= text_input f, :value, autofocus: true %>
+    <%= label f, :value, gettext("URL") %>
+    <%= text_input f, :value, placeholder: gettext("http://www.example.com"), autofocus: true %>
     <%= error_tag f, :value %>
   </div>
 
   <div class="editform__field<%= if error_tag(f, :description), do: " editform__field--error"%>">
-    <%= label f, :description %>
+    <%= label f, :description, gettext("Description") %>
     <%= text_input f, :description%>
     <%= error_tag f, :description %>
   </div>
