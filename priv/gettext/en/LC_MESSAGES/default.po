@@ -48,10 +48,11 @@ msgstr ""
 #: web/templates/address/index.html.eex:24 web/templates/email/index.html.eex:24
 #: web/templates/phone_number/index.html.eex:24
 #: web/templates/social_media_account/index.html.eex:24
-#: web/templates/url/index.html.eex:25 web/templates/user/show.html.eex:137
-#: web/templates/user/show.html.eex:145 web/templates/user/show.html.eex:196
-#: web/templates/user/show.html.eex:216 web/templates/user/show.html.eex:236
-#: web/templates/user/show.html.eex:256
+#: web/templates/url/index.html.eex:25 web/templates/user/show.html.eex:101
+#: web/templates/user/show.html.eex:128 web/templates/user/show.html.eex:153
+#: web/templates/user/show.html.eex:161 web/templates/user/show.html.eex:212
+#: web/templates/user/show.html.eex:232 web/templates/user/show.html.eex:252
+#: web/templates/user/show.html.eex:272
 #: web/templates/user_skill/form.html.eex:10
 #: web/templates/user_skill/index.html.eex:25
 #: web/templates/work_experience/form.html.eex:58
@@ -77,16 +78,12 @@ msgstr ""
 
 #: web/templates/address/edit.html.eex:8 web/templates/address/index.html.eex:14
 #: web/templates/address/new.html.eex:8 web/templates/address/show.html.eex:13
-#: web/templates/user/show.html.eex:248
+#: web/templates/user/show.html.eex:264
 msgid "Addresses"
 msgstr ""
 
 #: web/templates/page/index.html.eex:63
 msgid "Already a member? Sign in here."
-msgstr ""
-
-#: web/controllers/user_controller.ex:200
-msgid "An email has been sent with a link to delete your account. If you did not mean to click the delete button, just delete the email."
 msgstr ""
 
 #: web/controllers/session_controller.ex:14
@@ -157,7 +154,7 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: web/controllers/user_controller.ex:277
+#: web/controllers/user_controller.ex:266
 msgid "Couldn't follow back to %{name}."
 msgstr ""
 
@@ -170,8 +167,8 @@ msgid "Delete"
 msgstr ""
 
 #: web/templates/address/card_list.html.eex:4
-#: web/templates/url/card_list.html.eex:4 web/templates/url/show.html.eex:28
-#: web/templates/user_skill/show.html.eex:26
+#: web/templates/url/card_list.html.eex:4 web/templates/url/show.html.eex:30
+#: web/templates/user_skill/show.html.eex:29
 msgid "Description"
 msgstr ""
 
@@ -179,7 +176,7 @@ msgstr ""
 msgid "Disable"
 msgstr ""
 
-#: web/templates/user/show.html.eex:100
+#: web/templates/user/show.html.eex:107
 msgid "Download"
 msgstr ""
 
@@ -197,7 +194,7 @@ msgstr ""
 msgid "Edit user"
 msgstr ""
 
-#: web/templates/email/card_list.html.eex:4 web/templates/email/show.html.eex:24
+#: web/templates/email/card_list.html.eex:4 web/templates/email/show.html.eex:29
 #: web/templates/user/show.html.eex:94
 msgid "Email"
 msgstr ""
@@ -240,11 +237,7 @@ msgstr ""
 msgid "English"
 msgstr ""
 
-#: web/templates/user/show.html.eex:63
-msgid "Enter a profile headline here"
-msgstr ""
-
-#: web/templates/user/show.html.eex:132
+#: web/templates/user/show.html.eex:148
 msgid "Enter comma seperated skills here"
 msgstr ""
 
@@ -260,7 +253,7 @@ msgstr ""
 msgid "Enter your last name"
 msgstr ""
 
-#: web/templates/user/show.html.eex:186
+#: web/templates/user/show.html.eex:202
 #: web/templates/work_experience/edit.html.eex:8
 #: web/templates/work_experience/index.html.eex:14
 #: web/templates/work_experience/new.html.eex:8
@@ -282,11 +275,11 @@ msgstr ""
 
 #: web/templates/followee/index.html.eex:15
 #: web/templates/follower/index.html.eex:7
-#: web/templates/follower/index.html.eex:16 web/templates/user/show.html.eex:157
+#: web/templates/follower/index.html.eex:16 web/templates/user/show.html.eex:173
 msgid "Followers"
 msgstr ""
 
-#: web/templates/followee/index.html.eex:7 web/templates/user/show.html.eex:171
+#: web/templates/followee/index.html.eex:7 web/templates/user/show.html.eex:187
 msgid "Following"
 msgstr ""
 
@@ -319,7 +312,7 @@ msgstr ""
 msgid "Groups"
 msgstr ""
 
-#: web/templates/user/show.html.eex:57
+#: web/templates/user/show.html.eex:70
 msgid "Headline"
 msgstr ""
 
@@ -331,10 +324,6 @@ msgstr ""
 #: web/templates/email/user_deletion_email_en.html.eex:2
 #: web/templates/email/user_deletion_email_en.text.eex:2
 msgid "Hello"
-msgstr ""
-
-#: web/templates/user/show.html.eex:64
-msgid "Hi! Welcome to my profile!"
 msgstr ""
 
 #: web/templates/phone_number/form.html.eex:16
@@ -369,7 +358,7 @@ msgstr ""
 msgid "It doesn't look like you're following anyone yet. Find someone a profile of someone you know, or someone you're interested in, and click the follow button!"
 msgstr ""
 
-#: web/templates/work_experience/show.html.eex:27
+#: web/templates/work_experience/show.html.eex:29
 msgid "Job Title"
 msgstr ""
 
@@ -399,7 +388,7 @@ msgstr ""
 
 #: web/templates/url/edit.html.eex:7 web/templates/url/index.html.eex:14
 #: web/templates/url/new.html.eex:7 web/templates/url/show.html.eex:13
-#: web/templates/user/show.html.eex:228
+#: web/templates/user/show.html.eex:244
 msgid "Links"
 msgstr ""
 
@@ -443,7 +432,7 @@ msgstr ""
 msgid "Middlename"
 msgstr ""
 
-#: web/templates/user/show.html.eex:166 web/templates/user/show.html.eex:180
+#: web/templates/user/show.html.eex:182 web/templates/user/show.html.eex:196
 msgid "More"
 msgstr ""
 
@@ -483,7 +472,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: web/templates/user/show.html.eex:163
+#: web/templates/user/show.html.eex:179
 msgid "No Followers yet!"
 msgstr ""
 
@@ -491,19 +480,19 @@ msgstr ""
 msgid "No expensive premium accounts! Read more about it in"
 msgstr ""
 
-#: web/templates/user/show.html.eex:177
+#: web/templates/user/show.html.eex:193
 msgid "Not following anyone yet!"
 msgstr ""
 
-#: web/templates/user_skill/show.html.eex:28
+#: web/templates/user_skill/show.html.eex:31
 msgid "Nothing to see here!"
 msgstr ""
 
-#: web/templates/phone_number/show.html.eex:26
+#: web/templates/phone_number/show.html.eex:32
 msgid "Number"
 msgstr ""
 
-#: web/templates/phone_number/show.html.eex:24
+#: web/templates/phone_number/show.html.eex:30
 msgid "Number Type"
 msgstr ""
 
@@ -524,7 +513,7 @@ msgstr ""
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
 
-#: web/templates/work_experience/show.html.eex:29
+#: web/templates/work_experience/show.html.eex:31
 msgid "Organization"
 msgstr ""
 
@@ -532,7 +521,7 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: web/templates/user/show.html.eex:133
+#: web/templates/user/show.html.eex:149
 msgid "PHP, JavaScript, Tap Dancing, Origami"
 msgstr ""
 
@@ -544,7 +533,7 @@ msgstr ""
 #: web/templates/phone_number/index.html.eex:14
 #: web/templates/phone_number/new.html.eex:7
 #: web/templates/phone_number/show.html.eex:13
-#: web/templates/user/show.html.eex:208
+#: web/templates/user/show.html.eex:224
 msgid "Phone Numbers"
 msgstr ""
 
@@ -577,11 +566,11 @@ msgid "Privacy Policy"
 msgstr ""
 
 #: web/templates/email/card_list.html.eex:15
-#: web/templates/email/show.html.eex:27
+#: web/templates/email/show.html.eex:32
 msgid "Private"
 msgstr ""
 
-#: web/templates/social_media_account/card_list.html.eex:4
+#: web/templates/social_media_account/card_list.html.eex:5
 msgid "Profile Provider"
 msgstr ""
 
@@ -589,12 +578,12 @@ msgstr ""
 msgid "Profiles belonging to "
 msgstr ""
 
-#: web/templates/social_media_account/show.html.eex:24
+#: web/templates/social_media_account/show.html.eex:29
 msgid "Provider"
 msgstr ""
 
 #: web/templates/email/card_list.html.eex:15
-#: web/templates/email/show.html.eex:27
+#: web/templates/email/show.html.eex:32
 msgid "Public"
 msgstr ""
 
@@ -644,10 +633,6 @@ msgstr ""
 msgid "Select"
 msgstr ""
 
-#: web/templates/user/show.html.eex:68
-msgid "Set"
-msgstr ""
-
 #: web/templates/address/show.html.eex:14
 #: web/templates/search_term/index.html.eex:21
 #: web/templates/skill/index.html.eex:20 web/templates/user/index.html.eex:33
@@ -668,7 +653,7 @@ msgstr ""
 msgid "Skill added successfully."
 msgstr ""
 
-#: web/templates/user/show.html.eex:121
+#: web/templates/user/show.html.eex:137
 #: web/templates/user_skill/index.html.eex:14
 #: web/templates/user_skill/new.html.eex:8
 #: web/templates/user_skill/show.html.eex:13
@@ -679,7 +664,7 @@ msgstr ""
 msgid "Slug"
 msgstr ""
 
-#: web/controllers/slug_controller.ex:41
+#: web/controllers/slug_controller.ex:44
 msgid "Slug activated successfully"
 msgstr ""
 
@@ -691,11 +676,11 @@ msgstr ""
 msgid "Slug doesn't exist."
 msgstr ""
 
-#: web/controllers/slug_controller.ex:23 web/controllers/user_controller.ex:169
+#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:176
 msgid "Slug updated successfully."
 msgstr ""
 
-#: web/templates/user/show.html.eex:109
+#: web/templates/user/show.html.eex:118
 msgid "Social Media"
 msgstr ""
 
@@ -722,7 +707,6 @@ msgid "Social media account updated successfully."
 msgstr ""
 
 #: web/controllers/connection_controller.ex:30
-#: web/controllers/user_controller.ex:256
 msgid "Something went wrong"
 msgstr ""
 
@@ -741,10 +725,6 @@ msgstr ""
 msgid "Submit a bugreport or a feature request."
 msgstr ""
 
-#: web/controllers/user_controller.ex:252
-msgid "Successfully set a headline"
-msgstr ""
-
 #: web/templates/user/form.html.eex:59
 msgid "Suffix"
 msgstr ""
@@ -757,11 +737,11 @@ msgstr ""
 msgid "There was an error"
 msgstr ""
 
-#: web/templates/user_skill/show.html.eex:29
+#: web/templates/user_skill/show.html.eex:32
 msgid "This skill doesnt have a description yet. We will be adding the ability to submit descriptions soon."
 msgstr ""
 
-#: web/templates/work_experience/show.html.eex:31
+#: web/templates/work_experience/show.html.eex:33
 msgid "Time Period"
 msgstr ""
 
@@ -769,7 +749,7 @@ msgstr ""
 msgid "Type of Number"
 msgstr ""
 
-#: web/templates/url/card_list.html.eex:5 web/templates/url/show.html.eex:30
+#: web/templates/url/card_list.html.eex:5 web/templates/url/show.html.eex:32
 msgid "URL"
 msgstr ""
 
@@ -794,15 +774,15 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: web/controllers/user_controller.ex:39
+#: web/controllers/page_controller.ex:30 web/controllers/user_controller.ex:39
 msgid "User %{name} created successfully. An email has been sent with your login link."
 msgstr ""
 
-#: web/controllers/user_controller.ex:186
+#: web/controllers/user_controller.ex:193
 msgid "User deleted successfully."
 msgstr ""
 
-#: web/controllers/user_controller.ex:146
+#: web/controllers/user_controller.ex:153
 msgid "User updated successfully."
 msgstr ""
 
@@ -814,8 +794,8 @@ msgstr ""
 msgid "UserSkill deleted successfully."
 msgstr ""
 
-#: web/templates/social_media_account/card_list.html.eex:5
-#: web/templates/social_media_account/show.html.eex:26
+#: web/templates/social_media_account/card_list.html.eex:4
+#: web/templates/social_media_account/show.html.eex:31
 msgid "Username"
 msgstr ""
 
@@ -852,7 +832,7 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: web/templates/user/show.html.eex:99
+#: web/templates/user/show.html.eex:106
 msgid "Vcard"
 msgstr ""
 
@@ -860,13 +840,13 @@ msgstr ""
 msgid "Verified"
 msgstr ""
 
-#: web/templates/user/show.html.eex:149 web/templates/user/show.html.eex:200
-#: web/templates/user/show.html.eex:220 web/templates/user/show.html.eex:240
-#: web/templates/user/show.html.eex:260
+#: web/templates/user/show.html.eex:165 web/templates/user/show.html.eex:216
+#: web/templates/user/show.html.eex:236 web/templates/user/show.html.eex:256
+#: web/templates/user/show.html.eex:276
 msgid "View All"
 msgstr ""
 
-#: web/templates/email/card_list.html.eex:5 web/templates/email/show.html.eex:26
+#: web/templates/email/card_list.html.eex:5 web/templates/email/show.html.eex:31
 msgid "Visibility"
 msgstr ""
 
@@ -914,14 +894,14 @@ msgstr ""
 msgid "You don't have any followers yet! If you want more followers, you could follow others, invite your friends, or link your Vutuv profile on other social media websites."
 msgstr ""
 
-#: web/controllers/user_controller.ex:273
+#: web/controllers/user_controller.ex:262
 msgid "You follow back %{name}."
 msgstr ""
 
 #: web/controllers/admin/admin_controller.ex:18
 #: web/controllers/admin/slug_controller.ex:51
 #: web/controllers/admin/user_controller.ex:25
-#: web/controllers/user_controller.ex:312
+#: web/controllers/user_controller.ex:301
 msgid "You must be logged in to access that page"
 msgstr ""
 
@@ -951,4 +931,25 @@ msgstr ""
 
 #: web/templates/user_skill/card_list.html.eex:11
 msgid "upvotes"
+msgstr ""
+
+#: web/controllers/user_controller.ex:246
+msgid "Successfully added %{successes} skills with %{failures} failures."
+msgstr ""
+
+#: web/controllers/user_controller.ex:207
+msgid "An email has been sent to your email address with instructions on how to delete your account."
+msgstr ""
+
+#: web/templates/user/edit.html.eex:18
+msgid "Delete Account"
+msgstr ""
+
+#: web/templates/user/show.html.eex:55
+msgid "Your New vutuv Profile Page"
+msgstr ""
+
+#, fuzzy
+#: web/templates/user/show.html.eex:57
+msgid "Please take a couple of minutes to add information that might be interesting for your future followers. Why don't you start with your skills and work experiences?"
 msgstr ""
