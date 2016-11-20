@@ -13,9 +13,8 @@
     <%= render Vutuv.SharedView, "_ad.html" %>
   </aside>
   <section class="card">
-    <%= button to: user_path(@conn, :delete, @user), method: "delete", class: "card__edit button button-link button--icon button--small", form: [class: "card__edit button button--icon button--small"] do %>
-      <i class="icon icon--delete"></i>
-    <% end %>
+    
     <%= render "form.html", changeset: @changeset, action: user_path(@conn, :update, @user), conn: @conn, current_user: @current_user, backlink: user_path(@conn, :show, @user) %>
+    <%= button gettext("Delete Account"), to: user_path(@conn, :delete, @user), method: "delete", class: "link_button delete_link_button", form: [class: "link_button_form card__morelink-border"] %>
 	</section>
 </div>
