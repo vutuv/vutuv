@@ -618,7 +618,7 @@ msgstr "Suchbegriff"
 
 #: web/templates/search_query/form.html.eex:7
 msgid "Search here"
-msgstr "Suche"
+msgstr "Max Mustermann"
 
 #: web/controllers/search_query_controller.ex:57
 #: web/controllers/search_query_controller.ex:61

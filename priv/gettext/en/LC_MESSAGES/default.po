@@ -618,7 +618,7 @@ msgstr ""
 
 #: web/templates/search_query/form.html.eex:7
 msgid "Search here"
-msgstr ""
+msgstr "Bob"
 
 #: web/controllers/search_query_controller.ex:57
 #: web/controllers/search_query_controller.ex:61
