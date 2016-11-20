@@ -256,7 +256,7 @@ td {
 td a + a {
   margin-left: 10px; }
 
-input, textarea {
+input:not([type="checkbox"]), textarea {
   box-sizing: border-box;
   vertical-align: bottom;
   -webkit-appearance: none;
