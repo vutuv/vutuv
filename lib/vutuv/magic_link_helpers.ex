@@ -1,6 +1,6 @@
 defmodule Vutuv.MagicLinkHelpers do
   import Ecto.Query
-
+  require Vutuv.Gettext
   alias Vutuv.MagicLink
 
   @magic_link_expire_time 3600  #in seconds
@@ -40,6 +40,8 @@ defmodule Vutuv.MagicLinkHelpers do
     Vutuv.Repo.update!(changeset)
   end
 
+  defp link_expired?(%{magic_link_created_at: nil}), do: true
+
   defp link_expired?(%{magic_link_created_at: date_time}) do
     time_created = 
       date_time
@@ -56,12 +58,12 @@ defmodule Vutuv.MagicLinkHelpers do
   #returns {:ok, user} if match is found to link, returns {:error, reason} otherwise
   def check_magic_link(link, type) do
     case Vutuv.Repo.one(from m in MagicLink, where: m.magic_link==^link and m.magic_link_type == ^type) do
-      nil->  {:error, "No Match Found"}
+      nil->  {:error, Vutuv.Gettext.gettext("An error occured")}
       magic_link->
         case link_expired?(magic_link) do
           true-> 
             expire_magic_link(magic_link)
-            {:error, "Link expired"}
+            {:error, Vutuv.Gettext.gettext("Link expired")}
           false ->
             expire_magic_link(magic_link)
             response magic_link

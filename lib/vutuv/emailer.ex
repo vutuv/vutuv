@@ -1,5 +1,6 @@
 defmodule Vutuv.Emailer do
   import Bamboo.Email
+  require Vutuv.Gettext
   use Bamboo.Phoenix, view: Vutuv.EmailView
 
   def login_email(link, email, user) do
@@ -24,7 +25,7 @@ defmodule Vutuv.Emailer do
     |> assign(:user, user)
     |> to(email)
     |> from("vutuv <info@vutuv.de>")
-    |> subject("vutuv verification email")
+    |> subject(Vutuv.Gettext.gettext("vutuv verification email"))
     |> render("#{template}.text")
   end
 end

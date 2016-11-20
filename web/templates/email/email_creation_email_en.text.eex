@@ -1,4 +1,3 @@
-<html lang="en">
-<b>Use the following link to validate your email address:<b>
-<p><a href = "<%= @url %>magic/email/<%=@link%>"><%= @url %>magic/email/<%=@link%></a></p>
-</html>
+<%= gettext "Hello" %> <%= full_name(@user)%>
+Use the following link to validate your email address:
+<%= @url %>magic/email/<%=@link%>

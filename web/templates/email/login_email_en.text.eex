@@ -1,12 +1,12 @@
 Hi,
 
-vutuv is ready for you to login. Here's your magic link:
+Click the following link to log in to vutuv.
 <%= @url %>magic/login/<%=@link%>
 
-Thank you for using vutuv. Please tell your friends about it.
+Thanks for using vutuv! If you like our service, feel free to share us with your friends!
 
 Regards
-Your vutuv team
+The vutuv team
 
 --
 vutuv is a service provided by AMOOMA GmbH. https://www.amooma.de
