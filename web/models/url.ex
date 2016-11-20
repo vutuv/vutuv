@@ -19,6 +19,6 @@ defmodule Vutuv.Url do
     model
     |> cast(params, [:value, :description])
     |> validate_required([:value])
-    |> validate_format(:value, ~r/^http(s)?:\/\/(www\.)?[a-z0-9]+.[a-z]+$/u)
+    |> validate_format(:value, ~r/^http(s)?:\/\/([a-z0-9]+\.)?[a-z0-9]+.[a-z]+$/u)
   end
 end
