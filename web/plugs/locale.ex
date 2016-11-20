@@ -43,7 +43,7 @@ defmodule Vutuv.Plug.Locale do
   defp process_possible_locale(_, locales), do: get_first_locale(locales) #Else return the user's most preferred locale
 
 
-  defp assign_locale(nil, conn), do: conn
+  defp assign_locale(nil, conn), do: assign(conn, :locale, "en")
 
   defp assign_locale(locale, conn) do #Give locale data to all modules that require it
     Gettext.put_locale(Vutuv.Gettext, locale)
