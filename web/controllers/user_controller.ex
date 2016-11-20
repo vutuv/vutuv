@@ -106,7 +106,11 @@ defmodule Vutuv.UserController do
     total_links = count_user_assoc Vutuv.Url, user
     total_addresses = count_user_assoc Vutuv.Address, user
 
-    display_welcome_message = false
+    # Display an introduction message for new users
+    #
+    inserted_at = :calendar.datetime_to_gregorian_seconds(Ecto.DateTime.to_erl(user.inserted_at))
+    now = :calendar.datetime_to_gregorian_seconds(:calendar.universal_time)
+    display_welcome_message = now - inserted_at <= 600
 
     conn
     |> assign(:emails, emails)
