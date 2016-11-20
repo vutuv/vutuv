@@ -21,6 +21,15 @@ defmodule Vutuv.SocialMediaAccount do
     {"Snapchat" , ""}
   ]
 
+  display_rules = [
+    {"Facebook" , "facebook.com/"},
+    {"Twitter" , "@"},
+    {"Instagram" , "@"},
+    {"Youtube" , ""},
+    {"Stackoverflow" , ""},
+    {"Snapchat" , ""}
+  ]
+
   @doc """
   Creates a changeset based on the `model` and `params`.
 
@@ -48,9 +57,15 @@ defmodule Vutuv.SocialMediaAccount do
     if value, do: [], else: [value: {"Invalid account name", []}]
   end
 
-  for {provider, url} <- base_urls do #This generates special rule matches
+  for {provider, url} <- base_urls do #This generates special url rule matches
     def get_full_url(%__MODULE__{provider: unquote(provider), value: value}), do: unquote(url)<>value
   end
 
   def get_full_url(_), do: ""
+
+  for {provider, pretext} <- display_rules do #This generates special display rule matches
+    def get_display(%__MODULE__{provider: unquote(provider), value: value}), do: unquote(pretext)<>value
+  end
+
+  def get_display(_), do: ""
 end

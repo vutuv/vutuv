@@ -119,12 +119,10 @@
         <% end %>
         <% end %>
         <h1><%= gettext "Social Media" %></h1>
-        <dl>
-          <%= for account <- @user.social_media_accounts do %>
-          <dt><%= account.provider %></dt>
-          <dd><%= link "@#{account.value}", to: Vutuv.SocialMediaAccount.get_full_url(account) %></dd>
-          <% end %>
-        </dl>
+        <%= for account <- @user.social_media_accounts do %>
+        <h2><%= account.provider %></h2>
+        <p><%= link Vutuv.SocialMediaAccount.get_display(account), to: Vutuv.SocialMediaAccount.get_full_url(account) %></p>
+        <% end %>
 
         <span class="card__morelink">
           <%= if same_user?(@user, @current_user) do %>
