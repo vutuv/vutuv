@@ -45,14 +45,12 @@ defmodule Vutuv.Registration do
     slug_value = Slugger.slugify_downcase(user, ?.)
 
     f = fn val -> if val, do: val, else: "" end
-
-    user_count = Repo.one(from u in User,
-      where: u.first_name == ^f.(user.first_name)
-      and u.last_name == ^f.(user.last_name),
+    slug_count = Repo.one(from s in Vutuv.Slug,
+      where: like(s.value, ^("#{slug_value}%")),
       select: count("*"))
     
-    if(user_count>0) do
-      slug_value<>Integer.to_string(user_count)
+    if(slug_count>0) do
+      slug_value<>Integer.to_string(slug_count)
     else
       slug_value
     end
