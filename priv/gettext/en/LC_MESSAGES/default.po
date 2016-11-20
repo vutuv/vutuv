@@ -48,11 +48,11 @@ msgstr ""
 #: web/templates/address/index.html.eex:24 web/templates/email/index.html.eex:24
 #: web/templates/phone_number/index.html.eex:24
 #: web/templates/social_media_account/index.html.eex:24
-#: web/templates/url/index.html.eex:25 web/templates/user/show.html.eex:101
-#: web/templates/user/show.html.eex:128 web/templates/user/show.html.eex:153
-#: web/templates/user/show.html.eex:161 web/templates/user/show.html.eex:212
-#: web/templates/user/show.html.eex:232 web/templates/user/show.html.eex:252
-#: web/templates/user/show.html.eex:272
+#: web/templates/url/index.html.eex:25 web/templates/user/show.html.eex:108
+#: web/templates/user/show.html.eex:133 web/templates/user/show.html.eex:158
+#: web/templates/user/show.html.eex:166 web/templates/user/show.html.eex:217
+#: web/templates/user/show.html.eex:237 web/templates/user/show.html.eex:257
+#: web/templates/user/show.html.eex:277
 #: web/templates/user_skill/form.html.eex:10
 #: web/templates/user_skill/index.html.eex:25
 #: web/templates/work_experience/form.html.eex:58
@@ -78,16 +78,12 @@ msgstr ""
 
 #: web/templates/address/edit.html.eex:8 web/templates/address/index.html.eex:14
 #: web/templates/address/new.html.eex:8 web/templates/address/show.html.eex:13
-#: web/templates/user/show.html.eex:264
+#: web/templates/user/show.html.eex:269
 msgid "Addresses"
 msgstr ""
 
-#: web/templates/page/index.html.eex:63
+#: web/templates/page/index.html.eex:62
 msgid "Already a member? Sign in here."
-msgstr ""
-
-#: web/controllers/session_controller.ex:14
-msgid "An email has been sent with your login link."
 msgstr ""
 
 #: web/templates/user/index.html.eex:35
@@ -108,11 +104,11 @@ msgstr ""
 msgid "Birthdate"
 msgstr ""
 
-#: web/templates/user/show.html.eex:78
+#: web/templates/user/show.html.eex:84
 msgid "Birthday"
 msgstr ""
 
-#: web/templates/page/index.html.eex:59
+#: web/templates/page/index.html.eex:58
 msgid "By signing up you agree that we set a cookie in your browser."
 msgstr ""
 
@@ -150,7 +146,7 @@ msgstr ""
 msgid "Connection deleted successfully."
 msgstr ""
 
-#: web/templates/user/show.html.eex:92
+#: web/templates/user/show.html.eex:99
 msgid "Contact"
 msgstr ""
 
@@ -176,7 +172,7 @@ msgstr ""
 msgid "Disable"
 msgstr ""
 
-#: web/templates/user/show.html.eex:107
+#: web/templates/user/show.html.eex:114
 msgid "Download"
 msgstr ""
 
@@ -195,7 +191,7 @@ msgid "Edit user"
 msgstr ""
 
 #: web/templates/email/card_list.html.eex:4 web/templates/email/show.html.eex:29
-#: web/templates/user/show.html.eex:94
+#: web/templates/user/show.html.eex:101
 msgid "Email"
 msgstr ""
 
@@ -217,7 +213,7 @@ msgstr ""
 
 #: web/templates/email/edit.html.eex:7 web/templates/email/index.html.eex:14
 #: web/templates/email/new.html.eex:7 web/templates/email/show.html.eex:13
-#: web/templates/user/show.html.eex:94
+#: web/templates/user/show.html.eex:101
 msgid "Emails"
 msgstr ""
 
@@ -225,11 +221,11 @@ msgstr ""
 msgid "Emails belonging to "
 msgstr ""
 
-#: web/controllers/endorsement_controller.ex:23
+#: web/controllers/endorsement_controller.ex:11
 msgid "Endorsement successful."
 msgstr ""
 
-#: web/controllers/endorsement_controller.ex:27
+#: web/controllers/endorsement_controller.ex:15
 msgid "Endorsement unsuccessful."
 msgstr ""
 
@@ -237,23 +233,23 @@ msgstr ""
 msgid "English"
 msgstr ""
 
-#: web/templates/user/show.html.eex:148
+#: web/templates/user/show.html.eex:153
 msgid "Enter comma seperated skills here"
 msgstr ""
 
-#: web/templates/page/index.html.eex:41 web/templates/session/new.html.eex:19
+#: web/templates/page/index.html.eex:40 web/templates/session/new.html.eex:19
 msgid "Enter your email address"
 msgstr ""
 
-#: web/templates/page/index.html.eex:31
+#: web/templates/page/index.html.eex:30
 msgid "Enter your first name"
 msgstr ""
 
-#: web/templates/page/index.html.eex:35
+#: web/templates/page/index.html.eex:34
 msgid "Enter your last name"
 msgstr ""
 
-#: web/templates/user/show.html.eex:202
+#: web/templates/user/show.html.eex:207
 #: web/templates/work_experience/edit.html.eex:8
 #: web/templates/work_experience/index.html.eex:14
 #: web/templates/work_experience/new.html.eex:8
@@ -275,16 +271,16 @@ msgstr ""
 
 #: web/templates/followee/index.html.eex:15
 #: web/templates/follower/index.html.eex:7
-#: web/templates/follower/index.html.eex:16 web/templates/user/show.html.eex:173
+#: web/templates/follower/index.html.eex:16 web/templates/user/show.html.eex:178
 msgid "Followers"
 msgstr ""
 
-#: web/templates/followee/index.html.eex:7 web/templates/user/show.html.eex:187
+#: web/templates/followee/index.html.eex:7 web/templates/user/show.html.eex:192
 msgid "Following"
 msgstr ""
 
 #: web/templates/user/form.html.eex:8 web/templates/user/index.html.eex:12
-#: web/templates/user/show.html.eex:74
+#: web/templates/user/show.html.eex:80
 msgid "Gender"
 msgstr ""
 
@@ -292,7 +288,7 @@ msgstr ""
 msgid "German"
 msgstr ""
 
-#: web/templates/page/index.html.eex:25
+#: web/templates/page/index.html.eex:24
 msgid "Get started now. It only takes 30 seconds."
 msgstr ""
 
@@ -312,17 +308,17 @@ msgstr ""
 msgid "Groups"
 msgstr ""
 
-#: web/templates/user/show.html.eex:70
+#: web/templates/user/form.html.eex:73 web/templates/user/show.html.eex:75
 msgid "Headline"
 msgstr ""
 
 #: web/templates/email/email_creation_email_de.html.eex:2
 #: web/templates/email/email_creation_email_en.html.eex:2
+#: web/templates/email/email_creation_email_en.text.eex:1
 #: web/templates/email/user_deletion_email.html.eex:2
 #: web/templates/email/user_deletion_email_de.html.eex:2
 #: web/templates/email/user_deletion_email_de.text.eex:2
 #: web/templates/email/user_deletion_email_en.html.eex:2
-#: web/templates/email/user_deletion_email_en.text.eex:2
 msgid "Hello"
 msgstr ""
 
@@ -346,7 +342,7 @@ msgstr ""
 msgid "Invalid connection!"
 msgstr ""
 
-#: web/controllers/session_controller.ex:18
+#: web/controllers/session_controller.ex:17
 msgid "Invalid email"
 msgstr ""
 
@@ -388,7 +384,7 @@ msgstr ""
 
 #: web/templates/url/edit.html.eex:7 web/templates/url/index.html.eex:14
 #: web/templates/url/new.html.eex:7 web/templates/url/show.html.eex:13
-#: web/templates/user/show.html.eex:244
+#: web/templates/user/show.html.eex:249
 msgid "Links"
 msgstr ""
 
@@ -432,7 +428,7 @@ msgstr ""
 msgid "Middlename"
 msgstr ""
 
-#: web/templates/user/show.html.eex:182 web/templates/user/show.html.eex:196
+#: web/templates/user/show.html.eex:187 web/templates/user/show.html.eex:201
 msgid "More"
 msgstr ""
 
@@ -443,11 +439,11 @@ msgstr ""
 msgid "More Info"
 msgstr ""
 
-#: web/templates/page/index.html.eex:27 web/templates/user/form.html.eex:9
+#: web/templates/page/index.html.eex:26 web/templates/user/form.html.eex:9
 msgid "Mr"
 msgstr ""
 
-#: web/templates/page/index.html.eex:28 web/templates/user/form.html.eex:9
+#: web/templates/page/index.html.eex:27 web/templates/user/form.html.eex:9
 msgid "Mrs"
 msgstr ""
 
@@ -472,15 +468,15 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: web/templates/user/show.html.eex:179
+#: web/templates/user/show.html.eex:184
 msgid "No Followers yet!"
 msgstr ""
 
-#: web/templates/page/index.html.eex:17
+#: web/templates/page/index.html.eex:16
 msgid "No expensive premium accounts! Read more about it in"
 msgstr ""
 
-#: web/templates/user/show.html.eex:193
+#: web/templates/user/show.html.eex:198
 msgid "Not following anyone yet!"
 msgstr ""
 
@@ -504,7 +500,7 @@ msgstr ""
 #: web/templates/address/form_en.html.eex:4
 #: web/templates/address/form_generic.html.eex:4
 #: web/templates/email/form.html.eex:4 web/templates/group/form.html.eex:4
-#: web/templates/membership/form.html.eex:4 web/templates/page/index.html.eex:22
+#: web/templates/membership/form.html.eex:4 web/templates/page/index.html.eex:21
 #: web/templates/phone_number/form.html.eex:4
 #: web/templates/search_query/form.html.eex:4 web/templates/slug/form.html.eex:4
 #: web/templates/social_media_account/form.html.eex:4
@@ -517,11 +513,11 @@ msgstr ""
 msgid "Organization"
 msgstr ""
 
-#: web/templates/page/index.html.eex:28 web/templates/user/form.html.eex:9
+#: web/templates/page/index.html.eex:27 web/templates/user/form.html.eex:9
 msgid "Other"
 msgstr ""
 
-#: web/templates/user/show.html.eex:149
+#: web/templates/user/show.html.eex:154
 msgid "PHP, JavaScript, Tap Dancing, Origami"
 msgstr ""
 
@@ -533,7 +529,7 @@ msgstr ""
 #: web/templates/phone_number/index.html.eex:14
 #: web/templates/phone_number/new.html.eex:7
 #: web/templates/phone_number/show.html.eex:13
-#: web/templates/user/show.html.eex:224
+#: web/templates/user/show.html.eex:229
 msgid "Phone Numbers"
 msgstr ""
 
@@ -645,7 +641,7 @@ msgstr ""
 msgid "Show search term"
 msgstr ""
 
-#: web/templates/page/index.html.eex:61
+#: web/templates/page/index.html.eex:60
 msgid "Sign up"
 msgstr ""
 
@@ -653,7 +649,7 @@ msgstr ""
 msgid "Skill added successfully."
 msgstr ""
 
-#: web/templates/user/show.html.eex:137
+#: web/templates/user/show.html.eex:142
 #: web/templates/user_skill/index.html.eex:14
 #: web/templates/user_skill/new.html.eex:8
 #: web/templates/user_skill/show.html.eex:13
@@ -680,7 +676,7 @@ msgstr ""
 msgid "Slug updated successfully."
 msgstr ""
 
-#: web/templates/user/show.html.eex:118
+#: web/templates/user/show.html.eex:125
 msgid "Social Media"
 msgstr ""
 
@@ -729,7 +725,7 @@ msgstr ""
 msgid "Suffix"
 msgstr ""
 
-#: web/templates/page/index.html.eex:16
+#: web/templates/page/index.html.eex:15
 msgid "The Fast and Free Career Network"
 msgstr ""
 
@@ -753,7 +749,7 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: web/controllers/endorsement_controller.ex:51
+#: web/controllers/endorsement_controller.ex:27
 msgid "Unendorsed skill successfully."
 msgstr ""
 
@@ -761,7 +757,6 @@ msgstr ""
 #: web/templates/email/user_deletion_email_de.html.eex:3
 #: web/templates/email/user_deletion_email_de.text.eex:3
 #: web/templates/email/user_deletion_email_en.html.eex:3
-#: web/templates/email/user_deletion_email_en.text.eex:3
 msgid "Use the following link to delete your account:"
 msgstr ""
 
@@ -816,7 +811,7 @@ msgstr ""
 #: web/templates/url/edit.html.eex:5 web/templates/url/index.html.eex:12
 #: web/templates/url/new.html.eex:5 web/templates/url/show.html.eex:11
 #: web/templates/user/edit.html.eex:5 web/templates/user/new.html.eex:5
-#: web/templates/user/show.html.eex:46
+#: web/templates/user/show.html.eex:49
 #: web/templates/user_skill/index.html.eex:12
 #: web/templates/user_skill/new.html.eex:6
 #: web/templates/user_skill/show.html.eex:11
@@ -832,7 +827,7 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: web/templates/user/show.html.eex:106
+#: web/templates/user/show.html.eex:113
 msgid "Vcard"
 msgstr ""
 
@@ -840,9 +835,9 @@ msgstr ""
 msgid "Verified"
 msgstr ""
 
-#: web/templates/user/show.html.eex:165 web/templates/user/show.html.eex:216
-#: web/templates/user/show.html.eex:236 web/templates/user/show.html.eex:256
-#: web/templates/user/show.html.eex:276
+#: web/templates/user/show.html.eex:170 web/templates/user/show.html.eex:221
+#: web/templates/user/show.html.eex:241 web/templates/user/show.html.eex:261
+#: web/templates/user/show.html.eex:281
 msgid "View All"
 msgstr ""
 
@@ -854,11 +849,11 @@ msgstr ""
 msgid "We can't find em' cap'n!"
 msgstr ""
 
-#: web/templates/page/index.html.eex:64
+#: web/templates/page/index.html.eex:63
 msgid "We reserve the right to stop this service or delete your account anytime without warning."
 msgstr ""
 
-#: web/controllers/session_controller.ex:27
+#: web/controllers/session_controller.ex:26
 msgid "Welcome back!"
 msgstr ""
 
@@ -870,15 +865,15 @@ msgstr ""
 msgid "Work Experiences"
 msgstr ""
 
-#: web/controllers/work_experience_controller.ex:30
+#: web/controllers/work_experience_controller.ex:31
 msgid "Work experience created successfully."
 msgstr ""
 
-#: web/controllers/work_experience_controller.ex:69
+#: web/controllers/work_experience_controller.ex:71
 msgid "Work experience deleted successfully."
 msgstr ""
 
-#: web/controllers/work_experience_controller.ex:54
+#: web/controllers/work_experience_controller.ex:56
 msgid "Work experience updated successfully."
 msgstr ""
 
@@ -905,7 +900,7 @@ msgstr ""
 msgid "You must be logged in to access that page"
 msgstr ""
 
-#: web/templates/user/show.html.eex:24
+#: web/templates/user/show.html.eex:27
 msgid "followers"
 msgstr ""
 
@@ -913,15 +908,11 @@ msgstr ""
 msgid "follows"
 msgstr ""
 
-#: web/templates/user/show.html.eex:24
+#: web/templates/user/show.html.eex:27
 msgid "has"
 msgstr ""
 
-#: web/templates/user/form.html.eex:73
-msgid "headline"
-msgstr ""
-
-#: web/templates/page/index.html.eex:17
+#: web/templates/page/index.html.eex:16
 msgid "our blog"
 msgstr ""
 
@@ -945,18 +936,52 @@ msgstr ""
 msgid "Delete Account"
 msgstr ""
 
-#: web/templates/user/show.html.eex:55
+#: web/templates/user/show.html.eex:58
 msgid "Your New vutuv Profile Page"
 msgstr ""
 
-#: web/templates/user/show.html.eex:57
+#: web/templates/user/show.html.eex:60
 msgid "Please take a couple of minutes to add information that might be interesting for your future followers. Why don't you start with your skills and work experiences?"
 msgstr ""
 
-#: web/templates/page/index.html.eex:45
+#: web/templates/page/index.html.eex:44
 msgid "Allow others to view your email address"
 msgstr ""
 
-#: web/templates/page/index.html.eex:53
+#: web/templates/page/index.html.eex:52
 msgid "Prevent search engines from indexing your profile"
+msgstr ""
+
+#: web/templates/session/user_login.html.eex:16
+msgid "An email has been sent with your login link. Once you login, you'll be logged in for the next 90 days on this device, or until you log out."
+msgstr ""
+
+#: lib/vutuv/magic_link_helpers.ex:61
+msgid "An error occured"
+msgstr ""
+
+#: lib/vutuv/magic_link_helpers.ex:66
+msgid "Link expired"
+msgstr ""
+
+#: web/templates/shared/_ad.html.eex:4
+msgid "Phoenix Framework, Ruby on Rails und WebPerformance Consulting und Training durch das vutuv Entwicklerteam."
+msgstr "Get Phoenix Framework, Ruby on Rails and WebPerformance consulting and training from the developers of vutuv."
+
+#: web/templates/page/new_registration.html.eex:15
+#: web/templates/session/user_login.html.eex:15
+msgid "Please check your email."
+msgstr ""
+
+#: web/templates/page/new_registration.html.eex:17
+#: web/templates/session/user_login.html.eex:17
+msgid "Please check your spam folder in case you don't find the email in your inbox."
+msgstr ""
+
+#: web/templates/page/new_registration.html.eex:16
+msgid "Your account has been created, and an email has been sent with a login link. Thats right, no passwords to remember! Once you login, you'll be logged in on this device for the next 90 days, or until you log out."
+msgstr ""
+
+#: lib/vutuv/emailer.ex:28
+msgid "vutuv verification email"
 msgstr ""
