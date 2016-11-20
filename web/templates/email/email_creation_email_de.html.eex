@@ -1,5 +1,0 @@
-<html lang="en">
-<h1><%= gettext "Hello" %> <%= full_name(@user)%></h1>
-<b><%= gettext "Use the following link to validate your email address:" %><b>
-<p><a href = "<%= @url %>magic/email/<%=@link%>"><%= @url %>magic/email/<%=@link%></a></p>
-</html>
