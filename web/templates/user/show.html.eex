@@ -64,28 +64,28 @@
     <% end %>
   <% end %>
 
-  <%= if(@user.headline || @user.birthdate) do %>
-  <section class="card">
-    <%= if same_user?(@user, @current_user) do %>
-    <%= link to: user_path(@conn, :edit, @user), class: "card__edit button button--icon button--small" do %>
-      <i class="icon icon--edit"></i>
-    <% end %>
-    <% end %>
-    <%= if @user.headline do %>
-    <h1><%= gettext "Headline" %></h1>
-    <p><%= @user.headline %></p>
-    <% end %>
-    <dl>
-      <%= if(@user.gender != "other" && @user.gender) do %>
-      <dt><%= gettext "Gender" %></dt>
-      <dd><%= @user.gender %></dd>
+  <%= if(@user.headline || @user.birthdate || same_user?(@user, @current_user)) do %>
+    <section class="card">
+      <%= if same_user?(@user, @current_user) do %>
+      <%= link to: user_path(@conn, :edit, @user), class: "card__edit button button--icon button--small" do %>
+        <i class="icon icon--edit"></i>
       <% end %>
-      <%= if(@user.birthdate) do %>
-      <dt><%= gettext "Birthday" %></dt>
-      <dd><%= @user.birthdate %></dd>
       <% end %>
-    </dl>
-  </section>
+      <%= if @user.headline || same_user?(@user, @current_user) do %>
+        <h1><%= gettext "Headline" %></h1>
+        <p><%= @user.headline %></p>
+      <% end %>
+      <dl>
+        <%= if(@user.gender != "other" && @user.gender) do %>
+        <dt><%= gettext "Gender" %></dt>
+        <dd><%= @user.gender %></dd>
+        <% end %>
+        <%= if(@user.birthdate) do %>
+        <dt><%= gettext "Birthday" %></dt>
+        <dd><%= @user.birthdate %></dd>
+        <% end %>
+      </dl>
+    </section>
   <% end %>
 
   <aside>
