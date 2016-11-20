@@ -12,9 +12,9 @@
 <div class="imagebox">
   <section class="card imagebox__card">
     <div class="imagebox__intro">
-      <h1>Please check your email.</h1>
-      <p>Your account has been created, and an email has been sent with a login link. Thats right, no passwords to remember! Once you login, you'll be logged in on this device for the next 90 days, or until you log out.</p>
-      <p>Please check your spam folder in case you don't find the email in your inbox.</p>
+      <h1><%= gettext "Please check your email." %></h1>
+      <p><%= gettext "Your account has been created, and an email has been sent with a login link. Thats right, no passwords to remember! Once you login, you'll be logged in on this device for the next 90 days, or until you log out." %></p>
+      <p><%= gettext "Please check your spam folder in case you don't find the email in your inbox." %></p>
     </div>
   </section>
 </div>

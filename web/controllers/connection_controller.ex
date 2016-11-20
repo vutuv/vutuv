@@ -58,11 +58,10 @@ defmodule Vutuv.ConnectionController do
       |> hd
       |> URI.parse
       |> Map.get(:path)
-    redirect_url = 
-      if(referrer) do
-        referrer
-      else
-        user_path(conn, :show, conn.assigns[:user])
-      end
+    if(referrer) do
+      referrer
+    else
+      user_path(conn, :show, conn.assigns[:user])
+    end
   end
 end

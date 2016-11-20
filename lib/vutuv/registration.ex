@@ -44,7 +44,6 @@ defmodule Vutuv.Registration do
   def generate_slug(user) do
     slug_value = Slugger.slugify_downcase(user, ?.)
 
-    f = fn val -> if val, do: val, else: "" end
     slug_count = Repo.one(from s in Vutuv.Slug,
       where: like(s.value, ^("#{slug_value}%")),
       select: count("*"))
@@ -57,7 +56,6 @@ defmodule Vutuv.Registration do
   end
 
   defp welcome_wagon(changeset) do
-    c = 
     Repo.one(from u in User, join: e in assoc(u, :emails), where: e.value == @stefan_email, select: u.id)
     |> case do
       nil -> changeset
@@ -66,7 +64,5 @@ defmodule Vutuv.Registration do
         changeset
         |> Ecto.Changeset.put_assoc(:follower_connections, [connection_changeset])
     end
-    IO.puts "\n\n#{inspect c}\n\n"
-    c
   end
 end

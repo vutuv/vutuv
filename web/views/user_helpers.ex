@@ -103,7 +103,7 @@ defmodule Vutuv.UserHelpers do
 
   def user_follows_user?(_, _), do: false;
 
-  def is_visitor?(conn, nil), do: false
+  def is_visitor?(_, nil), do: false
 
   def is_visitor?(conn, current_user) do
     !same_user?(conn.assigns[:user], current_user)
