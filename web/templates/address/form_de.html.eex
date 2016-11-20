@@ -8,41 +8,35 @@
   <%= hidden_input f, :country %>
 
   <div class="editform__field<%= if error_tag(f, :description), do: " editform__field--error"%>">
-    <%= label f, :description %>
+    <%= label f, "Beschreibung" %>
     <%= text_input f, :description, autofocus: true %>
     <%= error_tag f, :description %>
   </div>
 
   <div class="editform__field<%= if error_tag(f, :line_1), do: " editform__field--error"%>">
-    <%= label f, :street %>
+    <%= label f, "Strasse" %>
     <%= text_input f, :line_1 %>
     <%= error_tag f, :line_1 %>
   </div>
 
-  <div class="editform__field<%= if error_tag(f, :line_2), do: " editform__field--error"%>">
-    <%= label f, :po_box %>
-    <%= text_input f, :line_2 %>
-    <%= error_tag f, :line_2 %>
-  </div>
-
-  <div class="editform__field<%= if error_tag(f, :city), do: " editform__field--error"%>">
-    <%= label f, :city %>
-    <%= text_input f, :city %>
-    <%= error_tag f, :city %>
-  </div>
-
   <div class="editform__field<%= if error_tag(f, :zip_code), do: " editform__field--error"%>">
-    <%= label f, :zip_code %>
+    <%= label f, "Postleitzahl" %>
     <%= text_input f, :zip_code %>
     <%= error_tag f, :zip_code %>
   </div>
 
+  <div class="editform__field<%= if error_tag(f, :city), do: " editform__field--error"%>">
+    <%= label f, "Stadt" %>
+    <%= text_input f, :city %>
+    <%= error_tag f, :city %>
+  </div>
+
   <div class="editform__field<%= if error_tag(f, :country), do: " editform__field--error"%>">
-    <%= label f, :country %>
+    <%= label f, "Land" %>
     <div class="editform__inputwrap">
     <%= select f, :country,
      ["Germany", "United States"],
-     prompt: "Select a Country",
+     prompt: "Bitte wählen Sie ein Land",
      class: "form-control" %>
      </div>
   </div>

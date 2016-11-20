@@ -122,8 +122,7 @@ defmodule Vutuv.UserHelpers do
   def format_address(%Address{country: "Germany", line_1: line_1, line_2: line_2, city: city, state: state, zip_code: zip_code}) do
     #This needs to be rewritten to format german addresses
     "#{line_1}#{if line_2, do: "\n"<>line_2}
-    #{city}, #{state} #{zip_code}
-    United States"
+    #{zip_code} #{city}"
     |> Phoenix.HTML.Format.text_to_html
   end
 
