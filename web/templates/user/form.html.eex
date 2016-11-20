@@ -70,7 +70,7 @@
     </div>
 
     <div class="editform__field<%= if error_tag(f, :headline), do: " editform__field--error"%>">
-    <%= label f, :headline, gettext("headline") %>
+    <%= label f, :headline, gettext("Headline") %>
     <%= textarea f, :headline %>
     <%= error_tag f, :headline %>
     </div>
