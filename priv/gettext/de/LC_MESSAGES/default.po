@@ -949,7 +949,14 @@ msgstr "Accont löschen"
 msgid "Your New vutuv Profile Page"
 msgstr "Ihr neues vutuv Profil"
 
-#, fuzzy
 #: web/templates/user/show.html.eex:57
 msgid "Please take a couple of minutes to add information that might be interesting for your future followers. Why don't you start with your skills and work experiences?"
 msgstr "Bitte nehmen Sie sich ein wenig Zeit um weitere Informationen einzutragen. Ein guter Start sind Ihre Fähigkeiten (Skills) und Ihr Lebenslauf."
+
+#: web/templates/page/index.html.eex:45
+msgid "Allow others to view your email address"
+msgstr "Diese E-Mail Adresse darf jeder sehen"
+
+#: web/templates/page/index.html.eex:53
+msgid "Prevent search engines from indexing your profile"
+msgstr "Suchmaschinen sollen dieses Profil nicht indizieren"
