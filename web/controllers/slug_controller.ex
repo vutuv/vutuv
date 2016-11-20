@@ -1,5 +1,8 @@
 defmodule Vutuv.SlugController do
   use Vutuv.Web, :controller
+
+  plug Vutuv.Plug.All404
+
   alias Vutuv.Slug
   import Ecto
   
