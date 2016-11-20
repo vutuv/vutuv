@@ -16,11 +16,17 @@
 
 <div class="card-list">
   <section class="card">
-  <%= if same_user?(@user, @current_user) do %>
-    <%= link to: user_phone_number_path(@conn, :delete, @user, @phone_number), method: :delete, class: "card__edit button button--icon button--small", data: [confirm: "Are you sure?"] do %>
+    <%= if same_user?(@user, @current_user) do %>
+    <div class="card__edit button__list">
+      <%= link to: user_phone_number_path(@conn, :edit, @user, @phone_number), class: "button button-link button--icon button--small" do %>
+        <i class="icon icon--edit"></i>
+      <% end %>
+      <%= button to: user_phone_number_path(@conn, :delete, @user, @phone_number), class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
         <i class="icon icon--delete"></i>
+      <% end %>
+    </div>
     <% end %>
-  <% end %>
+    
     <h1><%= gettext("Number Type") %></h1>
     <p><%= @phone_number.number_type %></p>
     <h1><%= gettext("Number") %></h1>

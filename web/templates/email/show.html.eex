@@ -17,9 +17,14 @@
 <div class="card-list">
   <section class="card">
   <%= if same_user?(@user, @current_user) do %>
-    <%= link to: user_email_path(@conn, :delete, @user, @email), method: :delete, class: "card__edit button button--icon button--small", data: [confirm: "Are you sure?"] do %>
-        <i class="icon icon--delete"></i>
-    <% end %>
+    <div class="card__edit button__list">
+      <%= link to: user_email_path(@conn, :edit, @user, @email), class: "button button-link button--icon button--small" do %>
+        <i class="icon icon--edit"></i>
+      <% end %>
+      <%= button to: user_email_path(@conn, :delete, @user, @email), method: :delete, class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
+          <i class="icon icon--delete"></i>
+      <% end %>
+    </div>
   <% end %>
     <h1><%= gettext("Email") %></h1>
     <p><%= @email.value %></p>

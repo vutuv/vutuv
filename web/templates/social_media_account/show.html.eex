@@ -17,14 +17,19 @@
 <div class="card-list">
   <section class="card">
   <%= if same_user?(@user, @current_user) do %>
-    <%= link to: user_social_media_account_path(@conn, :delete, @user, @social_media_account), method: :delete, class: "card__edit button button--icon button--small", data: [confirm: "Are you sure?"] do %>
-        <i class="icon icon--delete"></i>
-    <% end %>
+    <div class="card__edit button__list">
+      <%= link to: user_social_media_account_path(@conn, :edit, @user, @social_media_account), class: "button button-link button--icon button--small" do %>
+        <i class="icon icon--edit"></i>
+      <% end %>
+      <%= button to: user_social_media_account_path(@conn, :delete, @user, @social_media_account), method: :delete, class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
+          <i class="icon icon--delete"></i>
+      <% end %>
+    </div>
   <% end %>
     <h1><%= gettext("Provider") %></h1>
     <p><%= @social_media_account.provider %></p>
     <h1><%= gettext("Username") %></h1>
-    <p><%= @social_media_account.value %></p>
+    <p>@<%= @social_media_account.value %></p>
   </section>
 
   <aside>

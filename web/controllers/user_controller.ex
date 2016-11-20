@@ -200,7 +200,7 @@ defmodule Vutuv.UserController do
     |> Vutuv.Emailer.user_deletion_email(email(conn.assigns[:current_user]), conn.assigns[:current_user])
     |> Vutuv.Mailer.deliver_now
     conn
-    |> put_flash(:info, gettext("An email has been sent with a link to delete your account. If you did not mean to click the delete button, just delete the email."))
+    |> put_flash(:info, gettext("An email has been sent to your email address with instructions on how to delete your account."))
     |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
   end
 

@@ -1,8 +1,8 @@
 <table>
   <thead>
     <tr>
-      <th><%= gettext "Profile Provider" %></th>
       <th><%= gettext "Username" %></th>
+      <th><%= gettext "Profile Provider" %></th>
       <th></th>
     </tr>
   </thead>
@@ -10,9 +10,9 @@
     <%= for account <- @social_media_accounts do %>
     <tr>
       <td>
-      <%= link account.provider, to: user_social_media_account_path(@conn, :show, @user, account) %>
+        <%= link "@#{account.value}", to: user_social_media_account_path(@conn, :show, @user, account) %>
       </td>
-      <td><%= account.value %></td>
+      <td><%= account.provider %></td>
       <td>
       <%= if same_user?(@user, @current_user) do %>
       <%= link to: user_social_media_account_path(@conn, :edit, @user, account), class: "button button--icon button--small" do %>

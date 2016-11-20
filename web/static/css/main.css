@@ -113,6 +113,7 @@ h1 {
   margin-bottom: 10px; }
 
 p {
+  /*word-break: break-all;*/
   font-size: 15px;
   line-height: 21px;
   margin-bottom: 15px; }
@@ -123,6 +124,27 @@ strong {
 a, button{
   color: #4A90E2;
   text-decoration: none; }
+
+.link_button{
+  background:none!important;
+  border:none; 
+  padding:0!important;
+  font: inherit;
+  /*border is optional*/
+  cursor: pointer;
+}
+
+.delete_link_button{
+  color: #cc0000; 
+}
+
+.delete_link_button:hover{
+  color: #ff0000; 
+}
+
+.link_button_form{
+  text-align: center;
+}
 
 /* --------------------------------------------------------------
   BUTTONS

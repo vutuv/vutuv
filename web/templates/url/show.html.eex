@@ -15,16 +15,18 @@
 </div>
 
 <div class="card-list">
-
   <section class="card">
     <%= if same_user?(@user, @current_user) do %>
-    <%= button to: user_url_path(@conn, :edit, @user, @url), class: "card__edit button button-link button--icon button--small", form: [class: "card__edit button button--icon button--small"] do %>
-      <i class="icon icon--delete"></i>
+    <div class="card__edit button__list">
+      <%= link to: user_url_path(@conn, :edit, @user, @url), class: "button button-link button--icon button--small" do %>
+        <i class="icon icon--edit"></i>
+      <% end %>
+      <%= button to: user_url_path(@conn, :delete, @user, @url), class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
+        <i class="icon icon--delete"></i>
+      <% end %>
+    </div>
     <% end %>
-    <%= button to: user_url_path(@conn, :delete, @user, @url), class: "card__edit button button-link button--icon button-link button--small", form: [class: "card__edit button-link button button--icon button--small"] do %>
-      <i class="icon icon--edit"></i>
-    <% end %>
-    <% end %>
+
     <h1><%= gettext("Description") %></h1>
     <p><%= @url.description %></p>
     <h1><%= gettext("URL") %></h1>

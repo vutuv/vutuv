@@ -33,14 +33,15 @@ defmodule Vutuv.SocialMediaAccount do
     |> validate_required([:provider, :value])
     |> update_change(:value, &parse_value/1)
     |> validate_change(:value, &validate_parse/2)
-    |> validate_format(:value, ~r/^[A-z0-9-\.]*$/u)
+    |> validate_format(:value, ~r/^@?[A-z0-9-\.]*$/u)
   end
 
   def parse_value(value) do
     value
-    |>String.replace(~r/^(http:\/\/)?(www\.)?\w*\.[a-z]*\/$/u,"")
-    |>String.split(~r/\//, [trim: true])
-    |>List.last
+    |> String.replace(~r/^(http:\/\/)?(www\.)?\w*\.[a-z]*\/$/u,"")
+    |> String.replace(~r/^@?/, "")
+    |> String.split(~r/\//, [trim: true])
+    |> List.last
   end
 
   def validate_parse(_, value) do

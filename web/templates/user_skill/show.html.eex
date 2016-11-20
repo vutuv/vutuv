@@ -18,10 +18,13 @@
 
   <section class="card">
     <%= if same_user?(@user, @current_user) do %>
-    <%= button to: user_work_experience_path(@conn, :delete, @user, @user_skill), class: "card__edit button button-link button--icon button--small", form: [class: "card__edit button button--icon button--small"] do %>
-      <i class="icon icon--delete"></i>
+    <div class="card__edit button__list">
+      <%= button to: user_user_skill_path(@conn, :delete, @user, @user_skill), class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
+        <i class="icon icon--delete"></i>
+      <% end %>
+    </div>
     <% end %>
-    <% end %>
+
     <%= if(@user_skill.skill.description) do %>
     <h1><%= gettext("Description") %></h1>
     <% else %>

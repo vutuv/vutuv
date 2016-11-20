@@ -17,12 +17,14 @@
 <div class="card-list">
   <section class="card">
     <%= if same_user?(@user, @current_user) do %>
-    <%= button to: user_work_experience_path(@conn, :delete, @user, @work_experience), class: "card__edit button button-link button--icon button--small", form: [class: "card__edit button button--icon button--small"] do %>
-      <i class="icon icon--delete"></i>
-    <% end %>
-    <%= link to: user_work_experience_path(@conn, :edit, @user, @work_experience), class: "card__edit button button-link button--icon button-link button--small" do %>
-      <i class="icon icon--edit"></i>
-    <% end %>
+    <div class="card__edit button__list">
+      <%= link to: user_work_experience_path(@conn, :edit, @user, @work_experience), class: "button button-link button--icon button--small" do %>
+        <i class="icon icon--edit"></i>
+      <% end %>
+      <%= button to: user_work_experience_path(@conn, :delete, @user, @work_experience), class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
+        <i class="icon icon--delete"></i>
+      <% end %>
+    </div>
     <% end %>
     <h1><%= gettext("Job Title") %></h1>
     <p><%= @work_experience.title %></p>
