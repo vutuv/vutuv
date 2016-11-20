@@ -22,7 +22,7 @@ config :vutuv, Vutuv.Endpoint,
   public_url: "https://www.vutuv.de/"
 
 # Do not print debug messages in production
-config :logger, level: :info
+config :logger, level: :error
 
 # Configure database
 # These are demo values.
