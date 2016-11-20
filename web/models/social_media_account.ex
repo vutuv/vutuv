@@ -12,13 +12,14 @@ defmodule Vutuv.SocialMediaAccount do
   @required_fields ~w(provider value)
   @optional_fields ~w()
 
+  @accepted_providers ~w(Facebook Twitter Instagram Youtube Snapchat)
+
   base_urls = [
     {"Facebook" , "http://facebook.com/"},
     {"Twitter" , "http://twitter.com/"},
     {"Instagram" , "http://instagram.com/"},
     {"Youtube" , "http://youtube.com/channel/"},
-    {"Stackoverflow" , "http://stackoverflow.com/users/"},
-    {"Snapchat" , ""}
+    {"Snapchat" , nil}
   ]
 
   display_rules = [
@@ -26,7 +27,6 @@ defmodule Vutuv.SocialMediaAccount do
     {"Twitter" , "@"},
     {"Instagram" , "@"},
     {"Youtube" , ""},
-    {"Stackoverflow" , ""},
     {"Snapchat" , ""}
   ]
 
@@ -43,6 +43,7 @@ defmodule Vutuv.SocialMediaAccount do
     |> update_change(:value, &parse_value/1)
     |> validate_change(:value, &validate_parse/2)
     |> validate_format(:value, ~r/^@?[A-z0-9-\.]*$/u)
+    |> validate_inclusion(:provider, @accepted_providers)
   end
 
   def parse_value(value) do
@@ -57,15 +58,21 @@ defmodule Vutuv.SocialMediaAccount do
     if value, do: [], else: [value: {"Invalid account name", []}]
   end
 
-  for {provider, url} <- base_urls do #This generates special url rule matches
-    def get_full_url(%__MODULE__{provider: unquote(provider), value: value}), do: unquote(url)<>value
-  end
-
-  def get_full_url(_), do: ""
-
   for {provider, pretext} <- display_rules do #This generates special display rule matches
     def get_display(%__MODULE__{provider: unquote(provider), value: value}), do: unquote(pretext)<>value
   end
 
   def get_display(_), do: ""
+
+  for url <- base_urls do #This generates special url rule matches
+    case url do
+    {provider, nil} -> def social_media_link(%__MODULE__{provider: unquote(provider), value: value}), do: value
+    {provider, url} -> 
+      def social_media_link(%__MODULE__{provider: unquote(provider), value: value} = account) do
+        Phoenix.HTML.Link.link get_display(account), to: unquote(url)<>value
+      end
+    end
+  end
+
+  def social_media_link(_), do: ""  
 end

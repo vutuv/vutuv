@@ -10,7 +10,7 @@
     <%= for account <- @social_media_accounts do %>
     <tr>
       <td>
-        <%= link Vutuv.SocialMediaAccount.get_display(account), to: user_social_media_account_path(@conn, :show, @user, account) %>
+        <%= Vutuv.SocialMediaAccount.social_media_link account %>
       </td>
       <td><%= account.provider %></td>
       <td>

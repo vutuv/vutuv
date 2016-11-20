@@ -125,7 +125,7 @@
         <h1><%= gettext "Social Media" %></h1>
         <%= for account <- @user.social_media_accounts do %>
         <h2><%= account.provider %></h2>
-        <p><%= link Vutuv.SocialMediaAccount.get_display(account), to: Vutuv.SocialMediaAccount.get_full_url(account) %></p>
+        <p><%= Vutuv.SocialMediaAccount.social_media_link account %></p>
         <% end %>
 
         <span class="card__morelink">
