@@ -13,19 +13,21 @@
         </em>
       </span>
       <div class="button button--icon button-list">
-      <%= if Vutuv.Endorsement.skill_endorsed?(skill.id, @conn.assigns[:current_user].id) do %>
-        <%= button to: user_endorsement_path(@conn, :delete, @user, skill), method: :delete , class: "button button--icon", form: [class: "button button--icon"] do %>
-          <i class="icon icon--upvote-remove"></i>
+      <%= if @current_user do %>
+        <%= if Vutuv.Endorsement.skill_endorsed?(skill.id, @current_user_id) do %>
+          <%= button to: user_endorsement_path(@conn, :delete, @user, skill), method: :delete , class: "button button--icon", form: [class: "button button--icon"] do %>
+            <i class="icon icon--upvote-remove"></i>
+          <% end %>
+        <%= else %>
+          <%= button to: user_endorsement_path(@conn, :create, @user, id: skill), method: :post , class: "button button--icon", form: [class: "button button--icon"] do %>
+            <i class="icon icon--upvote"></i>
+          <% end %>
+        <%= end %>
+        <%= if same_user?(@user, @current_user) do %>
+        <%= button to: user_user_skill_path(@conn, :delete, @user, skill), method: :delete, class: "button button--icon", form: [class: "button button--icon"] do %>
+        <i class="icon icon--delete"></i>
         <% end %>
-      <%= else %>
-        <%= button to: user_endorsement_path(@conn, :create, @user, id: skill), method: :post , class: "button button--icon", form: [class: "button button--icon"] do %>
-          <i class="icon icon--upvote"></i>
         <% end %>
-      <%= end %>
-      <%= if same_user?(@user, @current_user) do %>
-      <%= button to: user_user_skill_path(@conn, :delete, @user, skill), method: :delete, class: "button button--icon", form: [class: "button button--icon"] do %>
-      <i class="icon icon--delete"></i>
-      <% end %>
       <% end %>
       </div>
       <hr style="width: <%= (Enum.count(skill.endorsements)+1)/(Enum.count(hd(@user_skills).endorsements)+1)*100 %>%" />
