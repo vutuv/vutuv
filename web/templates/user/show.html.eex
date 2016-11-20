@@ -47,16 +47,19 @@
 </div>
 
 <div class="card-list">
+
   <%= if same_user?(@user, @current_user) do %>
-    <section class="card">
-      <h1><%= gettext "Your New vutuv Profile Page" %></h1>
-      <p>
-        Please take a couple of minutes to add information that might be interesting for your followers. Why don't you start with skills and your work experiences?
-      </p>
-      <p>
-        Like in Mission Impossible this introduction message will self-destruct in one hour.
-      </p>
-    </section>
+    <%= if @display_welcome_message do %>
+      <section class="card">
+        <h1><%= gettext "Your New vutuv Profile Page" %></h1>
+        <p>
+          Please take a couple of minutes to add information that might be interesting for your future followers. Why don't you start with skills and your work experiences?
+        </p>
+        <p>
+          Like in Mission Impossible this introduction message will self-destruct in one hour.
+        </p>
+      </section>
+    <% end %>
   <% end %>
 
   <section class="card">

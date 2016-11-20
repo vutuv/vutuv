@@ -106,6 +106,8 @@ defmodule Vutuv.UserController do
     total_links = count_user_assoc Vutuv.Url, user
     total_addresses = count_user_assoc Vutuv.Address, user
 
+    display_welcome_message = false
+
     conn
     |> assign(:emails, emails)
     |> assign(:user_skills, user_skills)
@@ -120,6 +122,7 @@ defmodule Vutuv.UserController do
     |> assign(:total_numbers, total_numbers)
     |> assign(:total_links, total_links)
     |> assign(:total_addresses, total_addresses)
+    |> assign(:display_welcome_message, display_welcome_message)
     |> render("show.html", conn: conn)
   end
 
