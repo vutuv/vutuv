@@ -11,8 +11,7 @@ defmodule Vutuv.SessionController do
     case Vutuv.Auth.login_by_email(conn, email) do
       {:ok, conn} ->
         conn
-        |> put_flash(:info, gettext("An email has been sent with your login link."))
-        |> redirect(to: page_path(conn, :index))
+        |> render("user_login.html", body_class: "stretch")
       {:error, _reason, conn} ->
         conn
         |> put_flash(:error, gettext("Invalid email"))
