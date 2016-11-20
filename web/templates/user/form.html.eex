@@ -26,7 +26,7 @@
   <%= inputs_for f, :emails, fn ef -> %>
   <%= label ef, :email_address, gettext("Email Address") %>
   <div class="editform__field<%= if error_tag(ef, :value), do: " editform__field--error"%>">
-    <%= text_input ef, :value %>
+    <%= email_input ef, :value %>
     <%= error_tag ef, :value %>
   </div>
   <div class="editform__field<%= if error_tag(f, :public?), do: " editform__field--error"%>">

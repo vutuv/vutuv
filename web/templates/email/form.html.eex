@@ -7,7 +7,7 @@
 
   <div class="editform__field<%= if error_tag(f, :value), do: " editform__field--error"%>">
     <%= label f, :value %>
-    <%= text_input f, :value, autofocus: true %>
+    <%= email_input f, :value, autofocus: true %>
     <%= error_tag f, :value %>
   </div>
 
