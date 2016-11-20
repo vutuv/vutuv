@@ -7,7 +7,5 @@
   <%= text_input f, :value, placeholder: gettext("Search here"), autofocus: true %>
   <%= error_tag f, :value %>
 
-  <%= submit gettext("Submit")%>
+  <%= submit gettext("Search")%>
 <% end %>
-
-
