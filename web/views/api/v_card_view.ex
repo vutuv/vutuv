@@ -28,6 +28,12 @@ defmodule Vutuv.Api.VCardView do
     <>"REV:TIMESTAMP NOT YET IMPLEMENTED\nEND:VCARD"
   end
 
+  def render("error.json", %{error: error}) do
+    %{error: error}
+  end
+
+  def sanitize(string), do: if(string, do: string, else: "")
+
   defp vcard_emails(%{emails: %Ecto.Association.NotLoaded{}}), do: ""
 
   defp vcard_emails(%{emails: emails}) do
@@ -35,10 +41,4 @@ defmodule Vutuv.Api.VCardView do
       acc<>"EMAIL:"<>sanitize(f.value)<>"\n"
     end)
   end
-
-  def render("error.json", %{error: error}) do
-    %{error: error}
-  end
-
-  def sanitize(string), do: if(string, do: string, else: "")
 end

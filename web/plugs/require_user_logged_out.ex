@@ -9,8 +9,14 @@ defmodule Vutuv.Plug.RequireUserLoggedOut do
 
   defp logged_in?(conn, nil), do: conn
   defp logged_in?(conn, _) do
+    redirect(conn, conn.assigns[:current_user])
+  end
+
+  defp redirect(conn, nil), do: conn 
+  defp redirect(conn, user) do
     conn
-    |> Phoenix.Controller.redirect(to: Vutuv.Router.Helpers.user_path(conn, :show, conn.assigns[:current_user]))
+    |> Phoenix.Controller.redirect(to: Vutuv.Router.Helpers.user_path(conn, :show, user))
     |> halt
   end
+
 end

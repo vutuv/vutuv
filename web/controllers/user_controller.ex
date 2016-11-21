@@ -32,7 +32,6 @@ defmodule Vutuv.UserController do
     email = user_params["emails"]["0"]["value"]
     case Vutuv.Registration.register_user(conn, user_params) do
       {:ok, user} ->
-        store_gravatar(user)
         case Vutuv.Auth.login_by_email(conn, email) do
           {:ok, conn} ->
             conn
@@ -46,37 +45,6 @@ defmodule Vutuv.UserController do
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
-  end
-
-  # This downloads and stores a users gravatar. It then updates
-  # the user's model with the information for arc-ecto to
-  # retrieve the file later. If they do not have one, it stores
-  # the default gravatar avatar. It times out at 1 second.
-
-  def store_gravatar(user) do
-    case HTTPoison.get("https://www.gravatar.com/avatar/#{hd(user.emails).md5sum}?s=130&d=404", [], [timeout: 1000, recv_timeout: 1000])  do
-      {:ok, %HTTPoison.Response{status_code: 404}} -> nil
-      {:ok, %HTTPoison.Response{body: body, headers: headers}} ->
-        content_type = find_content_type(headers)
-        filename = "/#{user.active_slug}.#{String.replace(content_type,"image/", "")}"
-        path = System.tmp_dir
-        upload = #create the upload struct that arc-ecto will use to store the file and update the database
-          %Plug.Upload{content_type: content_type,
-          filename: filename,
-          path: path<>filename}
-        File.write(path<>filename, body) #Write the file temporarily to the disk
-        user
-        |> Repo.preload([:slugs, :oauth_providers, :emails])
-        |> User.changeset(%{avatar: upload}) #update the user with the upload struct
-        |> Repo.update
-      _ -> nil
-    end
-  end
-
-  defp find_content_type(headers) do
-    Enum.reduce(headers, fn {k, v}, acc ->
-      if (k == "Content-Type"), do: v, else: acc
-    end)
   end
 
   def show(conn, _params) do
