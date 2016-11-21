@@ -184,7 +184,7 @@
       <p class="card__empty"><%= gettext "No Followers yet!" %></p>
     <% end %>
     <%= if(@follower_count > 3) do %>
-      <%= link "#{@followers_count-3} #{gettext "More"}", to: user_follower_path(@conn, :index, @user), class: "card__morelink" %>
+      <%= link "#{@follower_count-3} #{gettext "More"}", to: user_follower_path(@conn, :index, @user), class: "card__morelink" %>
     <% end %>
   </section>
 

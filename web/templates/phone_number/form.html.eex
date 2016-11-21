@@ -7,7 +7,7 @@
 
   <div class="editform__field<%= if error_tag(f, :value), do: " editform__field--error"%>">
     <%= label f, :value, gettext("Phone Number") %>
-    <%= telephone_input f, :value, placeholder: gettext("+49 30 2270"), id: "textfield", autofocus: true %>
+    <%= telephone_input f, :value, placeholder: gettext("+49 30 12345678"), id: "textfield", autofocus: true %>
     <%= error_tag f, :value %>
   </div>
   <div class="editform__field<%= if error_tag(f, :number_type), do: " editform__field--error"%>">
