@@ -5,8 +5,11 @@ defmodule Vutuv.SocialMediaAccountController do
   plug Vutuv.Plug.AuthUser when action in [:new, :create, :edit, :update]
 
   def index(conn, _params) do
-    social_media_accounts = Repo.all(SocialMediaAccount)
-    render(conn, "index.html", user: conn.assigns[:user], social_media_accounts: social_media_accounts)
+    user =
+      conn.assigns[:user]
+      |> Repo.preload(:social_media_accounts)
+
+    render(conn, "index.html", user: conn.assigns[:user], social_media_accounts: user.social_media_accounts)
   end
 
   def new(conn, _params) do
