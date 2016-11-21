@@ -92,7 +92,7 @@ defmodule Vutuv.UserController do
         phone_numbers: from(u in Vutuv.PhoneNumber, order_by: [desc: u.updated_at], limit: 3),
         urls: from(u in Vutuv.Url, order_by: [desc: u.updated_at], limit: 3),
         addresses: from(u in Vutuv.Address, order_by: [desc: u.updated_at], limit: 3),
-        work_experiences: from(u in Vutuv.WorkExperience, order_by: [desc: u.updated_at], limit: 3)
+        work_experiences: from(u in Vutuv.WorkExperience, order_by: [desc: u.start_year, desc: u.start_month], limit: 3)
         ])
     user_skills =
       user.user_skills

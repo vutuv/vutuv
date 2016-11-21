@@ -24,10 +24,16 @@ defmodule Vutuv.Api.VCardView do
       sanitize(f.city)<>","<>sanitize(f.state)<>" "<>sanitize(f.zip_code)<>"\n"<>sanitize(f.country)<>"\n"
     end)
     <>
-    Enum.reduce(v_card.emails,"", fn f, acc ->
+    vcard_emails(v_card)
+    <>"REV:TIMESTAMP NOT YET IMPLEMENTED\nEND:VCARD"
+  end
+
+  defp vcard_emails(%{emails: %Ecto.Association.NotLoaded{}}), do: ""
+
+  defp vcard_emails(%{emails: emails}) do
+    Enum.reduce(emails,"", fn f, acc ->
       acc<>"EMAIL:"<>sanitize(f.value)<>"\n"
     end)
-    <>"REV:TIMESTAMP NOT YET IMPLEMENTED\nEND:VCARD"
   end
 
   def render("error.json", %{error: error}) do

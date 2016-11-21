@@ -4,8 +4,8 @@ defmodule Vutuv.Api.VCardController do
 
   def get(conn, _params) do
     vcard = conn.assigns[:user]
-      |>Repo.preload([:emails, :addresses,
-                      :phone_numbers])
+      |> Repo.preload([:addresses, :phone_numbers])
+      |> preload_emails(conn.assigns[:current_user])
     render(conn, "show.vcard", v_card: vcard)
     
 
@@ -13,6 +13,14 @@ defmodule Vutuv.Api.VCardController do
     #  |>Repo.preload([:emails, :addresses,
     #                  :phone_numbers])
     #render(conn, "index.json", v_cards: v_cards)
+  end
+
+  defp preload_emails(user, requester) do
+    if(Vutuv.UserHelpers.user_follows_user?(user, requester)) do
+      Repo.preload(user, [:emails])
+    else
+      user
+    end
   end
 
   defp headers(conn, _opts) do

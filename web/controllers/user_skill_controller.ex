@@ -3,7 +3,7 @@ defmodule Vutuv.UserSkillController do
   alias Vutuv.UserSkill
   alias Vutuv.Skill
 
-  plug Vutuv.Plug.AuthUser when action in [:new, :create, :edit, :update, :delete]
+  plug Vutuv.Plug.AuthUser when not action in [:index, :show]
 
   def index(conn, _params) do
     user =

@@ -2,7 +2,7 @@ defmodule Vutuv.AddressController do
   use Vutuv.Web, :controller
   alias Vutuv.Address
 
-  plug Vutuv.Plug.AuthUser when action in [:new, :create, :edit, :update]
+  plug Vutuv.Plug.AuthUser when not action in [:index, :show]
 
   def index(conn, _params) do
     user = 

@@ -2,7 +2,7 @@ defmodule Vutuv.UrlController do
   use Vutuv.Web, :controller
   alias Vutuv.Url
 
-  plug Vutuv.Plug.AuthUser when action in [:new, :create, :edit, :update, :delete]
+  plug Vutuv.Plug.AuthUser when not action in [:index, :show]
   plug :scrub_params, "url" when action in [:create, :update]
 
   def index(conn, _params) do

@@ -2,7 +2,7 @@ defmodule Vutuv.SocialMediaAccountController do
   use Vutuv.Web, :controller
   alias Vutuv.SocialMediaAccount
 
-  plug Vutuv.Plug.AuthUser when action in [:new, :create, :edit, :update]
+  plug Vutuv.Plug.AuthUser when not action in [:index, :show]
 
   def index(conn, _params) do
     user = 
