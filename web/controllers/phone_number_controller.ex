@@ -2,7 +2,7 @@ defmodule Vutuv.PhoneNumberController do
   use Vutuv.Web, :controller
   alias Vutuv.PhoneNumber
   
-  plug Vutuv.Plug.AuthUser
+  plug Vutuv.Plug.AuthUser when action in [:new, :create, :edit, :update, :delete]
   plug :scrub_params, "phone_number" when action in [:create, :update]
 
   def index(conn, _params) do
