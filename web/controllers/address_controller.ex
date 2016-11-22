@@ -13,9 +13,7 @@ defmodule Vutuv.AddressController do
 
   def new(conn, _params) do
     changeset = Address.changeset(%Address{}, %{})
-    loc = Vutuv.UserHelpers.locale(conn, conn.assigns[:user])
-    loc = if Vutuv.Plug.Locale.locale_supported?(loc), do: loc, else: "generic"
-    render conn, "new.html", country: loc, changeset: changeset
+    render conn, "new.html", country: get_template(conn), changeset: changeset
   end
 
   def create(conn, %{"address" => address_params}) do
@@ -29,13 +27,13 @@ defmodule Vutuv.AddressController do
         |> put_flash(:info, gettext("Address created successfully."))
         |> redirect(to: user_address_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset, country: changeset.changes.country)
+        render(conn, "new.html", changeset: changeset, country: get_template(conn))
     end
   end
 
   def create(conn, %{"country_select" => country_param}) do
     changeset = Address.changeset(%Address{}, country_param)
-    render conn, "new.html", changeset: changeset, country: country_param["country"]
+    render conn, "new.html", changeset: changeset, country: get_template(conn)
   end
 
   def show(conn, %{"id" => id}) do
@@ -48,7 +46,7 @@ defmodule Vutuv.AddressController do
     loc = if Vutuv.Plug.Locale.locale_supported?(loc), do: loc, else: "generic"
     address = Repo.get!(Address, id)
     changeset = Address.changeset(address)
-    render(conn, "edit.html", address: address, changeset: changeset, country: loc)
+    render(conn, "edit.html", address: address, changeset: changeset, country: get_template(conn))
   end
 
   def update(conn, %{"id" => id, "address" => address_params}) do
@@ -61,7 +59,7 @@ defmodule Vutuv.AddressController do
         |> put_flash(:info, gettext("Address updated successfully."))
         |> redirect(to: user_address_path(conn, :show, conn.assigns[:user], address))
       {:error, changeset} ->
-        render(conn, "edit.html", address: address, changeset: changeset)
+        render(conn, "edit.html", address: address, changeset: changeset, country: get_template(conn))
     end
   end
 
@@ -75,5 +73,12 @@ defmodule Vutuv.AddressController do
     conn
     |> put_flash(:info, gettext("Address deleted successfully."))
     |> redirect(to: user_address_path(conn, :index, conn.assigns[:user]))
+  end
+
+  defp get_template(conn) do
+    loc = 
+      conn
+      |> Vutuv.UserHelpers.locale(conn.assigns[:user])
+    if Vutuv.Plug.Locale.locale_supported?(loc), do: loc, else: "generic"
   end
 end

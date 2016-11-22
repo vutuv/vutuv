@@ -35,6 +35,6 @@
 
   <div class="editform__actions">
     <%= link gettext("Cancel"), to: @backlink, class: "button button--cancel" %>
-    <%= submit gettext("Add"), class: "button" %>
+    <%= submit gettext("Submit"), class: "button" %>
   </div>
 <% end %>
