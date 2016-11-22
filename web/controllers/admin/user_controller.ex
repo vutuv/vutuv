@@ -1,6 +1,7 @@
 defmodule Vutuv.Admin.UserController do
   use Vutuv.Web, :controller
   plug :logged_in?
+  plug Vutuv.Plug.AuthAdmin
 
   alias Vutuv.User
 
@@ -11,9 +12,11 @@ defmodule Vutuv.Admin.UserController do
       {:ok, _user} ->
         conn
         |> put_flash(:info, gettext("User verified successfully."))
-        |> redirect(to: admin_admin_path(conn, :index))
+        |> redirect(to: user_path(conn, :show, user))
       {:error, _changeset} ->
-        render(conn, "index.html")
+        conn
+        |> put_flash(:error, gettext("An error occurred"))
+        |> redirect(to: user_path(conn, :show, user))
     end
   end
 

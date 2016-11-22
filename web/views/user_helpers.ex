@@ -201,4 +201,11 @@ defmodule Vutuv.UserHelpers do
 
   def email_greeting(_), do: "Hi"
 
+  def admin_visitor?(conn) do
+    admin?(conn.assigns[:current_user])
+  end
+
+  defp admin?(%User{administrator: admin}), do: admin
+
+  defp admin?(_), do: false
 end

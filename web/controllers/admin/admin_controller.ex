@@ -1,7 +1,7 @@
 defmodule Vutuv.Admin.AdminController do
   use Vutuv.Web, :controller
   plug :logged_in?
-  plug :authorize
+  plug Vutuv.Plug.AuthAdmin
 
   alias Vutuv.User
 
@@ -18,17 +18,6 @@ defmodule Vutuv.Admin.AdminController do
       |> put_flash(:error, gettext("You must be logged in to access that page"))
       |> redirect(to: page_path(conn, :index))
       |> halt()
-    end
-  end
-
-  defp authorize(conn, _params) do
-    if conn.assigns[:current_user].administrator==false do
-      conn
-      |> put_status(403)
-      |> render(Vutuv.ErrorView, "403.html")
-      |> halt
-    else
-      conn
     end
   end
 end

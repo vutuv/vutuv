@@ -6,6 +6,11 @@
     <div class="profile-header__info">
       <h1>
         <%= full_name(@user) %>
+        <%= if !@user.verified and admin_visitor?(@conn) do %>
+          <%= button to: admin_user_path(@conn, :update, user_id: @user.id), class: "button button--icon navigation__icon", form: [class: "button button--icon"], method: "post" do %>
+            <i title="<%= gettext("Verify") %>" class="icon icon--lock"></i>
+          <% end %>
+        <% end %>
         <%= if same_user?(@user, @current_user) do %>
         <%= link to: user_path(@conn, :edit, @user), class: "profile-header__edit button button--icon button--small" do %>
           <i class="icon icon--edit"></i>

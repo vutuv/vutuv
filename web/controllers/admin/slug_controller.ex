@@ -1,6 +1,7 @@
 defmodule Vutuv.Admin.SlugController do
   use Vutuv.Web, :controller
   plug :logged_in?
+  plug Vutuv.Plug.AuthAdmin
 
   alias Vutuv.Slug
 
