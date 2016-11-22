@@ -24,7 +24,7 @@ defmodule Vutuv.UserHelpers do
   end
 
   def email(%User{id: id}) do
-    Repo.one(from e in Vutuv.Email, where: e.user_id == ^id and e.public? == true, limit: 1, select: e.value)
+    Repo.one(from e in Vutuv.Email, where: e.user_id == ^id, limit: 1, select: e.value)
   end
 
   def users_by_email(email) do
