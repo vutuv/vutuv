@@ -25,6 +25,7 @@ defmodule Vutuv.Connection do
     |> cast(params, @required_fields++@optional_fields)
     |> validate_required(@required_fields)
     |> validate_not_following_self
+    |> unique_constraint(:follower_id_followee_id, message: ("You're already following this person."))
   end
 
   defp validate_not_following_self(%{changes: %{followee_id: same, follower_id: same}} = changeset) do
