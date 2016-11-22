@@ -14,6 +14,11 @@ defmodule Vutuv.Plug.UserResolveSlug do
     |> eval_slug(conn)
   end
 
+  def call(%{params: %{"slug" => slug}} = conn, _opts) do
+    Repo.one(from s in Vutuv.Slug, where: s.value == ^slug, preload: [:user])
+    |> eval_slug(conn)
+  end
+
   def call(conn, _) do
     invalid_slug(conn)
   end
