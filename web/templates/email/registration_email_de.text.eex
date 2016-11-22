@@ -1,4 +1,4 @@
-Hallo<%= if (@user.first_name), do: " #{@user.first_name}"%>,
+<%= email_greeting(@user) %>,
 
 Danke das Sie bei vutuv mitmachen. Zum Einloggen klicken Sie bitte auf 
 diesen Link:

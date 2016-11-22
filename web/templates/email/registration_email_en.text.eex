@@ -1,4 +1,4 @@
-Hi<%= if (@user.first_name), do: " #{@user.first_name}"%>,
+<%= email_greeting(@user) %>,
 
 Thank you for joining vutuv. Click on the following link to get started.
 <%= @url %>magic/login/<%=@link%>

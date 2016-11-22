@@ -1,4 +1,4 @@
-Hallo<%= if (@user.first_name), do: " #{@user.first_name}"%>,
+<%= email_greeting(@user) %>,
 
 zum Einloggen bitte auf den folgenden Link klicken:
 <%= @url %>magic/login/<%=@link%>

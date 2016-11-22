@@ -1,4 +1,4 @@
-Hallo<%= if (@user.first_name), do: " #{@user.first_name}"%>,
+<%= email_greeting(@user) %>,
 
 bitte klicken Sie auf den folgenen Link, um Ihren Account zu löschen:
 <%= @url %>magic/delete/<%=@link%>

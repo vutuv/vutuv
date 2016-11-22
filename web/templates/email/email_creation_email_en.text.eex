@@ -1,4 +1,4 @@
-Hi<%= if (@user.first_name), do: " #{@user.first_name}"%>,
+<%= email_greeting(@user) %>,
 
 Use the following link to validate your email address:
 <%= @url %>magic/email/<%=@link%>

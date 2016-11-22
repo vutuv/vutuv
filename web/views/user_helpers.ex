@@ -61,13 +61,13 @@ defmodule Vutuv.UserHelpers do
 
 
 
+  def work_information_string(nil), do: ""
+
   def work_information_string(user) do
     job = current_title(user)
     org = current_organization(user)
     "#{job}#{if (org && (org != "")), do: " @ #{org}"}"
   end
-
-  def work_information_string(_), do: ""
 
 
 
@@ -181,4 +181,24 @@ defmodule Vutuv.UserHelpers do
   defp gen_breadcrumb(value) do
     value
   end
+
+
+  def email_greeting(%User{locale: "de", last_name: nil}), do: "Hallo"
+
+  def email_greeting(%User{locale: "de", gender: "male", last_name: last_name}) do
+    "Hallo Herr #{last_name}"
+  end
+
+  def email_greeting(%User{locale: "de", gender: "female", last_name: last_name}) do
+    "Hallo Frau #{last_name}"
+  end
+
+  def email_greeting(%User{locale: "de", gender: _}), do: "Hallo"
+
+  def email_greeting(%User{locale: "en", first_name: nil}), do: "Hi"
+
+  def email_greeting(%User{locale: "en", first_name: first_name}), do: "Hi #{first_name}"
+
+  def email_greeting(_), do: "Hi"
+
 end
