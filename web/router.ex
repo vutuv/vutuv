@@ -39,9 +39,9 @@ defmodule Vutuv.Router do
     post "/new_registration", PageController, :new_registration
 
     # TODO: delete the following route entries
-    resources "/memberships", MembershipController
-    resources "/connections", ConnectionController, only: [:create, :show, :delete, :index] do
-      resources "/memberships", MembershipController, only: [:create, :show, :delete, :index]
+    resources "/memberships", MembershipController, only: [:create, :delete]
+    resources "/connections", ConnectionController, only: [:create, :delete] do
+      resources "/memberships", MembershipController, only: [:create, :delete]
     end
 
     resources "/search_queries", SearchQueryController, only: [:create, :new, :show]

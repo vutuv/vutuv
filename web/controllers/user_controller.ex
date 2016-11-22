@@ -256,7 +256,7 @@ defmodule Vutuv.UserController do
         case Repo.one(from s in Slug, where: s.value == ^slug, select: s.user_id) do
           nil  -> not_found(conn)
           user_id ->
-            if(user_id == conn.assigns[:current_user].id) do
+            if(user_id == conn.assigns[:current_user_id]) do
               conn
             else
               conn

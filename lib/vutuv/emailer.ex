@@ -3,6 +3,10 @@ defmodule Vutuv.Emailer do
   require Vutuv.Gettext
   use Bamboo.Phoenix, view: Vutuv.EmailView
 
+  def login_email(link, email, %Vutuv.User{validated?: false} = user) do
+    gen_email(link, email, user, "registration_email_#{if (user.locale), do: user.locale, else: "en"}")
+  end
+
   def login_email(link, email, user) do
     gen_email(link, email, user, "login_email_#{if (user.locale), do: user.locale, else: "en"}")
   end

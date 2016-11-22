@@ -1,6 +1,8 @@
 defmodule Vutuv.SkillController do
   use Vutuv.Web, :controller
 
+  plug Vutuv.Plug.All404
+
   alias Vutuv.Skill
 
   def index(conn, _params) do
