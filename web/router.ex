@@ -18,6 +18,7 @@ defmodule Vutuv.Router do
 
   pipeline :user_pipe do
     plug Plug.UserResolveSlug
+    plug Plug.EnsureValidated
   end
 
   pipeline :api do
@@ -45,9 +46,9 @@ defmodule Vutuv.Router do
 
     resources "/search_queries", SearchQueryController, only: [:create, :new, :show]
 
-    resources "/skills", SkillController, only: [:show, :index], param: "slug"
+    resources "/skills", SkillController, only: [:show, :index], param: "user_slug"
 
-    resources "/users", UserController, param: "slug" do
+    resources "/users", UserController, param: "user_slug" do
       pipe_through :user_pipe
       resources "/emails", EmailController
       resources "/slugs", SlugController, only: [:index, :new, :create, :show, :update]
@@ -85,7 +86,7 @@ defmodule Vutuv.Router do
   scope "/api/1.0/", as: :api do
     pipe_through :api
 
-    resources "/users", Vutuv.Api.UserController, param: "slug" do
+    resources "/users", Vutuv.Api.UserController, param: "user_slug" do
 
       pipe_through :user_pipe
       get "/vcard", Vutuv.Api.VCardController, :get

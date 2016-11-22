@@ -3,6 +3,7 @@ defmodule Vutuv.Auth do
   alias Plug.Conn
 
   def login(conn, user) do
+    user = validate_user(user)
     conn
     |> Conn.assign(:current_user, user)
     |> Conn.put_session(:user_id, user.id)
@@ -32,5 +33,11 @@ defmodule Vutuv.Auth do
     conn
     |> Conn.configure_session(drop: true)
     |> Conn.delete_session(:user_id)
+  end
+
+  defp validate_user(user) do
+    user
+    |> Ecto.Changeset.cast(%{validated?: true}, [:validated?])
+    |> Vutuv.Repo.update!
   end
 end

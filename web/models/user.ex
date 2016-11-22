@@ -19,6 +19,7 @@ defmodule Vutuv.User do
     field :administrator, :boolean
     field :headline, :string
     field :noindex?, :boolean, default: false
+    field :validated?, :boolean, default: false
 
     has_many :search_query_results,   Vutuv.SearchQueryResult,  on_delete: :delete_all
     has_many :search_query_requesters,Vutuv.SearchQueryRequester, on_delete: :delete_all
@@ -45,7 +46,7 @@ defmodule Vutuv.User do
   end
 
   @required_fields ~w()
-  @optional_fields ~w(noindex? headline first_name last_name middlename nickname honorific_prefix honorific_suffix gender birthdate locale active_slug)a
+  @optional_fields ~w(validated? noindex? headline first_name last_name middlename nickname honorific_prefix honorific_suffix gender birthdate locale active_slug)a
 
   @required_file_fields ~w()
   @optional_file_fields ~w(avatar)

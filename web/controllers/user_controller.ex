@@ -1,9 +1,10 @@
 defmodule Vutuv.UserController do
   use Vutuv.Web, :controller
-  plug :resolve_slug when action in [:edit, :update, :index, :show, :skills_create]
+  plug Vutuv.Plug.UserResolveSlug when action in [:edit, :update, :index, :show, :skills_create]
   plug :logged_in? when action in [:index]
   plug :auth when action in [:edit, :update, :skills_create, :skills_create]
   plug Vutuv.Plug.RequireUserLoggedOut when action in [:new, :create]
+  plug Vutuv.Plug.EnsureValidated
   import Vutuv.UserHelpers
   use Arc.Ecto.Schema
 
@@ -49,7 +50,7 @@ defmodule Vutuv.UserController do
 
   def show(conn, _params) do
     user =
-      Repo.get!(User, conn.assigns[:user_id])
+      conn.assigns[:user]
       |> Repo.preload([
         :social_media_accounts,
         :followees,
@@ -103,13 +104,15 @@ defmodule Vutuv.UserController do
   end
 
   def edit(conn, _params) do
-    user = Repo.get!(User, conn.assigns[:user_id]) |> Repo.preload([:emails, :slugs, :oauth_providers])
+    user = 
+      conn.assigns[:user]
+      |> Repo.preload([:emails, :slugs, :oauth_providers])
     changeset = User.changeset(user)
     render(conn, "edit.html", user: user, changeset: changeset)
   end
 
   def update(conn, %{"user" => user_params}) do
-    user = Repo.get!(User, conn.assigns[:user_id])
+    user = conn.assigns[:user]
     user
     |> Repo.preload([:emails, :slugs, :oauth_providers, :search_terms])
     |> User.changeset(user_params)
@@ -178,7 +181,7 @@ defmodule Vutuv.UserController do
 
   def skills_create(conn, %{"skills" => %{"skills" => skills}}) do
     user =
-      Repo.get!(User, conn.assigns[:user_id])
+      conn.assigns[:user]
       |> Repo.preload([user_skills: [:skill]])
     skill_list =
       skills
@@ -236,31 +239,6 @@ defmodule Vutuv.UserController do
     end
   end
 
-  def resolve_slug(conn, _opts) do
-    case conn.params do
-      %{"slug" => slug} ->
-        case Repo.one(from s in Slug, where: s.value == ^slug) do
-          nil  -> invalid_slug(conn)
-          %{disabled: false, user_id: user_id} ->
-            user = Repo.get!(Vutuv.User, user_id)
-            if(user.active_slug != slug) do
-              redirect(conn, to: user_path(conn, :show, user))
-            else
-              assign(conn, :user_id, user_id)
-            end
-          _ -> invalid_slug(conn)
-        end
-      _ -> invalid_slug(conn)
-    end
-  end
-
-  def invalid_slug(conn) do
-    conn
-    |> put_status(:not_found)
-    |> render(Vutuv.ErrorView, "404.html")
-    |> halt
-  end
-
   defp logged_in?(conn, _opts) do
     if conn.assigns.current_user do
       conn
@@ -276,7 +254,7 @@ defmodule Vutuv.UserController do
     case conn.params do
       %{"slug" => slug} ->
         case Repo.one(from s in Slug, where: s.value == ^slug, select: s.user_id) do
-          nil  -> invalid_slug(conn)
+          nil  -> not_found(conn)
           user_id ->
             if(user_id == conn.assigns[:current_user].id) do
               conn
@@ -287,7 +265,14 @@ defmodule Vutuv.UserController do
               |> halt
             end
         end
-      _ -> invalid_slug(conn)
+      _ -> not_found(conn)
     end
+  end
+
+  def not_found(conn) do
+    conn
+    |> put_status(:not_found)
+    |> render(Vutuv.ErrorView, "404.html")
+    |> halt
   end
 end

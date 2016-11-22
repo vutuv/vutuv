@@ -29,7 +29,7 @@ use Vutuv.Web, :controller
   # end
 
   def show(conn, _params) do
-    user = Repo.get!(User, conn.assigns[:user_id])
+    user = conn.assigns[:user]
     |> Repo.preload([:emails, :work_experiences,
                     :addresses, :phone_numbers,
                     :social_media_accounts, :urls,
