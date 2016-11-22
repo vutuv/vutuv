@@ -10,14 +10,7 @@ defmodule Vutuv.WorkExperienceController do
     user = 
       conn.assigns[:user]
       |> Repo.preload([work_experiences: (from u in Vutuv.WorkExperience, order_by: [desc: u.start_year, desc: u.start_month])])
-    work_experiences = 
-      user.work_experiences
-      |> Enum.sort(&(if(&1.start_year == &2.start_year) do
-        &1.start_month > &2.start_month
-      else
-        &1.start_year > &2.start_year
-      end))
-    render(conn, "index.html", user: user, work_experience: work_experiences)
+    render(conn, "index.html", user: user, work_experience: user.work_experiences)
   end
 
   def new(conn, _params) do
