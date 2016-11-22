@@ -6,15 +6,9 @@ defmodule Vutuv.LayoutView do
     filepath = 
     Application.app_dir(:vutuv, "/priv/static")<>static_path(conn, "/css/app.css")
     |> String.replace("?vsn=d", "")
-    debug = ~s[<!--
-      file debug\n
-      filepath #{inspect filepath}\n
-      filepath exists?: #{inspect(File.exists?(filepath))}\n
-      -->\n
-    ]
     case File.read(filepath) do
-      {:ok, data} -> "#{debug}<style>\n#{data}\n</style>"
-      {:error, _} -> "#{debug}<link rel=\"stylesheet\" href=\"#{static_path(conn, "/css/app.css")}\">"
+      {:ok, data} -> "<style>\n#{data}\n</style>"
+      {:error, _} -> "<link rel=\"stylesheet\" href=\"#{static_path(conn, "/css/app.css")}\">"
     end
     |> raw
   end
