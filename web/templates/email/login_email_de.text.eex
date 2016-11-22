@@ -1,4 +1,4 @@
-Hallo,
+Hallo<%= if (@user.first_name), do: " #{@user.first_name}"%>,
 
 zum Einloggen bitte auf den folgenden Link klicken:
 <%= @url %>magic/login/<%=@link%>
@@ -7,6 +7,9 @@ Vielen Dank das Sie vutuv benutzen!
 
 Mit freundlichen Grüßen
 Ihr vutuv Team
+
+PS: Der Link verfällt nach 60 Minuten. Sie können aber jederzeit einen 
+neuen unter https://www.vutuv.de/sessions/new abrufen.
 
 --
 vutuv is a service provided by AMOOMA GmbH. https://www.amooma.de

@@ -1,13 +1,11 @@
-Hallo,
+Hallo<%= if (@user.first_name), do: " #{@user.first_name}"%>,
 
-bitte klicken Sie auf den folgenen Link, um Ihren vutuv
-Account zu löschen:
+bitte klicken Sie auf den folgenen Link, um Ihren Account zu löschen:
 <%= @url %>magic/delete/<%=@link%>
 
 ACHTUNG: Diese Löschung ist unumkehrbar!
 
-Aber Sie können natürlich jederzeit einen neuen Account
-anlegen.
+Aber Sie können natürlich jederzeit einen neuen Account anlegen.
 
 Mit freundlichen Grüßen
 Ihr vutuv Team

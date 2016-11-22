@@ -1,14 +1,19 @@
-Welcome<%= if (@user.first_name), do: ", #{@user.first_name},"%> to vutuv!
+Hallo<%= if (@user.first_name), do: " #{@user.first_name}"%>,
 
-Click the following link to get started!
+Danke das Sie bei vutuv mitmachen. Zum Einloggen klicken Sie bitte auf 
+diesen Link:
 <%= @url %>magic/login/<%=@link%>
 
-If you're having trouble with the link, resend the email by logging into our site at https://www.vutuv.de/sessions/new
+Der Link verfällt nach 60 Minuten. Sie können aber jederzeit einen 
+neuen unter der folgenden URL abrufen:
+https://www.vutuv.de/sessions/new
 
-If you like our service, feel free to share us with your friends!
+Bitte erzählen Sie Ihren Freunden und Geschäftspartnern von vutuv!
 
-Regards
-The vutuv team
+Mit freundlichen Grüßen
+Ihr vutuv Team
+
+PS: Wir arbeiten noch an der Anrede. Deshalb erst mal Vorname und Sie.
 
 --
 vutuv is a service provided by AMOOMA GmbH. https://www.amooma.de
