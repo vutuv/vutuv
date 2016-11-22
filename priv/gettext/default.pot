@@ -43,9 +43,6 @@ msgstr ""
 msgid "Ad"
 msgstr ""
 
-#: web/templates/address/form_de.html.eex:38
-#: web/templates/address/form_en.html.eex:50
-#: web/templates/address/form_generic.html.eex:50
 #: web/templates/address/index.html.eex:24 web/templates/email/index.html.eex:24
 #: web/templates/phone_number/index.html.eex:24
 #: web/templates/social_media_account/index.html.eex:24
@@ -65,15 +62,15 @@ msgstr ""
 msgid "Address"
 msgstr ""
 
-#: web/controllers/address_controller.ex:29
+#: web/controllers/address_controller.ex:27
 msgid "Address created successfully."
 msgstr ""
 
-#: web/controllers/address_controller.ex:76
+#: web/controllers/address_controller.ex:74
 msgid "Address deleted successfully."
 msgstr ""
 
-#: web/controllers/address_controller.ex:61
+#: web/controllers/address_controller.ex:59
 msgid "Address updated successfully."
 msgstr ""
 
@@ -697,6 +694,9 @@ msgstr ""
 msgid "Something went wrong"
 msgstr ""
 
+#: web/templates/address/form_de.html.eex:38
+#: web/templates/address/form_en.html.eex:50
+#: web/templates/address/form_generic.html.eex:50
 #: web/templates/admin/user/form.html.eex:10
 #: web/templates/email/form.html.eex:23 web/templates/group/form.html.eex:16
 #: web/templates/membership/form.html.eex:18
@@ -961,7 +961,7 @@ msgstr ""
 msgid "Your account has been created, and an email has been sent with a login link. Thats right, no passwords to remember! Once you login, you'll be logged in on this device for the next 90 days, or until you log out."
 msgstr ""
 
-#: lib/vutuv/emailer.ex:28
+#: lib/vutuv/emailer.ex:32
 msgid "vutuv verification email"
 msgstr ""
 
@@ -1001,4 +1001,16 @@ msgstr ""
 
 #: web/templates/page/index.html.eex:16
 msgid "Find service updates at"
+msgstr ""
+
+#: web/views/error_view.ex:6
+msgid "</header> <h1 style=\"text-align:center;\">Page not found</h1>"
+msgstr ""
+
+#: web/views/error_view.ex:18
+msgid "</header> <h1 style=\"text-align:center;\">Pardon us! Something went wrong. If you think this is a bug, please <a href = \"https://github.com/vutuv/vutuv/issues/new\"submit a bug report.</a></h1>"
+msgstr ""
+
+#: web/views/error_view.ex:12
+msgid "</header> <h1 style=\"text-align:center;\">You are not allowed to view this page.</h1>"
 msgstr ""

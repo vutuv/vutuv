@@ -1,7 +1,6 @@
-Hi,
+Hallo<%= if (@user.first_name), do: " #{@user.first_name}"%>,
 
-bitte klicken Sie auf diesen Link um Ihre E-Mail Adresse zu
-bestätigen:
+bitte klicken Sie auf diesen Link um Ihre E-Mail Adresse zu bestätigen:
 <%= @url %>magic/email/<%=@link%>
 
 Mit freundlichen Grüßen
