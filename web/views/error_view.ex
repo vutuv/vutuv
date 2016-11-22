@@ -25,7 +25,7 @@ defmodule Vutuv.ErrorView do
 
   # In case no render clause matches or no
   # template is found, let's render it as 500
-  def template_not_found(_template, assigns) do
+  def template_not_found(_template, _assigns) do
     "</header> <h1 style=\"text-align:center;\">Pardon us! Something went wrong. If you think this is a bug, please <a href = \"https://github.com/vutuv/vutuv/issues/new\"submit a bug report.</a></h1>"
     Vutuv.Gettext.gettext
     |> Phoenix.HTML.raw

@@ -15,14 +15,12 @@
       <td><%= if email.public?, do: gettext("Public"), else: gettext("Private") %></td>
       <td>
       <%= if same_user?(@user, @current_user) do %>
-      <div class="card-list">
       <%= link to: user_email_path(@conn, :edit, @user, email), class: "button button--icon button--small" do %>
       <i class="icon icon--edit"></i>
       <% end %>
-      <%= button to: user_email_path(@conn, :delete, @user, email), method: :delete, class: "button button-link button--icon button--small", form: [class: "button button--icon button--small button-link"] do %>
+      <%= button to: user_email_path(@conn, :delete, @user, email), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
       <i class="icon icon--delete"></i>
       <% end %>
-      </div>
       <% end %>
       </td>
     </tr>
