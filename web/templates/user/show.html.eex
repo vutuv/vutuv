@@ -87,7 +87,7 @@
         <% end %>
         <%= if(@user.birthdate) do %>
         <dt><%= gettext "Birthday" %></dt>
-        <dd><%= @user.birthdate %></dd>
+        <dd><%= format_birthdate(@user) %></dd>
         <% end %>
       </dl>
     </section>

@@ -4,12 +4,21 @@ defmodule Vutuv.Plug.Locale do
   def init(default), do: default
 
   def call(conn, _default) do
+    handle_locale(conn, conn.assigns[:current_user])
+  end
+
+  defp handle_locale(conn, %Vutuv.User{locale: nil}), do: handle_locale(conn, nil)
+
+  defp handle_locale(conn, nil) do
     Plug.Conn.get_req_header(conn,"accept-language") #Get locales from header
     |> process_header #Split header to a list of supported locales
     |> get_supported_locale #Cross reference list with supported locales and return supported locale, otherwise return most preferred locale
     |> assign_locale(conn) #Assign locale to conn assigns, and pass to gettext. Return conn struct.
   end
 
+  defp handle_locale(conn, %Vutuv.User{locale: loc}) do
+    assign_locale(loc, conn)
+  end
 
   defp process_header([]), do: []
 

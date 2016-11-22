@@ -183,6 +183,30 @@ defmodule Vutuv.UserHelpers do
   end
 
 
+
+  def format_birthdate(%User{locale: "de", birthdate: birthdate}) do
+    format_pyramid Ecto.Date.dump(birthdate)
+  end
+
+  def format_birthdate(%User{locale: "en", birthdate: birthdate}) do
+    format_USA Ecto.Date.dump(birthdate)
+  end
+
+  defp format_pyramid({:ok, {year, month, day}}) do
+    "#{String.rjust(Integer.to_string(day), 2, ?0)}.#{String.rjust(Integer.to_string(month), 2, ?0)}.#{year}"
+  end
+
+  defp format_pyramid(_), do: ""
+
+  defp format_USA({:ok, {year, month, day}}) do
+    "#{String.rjust(Integer.to_string(month), 2, ?0)}/#{String.rjust(Integer.to_string(day), 2, ?0)}/#{year}"
+  end
+
+  defp format_USA(_), do: ""
+
+
+
+
   def email_greeting(%User{locale: "de", last_name: nil}), do: "Hallo"
 
   def email_greeting(%User{locale: "de", gender: "male", last_name: last_name}) do
