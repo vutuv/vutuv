@@ -46,7 +46,7 @@ defmodule Vutuv.Router do
 
     resources "/search_queries", SearchQueryController, only: [:create, :new, :show]
 
-    resources "/skills", SkillController, only: [:show, :index], param: "user_slug"
+    resources "/skills", SkillController, only: [:show, :index], param: "slug"
 
     resources "/users", UserController, param: "user_slug" do
       pipe_through :user_pipe
