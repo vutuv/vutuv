@@ -15,6 +15,8 @@ defmodule Vutuv.UserHelpers do
     |> Enum.join(" ")
   end
 
+
+
   def gravatar_url(user) do
     user = Vutuv.Repo.preload(user, [:emails])
     case user.emails do
@@ -23,13 +25,19 @@ defmodule Vutuv.UserHelpers do
     end
   end
 
+
+
   def email(%User{id: id}) do
     Repo.one(from e in Vutuv.Email, where: e.user_id == ^id, limit: 1, select: e.value)
   end
 
+
+
   def users_by_email(email) do
     Repo.all(from u in Vutuv.User, join: e in assoc(u, :emails), where: e.value == ^email)
   end
+
+
 
   def emails_for_display(user, visitor) do
     if(user_follows_user? user, visitor) do
@@ -38,6 +46,8 @@ defmodule Vutuv.UserHelpers do
       Repo.all(from e in Vutuv.Email, where: e.user_id == ^user.id and e.public? == true)
     end
   end
+
+
 
   def current_job(user) do
     Repo.one(from w in WorkExperience,
@@ -49,6 +59,18 @@ defmodule Vutuv.UserHelpers do
       limit: 1)
   end
 
+
+
+  def work_information_string(user) do
+    job = current_title(user)
+    org = current_organization(user)
+    "#{job}#{if (org && (org != "")), do: " @ #{org}"}"
+  end
+
+  def work_information_string(_), do: ""
+
+
+
   def current_organization(nil), do: ""
 
   def current_organization(%User{}=user) do
@@ -58,6 +80,8 @@ defmodule Vutuv.UserHelpers do
   def current_organization(%WorkExperience{organization: nil}), do: ""
 
   def current_organization(%WorkExperience{organization: org}), do: org
+
+
 
   def current_title(nil), do: ""
 
@@ -69,6 +93,8 @@ defmodule Vutuv.UserHelpers do
 
   def current_title(%WorkExperience{title: org}), do: org
 
+
+
   def follower_count(user) do
     Repo.one(from c in Connection, where: c.followee_id == ^user.id, select: count("follower_id"))
   end
@@ -76,6 +102,8 @@ defmodule Vutuv.UserHelpers do
   def followee_count(user) do
     Repo.one(from c in Connection, where: c.follower_id == ^user.id, select: count("followee_id"))
   end
+
+
 
   def username(user) do
     Repo.one(from s in Vutuv.SocialMediaAccount,
@@ -89,6 +117,8 @@ defmodule Vutuv.UserHelpers do
     end
   end
 
+
+
   def locale(conn, %User{locale: nil}) do
     conn.assigns[:locale]
   end
@@ -97,11 +127,15 @@ defmodule Vutuv.UserHelpers do
     locale
   end
 
+
+
   def user_follows_user?(%User{id: follower_id}, %User{id: followee_id}) do
     Repo.one(from c in Vutuv.Connection, where: c.follower_id==^follower_id and c.followee_id==^followee_id, select: c.id)
   end
 
   def user_follows_user?(_, _), do: false;
+
+
 
   def is_visitor?(_, nil), do: false
 
@@ -109,8 +143,12 @@ defmodule Vutuv.UserHelpers do
     !same_user?(conn.assigns[:user], current_user)
   end
 
+
+
   def same_user?(%User{id: id}, %User{id: id}), do: true
   def same_user?(_, _), do: false
+
+
 
   def format_address(%Address{country: "United States", line_1: line_1, line_2: line_2, city: city, state: state, zip_code: zip_code}) do
     "#{line_1}#{if line_2, do: "\n"<>line_2}
@@ -125,6 +163,8 @@ defmodule Vutuv.UserHelpers do
     #{zip_code} #{city}"
     |> Phoenix.HTML.Format.text_to_html
   end
+
+
 
   def gen_breadcrumbs(args) do
     Enum.reduce(tl(args), gen_breadcrumb(hd(args)), fn f, acc ->
