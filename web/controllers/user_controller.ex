@@ -251,7 +251,6 @@ defmodule Vutuv.UserController do
   end
 
   defp auth(conn, _opts) do
-    IO.puts "\n\n#{inspect conn.params}\n\n"
     case conn.params do
       %{"user_slug" => slug} ->
         case Repo.one(from s in Slug, where: s.value == ^slug, select: s.user_id) do
