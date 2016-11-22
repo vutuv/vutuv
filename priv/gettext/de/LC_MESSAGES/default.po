@@ -42,9 +42,9 @@ msgstr "Impressum"
 msgid "Ad"
 msgstr "Anzeige"
 
-#: web/templates/address/form_de.html.eex:46
-#: web/templates/address/form_en.html.eex:58
-#: web/templates/address/form_generic.html.eex:58
+#: web/templates/address/form_de.html.eex:38
+#: web/templates/address/form_en.html.eex:50
+#: web/templates/address/form_generic.html.eex:50
 #: web/templates/address/index.html.eex:24 web/templates/email/index.html.eex:24
 #: web/templates/phone_number/index.html.eex:24
 #: web/templates/social_media_account/index.html.eex:24
@@ -112,9 +112,9 @@ msgstr "Geburtstag"
 msgid "By signing up you agree that we set a cookie in your browser."
 msgstr "Achtung: Ab hier benutzen wir Cookies."
 
-#: web/templates/address/form_de.html.eex:45
-#: web/templates/address/form_en.html.eex:57
-#: web/templates/address/form_generic.html.eex:57
+#: web/templates/address/form_de.html.eex:37
+#: web/templates/address/form_en.html.eex:49
+#: web/templates/address/form_generic.html.eex:49
 #: web/templates/email/form.html.eex:22 web/templates/group/form.html.eex:15
 #: web/templates/membership/form.html.eex:17
 #: web/templates/phone_number/form.html.eex:21
@@ -150,7 +150,7 @@ msgstr "Verbindung gelöscht"
 msgid "Contact"
 msgstr "Kontakt"
 
-#: web/controllers/user_controller.ex:266
+#: web/controllers/user_controller.ex:237
 msgid "Couldn't follow back to %{name}."
 msgstr "Konnte nicht zu %{name} zurückfolgen."
 
@@ -466,7 +466,7 @@ msgstr "Noch keine Followers!"
 
 #: web/templates/page/index.html.eex:16
 msgid "No expensive premium accounts! Read more about it in"
-msgstr "Keine teuren Premium Accounts. Lesen Sie mehr im"
+msgstr "Keine teuren Premium Accounts. Lesen Sie mehr in"
 
 #: web/templates/user/show.html.eex:198
 msgid "Not following anyone yet!"
@@ -619,10 +619,6 @@ msgstr "Max Mustermann"
 msgid "Search query executed successfully."
 msgstr "Suche erfolgreich ausgeführt."
 
-#: web/templates/address/form.html.eex:9
-msgid "Select"
-msgstr "Auswählen"
-
 #: web/templates/address/show.html.eex:14
 #: web/templates/search_term/index.html.eex:21
 #: web/templates/skill/index.html.eex:20 web/templates/user/index.html.eex:33
@@ -666,7 +662,7 @@ msgstr ""
 msgid "Slug doesn't exist."
 msgstr ""
 
-#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:176
+#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:147
 msgid "Slug updated successfully."
 msgstr ""
 
@@ -684,15 +680,15 @@ msgstr "Social Media Accounts"
 msgid "Social Media Profiles"
 msgstr "Social Media Profile"
 
-#: web/controllers/social_media_account_controller.ex:26
+#: web/controllers/social_media_account_controller.ex:28
 msgid "Social media account created successfully."
 msgstr "Ein neuer Social Media Account wurde eingetragen."
 
-#: web/controllers/social_media_account_controller.ex:66
+#: web/controllers/social_media_account_controller.ex:68
 msgid "Social media account deleted successfully."
 msgstr "Ein Social Media Account wurde gelöscht."
 
-#: web/controllers/social_media_account_controller.ex:51
+#: web/controllers/social_media_account_controller.ex:53
 msgid "Social media account updated successfully."
 msgstr "Ein Social Media Account wurde geändert."
 
@@ -722,7 +718,7 @@ msgstr ""
 msgid "The Fast and Free Career Network"
 msgstr "Ihr Kontaktnetzwerk. Schnell und gratis!"
 
-#: web/controllers/page_controller.ex:34 web/controllers/user_controller.ex:43
+#: web/controllers/page_controller.ex:33 web/controllers/user_controller.ex:43
 msgid "There was an error"
 msgstr "Es gab einen Fehler"
 
@@ -751,15 +747,15 @@ msgstr "Endorsement erfolgreich."
 msgid "User"
 msgstr "User"
 
-#: web/controllers/page_controller.ex:30 web/controllers/user_controller.ex:39
+#: web/controllers/page_controller.ex:29 web/controllers/user_controller.ex:39
 msgid "User %{name} created successfully. An email has been sent with your login link."
 msgstr "Der User %{name} wurde angelegt. Eine E-Mail mit einem Login Link wurde verschickt."
 
-#: web/controllers/user_controller.ex:193
+#: web/controllers/user_controller.ex:164
 msgid "User deleted successfully."
 msgstr "User wurde gelöscht."
 
-#: web/controllers/user_controller.ex:153
+#: web/controllers/user_controller.ex:124
 msgid "User updated successfully."
 msgstr "Userdaten wurde geändert."
 
@@ -851,11 +847,11 @@ msgstr "Lebenslauf"
 msgid "Work experience created successfully."
 msgstr "Ein Lebenslaufeintrag wurde erstellt."
 
-#: web/controllers/work_experience_controller.ex:71
+#: web/controllers/work_experience_controller.ex:73
 msgid "Work experience deleted successfully."
 msgstr "Ein Lebenlaufseintrag wurde gelöscht"
 
-#: web/controllers/work_experience_controller.ex:56
+#: web/controllers/work_experience_controller.ex:57
 msgid "Work experience updated successfully."
 msgstr "Ein Lebenslaufeintrag wurde geändert."
 
@@ -871,14 +867,14 @@ msgstr "Ja"
 msgid "You don't have any followers yet! If you want more followers, you could follow others, invite your friends, or link your Vutuv profile on other social media websites."
 msgstr "Sie haben noch keine Followers."
 
-#: web/controllers/user_controller.ex:262
+#: web/controllers/user_controller.ex:233
 msgid "You follow back %{name}."
 msgstr "Sie folgen %{name}."
 
 #: web/controllers/admin/admin_controller.ex:18
 #: web/controllers/admin/slug_controller.ex:51
 #: web/controllers/admin/user_controller.ex:25
-#: web/controllers/user_controller.ex:301
+#: web/controllers/user_controller.ex:247
 msgid "You must be logged in to access that page"
 msgstr "Sie müssen für diese Seite eingeloggt sein."
 
@@ -906,11 +902,11 @@ msgstr "Upvote"
 msgid "upvotes"
 msgstr "Upvotes"
 
-#: web/controllers/user_controller.ex:246
+#: web/controllers/user_controller.ex:217
 msgid "Successfully added %{successes} skills with %{failures} failures."
 msgstr "%{successes} neue Fähigkeiten wurden hinzugefügt."
 
-#: web/controllers/user_controller.ex:207
+#: web/controllers/user_controller.ex:178
 msgid "An email has been sent to your email address with instructions on how to delete your account."
 msgstr "Eine E-Mail mit einem Löschlink wurde gerade an Sie verschickt."
 
@@ -1001,3 +997,7 @@ msgstr "Wählen Sie einen Monat"
 #: web/templates/work_experience/form.html.eex:43
 msgid "Select a year"
 msgstr "Wählen Sie ein Jahr"
+
+#: web/templates/page/index.html.eex:16
+msgid "Find service updates at"
+msgstr "Aktuelle Informationen find Sie auf"
