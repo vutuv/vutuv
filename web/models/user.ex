@@ -1,6 +1,7 @@
 defmodule Vutuv.User do
   use Vutuv.Web, :model
   use Arc.Ecto.Schema
+  require Vutuv.Gettext
   @derive {Phoenix.Param, key: :active_slug}
 
   schema "users" do
@@ -112,6 +113,18 @@ defmodule Vutuv.User do
       |> add_error(:last_name, message)
       |> add_error(:nickname, message)
     end
+  end
+
+  def gender_gettext("male") do
+    Vutuv.Gettext.gettext("Male")
+  end
+
+  def gender_gettext("female") do
+    Vutuv.Gettext.gettext("Female")
+  end
+
+  def gender_gettext(_) do
+    Vutuv.Gettext.gettext("Other")
   end
 
   defp downcase_value(changeset) do

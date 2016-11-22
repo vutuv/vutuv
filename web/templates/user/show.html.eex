@@ -78,7 +78,7 @@
       <dl>
         <%= if(@user.gender != "other" && @user.gender) do %>
         <dt><%= gettext "Gender" %></dt>
-        <dd><%= @user.gender %></dd>
+        <dd><%= Vutuv.User.gender_gettext(@user.gender) %></dd>
         <% end %>
         <%= if(@user.birthdate) do %>
         <dt><%= gettext "Birthday" %></dt>
