@@ -503,7 +503,8 @@ msgstr "Ups, es gab einen Validierungsfehler! Bitte überprüfen Sie Ihre Eingab
 msgid "Organization"
 msgstr "Organisation"
 
-#: web/templates/page/index.html.eex:27 web/templates/user/form.html.eex:9
+#: web/models/user.ex:127 web/templates/page/index.html.eex:27
+#: web/templates/user/form.html.eex:9
 msgid "Other"
 msgstr "Sonstiges"
 
@@ -1002,14 +1003,22 @@ msgstr "Wählen Sie ein Jahr"
 msgid "Find service updates at"
 msgstr "Aktuelle Informationen find Sie auf"
 
-#: web/views/error_view.ex:6
-msgid "</header> <h1 style=\"text-align:center;\">Page not found</h1>"
-msgstr ""
+#: web/models/user.ex:123
+msgid "Female"
+msgstr "Frau"
 
-#: web/views/error_view.ex:18
-msgid "</header> <h1 style=\"text-align:center;\">Pardon us! Something went wrong. If you think this is a bug, please <a href = \"https://github.com/vutuv/vutuv/issues/new\"submit a bug report.</a></h1>"
-msgstr ""
+#: web/models/user.ex:119
+msgid "Male"
+msgstr "Mann"
 
-#: web/views/error_view.ex:12
-msgid "</header> <h1 style=\"text-align:center;\">You are not allowed to view this page.</h1>"
-msgstr ""
+#: web/views/error_view.ex:5
+msgid "Page not found"
+msgstr "Seite nicht verfügbar"
+
+#: web/views/error_view.ex:15 web/views/error_view.ex:26
+msgid "Pardon us! Something went wrong. If you think this is a bug, please %{link_open}submit a bug report."
+msgstr "Fehler! Irgendwas stimmt hier nicht. Wir würden uns über einen Bugreport unter %{link_open}freuen."
+
+#: web/views/error_view.ex:10
+msgid "You are not allowed to view this page."
+msgstr "Diese Seite ist für Sie gesperrt."
