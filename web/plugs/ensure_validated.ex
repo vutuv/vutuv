@@ -10,12 +10,7 @@ defmodule Vutuv.Plug.EnsureValidated do
     |> validated?(conn)
   end
 
-
-  defp validated?(%Vutuv.User{validated?: true}, conn), do: conn
-
-  defp validated?(%Vutuv.User{validated?: nil}, conn), do: conn
-
-  defp validated?(_, conn), do: not_found(conn)
+  defp validated?(_, conn), do: conn
 
   defp not_found(conn) do
     conn
