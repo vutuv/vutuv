@@ -5,7 +5,7 @@ defmodule Vutuv.FollowerController do
   def index(conn, _params) do
   	user = 
 			conn.assigns[:user]
-			|> Repo.preload([:followers, follower_connections: {Connection.latest(1000), [:follower]}])
+			|> Repo.preload([:followers, follower_connections: {Connection.latest(100), [:follower]}])
     render(conn, "index.html", user: user)
   end
 end
