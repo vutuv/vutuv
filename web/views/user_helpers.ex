@@ -2,6 +2,7 @@ defmodule Vutuv.UserHelpers do
   import Ecto.Query
   alias Vutuv.User
   alias Vutuv.Repo
+  alias Vutuv.Skill
   alias Vutuv.WorkExperience
   alias Vutuv.Connection
   alias Vutuv.Address
@@ -95,9 +96,20 @@ defmodule Vutuv.UserHelpers do
 
 
 
+  def user_content_description(user, skills) do
+    skills_string = 
+      for(skill <- skills) do
+        Skill.resolve_name(skill.skill_id)
+      end
+      |> Enum.join(", ")
+    "#{work_information_string(user)}.#{if (skills_string!=""), do: " Skills: #{skills_string}"}"
+  end
+
+
+
   def work_information_string(nil, _), do: ""
 
-  def work_information_string(user, len) do
+  def work_information_string(user, len \\ 256) do
     job = current_title(user)
     org = current_organization(user)
     "#{job}#{if (org && (org != "")), do: " @ #{org}"}"
