@@ -10,12 +10,12 @@ defmodule Vutuv.Plug.UserResolveSlug do
   end
 
   def call(%{params: %{"user_slug" => slug}} = conn, _opts) do
-    Repo.one(from s in Vutuv.Slug, where: s.value == ^slug, preload: [:user])
+    Repo.one(from s in Vutuv.Slug, join: u in assoc(s, :user), where: s.value == ^slug and not is_nil(u.id), preload: [:user])
     |> eval_slug(conn)
   end
 
   def call(%{params: %{"slug" => slug}} = conn, _opts) do
-    Repo.one(from s in Vutuv.Slug, where: s.value == ^slug, preload: [:user])
+    Repo.one(from s in Vutuv.Slug, join: u in assoc(s, :user), where: s.value == ^slug and not is_nil(u.id), preload: [:user])
     |> eval_slug(conn)
   end
 

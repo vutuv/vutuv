@@ -4,7 +4,7 @@ defmodule Vutuv.UserController do
   plug :logged_in? when action in [:index]
   plug :auth when action in [:edit, :update, :skills_create, :skills_create]
   plug Vutuv.Plug.RequireUserLoggedOut when action in [:new, :create]
-  plug Vutuv.Plug.EnsureValidated
+  plug Vutuv.Plug.EnsureValidated when not action in [:delete, :magic_delete]
   import Vutuv.UserHelpers
   use Arc.Ecto.Schema
 

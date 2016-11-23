@@ -61,7 +61,6 @@ defmodule Vutuv.User do
   with no validation performed.
   """
   def changeset(model, params \\ %{}) do
-    IO.puts "\n\n#{inspect params}\n\n"
     model
     |> cast(params, @optional_fields)
     |> validate_avatar(params)
