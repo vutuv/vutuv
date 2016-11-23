@@ -6,7 +6,7 @@
   <% end %>
   <div class="editform__field<%= if error_tag(f, :gender), do: " editform__field--error"%>">
   <%= label f, :gender, gettext("Gender") %>
-  <%= select f, :gender, [{gettext("Mr"), "male"}, {gettext("Mrs"), "female"}, {gettext("Other"), "other"}], id: "gender" %>
+  <%= select f, :gender, [{gettext("Mr"), "male"}, {gettext("Mrs"), "female"}, {gettext("Other"), "other"}], id: "gender", prompt: gettext("Choose a gender") %>
   <%= error_tag f, :gender %>
   </div>
 
@@ -30,9 +30,9 @@
     <%= error_tag ef, :value %>
   </div>
   <div class="editform__field<%= if error_tag(f, :public?), do: " editform__field--error"%>">
-    <%= label f, :public?, gettext("Is this email public or private?") %>
-    <%= select f, :public?, ["Public": true, "Private": false] %>
-    <%= error_tag f, :public? %>
+    <%= label ef, :public?, gettext("Is this email public or private?") %>
+    <%= select ef, :public?, ["Public": true, "Private": false] %>
+    <%= error_tag ef, :public? %>
   </div>
   <% end %>
 

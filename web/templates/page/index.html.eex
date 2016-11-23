@@ -24,7 +24,7 @@
       <h2><%= gettext "Get started now. It only takes 30 seconds." %></h2>
       <p>
       <%= select f, :gender, [{gettext("Mr"), "male"},
-        {gettext("Mrs"), "female"}, {gettext("Other"), "other"}], class: "imagebox__input" %>
+        {gettext("Mrs"), "female"}, {gettext("Other"), "other"}], class: "imagebox__input", prompt: gettext("Choose a gender") %>
       </p>
       <p>
       <%= text_input f, :first_name, class: "imagebox__input", placeholder: gettext("Enter your first name"), autofocus: true %>
