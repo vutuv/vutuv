@@ -14,7 +14,7 @@
   <section class="card">
     <h1><%= gettext "Followers" %></h1>
 
-    <%= render Vutuv.UserView, "card_list.html", conn: @conn, users: @user.followees, current_user: @current_user, current_user_id: @current_user_id %>
+    <%= render Vutuv.UserView, "card_list.html", conn: @conn, users: @user.followees, current_user: @current_user, current_user_id: @current_user_id, work_string_length: 45 %>
     
     <%= if(Enum.count(@user.followees) == 0) do %>
       <h1 style="text-align:center"><strong><%= gettext "We can't find em' cap'n!" %></strong></h1>

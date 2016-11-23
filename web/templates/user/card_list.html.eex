@@ -7,7 +7,7 @@
         <%= end %>
       </div>
       <p><strong><%= link full_name(user), to: user_path(@conn, :show, user) %></strong>
-      <%= work_information_string(user) %>
+      <%= work_information_string(user, @work_string_length) %>
       </p>
       <%= if !same_user?(@current_user, user) and @current_user do %>
         <%= if user_follows_user?(@current_user, user) do %>

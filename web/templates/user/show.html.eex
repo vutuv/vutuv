@@ -18,10 +18,7 @@
         <% end %>
       </h1>
       <h2>
-        <%= current_title(@job) %>
-        <%= if(@organization != "" and @organization) do %>
-          @ <%= @organization %>
-        <% end %>
+        <%= work_information_string(@user, 30) %>
       </h2>
     <%= if @user.verified do %>
       <span class="screenreader">Verified profile</span>
@@ -192,7 +189,7 @@
     <h1><%= gettext "Followers" %></h1>
     <%= if(@follower_count > 0) do %>
 
-    <%= render "card_list.html", conn: @conn, users: @user.followers, current_user: @current_user, current_user_id: @current_user_id %>
+    <%= render "card_list.html", conn: @conn, users: @user.followers, current_user: @current_user, current_user_id: @current_user_id, work_string_length: 20 %>
 
     <% else %>
       <p class="card__empty"><%= gettext "No Followers yet!" %></p>
@@ -206,7 +203,7 @@
   <h1><%= gettext "Following" %></h1>
     <%= if(@followee_count > 0) do %>
 
-    <%= render "card_list.html", conn: @conn, users: @user.followees, current_user: @current_user, current_user_id: @current_user_id %>
+    <%= render "card_list.html", conn: @conn, users: @user.followees, current_user: @current_user, current_user_id: @current_user_id, work_string_length: 20 %>
 
     <% else %>
       <p class="card__empty"><%= gettext "Not following anyone yet!" %></p>

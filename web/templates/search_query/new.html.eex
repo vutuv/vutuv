@@ -10,7 +10,7 @@
 <%= if @conn.assigns[:results] do %>
   <section class="card card--simple">
       
-    <%= render Vutuv.UserView, "card_list.html", conn: @conn, users: @results, current_user: @current_user, current_user_id: @current_user_id %>
+    <%= render Vutuv.UserView, "card_list.html", conn: @conn, users: @results, current_user: @current_user, current_user_id: @current_user_id, work_string_length: 45 %>
 
   </section>
 <% end %>

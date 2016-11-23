@@ -95,12 +95,34 @@ defmodule Vutuv.UserHelpers do
 
 
 
-  def work_information_string(nil), do: ""
+  def work_information_string(nil, _), do: ""
 
-  def work_information_string(user) do
+  def work_information_string(user, len) do
     job = current_title(user)
     org = current_organization(user)
     "#{job}#{if (org && (org != "")), do: " @ #{org}"}"
+    |> validate_length(job, org, len)
+    |> validate_backup(job, org, len)
+  end
+
+  defp validate_length(str, job, org, len) do
+    if(String.length(str)>len) do
+      "#{job}"
+    else
+      str
+    end
+  end
+
+  defp validate_backup(str, job, org, len) when len<=3 do
+    validate_backup(str, job, org, 3)
+  end
+
+  defp validate_backup(str, job, org, len) when len>=3 do
+    if(String.length(str)>len) do
+      "#{job |> String.slice(0, len-3)}..."
+    else
+      str
+    end
   end
 
 

@@ -521,7 +521,7 @@ footer {
   max-width: 620px; }
   .search-form input {
     flex: 1; }
-    .search-form input[type="submit"] {
+    .search-submit{
       max-width: 100px;
       background: #4A90E2;
       color: #FFF;
