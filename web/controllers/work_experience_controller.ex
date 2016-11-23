@@ -38,7 +38,12 @@ defmodule Vutuv.WorkExperienceController do
 
   def show(conn, %{"id" => id}) do
     work_experience = Repo.get!(WorkExperience, id)
-    render(conn, "show.html", work_experience: work_experience)
+      |> Repo.preload([:user])
+    if(work_experience.user.id == conn.assigns[:user].id) do
+      render(conn, "show.html", work_experience: work_experience)
+    else
+      redirect(conn, to: user_work_experience_path(conn, :show, work_experience.user, id))
+    end
   end
 
   def edit(conn, %{"id" => id}) do
