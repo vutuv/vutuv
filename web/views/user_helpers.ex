@@ -12,7 +12,7 @@ defmodule Vutuv.UserHelpers do
                       honorific_prefix: honorific_prefix,
                       honorific_suffix: honorific_suffix}) do
     [honorific_prefix, first_name, last_name, honorific_suffix]
-    |> Enum.reject(&(&1 == ""))
+    |> Enum.reject(&(&1 == "" || &1 == nil))
     |> Enum.join(" ")
   end
 

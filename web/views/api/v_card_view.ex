@@ -1,17 +1,18 @@
 defmodule Vutuv.Api.VCardView do
   use Vutuv.Web, :view
+  import Vutuv.UserHelpers
 
-  def render("show.vcard", %{v_card: v_card}) do
-    render_one(v_card, Vutuv.Api.VCardView, "v_card")
+  def render("show.vcf", %{v_card: v_card}) do
+    render_one(v_card, Vutuv.Api.VCardView, "v_card.vcf")
   end
 
-  def render("v_card", %{v_card: v_card}) do
+  def render("vcard.vcf", %{v_card: v_card}) do
     "BEGIN:VCARD\nVERSION:4.0"<>
     "\nN:"<>sanitize(v_card.last_name)<>";"<>sanitize(v_card.first_name)<>";"<>sanitize(v_card.middlename)<>";"<>sanitize(v_card.honorific_prefix)<>
     "\nFN:"<>sanitize(v_card.first_name)<>" "<>sanitize(v_card.last_name)<>
-    "\nORG:"<>
-    "\nTITLE:"<>
-    "\nPHOTO:"<>
+    "\nORG:#{current_organization(v_card)}"<>
+    "\nTITLE:#{current_title(v_card)}"<>
+    "\nPHOTO:"<>Vutuv.Avatar.binary(v_card, :thumb)<>
     "\n"<>
     Enum.reduce(v_card.phone_numbers,"",fn f, acc ->
       acc<>"TEL;TYPE="<>sanitize(f.number_type)<>":"<>sanitize(f.value)<>"\n"
@@ -25,14 +26,22 @@ defmodule Vutuv.Api.VCardView do
     end)
     <>
     vcard_emails(v_card)
-    <>"REV:TIMESTAMP NOT YET IMPLEMENTED\nEND:VCARD"
+    <>"REV:#{vcard_timestamp}Z\nEND:VCARD"
   end
 
   def render("error.json", %{error: error}) do
     %{error: error}
   end
 
-  def sanitize(string), do: if(string, do: string, else: "")
+  defp sanitize(string), do: if(string, do: string, else: "")
+
+  defp vcard_timestamp do
+    DateTime.utc_now
+    |> DateTime.to_string
+    |> String.split(".")
+    |> hd
+    |> String.replace(~r/[-:\s]/,"")
+  end
 
   defp vcard_emails(%{emails: %Ecto.Association.NotLoaded{}}), do: ""
 
