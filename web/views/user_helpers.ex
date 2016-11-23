@@ -95,6 +95,8 @@ defmodule Vutuv.UserHelpers do
   defp most_recent_job(job, user), do: job
 
 
+  def user_content_description(nil, _), do: ""
+  def user_content_description(_, nil), do: ""
 
   def user_content_description(user, skills) do
     skills_string = 
