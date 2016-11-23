@@ -9,7 +9,7 @@
 ----------------------------------------------------------------*/
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, button, abbr, acronym, address, big, cite, code,
+a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
@@ -113,7 +113,6 @@ h1 {
   margin-bottom: 10px; }
 
 p {
-  /*word-break: break-all;*/
   font-size: 15px;
   line-height: 21px;
   margin-bottom: 15px; }
@@ -303,7 +302,7 @@ textarea {
 textarea {
   padding: 10px;
   min-height: 100px;
-  resize: vertical; }
+  resize: vertical;  }
 
 [type="text"],
 [type="email"],
@@ -337,7 +336,7 @@ select {
   width: 100%; }
 
 .select {
-  background: url(../images/select.svg) no-repeat right center; }
+  background: url(data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2744%27%20height%3D%2744%27%3E%3Cg%20fill%3D%27none%27%20fill-rule%3D%27evenodd%27%3E%3Cpath%20fill%3D%27%23FFF%27%20d%3D%27M0%200h44v44H0z%27%2F%3E%3Cpath%20fill%3D%27%231A1918%27%20d%3D%27M22%2027l-7-8h14%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E) no-repeat right center; }
 
 ::-webkit-input-placeholder {
   color: #777; }
@@ -362,7 +361,7 @@ select {
     margin: 0;
     padding: 16px;
     text-align: center;
-    animation: messageHide 0.3s ease-in 6s forwards; }
+    animation: messageHide 0.3s ease-in 3s forwards; }
 
 .message--success {
   background-color: #5FD790; }
@@ -419,7 +418,7 @@ body.stretch {
   body.stretch footer {
     max-height: 50px; }
   body.stretch > * {
-    flex: 1; }
+    flex-grow: 1; }
 
 .screenreader {
   position: absolute;
@@ -438,10 +437,11 @@ body.stretch {
   text-align: center; }
 
 .navigation a {
-  flex: 1; }
+  flex-grow: 1; }
 
 .navigation img {
   margin-top: 11px;
+  height: 28px;
   width: 108px; }
 
 .navigation__icon {
@@ -513,25 +513,20 @@ footer {
   .breadcrumbs {
     max-width: 920px; } }
 
-.search-form {  
+.search-form {
   box-sizing: border-box;
   display: flex;
   padding: 0 10px;
   margin: 10px auto 15px auto;
-  max-width: 620px;
-}
-
-.search-form input{
-  flex: 1;
-}
-
-.search-form button[type="submit"] {
-  max-width: 100px;
-  background: #4A90E2;
-  color: #FFF;
-  font-size: 18px;
-  font-weight: bold;
-}
+  max-width: 620px; }
+  .search-form input {
+    flex: 1; }
+    .search-form input[type="submit"] {
+      max-width: 100px;
+      background: #4A90E2;
+      color: #FFF;
+      font-size: 18px;
+      font-weight: bold;}
 
 @media all and (min-width: 450px) {
   .search-form {
@@ -603,7 +598,7 @@ footer {
   .profile-header {
     align-items: center;
     display: flex;
-    overflow: auto;
+    overflow: hidden;
     position: relative;
     text-align: left;
     padding-top: 40px;
@@ -638,7 +633,7 @@ footer {
     content: "";
     display: block;
     font-size: 16px;
-    background-image: url("../images/verified.svg");
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2790%27%20height%3D%2722%27%3E%3Cg%20fill%3D%27none%27%20fill-rule%3D%27evenodd%27%3E%3Crect%20width%3D%2790%27%20height%3D%2722%27%20fill%3D%27%234ACA7E%27%20rx%3D%2711%27%2F%3E%3Ctext%20fill%3D%27%23FFF%27%20font-family%3D%27Helvetica%27%20font-size%3D%2711%27%3E%3Ctspan%20x%3D%2728.135%27%20y%3D%2715%27%3EVERIFIED%3C%2Ftspan%3E%3C%2Ftext%3E%3Cpath%20fill%3D%27%23FFF%27%20d%3D%27M18.23%208.075l-.952-.952a.648.648%200%200%200-.476-.196.648.648%200%200%200-.476.196l-4.593%204.6-2.06-2.065a.648.648%200%200%200-.475-.196.648.648%200%200%200-.476.196l-.952.952a.648.648%200%200%200-.196.476c0%20.187.065.345.196.476l2.534%202.535.953.952c.13.13.29.195.476.195a.65.65%200%200%200%20.476-.196l.95-.953%205.07-5.07a.648.648%200%200%200%20.196-.476.648.648%200%200%200-.196-.475z%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
     width: 90px;
     height: 22px;
     margin-top: 8px; }
@@ -775,13 +770,10 @@ aside {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 19px; }
-  .imagebox p, .imagebox a, .imagebox dd, .imagebox dt, .imagebox dl {
+  .imagebox p, .imagebox a {
     font-size: 14px; }
   .imagebox h2, .imagebox p {
     color: #444; }
-  .imagebox input[type="checkbox"] {
-    margin-bottom: 5px;
-  }
 
 .imagebox__card {
   max-width: 600px;
@@ -796,7 +788,6 @@ aside {
   border-top: 1px solid #eee;
   margin-top: 20px;
   padding-top: 20px; }
-
 
 .imagebox__input[type="submit"] {
   background-color: #4A90E2;
@@ -891,7 +882,6 @@ aside {
   display: inline-block; }
 
 .job__edit {
-  margin-left: 0.15em;
   float: right; }
 
 .profiles li {
