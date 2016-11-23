@@ -32,7 +32,8 @@ defmodule Vutuv.MagicLinkHelpers do
       user_id
       |> Integer.to_string
     :crypto.hash(:sha256, "#{seconds_string}#{rand_string}#{id_string}")
-    |> Base.encode32
+    |> Base.encode16
+    |> String.downcase
   end
 
   defp expire_magic_link(magic_link) do
