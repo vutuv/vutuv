@@ -109,6 +109,7 @@
   <aside>
     <%= render Vutuv.SharedView, "_ad.html" %>
 
+    <%= if(Enum.count(@emails) > 0 or same_user?(@user, @current_user)) do %>
     <section class="card">
       <%= if same_user?(@user, @current_user) do %>
       <%= link to: user_email_path(@conn, :index, @user), class: "card__edit button button--icon button--small" do %>
@@ -116,18 +117,21 @@
       <% end %>
       <% end %>
       <h1><%= gettext "Contact" %></h1>
+      <%= if(Enum.count(@emails) > 0) do %>
       <dl>
         <dt><%= if (Enum.count(@emails) == 1), do: gettext("Email"), else: gettext("Emails") %></dt>
         <%= for email <- @emails do %>
         <dd><a href="mailto:<%= email(@user) %>"><%= email.value %></a></dd>
         <% end %>
       </dl>
+      <% end %>
       <span class="card__morelink">
         <%= if same_user?(@user, @current_user) do %>
           <%= link gettext("Add"), to: user_email_path(@conn, :new, @current_user) %>
         <% end %>
       </span>
     </section>
+    <% end %>
 
     <%= if(@user.headline || @user.birthdate || same_user?(@user, @current_user)) do %>
       <section class="card">
