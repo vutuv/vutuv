@@ -96,11 +96,11 @@ defmodule Vutuv.UserHelpers do
 
 
   def follower_count(user) do
-    Repo.one(from c in Connection, where: c.followee_id == ^user.id, select: count("follower_id"))
+    Repo.one(from c in Connection, join: u in assoc(c, :follower), where: (is_nil(u.validated?) or u.validated? == true) and c.followee_id == ^user.id, select: count("follower_id"))
   end
 
   def followee_count(user) do
-    Repo.one(from c in Connection, where: c.follower_id == ^user.id, select: count("followee_id"))
+    Repo.one(from c in Connection, join: u in assoc(c, :followee), where: (is_nil(u.validated?) or u.validated? == true) and c.follower_id == ^user.id, select: count("followee_id"))
   end
 
 
@@ -158,11 +158,17 @@ defmodule Vutuv.UserHelpers do
   end
 
   def format_address(%Address{country: "Germany", line_1: line_1, line_2: line_2, city: city, state: state, zip_code: zip_code}) do
-    #This needs to be rewritten to format german addresses
     "#{line_1}#{if line_2, do: "\n"<>line_2}
     #{zip_code} #{city}"
     |> Phoenix.HTML.Format.text_to_html
   end
+
+   def format_address(%Address{country: country, line_1: line_1, line_2: line_2, city: city, state: state, zip_code: zip_code}) do
+    "#{line_1}#{if line_2, do: "\n"<>line_2}
+    #{zip_code} #{city}
+    #{country}"
+    |> Phoenix.HTML.Format.text_to_html
+   end
 
 
 

@@ -9,7 +9,7 @@ defmodule Vutuv.Search do
     value = String.downcase(value)
     cologne_fuzzy_value = phoneticize_search_value(value, :cologne)
     soundex_fuzzy_value = phoneticize_search_value(value, :soundex)
-    for(term<- Repo.all(from t in SearchTerm, where: ^value == t.value or ^cologne_fuzzy_value == t.value or ^soundex_fuzzy_value == t.value)) do
+    for(term<- Repo.all(from t in SearchTerm, join: u in assoc(t, :user), where: (is_nil(u.validated?) or u.validated? == true) and (^value == t.value or ^cologne_fuzzy_value == t.value or ^soundex_fuzzy_value == t.value))) do
       %{score: term.score, user_id: term.user_id}
     end
     |> Enum.sort(&(&1.score> &2.score)) #Sorts by score
@@ -20,7 +20,7 @@ defmodule Vutuv.Search do
   #Searches for user that matches email
   def search(value, true) do
     value = String.downcase(value)
-    Repo.all(from u in User, join: e in assoc(u, :emails), where: ^value == e.value)
+    Repo.all(from u in User, join: e in assoc(u, :emails), where: (is_nil(u.validated?) or u.validated? == true) and ^value == e.value)
     |> Enum.uniq_by(&(&1.id)) #Filters duplicates
   end
 

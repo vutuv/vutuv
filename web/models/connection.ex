@@ -37,6 +37,6 @@ defmodule Vutuv.Connection do
 
 
   def latest(n) do
-    Ecto.Query.from(u in Vutuv.Connection, order_by: [desc: :inserted_at], limit: ^n)
+    Ecto.Query.from(u in Vutuv.Connection, join: f in assoc(u, :followee), join: f2 in assoc(u, :follower), where: not f.validated? == false or not f2.validated? == false, order_by: [desc: :inserted_at], limit: ^n)
   end
 end
