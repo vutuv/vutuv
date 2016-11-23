@@ -6,17 +6,19 @@ defmodule Vutuv.PageController do
   alias Vutuv.Email
 
   def index(conn, _params) do
-    user_count = Repo.one(from u in User, select: count("*"))
-
     changeset =
       User.changeset(%User{})
       |> Ecto.Changeset.put_assoc(:emails, [%Email{}])
 
-    render conn, "index.html", changeset: changeset, user_count: user_count, body_class: "stretch"
+    render conn, "index.html", changeset: changeset, body_class: "stretch"
   end
 
   def redirect_index(conn, _params) do
     redirect conn, to: page_path(conn, :index)
+  end
+
+  def impressum(conn, _params) do
+    render conn, "impressum.html", conn: conn, body_class: "stretch"
   end
 
   def new_registration(conn, %{"user" => user_params}) do
