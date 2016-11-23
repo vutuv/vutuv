@@ -50,6 +50,18 @@ defmodule Vutuv.UserHelpers do
 
 
   def current_job(user) do
+    if(Repo.one(from w in WorkExperience,
+        join: u in assoc(w, :user),
+        where: u.id == ^user.id,
+        select: count("*")) > 0) do
+      user
+      |> has_start_no_end
+      |> no_start_no_end(user)
+      |> most_recent_job(user)
+    end
+  end
+
+  defp has_start_no_end(user) do
     Repo.one(from w in WorkExperience,
       join: u in assoc(w, :user),
       where:
@@ -58,6 +70,28 @@ defmodule Vutuv.UserHelpers do
         and is_nil(w.end_month) and is_nil(w.end_year), #has no end date
       limit: 1)
   end
+
+  defp no_start_no_end(nil, user) do
+    Repo.one(from w in WorkExperience,
+      join: u in assoc(w, :user),
+      where:
+        u.id == ^user.id #belongs to user
+        and is_nil(w.end_month) and is_nil(w.end_year), #has no end date
+      limit: 1)
+  end
+
+  defp no_start_no_end(job, user), do: job
+
+  defp most_recent_job(nil, user) do
+    Repo.one(from w in WorkExperience,
+      join: u in assoc(w, :user),
+      where:
+        u.id == ^user.id, #belongs to user
+      limit: 1,
+      order_by: [desc: w.start_year, desc: w.start_month])
+  end
+
+  defp most_recent_job(job, user), do: job
 
 
 
