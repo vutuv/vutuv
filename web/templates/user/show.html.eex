@@ -69,83 +69,6 @@
     <% end %>
   <% end %>
 
-  <%= if(@user.headline || @user.birthdate || same_user?(@user, @current_user)) do %>
-    <section class="card">
-      <%= if same_user?(@user, @current_user) do %>
-      <%= link to: user_path(@conn, :edit, @user), class: "card__edit button button--icon button--small" do %>
-        <i class="icon icon--edit"></i>
-      <% end %>
-      <% end %>
-      <%= if @user.headline || same_user?(@user, @current_user) do %>
-        <h1><%= gettext "Headline" %></h1>
-        <p><%= @user.headline %></p>
-      <% end %>
-      <dl>
-        <%= if(@user.gender != "other" && @user.gender) do %>
-        <dt><%= gettext "Gender" %></dt>
-        <dd><%= Vutuv.User.gender_gettext(@user.gender) %></dd>
-        <% end %>
-        <%= if(@user.birthdate) do %>
-        <dt><%= gettext "Birthday" %></dt>
-        <dd><%= format_birthdate(@user) %></dd>
-        <% end %>
-      </dl>
-    </section>
-  <% end %>
-
-  <aside>
-    <%= render Vutuv.SharedView, "_ad.html" %>
-    <section class="card">
-      <%= if same_user?(@user, @current_user) do %>
-      <%= link to: user_email_path(@conn, :index, @user), class: "card__edit button button--icon button--small" do %>
-        <i class="icon icon--edit"></i>
-      <% end %>
-      <% end %>
-      <h1><%= gettext "Contact" %></h1>
-      <dl>
-        <dt><%= if (Enum.count(@emails) == 1), do: gettext("Email"), else: gettext("Emails") %></dt>
-        <%= for email <- @emails do %>
-        <dd><a href="mailto:<%= email(@user) %>"><%= email.value %></a></dd>
-        <% end %>
-      </dl>
-      <span class="card__morelink">
-        <%= if same_user?(@user, @current_user) do %>
-          <%= link gettext("Add"), to: user_email_path(@conn, :new, @current_user) %>
-        <% end %>
-      </span>
-    </section>
-
-    <section class="card">
-      <h1><%= gettext "Exports" %></h1>
-      <dl>
-        <br>
-        <dt><%= gettext "Vcard" %></dt>
-        <dd><%= link gettext("Download"), to: api_user_v_card_path(@conn, :get, @user) %></dd>
-      </dl>
-    </section>
-
-    <%= if Enum.count(@user.social_media_accounts) > 0 or same_user?(@user, @current_user) do %>
-      <section class="card">
-        <%= if same_user?(@user, @current_user) do %>
-        <%= link to: user_social_media_account_path(@conn, :index, @user), class: "card__edit button button--icon button--small" do %>
-          <i class="icon icon--edit"></i>
-        <% end %>
-        <% end %>
-        <h1><%= gettext "Social Media" %></h1>
-        <%= for account <- @user.social_media_accounts do %>
-        <h2><%= account.provider %></h2>
-        <p><%= Vutuv.SocialMediaAccount.social_media_link account %></p>
-        <% end %>
-
-        <span class="card__morelink">
-          <%= if same_user?(@user, @current_user) do %>
-            <%= link gettext("Add"), to: user_social_media_account_path(@conn, :new, @current_user) %>
-          <% end %>
-        </span>
-      </section>
-    <% end %>
-  </aside>
-
   <%= if Enum.count(@user_skills) > 0 or same_user?(@user, @current_user) do %>
   <section class="card">
     <h1><%= gettext "Skills" %></h1>
@@ -182,6 +105,84 @@
     <% end %>
   </section>
   <% end %>
+
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+
+    <section class="card">
+      <%= if same_user?(@user, @current_user) do %>
+      <%= link to: user_email_path(@conn, :index, @user), class: "card__edit button button--icon button--small" do %>
+        <i class="icon icon--edit"></i>
+      <% end %>
+      <% end %>
+      <h1><%= gettext "Contact" %></h1>
+      <dl>
+        <dt><%= if (Enum.count(@emails) == 1), do: gettext("Email"), else: gettext("Emails") %></dt>
+        <%= for email <- @emails do %>
+        <dd><a href="mailto:<%= email(@user) %>"><%= email.value %></a></dd>
+        <% end %>
+      </dl>
+      <span class="card__morelink">
+        <%= if same_user?(@user, @current_user) do %>
+          <%= link gettext("Add"), to: user_email_path(@conn, :new, @current_user) %>
+        <% end %>
+      </span>
+    </section>
+
+    <%= if(@user.headline || @user.birthdate || same_user?(@user, @current_user)) do %>
+      <section class="card">
+        <%= if same_user?(@user, @current_user) do %>
+        <%= link to: user_path(@conn, :edit, @user), class: "card__edit button button--icon button--small" do %>
+          <i class="icon icon--edit"></i>
+        <% end %>
+        <% end %>
+        <h1><%= gettext "General Info" %></h1>
+        <%= if @user.headline || same_user?(@user, @current_user) do %>
+          <p><%= @user.headline %></p>
+        <% end %>
+        <dl>
+          <%= if(@user.gender != "other" && @user.gender) do %>
+          <dt><%= gettext "Gender" %></dt>
+          <dd><%= Vutuv.User.gender_gettext(@user.gender) %></dd>
+          <% end %>
+          <%= if(@user.birthdate) do %>
+          <dt><%= gettext "Birthday" %></dt>
+          <dd><%= format_birthdate(@user) %></dd>
+          <% end %>
+        </dl>
+      </section>
+    <% end %>
+
+    <%= if Enum.count(@user.social_media_accounts) > 0 or same_user?(@user, @current_user) do %>
+      <section class="card">
+        <%= if same_user?(@user, @current_user) do %>
+        <%= link to: user_social_media_account_path(@conn, :index, @user), class: "card__edit button button--icon button--small" do %>
+          <i class="icon icon--edit"></i>
+        <% end %>
+        <% end %>
+        <h1><%= gettext "Social Media" %></h1>
+        <%= for account <- @user.social_media_accounts do %>
+        <h2><%= account.provider %></h2>
+        <p><%= Vutuv.SocialMediaAccount.social_media_link account %></p>
+        <% end %>
+
+        <span class="card__morelink">
+          <%= if same_user?(@user, @current_user) do %>
+            <%= link gettext("Add"), to: user_social_media_account_path(@conn, :new, @current_user) %>
+          <% end %>
+        </span>
+      </section>
+    <% end %>
+
+    <section class="card">
+      <h1><%= gettext "Exports" %></h1>
+      <dl>
+        <br>
+        <dt><%= gettext "Vcard" %></dt>
+        <dd><%= link gettext("Download"), to: api_user_v_card_path(@conn, :get, @user) %></dd>
+      </dl>
+    </section>
+  </aside>
 
   <section class="card half<%= if @follower_count == 0, do: " card--empty" %>">
     <h1><%= gettext "Followers" %></h1>
