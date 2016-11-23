@@ -46,10 +46,10 @@ msgstr "Anzeige"
 #: web/templates/phone_number/index.html.eex:24
 #: web/templates/social_media_account/index.html.eex:24
 #: web/templates/url/index.html.eex:25 web/templates/user/show.html.eex:90
-#: web/templates/user/show.html.eex:98 web/templates/user/show.html.eex:127
-#: web/templates/user/show.html.eex:172 web/templates/user/show.html.eex:229
-#: web/templates/user/show.html.eex:249 web/templates/user/show.html.eex:269
-#: web/templates/user/show.html.eex:289
+#: web/templates/user/show.html.eex:98 web/templates/user/show.html.eex:130
+#: web/templates/user/show.html.eex:175 web/templates/user/show.html.eex:231
+#: web/templates/user/show.html.eex:251 web/templates/user/show.html.eex:271
+#: web/templates/user/show.html.eex:291
 #: web/templates/user_skill/form.html.eex:10
 #: web/templates/user_skill/index.html.eex:25
 #: web/templates/work_experience/index.html.eex:25
@@ -74,7 +74,7 @@ msgstr "Eine Adresse wurde geändert."
 
 #: web/templates/address/edit.html.eex:8 web/templates/address/index.html.eex:14
 #: web/templates/address/new.html.eex:8 web/templates/address/show.html.eex:13
-#: web/templates/user/show.html.eex:281
+#: web/templates/user/show.html.eex:283
 msgid "Addresses"
 msgstr "Adressen"
 
@@ -100,7 +100,7 @@ msgstr "Zurück"
 msgid "Birthdate"
 msgstr "Geburtstag"
 
-#: web/templates/user/show.html.eex:149
+#: web/templates/user/show.html.eex:153
 msgid "Birthday"
 msgstr "Geburtstag"
 
@@ -142,7 +142,7 @@ msgstr "Verbindung hergestellt"
 msgid "Connection deleted successfully."
 msgstr "Verbindung gelöscht"
 
-#: web/templates/user/show.html.eex:118
+#: web/templates/user/show.html.eex:119
 msgid "Contact"
 msgstr "Kontakt"
 
@@ -169,7 +169,7 @@ msgstr "Beschreibung"
 msgid "Disable"
 msgstr "Inaktivieren"
 
-#: web/templates/user/show.html.eex:183
+#: web/templates/user/show.html.eex:186
 msgid "Download"
 msgstr "Download"
 
@@ -188,7 +188,7 @@ msgid "Edit user"
 msgstr "Userdaten ändern"
 
 #: web/templates/email/card_list.html.eex:4 web/templates/email/show.html.eex:29
-#: web/templates/user/show.html.eex:120
+#: web/templates/user/show.html.eex:122
 msgid "Email"
 msgstr "E-Mail Adresse"
 
@@ -210,7 +210,7 @@ msgstr "E-Mail Adresse wurde geändert."
 
 #: web/templates/email/edit.html.eex:7 web/templates/email/index.html.eex:14
 #: web/templates/email/new.html.eex:7 web/templates/email/show.html.eex:13
-#: web/templates/user/show.html.eex:120
+#: web/templates/user/show.html.eex:122
 msgid "Emails"
 msgstr "E-Mail Adressen"
 
@@ -246,7 +246,7 @@ msgstr "Vorname eingeben"
 msgid "Enter your last name"
 msgstr "Nachname eingeben"
 
-#: web/templates/user/show.html.eex:219
+#: web/templates/user/show.html.eex:221
 #: web/templates/work_experience/edit.html.eex:8
 #: web/templates/work_experience/index.html.eex:14
 #: web/templates/work_experience/new.html.eex:8
@@ -268,16 +268,16 @@ msgstr "Vorname"
 
 #: web/templates/followee/index.html.eex:15
 #: web/templates/follower/index.html.eex:7
-#: web/templates/follower/index.html.eex:16 web/templates/user/show.html.eex:190
+#: web/templates/follower/index.html.eex:16 web/templates/user/show.html.eex:192
 msgid "Followers"
 msgstr "Followers"
 
-#: web/templates/followee/index.html.eex:7 web/templates/user/show.html.eex:204
+#: web/templates/followee/index.html.eex:7 web/templates/user/show.html.eex:206
 msgid "Following"
 msgstr ""
 
 #: web/templates/user/form.html.eex:8 web/templates/user/index.html.eex:12
-#: web/templates/user/show.html.eex:145
+#: web/templates/user/show.html.eex:149
 msgid "Gender"
 msgstr "Geschlecht"
 
@@ -372,7 +372,7 @@ msgstr "Link wurde geändert."
 
 #: web/templates/url/edit.html.eex:7 web/templates/url/index.html.eex:14
 #: web/templates/url/new.html.eex:7 web/templates/url/show.html.eex:13
-#: web/templates/user/show.html.eex:261
+#: web/templates/user/show.html.eex:263
 msgid "Links"
 msgstr "Links"
 
@@ -416,7 +416,7 @@ msgstr "Zweiter Vorname"
 msgid "Middlename"
 msgstr "Zweiter Vorname"
 
-#: web/templates/user/show.html.eex:199 web/templates/user/show.html.eex:213
+#: web/templates/user/show.html.eex:201 web/templates/user/show.html.eex:215
 msgid "More"
 msgstr "Mehr"
 
@@ -456,7 +456,7 @@ msgstr "Spitzname"
 msgid "No"
 msgstr "Nein"
 
-#: web/templates/user/show.html.eex:196
+#: web/templates/user/show.html.eex:198
 msgid "No Followers yet!"
 msgstr "Noch keine Followers!"
 
@@ -464,7 +464,7 @@ msgstr "Noch keine Followers!"
 msgid "No expensive premium accounts! Read more about it in"
 msgstr "Keine teuren Premium Accounts. Lesen Sie mehr in"
 
-#: web/templates/user/show.html.eex:210
+#: web/templates/user/show.html.eex:212
 msgid "Not following anyone yet!"
 msgstr "Keine"
 
@@ -502,7 +502,7 @@ msgstr "Ups, es gab einen Validierungsfehler! Bitte überprüfen Sie Ihre Eingab
 msgid "Organization"
 msgstr "Organisation"
 
-#: web/models/user.ex:127 web/templates/page/index.html.eex:27
+#: web/models/user.ex:128 web/templates/page/index.html.eex:27
 #: web/templates/user/form.html.eex:9
 msgid "Other"
 msgstr "Sonstiges"
@@ -519,7 +519,7 @@ msgstr "Telefonnummer"
 #: web/templates/phone_number/index.html.eex:14
 #: web/templates/phone_number/new.html.eex:7
 #: web/templates/phone_number/show.html.eex:13
-#: web/templates/user/show.html.eex:241
+#: web/templates/user/show.html.eex:243
 msgid "Phone Numbers"
 msgstr "Telefonnummern"
 
@@ -663,7 +663,7 @@ msgstr ""
 msgid "Slug updated successfully."
 msgstr ""
 
-#: web/templates/user/show.html.eex:164
+#: web/templates/user/show.html.eex:167
 msgid "Social Media"
 msgstr "Social Media"
 
@@ -806,7 +806,7 @@ msgstr "Benutzer"
 msgid "Value"
 msgstr "Wert"
 
-#: web/templates/user/show.html.eex:182
+#: web/templates/user/show.html.eex:185
 msgid "Vcard"
 msgstr "Vcard"
 
@@ -814,9 +814,9 @@ msgstr "Vcard"
 msgid "Verified"
 msgstr "Verifiziert"
 
-#: web/templates/user/show.html.eex:102 web/templates/user/show.html.eex:233
-#: web/templates/user/show.html.eex:253 web/templates/user/show.html.eex:273
-#: web/templates/user/show.html.eex:293
+#: web/templates/user/show.html.eex:102 web/templates/user/show.html.eex:235
+#: web/templates/user/show.html.eex:255 web/templates/user/show.html.eex:275
+#: web/templates/user/show.html.eex:295
 msgid "View All"
 msgstr "Alles anzeigen"
 
@@ -1003,11 +1003,11 @@ msgstr "Wählen Sie ein Jahr"
 msgid "Find service updates at"
 msgstr "Aktuelle Informationen find Sie auf"
 
-#: web/models/user.ex:123
+#: web/models/user.ex:124
 msgid "Female"
 msgstr "Frau"
 
-#: web/models/user.ex:119
+#: web/models/user.ex:120
 msgid "Male"
 msgstr "Mann"
 
@@ -1027,14 +1027,22 @@ msgstr "Diese Seite ist für Sie gesperrt."
 msgid "An error occurred"
 msgstr "Es gab einen Fehler."
 
-#: web/templates/user/show.html.eex:179
+#: web/templates/user/show.html.eex:182
 msgid "Exports"
-msgstr ""
+msgstr "Exporte"
 
-#: web/templates/user/show.html.eex:140
+#: web/templates/user/show.html.eex:143
 msgid "General Info"
 msgstr "Allgemeines"
 
 #: web/templates/user/show.html.eex:11
 msgid "Verify"
 msgstr ""
+
+#: web/templates/page/index.html.eex:27 web/templates/user/form.html.eex:9
+msgid "Choose a gender"
+msgstr "Anrede auswählen"
+
+#: web/templates/layout/app.html.eex:11
+msgid "vutuv profile"
+msgstr "vutuv Profil"
