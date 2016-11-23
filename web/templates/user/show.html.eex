@@ -113,6 +113,10 @@
           <%= link gettext("Add"), to: user_email_path(@conn, :new, @current_user) %>
         <% end %>
       </span>
+    </section>
+
+    <section class="card">
+      <h1><%= gettext "Exports" %></h1>
       <dl>
         <br>
         <dt><%= gettext "Vcard" %></dt>
