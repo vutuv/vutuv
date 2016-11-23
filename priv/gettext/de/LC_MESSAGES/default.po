@@ -933,7 +933,7 @@ msgstr "Suchmaschinen sollen dieses Profil nicht indizieren"
 
 #: web/templates/session/user_login.html.eex:16
 msgid "An email has been sent with your login link. Once you login, you'll be logged in for the next 90 days on this device, or until you log out."
-msgstr "Die E-Mail mit dem Login Link ist unterwegs. Wenn Sie sich damit eingeloggt haben bleiben Sie auf diesem Devise für 90 Tage eingeloggt."
+msgstr "Die E-Mail mit dem Login Link ist unterwegs. Wenn Sie sich damit eingeloggt haben bleiben Sie auf diesem Browser für 90 Tage eingeloggt."
 
 #: lib/vutuv/magic_link_helpers.ex:61
 msgid "An error occured"
