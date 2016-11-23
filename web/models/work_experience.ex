@@ -80,6 +80,9 @@ defmodule Vutuv.WorkExperience do
     end
   end
 
+  def has_start_date?(%__MODULE__{start_year: nil}), do: false
+  def has_start_date?(%__MODULE__{start_year: _}), do: true
+
   def has_end_date?(%__MODULE__{end_year: nil}), do: false
   def has_end_date?(%__MODULE__{end_year: _}), do: true
 
