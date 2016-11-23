@@ -48,14 +48,7 @@ defmodule Vutuv.Avatar do
     |>String.replace("web/static/assets", "")
   end
 
-
   def binary(user, version) do
-    path = Vutuv.Avatar.url({user.avatar, user}, version, signed: true)
-    get_base64(user, version)
-    |> add_mimetype(path)
-  end
-
-  def get_base64(user, version) do
     Vutuv.Avatar.url({user.avatar, user}, version, signed: true)
     |> validate_file
     |> read_file
@@ -73,6 +66,7 @@ defmodule Vutuv.Avatar do
     path
     |> File.read!
     |> Base.encode64
+    |> add_mimetype(path)
   end
 
   defp add_mimetype(binary, path) do

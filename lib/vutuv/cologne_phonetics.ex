@@ -118,9 +118,12 @@ defmodule Vutuv.ColognePhonetics do
 
   defp encode(_,_,_), do: '' #This prevents the algorithm from failing due to unexpected characters.
 
+
   defp remove_zeroes([head|tail]) do
     [head|Enum.reject(tail, &(&1 == ?0))]
   end
+
+  defp remove_zeroes(string), do: string
 
   defp normalize(string) do #replaces special characters with their a-z equivelants
     string
