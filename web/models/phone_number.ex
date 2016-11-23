@@ -18,7 +18,7 @@ defmodule Vutuv.PhoneNumber do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
     |> cast(params, [:value, :number_type])
     |> validate_required([:value, :number_type], message: @requred_message)

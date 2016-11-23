@@ -15,7 +15,7 @@ defmodule Vutuv.SearchTerm do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     changeset = 
     model
     |> cast(params, [:value, :score])

@@ -18,7 +18,7 @@ defmodule Vutuv.OAuthProvider do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
     |> cast(params, [:provider_id, :provider])
   end
