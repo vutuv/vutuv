@@ -86,7 +86,7 @@ defmodule Vutuv.Router do
   scope "/api/1.0/", as: :api do
     pipe_through :api
 
-    resources "/users", Vutuv.Api.UserController, param: "user_slug" do
+    resources "/users", Vutuv.Api.UserController, param: "slug" do
 
       pipe_through :user_pipe
       get "/vcard", Vutuv.Api.VCardController, :get
