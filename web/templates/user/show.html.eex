@@ -26,7 +26,7 @@
       <div class="profile-header__followstatus">
         <%= if(@follower_count>0) do %>
         <div>
-          <h3><span><%= String.capitalize(@user.first_name) %> <%= gettext "has" %></span><strong><%= @follower_count %></strong> <%= gettext "followers" %></h3>
+          <h3><span><%= short_name(@user) %> <%= gettext "has" %></span><strong><%= @follower_count %></strong> <%= gettext "followers" %></h3>
         </div>
         <% end %>
         <%= if is_visitor?(@conn, @current_user) do %>

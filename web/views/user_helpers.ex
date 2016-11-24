@@ -18,6 +18,21 @@ defmodule Vutuv.UserHelpers do
 
 
 
+
+  def short_name(%User{first_name: nil, last_name: nil}), do: ""
+
+  def short_name(%User{first_name: nil, last_name: last_name}) do
+    String.capitalize(last_name)
+  end
+
+  def short_name(%User{first_name: first_name}) do
+    String.capitalize(first_name)
+  end
+
+
+
+
+
   def gravatar_url(user) do
     user = Vutuv.Repo.preload(user, [:emails])
     case user.emails do
