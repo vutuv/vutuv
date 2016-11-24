@@ -16,7 +16,7 @@ msgstr "Über diese Adresse"
 
 #: web/templates/email/show.html.eex:4
 msgid "About this Email"
-msgstr "Über diese E-Mail Adresse"
+msgstr "Über diese E-Mail-Adresse"
 
 #: web/templates/work_experience/show.html.eex:4
 msgid "About this Experience"
@@ -124,7 +124,7 @@ msgstr "Abbrechen"
 
 #: web/controllers/email_controller.ex:89
 msgid "Cannot delete final email."
-msgstr "Eine E-Mail Adresse muss immer vorhanden sein. Diese kann nicht gelöscht werden."
+msgstr "Eine E-Mail-Adresse muss immer vorhanden sein. Diese kann nicht gelöscht werden."
 
 #: web/templates/phone_number/form.html.eex:16
 msgid "Cell"
@@ -190,33 +190,33 @@ msgstr "Userdaten ändern"
 #: web/templates/email/card_list.html.eex:4 web/templates/email/show.html.eex:29
 #: web/templates/user/show.html.eex:122
 msgid "Email"
-msgstr "E-Mail Adresse"
+msgstr "E-Mail-Adresse"
 
 #: web/templates/user/form.html.eex:27
 msgid "Email Address"
-msgstr "E-Mail Adresse"
+msgstr "E-Mail-Adresse"
 
 #: web/controllers/email_controller.ex:41
 msgid "Email created successfully."
-msgstr "E-Mail Adresse wurde gespeichert."
+msgstr "E-Mail-Adresse wurde gespeichert."
 
 #: web/controllers/email_controller.ex:85
 msgid "Email deleted successfully."
-msgstr "E-Mail Adresse wurde gelöscht."
+msgstr "E-Mail-Adresse wurde gelöscht."
 
 #: web/controllers/email_controller.ex:70
 msgid "Email updated successfully."
-msgstr "E-Mail Adresse wurde geändert."
+msgstr "E-Mail-Adresse wurde geändert."
 
 #: web/templates/email/edit.html.eex:7 web/templates/email/index.html.eex:14
 #: web/templates/email/new.html.eex:7 web/templates/email/show.html.eex:13
 #: web/templates/user/show.html.eex:122
 msgid "Emails"
-msgstr "E-Mail Adressen"
+msgstr "E-Mail-Adressen"
 
 #: web/templates/email/index.html.eex:4
 msgid "Emails belonging to "
-msgstr "E-Mail Adresse von "
+msgstr "E-Mail-Adresse von "
 
 #: web/controllers/endorsement_controller.ex:11
 msgid "Endorsement successful."
@@ -236,7 +236,7 @@ msgstr "Bitte mit Komma separieren."
 
 #: web/templates/page/index.html.eex:40 web/templates/session/new.html.eex:19
 msgid "Enter your email address"
-msgstr "E-Mail Adresse eingeben"
+msgstr "E-Mail-Adresse eingeben"
 
 #: web/templates/page/index.html.eex:30
 msgid "Enter your first name"
@@ -331,11 +331,11 @@ msgstr "Ungültige Verbindung!"
 
 #: web/controllers/session_controller.ex:17
 msgid "Invalid email"
-msgstr "Ungültige E-Mail Adresse"
+msgstr "Ungültige E-Mail-Adresse"
 
 #: web/templates/user/form.html.eex:33
 msgid "Is this email public or private?"
-msgstr "Ist diese E-Mail Adresse privat oder öffentlich?"
+msgstr "Ist diese E-Mail-Adresse privat oder öffentlich?"
 
 #: web/templates/followee/index.html.eex:21
 msgid "It doesn't look like you're following anyone yet. Find someone a profile of someone you know, or someone you're interested in, and click the follow button!"
@@ -462,7 +462,7 @@ msgstr "Noch keine Followers!"
 
 #: web/templates/page/index.html.eex:16
 msgid "No expensive premium accounts! Read more about it in"
-msgstr "Keine teuren Premium Accounts. Lesen Sie mehr in"
+msgstr "Keine teuren Premium-Accounts. Lesen Sie mehr in"
 
 #: web/templates/user/show.html.eex:212
 msgid "Not following anyone yet!"
@@ -830,7 +830,7 @@ msgstr ""
 
 #: web/templates/page/index.html.eex:63
 msgid "We reserve the right to stop this service or delete your account anytime without warning."
-msgstr "Wir behalten uns das Recht vor Accounts ohne Warnung zu löschen oder den Dienst einzustellen."
+msgstr "Wir behalten uns das Recht vor, Accounts ohne Warnung zu löschen oder den Dienst einzustellen."
 
 #: web/controllers/session_controller.ex:26
 msgid "Welcome back!"
@@ -925,7 +925,7 @@ msgstr "Bitte nehmen Sie sich ein wenig Zeit um weitere Informationen einzutrage
 
 #: web/templates/page/index.html.eex:44
 msgid "Allow others to view your email address"
-msgstr "Diese E-Mail Adresse darf jeder sehen"
+msgstr "Diese E-Mail-Adresse darf jeder sehen"
 
 #: web/templates/page/index.html.eex:52
 msgid "Prevent search engines from indexing your profile"
@@ -963,7 +963,7 @@ msgstr "Ihr Account wurde angelegt. Bitte schauen Sie in Ihre E-Mail INBOX. Dort
 
 #: lib/vutuv/emailer.ex:32
 msgid "vutuv verification email"
-msgstr "Verifizierung der in vutuv angegebenen E-Mail Adresse"
+msgstr "Verifizierung der in vutuv angegebenen E-Mail-Adresse"
 
 #: web/templates/phone_number/form.html.eex:10
 msgid "+49 30 12345678"
