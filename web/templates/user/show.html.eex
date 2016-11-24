@@ -118,7 +118,7 @@
       <dl>
         <dt><%= if (Enum.count(@emails) == 1), do: gettext("Email"), else: gettext("Emails") %></dt>
         <%= for email <- @emails do %>
-        <dd><a href="mailto:<%= email(@user) %>"><%= email.value %></a></dd>
+        <dd><a href="mailto:<%= email.value %>"><%= email.value %></a></dd>
         <% end %>
       </dl>
       <% end %>
