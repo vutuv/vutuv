@@ -1,6 +1,6 @@
 <section class="ad">
   <label><%= gettext("Ad") %></label>
-  <h1>AMOOMA GmbH</h1>
-  <p><%= gettext("Phoenix Framework, Ruby on Rails und WebPerformance Consulting und Training durch das vutuv Entwicklerteam.") %></p>
-  <a href="https://www.amooma.de">https://www.amooma.de</a>
+  <h1>Fire TV Stick</h1>
+  <p>EUR 24,99</p>
+  <a href="http://amzn.to/2gH8tsI">https://www.amazon.de</a>
 </section>
