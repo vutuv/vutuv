@@ -231,7 +231,7 @@ msgid "English"
 msgstr ""
 
 #: web/templates/user/show.html.eex:82
-msgid "Enter comma separate skills here"
+msgid "Enter comma separated skills here"
 msgstr ""
 
 #: web/templates/page/index.html.eex:40 web/templates/session/new.html.eex:19
