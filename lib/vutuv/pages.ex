@@ -27,7 +27,6 @@ defmodule Vutuv.Pages do
 		gen_page_links(
 			sanitize_page(page),
 			link,
-			total,
 			total_pages(total))
 	end
 
@@ -35,7 +34,7 @@ defmodule Vutuv.Pages do
 		page_list(%{"page" => 1}, link, total)
 	end
 
-	defp gen_page_links(page, link, total, max) when max > 1 do
+	defp gen_page_links(page, link, max) when max > 1 do
 		links = 
 			for(num <- page-5..page+5) do
 				cond do
@@ -51,7 +50,7 @@ defmodule Vutuv.Pages do
 		|> Phoenix.HTML.raw
 	end
 
-	defp gen_page_links(_,_,_,_), do: ""
+	defp gen_page_links(_,_,_), do: ""
 
 	defp pre(page) when page-5>1 do
 		"... | "

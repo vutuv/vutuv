@@ -1,7 +1,6 @@
 defmodule Vutuv.PageController do
   use Vutuv.Web, :controller
   plug Vutuv.Plug.RequireUserLoggedOut when action in [:index]
-  import Vutuv.UserHelpers
   alias Vutuv.User
   alias Vutuv.Email
 
@@ -24,7 +23,7 @@ defmodule Vutuv.PageController do
   def new_registration(conn, %{"user" => user_params}) do
     email = user_params["emails"]["0"]["value"]
     case Vutuv.Registration.register_user(conn, user_params) do
-      {:ok, user} ->
+      {:ok, _user} ->
         case Vutuv.Auth.login_by_email(conn, email) do
           {:ok, conn} ->
             conn
@@ -32,7 +31,6 @@ defmodule Vutuv.PageController do
             |> render("new_registration.html", body_class: "stretch")
           {:error, _reason, conn} ->
             conn
-            |> put_flash(:error, gettext("There was an error"))
             |> redirect(to: page_path(conn, :index))
         end
       {:error, changeset} ->

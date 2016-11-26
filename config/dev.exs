@@ -14,7 +14,6 @@ config :vutuv, Vutuv.Endpoint,
   cache_static_lookup: false,
   check_origin: false,
   watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin"]],
-  locales: ~w(en de),
   public_url: "http://localhost:4000/"
 
 

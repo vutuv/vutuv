@@ -2,10 +2,10 @@ defmodule Vutuv.Plug.EnsureValidated do
   import Plug.Conn
   
   def init(opts) do
-
+    opts
   end
 
-  def call(conn, repo) do
+  def call(conn, _opts) do
     conn.assigns[:user]
     |> validated?(conn)
   end

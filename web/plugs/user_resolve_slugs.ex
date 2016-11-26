@@ -19,7 +19,7 @@ defmodule Vutuv.Plug.UserResolveSlug do
     |> eval_slug(conn)
   end
 
-  def call(conn, params) do
+  def call(conn, _params) do
     invalid_slug(conn)
   end
 

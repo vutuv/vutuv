@@ -10,19 +10,19 @@ defmodule Vutuv.UserControllerTest do
   @invalid_attrs %{"emails" => %{"0" => %{"value" => nil}}, "first_name" => nil, "gender" => "male", "last_name" => nil}
 
   test "creates resource when valid and redirects", %{conn: conn} do
-    conn = post conn, user_path(conn, :create), user: @valid_attrs
+    conn = post conn, page_path(conn, :new_registration), user: @valid_attrs
     assert Repo.one(from u in User, join: e in assoc(u, :emails), where: e.value == ^@valid_attrs["emails"]["0"]["value"])
-    assert redirected_to(conn) == page_path(conn, :new_registration)
+    assert html_response(conn, 200) =~ "inbox"
   end
 
   test "renders form for new resources", %{conn: conn} do
-    conn = get conn, user_path(conn, :new)
-    assert html_response(conn, 200) =~ "Users / New"
+    conn = get conn, page_path(conn, :index)
+    assert html_response(conn, 200) =~ "Get started now."
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
-    conn = post conn, user_path(conn, :create), user: @invalid_attrs
-    assert html_response(conn, 200) =~ "Users / New"
+    conn = post conn, page_path(conn, :new_registration), user: @invalid_attrs
+    assert html_response(conn, 200) =~ "Get started now."
   end
 
   test "shows chosen resource", %{conn: conn} do

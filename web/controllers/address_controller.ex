@@ -42,8 +42,6 @@ defmodule Vutuv.AddressController do
   end
 
   def edit(conn, %{"id" => id}) do
-    loc = Vutuv.UserHelpers.locale(conn, conn.assigns[:user])
-    loc = if Vutuv.Plug.Locale.locale_supported?(loc), do: loc, else: "generic"
     address = Repo.get!(Address, id)
     changeset = Address.changeset(address)
     render(conn, "edit.html", address: address, changeset: changeset, country: get_template(conn))

@@ -101,7 +101,7 @@ defmodule Vutuv.UserHelpers do
       limit: 1)
   end
 
-  defp no_start_no_end(job, user), do: job
+  defp no_start_no_end(job, _), do: job
 
   defp most_recent_job(nil, user) do
     Repo.one(from w in WorkExperience,
@@ -112,7 +112,7 @@ defmodule Vutuv.UserHelpers do
       order_by: [desc: w.start_year, desc: w.start_month])
   end
 
-  defp most_recent_job(job, user), do: job
+  defp most_recent_job(job, _), do: job
 
 
   def user_content_description(nil, _), do: ""
@@ -124,14 +124,15 @@ defmodule Vutuv.UserHelpers do
         Skill.resolve_name(skill.skill_id)
       end
       |> Enum.join(", ")
-    "#{work_information_string(user)}.#{if (skills_string!=""), do: " Skills: #{skills_string}"}"
+    "#{work_information_string(user)}.#{if (skills_string != ""), do: " Skills: #{skills_string}"}"
   end
 
 
+  def work_information_string(user, len \\ 256)
 
   def work_information_string(nil, _), do: ""
 
-  def work_information_string(user, len \\ 256) do
+  def work_information_string(user, len) do
     job = current_title(user)
     org = current_organization(user)
     "#{job}#{if (org && (org != "")), do: " @ #{org}"}"
@@ -139,7 +140,7 @@ defmodule Vutuv.UserHelpers do
     |> validate_backup(job, org, len)
   end
 
-  defp validate_length(str, job, org, len) do
+  defp validate_length(str, job, _org, len) do
     if(String.length(str)>len) do
       "#{job}"
     else
@@ -151,7 +152,7 @@ defmodule Vutuv.UserHelpers do
     validate_backup(str, job, org, 3)
   end
 
-  defp validate_backup(str, job, org, len) when len>=3 do
+  defp validate_backup(str, job, _org, len) when len>=3 do
     if(String.length(str)>len) do
       "#{job |> String.slice(0, len-3)}..."
     else
@@ -247,13 +248,13 @@ defmodule Vutuv.UserHelpers do
     |> Phoenix.HTML.Format.text_to_html
   end
 
-  def format_address(%Address{country: "Germany", line_1: line_1, line_2: line_2, city: city, state: state, zip_code: zip_code}) do
+  def format_address(%Address{country: "Germany", line_1: line_1, line_2: line_2, city: city, zip_code: zip_code}) do
     "#{line_1}#{if line_2, do: "\n"<>line_2}
     #{zip_code} #{city}"
     |> Phoenix.HTML.Format.text_to_html
   end
 
-   def format_address(%Address{country: country, line_1: line_1, line_2: line_2, city: city, state: state, zip_code: zip_code}) do
+   def format_address(%Address{country: country, line_1: line_1, line_2: line_2, city: city, zip_code: zip_code}) do
     "#{line_1}#{if line_2, do: "\n"<>line_2}
     #{zip_code} #{city}
     #{country}"

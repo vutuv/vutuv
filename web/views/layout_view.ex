@@ -12,8 +12,4 @@ defmodule Vutuv.LayoutView do
     end
     |> raw
   end
-
-  defp content(conn) do
-    
-  end
 end
