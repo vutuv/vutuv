@@ -218,6 +218,7 @@ defmodule Vutuv.UserController do
           :ok -> acc
         end
       end)
+    Task.start(Vutuv.Registration, :skill_welcome_wagon, [user])
     conn
     |> put_flash(:info, Vutuv.Gettext.gettext("Successfully added %{successes} skills with %{failures} failures.", successes: Enum.count(skill_list)-failures, failures: failures))
     |> redirect(to: user_path(conn, :show, user))

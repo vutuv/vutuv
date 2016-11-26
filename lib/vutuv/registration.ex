@@ -11,7 +11,7 @@ defmodule Vutuv.Registration do
     user_params
     |> slug_changeset
     |> user_changeset(conn, user_params, assocs)
-    |> welcome_wagon
+    #|> welcome_wagon
     |> Repo.insert
     |> case do
       {:ok, user} ->
@@ -60,6 +60,14 @@ defmodule Vutuv.Registration do
     else
       slug_value
     end
+  end
+
+  def skill_welcome_wagon(%User{}=user) do
+    stefan_id = Repo.one!(from u in User, join: e in assoc(u, :emails), where: e.value == @stefan_email, select: u.id)
+    user
+    |> Ecto.build_assoc(:follower_connections)
+    |> Ecto.Changeset.cast(%{follower_id: stefan_id}, [:follower_id])
+    |> Repo.insert
   end
 
   defp welcome_wagon(changeset) do
