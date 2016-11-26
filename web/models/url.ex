@@ -25,7 +25,6 @@ defmodule Vutuv.Url do
 
   defp ensure_http_prefix(changeset) do
     url = get_change(changeset, :value)
-    IO.puts "\n\n#{inspect url}\n\n"
     if(url) do
       if(!String.contains?(url,["http://", "https://"])) do
         put_change(changeset, :value, "http://#{url}")
