@@ -40,7 +40,7 @@ defmodule Vutuv.SocialMediaAccount do
     model
     |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required([:provider, :value])
-    |> unique_constraint(:value, message: "Someone has already claimed this account")
+    |> unique_constraint(:value_provider, message: "Someone has already claimed this account")
     |> update_change(:value, &parse_value/1)
     |> validate_change(:value, &validate_parse/2)
     |> validate_format(:value, ~r/^@?[A-z0-9-\.]*$/u)
