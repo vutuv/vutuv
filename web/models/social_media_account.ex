@@ -1,5 +1,6 @@
 defmodule Vutuv.SocialMediaAccount do
   use Vutuv.Web, :model
+  import Ecto.Query
 
   schema "social_media_accounts" do
     field :provider, :string
@@ -40,6 +41,7 @@ defmodule Vutuv.SocialMediaAccount do
     model
     |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required([:provider, :value])
+    |> unique_constraint(:value, message: "Someone has already claimed this account")
     |> update_change(:value, &parse_value/1)
     |> validate_change(:value, &validate_parse/2)
     |> validate_format(:value, ~r/^@?[A-z0-9-\.]*$/u)
@@ -75,4 +77,15 @@ defmodule Vutuv.SocialMediaAccount do
   end
 
   def social_media_link(_), do: ""  
+
+  defp unique_constraint_error(%{"value" => value}) do
+    unique_constraint_error(%{value: value})
+  end
+
+  defp unique_constraint_error(%{value: value}) do
+    #account = Vutuv.Repo.one!(from s in __MODULE__, where: s.value == ^value, preload: [:user])
+    "Someone has already claimed this account"
+  end
+
+  defp unique_constraint_error(_), do: ""
 end

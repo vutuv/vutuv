@@ -8,7 +8,7 @@ use Mix.Config
 # with brunch.io to recompile .js and .css sources.
 config :vutuv, Vutuv.Endpoint,
   http: [port: 4000],
-  url: [host: "http://localhost:4000/", port: 4000],
+  url: [host: "localhost", port: 4000],
   debug_errors: true,
   code_reloader: true,
   cache_static_lookup: false,

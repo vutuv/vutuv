@@ -36,7 +36,6 @@ defmodule Vutuv.Pages do
 	end
 
 	defp gen_page_links(page, link, total, max) when max > 1 do
-
 		links = 
 			for(num <- page-5..page+5) do
 				cond do
