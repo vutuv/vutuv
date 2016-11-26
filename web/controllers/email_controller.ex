@@ -6,7 +6,8 @@ defmodule Vutuv.EmailController do
   plug :scrub_params, "email" when action in [:create, :update]
 
   def index(conn, _params) do
-    emails = Repo.all(assoc(conn.assigns[:user], :emails))
+
+    emails = Vutuv.UserHelpers.emails_for_display(conn.assigns[:user], conn.assigns[:current_user])
     emails_counter = length(emails)
     render(conn, "index.html", emails: emails, emails_counter: emails_counter)
   end
@@ -51,8 +52,18 @@ defmodule Vutuv.EmailController do
   end
 
   def show(conn, %{"id" => id}) do
-    email = Repo.get!(assoc(conn.assigns[:user], :emails), id)
-    render(conn, "show.html", email: email)
+    if(Vutuv.UserHelpers.user_has_permissions?(conn.assigns[:user], conn.assigns[:current_user])) do
+      Repo.get(assoc(conn.assigns[:user], :emails), id)
+    else
+      Repo.one(from e in assoc(conn.assigns[:user], :emails), where: e.public? and e.id == ^id)
+    end
+    |> case do
+      nil -> 
+        conn
+        |> put_status(404)
+        |> render(Vutuv.ErrorView, "404.html")
+      email -> render(conn, "show.html", email: email)
+    end
   end
 
   def edit(conn, %{"id" => id}) do

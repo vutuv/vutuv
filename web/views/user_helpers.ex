@@ -1,5 +1,6 @@
 defmodule Vutuv.UserHelpers do
   import Ecto.Query
+  import Ecto
   alias Vutuv.User
   alias Vutuv.Repo
   alias Vutuv.Skill
@@ -56,11 +57,15 @@ defmodule Vutuv.UserHelpers do
 
 
   def emails_for_display(user, visitor) do
-    if(user_follows_user? user, visitor) do
-      Repo.all(from e in Vutuv.Email, where: e.user_id == ^user.id)
+    if(user_has_permissions? user, visitor) do
+      Repo.all(assoc(user, :emails))
     else
-      Repo.all(from e in Vutuv.Email, where: e.user_id == ^user.id and e.public? == true)
+      Repo.all(from e in assoc(user, :emails), where: e.public?)
     end
+  end
+
+  def user_has_permissions?(user, visitor) do
+    user_follows_user?(user, visitor) || same_user?(user, visitor)
   end
 
 
