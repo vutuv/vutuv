@@ -227,8 +227,8 @@
       <%= if same_user?(@user, @current_user) do %>
         <%= link gettext("Add"), to: user_work_experience_path(@conn, :new, @current_user) %>
       <% end %>
-      <%= if same_user?(@user, @current_user) and @total_jobs>3 do %> | <% end %>
-      <%= if @total_jobs>3 do %>
+      <%= if same_user?(@user, @current_user) and @total_jobs > 5 do %> | <% end %>
+      <%= if @total_jobs > 5 do %>
         <%= link gettext("View All"), to: user_work_experience_path(@conn, :index, @user) %>
       <% end %>
     </span>
@@ -247,8 +247,8 @@
       <%= if same_user?(@user, @current_user) do %>
         <%= link gettext("Add"), to: user_phone_number_path(@conn, :new, @current_user) %>
       <% end %>
-      <%= if same_user?(@user, @current_user) and @total_numbers > 3 do %> | <% end %>
-      <%= if @total_numbers>3 do %>
+      <%= if same_user?(@user, @current_user) and @total_numbers > 5 do %> | <% end %>
+      <%= if @total_numbers > 5 do %>
         <%= link gettext("View All"), to: user_phone_number_path(@conn, :index, @user) %>
       <% end %>
     </span>
@@ -267,8 +267,8 @@
       <%= if same_user?(@user, @current_user) do %>
         <%= link gettext("Add"), to: user_url_path(@conn, :new, @current_user) %>
       <% end %>
-      <%= if same_user?(@user, @current_user) and @total_links > 3 do %> | <% end %>
-      <%= if @total_links>3 do %>
+      <%= if same_user?(@user, @current_user) and @total_links > 5 do %> | <% end %>
+      <%= if @total_links > 5 do %>
         <%= link gettext("View All"), to: user_url_path(@conn, :index, @user) %>
       <% end %>
     </span>
@@ -287,8 +287,8 @@
       <%= if same_user?(@user, @current_user) do %>
         <%= link gettext("Add"), to: user_address_path(@conn, :new, @current_user) %>
       <% end %>
-      <%= if same_user?(@user, @current_user) and @total_addresses > 3 do %> | <% end %>
-      <%= if @total_addresses>3 do %>
+      <%= if same_user?(@user, @current_user) and @total_addresses > 5 do %> | <% end %>
+      <%= if @total_addresses > 5 do %>
         <%= link gettext("View All"), to: user_address_path(@conn, :index, @user) %>
       <% end %>
     </span>

@@ -49,7 +49,15 @@ defmodule Vutuv.UserController do
   end
 
   def show(conn, _params) do
-    user =
+    total_jobs = count_user_assoc Vutuv.WorkExperience, conn.assigns[:user]
+    total_numbers = count_user_assoc Vutuv.PhoneNumber, conn.assigns[:user]
+    total_links = count_user_assoc Vutuv.Url, conn.assigns[:user]
+    total_addresses = count_user_assoc Vutuv.Address, conn.assigns[:user]
+    job_limit = if total_jobs>5, do: 3, else: total_jobs
+    number_limit = if total_numbers>5, do: 3, else: total_numbers
+    link_limit = if total_links>5, do: 3, else: total_links
+    address_limit = if total_addresses>5, do: 3, else: total_addresses
+    user = 
       conn.assigns[:user]
       |> Repo.preload([
         :social_media_accounts,
@@ -58,10 +66,10 @@ defmodule Vutuv.UserController do
         user_skills: from(u in Vutuv.UserSkill, preload: [:endorsements]),
         followee_connections: {Connection.latest(3), [:followee]},
         follower_connections: {Connection.latest(3), [:follower]},
-        phone_numbers: from(u in Vutuv.PhoneNumber, order_by: [desc: u.updated_at], limit: 3),
-        urls: from(u in Vutuv.Url, order_by: [desc: u.updated_at], limit: 3),
-        addresses: from(u in Vutuv.Address, order_by: [desc: u.updated_at], limit: 3),
-        work_experiences: from(u in Vutuv.WorkExperience, order_by: [desc: u.start_year, desc: u.start_month], limit: 3)
+        phone_numbers: from(u in Vutuv.PhoneNumber, order_by: [desc: u.updated_at], limit: ^number_limit),
+        urls: from(u in Vutuv.Url, order_by: [desc: u.updated_at], limit: ^link_limit),
+        addresses: from(u in Vutuv.Address, order_by: [desc: u.updated_at], limit: ^address_limit),
+        work_experiences: from(u in Vutuv.WorkExperience, order_by: [desc: u.start_year, desc: u.start_month], limit: ^job_limit)
         ])
     user_skills =
       user.user_skills
@@ -70,10 +78,7 @@ defmodule Vutuv.UserController do
     job = current_job(user)
     emails = Vutuv.UserHelpers.emails_for_display(user, conn.assigns[:current_user])
 
-    total_jobs = count_user_assoc Vutuv.WorkExperience, user
-    total_numbers = count_user_assoc Vutuv.PhoneNumber, user
-    total_links = count_user_assoc Vutuv.Url, user
-    total_addresses = count_user_assoc Vutuv.Address, user
+    
 
     # Display an introduction message for new users
     #
