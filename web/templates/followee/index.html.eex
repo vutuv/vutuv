@@ -20,5 +20,6 @@
       <h1 style="text-align:center"><strong><%= gettext "We can't find em' cap'n!" %></strong></h1>
       <p style="text-align:center"><%= gettext "It doesn't look like you're following anyone yet. Find someone a profile of someone you know, or someone you're interested in, and click the follow button!" %></p>
     <% end %>
+    <%= Vutuv.Pages.page_list(@conn.params, user_followee_path(@conn, :index, @user), @total_followees) %>
   </section>
 </div>

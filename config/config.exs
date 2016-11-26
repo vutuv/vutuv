@@ -12,7 +12,8 @@ config :vutuv, Vutuv.Endpoint,
   render_errors: [accepts: ~w(html json)],
   pubsub: [name: Vutuv.PubSub,
            adapter: Phoenix.PubSub.PG2],
-  max_image_filesize: 2000000
+  max_image_filesize: 2000000,
+  max_page_items: 250
 
 # Configures Elixir's Logger
 config :logger, :console,
