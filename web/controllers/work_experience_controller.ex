@@ -9,7 +9,11 @@ defmodule Vutuv.WorkExperienceController do
   def index(conn, _params) do
     user = 
       conn.assigns[:user]
-      |> Repo.preload([work_experiences: (from u in Vutuv.WorkExperience, order_by: [desc: u.start_year, desc: u.start_month])])
+      |> Repo.preload([work_experiences: (from u in Vutuv.WorkExperience, order_by: [
+        fragment("? IS NULL DESC", u.end_year),
+        fragment("? IS NULL DESC", u.end_month),
+        fragment("? IS NULL DESC", u.start_year),
+        fragment("? IS NULL DESC", u.start_month)])])
     render(conn, "index.html", user: user, work_experience: user.work_experiences)
   end
 

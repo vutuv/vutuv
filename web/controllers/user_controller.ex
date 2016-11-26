@@ -69,7 +69,12 @@ defmodule Vutuv.UserController do
         phone_numbers: from(u in Vutuv.PhoneNumber, order_by: [desc: u.updated_at], limit: ^number_limit),
         urls: from(u in Vutuv.Url, order_by: [desc: u.updated_at], limit: ^link_limit),
         addresses: from(u in Vutuv.Address, order_by: [desc: u.updated_at], limit: ^address_limit),
-        work_experiences: from(u in Vutuv.WorkExperience, order_by: [desc: u.start_year, desc: u.start_month], limit: ^job_limit)
+        work_experiences: from(u in Vutuv.WorkExperience,
+          order_by: [ fragment("? IS NULL DESC", u.end_year),
+                      fragment("? IS NULL DESC", u.end_month),
+                      fragment("? IS NULL DESC", u.start_year),
+                      fragment("? IS NULL DESC", u.start_month)],
+          limit: ^job_limit)
         ])
     user_skills =
       user.user_skills
