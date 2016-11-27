@@ -29,7 +29,7 @@ defmodule Vutuv.Emailer do
     |> assign(:user, user)
     |> to("#{Vutuv.UserHelpers.full_name(user)} <#{email}>")
     |> from("vutuv <info@vutuv.de>")
-    |> subject(Vutuv.Gettext.gettext("vutuv verification email"))
+    |> subject(Vutuv.Gettext.gettext("Message from vutuv"))
     |> render("#{template}.text")
   end
 

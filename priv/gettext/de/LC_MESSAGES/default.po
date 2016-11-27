@@ -34,7 +34,7 @@ msgstr "Über diese Telefonnummer"
 msgid "About this Social Media Profile"
 msgstr "Über diesen Social Media Account"
 
-#: web/templates/layout/app.html.eex:55
+#: web/templates/layout/app.html.eex:50
 msgid "About us"
 msgstr "Impressum"
 
@@ -388,11 +388,11 @@ msgstr "Liste der Suchbegriffe"
 msgid "Listing skills"
 msgstr "Liste der Fähigkeiten"
 
-#: web/templates/layout/app.html.eex:39
+#: web/templates/layout/app.html.eex:34
 msgid "Log In"
 msgstr "Einloggen"
 
-#: web/templates/layout/app.html.eex:35
+#: web/templates/layout/app.html.eex:30
 msgid "Log Out"
 msgstr "Ausloggen"
 
@@ -547,7 +547,7 @@ msgstr "Telefonnummer wurde geändert."
 msgid "Prefix"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:55
+#: web/templates/layout/app.html.eex:50
 msgid "Privacy Policy"
 msgstr "Datenschutzerklärung"
 
@@ -594,7 +594,7 @@ msgstr "Speichern"
 msgid "Score"
 msgstr "Score"
 
-#: web/templates/layout/app.html.eex:45
+#: web/templates/layout/app.html.eex:40
 #: web/templates/search_query/form.html.eex:10
 msgid "Search"
 msgstr "Suche"
@@ -707,7 +707,7 @@ msgstr ""
 msgid "Submit"
 msgstr "Absenden"
 
-#: web/templates/layout/app.html.eex:55
+#: web/templates/layout/app.html.eex:50
 msgid "Submit a bugreport or a feature request."
 msgstr "Fehler auf der Seite melden."
 
@@ -957,10 +957,6 @@ msgstr "Bitte überprüfen Sie Ihren SPAM Ordner, falls Sie keine E-Mail in Ihre
 msgid "Your account has been created, and an email has been sent with a login link. Thats right, no passwords to remember! Once you login, you'll be logged in on this device for the next 90 days, or until you log out."
 msgstr "Ihr Account wurde angelegt. Bitte schauen Sie in Ihre E-Mail INBOX. Dort finden Sie eine E-Mail mit einem Bestätigungs-Link. Mit diesem Link können Sie sich einloggen."
 
-#: lib/vutuv/emailer.ex:32
-msgid "vutuv verification email"
-msgstr "Verifizierung der in vutuv angegebenen E-Mail-Adresse"
-
 #: web/templates/phone_number/form.html.eex:10
 msgid "+49 30 12345678"
 msgstr ""
@@ -1043,7 +1039,10 @@ msgstr "Geschlecht auswählen"
 msgid "vutuv profile"
 msgstr "vutuv Profil"
 
-#, fuzzy
 #: web/templates/layout/app.html.eex:15
 msgid "Your Fast and Free Career Network. No expensive premium accounts! Get one in 30 seconds."
 msgstr "Ihr Kontaktnetzwerk. Schnell und gratis! Keine teuren Premium-Accounts. Ihr neuer Account ist in 30 Sekunden fertig."
+
+#: lib/vutuv/emailer.ex:32
+msgid "Message from vutuv"
+msgstr "Nachricht von vutuv"

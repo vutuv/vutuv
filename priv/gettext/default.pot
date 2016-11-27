@@ -35,7 +35,7 @@ msgstr ""
 msgid "About this Social Media Profile"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:55
+#: web/templates/layout/app.html.eex:50
 msgid "About us"
 msgstr ""
 
@@ -389,11 +389,11 @@ msgstr ""
 msgid "Listing skills"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:39
+#: web/templates/layout/app.html.eex:34
 msgid "Log In"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:35
+#: web/templates/layout/app.html.eex:30
 msgid "Log Out"
 msgstr ""
 
@@ -548,7 +548,7 @@ msgstr ""
 msgid "Prefix"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:55
+#: web/templates/layout/app.html.eex:50
 msgid "Privacy Policy"
 msgstr ""
 
@@ -595,7 +595,7 @@ msgstr ""
 msgid "Score"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:45
+#: web/templates/layout/app.html.eex:40
 #: web/templates/search_query/form.html.eex:10
 msgid "Search"
 msgstr ""
@@ -708,7 +708,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:55
+#: web/templates/layout/app.html.eex:50
 msgid "Submit a bugreport or a feature request."
 msgstr ""
 
@@ -958,10 +958,6 @@ msgstr ""
 msgid "Your account has been created, and an email has been sent with a login link. Thats right, no passwords to remember! Once you login, you'll be logged in on this device for the next 90 days, or until you log out."
 msgstr ""
 
-#: lib/vutuv/emailer.ex:32
-msgid "vutuv verification email"
-msgstr ""
-
 #: web/templates/phone_number/form.html.eex:10
 msgid "+49 30 12345678"
 msgstr ""
@@ -1046,4 +1042,8 @@ msgstr ""
 
 #: web/templates/layout/app.html.eex:15
 msgid "Your Fast and Free Career Network. No expensive premium accounts! Get one in 30 seconds."
+msgstr ""
+
+#: lib/vutuv/emailer.ex:32
+msgid "Message from vutuv"
 msgstr ""
