@@ -12,18 +12,13 @@
         <%= if @conn.assigns[:user] do %>
         <meta name="description" content="<%= user_content_description(@user, @conn.assigns[:user_skills]) %>">
         <% else %>
-        <meta name="description" content="">
+        <meta name="description" content="<%= gettext("Your Fast and Free Career Network. No expensive premium accounts! Get one in 30 seconds.") %>">
         <% end %>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="manifest" href="manifest.json">
         <link rel="shortcut icon" href="/favicon.ico">
         <link rel="icon" href="/favicon.ico">
-        <meta name="msapplication-config" content="browserconfig.xml">
         <meta name="theme-color" content="#ffffff">
-
-        <!--build:css css/styles.min.css-->
         <%= embed_css @conn %>
-        <!--endbuild-->
     </head>
     <body class = "<%= @conn.assigns[:body_class] %>">
 
