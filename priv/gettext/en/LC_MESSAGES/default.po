@@ -34,7 +34,7 @@ msgstr ""
 msgid "About this Social Media Profile"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:55
+#: web/templates/layout/app.html.eex:50
 msgid "About us"
 msgstr ""
 
@@ -64,11 +64,11 @@ msgstr ""
 msgid "Address created successfully."
 msgstr ""
 
-#: web/controllers/address_controller.ex:74
+#: web/controllers/address_controller.ex:72
 msgid "Address deleted successfully."
 msgstr ""
 
-#: web/controllers/address_controller.ex:59
+#: web/controllers/address_controller.ex:57
 msgid "Address updated successfully."
 msgstr ""
 
@@ -115,14 +115,14 @@ msgstr ""
 #: web/templates/membership/form.html.eex:17
 #: web/templates/phone_number/form.html.eex:21
 #: web/templates/slug/form.html.eex:15
-#: web/templates/social_media_account/form.html.eex:21
+#: web/templates/social_media_account/form.html.eex:22
 #: web/templates/url/form.html.eex:21 web/templates/user/form.html.eex:102
 #: web/templates/user_skill/form.html.eex:9
 #: web/templates/work_experience/form.html.eex:57
 msgid "Cancel"
 msgstr ""
 
-#: web/controllers/email_controller.ex:89
+#: web/controllers/email_controller.ex:100
 msgid "Cannot delete final email."
 msgstr ""
 
@@ -146,7 +146,7 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: web/controllers/user_controller.ex:237
+#: web/controllers/user_controller.ex:248
 msgid "Couldn't follow back to %{name}."
 msgstr ""
 
@@ -196,15 +196,15 @@ msgstr ""
 msgid "Email Address"
 msgstr ""
 
-#: web/controllers/email_controller.ex:41
+#: web/controllers/email_controller.ex:42
 msgid "Email created successfully."
 msgstr ""
 
-#: web/controllers/email_controller.ex:85
+#: web/controllers/email_controller.ex:96
 msgid "Email deleted successfully."
 msgstr ""
 
-#: web/controllers/email_controller.ex:70
+#: web/controllers/email_controller.ex:81
 msgid "Email updated successfully."
 msgstr ""
 
@@ -388,11 +388,11 @@ msgstr ""
 msgid "Listing skills"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:39
+#: web/templates/layout/app.html.eex:34
 msgid "Log In"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:35
+#: web/templates/layout/app.html.eex:30
 msgid "Log Out"
 msgstr ""
 
@@ -547,7 +547,7 @@ msgstr ""
 msgid "Prefix"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:55
+#: web/templates/layout/app.html.eex:50
 msgid "Privacy Policy"
 msgstr ""
 
@@ -594,7 +594,7 @@ msgstr ""
 msgid "Score"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:45
+#: web/templates/layout/app.html.eex:40
 #: web/templates/search_query/form.html.eex:10
 msgid "Search"
 msgstr ""
@@ -659,7 +659,7 @@ msgstr ""
 msgid "Slug doesn't exist."
 msgstr ""
 
-#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:147
+#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:157
 msgid "Slug updated successfully."
 msgstr ""
 
@@ -701,13 +701,13 @@ msgstr ""
 #: web/templates/membership/form.html.eex:18
 #: web/templates/phone_number/form.html.eex:22
 #: web/templates/slug/form.html.eex:16
-#: web/templates/social_media_account/form.html.eex:22
+#: web/templates/social_media_account/form.html.eex:23
 #: web/templates/url/form.html.eex:22
 #: web/templates/work_experience/form.html.eex:58
 msgid "Submit"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:55
+#: web/templates/layout/app.html.eex:50
 msgid "Submit a bugreport or a feature request."
 msgstr ""
 
@@ -719,7 +719,7 @@ msgstr ""
 msgid "The Fast and Free Career Network"
 msgstr ""
 
-#: web/controllers/page_controller.ex:35 web/controllers/user_controller.ex:43
+#: web/controllers/user_controller.ex:43
 msgid "There was an error"
 msgstr ""
 
@@ -752,11 +752,11 @@ msgstr ""
 msgid "User %{name} created successfully. An email has been sent with your login link."
 msgstr ""
 
-#: web/controllers/user_controller.ex:164
+#: web/controllers/user_controller.ex:174
 msgid "User deleted successfully."
 msgstr ""
 
-#: web/controllers/user_controller.ex:124
+#: web/controllers/user_controller.ex:134
 msgid "User updated successfully."
 msgstr ""
 
@@ -844,15 +844,15 @@ msgstr ""
 msgid "Work Experiences"
 msgstr ""
 
-#: web/controllers/work_experience_controller.ex:31
+#: web/controllers/work_experience_controller.ex:35
 msgid "Work experience created successfully."
 msgstr ""
 
-#: web/controllers/work_experience_controller.ex:78
+#: web/controllers/work_experience_controller.ex:82
 msgid "Work experience deleted successfully."
 msgstr ""
 
-#: web/controllers/work_experience_controller.ex:62
+#: web/controllers/work_experience_controller.ex:66
 msgid "Work experience updated successfully."
 msgstr ""
 
@@ -868,14 +868,14 @@ msgstr ""
 msgid "You don't have any followers yet! If you want more followers, you could follow others, invite your friends, or link your Vutuv profile on other social media websites."
 msgstr ""
 
-#: web/controllers/user_controller.ex:233
+#: web/controllers/user_controller.ex:244
 msgid "You follow back %{name}."
 msgstr ""
 
 #: web/controllers/admin/admin_controller.ex:18
 #: web/controllers/admin/slug_controller.ex:52
 #: web/controllers/admin/user_controller.ex:28
-#: web/controllers/user_controller.ex:247
+#: web/controllers/user_controller.ex:258
 msgid "You must be logged in to access that page"
 msgstr ""
 
@@ -903,11 +903,11 @@ msgstr ""
 msgid "upvotes"
 msgstr ""
 
-#: web/controllers/user_controller.ex:217
+#: web/controllers/user_controller.ex:228
 msgid "Successfully added %{successes} skills with %{failures} failures."
 msgstr ""
 
-#: web/controllers/user_controller.ex:178
+#: web/controllers/user_controller.ex:188
 msgid "An email has been sent to your email address with instructions on how to delete your account."
 msgstr ""
 
@@ -943,10 +943,6 @@ msgstr ""
 msgid "Link expired"
 msgstr ""
 
-#: web/templates/shared/_ad.html.eex:4
-msgid "Phoenix Framework, Ruby on Rails und WebPerformance Consulting und Training durch das vutuv Entwicklerteam."
-msgstr "Get Phoenix Framework, Ruby on Rails and WebPerformance consulting and training from the developers of vutuv."
-
 #: web/templates/page/new_registration.html.eex:15
 #: web/templates/session/user_login.html.eex:15
 msgid "Please check your email."
@@ -959,10 +955,6 @@ msgstr ""
 
 #: web/templates/page/new_registration.html.eex:16
 msgid "Your account has been created, and an email has been sent with a login link. Thats right, no passwords to remember! Once you login, you'll be logged in on this device for the next 90 days, or until you log out."
-msgstr ""
-
-#: lib/vutuv/emailer.ex:32
-msgid "vutuv verification email"
 msgstr ""
 
 #: web/templates/phone_number/form.html.eex:10
@@ -1045,4 +1037,12 @@ msgstr ""
 
 #: web/templates/layout/app.html.eex:11
 msgid "vutuv profile"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:15
+msgid "Your Fast and Free Career Network. No expensive premium accounts! Get one in 30 seconds."
+msgstr ""
+
+#: lib/vutuv/emailer.ex:32
+msgid "Message from vutuv"
 msgstr ""

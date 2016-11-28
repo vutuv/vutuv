@@ -18,7 +18,7 @@
         <% end %>
       </h1>
       <h2>
-        <%= work_information_string(@user, 30) %>
+        <%= work_information_string(@user, 50) %>
       </h2>
     <%= if @user.verified do %>
       <span class="screenreader">Verified profile</span>

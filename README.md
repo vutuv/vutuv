@@ -7,7 +7,7 @@ vutuv is a free, fast and open source social network service to host and share i
 
 # Do you want to participate in the development?
 
-Great! We encourage new developers to participate in this project. Even a one line fix or improvement makes a big difference. Please do not hesitate to contact stefan.wintermeyer@amooma.de if you have any questions. Otherwise just create a pull request.
+Great! We encourage new developers to participate in this project. Even a one line fix or improvement makes a big difference. Please do not hesitate to contact stefan.wintermeyer@amooma.de if you have any questions. Otherwise just create a pull request. You find a document with additional information about this in the file [faster_pr_reviews.md](https://github.com/vutuv/vutuv/blob/master/faster_pr_reviews.md).
 
 We use [MIT License](https://mit-license.org/).
 
