@@ -1,0 +1,19 @@
+</header>
+
+<div class="breadcrumbs">
+  <%= Vutuv.UserHelpers.gen_breadcrumbs([
+    {gettext("Home"), page_path(@conn, :index)},
+    gettext("Top Users")]) %>
+</div>
+
+<div class="search-results card-list">
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
+  <section class="card">
+    <h1><%= gettext "Top 100 Users" %></h1>
+    
+    <%= render Vutuv.UserView, "card_list.html", conn: @conn, users: @users, current_user: @current_user, current_user_id: @current_user_id, work_string_length: 45 %>
+
+  </section>
+</div>
