@@ -76,6 +76,7 @@ defmodule Vutuv.User do
     |> validate_length(:honorific_suffix, max: 50)
     |> validate_length(:gender, max: 50)
     |> validate_length(:headline, max: 255)
+    |> nullify_default_birthdate
     |> downcase_value
   end
 
@@ -131,6 +132,20 @@ defmodule Vutuv.User do
     # If the value has been changed, downcase it.
     update_change(changeset, :active_slug, &String.downcase/1)
   end
+
+  defp nullify_default_birthdate(changeset) do
+    changeset
+    |> get_field(:birthdate)
+    |> Ecto.Date.dump
+    |> check_birthdate(changeset)
+  end
+
+  defp check_birthdate({:ok, {1900, 1, 1}}, changeset) do
+    changeset
+    |> put_change(:birthdate, nil)
+  end
+
+  defp check_birthdate(_, changeset), do: changeset
 
   defimpl String.Chars, for: Vutuv.User do
     def to_string(user), do: "#{user.first_name} #{user.last_name}"

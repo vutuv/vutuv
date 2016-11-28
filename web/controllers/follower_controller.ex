@@ -11,6 +11,6 @@ defmodule Vutuv.FollowerController do
   	user = 
 			conn.assigns[:user]
 			|> Repo.preload([:followers, follower_connections: {query, [:follower]}])
-    render(conn, "index.html", user: user, total_followees: total)
+    render(conn, "index.html", user: user, total_followers: total)
   end
 end
