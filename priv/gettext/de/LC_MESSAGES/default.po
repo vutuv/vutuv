@@ -1066,8 +1066,8 @@ msgstr "Listen"
 
 #: web/templates/page/most_followed_users.html.eex:6
 msgid "Most Followed Users"
-msgstr "User mit den meisten Followers"
+msgstr "User mit den meisten Followern"
 
 #: web/templates/page/most_followed_users.html.eex:14
 msgid "The 100 Users with the most Followers"
-msgstr "Die 100 User mit den meisten Followers"
+msgstr "Die 100 User mit den meisten Followern"
