@@ -309,6 +309,7 @@ msgstr ""
 msgid "Headline"
 msgstr ""
 
+#: web/templates/page/top_users.html.eex:5
 #: web/templates/phone_number/form.html.eex:16
 msgid "Home"
 msgstr ""
@@ -502,7 +503,7 @@ msgstr ""
 msgid "Organization"
 msgstr ""
 
-#: web/models/user.ex:127 web/templates/page/index.html.eex:27
+#: web/models/user.ex:128 web/templates/page/index.html.eex:27
 #: web/templates/user/form.html.eex:9
 msgid "Other"
 msgstr ""
@@ -995,11 +996,11 @@ msgstr ""
 msgid "Find service updates at"
 msgstr ""
 
-#: web/models/user.ex:123
+#: web/models/user.ex:124
 msgid "Female"
 msgstr ""
 
-#: web/models/user.ex:119
+#: web/models/user.ex:120
 msgid "Male"
 msgstr ""
 
@@ -1043,6 +1044,26 @@ msgstr ""
 msgid "Your Fast and Free Career Network. No expensive premium accounts! Get one in 30 seconds."
 msgstr ""
 
-#: lib/vutuv/emailer.ex:32
-msgid "Message from vutuv"
+#: lib/vutuv/emailer.ex:20
+msgid "Confirm your account deletion"
+msgstr ""
+
+#: lib/vutuv/emailer.ex:16
+msgid "Confirm your email"
+msgstr ""
+
+#: lib/vutuv/emailer.ex:7
+msgid "Confirm your vutuv account"
+msgstr ""
+
+#: lib/vutuv/emailer.ex:11
+msgid "Login to vutuv"
+msgstr ""
+
+#: web/templates/page/top_users.html.eex:14
+msgid "Top 100 Users"
+msgstr ""
+
+#: web/templates/page/top_users.html.eex:6
+msgid "Top Users"
 msgstr ""
