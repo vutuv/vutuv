@@ -1,6 +1,6 @@
 <section class="ad">
   <label><%= gettext("Ad") %></label>
-  <h1>Fire TV Stick</h1>
-  <p>EUR 24,99</p>
-  <a href="http://amzn.to/2gH8tsI">https://www.amazon.de</a>
+  <h1>Urlaubsplaner online</h1>
+  <p>Mit dem timetape Urlaubsplaner organisieren Sie Urlaubsanträge und Abwesenheiten online. Einfach, sicher und zuverlässig. Testen Sie uns.</p>
+  <a href="https://www.timetape.de/?pref=swu4urcn6t">https://www.timetape.de</a>
 </section>
