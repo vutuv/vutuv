@@ -8,7 +8,6 @@ use Mix.Config
 # Configures the endpoint
 config :vutuv, Vutuv.Endpoint,
   root: Path.dirname(__DIR__),
-  secret_key_base: "vJolBfJoHkXypDQCNMdx9q7FAwUGsYQqmzv00lvM2dLMHuB9KyrpgrCPlVhMt3Es",
   render_errors: [accepts: ~w(html json)],
   pubsub: [name: Vutuv.PubSub,
            adapter: Phoenix.PubSub.PG2],
