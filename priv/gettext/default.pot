@@ -310,7 +310,7 @@ msgstr ""
 msgid "Headline"
 msgstr ""
 
-#: web/templates/page/top_users.html.eex:5
+#: web/templates/page/most_followed_users.html.eex:5
 #: web/templates/phone_number/form.html.eex:16
 msgid "Home"
 msgstr ""
@@ -993,10 +993,6 @@ msgstr ""
 msgid "Select a year"
 msgstr ""
 
-#: web/templates/page/index.html.eex:16
-msgid "Find service updates at"
-msgstr ""
-
 #: web/models/user.ex:124
 msgid "Female"
 msgstr ""
@@ -1061,10 +1057,22 @@ msgstr ""
 msgid "Login to vutuv"
 msgstr ""
 
-#: web/templates/page/top_users.html.eex:14
-msgid "Top 100 Users"
+#: web/templates/page/most_followed_users.html.eex:6
+msgid "Listings"
 msgstr ""
 
-#: web/templates/page/top_users.html.eex:6
-msgid "Top Users"
+#: web/templates/page/most_followed_users.html.eex:6
+msgid "Most Followed Users"
+msgstr ""
+
+#: web/templates/page/most_followed_users.html.eex:14
+msgid "The 100 Users with the most Followers"
+msgstr ""
+
+#: web/templates/page/index.html.eex:16
+msgid "100 users with the most followers"
+msgstr ""
+
+#: web/templates/page/index.html.eex:16
+msgid "Curious? Have a look at the "
 msgstr ""
