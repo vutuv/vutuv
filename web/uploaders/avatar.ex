@@ -43,10 +43,14 @@ defmodule Vutuv.Avatar do
     "web/static/assets/images/avatars/#{scope.id}"
   end
 
-  def user_url(user, version) do
+  def user_url(conn, user, version) do
     Vutuv.Avatar.url({user.avatar, user}, version, signed: true)
-    |>String.replace("web/static/assets", "")
+    |> replace_path(conn)
   end
+
+  defp replace_path(nil, conn), do: Vutuv.Router.Helpers.static_path(conn, "/images/default_avatar.svg")
+
+  defp replace_path(path, conn), do: String.replace(path, "web/static/assets", "")
 
   def binary(user, version) do
     Vutuv.Avatar.url({user.avatar, user}, version, signed: true)

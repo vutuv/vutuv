@@ -1,9 +1,33 @@
 <ul class="button-list profiles">
-  <%= for user <- @users do %>
+  <% {first_ten, rest} = Enum.split(@users, 2) %>
+  <%= for user <- first_ten do %>
     <li>
       <div class="profile-image">
         <%= link to: user_path(@conn, :show, user) do %>
           <img src="<%= Vutuv.Avatar.binary(user, :thumb) %>">
+        <%= end %>
+      </div>
+      <p><strong><%= link full_name(user), to: user_path(@conn, :show, user) %></strong>
+      <%= work_information_string(user, @work_string_length) %>
+      </p>
+      <%= if !same_user?(@current_user, user) and @current_user do %>
+        <%= if user_follows_user?(@current_user, user) do %>
+          <%= button to: connection_path(@conn, :delete, user_follows_user?(@current_user, user)), method: :delete , class: "button button--icon", form: [class: "button button--icon"] do %>
+            <i class="icon icon--unfollow"></i>
+          <% end %>
+        <%= else %>
+          <%= button to: connection_path(@conn, :create, connection: %{follower_id: @current_user_id, followee_id: user.id}), method: :post , class: "button button--icon", form: [class: "button button--icon"] do %>
+            <i class="icon icon--follow"></i>
+          <% end %>
+        <% end %>
+      <% end %>
+    </li>
+  <% end %>
+  <%= for user <- rest do %>
+    <li>
+      <div class="profile-image">
+        <%= link to: user_path(@conn, :show, user) do %>
+          <img src="<%= Vutuv.Avatar.user_url(@conn, user, :thumb) %>">
         <%= end %>
       </div>
       <p><strong><%= link full_name(user), to: user_path(@conn, :show, user) %></strong>
