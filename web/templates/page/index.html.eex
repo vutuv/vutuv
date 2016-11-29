@@ -59,8 +59,7 @@
       <p>
       <%= submit gettext("Sign up"), class: "imagebox__input" %>
       </p>
-      <p><a href="<%= session_path(@conn, :new) %>" class="imagebox__alreadymember"><%= gettext "Already a member? Sign in here." %></a>
-      <a href="<%= page_path(@conn, :top_users) %>" ><%= gettext "See the top 100 Users." %></a></p>
+      <p><a href="<%= session_path(@conn, :new) %>" class="imagebox__alreadymember"><%= gettext "Already a member? Sign in here." %></a></p>
       <p><%= gettext "We reserve the right to stop this service or delete your account anytime without warning." %></p>
     <% end %>
   </section>
