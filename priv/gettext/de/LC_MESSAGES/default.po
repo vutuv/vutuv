@@ -992,10 +992,6 @@ msgstr "Wählen Sie einen Monat"
 msgid "Select a year"
 msgstr "Wählen Sie ein Jahr"
 
-#: web/templates/page/index.html.eex:16
-msgid "Find service updates at"
-msgstr "Aktuelle Informationen find Sie auf"
-
 #: web/models/user.ex:124
 msgid "Female"
 msgstr "Frau"
@@ -1071,3 +1067,11 @@ msgstr "User mit den meisten Followern"
 #: web/templates/page/most_followed_users.html.eex:14
 msgid "The 100 Users with the most Followers"
 msgstr "Die 100 User mit den meisten Followern"
+
+#: web/templates/page/index.html.eex:16
+msgid "100 users with the most followers"
+msgstr "100 Usern mit den meisten Followern"
+
+#: web/templates/page/index.html.eex:16
+msgid "Curious? Have a look at the "
+msgstr "Neugierig? Hier ist die Liste "

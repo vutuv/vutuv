@@ -993,10 +993,6 @@ msgstr ""
 msgid "Select a year"
 msgstr ""
 
-#: web/templates/page/index.html.eex:16
-msgid "Find service updates at"
-msgstr ""
-
 #: web/models/user.ex:124
 msgid "Female"
 msgstr ""
@@ -1071,4 +1067,12 @@ msgstr ""
 
 #: web/templates/page/most_followed_users.html.eex:14
 msgid "The 100 Users with the most Followers"
+msgstr ""
+
+#: web/templates/page/index.html.eex:16
+msgid "100 users with the most followers"
+msgstr ""
+
+#: web/templates/page/index.html.eex:16
+msgid "Curious? Have a look at the "
 msgstr ""

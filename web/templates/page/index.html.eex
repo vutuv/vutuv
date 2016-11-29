@@ -13,7 +13,7 @@
   <section class="card imagebox__card">
     <div class="imagebox__intro">
       <h1><%= gettext "The Fast and Free Career Network" %></h1>
-      <p><%= gettext "No expensive premium accounts! Read more about it in" %> <a href="https://medium.com/@vutuv"><%= gettext "our blog" %></a>. <%= gettext "Find service updates at" %> <a href="https://twitter.com/vutuv">https://twitter.com/vutuv</a>.</p>
+      <p><%= gettext "No expensive premium accounts! Read more about it in" %> <a href="https://medium.com/@vutuv"><%= gettext "our blog" %></a>. <%= gettext "Curious? Have a look at the "%> <a href="/listings/most_followed_users"><%= gettext "100 users with the most followers" %></a>.</p>
     </div>
     <%= form_for @changeset, page_path(@conn, :new_registration), [multipart: true, class: "imagebox__form"], fn f -> %>
       <%= if @changeset.action do %>
