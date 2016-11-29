@@ -5,7 +5,6 @@ defmodule Vutuv.Endorsement do
     belongs_to :user, Vutuv.User
     belongs_to :user_skill, Vutuv.UserSkill
 
-
     timestamps
   end
 

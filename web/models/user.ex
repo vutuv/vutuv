@@ -22,8 +22,8 @@ defmodule Vutuv.User do
     field :noindex?, :boolean, default: false
     field :validated?, :boolean, default: false
 
-    has_many :search_query_results,   Vutuv.SearchQueryResult,  on_delete: :delete_all
     has_many :search_query_requesters,Vutuv.SearchQueryRequester, on_delete: :delete_all
+    has_many :search_query_results,   Vutuv.SearchQueryResult,  on_delete: :delete_all
     has_many :oauth_providers,        Vutuv.OAuthProvider,      on_delete: :delete_all
     has_many :magic_links,            Vutuv.MagicLink,          on_delete: :delete_all
     has_many :groups,                 Vutuv.Group,              on_delete: :delete_all
@@ -36,6 +36,7 @@ defmodule Vutuv.User do
     has_many :work_experiences,       Vutuv.WorkExperience,     on_delete: :delete_all
     has_many :social_media_accounts,  Vutuv.SocialMediaAccount, on_delete: :delete_all
     has_many :search_terms,           Vutuv.SearchTerm,         on_delete: :delete_all, on_replace: :delete
+    has_many :endorsements,           Vutuv.Endorsement,        on_delete: :delete_all
 
     has_many :follower_connections, Vutuv.Connection, foreign_key: :followee_id, on_delete: :delete_all
     has_many :followers, through: [:follower_connections, :follower]
