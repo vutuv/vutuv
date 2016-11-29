@@ -309,7 +309,7 @@ msgstr "Gruppen"
 msgid "Headline"
 msgstr "Headline"
 
-#: web/templates/page/top_users.html.eex:5
+#: web/templates/page/most_followed_users.html.eex:5
 #: web/templates/phone_number/form.html.eex:16
 msgid "Home"
 msgstr ""
@@ -1060,10 +1060,14 @@ msgstr "vutuv Account einrichten"
 msgid "Login to vutuv"
 msgstr "vutuv Login-Link"
 
-#: web/templates/page/top_users.html.eex:14
-msgid "Top 100 Users"
-msgstr ""
+#: web/templates/page/most_followed_users.html.eex:6
+msgid "Listings"
+msgstr "Listen"
 
-#: web/templates/page/top_users.html.eex:6
-msgid "Top Users"
-msgstr ""
+#: web/templates/page/most_followed_users.html.eex:6
+msgid "Most Followed Users"
+msgstr "User mit den meisten Followers"
+
+#: web/templates/page/most_followed_users.html.eex:14
+msgid "The 100 Users with the most Followers"
+msgstr "Die 100 User mit den meisten Followers"

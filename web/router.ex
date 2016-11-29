@@ -36,7 +36,7 @@ defmodule Vutuv.Router do
 
     get "/", PageController, :index
     get "/impressum", PageController, :impressum
-    get "/top_users", PageController, :top_users
+    get "/listings/most_followed_users", PageController, :most_followed_users
     get "/new_registration", PageController, :redirect_index
     post "/new_registration", PageController, :new_registration
 

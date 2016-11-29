@@ -38,8 +38,8 @@ defmodule Vutuv.PageController do
     end
   end
 
-  def top_users(conn, _params) do
+  def most_followed_users(conn, _params) do
     users = Repo.all(from u in User, left_join: f in assoc(u, :followers), group_by: u.id, order_by: [fragment("count(?) DESC", f.id), u.first_name, u.last_name], limit: 100)
-    render conn, "top_users.html", users: users
+    render conn, "most_followed_users.html", users: users
   end
 end
