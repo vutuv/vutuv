@@ -504,7 +504,7 @@ msgstr ""
 msgid "Organization"
 msgstr ""
 
-#: web/models/user.ex:128 web/templates/page/index.html.eex:27
+#: web/models/user.ex:129 web/templates/page/index.html.eex:27
 #: web/templates/user/form.html.eex:9
 msgid "Other"
 msgstr ""
@@ -993,11 +993,11 @@ msgstr ""
 msgid "Select a year"
 msgstr ""
 
-#: web/models/user.ex:124
+#: web/models/user.ex:125
 msgid "Female"
 msgstr ""
 
-#: web/models/user.ex:120
+#: web/models/user.ex:121
 msgid "Male"
 msgstr ""
 
@@ -1075,4 +1075,8 @@ msgstr ""
 
 #: web/templates/page/index.html.eex:16
 msgid "Curious? Have a look at the "
+msgstr ""
+
+#: web/templates/page/new_registration.html.eex:18
+msgid "Updates about vutuv are available at "
 msgstr ""

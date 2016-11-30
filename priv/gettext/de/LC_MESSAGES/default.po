@@ -503,7 +503,7 @@ msgstr "Ups, es gab einen Validierungsfehler! Bitte überprüfen Sie Ihre Eingab
 msgid "Organization"
 msgstr "Organisation"
 
-#: web/models/user.ex:128 web/templates/page/index.html.eex:27
+#: web/models/user.ex:129 web/templates/page/index.html.eex:27
 #: web/templates/user/form.html.eex:9
 msgid "Other"
 msgstr "Sonstiges"
@@ -934,7 +934,7 @@ msgstr "Suchmaschinen sollen dieses Profil nicht indizieren"
 
 #: web/templates/session/user_login.html.eex:16
 msgid "An email has been sent with your login link. Once you login, you'll be logged in for the next 90 days on this device, or until you log out."
-msgstr "Die E-Mail mit dem Login Link ist unterwegs. Wenn Sie sich damit eingeloggt haben bleiben Sie auf diesem Browser für 90 Tage eingeloggt."
+msgstr "Eine E-Mail mit einem Login-Link ist unterwegs. Wenn Sie sich damit eingeloggt haben bleiben Sie auf diesem Browser für 90 Tage eingeloggt. Natürlich können Sie sicher jederzeit manuell ausloggen (links oben)."
 
 #: lib/vutuv/magic_link_helpers.ex:62
 msgid "An error occured"
@@ -942,12 +942,12 @@ msgstr "Fehler"
 
 #: lib/vutuv/magic_link_helpers.ex:67
 msgid "Link expired"
-msgstr "Link zeitlich ausgelaufen"
+msgstr "Der Zeitstempel dieses Login-Links ist abgelaufen."
 
 #: web/templates/page/new_registration.html.eex:15
 #: web/templates/session/user_login.html.eex:15
 msgid "Please check your email."
-msgstr "Bitte überprüfen Sie Ihre E-Mail INBOX."
+msgstr "Bitte überprüfen Sie Ihr E-Mail Postfach."
 
 #: web/templates/page/new_registration.html.eex:17
 #: web/templates/session/user_login.html.eex:17
@@ -956,7 +956,7 @@ msgstr "Bitte überprüfen Sie Ihren SPAM Ordner, falls Sie keine E-Mail in Ihre
 
 #: web/templates/page/new_registration.html.eex:16
 msgid "Your account has been created, and an email has been sent with a login link. Thats right, no passwords to remember! Once you login, you'll be logged in on this device for the next 90 days, or until you log out."
-msgstr "Ihr Account wurde angelegt. Bitte schauen Sie in Ihre E-Mail INBOX. Dort finden Sie eine E-Mail mit einem Bestätigungs-Link. Mit diesem Link können Sie sich einloggen."
+msgstr "Ihr neuer Account wurde angelegt. Zur Überprüfung Ihrer E-Mail Adresse haben wir Ihnen eine E-Mail geschickt. Bitte klicken Sie auf den dort enthaltenen Bestätigungs-Link. Damit werden Sie gleichzeitig automatisch für 90 Tage mit diesem Browser eingeloggt. Kein Passwort!"
 
 #: web/templates/phone_number/form.html.eex:10
 msgid "+49 30 12345678"
@@ -992,11 +992,11 @@ msgstr "Wählen Sie einen Monat"
 msgid "Select a year"
 msgstr "Wählen Sie ein Jahr"
 
-#: web/models/user.ex:124
+#: web/models/user.ex:125
 msgid "Female"
 msgstr "Frau"
 
-#: web/models/user.ex:120
+#: web/models/user.ex:121
 msgid "Male"
 msgstr "Mann"
 
@@ -1075,3 +1075,7 @@ msgstr "100 Usern mit den meisten Followern"
 #: web/templates/page/index.html.eex:16
 msgid "Curious? Have a look at the "
 msgstr "Neugierig? Hier ist die Liste "
+
+#: web/templates/page/new_registration.html.eex:18
+msgid "Updates about vutuv are available at "
+msgstr "Updates zu vutuv finden Sie auf "

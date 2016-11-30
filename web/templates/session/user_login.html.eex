@@ -15,6 +15,7 @@
       <h1><%= gettext "Please check your email." %></h1>
       <p><%= gettext "An email has been sent with your login link. Once you login, you'll be logged in for the next 90 days on this device, or until you log out." %></p>
       <p><%= gettext "Please check your spam folder in case you don't find the email in your inbox." %></p>
+      <p><%= gettext "Updates about vutuv are available at " %><a href="https://twitter.com/vutuv">https://twitter.com/vutuv</a></p>
     </div>
   </section>
 </div>
