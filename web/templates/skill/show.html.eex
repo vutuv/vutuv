@@ -1,52 +1,35 @@
-<div class="pure-g">
-  <div class="pure-u-1-1">
-    
-
-    <ul>
-    <h1><%= @skill.name %></h1>
-      <h3><%= @skill.description %></h3>
-      <h2>Top people with this skill</h2>
-    <table class="pure-table pure-table-horizontal">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Endorsements</th>
-        </tr>
-      </thead>
-      <tbody>
-      <%= for userskill <- @top_users do %>
-          <tr>
-            <td class="text-right">
-              <%= full_name(userskill.user) %>
-            </td>
-            <td class="text-right">
-              <%= Enum.count(userskill.endorsements) %>
-            </td>
-          </tr>
-      <% end %>
-      </tbody>
-    </table>
-      <h2>Top people you follow with this skill</h2>
-    <table class="pure-table pure-table-horizontal">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Endorsements</th>
-        </tr>
-      </thead>
-      <tbody>
-      <%= for userskill <- @top_related do %>
-          <tr>
-            <td class="text-right">
-              <%= full_name(userskill.user) %>
-            </td>
-            <td class="text-right">
-              <%= Enum.count(userskill.endorsements) %>
-            </td>
-          </tr>
-      <% end %>
-      </tbody>
-    </table>
-    </ul>
+<%# header tag begins in parent template %>
+  <div class="profile-header">
+    <div class="profile-header__info">
+      <h1>About <%= @skill.name %></h1>
+    </div>
   </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+<div class="breadcrumbs">
+  <%= gen_breadcrumbs([
+    {gettext("Skills"), skill_path(@conn, :index)},
+    gettext("Show")]) %>
+</div>
+
+<div class="card-list">
+
+  <section class="card">
+    <div class="card__edit button__list">
+      <%# button to: skill_path(@conn, :delete, @skill), class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
+        <%# <i class="icon icon--delete"></i> %>
+      <%# end %>
+    </div>
+
+    <%= if(@skill.description) do %>
+    <h1><%= gettext("Description") %></h1>
+    <% else %>
+    <h1><%= gettext("Nothing to see here!") %></h1>
+    <p><%= gettext("This skill doesnt have a description yet. We will be adding the ability to submit descriptions soon.") %></p>
+    <% end %>
+  </section>
+
+  <aside>
+  <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
 </div>

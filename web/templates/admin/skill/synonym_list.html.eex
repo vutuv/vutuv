@@ -1,0 +1,25 @@
+<%= if Enum.count(@skill.skill_synonyms) > 0 do %>
+<table>
+  <thead>
+    <tr>
+      <th><%= gettext "Synonym value" %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for synonym <- @skill.skill_synonyms do %>
+    <tr>
+      <td><%= synonym.value %></td>
+      <td>
+      <%= button to: admin_skill_path(@conn, :delete_synonym, @skill, synonym), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
+      <i class="icon icon--delete"></i>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% else %>
+<p><%= gettext("No synonyms") %></p>
+<p><%= gettext("This means the skill is not \"validated\". A validated skill has at least 1 synonyn.") %></p>
+<p><%= gettext("To quickly validate, click the \"Easy Validate\" button above.") %></p>
+<% end %>

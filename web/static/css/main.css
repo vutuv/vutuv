@@ -980,10 +980,23 @@ aside {
   padding: 0 12px;
   background: #eee; }
 
+.editform__smallwrap {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: 44px; }
+
 .editform__error {
   color: #FF7061;
   font-size: 12px;
   font-weight: bold; }
+
+.editform__border-top {
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+  margin-left: -10px;
+  margin-right: -10px;
+  margin-top: 5px;}
 
 .editform__actions {
   border-top: 1px solid #eee;

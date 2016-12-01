@@ -9,14 +9,15 @@
 
 <div class="breadcrumbs">
   <%= gen_breadcrumbs([
+    {gettext("Admin Home"), admin_admin_path(@conn, :index)},
     gettext("Skills")]) %>
 </div>
 
 <div class="card-list">
 
   <section class="card">
-    <h1>Skills</h1>
-    
+    <h1><%= gettext("Skills Without Synonyms") %></h1>
+
     <%= render "card_list.html", assigns %>
 
   </section>

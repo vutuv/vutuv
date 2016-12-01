@@ -10,6 +10,7 @@ defmodule Vutuv.Skill do
     field :url, :string
 
     has_many :user_skills, Vutuv.UserSkill, on_delete: :delete_all
+    has_many :skill_synonyms, Vutuv.SkillSynonym, on_delete: :delete_all
 
     timestamps
   end
@@ -27,9 +28,33 @@ defmodule Vutuv.Skill do
     model
     |> cast(params, @required_fields++@optional_fields)
     |> validate_required([:name])
-    |> put_change(:downcase_name, params["name"])
-    |> update_change(:downcase_name, &String.downcase/1)
+    |> put_downcase_if_name_changed
     |> unique_constraint(:downcase_name)
+  end
+
+  defp put_downcase_if_name_changed(changeset) do
+    changeset
+    |> get_change(:name)
+    |> case do
+      nil ->
+        changeset
+      name ->
+        changeset
+        |> put_change(:downcase_name, name)
+        |> update_change(:downcase_name, &String.downcase/1)
+    end
+  end
+
+  def create_or_link_skill(changeset, %{"name" => name} = params) do
+    downcase_name = String.downcase(name)
+    Vutuv.Repo.one(from s in __MODULE__, join: syn in assoc(s, :skill_synonyms), where: s.downcase_name == ^downcase_name or syn.value == ^downcase_name, limit: 1)
+    |> case do
+      nil ->
+        skill = __MODULE__.changeset(%__MODULE__{}, params)
+        Ecto.Changeset.put_assoc(changeset, :skill, skill)
+      skill ->
+        Ecto.Changeset.put_change(changeset, :skill_id, skill.id)
+    end
   end
 
   def resolve_name(skill_id) do

@@ -1,0 +1,19 @@
+</header>
+
+<div class="breadcrumbs">
+  <%= gen_breadcrumbs([
+    {gettext("Admin Home"), admin_admin_path(@conn, :index)},
+    {gettext("Skills"), admin_skill_path(@conn, :index)},
+    @skill.name,
+    gettext("Edit")]) %>
+</div>
+
+<div class="card-list">
+
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
+  <section class="card">
+    <%= render "form.html", backlink: admin_skill_path(@conn, :show, @skill), changeset: @changeset, action: admin_skill_path(@conn, :update, @skill) %>
+  </section>
+</div>

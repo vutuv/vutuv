@@ -22,7 +22,6 @@ defmodule Vutuv.UserSkill do
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields++@optional_fields)
-    |> cast_assoc(:endorsements)
     |> foreign_key_constraint(:user_id)
     |> foreign_key_constraint(:skill_id)
     |> unique_constraint(:user_id_skill_id)

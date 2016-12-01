@@ -13,7 +13,8 @@ defmodule Vutuv.WorkExperienceController do
         fragment("? IS NULL DESC", u.end_year),
         fragment("? IS NULL DESC", u.end_month),
         fragment("? IS NULL DESC", u.start_year),
-        fragment("? IS NULL DESC", u.start_month)])])
+        fragment("? IS NULL DESC", u.start_month),
+        u.id])])
     render(conn, "index.html", user: user, work_experience: user.work_experiences)
   end
 

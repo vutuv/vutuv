@@ -1,0 +1,25 @@
+<table>
+  <thead>
+    <tr>
+      <th><%= gettext "Skill name" %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for skill <- @skills do %>
+    <tr>
+      <td>
+      <%= link skill.name, to: skill_path(@conn, :show, skill) %>
+      </td>
+      <td>
+      <%# link to: skill_path(@conn, :edit, skill), class: "button button--icon button--small" do %>
+      <%# <i class="icon icon--edit"></i> %>
+      <%# end %>
+      <%# button to: skill_path(@conn, :delete, skill), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
+      <%# <i class="icon icon--delete"></i> %>
+      <%# end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -202,18 +202,10 @@ defmodule Vutuv.UserController do
           skill
           |> String.trim
           |> String.downcase
-        case Repo.one(from s in Skill, where: s.downcase_name == ^downcase_skill) do
-          nil ->
-            skill_changeset = Skill.changeset(%Skill{},%{"name" => String.trim(skill)})
-            user
-            |> Ecto.build_assoc(:user_skills, %{})
-            |> UserSkill.changeset
-            |> Ecto.Changeset.put_assoc(:skill, skill_changeset)
-          existing_skill ->
-            user
-            |> Ecto.build_assoc(:user_skills, %{skill_id: existing_skill.id})
-            |> UserSkill.changeset
-        end
+        user
+        |> Ecto.build_assoc(:user_skills, %{})
+        |> UserSkill.changeset
+        |> Skill.create_or_link_skill(%{"name" => downcase_skill})
         |> Repo.insert
       end
     failures =

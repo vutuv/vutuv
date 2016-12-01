@@ -1,0 +1,30 @@
+<table>
+  <thead>
+    <tr>
+      <th><%= gettext "Skill name" %></th>
+      <th><%= gettext "Downcased name" %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for skill <- @skills do %>
+    <tr>
+      <td>
+      <%= link skill.name, to: admin_skill_path(@conn, :show, skill) %>
+      </td>
+      <td><%= skill.downcase_name %></td>
+      <td>
+      <%= button to: admin_skill_path(@conn, :easy_validate, skill), method: :post, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
+      <i class="icon icon--upvote"></i>
+      <% end %>
+      <%= link to: admin_skill_path(@conn, :edit, skill), class: "button button--icon button--small" do %>
+      <i class="icon icon--edit"></i>
+      <% end %>
+      <%# button to: admin_skill_path(@conn, :delete, skill), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
+      <%# <i class="icon icon--delete"></i> %>
+      <%# end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

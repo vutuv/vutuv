@@ -81,6 +81,11 @@ defmodule Vutuv.Router do
   scope "/admin", as: :admin do
     pipe_through :browser
     resources "/", Vutuv.Admin.AdminController, only: [:index]
+    resources "/skills", Vutuv.Admin.SkillController, param: "slug", only: [:index, :show, :edit, :update, :delete]
+    post "/skills/:slug/easy_validate", Vutuv.Admin.SkillController, :easy_validate
+    post "/skills/:slug/to_synonym", Vutuv.Admin.SkillController, :to_synonym
+    post "/skills/:slug/add_synonym", Vutuv.Admin.SkillController, :add_synonym
+    delete "/skills/:slug/delete_synonym/:id", Vutuv.Admin.SkillController, :delete_synonym
     post "/slugs", Vutuv.Admin.SlugController, :update
     post "/users", Vutuv.Admin.UserController, :update
   end

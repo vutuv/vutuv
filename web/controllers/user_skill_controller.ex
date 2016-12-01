@@ -20,18 +20,12 @@ defmodule Vutuv.UserSkillController do
   end
 
   def create(conn, %{"skill_param" => skill_param}) do
-    changeset = 
-      case Repo.one(from s in Skill, where: s.name == ^skill_param["name"]) do
-        nil ->
-          skill = Skill.changeset(%Skill{},skill_param)
-          UserSkill.changeset(%UserSkill{}, %{user_id: conn.assigns[:current_user].id})
-            |> Ecto.Changeset.put_assoc(:skill, skill)
-        skill ->
-          UserSkill.changeset(%UserSkill{}, %{
-            skill_id: skill.id,
-            user_id: conn.assigns[:current_user].id})
-      end
-    case Repo.insert(changeset) do
+    conn.assigns[:current_user]
+    |> Ecto.build_assoc(:user_skills, %{})
+    |> UserSkill.changeset
+    |> Skill.create_or_link_skill(skill_param)
+    |> Repo.insert
+    |> case do
       {:ok, _user_skill} ->
         conn
         |> put_flash(:info, gettext("Skill added successfully."))
