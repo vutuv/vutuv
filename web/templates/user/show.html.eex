@@ -314,6 +314,7 @@
     "item": {
       "@id": "https://www.vutuv.de/users/",
       "name": "users"
+    }
   },{
     "@type": "ListItem",
     "position": 3,
