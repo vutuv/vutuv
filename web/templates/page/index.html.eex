@@ -64,3 +64,15 @@
     <% end %>
   </section>
 </div>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "vutuv",
+  "url": "https://www.vutuv.de",
+  "sameAs": [
+    "https://twitter.com/vutuv"
+  ]
+}
+</script>
