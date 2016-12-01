@@ -1,7 +1,7 @@
 <ol class="button-list skills">
   <%= for skill <- @user_skills do %>
     <li>
-      <span>
+      <span style="max-width: 85%; word-wrap: break-word;">
         <%= link Skill.resolve_name(skill.skill_id), to: user_user_skill_path(@conn, :show, @user, skill) %>
         <em>
           <%= if Enum.count(skill.endorsements) == 1 do %> 

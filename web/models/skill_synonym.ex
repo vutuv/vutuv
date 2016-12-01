@@ -40,8 +40,6 @@ defmodule Vutuv.SkillSynonym do
     Repo.delete(skill_for_synonym)
   end
 
-  defp delete_or_update_user_skills
-
   defp create_synonym(skill_for_synonym, skill) do
     skill
     |> build_assoc(:skill_synonyms)

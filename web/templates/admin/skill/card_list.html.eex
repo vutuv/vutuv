@@ -10,9 +10,9 @@
     <%= for skill <- @skills do %>
     <tr>
       <td>
-      <%= link skill.name, to: admin_skill_path(@conn, :show, skill) %>
+      <p style="word-wrap: break-word; max-width: 200px;"><%= link skill.name, to: admin_skill_path(@conn, :show, skill) %></p>
       </td>
-      <td><%= skill.downcase_name %></td>
+      <td><p style="word-wrap: break-word; max-width: 200px;"><%= skill.downcase_name %></p></td>
       <td>
       <%= button to: admin_skill_path(@conn, :easy_validate, skill), method: :post, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
       <i class="icon icon--upvote"></i>

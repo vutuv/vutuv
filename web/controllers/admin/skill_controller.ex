@@ -1,7 +1,9 @@
 defmodule Vutuv.Admin.SkillController do
   use Vutuv.Web, :controller
 
+  plug Vutuv.Plug.AuthAdmin
   plug :resolve_slug when not action in [:index]
+
 
   alias Vutuv.Skill
   alias Vutuv.SkillSynonym
