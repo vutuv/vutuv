@@ -296,3 +296,30 @@
   </section>
   <% end %>
 </div>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "item": {
+      "@id": "https://www.vutuv.de",
+      "name": "vutuv"
+    }
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "item": {
+      "name": "users"
+  },{
+    "@type": "ListItem",
+    "position": 3,
+    "item": {
+      "@id": "https://www.vutuv.de<%= user_path(@conn, :show, @user) %>",
+      "name": "<%= full_name(@user) %>"
+    }
+  }]
+}
+</script>
