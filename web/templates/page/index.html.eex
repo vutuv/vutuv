@@ -76,3 +76,13 @@
   ]
 }
 </script>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  "name": "vutuv",
+  "alternateName": "vutuv.de",
+  "url": "https://www.vutuv.de"
+}
+</script>
