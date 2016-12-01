@@ -43,7 +43,9 @@ msgstr ""
 msgid "Ad"
 msgstr ""
 
-#: web/templates/address/index.html.eex:24 web/templates/email/index.html.eex:24
+#: web/templates/address/index.html.eex:24
+#: web/templates/admin/skill/show.html.eex:66
+#: web/templates/email/index.html.eex:24
 #: web/templates/phone_number/index.html.eex:24
 #: web/templates/social_media_account/index.html.eex:24
 #: web/templates/url/index.html.eex:25 web/templates/user/show.html.eex:87
@@ -112,6 +114,7 @@ msgstr ""
 #: web/templates/address/form_de.html.eex:37
 #: web/templates/address/form_en.html.eex:49
 #: web/templates/address/form_generic.html.eex:49
+#: web/templates/admin/skill/form.html.eex:34
 #: web/templates/email/form.html.eex:22 web/templates/group/form.html.eex:15
 #: web/templates/membership/form.html.eex:17
 #: web/templates/phone_number/form.html.eex:21
@@ -147,7 +150,7 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: web/controllers/user_controller.ex:248
+#: web/controllers/user_controller.ex:240
 msgid "Couldn't follow back to %{name}."
 msgstr ""
 
@@ -160,8 +163,11 @@ msgid "Delete"
 msgstr ""
 
 #: web/templates/address/card_list.html.eex:4
-#: web/templates/url/card_list.html.eex:4 web/templates/url/form.html.eex:15
-#: web/templates/url/show.html.eex:30 web/templates/user_skill/show.html.eex:29
+#: web/templates/admin/skill/form.html.eex:24
+#: web/templates/admin/skill/show.html.eex:35
+#: web/templates/skill/show.html.eex:25 web/templates/url/card_list.html.eex:4
+#: web/templates/url/form.html.eex:15 web/templates/url/show.html.eex:30
+#: web/templates/user_skill/show.html.eex:29
 #: web/templates/work_experience/form.html.eex:21
 msgid "Description"
 msgstr ""
@@ -175,6 +181,7 @@ msgid "Download"
 msgstr ""
 
 #: web/templates/address/edit.html.eex:9
+#: web/templates/admin/skill/edit.html.eex:8
 #: web/templates/phone_number/edit.html.eex:8
 #: web/templates/social_media_account/edit.html.eex:8
 #: web/templates/url/edit.html.eex:8 web/templates/user/edit.html.eex:7
@@ -386,10 +393,6 @@ msgstr ""
 msgid "Listing search terms"
 msgstr ""
 
-#: web/templates/skill/index.html.eex:3
-msgid "Listing skills"
-msgstr ""
-
 #: web/templates/layout/app.html.eex:34
 msgid "Log In"
 msgstr ""
@@ -437,6 +440,8 @@ msgstr ""
 msgid "Mrs"
 msgstr ""
 
+#: web/templates/admin/skill/form.html.eex:9
+#: web/templates/admin/skill/show.html.eex:31
 #: web/templates/group/index.html.eex:8
 msgid "Name"
 msgstr ""
@@ -470,6 +475,7 @@ msgstr ""
 msgid "Not following anyone yet!"
 msgstr ""
 
+#: web/templates/skill/show.html.eex:27
 #: web/templates/user_skill/show.html.eex:31
 msgid "Nothing to see here!"
 msgstr ""
@@ -489,8 +495,9 @@ msgstr ""
 #: web/templates/address/form_de.html.eex:4
 #: web/templates/address/form_en.html.eex:4
 #: web/templates/address/form_generic.html.eex:4
-#: web/templates/email/form.html.eex:4 web/templates/group/form.html.eex:4
-#: web/templates/membership/form.html.eex:4 web/templates/page/index.html.eex:21
+#: web/templates/admin/skill/form.html.eex:4 web/templates/email/form.html.eex:4
+#: web/templates/group/form.html.eex:4 web/templates/membership/form.html.eex:4
+#: web/templates/page/index.html.eex:21
 #: web/templates/phone_number/form.html.eex:4
 #: web/templates/search_query/form.html.eex:4 web/templates/slug/form.html.eex:4
 #: web/templates/social_media_account/form.html.eex:4
@@ -619,8 +626,9 @@ msgid "Search query executed successfully."
 msgstr ""
 
 #: web/templates/address/show.html.eex:14
+#: web/templates/admin/skill/show.html.eex:12
 #: web/templates/search_term/index.html.eex:21
-#: web/templates/skill/index.html.eex:20 web/templates/user/index.html.eex:33
+#: web/templates/skill/show.html.eex:12 web/templates/user/index.html.eex:33
 #: web/templates/user_skill/show.html.eex:14
 #: web/templates/work_experience/show.html.eex:14
 msgid "Show"
@@ -634,10 +642,14 @@ msgstr ""
 msgid "Sign up"
 msgstr ""
 
-#: web/controllers/user_skill_controller.ex:37
+#: web/controllers/user_skill_controller.ex:31
 msgid "Skill added successfully."
 msgstr ""
 
+#: web/templates/admin/skill/edit.html.eex:6
+#: web/templates/admin/skill/index.html.eex:13
+#: web/templates/admin/skill/show.html.eex:11
+#: web/templates/skill/index.html.eex:12 web/templates/skill/show.html.eex:11
 #: web/templates/user/show.html.eex:71
 #: web/templates/user_skill/index.html.eex:14
 #: web/templates/user_skill/new.html.eex:8
@@ -645,6 +657,8 @@ msgstr ""
 msgid "Skills"
 msgstr ""
 
+#: web/templates/admin/skill/form.html.eex:19
+#: web/templates/admin/skill/show.html.eex:37
 #: web/templates/slug/index.html.eex:1
 msgid "Slug"
 msgstr ""
@@ -698,6 +712,7 @@ msgstr ""
 #: web/templates/address/form_de.html.eex:38
 #: web/templates/address/form_en.html.eex:50
 #: web/templates/address/form_generic.html.eex:50
+#: web/templates/admin/skill/form.html.eex:35
 #: web/templates/admin/user/form.html.eex:10
 #: web/templates/email/form.html.eex:23 web/templates/group/form.html.eex:16
 #: web/templates/membership/form.html.eex:18
@@ -725,6 +740,7 @@ msgstr ""
 msgid "There was an error"
 msgstr ""
 
+#: web/templates/skill/show.html.eex:28
 #: web/templates/user_skill/show.html.eex:32
 msgid "This skill doesnt have a description yet. We will be adding the ability to submit descriptions soon."
 msgstr ""
@@ -766,7 +782,7 @@ msgstr ""
 msgid "User verified successfully."
 msgstr ""
 
-#: web/controllers/user_skill_controller.ex:58
+#: web/controllers/user_skill_controller.ex:52
 msgid "UserSkill deleted successfully."
 msgstr ""
 
@@ -846,15 +862,15 @@ msgstr ""
 msgid "Work Experiences"
 msgstr ""
 
-#: web/controllers/work_experience_controller.ex:35
+#: web/controllers/work_experience_controller.ex:36
 msgid "Work experience created successfully."
 msgstr ""
 
-#: web/controllers/work_experience_controller.ex:82
+#: web/controllers/work_experience_controller.ex:83
 msgid "Work experience deleted successfully."
 msgstr ""
 
-#: web/controllers/work_experience_controller.ex:66
+#: web/controllers/work_experience_controller.ex:67
 msgid "Work experience updated successfully."
 msgstr ""
 
@@ -870,14 +886,14 @@ msgstr ""
 msgid "You don't have any followers yet! If you want more followers, you could follow others, invite your friends, or link your Vutuv profile on other social media websites."
 msgstr ""
 
-#: web/controllers/user_controller.ex:244
+#: web/controllers/user_controller.ex:236
 msgid "You follow back %{name}."
 msgstr ""
 
 #: web/controllers/admin/admin_controller.ex:18
 #: web/controllers/admin/slug_controller.ex:52
 #: web/controllers/admin/user_controller.ex:28
-#: web/controllers/user_controller.ex:258
+#: web/controllers/user_controller.ex:250
 msgid "You must be logged in to access that page"
 msgstr ""
 
@@ -905,7 +921,7 @@ msgstr ""
 msgid "upvotes"
 msgstr ""
 
-#: web/controllers/user_controller.ex:228
+#: web/controllers/user_controller.ex:220
 msgid "Successfully added %{successes} skills with %{failures} failures."
 msgstr ""
 
@@ -1037,10 +1053,6 @@ msgstr ""
 msgid "vutuv profile"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:15
-msgid "Your Fast and Free Career Network. No expensive premium accounts! Get one in 30 seconds."
-msgstr ""
-
 #: lib/vutuv/emailer.ex:20
 msgid "Confirm your account deletion"
 msgstr ""
@@ -1078,5 +1090,115 @@ msgid "Curious? Have a look at the "
 msgstr ""
 
 #: web/templates/page/new_registration.html.eex:18
+#: web/templates/session/user_login.html.eex:18
 msgid "Updates about vutuv are available at "
+msgstr ""
+
+#: web/templates/admin/skill/show.html.eex:45
+msgid "Add this skill as a synonym for another skill"
+msgstr ""
+
+#: web/templates/admin/skill/edit.html.eex:5
+#: web/templates/admin/skill/index.html.eex:12
+msgid "Admin Home"
+msgstr ""
+
+#: web/templates/admin/skill/index.html.eex:4
+#: web/templates/skill/index.html.eex:4
+msgid "All Skills"
+msgstr ""
+
+#: web/controllers/admin/skill_controller.ex:66
+msgid "Conversion to synonym failed"
+msgstr ""
+
+#: web/controllers/admin/skill_controller.ex:90
+msgid "Deletion Failed"
+msgstr ""
+
+#: web/controllers/admin/skill_controller.ex:89
+msgid "Deletion Succeeded"
+msgstr ""
+
+#: web/templates/admin/skill/form.html.eex:14
+#: web/templates/admin/skill/show.html.eex:33
+msgid "Downcased Name"
+msgstr ""
+
+#: web/templates/admin/skill/card_list.html.eex:5
+msgid "Downcased name"
+msgstr ""
+
+#: web/templates/admin/skill/show.html.eex:63
+msgid "Enter synonym value here"
+msgstr ""
+
+#: web/templates/admin/skill/form.html.eex:29
+#: web/templates/admin/skill/show.html.eex:39
+msgid "External URL"
+msgstr ""
+
+#: web/templates/admin/skill/show.html.eex:49
+msgid "Migrate"
+msgstr ""
+
+#: web/templates/admin/skill/show.html.eex:42
+msgid "Migrate to Synonym"
+msgstr ""
+
+#: web/templates/admin/skill/synonym_list.html.eex:22
+msgid "No synonyms"
+msgstr ""
+
+#: web/controllers/admin/skill_controller.ex:55
+msgid "Skill does not exist"
+msgstr ""
+
+#: web/templates/admin/skill/card_list.html.eex:4
+#: web/templates/skill/card_list.html.eex:4
+msgid "Skill name"
+msgstr ""
+
+#: web/templates/admin/skill/index.html.eex:19
+msgid "Skills Without Synonyms"
+msgstr ""
+
+#: web/controllers/admin/skill_controller.ex:62
+msgid "Succeeded in conversion to synonym"
+msgstr ""
+
+#: web/controllers/admin/skill_controller.ex:79
+msgid "Synonym Added Successfully"
+msgstr ""
+
+#: web/controllers/admin/skill_controller.ex:80
+msgid "Synonym Added Unsuccessfully. This usually means it already exists."
+msgstr ""
+
+#: web/templates/admin/skill/synonym_list.html.eex:5
+msgid "Synonym value"
+msgstr ""
+
+#: web/templates/admin/skill/show.html.eex:58
+msgid "Synonyms"
+msgstr ""
+
+#: web/templates/admin/skill/synonym_list.html.eex:23
+msgid "This means the skill is not \"validated\". A validated skill has at least 1 synonyn."
+msgstr ""
+
+#: web/templates/admin/skill/synonym_list.html.eex:24
+msgid "To quickly validate, click the \"Easy Validate\" button above."
+msgstr ""
+
+#: web/controllers/admin/skill_controller.ex:45
+msgid "Validation Failed"
+msgstr ""
+
+#: web/controllers/admin/skill_controller.ex:44
+msgid "Validation Succeeded"
+msgstr ""
+
+#: web/templates/layout/app.html.eex:15
+msgid "Your Fast and Free Career Network. No expensive premium accounts! Get a free account in 30 seconds."
 msgstr ""
