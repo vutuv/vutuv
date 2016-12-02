@@ -1,5 +1,6 @@
 defmodule Vutuv.Admin.SkillController do
   use Vutuv.Web, :controller
+  import Ecto.Query
 
   plug Vutuv.Plug.AuthAdmin
   plug :resolve_slug when not action in [:index]
@@ -10,9 +11,17 @@ defmodule Vutuv.Admin.SkillController do
 
   def index(conn, _params) do
     #Admins need to see a list of all skills that do not have synonyms.
-
-    skills = Repo.all(from s in Skill, left_join: syn in assoc(s, :skill_synonyms), group_by: s.id, having: count(syn.id) == 0)
-    render(conn, "index.html", skills: skills)
+    
+    query = from(s in Skill, left_join: syn in assoc(s, :skill_synonyms), group_by: s.id, having: count(syn.id) == 0)
+    unvalidated_skills_count = 
+      from(subquery(query), select: count("*"))
+      |> Repo.one
+    IO.puts "\n\n#{inspect unvalidated_skills_count}\n\n"
+    unvalidated_skills = 
+      query
+      |> Vutuv.Pages.paginate(conn.params, unvalidated_skills_count)
+      |> Repo.all
+    render(conn, "index.html", skills: unvalidated_skills, unvalidated_skills_count: unvalidated_skills_count)
   end
 
   def show(conn, _params) do
