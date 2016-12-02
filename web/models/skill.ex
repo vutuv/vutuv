@@ -50,11 +50,9 @@ defmodule Vutuv.Skill do
     Vutuv.Repo.one(from s in __MODULE__, left_join: syn in assoc(s, :skill_synonyms), where: s.downcase_name == ^downcase_name or syn.value == ^downcase_name, limit: 1)
     |> case do
       nil ->
-        IO.puts "\n\ncreating\n\n"
         skill = __MODULE__.changeset(%__MODULE__{}, params)
         Ecto.Changeset.put_assoc(changeset, :skill, skill)
       skill ->
-        IO.puts "\n\nlinking\n\n"
         Ecto.Changeset.put_change(changeset, :skill_id, skill.id)
     end
   end
