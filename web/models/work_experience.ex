@@ -1,5 +1,6 @@
 defmodule Vutuv.WorkExperience do
   use Vutuv.Web, :model
+  import Ecto.Query
 
   schema "work_experiences" do
     field :organization, :string
@@ -86,4 +87,13 @@ defmodule Vutuv.WorkExperience do
   def has_end_date?(%__MODULE__{end_year: nil}), do: false
   def has_end_date?(%__MODULE__{end_year: _}), do: true
 
+  def order_by_date(query) do
+    query
+    |> order_by([u], [
+      fragment("-? ASC", u.end_year),
+      fragment("-? ASC", u.end_month),
+      fragment("-? ASC", u.start_year),
+      fragment("-? ASC", u.start_month)
+      ])
+  end
 end

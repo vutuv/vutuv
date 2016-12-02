@@ -15,7 +15,7 @@ defmodule Vutuv.SessionController do
       {:error, _reason, conn} ->
         conn
         |> put_flash(:error, gettext("Invalid email"))
-        |> render("new.html")
+        |> render("new.html", body_class: "stretch")
     end
   end
 
