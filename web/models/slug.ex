@@ -25,12 +25,25 @@ defmodule Vutuv.Slug do
     |> validate_format(:value, ~r/^[a-z]{1}[a-z0-9-.]*$/u)
     |> unique_constraint(:value)
     |> validate_length(:value, min: 3)
+    |> trim_slug_to_32
     |> can_create_slug?(model)
   end
 
   defp downcase_value(changeset) do
     # If the value has been changed, downcase it.
     update_change(changeset, :value, &String.downcase/1)
+  end
+
+  defp trim_slug_to_32(changeset) do
+    get_change(changeset, :value)
+    |> case do
+      nil -> changeset
+      value -> update_change(changeset, :value, &slice_32/1)
+    end
+  end
+
+  defp slice_32(string) do
+    String.slice(string, 0, 32)
   end
 
   defp can_create_slug?(changeset, model) do
