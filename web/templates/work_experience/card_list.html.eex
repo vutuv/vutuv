@@ -22,9 +22,9 @@
       <% end %>
       <%= if(Vutuv.WorkExperience.has_end_date? job) do %>
       <%= if job.end_month do %>
-        <%= "#{job.end_month}/#{job.end_year} -" %>
+        <%= "#{job.end_month}/#{job.end_year}" %>
       <%= else %>
-        <%= "#{job.end_year} -" %>
+        <%= "#{job.end_year}" %>
       <%= end %>
       <% else %>
       Present
