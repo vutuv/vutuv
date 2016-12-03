@@ -5,7 +5,7 @@ defmodule Vutuv.WorkExperienceView do
   def format_duration(start_month, start_year, end_month, end_year) do
     case {start_month, start_year, end_month, end_year} do
       {nil, nil, nil, nil} ->
-        ""
+        "present"
       {nil, nil, end_month, end_year} ->
         display_date(end_month, end_year)
       _ ->
