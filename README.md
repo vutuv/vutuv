@@ -36,6 +36,27 @@ Go to the `/config` directory and create two files named
 use Mix.Config
 ```
 
+## Quickstart with Docker
+
+You can also bootstrap your development environment with docker, without installing any dependencies on your host system. You need:
+- [Docker Engine >= 1.10](https://docs.docker.com/engine/)
+- [Docker Compose >= 1.6](https://docs.docker.com/engine/)
+
+Now you should be able to build and start vutuv with this command:
+```bash
+$ docker-compose up -d
+```
+
+Docker Compose already configures a mariadb database for you, installs all required dependencies and migrates the database schema. You can access the application as usual on http://localhost:4000
+
+### Run tests with docker
+
+To execute the tests, first connect to the running app container and run them inside the container:
+```bash
+$ docker exec -it vutuv_app_1 bash
+$ MIX_ENV=test mix test
+```
+
 ## Configure your SMTP setup
 
 The system uses the [Bamboo](https://github.com/thoughtbot/bamboo) email
@@ -44,7 +65,7 @@ library by [thoughtbot](https://thoughtbot.com/) to send emails via SMTP.
 ### Development
 
 In the development environment emails are not sent to an actual SMTP
-server but displayed in the browser via [Bamboo.EmailPreviewPlug](https://hexdocs.pm/bamboo/Bamboo.EmailPreviewPlug.html). To see which emails have been send you have to visit https://www.vutuv.de/sent_emails
+server but displayed in the browser via [Bamboo.EmailPreviewPlug](https://hexdocs.pm/bamboo/Bamboo.EmailPreviewPlug.html). To see which emails have been send you have to visit http://localhost:4000/sent_emails
 
 ### Production
 
@@ -59,7 +80,7 @@ config :vutuv, Vutuv.Mailer,
 ```
 For more information on the these settings, consult the [bamboo docs](https://github.com/thoughtbot/bamboo).
 
-## Start the application
+## Start the application without Docker
 
 You should now be able to run the application by following the steps below.
 

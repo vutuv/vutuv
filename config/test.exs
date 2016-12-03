@@ -14,10 +14,10 @@ config :logger, level: :warn
 # Configure your database
 config :vutuv, Vutuv.Repo,
   adapter: Ecto.Adapters.MySQL,
-  username: "root",
-  password: "",
-  database: "vutuv_test",
-  hostname: "localhost",
+  username: System.get_env("DB_USER"),
+  password: System.get_env("DB_PASSWORD"),
+  database: System.get_env("DB_DATABASE"),
+  hostname: System.get_env("DB_HOST"),
   pool: Ecto.Adapters.SQL.Sandbox
 
 config :vutuv, Vutuv.Mailer,

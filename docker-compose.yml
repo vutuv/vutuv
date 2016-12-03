@@ -1,0 +1,31 @@
+version: '2'
+services:
+    app:
+        build: .
+        image: vutuv
+        environment:
+        - MIX_ENV=dev
+        - DB_PORT=3306
+        - DB_HOST=mysql
+        - DB_USER=dev
+        - DB_PASSWORD=dev
+        - DB_DATABASE=dev
+        volumes: # bind source files to the container
+        - ./config:/app/config
+        - ./web:/app/web
+        - ./lib:/app/lib
+        - ./test:/app/test
+        ports:
+        - "4000:4000"
+        links:
+        - db:mysql
+
+    db:
+        image: mariadb:10
+        environment:
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=dev
+        - MYSQL_USER=dev
+        - MYSQL_PASSWORD=dev
+        ports:
+        - "3306:3306"

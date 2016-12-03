@@ -39,10 +39,10 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :vutuv, Vutuv.Repo,
   adapter: Ecto.Adapters.MySQL,
-  username: "root",
-  password: "",
-  database: "vutuv_dev",
-  hostname: "localhost",
+  username: System.get_env("DB_USER"),
+  password: System.get_env("DB_PASSWORD"),
+  database: System.get_env("DB_DATABASE"),
+  hostname: System.get_env("DB_HOST"),
   pool_size: 10
 
 # Bamboo Email
