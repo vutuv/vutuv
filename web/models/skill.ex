@@ -28,6 +28,7 @@ defmodule Vutuv.Skill do
     model
     |> cast(params, @required_fields++@optional_fields)
     |> validate_required([:name])
+    |> validate_length(:name, max: 45)
     |> put_downcase_if_name_changed
     |> unique_constraint(:downcase_name)
   end
