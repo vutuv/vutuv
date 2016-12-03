@@ -14,20 +14,18 @@
     <span class="job__organization"><%= job.organization %></span>
     <span class="job__date">
       <%= if(Vutuv.WorkExperience.has_start_date? job) do %>
-      <%= if job.start_month do %>
-        <%= "#{job.start_month}/#{job.start_year} -" %>
-      <%= else %>
-        <%= "#{job.start_year} -" %>
-      <%= end %>
+        <%= if job.start_month do %>
+          <%= "#{job.start_month}/" %>
+        <%= end %>
+        <%= "#{job.start_year} - " %>
       <% end %>
       <%= if(Vutuv.WorkExperience.has_end_date? job) do %>
-      <%= if job.end_month do %>
-        <%= "#{job.end_month}/#{job.end_year}" %>
-      <%= else %>
+        <%= if job.end_month do %>
+          <%= "#{job.end_month}/" %>
+        <%= end %>
         <%= "#{job.end_year}" %>
-      <%= end %>
       <% else %>
-      Present
+        Present
       <% end %>
     </span>
   </li>
