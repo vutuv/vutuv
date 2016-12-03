@@ -8,7 +8,7 @@
     <% end %>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title><%= if @conn.assigns[:user], do: "#{full_name(@conn.assigns[:user])} || #{gettext("vutuv profile")}", else: "vutuv" %></title>
+        <title><%= if @conn.assigns[:user], do: "#{full_name(@conn.assigns[:user])} - vutuv", else: "vutuv" %></title>
         <%= if @conn.assigns[:user] do %>
         <meta name="description" content="<%= user_content_description(@user, @conn.assigns[:user_skills]) %>">
         <% else %>
