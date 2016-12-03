@@ -18,7 +18,7 @@ defmodule Vutuv.WorkExperienceView do
       {month, year} when is_integer(month) and is_integer(year) ->
         [Integer.to_string(month),'/',Integer.to_string(year)]
       _ ->
-        "present"
+        gettext("Present")
     end
   end
 

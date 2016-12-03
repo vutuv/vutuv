@@ -1202,7 +1202,11 @@ msgstr "Eine Fähigkeit darf nicht mehr als 45 Buchstaben lang sein."
 msgid "Enter a single skill (e.g. skating)"
 msgstr "Einzelne Fähigkeit (z.B. Schlittschuhlaufen)"
 
-#, fuzzy
 #: web/templates/user/show.html.eex:82
 msgid "Enter comma separated skills here. Max length per skill: 45 charaters"
 msgstr "Bitte mit Komma separieren. Maximale Länge pro Fähigkeit: 45 Buchstaben."
+
+#, fuzzy
+#: web/views/work_experience_view.ex:21
+msgid "Present"
+msgstr "Heute"
