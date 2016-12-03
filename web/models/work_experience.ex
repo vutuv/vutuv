@@ -40,8 +40,8 @@ defmodule Vutuv.WorkExperience do
     start_month = get_field(changeset, :start_month)
     start_year = get_field(changeset, :start_year)
 
-    changeset =  
-      if(!presence_correct?(start_year, start_month), 
+    changeset =
+      if(!presence_correct?(start_year, start_month),
       do: add_error(changeset, :start_year, "If month is present, year must be present."),
       else: changeset)
     changeset =
@@ -80,12 +80,6 @@ defmodule Vutuv.WorkExperience do
       true
     end
   end
-
-  def has_start_date?(%__MODULE__{start_year: nil}), do: false
-  def has_start_date?(%__MODULE__{start_year: _}), do: true
-
-  def has_end_date?(%__MODULE__{end_year: nil}), do: false
-  def has_end_date?(%__MODULE__{end_year: _}), do: true
 
   def order_by_date(query) do
     query
