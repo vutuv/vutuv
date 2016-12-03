@@ -238,10 +238,6 @@ msgstr ""
 msgid "English"
 msgstr ""
 
-#: web/templates/user/show.html.eex:82
-msgid "Enter comma separated skills here"
-msgstr ""
-
 #: web/templates/page/index.html.eex:40 web/templates/session/new.html.eex:19
 msgid "Enter your email address"
 msgstr ""
@@ -1205,4 +1201,8 @@ msgstr ""
 
 #: web/templates/user_skill/form.html.eex:4
 msgid "Enter a single skill (e.g. skating)"
+msgstr ""
+
+#: web/templates/user/show.html.eex:82
+msgid "Enter comma separated skills here. Max length per skill: 45 charaters"
 msgstr ""
