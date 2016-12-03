@@ -52,7 +52,7 @@ msgstr ""
 #: web/templates/user/show.html.eex:172 web/templates/user/show.html.eex:228
 #: web/templates/user/show.html.eex:248 web/templates/user/show.html.eex:268
 #: web/templates/user/show.html.eex:288
-#: web/templates/user_skill/form.html.eex:10
+#: web/templates/user_skill/form.html.eex:12
 #: web/templates/user_skill/index.html.eex:25
 #: web/templates/work_experience/index.html.eex:25
 msgid "Add"
@@ -120,7 +120,7 @@ msgstr ""
 #: web/templates/slug/form.html.eex:15
 #: web/templates/social_media_account/form.html.eex:22
 #: web/templates/url/form.html.eex:21 web/templates/user/form.html.eex:102
-#: web/templates/user_skill/form.html.eex:9
+#: web/templates/user_skill/form.html.eex:11
 #: web/templates/work_experience/form.html.eex:57
 msgid "Cancel"
 msgstr ""
@@ -149,7 +149,7 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: web/controllers/user_controller.ex:240
+#: web/controllers/user_controller.ex:235
 msgid "Couldn't follow back to %{name}."
 msgstr ""
 
@@ -235,10 +235,6 @@ msgstr ""
 
 #: web/templates/user/form.html.eex:80
 msgid "English"
-msgstr ""
-
-#: web/templates/user/show.html.eex:82
-msgid "Enter comma separated skills here"
 msgstr ""
 
 #: web/templates/page/index.html.eex:40 web/templates/session/new.html.eex:19
@@ -674,7 +670,7 @@ msgstr ""
 msgid "Slug doesn't exist."
 msgstr ""
 
-#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:157
+#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:152
 msgid "Slug updated successfully."
 msgstr ""
 
@@ -769,11 +765,11 @@ msgstr ""
 msgid "User %{name} created successfully. An email has been sent with your login link."
 msgstr ""
 
-#: web/controllers/user_controller.ex:174
+#: web/controllers/user_controller.ex:169
 msgid "User deleted successfully."
 msgstr ""
 
-#: web/controllers/user_controller.ex:134
+#: web/controllers/user_controller.ex:129
 msgid "User updated successfully."
 msgstr ""
 
@@ -861,15 +857,15 @@ msgstr ""
 msgid "Work Experiences"
 msgstr ""
 
-#: web/controllers/work_experience_controller.ex:36
+#: web/controllers/work_experience_controller.ex:32
 msgid "Work experience created successfully."
 msgstr ""
 
-#: web/controllers/work_experience_controller.ex:83
+#: web/controllers/work_experience_controller.ex:79
 msgid "Work experience deleted successfully."
 msgstr ""
 
-#: web/controllers/work_experience_controller.ex:67
+#: web/controllers/work_experience_controller.ex:63
 msgid "Work experience updated successfully."
 msgstr ""
 
@@ -885,14 +881,14 @@ msgstr ""
 msgid "You don't have any followers yet! If you want more followers, you could follow others, invite your friends, or link your Vutuv profile on other social media websites."
 msgstr ""
 
-#: web/controllers/user_controller.ex:236
+#: web/controllers/user_controller.ex:231
 msgid "You follow back %{name}."
 msgstr ""
 
 #: web/controllers/admin/admin_controller.ex:18
 #: web/controllers/admin/slug_controller.ex:52
 #: web/controllers/admin/user_controller.ex:28
-#: web/controllers/user_controller.ex:250
+#: web/controllers/user_controller.ex:245
 msgid "You must be logged in to access that page"
 msgstr ""
 
@@ -920,11 +916,11 @@ msgstr ""
 msgid "upvotes"
 msgstr ""
 
-#: web/controllers/user_controller.ex:220
+#: web/controllers/user_controller.ex:215
 msgid "Successfully added %{successes} skills with %{failures} failures."
 msgstr ""
 
-#: web/controllers/user_controller.ex:188
+#: web/controllers/user_controller.ex:183
 msgid "An email has been sent to your email address with instructions on how to delete your account."
 msgstr ""
 
@@ -1048,10 +1044,6 @@ msgstr ""
 msgid "Choose a gender"
 msgstr ""
 
-#: web/templates/layout/app.html.eex:11
-msgid "vutuv profile"
-msgstr ""
-
 #: lib/vutuv/emailer.ex:20
 msgid "Confirm your account deletion"
 msgstr ""
@@ -1107,15 +1099,15 @@ msgstr ""
 msgid "All Skills"
 msgstr ""
 
-#: web/controllers/admin/skill_controller.ex:66
+#: web/controllers/admin/skill_controller.ex:77
 msgid "Conversion to synonym failed"
 msgstr ""
 
-#: web/controllers/admin/skill_controller.ex:90
+#: web/controllers/admin/skill_controller.ex:101
 msgid "Deletion Failed"
 msgstr ""
 
-#: web/controllers/admin/skill_controller.ex:89
+#: web/controllers/admin/skill_controller.ex:100
 msgid "Deletion Succeeded"
 msgstr ""
 
@@ -1149,7 +1141,7 @@ msgstr ""
 msgid "No synonyms"
 msgstr ""
 
-#: web/controllers/admin/skill_controller.ex:55
+#: web/controllers/admin/skill_controller.ex:66
 msgid "Skill does not exist"
 msgstr ""
 
@@ -1162,15 +1154,15 @@ msgstr ""
 msgid "Skills Without Synonyms"
 msgstr ""
 
-#: web/controllers/admin/skill_controller.ex:62
+#: web/controllers/admin/skill_controller.ex:73
 msgid "Succeeded in conversion to synonym"
 msgstr ""
 
-#: web/controllers/admin/skill_controller.ex:79
+#: web/controllers/admin/skill_controller.ex:90
 msgid "Synonym Added Successfully"
 msgstr ""
 
-#: web/controllers/admin/skill_controller.ex:80
+#: web/controllers/admin/skill_controller.ex:91
 msgid "Synonym Added Unsuccessfully. This usually means it already exists."
 msgstr ""
 
@@ -1190,15 +1182,31 @@ msgstr ""
 msgid "To quickly validate, click the \"Easy Validate\" button above."
 msgstr ""
 
-#: web/controllers/admin/skill_controller.ex:45
+#: web/controllers/admin/skill_controller.ex:56
 msgid "Validation Failed"
 msgstr ""
 
-#: web/controllers/admin/skill_controller.ex:44
+#: web/controllers/admin/skill_controller.ex:55
 msgid "Validation Succeeded"
 msgstr ""
 
-#, fuzzy
 #: web/templates/layout/app.html.eex:15
 msgid "Your Fast and Free Career Network. No expensive premium accounts! Get a free account in 30 seconds."
+msgstr ""
+
+#: web/templates/user_skill/form.html.eex:8
+msgid "The max length of a skill is 45 characters."
+msgstr ""
+
+#: web/templates/user_skill/form.html.eex:4
+msgid "Enter a single skill (e.g. skating)"
+msgstr ""
+
+#: web/templates/user/show.html.eex:82
+msgid "Enter comma separated skills here. Max length per skill: 45 charaters"
+msgstr ""
+
+#, fuzzy
+#: web/views/work_experience_view.ex:21
+msgid "Present"
 msgstr ""
