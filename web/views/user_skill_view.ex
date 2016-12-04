@@ -3,15 +3,16 @@ defmodule Vutuv.UserSkillView do
   import Vutuv.UserHelpers
   alias Vutuv.Skill
 
-  def render_upvotes(number) do
-    case {number} do
-      {1} ->
-        ['1 ', Vutuv.Gettext.gettext("upvote")]
-      {number} when is_integer(number) ->
-        [Integer.to_string(number), ' ', Vutuv.Gettext.gettext("upvotes")]
-      _ ->
-        []
-    end
+  def render_upvotes(0) do
+    []
+  end
+
+  def render_upvotes(1) do
+    ['1 ', Vutuv.Gettext.gettext("upvote")]
+  end
+
+  def render_upvotes(number) when is_integer(number) do
+    [Integer.to_string(number), ' ', Vutuv.Gettext.gettext("upvotes")]
   end
 
 end
