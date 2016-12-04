@@ -4,11 +4,14 @@
       <span style="max-width: 85%; word-wrap: break-word;">
         <%= link Skill.resolve_name(skill.skill_id), to: user_user_skill_path(@conn, :show, @user, skill) %>
         <em>
-          <%= if Enum.count(skill.endorsements) == 1 do %> 
+          <%= if Enum.count(skill.endorsements) == 1 do %>
           <%= Enum.count(skill.endorsements) %> <%= gettext "upvote" %>
           <% end %>
-          <%= if Enum.count(skill.endorsements) > 1 do %> 
+          <%= if Enum.count(skill.endorsements) > 1 do %>
           <%= Enum.count(skill.endorsements) %> <%= gettext "upvotes" %>
+          <% end %>
+          <%= if Skill.resolve_url(skill.skill_id) != [nil] do %>
+            -> <a href="<%= Skill.resolve_url(skill.skill_id) %>"><%= Skill.resolve_url(skill.skill_id) %></a>
           <% end %>
         </em>
       </span>
