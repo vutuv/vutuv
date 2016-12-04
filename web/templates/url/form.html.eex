@@ -13,7 +13,7 @@
 
   <div class="editform__field<%= if error_tag(f, :description), do: " editform__field--error"%>">
     <%= label f, :description, gettext("Description") %>
-    <%= text_input f, :description%>
+    <%= text_input f, :description, placeholder: gettext("Homepage")%>
     <%= error_tag f, :description %>
   </div>
 
