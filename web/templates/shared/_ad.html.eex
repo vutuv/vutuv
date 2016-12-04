@@ -1,6 +1,7 @@
 <section class="ad">
   <label><%= gettext("Ad") %></label>
-  <h1>Urlaubsplaner online</h1>
-  <p>Mit dem timetape Urlaubsplaner organisieren Sie Urlaubsanträge und Abwesenheiten online. Einfach, sicher und zuverlässig. Testen Sie uns.</p>
-  <a href="https://www.timetape.de/?pref=swu4urcn6t">https://www.timetape.de</a>
+  <h1>Fire HD 6 ab nur 74,99 €</h1>
+  <a href="http://amzn.to/2h7ok45"><img src="http://ecx.images-amazon.com/images/I/51E57Lu22SL._SL110_.jpg" align="right" width="55" height="55" border="0" alt=""/></a>
+  <p>15,2 cm (6 Zoll), HD-Display. 30 € Rabatt auf Fire HD 6 (Limone)</p>
+  <a href="http://amzn.to/2h7ok45">amazon.de</a>
 </section>
