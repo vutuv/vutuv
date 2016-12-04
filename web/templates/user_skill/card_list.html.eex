@@ -4,12 +4,7 @@
       <span style="max-width: 85%; word-wrap: break-word;">
         <%= link Skill.resolve_name(user_skill.skill_id), to: user_user_skill_path(@conn, :show, @user, user_skill) %>
         <em>
-          <%= if Enum.count(user_skill.endorsements) == 1 do %>
-          <%= Enum.count(user_skill.endorsements) %> <%= gettext "upvote" %>
-          <% end %>
-          <%= if Enum.count(user_skill.endorsements) > 1 do %>
-          <%= Enum.count(user_skill.endorsements) %> <%= gettext "upvotes" %>
-          <% end %>
+          <%= render_upvotes(Enum.count(user_skill.endorsements)) %>
         </em>
       </span>
       <div class="button button--icon button-list">
