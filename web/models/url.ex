@@ -19,8 +19,8 @@ defmodule Vutuv.Url do
     model
     |> cast(params, [:value, :description])
     |> validate_required([:value])
+    |> validate_length(:description, max: 45)
     |> ensure_http_prefix
-    #|> validate_format(:value, ~r/^http(s)?:\/\/([a-z0-9\-]+\.)?[a-z0-9\-]+.[a-z]+$/u)
   end
 
   defp ensure_http_prefix(changeset) do

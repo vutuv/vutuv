@@ -910,11 +910,11 @@ msgstr "unserem Blog"
 
 #: web/templates/user_skill/card_list.html.eex:8
 msgid "upvote"
-msgstr "Upvote"
+msgstr "Positive Bewertung"
 
 #: web/templates/user_skill/card_list.html.eex:11
 msgid "upvotes"
-msgstr "Upvotes"
+msgstr "Positive Bewertungen"
 
 #: web/controllers/user_controller.ex:215
 msgid "Successfully added %{successes} skills with %{failures} failures."

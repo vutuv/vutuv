@@ -8,7 +8,7 @@
 <%= render Vutuv.LayoutView, "flash.html", assigns %>
 <div class="breadcrumbs">
   <%= gen_breadcrumbs([
-    gettext("Users"), 
+    gettext("Users"),
     {full_name(@user), user_path(@conn, :show, @user)},
     {gettext("Links"), user_url_path(@conn, :index, @user)},
     gettext("More Info")]) %>
@@ -27,10 +27,10 @@
     </div>
     <% end %>
 
-    <h1><%= gettext("Description") %></h1>
-    <p><%= @url.description %></p>
     <h1><%= gettext("URL") %></h1>
     <p><%= link @url.value, to: @url.value %></p>
+    <h1><%= gettext("Description") %></h1>
+    <p><%= @url.description %></p>
   </section>
 
   <aside>
