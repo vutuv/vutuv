@@ -32,12 +32,7 @@
     <p><%= @work_experience.organization %></p>
     <h1><%= gettext("Time Period") %></h1>
     <p>
-      <%= "#{@work_experience.start_month}/#{@work_experience.start_year}" %>
-      <%= if(Vutuv.WorkExperience.has_end_date? @work_experience) do %>
-      <%= "- #{@work_experience.end_month}/#{@work_experience.end_year}" %>
-      <% else %>
-      - Present
-      <% end %>
+      <%= format_duration(@work_experience.start_month, @work_experience.start_year, @work_experience.end_month, @work_experience.end_year) %>
     </p>
   </section>
 

@@ -1,29 +1,29 @@
 <table>
   <thead>
     <tr>
-      <th><%= gettext "Description" %></th>
       <th><%= gettext "URL" %></th>
-      <th></th>
+      <th><%= gettext "Description" %></th>
+      <%= if same_user?(@user, @current_user) do %>
+        <th></th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
     <%= for url <- @urls do %>
-      <tr>
+    <tr>
+      <td><%= link url.value, to: url.value %></td>
+      <td><%= link url.description, to: user_url_path(@conn, :show, @user, url) %></td>
+      <%= if same_user?(@user, @current_user) do %>
         <td>
-          <%= link url.description, to: user_url_path(@conn, :show, @user, url) %>
-        </td>
-        <td><%= link url.value, to: url.value %></td>
-        <td>
-          <%= if same_user?(@user, @current_user) do %>
-            <%= link to: user_url_path(@conn, :edit, @user, url), class: "button button--icon button--small" do %>
-              <i class="icon icon--edit"></i>
-            <% end %>
-            <%= button to: user_url_path(@conn, :delete, @user, url), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
-              <i class="icon icon--delete"></i>
-            <% end %>
+        <%= link to: user_url_path(@conn, :edit, @user, url), class: "button button--icon button--small" do %>
+          <i class="icon icon--edit"></i>
           <% end %>
+          <%= button to: user_url_path(@conn, :delete, @user, url), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
+          <i class="icon icon--delete"></i>
+        <% end %>
         </td>
-      </tr>
+      <% end %>
+    </tr>
     <% end %>
   </tbody>
 </table>
