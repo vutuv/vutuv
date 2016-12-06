@@ -12,7 +12,7 @@ defmodule Vutuv.SocialMediaAccount do
   @required_fields ~w(provider value)
   @optional_fields ~w()
 
-  @accepted_providers ~w(Facebook Twitter Instagram Youtube Snapchat LinkedIn XING Google+)
+  @accepted_providers ~w(Facebook Twitter Google+ Instagram Youtube Snapchat LinkedIn XING)
 
   base_urls = [
     {"Facebook" , "http://facebook.com/"},
@@ -26,7 +26,7 @@ defmodule Vutuv.SocialMediaAccount do
   ]
 
   display_rules = [
-    {"Facebook" , "facebook.com/"},
+    {"Facebook" , ""},
     {"Twitter" , "@"},
     {"Google+", ""},
     {"Instagram" , "@"},
