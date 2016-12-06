@@ -1,6 +1,8 @@
 defmodule Vutuv.Url do
   use Vutuv.Web, :model
 
+  import Vutuv.Gettext
+
   schema "urls" do
     field :value, :string
     field :description, :string
@@ -30,12 +32,12 @@ defmodule Vutuv.Url do
     if url do
       uri = URI.parse(url)
       case uri do
-        %URI{scheme: nil} -> add_error(changeset, :value, "invalid url")
-        %URI{host: nil, path: nil} -> add_error(changeset, :value, "invalid url")
+        %URI{scheme: nil} -> add_error(changeset, :value, gettext("Invalid URL"))
+        %URI{host: nil, path: nil} -> add_error(changeset, :value, gettext("Invalid URL"))
         _ ->
           case to_char_list(uri.host) |> :inet.gethostbyname do
             {:ok, _res} -> changeset
-            _ -> add_error(changeset, :value, "can't resolve url")
+            _ -> add_error(changeset, :value, gettext("Can't find URL"))
           end
       end
     else

@@ -164,8 +164,8 @@ msgstr ""
 #: web/templates/address/card_list.html.eex:4
 #: web/templates/admin/skill/form.html.eex:24
 #: web/templates/admin/skill/show.html.eex:35
-#: web/templates/skill/show.html.eex:25 web/templates/url/card_list.html.eex:4
-#: web/templates/url/form.html.eex:15 web/templates/url/show.html.eex:30
+#: web/templates/skill/show.html.eex:25 web/templates/url/card_list.html.eex:5
+#: web/templates/url/form.html.eex:15 web/templates/url/show.html.eex:32
 #: web/templates/user_skill/show.html.eex:29
 #: web/templates/work_experience/form.html.eex:21
 msgid "Description"
@@ -366,11 +366,11 @@ msgstr ""
 msgid "Link created successfully."
 msgstr ""
 
-#: web/controllers/url_controller.ex:68
+#: web/controllers/url_controller.ex:72
 msgid "Link deleted successfully."
 msgstr ""
 
-#: web/controllers/url_controller.ex:54
+#: web/controllers/url_controller.ex:56
 msgid "Link updated successfully."
 msgstr ""
 
@@ -748,8 +748,8 @@ msgstr ""
 msgid "Type of Number"
 msgstr ""
 
-#: web/templates/url/card_list.html.eex:5 web/templates/url/form.html.eex:9
-#: web/templates/url/show.html.eex:32
+#: web/templates/url/card_list.html.eex:4 web/templates/url/form.html.eex:9
+#: web/templates/url/show.html.eex:30
 msgid "URL"
 msgstr ""
 
@@ -908,11 +908,11 @@ msgstr ""
 msgid "our blog"
 msgstr ""
 
-#: web/templates/user_skill/card_list.html.eex:8
+#: web/views/user_skill_view.ex:11
 msgid "upvote"
 msgstr ""
 
-#: web/templates/user_skill/card_list.html.eex:11
+#: web/views/user_skill_view.ex:15
 msgid "upvotes"
 msgstr ""
 
@@ -1206,7 +1206,18 @@ msgstr ""
 msgid "Enter comma separated skills here. Max length per skill: 45 charaters"
 msgstr ""
 
-#, fuzzy
 #: web/views/work_experience_view.ex:21
 msgid "Present"
+msgstr ""
+
+#: web/templates/url/form.html.eex:16
+msgid "Homepage"
+msgstr ""
+
+#: web/models/url.ex:35 web/models/url.ex:36
+msgid "Invalid URL"
+msgstr ""
+
+#: web/models/url.ex:40
+msgid "Can't find URL"
 msgstr ""
