@@ -16,7 +16,6 @@ defmodule Vutuv.Admin.SkillController do
     unvalidated_skills_count = 
       from(subquery(query), select: count("*"))
       |> Repo.one
-    IO.puts "\n\n#{inspect unvalidated_skills_count}\n\n"
     unvalidated_skills = 
       query
       |> Vutuv.Pages.paginate(conn.params, unvalidated_skills_count)
@@ -104,7 +103,7 @@ defmodule Vutuv.Admin.SkillController do
   end
 
   defp resolve_slug(%{params: %{"slug" => slug}} = conn, _params) do
-    Repo.one(from s in Skill, where: s.downcase_name == ^slug)
+    Repo.one(from s in Skill, where: s.slug == ^slug)
     |> case do
       nil ->
         conn
