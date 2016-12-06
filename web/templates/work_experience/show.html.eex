@@ -21,7 +21,7 @@
       <%= link to: user_work_experience_path(@conn, :edit, @user, @work_experience), class: "button button-link button--icon button--small" do %>
         <i class="icon icon--edit"></i>
       <% end %>
-      <%= button to: user_work_experience_path(@conn, :delete, @user, @work_experience), class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
+      <%= button to: user_work_experience_path(@conn, :delete, @user, @work_experience), method: :delete, class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
         <i class="icon icon--delete"></i>
       <% end %>
     </div>
