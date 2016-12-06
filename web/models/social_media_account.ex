@@ -12,22 +12,28 @@ defmodule Vutuv.SocialMediaAccount do
   @required_fields ~w(provider value)
   @optional_fields ~w()
 
-  @accepted_providers ~w(Facebook Twitter Instagram Youtube Snapchat)
+  @accepted_providers ~w(Facebook Twitter Google+ Instagram Youtube Snapchat LinkedIn XING)
 
   base_urls = [
     {"Facebook" , "http://facebook.com/"},
     {"Twitter" , "http://twitter.com/"},
+    {"Google+", "https://plus.google.com/+"},
     {"Instagram" , "http://instagram.com/"},
     {"Youtube" , "http://youtube.com/channel/"},
-    {"Snapchat" , nil}
+    {"Snapchat" , nil},
+    {"LinkedIn", "https://www.linkedin.com/in/"},
+    {"XING", "https://www.xing.com/profile/"}
   ]
 
   display_rules = [
-    {"Facebook" , "facebook.com/"},
+    {"Facebook" , ""},
     {"Twitter" , "@"},
+    {"Google+", ""},
     {"Instagram" , "@"},
     {"Youtube" , ""},
-    {"Snapchat" , ""}
+    {"Snapchat" , ""},
+    {"LinkedIn", ""},
+    {"XING", ""}
   ]
 
   @doc """
@@ -68,14 +74,14 @@ defmodule Vutuv.SocialMediaAccount do
   for url <- base_urls do #This generates special url rule matches
     case url do
     {provider, nil} -> def social_media_link(%__MODULE__{provider: unquote(provider), value: value}), do: value
-    {provider, url} -> 
+    {provider, url} ->
       def social_media_link(%__MODULE__{provider: unquote(provider), value: value} = account) do
         Phoenix.HTML.Link.link get_display(account), to: unquote(url)<>value
       end
     end
   end
 
-  def social_media_link(_), do: ""  
+  def social_media_link(_), do: ""
 
   # defp unique_constraint_error(%{"value" => value}) do
   #   unique_constraint_error(%{value: value})

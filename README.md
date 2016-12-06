@@ -85,3 +85,20 @@ To view the admin control panel, you'll need to flag your account as an admin. T
 replacing `<user_id>` with your user id.
 
 You can then view the admin control panel at http://localhost:4000/admin
+
+# Sponsors
+
+We are glad to have some sponsors which help us to run https://www.vutuv.de
+
+- [Github](https://github.com)
+  They host our git repository for free.
+- [Travis CI](BrowserStack)
+  They don't charge us for using their service.
+- [Ghost Inspector](https://ghostinspector.com)
+  They sponsor us with 1,000 test runs per month and access to premium features.
+- [tiny png](https://tinypng.com)
+  They initially sponsored us with 20,000 free hits to their image API.
+- [BrowserStack](https://www.browserstack.com)
+  They don't charge us for using their screenshot API.
+
+In total those companies sponsor us with more than 500 USD every month. Thank you!
