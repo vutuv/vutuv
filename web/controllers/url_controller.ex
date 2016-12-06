@@ -30,7 +30,9 @@ defmodule Vutuv.UrlController do
         |> put_flash(:info, gettext("Link created successfully."))
         |> redirect(to: user_url_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        conn
+        |> put_status(:bad_request)
+        |> render("new.html", changeset: changeset)
     end
   end
 
@@ -54,7 +56,9 @@ defmodule Vutuv.UrlController do
         |> put_flash(:info, gettext("Link updated successfully."))
         |> redirect(to: user_url_path(conn, :show, conn.assigns[:user], url))
       {:error, changeset} ->
-        render(conn, "edit.html", url: url, changeset: changeset)
+        conn
+        |> put_status(:bad_request)
+        |> render("edit.html", url: url, changeset: changeset)
     end
   end
 
@@ -62,7 +66,7 @@ defmodule Vutuv.UrlController do
     url = Repo.get!(assoc(conn.assigns[:user], :urls), id)
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
-    
+
     Repo.delete!(url)
     conn
     |> put_flash(:info, gettext("Link deleted successfully."))
