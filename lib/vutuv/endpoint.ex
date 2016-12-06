@@ -33,7 +33,8 @@ defmodule Vutuv.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_vutuv_key",
-    signing_salt: "UOTk6kQ0"
+    signing_salt: "UOTk6kQ0",
+    max_age: 7776000
     
   plug Vutuv.Router
 end
