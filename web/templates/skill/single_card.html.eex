@@ -10,9 +10,6 @@
 	<%= if(@skill.description) do %>
 	<h1><%= gettext("Description") %></h1>
 	<p><%= @skill.description %></p>
-	<% else %>
-	<h1><%= gettext("Nothing to see here!") %></h1>
-	<p><%= gettext("This skill doesnt have a description yet. We will be adding the ability to submit descriptions soon.") %></p>
 	<% end %>
 	<%= if Enum.count(@related_users) > 0 do %>
 		<h1><%= gettext("People you may know with this skill") %></h1>

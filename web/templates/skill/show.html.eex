@@ -1,7 +1,7 @@
 <%# header tag begins in parent template %>
   <div class="profile-header">
     <div class="profile-header__info">
-      <h1>About <%= @skill.name %></h1>
+      <h1><%= @skill.name %></h1>
     </div>
   </div>
 </header>
