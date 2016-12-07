@@ -1,6 +1,7 @@
 defmodule Vutuv.Search do
 	import Ecto.Query
   alias Vutuv.SearchTerm
+  alias Vutuv.SearchQueryResult
   alias Vutuv.User
   alias Vutuv.Repo
 
@@ -9,18 +10,29 @@ defmodule Vutuv.Search do
     value = String.downcase(value)
     cologne_fuzzy_value = phoneticize_search_value(value, :cologne)
     soundex_fuzzy_value = phoneticize_search_value(value, :soundex)
-    for(term<- Repo.all(from t in SearchTerm, join: u in assoc(t, :user), where: (is_nil(u.validated?) or u.validated? == true) and (^value == t.value or ^cologne_fuzzy_value == t.value or ^soundex_fuzzy_value == t.value))) do
-      %{score: term.score, user_id: term.user_id}
+    for(term<- Repo.all(from t in SearchTerm, left_join: u in assoc(t, :user),
+      where: ((is_nil(u.validated?) or u.validated? == true))
+      and (like(t.value, ^("#{value}%")) or ^cologne_fuzzy_value == t.value or ^soundex_fuzzy_value == t.value))) do
+      %{score: term.score, 
+        result: %SearchQueryResult{
+          user_id: term.user_id,
+          skill_id: term.skill_id}}
     end
     |> Enum.sort(&(&1.score> &2.score)) #Sorts by score
-    |> Enum.uniq_by(&(&1.user_id)) #Filters duplicates
-    |> Enum.map(&(Repo.get!(User, &1.user_id))) #Maps to flat list of users
+    |> Enum.uniq_by(&(&1.result)) #Filters duplicates
+    |> Enum.map(&(&1.result)) #Maps to flat list of users
   end
 
   #Searches for user that matches email
   def search(value, true) do
     value = String.downcase(value)
     Repo.all(from u in User, join: e in assoc(u, :emails), where: (is_nil(u.validated?) or u.validated? == true) and ^value == e.value)
+    |> Enum.uniq_by(&(&1.id)) #Filters duplicates
+  end
+
+  def skills_search(value) do
+    value = String.downcase(value)
+    Repo.all(from u in Skill, where: like(u.downcase_name, ^("#{value}%")))
     |> Enum.uniq_by(&(&1.id)) #Filters duplicates
   end
 

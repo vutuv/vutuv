@@ -22,35 +22,12 @@ defmodule Vutuv.SearchQueryController do
     render(conn, "new.html", conn: conn, changeset: changeset)
   end
 
-  def show(conn, %{"id" => query_id}) do
-    empty_changeset = SearchQuery.changeset(%SearchQuery{})
-    Repo.one(from q in SearchQuery, where: q.value == ^query_id)
-    |> case do #if query is nil, it doesn't yet exist, so create it.
-      nil -> create(conn, %{"search_query" => %{"value" => query_id}})
-      query ->
-        changeset = 
-          query
-          |> Repo.preload([:search_query_results, :search_query_requesters])
-          |> SearchQuery.changeset
-        query = Repo.preload(query, [:search_query_results])
-        results = 
-          for(result <- query.search_query_results) do
-            Repo.get(User, result.user_id)
-          end
-        render(conn, "new.html", query: query, results: results, changeset: empty_changeset)
-    end
-  end
-
   def create(conn, %{"search_query" => search_query_params}) do
     user = conn.assigns[:current_user]
     search_query_params = Map.put(search_query_params, "is_email?", validate_email(search_query_params["value"]))
     results = search search_query_params["value"], search_query_params["is_email?"]
-    results_assocs = #build assocs from results
-      for(user <- results) do
-        Ecto.build_assoc(user, :search_query_results)
-      end
     Repo.one(from q in SearchQuery, where: q.value == ^search_query_params["value"])
-    |> insert_or_update(search_query_params, requester_assoc(user), results_assocs)
+    |> insert_or_update(search_query_params, requester_assoc(user), results)
     |> case do #Multiple possible transaction results are covered by 4 different cases
       {:ok, %{search_query: query, search_query_requester: _search_query_requester}} ->
         conn
@@ -66,6 +43,23 @@ defmodule Vutuv.SearchQueryController do
         render(conn, "new.html", changeset: changeset)
     end
   end 
+
+  def show(conn, %{"id" => query_id}) do
+    empty_changeset = SearchQuery.changeset(%SearchQuery{})
+    Repo.one(from q in SearchQuery, where: q.value == ^query_id)
+    |> case do #if query is nil, it doesn't yet exist, so create it.
+      nil -> create(conn, %{"search_query" => %{"value" => query_id}})
+      query ->
+        changeset = 
+          query
+          |> Repo.preload([:search_query_results, :search_query_requesters])
+          |> SearchQuery.changeset
+        query = Repo.preload(query, [:search_query_results, :user_results, :skill_results])
+        conn
+        |> Map.put(:params, Map.put_new(conn.params, "skills", "#{Enum.count(query.user_results) < Enum.count(query.skill_results)}"))
+        |> render("new.html", query: query, user_results: query.user_results, skill_results: query.skill_results, changeset: empty_changeset)
+    end
+  end
 
   defp validate_email(nil), do: false
 

@@ -2,15 +2,36 @@
   <%= render "form.html", conn: @conn, changeset: @changeset,
                             action: search_query_path(@conn, :create) %>
 </header>
+<div class="breadcrumbs">
+	<%= if(@conn.assigns[:query]) do %>
+  <%= gen_breadcrumbs([
+    {gettext("Search"), search_query_path(@conn, :new)},
+    gettext("Results")]) %>
+
+  <% else %>
+  <%= gen_breadcrumbs([
+    gettext("Search")]) %>
+  <% end %>
+</div>
 
 <div class="search-results card-list">
   <aside>
-    <%= render Vutuv.SharedView, "_ad.html" %>
+
+    <%= render Vutuv.SharedView, "_ad.html" %>	
   </aside>
-<%= if @conn.assigns[:results] do %>
+<%= if @conn.assigns[:user_results] do %>
   <section class="card card--simple">
-      
-    <%= render Vutuv.UserView, "card_list.html", conn: @conn, users: @results, current_user: @current_user, current_user_id: @current_user_id, work_string_length: 45 %>
+  <%= if(@conn.params["skills"] == "true") do %>
+	  <p style = "text-align: center;"><a href = "?skills=false">Show user results</a></p>
+	<% else %>
+	  <p style = "text-align: center;"><a href = "?skills=true">Show skill results</a></p>
+	<% end %>
+	
+	<%= if(@conn.params["skills"] == "true") do %>
+    <%= render Vutuv.SkillView, "card_list.html", conn: @conn, skills: @skill_results, current_user: @current_user, current_user_id: @current_user_id, work_string_length: 45 %>
+  <% else %>
+    <%= render Vutuv.UserView, "card_list.html", conn: @conn, users: @user_results, current_user: @current_user, current_user_id: @current_user_id, work_string_length: 45 %>
+  <% end %>
 
   </section>
 <% end %>
