@@ -55,17 +55,21 @@ defmodule Vutuv.UserController do
     total_numbers = count_user_assoc Vutuv.PhoneNumber, conn.assigns[:user]
     total_links = count_user_assoc Vutuv.Url, conn.assigns[:user]
     total_addresses = count_user_assoc Vutuv.Address, conn.assigns[:user]
+    total_user_skills = count_user_assoc Vutuv.UserSkill, conn.assigns[:user]
     job_limit = if total_jobs>5, do: 3, else: total_jobs
     number_limit = if total_numbers>5, do: 3, else: total_numbers
     link_limit = if total_links>5, do: 3, else: total_links
     address_limit = if total_addresses>5, do: 3, else: total_addresses
+    user_skill_limit = if total_user_skills>5, do: 4, else: total_user_skills
     user = 
       conn.assigns[:user]
       |> Repo.preload([
         :social_media_accounts,
         :followees,
         :followers,
-        user_skills: from(u in Vutuv.UserSkill, preload: [:endorsements]),
+        user_skills: from(u in Vutuv.UserSkill, left_join: e in assoc(u, :endorsements),
+          order_by: fragment("count(?) DESC", e.id), group_by: u.id, limit: ^user_skill_limit,
+          preload: [:endorsements]),
         followee_connections: {Connection.latest(3), [:followee]},
         follower_connections: {Connection.latest(3), [:follower]},
         phone_numbers: from(u in Vutuv.PhoneNumber, order_by: [desc: u.updated_at], limit: ^number_limit),
@@ -73,24 +77,19 @@ defmodule Vutuv.UserController do
         addresses: from(u in Vutuv.Address, order_by: [desc: u.updated_at], limit: ^address_limit),
         work_experiences: from(u in Vutuv.WorkExperience, limit: ^job_limit) |> Vutuv.WorkExperience.order_by_date
         ])
-    user_skills =
-      user.user_skills
-      |> Enum.sort(&(Enum.count(&1.endorsements)>Enum.count(&2.endorsements)))
-      |> Enum.slice(0..3)
+
     job = current_job(user)
     emails = Vutuv.UserHelpers.emails_for_display(user, conn.assigns[:current_user])
 
-    
-
     # Display an introduction message for new users
-    #
+    
     inserted_at = :calendar.datetime_to_gregorian_seconds(Ecto.DateTime.to_erl(user.inserted_at))
     now = :calendar.datetime_to_gregorian_seconds(:calendar.universal_time)
     display_welcome_message = now - inserted_at <= 600
 
     conn
     |> assign(:emails, emails)
-    |> assign(:user_skills, user_skills)
+    |> assign(:user_skills, user.user_skills)
     |> assign(:work_experience, user.work_experiences)
     |> assign(:follower_count, follower_count(user))
     |> assign(:followee_count, followee_count(user))
@@ -102,12 +101,13 @@ defmodule Vutuv.UserController do
     |> assign(:total_numbers, total_numbers)
     |> assign(:total_links, total_links)
     |> assign(:total_addresses, total_addresses)
+    |> assign(:total_user_skills, total_user_skills)
     |> assign(:display_welcome_message, display_welcome_message)
     |> render("show.html", conn: conn)
   end
 
   def count_user_assoc(schema, user) do
-    Repo.one(from a in schema, where: a.user_id== ^user.id, select: count("*"))
+    Repo.one(from a in schema, where: a.user_id == ^user.id, select: count("*"))
   end
 
   def edit(conn, _params) do

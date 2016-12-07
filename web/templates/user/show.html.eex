@@ -94,8 +94,8 @@
         <%= if same_user?(@user, @current_user) do %>
           <%= link gettext("Add"), to: user_user_skill_path(@conn, :new, @current_user) %>
         <% end %>
-        <%= if same_user?(@user, @current_user) and Enum.count(@user.user_skills) > 4 do %> | <% end %>
-        <%= if Enum.count(@user.user_skills) > 4 do %>
+        <%= if same_user?(@user, @current_user) and @total_user_skills > 4 do %> | <% end %>
+        <%= if @total_user_skills > 4 do %>
           <%= link gettext("View All"), to: user_user_skill_path(@conn, :index, @user)%></span>
         <% end %>
       </span>
