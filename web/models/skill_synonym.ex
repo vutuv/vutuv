@@ -3,7 +3,6 @@ defmodule Vutuv.SkillSynonym do
   alias Vutuv.Repo
   alias Vutuv.UserSkill
   alias Vutuv.Skill
-  alias Vutuv.User
 
   schema "skill_synonyms" do
     field :value, :string

@@ -38,7 +38,7 @@ defmodule Vutuv.Slug do
     get_change(changeset, :value)
     |> case do
       nil -> changeset
-      value -> update_change(changeset, :value, &slice_32/1)
+      _value -> update_change(changeset, :value, &slice_32/1)
     end
   end
 

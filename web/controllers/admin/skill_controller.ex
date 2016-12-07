@@ -45,7 +45,7 @@ defmodule Vutuv.Admin.SkillController do
     end
   end
 
-  def delete(conn, params) do
+  def delete(conn, _params) do
     conn.assigns[:skill]
     |> Repo.delete
     |> case do
@@ -78,11 +78,11 @@ defmodule Vutuv.Admin.SkillController do
       skill ->
         SkillSynonym.create_from_skill(conn.assigns[:skill], skill)
         |> case do
-          {:ok, new_skill} ->
+          {:ok, _new_skill} ->
             conn
             |> put_flash(:info, Vutuv.Gettext.gettext("Succeeded in conversion to synonym"))
             |> redirect(to: admin_skill_path(conn, :show, skill))
-          {:error, changeset} ->
+          {:error, _changeset} ->
             conn
             |> put_flash(:error, Vutuv.Gettext.gettext("Conversion to synonym failed"))
             |> redirect(to: admin_skill_path(conn, :show, skill))

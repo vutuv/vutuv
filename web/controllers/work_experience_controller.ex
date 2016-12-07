@@ -38,7 +38,7 @@ defmodule Vutuv.WorkExperienceController do
     end
   end
 
-  def show(conn, params) do
+  def show(conn, _params) do
     work_experience = conn.assigns[:job]
       |> Repo.preload([:user])
     if(work_experience.user.id == conn.assigns[:user].id) do
@@ -48,7 +48,7 @@ defmodule Vutuv.WorkExperienceController do
     end
   end
 
-  def edit(conn, params) do
+  def edit(conn, _params) do
     work_experience = conn.assigns[:job]
     changeset = WorkExperience.changeset(work_experience)
     current_year = DateTime.utc_now |> Map.fetch!(:year)
@@ -69,7 +69,7 @@ defmodule Vutuv.WorkExperienceController do
     end
   end
 
-  def delete(conn, params) do
+  def delete(conn, _params) do
 
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).

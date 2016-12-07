@@ -19,7 +19,7 @@ defmodule Vutuv.SlugHelpers do
       select: field(s, ^slug_field))
 		|> case do
 			nil -> slug
-			result -> "#{slug}.#{short_sha}"
+			_result -> "#{slug}.#{short_sha}"
 		end
 	end
 

@@ -36,13 +36,13 @@ defmodule Vutuv.UserSkillController do
     end
   end
 
-  def show(conn, params) do
+  def show(conn, _params) do
     user_skill = conn.assigns[:user_skill]
       |> Repo.preload([:skill, :endorsements])
     render(conn, "show.html", user_skill: user_skill, work_string_length: 45)
   end
 
-  def delete(conn, params) do
+  def delete(conn, _params) do
     user_skill = conn.assigns[:user_skill]
 
     # Here we use delete! (with a bang) because we expect

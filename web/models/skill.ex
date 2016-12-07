@@ -74,7 +74,7 @@ defmodule Vutuv.Skill do
     Vutuv.Repo.one!(from s in Vutuv.Skill, where: s.id == ^skill_id, select: [s.name])
   end
 
-  def related_users(skill, nil), do: []
+  def related_users(_, nil), do: []
 
   def related_users(skill, current_user) do
     (Vutuv.Repo.all(from u in assoc(current_user, :followers),

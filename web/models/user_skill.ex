@@ -1,6 +1,5 @@
 defmodule Vutuv.UserSkill do
   use Vutuv.Web, :model
-  @derive Phoenix.Param
 
   schema "user_skills" do
     belongs_to :user, Vutuv.User

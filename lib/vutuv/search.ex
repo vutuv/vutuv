@@ -30,12 +30,6 @@ defmodule Vutuv.Search do
     |> Enum.uniq_by(&(&1.id)) #Filters duplicates
   end
 
-  def skills_search(value) do
-    value = String.downcase(value)
-    Repo.all(from u in Skill, where: like(u.downcase_name, ^("#{value}%")))
-    |> Enum.uniq_by(&(&1.id)) #Filters duplicates
-  end
-
   defp phoneticize_search_value(value, algorithm) do 
     for(section <- Regex.split(~r/[^a-z]+/, value, include_captures: true)) do #Split the value by non words
       if(Regex.match?(~r/^[a-z]+$/, section)) do

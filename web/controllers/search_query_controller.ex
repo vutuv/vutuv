@@ -3,7 +3,6 @@ defmodule Vutuv.SearchQueryController do
   import Vutuv.Search
   alias Vutuv.SearchQueryRequester
   alias Vutuv.SearchQuery
-  alias Vutuv.User
 
   @email_regex ~r/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/
 

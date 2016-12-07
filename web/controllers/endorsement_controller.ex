@@ -4,7 +4,7 @@ defmodule Vutuv.EndorsementController do
 
   alias Vutuv.Endorsement
 
-  def create(conn, params) do
+  def create(conn, _params) do
     changeset = Endorsement.changeset(%Endorsement{}, %{user_skill_id: conn.assigns[:user_skill_id], user_id: conn.assigns[:current_user_id]})
     case Repo.insert(changeset) do
       {:ok, _user_skill} ->
@@ -18,7 +18,7 @@ defmodule Vutuv.EndorsementController do
     end
   end
 
-  def delete(conn, params) do
+  def delete(conn, _params) do
     Repo.one!(from e in Vutuv.Endorsement, where: e.user_skill_id==^conn.assigns[:user_skill_id] and e.user_id==^conn.assigns[:current_user_id] )
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
