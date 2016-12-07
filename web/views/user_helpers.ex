@@ -4,6 +4,7 @@ defmodule Vutuv.UserHelpers do
   alias Vutuv.User
   alias Vutuv.Repo
   alias Vutuv.Skill
+  alias Vutuv.UserSkill
   alias Vutuv.WorkExperience
   alias Vutuv.Connection
   alias Vutuv.Address
@@ -329,4 +330,10 @@ defmodule Vutuv.UserHelpers do
   defp admin?(%User{administrator: admin}), do: admin
 
   defp admin?(_), do: false
+
+  def has_skill?(%User{id: user_id}, %Skill{id: skill_id}) do
+    !is_nil Repo.one(from u in UserSkill, where: u.user_id == ^user_id and u.skill_id == ^skill_id)
+  end
+
+  def has_skill?(_, _), do: false
 end
