@@ -361,7 +361,7 @@ select {
     margin: 0;
     padding: 16px;
     text-align: center;
-    animation: messageHide 0.3s ease-in 3s forwards; }
+    animation: messageHide 0.3s ease-in 6s forwards; }
 
 .message--success {
   background-color: #5FD790; }
