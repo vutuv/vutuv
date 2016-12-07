@@ -35,7 +35,7 @@
               <i class="icon icon--minus"></i> Unfollow
             <% end %>
           <%= else %>
-            <%= button to: connection_path(@conn, :create, connection: %{follower_id: @current_user_id, followee_id: @user.id}), method: :post , class: "button button-link", form: [class: "button--slim"] do %>
+            <%= button to: connection_path(@conn, :create, connection: %{follower_id: @current_user_id, followee_id: @user.id}), method: :post, class: "button button-link", form: [class: "button--slim"] do %>
               <i class="icon icon--plus"></i> Follow
             <% end %>
           <% end %>

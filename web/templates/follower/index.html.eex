@@ -20,7 +20,7 @@
     <%= if(Enum.count(@user.followers) == 0) do %>
       <p style="text-align:center"><%= gettext "You don't have any followers yet! If you want more followers, you could follow others, invite your friends, or link your Vutuv profile on other social media websites." %></p>
     <% end %>
-    <%= Vutuv.Pages.page_list(@conn.params, user_follower_path(@conn, :index, @user), @total_followers) %>
+    <%= Vutuv.Pages.page_list(@conn.params, @total_followers) %>
   </section>
 <% end %>
 </div>
