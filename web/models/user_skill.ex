@@ -1,5 +1,6 @@
 defmodule Vutuv.UserSkill do
   use Vutuv.Web, :model
+  @derive Phoenix.Param
 
   schema "user_skills" do
     belongs_to :user, Vutuv.User
@@ -25,5 +26,11 @@ defmodule Vutuv.UserSkill do
     |> foreign_key_constraint(:user_id)
     |> foreign_key_constraint(:skill_id)
     |> unique_constraint(:user_id_skill_id)
+  end
+
+  defimpl Phoenix.Param, for: __MODULE__ do
+    def to_param(user_skill) do
+      Vutuv.Repo.preload(user_skill, [:skill]).skill.slug
+    end
   end
 end

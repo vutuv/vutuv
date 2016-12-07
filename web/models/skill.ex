@@ -30,23 +30,31 @@ defmodule Vutuv.Skill do
     |> cast(params, @required_fields++@optional_fields)
     |> validate_required([:name])
     |> validate_length(:name, max: 45)
-    |> put_downcase_if_name_changed
+    |> put_downcase_if_name_changed(model)
     |> unique_constraint(:downcase_name)
     |> unique_constraint(:slug)
   end
 
-  defp put_downcase_if_name_changed(changeset) do
-    #also sets slug
+  defp put_downcase_if_name_changed(changeset, model) do
+    #also sets slug and search_terms
     changeset
     |> get_change(:name)
     |> case do
       nil ->
         changeset
       name ->
+        term_params = 
+          if(model == %__MODULE__{}) do
+            %__MODULE__{downcase_name: String.downcase(name), skill_synonyms: []}
+          else
+            Map.put(model, :downcase_name, String.downcase(name))
+          end
+        search_terms = Vutuv.SearchTerm.skill_search_terms(term_params)
         changeset
         |> put_change(:slug, Vutuv.SlugHelpers.gen_slug_unique(%__MODULE__{name: name}, :slug))
         |> put_change(:downcase_name, name)
         |> update_change(:downcase_name, &String.downcase/1)
+        |> put_assoc(:search_terms, search_terms)
     end
   end
 

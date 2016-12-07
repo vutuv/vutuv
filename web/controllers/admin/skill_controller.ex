@@ -34,6 +34,7 @@ defmodule Vutuv.Admin.SkillController do
 
   def update(conn, %{"skill" => params}) do
     conn.assigns[:skill]
+    |> Repo.preload([:search_terms, :skill_synonyms])
     |> Skill.changeset(params)
     |> Repo.update
     |> case do
@@ -42,6 +43,16 @@ defmodule Vutuv.Admin.SkillController do
       {:error, changeset} ->
         render conn, "edit.html", skill: conn.assigns[:skill], changeset: changeset
     end
+  end
+
+  def delete(conn, params) do
+    conn.assigns[:skill]
+    |> Repo.delete
+    |> case do
+      {:ok, _} -> put_flash(conn, :info, Vutuv.Gettext.gettext("Deletion Succeeded"))
+      {:error, _} -> put_flash(conn, :error, Vutuv.Gettext.gettext("Deletion Failed"))
+    end
+    |> redirect(to: admin_skill_path(conn, :index))
   end
 
   def easy_validate(conn, _params) do
@@ -79,12 +90,10 @@ defmodule Vutuv.Admin.SkillController do
     end
   end
 
-  def add_synonym(conn, %{"synonym" => params}) do
+  def add_synonym(conn, %{"synonym" => %{"value" => name}}) do
     skill = conn.assigns[:skill]
     skill
-    |> build_assoc(:skill_synonyms)
-    |> SkillSynonym.changeset(params)
-    |> Repo.insert
+    |> SkillSynonym.create_synonym(name)
     |> case do
       {:ok, _} -> put_flash(conn, :info, Vutuv.Gettext.gettext("Synonym Added Successfully"))
       {:error, _} -> put_flash(conn, :error, Vutuv.Gettext.gettext("Synonym Added Unsuccessfully. This usually means it already exists."))

@@ -55,8 +55,8 @@ defmodule Vutuv.WorkExperienceController do
     render(conn, "edit.html", work_experience: work_experience, changeset: changeset, current_year: current_year)
   end
 
-  def update(conn, %{"id" => id, "work_experience" => work_experience_params}) do
-    work_experience = Repo.get!(assoc(conn.assigns[:user], :work_experiences), id)
+  def update(conn, %{"work_experience" => work_experience_params}) do
+    work_experience = conn.assigns[:job]
     changeset = WorkExperience.changeset(work_experience, work_experience_params)
     case Repo.update(changeset) do
       {:ok, work_experience} ->
