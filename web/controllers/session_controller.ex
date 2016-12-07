@@ -33,8 +33,9 @@ defmodule Vutuv.SessionController do
   end
 
   def delete(conn, _) do
+    user = conn.assigns[:current_user]
     conn
     |> Vutuv.Auth.logout()
-    |> redirect(to: page_path(conn, :index))
+    |> redirect(to: user_path(conn, :show, user))
   end
 end
