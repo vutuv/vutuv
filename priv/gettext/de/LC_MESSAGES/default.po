@@ -507,8 +507,8 @@ msgid "Other"
 msgstr "Sonstiges"
 
 #: web/templates/user/show.html.eex:83
-msgid "PHP, JavaScript, Tap Dancing, Origami"
-msgstr "PHP, JavaScript, Stepptanz, Origami"
+msgid "PHP, JavaScript, Tap Dancing, Origami, Recruiting"
+msgstr "PHP, JavaScript, Stepptanz, Origami, Recruiting"
 
 #: web/templates/phone_number/form.html.eex:9
 msgid "Phone Number"
