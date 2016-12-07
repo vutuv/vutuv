@@ -14,20 +14,7 @@
 
 <div class="card-list">
 
-  <section class="card">
-    <div class="card__edit button__list">
-      <%# button to: skill_path(@conn, :delete, @skill), class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
-        <%# <i class="icon icon--delete"></i> %>
-      <%# end %>
-    </div>
-
-    <%= if(@skill.description) do %>
-    <h1><%= gettext("Description") %></h1>
-    <% else %>
-    <h1><%= gettext("Nothing to see here!") %></h1>
-    <p><%= gettext("This skill doesnt have a description yet. We will be adding the ability to submit descriptions soon.") %></p>
-    <% end %>
-  </section>
+  <%= render "single_card.html", assigns %>
 
   <aside>
   <%= render Vutuv.SharedView, "_ad.html" %>
