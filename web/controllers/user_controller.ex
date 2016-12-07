@@ -17,6 +17,8 @@ defmodule Vutuv.UserController do
 
   plug :scrub_params, "user" when action in [:create, :update]
 
+  @welcome_wagon_cut_off_time 300
+
   def index(conn, _params) do
     users = Repo.all(User)
     render(conn, "index.html", users: users)
@@ -210,10 +212,23 @@ defmodule Vutuv.UserController do
           :ok -> acc
         end
       end)
-    Task.start(Vutuv.Registration, :skill_welcome_wagon, [user])
+    welcome_wagon(user)
     conn
     |> put_flash(:info, Vutuv.Gettext.gettext("Successfully added %{successes} skills with %{failures} failures.", successes: Enum.count(skill_list)-failures, failures: failures))
     |> redirect(to: user_path(conn, :show, user))
+  end
+
+  defp welcome_wagon(user) do
+    time_created = 
+      user.inserted_at
+      |> Ecto.DateTime.to_erl
+      |> :calendar.datetime_to_gregorian_seconds
+    now = 
+      :calendar.universal_time
+      |> :calendar.datetime_to_gregorian_seconds
+    if(now - time_created <= @welcome_wagon_cut_off_time) do
+      Task.start(Vutuv.Registration, :skill_welcome_wagon, [user])
+    end
   end
 
   def follow_back(conn, %{"id" => id}) do
