@@ -1221,3 +1221,15 @@ msgstr ""
 #: web/templates/skill/single_card.html.eex:24
 msgid "You can find more information at"
 msgstr ""
+
+#: web/templates/search_query/new.html.eex:21
+msgid "Please enter a name of a person, an email address or a skill."
+msgstr ""
+
+#: web/templates/search_query/new.html.eex:19
+msgid "Search How-To"
+msgstr ""
+
+#: web/templates/search_query/new.html.eex:24
+msgid "The search for first and last names is fuzzy."
+msgstr ""
