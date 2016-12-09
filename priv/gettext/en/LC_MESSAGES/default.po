@@ -1239,3 +1239,4 @@ msgstr ""
 
 #: web/templates/search_query/new.html.eex:24
 msgid "The search for first and last names is fuzzy."
+msgstr ""
