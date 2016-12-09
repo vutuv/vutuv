@@ -16,12 +16,12 @@
 <div class="search-results card-list">
   <%= unless(@conn.assigns[:query]) do %>
     <section class="card">
-      <h1><%= gettext "Search How-To" %></h1>
+      <h1><%= gettext "Search Tips" %></h1>
       <p>
-        <%= gettext "Please enter a name of a person, an email address or a skill." %>
+        <%= gettext "You can search for a name, email, or skill." %>
       </p>
       <p>
-        <%= gettext "The search for first and last names is fuzzy." %>
+        <%= gettext "Our search will try to match similar names to your search, so don't worry about spelling." %>
       </p>
     </section>
   <% end %>
@@ -45,6 +45,11 @@
     <%= render Vutuv.SkillView, "card_list.html", conn: @conn, skills: @skill_results, current_user: @current_user, current_user_id: @current_user_id, work_string_length: 45 %>
   <% else %>
     <%= render Vutuv.UserView, "card_list.html", conn: @conn, users: @user_results, current_user: @current_user, current_user_id: @current_user_id, work_string_length: 45 %>
+  <% end %>
+  <%= if Enum.count(@skill_results) == 0 and Enum.count(@user_results) == 0 do %>
+  	<h1 style = "text-align: center;">
+  		<%= gettext "No results" %>
+  	</h1>
   <% end %>
   </section>
 <% end %>
