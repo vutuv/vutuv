@@ -251,6 +251,22 @@ dd {
     white-space: nowrap;
     text-overflow: ellipsis; }
 
+dl.email-list {
+  text-align: left;
+  margin: 15px 0;
+}
+dl.email-list dt,
+dl.email-list dd {
+  text-align: left;
+  padding: 5px 0 0 0;
+  margin: 5px 0;
+  min-height: 0;
+  display: block;
+}
+dl.email-list dt {
+  margin: 15px 0;
+}
+
 .button-list li {
   display: flex;
   position: relative;

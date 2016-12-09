@@ -115,10 +115,10 @@
       <% end %>
       <h1><%= gettext "Contact" %></h1>
       <%= if(Enum.count(@emails) > 0) do %>
-      <dl>
-        <dt><%= if (Enum.count(@emails) == 1), do: gettext("Email"), else: gettext("Emails") %></dt>
+      <dl class="email-list">
+        <dt class="email-list"><%= if (Enum.count(@emails) == 1), do: gettext("Email"), else: gettext("Emails") %></dt>
         <%= for email <- @emails do %>
-        <dd><a href="mailto:<%= email.value %>"><%= email.value %></a></dd>
+        <dd class="email-list"><a href="mailto:<%= email.value %>"><%= email.value %></a></dd>
         <% end %>
       </dl>
       <% end %>
