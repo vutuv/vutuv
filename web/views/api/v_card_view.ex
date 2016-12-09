@@ -12,7 +12,7 @@ defmodule Vutuv.Api.VCardView do
     "\nFN:"<>sanitize(v_card.first_name)<>" "<>sanitize(v_card.last_name)<>
     "\nORG:#{current_organization(v_card)}"<>
     "\nTITLE:#{current_title(v_card)}"<>
-    "\nPHOTO:"<>Vutuv.Avatar.binary(v_card, :thumb)<>
+    "\nPHOTO;"<>String.replace(Vutuv.Avatar.binary(v_card, :thumb), "data:image/jpeg;base64", "ENCODING=b;TYPE=JPEG:")<>
     "\n"<>
     Enum.reduce(v_card.phone_numbers,"",fn f, acc ->
       acc<>"TEL;TYPE="<>sanitize(f.number_type)<>":"<>sanitize(f.value)<>"\n"
