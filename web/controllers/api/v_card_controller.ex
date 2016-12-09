@@ -25,7 +25,7 @@ defmodule Vutuv.Api.VCardController do
 
   defp headers(conn, _opts) do
     conn
-    |> Plug.Conn.put_resp_header("Content-Type", "text/vcard")
+    |> Plug.Conn.put_resp_header("Content-Type", "text/vcard;charset=utf-8")
     |> Plug.Conn.put_resp_header("Content-Disposition", "attachment;filename = vcard.vcf")
   end
 end
