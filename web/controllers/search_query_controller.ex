@@ -56,7 +56,7 @@ defmodule Vutuv.SearchQueryController do
         query = Repo.preload(query, [:search_query_results, :user_results, :skill_results])
         conn
         |> Map.put(:params, Map.put_new(conn.params, "skills", "#{Enum.count(query.user_results) < Enum.count(query.skill_results)}"))
-        |> render("new.html", query: query, user_results: query.user_results, skill_results: query.skill_results, changeset: empty_changeset)
+        |> render("new.html", query: query, user_results: query.user_results, skill_results: query.skill_results, changeset: empty_changeset, value: query.value)
     end
   end
 
