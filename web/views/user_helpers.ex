@@ -18,8 +18,17 @@ defmodule Vutuv.UserHelpers do
     |> Enum.join(" ")
   end
 
-
-
+  def name_for_email_to_field(%User{first_name: first_name,
+                      last_name: last_name}) do
+    [first_name, last_name]
+    |> Enum.reject(&(&1 == "" || &1 == nil))
+    |> Enum.join(" ")
+    |> String.replace(",", "")
+    |> String.replace("<", "")
+    |> String.replace(">", "")
+    |> String.replace("@", "")
+    |> String.replace("  ", " ")
+  end
 
   def short_name(%User{first_name: nil, last_name: nil}), do: ""
 
@@ -120,7 +129,7 @@ defmodule Vutuv.UserHelpers do
   def user_content_description(_, nil), do: ""
 
   def user_content_description(user, skills) do
-    skills_string = 
+    skills_string =
       for(skill <- skills) do
         Skill.resolve_name(skill.skill_id)
       end

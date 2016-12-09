@@ -80,7 +80,7 @@
         <%= form_for @conn, user_path(@conn, :skills_create, @user), [as: :skills, class: "editform"], fn f -> %>
           <div class="editform__field<%= if error_tag(f, :name), do: " editform__field--error"%>">
             <%= label f, :skills, gettext("Enter comma separated skills here. Max length per skill: 45 charaters") %>
-            <%= text_input f, :skills, placeholder: gettext("PHP, JavaScript, Tap Dancing, Origami"), autofocus: true %>
+            <%= text_input f, :skills, placeholder: gettext("PHP, JavaScript, Tap Dancing, Origami, Recruiting"), autofocus: true %>
             <%= error_tag f, :skills %>
           </div>
           <div class="editform__actions">

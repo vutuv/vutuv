@@ -7,7 +7,6 @@
   <%= gen_breadcrumbs([
     {gettext("Search"), search_query_path(@conn, :new)},
     gettext("Results")]) %>
-
   <% else %>
   <%= gen_breadcrumbs([
     gettext("Search")]) %>
@@ -15,9 +14,20 @@
 </div>
 
 <div class="search-results card-list">
-  <aside>
+  <%= unless(@conn.assigns[:query]) do %>
+    <section class="card">
+      <h1><%= gettext "Search How-To" %></h1>
+      <p>
+        <%= gettext "Please enter a name of a person, an email address or a skill." %>
+      </p>
+      <p>
+        <%= gettext "The search for first and last names is fuzzy." %>
+      </p>
+    </section>
+  <% end %>
 
-    <%= render Vutuv.SharedView, "_ad.html" %>	
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
   </aside>
 <%= if @conn.assigns[:user_results] do %>
   <section class="card card--simple">
@@ -30,7 +40,7 @@
 	  <p style = "text-align: center;"><a href = "?skills=true">Show skill results</a></p>
 	  <% end %>
 	<% end %>
-	
+
 	<%= if(@conn.params["skills"] == "true") do %>
     <%= render Vutuv.SkillView, "card_list.html", conn: @conn, skills: @skill_results, current_user: @current_user, current_user_id: @current_user_id, work_string_length: 45 %>
   <% else %>
