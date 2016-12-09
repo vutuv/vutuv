@@ -1,0 +1,27 @@
+<section class="card">
+  <div class="card__edit button__list">
+  	<%= if @conn.assigns[:current_user] && !(has_skill?(assigns[:current_user], assigns[:skill])) do %>
+    <%= button to: user_user_skill_path(@conn, :create, @current_user, skill_param: [name: @skill.name]), method: :post, class: "button button-link button--small button--slim", form: [class: "button--slim button--small"] do %>
+    <i class="icon icon--plus"></i> Add This Skill
+    <% end %>
+    <% end %>
+  </div>
+	<% assigns = update_assigns(assigns) %>
+	<%= if(@skill.description) do %>
+	<h1><%= gettext("Description") %></h1>
+	<p><%= @skill.description %></p>
+	<% end %>
+	<%= if Enum.count(@related_users) > 0 do %>
+		<h1><%= gettext("People you may know with this skill") %></h1>
+		<%= render Vutuv.UserView, "card_list.html", Map.put(assigns, :users, @related_users) %>
+	<% end %>
+	<%= if Enum.count(@reccomended_users) > 0 do %>
+		<h1><%= gettext("The most endorsed users with this skill") %></h1>
+		<%= render Vutuv.UserView, "card_list.html", Map.put(assigns, :users, @reccomended_users) %>
+	<% end %>
+	<%= if @skill.url do %>
+	<div class = "card__morelink card__morelink-border">
+		<%= gettext("You can find more information at") %> <%= link @skill.url, to: @skill.url %>
+	</div>
+	<% end %>
+</section>

@@ -1,7 +1,11 @@
 <section class="ad">
   <label><%= gettext("Ad") %></label>
-  <h1>Fire HD 6 ab nur 74,99 €</h1>
-  <a href="http://amzn.to/2h7ok45"><img src="http://ecx.images-amazon.com/images/I/51E57Lu22SL._SL110_.jpg" align="right" width="55" height="55" border="0" alt=""/></a>
-  <p>15,2 cm (6 Zoll), HD-Display. 30 € Rabatt auf Fire HD 6 (Limone)</p>
-  <a href="http://amzn.to/2h7ok45">amazon.de</a>
+  <h1><a href="http://amzn.to/2gjZhsR">Wunder wirken Wunder: Wie Medizin und Magie uns heilen</a></h1>
+  <a href="http://amzn.to/2gjZhsR"><img src="https://images-eu.ssl-images-amazon.com/images/I/51tuKp-XwHL._AC_AC_SR98,95_.jpg" align="right" width="98" height="95" border="0" alt=""/></a>
+  <p>von Dr. med. Eckart von Hirschhausen</p>
+  <p>Ein heilsamer Blick auf die Wunderwelt der Heilkunst
+Die Wissenschaft hat die Magie aus der Medizin vertrieben, aber nicht aus uns Menschen.</p>
+  <p>
+  <a href="http://amzn.to/2gjZhsR">amazon.de</a>
+  </p>
 </section>

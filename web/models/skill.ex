@@ -1,6 +1,6 @@
 defmodule Vutuv.Skill do
   use Vutuv.Web, :model
-  @derive {Phoenix.Param, key: :downcase_name}
+  @derive {Phoenix.Param, key: :slug}
 
   schema "skills" do
     field :name, :string
@@ -11,6 +11,7 @@ defmodule Vutuv.Skill do
 
     has_many :user_skills, Vutuv.UserSkill, on_delete: :delete_all
     has_many :skill_synonyms, Vutuv.SkillSynonym, on_delete: :delete_all
+    has_many :search_terms, Vutuv.SearchTerm, on_delete: :delete_all, on_replace: :delete
 
     timestamps
   end
@@ -29,20 +30,31 @@ defmodule Vutuv.Skill do
     |> cast(params, @required_fields++@optional_fields)
     |> validate_required([:name])
     |> validate_length(:name, max: 45)
-    |> put_downcase_if_name_changed
+    |> put_downcase_if_name_changed(model)
     |> unique_constraint(:downcase_name)
+    |> unique_constraint(:slug)
   end
 
-  defp put_downcase_if_name_changed(changeset) do
+  defp put_downcase_if_name_changed(changeset, model) do
+    #also sets slug and search_terms
     changeset
     |> get_change(:name)
     |> case do
       nil ->
         changeset
       name ->
+        term_params = 
+          if(model == %__MODULE__{}) do
+            %__MODULE__{downcase_name: String.downcase(name), skill_synonyms: []}
+          else
+            Map.put(model, :downcase_name, String.downcase(name))
+          end
+        search_terms = Vutuv.SearchTerm.skill_search_terms(term_params)
         changeset
+        |> put_change(:slug, Vutuv.SlugHelpers.gen_slug_unique(%__MODULE__{name: name}, :slug))
         |> put_change(:downcase_name, name)
         |> update_change(:downcase_name, &String.downcase/1)
+        |> put_assoc(:search_terms, search_terms)
     end
   end
 
@@ -60,5 +72,44 @@ defmodule Vutuv.Skill do
 
   def resolve_name(skill_id) do
     Vutuv.Repo.one!(from s in Vutuv.Skill, where: s.id == ^skill_id, select: [s.name])
+  end
+
+  def related_users(_, nil), do: []
+
+  def related_users(skill, current_user) do
+    (Vutuv.Repo.all(from u in assoc(current_user, :followers),
+      left_join: us in assoc(u, :user_skills),
+      left_join: e in assoc(us, :endorsements),
+      where: us.skill_id == ^skill.id,
+      order_by: fragment("count(?) DESC", e.id), #most endorsed
+      group_by: u.id,
+      limit: 10)
+    ++
+    Vutuv.Repo.all(from u in assoc(current_user, :followees),
+      left_join: us in assoc(u, :user_skills),
+      left_join: e in assoc(us, :endorsements),
+      where: us.skill_id == ^skill.id,
+      order_by: fragment("count(?) DESC", e.id), #most endorsed
+      group_by: u.id,
+      limit: 10))
+    |> Enum.uniq_by(&(&1.id))
+  end
+
+  def reccomended_users(skill) do
+    Vutuv.Repo.all(from u in Vutuv.User,
+      left_join: us in assoc(u, :user_skills),
+      left_join: e in assoc(us, :endorsements),
+      where: us.skill_id == ^skill.id,
+      order_by: fragment("count(?) DESC", e.id), #most endorsed
+      group_by: u.id,
+      limit: 10)
+  end
+
+  defimpl String.Chars, for: __MODULE__ do
+    def to_string(skill), do: "#{skill.name}"
+  end
+
+  defimpl List.Chars, for: __MODULE__ do
+    def to_charlist(skill), do: '#{skill.name}'
   end
 end

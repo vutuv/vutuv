@@ -35,7 +35,7 @@
               <i class="icon icon--minus"></i> Unfollow
             <% end %>
           <%= else %>
-            <%= button to: connection_path(@conn, :create, connection: %{follower_id: @current_user_id, followee_id: @user.id}), method: :post , class: "button button-link", form: [class: "button--slim"] do %>
+            <%= button to: connection_path(@conn, :create, connection: %{follower_id: @current_user_id, followee_id: @user.id}), method: :post, class: "button button-link", form: [class: "button--slim"] do %>
               <i class="icon icon--plus"></i> Follow
             <% end %>
           <% end %>
@@ -80,7 +80,7 @@
         <%= form_for @conn, user_path(@conn, :skills_create, @user), [as: :skills, class: "editform"], fn f -> %>
           <div class="editform__field<%= if error_tag(f, :name), do: " editform__field--error"%>">
             <%= label f, :skills, gettext("Enter comma separated skills here. Max length per skill: 45 charaters") %>
-            <%= text_input f, :skills, placeholder: gettext("PHP, JavaScript, Tap Dancing, Origami"), autofocus: true %>
+            <%= text_input f, :skills, placeholder: gettext("PHP, JavaScript, Tap Dancing, Origami, Recruiting"), autofocus: true %>
             <%= error_tag f, :skills %>
           </div>
           <div class="editform__actions">
@@ -94,8 +94,8 @@
         <%= if same_user?(@user, @current_user) do %>
           <%= link gettext("Add"), to: user_user_skill_path(@conn, :new, @current_user) %>
         <% end %>
-        <%= if same_user?(@user, @current_user) and Enum.count(@user.user_skills) > 4 do %> | <% end %>
-        <%= if Enum.count(@user.user_skills) > 4 do %>
+        <%= if same_user?(@user, @current_user) and @total_user_skills > 4 do %> | <% end %>
+        <%= if @total_user_skills > 4 do %>
           <%= link gettext("View All"), to: user_user_skill_path(@conn, :index, @user)%></span>
         <% end %>
       </span>
@@ -115,10 +115,10 @@
       <% end %>
       <h1><%= gettext "Contact" %></h1>
       <%= if(Enum.count(@emails) > 0) do %>
-      <dl>
-        <dt><%= if (Enum.count(@emails) == 1), do: gettext("Email"), else: gettext("Emails") %></dt>
+      <dl class="email-list">
+        <dt class="email-list"><%= if (Enum.count(@emails) == 1), do: gettext("Email"), else: gettext("Emails") %></dt>
         <%= for email <- @emails do %>
-        <dd><a href="mailto:<%= email.value %>"><%= email.value %></a></dd>
+        <dd class="email-list"><a href="mailto:<%= email.value %>"><%= email.value %></a></dd>
         <% end %>
       </dl>
       <% end %>

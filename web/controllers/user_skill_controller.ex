@@ -4,6 +4,7 @@ defmodule Vutuv.UserSkillController do
   alias Vutuv.Skill
 
   plug Vutuv.Plug.AuthUser when not action in [:index, :show]
+  plug :resolve_slug
 
   def index(conn, _params) do
     user =
@@ -35,14 +36,14 @@ defmodule Vutuv.UserSkillController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    user_skill = Repo.get!(UserSkill, id)
+  def show(conn, _params) do
+    user_skill = conn.assigns[:user_skill]
       |> Repo.preload([:skill, :endorsements])
-    render(conn, "show.html", user_skill: user_skill)
+    render(conn, "show.html", user_skill: user_skill, work_string_length: 45)
   end
 
-  def delete(conn, %{"id" => id}) do
-    user_skill = Repo.get!(UserSkill, id)
+  def delete(conn, _params) do
+    user_skill = conn.assigns[:user_skill]
 
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
@@ -52,4 +53,18 @@ defmodule Vutuv.UserSkillController do
     |> put_flash(:info, gettext("UserSkill deleted successfully."))
     |> redirect(to: user_user_skill_path(conn, :index, conn.assigns[:user]))
   end
+
+  defp resolve_slug(%{params: %{"id" => slug}} = conn, _) do
+    Repo.one(from w in assoc(conn.assigns[:user], :user_skills), join: s in assoc(w, :skill), where: s.slug == ^slug)
+    |>case do
+      nil -> 
+        conn
+        |> put_status(404)
+        |> render(Vutuv.ErrorView, "404.html")
+      user_skill -> assign(conn, :user_skill, user_skill)
+    end
+    
+  end
+
+  defp resolve_slug(conn, _), do: conn
 end

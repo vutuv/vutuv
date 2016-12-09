@@ -1,6 +1,7 @@
 defmodule Vutuv.WorkExperience do
   use Vutuv.Web, :model
   import Ecto.Query
+  @derive {Phoenix.Param, key: :slug}
 
   schema "work_experiences" do
     field :organization, :string
@@ -10,6 +11,7 @@ defmodule Vutuv.WorkExperience do
     field :start_year, :integer, allow_nil: true
     field :end_month, :integer, allow_nil: true
     field :end_year, :integer, allow_nil: true
+    field :slug, :string
 
     has_one :company, Vutuv.Company
 
@@ -19,7 +21,7 @@ defmodule Vutuv.WorkExperience do
   end
 
   @required_fields ~w(title description start_month start_year)
-  @optional_fields ~w(organization end_month end_year)
+  @optional_fields ~w(organization end_month end_year slug)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -32,6 +34,8 @@ defmodule Vutuv.WorkExperience do
     |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required([:title, :organization])
     |> validate_dates
+    |> create_slug
+    |> unique_constraint(:slug)
   end
 
   def validate_dates(changeset) do
@@ -81,6 +85,15 @@ defmodule Vutuv.WorkExperience do
     end
   end
 
+  defp create_slug(changeset) do
+    if((get_change(changeset, :title) || get_change(changeset, :organization))) do
+      model = %__MODULE__{title: get_field(changeset, :title), organization: get_field(changeset, :organization)}
+      put_change(changeset, :slug, Vutuv.SlugHelpers.gen_slug_unique(model, :slug))
+    else
+      changeset
+    end
+  end
+
   def order_by_date(query) do
     query
     |> order_by([u], [
@@ -89,5 +102,13 @@ defmodule Vutuv.WorkExperience do
       fragment("-? ASC", u.start_year),
       fragment("-? ASC", u.start_month)
       ])
+  end
+
+  defimpl String.Chars, for: __MODULE__ do
+    def to_string(job), do: "#{job.title} #{job.organization}"
+  end
+
+  defimpl List.Chars, for: __MODULE__ do
+    def to_charlist(job), do: '#{job.title} #{job.organization}'
   end
 end

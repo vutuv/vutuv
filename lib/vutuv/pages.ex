@@ -23,25 +23,24 @@ defmodule Vutuv.Pages do
 		div(total, @max_page_items) + 1
 	end
 
-	def page_list(%{"page" => page}, link, total) do
+	def page_list(%{"page" => page}, total) do
 		gen_page_links(
 			sanitize_page(page),
-			link,
 			total_pages(total))
 	end
 
-	def page_list(_, link, total) do
-		page_list(%{"page" => 1}, link, total)
+	def page_list(_, total) do
+		page_list(%{"page" => 1}, total)
 	end
 
-	defp gen_page_links(page, link, max) when max > 1 do
+	defp gen_page_links(page, max) when max > 1 do
 		links = 
 			for(num <- page-5..page+5) do
 				cond do
 					num > max -> nil
 					num < 1 -> nil
 					num == page -> page
-					true -> page_link(link, num)
+					true -> page_link(num)
 				end
 			end
 			|> Enum.filter(&(&1))
@@ -50,7 +49,7 @@ defmodule Vutuv.Pages do
 		|> Phoenix.HTML.raw
 	end
 
-	defp gen_page_links(_,_,_), do: ""
+	defp gen_page_links(_,_), do: ""
 
 	defp pre(page) when page-5>1 do
 		"... | "
@@ -64,8 +63,8 @@ defmodule Vutuv.Pages do
 
 	defp post(_, _), do: ""
 
-	defp page_link(url, page) do
-		Phoenix.HTML.Link.link("#{page}", to: "#{url}?page=#{page}")
+	defp page_link(page) do
+		Phoenix.HTML.Link.link("#{page}", to: "?page=#{page}")
 		|> Phoenix.HTML.safe_to_string
 	end
 

@@ -19,7 +19,7 @@
     <h1><%= gettext("Skills Without Synonyms") %></h1>
 
     <%= render "card_list.html", assigns %>
-    <%= Vutuv.Pages.page_list(@conn.params, admin_skill_path(@conn, :index), @unvalidated_skills_count) %>
+    <%= Vutuv.Pages.page_list(@conn.params, @unvalidated_skills_count) %>
   </section>
   <aside>
     <%= render Vutuv.SharedView, "_ad.html" %>

@@ -9,15 +9,9 @@
     <%= for skill <- @skills do %>
     <tr>
       <td>
-      <%= link skill.name, to: skill_path(@conn, :show, skill) %>
+      <p style="word-wrap: break-word; max-width: 600px;"><%= link skill.name, to: skill_path(@conn, :show, skill) %></p>
       </td>
       <td>
-      <%# link to: skill_path(@conn, :edit, skill), class: "button button--icon button--small" do %>
-      <%# <i class="icon icon--edit"></i> %>
-      <%# end %>
-      <%# button to: skill_path(@conn, :delete, skill), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
-      <%# <i class="icon icon--delete"></i> %>
-      <%# end %>
       </td>
     </tr>
     <% end %>

@@ -18,7 +18,7 @@
     <h1>Skills</h1>
     
     <%= render "card_list.html", assigns %>
-
+    <%= Vutuv.Pages.page_list(@conn.params, @skills_count) %>
   </section>
   <aside>
     <%= render Vutuv.SharedView, "_ad.html" %>

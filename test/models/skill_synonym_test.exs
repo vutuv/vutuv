@@ -3,7 +3,7 @@ defmodule Vutuv.SkillSynonymTest do
 
   alias Vutuv.SkillSynonym
 
-  @valid_attrs %{}
+  @valid_attrs %{value: "asdf"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

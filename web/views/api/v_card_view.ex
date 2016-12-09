@@ -7,12 +7,12 @@ defmodule Vutuv.Api.VCardView do
   end
 
   def render("vcard.vcf", %{v_card: v_card}) do
-    "BEGIN:VCARD\nVERSION:4.0"<>
+    "BEGIN:VCARD\nVERSION:3.0"<>
     "\nN:"<>sanitize(v_card.last_name)<>";"<>sanitize(v_card.first_name)<>";"<>sanitize(v_card.middlename)<>";"<>sanitize(v_card.honorific_prefix)<>
     "\nFN:"<>sanitize(v_card.first_name)<>" "<>sanitize(v_card.last_name)<>
     "\nORG:#{current_organization(v_card)}"<>
     "\nTITLE:#{current_title(v_card)}"<>
-    "\nPHOTO:"<>Vutuv.Avatar.binary(v_card, :thumb)<>
+    "\nPHOTO;"<>String.replace(Vutuv.Avatar.binary(v_card, :thumb), "data:image/jpeg;base64", "ENCODING=b;TYPE=JPEG:")<>
     "\n"<>
     Enum.reduce(v_card.phone_numbers,"",fn f, acc ->
       acc<>"TEL;TYPE="<>sanitize(f.number_type)<>":"<>sanitize(f.value)<>"\n"

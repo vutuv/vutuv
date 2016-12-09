@@ -7,12 +7,6 @@ defmodule Vutuv.Api.VCardController do
       |> Repo.preload([:addresses, :phone_numbers])
       |> preload_emails(conn.assigns[:current_user])
     render(conn, "vcard.vcf", v_card: vcard)
-    
-
-    #v_cards = Repo.all(User)
-    #  |>Repo.preload([:emails, :addresses,
-    #                  :phone_numbers])
-    #render(conn, "index.json", v_cards: v_cards)
   end
 
   defp preload_emails(user, requester) do
@@ -25,7 +19,7 @@ defmodule Vutuv.Api.VCardController do
 
   defp headers(conn, _opts) do
     conn
-    |> Plug.Conn.put_resp_header("Content-Type", "text/vcard")
+    |> Plug.Conn.put_resp_header("Content-Type", "text/vcard;charset=utf-8")
     |> Plug.Conn.put_resp_header("Content-Disposition", "attachment;filename = vcard.vcf")
   end
 end

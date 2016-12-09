@@ -1,14 +1,14 @@
 <%# header tag begins in parent template %>
   <div class="profile-header">
     <div class="profile-header__info">
-      <h1>About <%= Skill.resolve_name(@user_skill.skill_id) %></h1>
+      <h1><%= Skill.resolve_name(@user_skill.skill_id) %></h1>
     </div>
   </div>
 </header>
 <%= render Vutuv.LayoutView, "flash.html", assigns %>
 <div class="breadcrumbs">
   <%= gen_breadcrumbs([
-    gettext("Users"), 
+    gettext("Users"),
     {full_name(@user), user_path(@conn, :show, @user)},
     {gettext("Skills"), user_user_skill_path(@conn, :index, @user)},
     gettext("Show")]) %>
@@ -16,22 +16,7 @@
 
 <div class="card-list">
 
-  <section class="card">
-    <%= if same_user?(@user, @current_user) do %>
-    <div class="card__edit button__list">
-      <%= button to: user_user_skill_path(@conn, :delete, @user, @user_skill), class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
-        <i class="icon icon--delete"></i>
-      <% end %>
-    </div>
-    <% end %>
-
-    <%= if(@user_skill.skill.description) do %>
-    <h1><%= gettext("Description") %></h1>
-    <% else %>
-    <h1><%= gettext("Nothing to see here!") %></h1>
-    <p><%= gettext("This skill doesnt have a description yet. We will be adding the ability to submit descriptions soon.") %></p>
-    <% end %>
-  </section>
+  <%= render Vutuv.SkillView, "single_card.html", Map.put(assigns, :skill, @user_skill.skill) %>
 
   <aside>
   <%= render Vutuv.SharedView, "_ad.html" %>

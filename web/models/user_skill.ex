@@ -26,4 +26,10 @@ defmodule Vutuv.UserSkill do
     |> foreign_key_constraint(:skill_id)
     |> unique_constraint(:user_id_skill_id)
   end
+
+  defimpl Phoenix.Param, for: __MODULE__ do
+    def to_param(user_skill) do
+      Vutuv.Repo.preload(user_skill, [:skill]).skill.slug
+    end
+  end
 end

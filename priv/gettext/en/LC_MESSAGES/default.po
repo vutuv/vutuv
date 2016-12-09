@@ -149,7 +149,7 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: web/controllers/user_controller.ex:235
+#: web/controllers/user_controller.ex:250
 msgid "Couldn't follow back to %{name}."
 msgstr ""
 
@@ -225,11 +225,11 @@ msgstr ""
 msgid "Emails belonging to "
 msgstr ""
 
-#: web/controllers/endorsement_controller.ex:11
+#: web/controllers/endorsement_controller.ex:12
 msgid "Endorsement successful."
 msgstr ""
 
-#: web/controllers/endorsement_controller.ex:15
+#: web/controllers/endorsement_controller.ex:16
 msgid "Endorsement unsuccessful."
 msgstr ""
 
@@ -470,11 +470,6 @@ msgstr ""
 msgid "Not following anyone yet!"
 msgstr ""
 
-#: web/templates/skill/show.html.eex:27
-#: web/templates/user_skill/show.html.eex:31
-msgid "Nothing to see here!"
-msgstr ""
-
 #: web/templates/phone_number/show.html.eex:32
 msgid "Number"
 msgstr ""
@@ -512,7 +507,7 @@ msgid "Other"
 msgstr ""
 
 #: web/templates/user/show.html.eex:83
-msgid "PHP, JavaScript, Tap Dancing, Origami"
+msgid "PHP, JavaScript, Tap Dancing, Origami, Recruiting"
 msgstr ""
 
 #: web/templates/phone_number/form.html.eex:9
@@ -586,6 +581,7 @@ msgid "Requesters"
 msgstr ""
 
 #: web/templates/search_query/index.html.eex:8
+#: web/templates/search_query/new.html.eex:9
 #: web/templates/search_query/show.html.eex:3
 msgid "Results"
 msgstr ""
@@ -600,6 +596,8 @@ msgstr ""
 
 #: web/templates/layout/app.html.eex:40
 #: web/templates/search_query/form.html.eex:10
+#: web/templates/search_query/new.html.eex:8
+#: web/templates/search_query/new.html.eex:13
 msgid "Search"
 msgstr ""
 
@@ -613,10 +611,10 @@ msgstr ""
 
 #: web/templates/search_query/form.html.eex:7
 msgid "Search here"
-msgstr "Bob"
+msgstr "Luke Skywalker"
 
-#: web/controllers/search_query_controller.ex:57
-#: web/controllers/search_query_controller.ex:61
+#: web/controllers/search_query_controller.ex:33
+#: web/controllers/search_query_controller.ex:37
 msgid "Search query executed successfully."
 msgstr ""
 
@@ -637,7 +635,7 @@ msgstr ""
 msgid "Sign up"
 msgstr ""
 
-#: web/controllers/user_skill_controller.ex:31
+#: web/controllers/user_skill_controller.ex:32
 msgid "Skill added successfully."
 msgstr ""
 
@@ -670,7 +668,7 @@ msgstr ""
 msgid "Slug doesn't exist."
 msgstr ""
 
-#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:152
+#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:154
 msgid "Slug updated successfully."
 msgstr ""
 
@@ -731,13 +729,8 @@ msgstr ""
 msgid "The Fast and Free Career Network"
 msgstr ""
 
-#: web/controllers/user_controller.ex:43
+#: web/controllers/user_controller.ex:45
 msgid "There was an error"
-msgstr ""
-
-#: web/templates/skill/show.html.eex:28
-#: web/templates/user_skill/show.html.eex:32
-msgid "This skill doesnt have a description yet. We will be adding the ability to submit descriptions soon."
 msgstr ""
 
 #: web/templates/work_experience/show.html.eex:33
@@ -753,7 +746,7 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: web/controllers/endorsement_controller.ex:27
+#: web/controllers/endorsement_controller.ex:28
 msgid "Unendorsed skill successfully."
 msgstr ""
 
@@ -761,15 +754,15 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: web/controllers/user_controller.ex:39
+#: web/controllers/user_controller.ex:41
 msgid "User %{name} created successfully. An email has been sent with your login link."
 msgstr ""
 
-#: web/controllers/user_controller.ex:169
+#: web/controllers/user_controller.ex:171
 msgid "User deleted successfully."
 msgstr ""
 
-#: web/controllers/user_controller.ex:129
+#: web/controllers/user_controller.ex:131
 msgid "User updated successfully."
 msgstr ""
 
@@ -777,7 +770,7 @@ msgstr ""
 msgid "User verified successfully."
 msgstr ""
 
-#: web/controllers/user_skill_controller.ex:52
+#: web/controllers/user_skill_controller.ex:53
 msgid "UserSkill deleted successfully."
 msgstr ""
 
@@ -857,7 +850,7 @@ msgstr ""
 msgid "Work Experiences"
 msgstr ""
 
-#: web/controllers/work_experience_controller.ex:32
+#: web/controllers/work_experience_controller.ex:33
 msgid "Work experience created successfully."
 msgstr ""
 
@@ -865,7 +858,7 @@ msgstr ""
 msgid "Work experience deleted successfully."
 msgstr ""
 
-#: web/controllers/work_experience_controller.ex:63
+#: web/controllers/work_experience_controller.ex:64
 msgid "Work experience updated successfully."
 msgstr ""
 
@@ -881,14 +874,14 @@ msgstr ""
 msgid "You don't have any followers yet! If you want more followers, you could follow others, invite your friends, or link your Vutuv profile on other social media websites."
 msgstr ""
 
-#: web/controllers/user_controller.ex:231
+#: web/controllers/user_controller.ex:246
 msgid "You follow back %{name}."
 msgstr ""
 
 #: web/controllers/admin/admin_controller.ex:18
 #: web/controllers/admin/slug_controller.ex:52
 #: web/controllers/admin/user_controller.ex:28
-#: web/controllers/user_controller.ex:245
+#: web/controllers/user_controller.ex:260
 msgid "You must be logged in to access that page"
 msgstr ""
 
@@ -916,11 +909,11 @@ msgstr ""
 msgid "upvotes"
 msgstr ""
 
-#: web/controllers/user_controller.ex:215
+#: web/controllers/user_controller.ex:217
 msgid "Successfully added %{successes} skills with %{failures} failures."
 msgstr ""
 
-#: web/controllers/user_controller.ex:183
+#: web/controllers/user_controller.ex:185
 msgid "An email has been sent to your email address with instructions on how to delete your account."
 msgstr ""
 
@@ -1099,15 +1092,17 @@ msgstr ""
 msgid "All Skills"
 msgstr ""
 
-#: web/controllers/admin/skill_controller.ex:77
+#: web/controllers/admin/skill_controller.ex:87
 msgid "Conversion to synonym failed"
 msgstr ""
 
-#: web/controllers/admin/skill_controller.ex:101
+#: web/controllers/admin/skill_controller.ex:53
+#: web/controllers/admin/skill_controller.ex:109
 msgid "Deletion Failed"
 msgstr ""
 
-#: web/controllers/admin/skill_controller.ex:100
+#: web/controllers/admin/skill_controller.ex:52
+#: web/controllers/admin/skill_controller.ex:108
 msgid "Deletion Succeeded"
 msgstr ""
 
@@ -1141,7 +1136,7 @@ msgstr ""
 msgid "No synonyms"
 msgstr ""
 
-#: web/controllers/admin/skill_controller.ex:66
+#: web/controllers/admin/skill_controller.ex:76
 msgid "Skill does not exist"
 msgstr ""
 
@@ -1154,15 +1149,15 @@ msgstr ""
 msgid "Skills Without Synonyms"
 msgstr ""
 
-#: web/controllers/admin/skill_controller.ex:73
+#: web/controllers/admin/skill_controller.ex:83
 msgid "Succeeded in conversion to synonym"
 msgstr ""
 
-#: web/controllers/admin/skill_controller.ex:90
+#: web/controllers/admin/skill_controller.ex:98
 msgid "Synonym Added Successfully"
 msgstr ""
 
-#: web/controllers/admin/skill_controller.ex:91
+#: web/controllers/admin/skill_controller.ex:99
 msgid "Synonym Added Unsuccessfully. This usually means it already exists."
 msgstr ""
 
@@ -1182,11 +1177,11 @@ msgstr ""
 msgid "To quickly validate, click the \"Easy Validate\" button above."
 msgstr ""
 
-#: web/controllers/admin/skill_controller.ex:56
+#: web/controllers/admin/skill_controller.ex:66
 msgid "Validation Failed"
 msgstr ""
 
-#: web/controllers/admin/skill_controller.ex:55
+#: web/controllers/admin/skill_controller.ex:65
 msgid "Validation Succeeded"
 msgstr ""
 
@@ -1221,3 +1216,26 @@ msgstr ""
 #: web/models/url.ex:40
 msgid "Can't find URL"
 msgstr ""
+
+#: web/templates/skill/single_card.html.eex:15
+msgid "People you may know with this skill"
+msgstr ""
+
+#: web/templates/skill/single_card.html.eex:19
+msgid "The most endorsed users with this skill"
+msgstr ""
+
+#: web/templates/skill/single_card.html.eex:24
+msgid "You can find more information at"
+msgstr ""
+
+#: web/templates/search_query/new.html.eex:21
+msgid "Please enter a name of a person, an email address or a skill."
+msgstr ""
+
+#: web/templates/search_query/new.html.eex:19
+msgid "Search How-To"
+msgstr ""
+
+#: web/templates/search_query/new.html.eex:24
+msgid "The search for first and last names is fuzzy."

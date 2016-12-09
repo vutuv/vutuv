@@ -8,6 +8,9 @@ defmodule Vutuv.SearchQuery do
     
     has_many :search_query_results, Vutuv.SearchQueryResult, on_delete: :delete_all, on_replace: :delete
     has_many :search_query_requesters, Vutuv.SearchQueryRequester, on_delete: :delete_all
+
+    has_many :user_results, through: [:search_query_results, :user]
+    has_many :skill_results, through: [:search_query_results, :skill]
     timestamps
   end
 

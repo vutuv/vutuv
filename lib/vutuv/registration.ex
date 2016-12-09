@@ -26,7 +26,7 @@ defmodule Vutuv.Registration do
     if(user_params["first_name"] != nil or user_params["last_name"] != nil) do
       struct = %User{first_name: user_params["first_name"], last_name: user_params["last_name"]}
 
-      slug_value = generate_slug(struct)
+      slug_value = Vutuv.SlugHelpers.gen_slug_unique(struct, Vutuv.Slug, :value)
 
       Slug.changeset(%Slug{}, %{value: slug_value})
     else
@@ -46,20 +46,6 @@ defmodule Vutuv.Registration do
       changeset
       |>Ecto.Changeset.put_assoc(type, [params])
     end)
-  end
-
-  def generate_slug(user) do
-    slug_value = Slugger.slugify_downcase(user, ?.)
-
-    slug_count = Repo.one(from s in Vutuv.Slug,
-      where: like(s.value, ^("#{slug_value}%")),
-      select: count("*"))
-    
-    if(slug_count>0) do
-      slug_value<>Integer.to_string(slug_count)
-    else
-      slug_value
-    end
   end
 
   def skill_welcome_wagon(%User{}=user) do

@@ -3,7 +3,6 @@ defmodule Vutuv.SkillSynonym do
   alias Vutuv.Repo
   alias Vutuv.UserSkill
   alias Vutuv.Skill
-  alias Vutuv.User
 
   schema "skill_synonyms" do
     field :value, :string
@@ -24,10 +23,8 @@ defmodule Vutuv.SkillSynonym do
     |> unique_constraint(:value)
   end
 
-  def create_from_skill(%Skill{} = skill_for_synonym, %Skill{} = skill) do
-    create_synonym(skill_for_synonym, skill)
-
-
+  def create_from_skill(%Skill{name: name} = skill_for_synonym, %Skill{} = skill) do
+    create_synonym(skill, name)
     user_skills = Repo.all(from(u in UserSkill, where: u.skill_id == ^skill_for_synonym.id))
     for(user_skill <- user_skills) do
       user_skill
@@ -40,10 +37,14 @@ defmodule Vutuv.SkillSynonym do
     Repo.delete(skill_for_synonym)
   end
 
-  defp create_synonym(skill_for_synonym, skill) do
+  def create_synonym(skill, name) do
+    skill
+    |> build_assoc(:search_terms)
+    |> Vutuv.SearchTerm.changeset(%{value: name})
+    |> Repo.insert!
     skill
     |> build_assoc(:skill_synonyms)
-    |> changeset(%{value: skill_for_synonym.name})
+    |> changeset(%{value: name})
     |> Repo.insert
   end
 end
