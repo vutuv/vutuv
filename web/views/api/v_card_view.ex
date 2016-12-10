@@ -26,6 +26,8 @@ defmodule Vutuv.Api.VCardView do
     end)
     <>
     vcard_emails(v_card)
+    <>
+    vcard_twitter(v_card)
     <>"REV:#{vcard_timestamp}Z\nEND:VCARD"
   end
 
@@ -49,5 +51,12 @@ defmodule Vutuv.Api.VCardView do
     Enum.reduce(emails,"", fn f, acc ->
       acc<>"EMAIL:"<>sanitize(f.value)<>"\n"
     end)
+  end
+
+  defp vcard_twitter(user) do
+    case(user.social_media_accounts) do
+      [] -> ""
+      [account|_] ->"X-SOCIALPROFILE;type=twitter:http://twitter.com/#{account.value}\n"
+    end
   end
 end
