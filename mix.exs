@@ -57,7 +57,7 @@ defmodule Vutuv.Mixfile do
      {:cowboy, "~> 1.0"},
      {:arc, "~> 0.5.3"},
      {:arc_ecto, "~> 0.4.2"},
-     {:ex_machina, "~> 0.6.1"},
+     {:ex_machina, "~> 1.0"},
      {:phoenix_html_simplified_helpers, "~> 0.6.0"},
      {:mariaex, ">= 0.0.0"},
      {:word_smith, "~> 0.1.0"},

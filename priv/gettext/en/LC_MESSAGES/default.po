@@ -164,9 +164,9 @@ msgstr ""
 #: web/templates/address/card_list.html.eex:4
 #: web/templates/admin/skill/form.html.eex:24
 #: web/templates/admin/skill/show.html.eex:35
-#: web/templates/skill/single_card.html.eex:11
-#: web/templates/url/card_list.html.eex:5 web/templates/url/form.html.eex:15
-#: web/templates/url/show.html.eex:32
+#: web/templates/skill/show.html.eex:25 web/templates/url/card_list.html.eex:5
+#: web/templates/url/form.html.eex:15 web/templates/url/show.html.eex:32
+#: web/templates/user_skill/show.html.eex:29
 #: web/templates/work_experience/form.html.eex:21
 msgid "Description"
 msgstr ""
@@ -366,11 +366,11 @@ msgstr ""
 msgid "Link created successfully."
 msgstr ""
 
-#: web/controllers/url_controller.ex:68
+#: web/controllers/url_controller.ex:72
 msgid "Link deleted successfully."
 msgstr ""
 
-#: web/controllers/url_controller.ex:54
+#: web/controllers/url_controller.ex:56
 msgid "Link updated successfully."
 msgstr ""
 
@@ -1207,6 +1207,14 @@ msgstr ""
 
 #: web/templates/url/form.html.eex:16
 msgid "Homepage"
+msgstr ""
+
+#: web/models/url.ex:35 web/models/url.ex:36
+msgid "Invalid URL"
+msgstr ""
+
+#: web/models/url.ex:40
+msgid "Can't find URL"
 msgstr ""
 
 #: web/templates/skill/single_card.html.eex:15
