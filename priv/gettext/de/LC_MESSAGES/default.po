@@ -366,11 +366,11 @@ msgstr "Nachname"
 msgid "Link created successfully."
 msgstr "Link wurde angelegt."
 
-#: web/controllers/url_controller.ex:68
+#: web/controllers/url_controller.ex:72
 msgid "Link deleted successfully."
 msgstr "Link wurde gelöscht."
 
-#: web/controllers/url_controller.ex:54
+#: web/controllers/url_controller.ex:56
 msgid "Link updated successfully."
 msgstr "Link wurde geändert."
 
@@ -427,11 +427,11 @@ msgstr "Mehr"
 msgid "More Info"
 msgstr "Mehr Informationen"
 
-#: web/templates/page/index.html.eex:26 web/templates/user/form.html.eex:9
+#: web/templates/page/index.html.eex:26
 msgid "Mr"
 msgstr "Herr"
 
-#: web/templates/page/index.html.eex:27 web/templates/user/form.html.eex:9
+#: web/templates/page/index.html.eex:27
 msgid "Mrs"
 msgstr "Frau"
 
@@ -502,7 +502,6 @@ msgid "Organization"
 msgstr "Organisation"
 
 #: web/models/user.ex:129 web/templates/page/index.html.eex:27
-#: web/templates/user/form.html.eex:9
 msgid "Other"
 msgstr "Sonstiges"
 
@@ -597,7 +596,7 @@ msgstr "Score"
 #: web/templates/layout/app.html.eex:40
 #: web/templates/search_query/form.html.eex:10
 #: web/templates/search_query/new.html.eex:8
-#: web/templates/search_query/new.html.eex:13
+#: web/templates/search_query/new.html.eex:12
 msgid "Search"
 msgstr "Suche"
 
@@ -1209,6 +1208,14 @@ msgstr "Heute"
 msgid "Homepage"
 msgstr ""
 
+#: web/models/url.ex:35 web/models/url.ex:36
+msgid "Invalid URL"
+msgstr "Die URL ist ungültig"
+
+#: web/models/url.ex:40
+msgid "Can't find URL"
+msgstr "Die URL kann nicht gefunden werden"
+
 #: web/templates/skill/single_card.html.eex:15
 msgid "People you may know with this skill"
 msgstr "Personen mit dieser Fähigkeit"
@@ -1221,14 +1228,30 @@ msgstr "Die höchst bewerteten Personen mit dieser Fähigkeit"
 msgid "You can find more information at"
 msgstr "Sie finden mehr Informationen unter"
 
-#: web/templates/search_query/new.html.eex:21
-msgid "Please enter a name of a person, an email address or a skill."
-msgstr "Sie können nach dem Namen einer Person, einer E-Mail Adresse oder einer Fähigkeit suchen."
-
-#: web/templates/search_query/new.html.eex:19
-msgid "Search How-To"
-msgstr "Welche Suchanfragen sind möglich?"
+#: web/templates/search_query/new.html.eex:51
+msgid "No results"
+msgstr "Zu dieser Suchanfrage gibt es keine Ergebnisse."
 
 #: web/templates/search_query/new.html.eex:24
-msgid "The search for first and last names is fuzzy."
-msgstr "Die Suche nach Vor- und Nachnamen ist fuzzy."
+msgid "Our search will try to match similar names to your search, so don't worry about spelling."
+msgstr "Die Suche nach Vor- und Nachnamen ist fuzzy (unscharf)."
+
+#: web/templates/search_query/new.html.eex:19
+msgid "Search Tips"
+msgstr "Hilfe bei der Suche"
+
+#: web/templates/search_query/new.html.eex:21
+msgid "You can search for a name, email, or skill."
+msgstr "Sie können nach Namen (Vor- und Nachname), E-Mail Adressen und Fähigkeiten suchen."
+
+#: web/templates/user/form.html.eex:9
+msgid "female"
+msgstr "weiblich"
+
+#: web/templates/user/form.html.eex:9
+msgid "male"
+msgstr "männlich"
+
+#: web/templates/user/form.html.eex:9
+msgid "other"
+msgstr "andere"
