@@ -164,9 +164,9 @@ msgstr ""
 #: web/templates/address/card_list.html.eex:4
 #: web/templates/admin/skill/form.html.eex:24
 #: web/templates/admin/skill/show.html.eex:35
-#: web/templates/skill/show.html.eex:25 web/templates/url/card_list.html.eex:5
-#: web/templates/url/form.html.eex:15 web/templates/url/show.html.eex:32
-#: web/templates/user_skill/show.html.eex:29
+#: web/templates/skill/single_card.html.eex:11
+#: web/templates/url/card_list.html.eex:5 web/templates/url/form.html.eex:15
+#: web/templates/url/show.html.eex:32
 #: web/templates/work_experience/form.html.eex:21
 msgid "Description"
 msgstr ""
@@ -427,11 +427,11 @@ msgstr ""
 msgid "More Info"
 msgstr ""
 
-#: web/templates/page/index.html.eex:26 web/templates/user/form.html.eex:9
+#: web/templates/page/index.html.eex:26
 msgid "Mr"
 msgstr ""
 
-#: web/templates/page/index.html.eex:27 web/templates/user/form.html.eex:9
+#: web/templates/page/index.html.eex:27
 msgid "Mrs"
 msgstr ""
 
@@ -502,7 +502,6 @@ msgid "Organization"
 msgstr ""
 
 #: web/models/user.ex:129 web/templates/page/index.html.eex:27
-#: web/templates/user/form.html.eex:9
 msgid "Other"
 msgstr ""
 
@@ -597,7 +596,7 @@ msgstr ""
 #: web/templates/layout/app.html.eex:40
 #: web/templates/search_query/form.html.eex:10
 #: web/templates/search_query/new.html.eex:8
-#: web/templates/search_query/new.html.eex:13
+#: web/templates/search_query/new.html.eex:12
 msgid "Search"
 msgstr ""
 
@@ -1229,14 +1228,30 @@ msgstr ""
 msgid "You can find more information at"
 msgstr ""
 
-#: web/templates/search_query/new.html.eex:21
-msgid "Please enter a name of a person, an email address or a skill."
-msgstr ""
-
-#: web/templates/search_query/new.html.eex:19
-msgid "Search How-To"
+#: web/templates/search_query/new.html.eex:51
+msgid "No results"
 msgstr ""
 
 #: web/templates/search_query/new.html.eex:24
-msgid "The search for first and last names is fuzzy."
+msgid "Our search will try to match similar names to your search, so don't worry about spelling."
+msgstr ""
+
+#: web/templates/search_query/new.html.eex:19
+msgid "Search Tips"
+msgstr ""
+
+#: web/templates/search_query/new.html.eex:21
+msgid "You can search for a name, email, or skill."
+msgstr ""
+
+#: web/templates/user/form.html.eex:9
+msgid "female"
+msgstr ""
+
+#: web/templates/user/form.html.eex:9
+msgid "male"
+msgstr ""
+
+#: web/templates/user/form.html.eex:9
+msgid "other"
 msgstr ""
