@@ -46,7 +46,7 @@ defmodule Vutuv.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:ecto, "~> 2.0.0", override: true},
+    [{:ecto, "~> 2.0.1", override: true},
      {:bamboo, "~> 0.6"},
      {:bamboo_smtp, "~> 1.1.0"},
      {:phoenix, "~> 1.2.0"},

@@ -32,7 +32,8 @@ defmodule Vutuv.UserSkillController do
         |> put_flash(:info, gettext("Skill added successfully."))
         |> redirect(to: user_user_skill_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        errors = changeset.errors ++ changeset.changes.skill.errors
+        render(conn, "new.html", changeset: changeset, errors: errors)
     end
   end
 

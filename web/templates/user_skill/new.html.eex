@@ -17,6 +17,6 @@
   </aside>
   <section class="card">
 
-  <%= render "form.html", backlink: user_user_skill_path(@conn, :index, @user), conn: @conn, action: user_user_skill_path(@conn, :create, @user) %>
+  <%= render "form.html", backlink: user_user_skill_path(@conn, :index, @user), errors: @conn.assigns[:errors], conn: @conn, action: user_user_skill_path(@conn, :create, @user) %>
   </section>
 </div>

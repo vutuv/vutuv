@@ -1,6 +1,7 @@
 defmodule Vutuv.Repo.Migrations.SocialMediaLinksToAccounts do
   use Ecto.Migration
   import Ecto.Query
+  @disable_ddl_transaction true
 
   def change do
   	urls = Vutuv.Repo.all(from u in Vutuv.Url, preload: [:user])
