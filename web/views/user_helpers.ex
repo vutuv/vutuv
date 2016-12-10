@@ -18,6 +18,12 @@ defmodule Vutuv.UserHelpers do
     |> Enum.join(" ")
   end
 
+  def first_and_last(%User{first_name: first_name, last_name: last_name}, seperator \\ " ") do
+    "#{first_name}#{
+      if first_name && last_name, do: seperator
+      }#{last_name}"
+  end
+
   def name_for_email_to_field(%User{first_name: first_name,
                       last_name: last_name}) do
     [first_name, last_name]

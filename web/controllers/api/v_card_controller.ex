@@ -18,8 +18,9 @@ defmodule Vutuv.Api.VCardController do
   end
 
   defp headers(conn, _opts) do
+    filename = "#{Vutuv.UserHelpers.first_and_last(conn.assigns[:user], "_") |> String.downcase}_vcard.vcf"
     conn
     |> Plug.Conn.put_resp_header("Content-Type", "text/vcard;charset=utf-8")
-    |> Plug.Conn.put_resp_header("Content-Disposition", "attachment;filename = vcard.vcf")
+    |> Plug.Conn.put_resp_header("Content-Disposition", "attachment;filename = #{filename}")
   end
 end
