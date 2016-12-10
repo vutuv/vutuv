@@ -16,6 +16,12 @@ defmodule Vutuv.PageController do
     redirect conn, to: page_path(conn, :index)
   end
 
+  def redirect_user(conn, %{"slug" => slug}) do
+    conn
+    |> put_status(301)
+    |> redirect(to: user_path(conn, :show, slug))
+  end
+
   def impressum(conn, _params) do
     render conn, "impressum.html", conn: conn, body_class: "stretch"
   end

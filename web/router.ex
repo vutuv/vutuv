@@ -121,4 +121,9 @@ defmodule Vutuv.Router do
     resources "/skills", Vutuv.Api.SkillController, only: [:index, :show]
 
   end
+
+  scope "/", as: :default do
+    pipe_through :browser
+    get "/:slug", Vutuv.PageController, :redirect_user
+  end
 end
