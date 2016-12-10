@@ -49,10 +49,6 @@ defmodule Vutuv.SearchQueryController do
     |> case do #if query is nil, it doesn't yet exist, so create it.
       nil -> create(conn, %{"search_query" => %{"value" => query_id}})
       query ->
-        changeset = 
-          query
-          |> Repo.preload([:search_query_results, :search_query_requesters])
-          |> SearchQuery.changeset
         query = Repo.preload(query, [:search_query_results, :user_results, :skill_results])
         conn
         |> Map.put(:params, Map.put_new(conn.params, "skills", "#{Enum.count(query.user_results) < Enum.count(query.skill_results)}"))
