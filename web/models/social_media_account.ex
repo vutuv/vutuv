@@ -28,7 +28,7 @@ defmodule Vutuv.SocialMediaAccount do
   display_rules = [
     {"Facebook" , ""},
     {"Twitter" , "@"},
-    {"Google+", ""},
+    {"Google+", "+"},
     {"Instagram" , "@"},
     {"Youtube" , ""},
     {"Snapchat" , ""},
