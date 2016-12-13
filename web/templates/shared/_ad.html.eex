@@ -1,11 +1,7 @@
 <section class="ad">
   <label><%= gettext("Ad") %></label>
-  <h1><a href="http://amzn.to/2gjZhsR">Wunder wirken Wunder: Wie Medizin und Magie uns heilen</a></h1>
-  <a href="http://amzn.to/2gjZhsR"><img src="https://images-eu.ssl-images-amazon.com/images/I/51tuKp-XwHL._AC_AC_SR98,95_.jpg" align="right" width="98" height="95" border="0" alt=""/></a>
-  <p>von Dr. med. Eckart von Hirschhausen</p>
-  <p>Ein heilsamer Blick auf die Wunderwelt der Heilkunst
-Die Wissenschaft hat die Magie aus der Medizin vertrieben, aber nicht aus uns Menschen.</p>
-  <p>
-  <a href="http://amzn.to/2gjZhsR">amazon.de</a>
-  </p>
+  <h1>Fire TV Stick</h1>
+  <p>Mit einer riesigen Auswahl an Filmen und Serienepisoden.</p>
+  <p>EUR 39,99</p>
+  <a href="http://amzn.to/2hhOMY1">https://www.amazon.de</a>
 </section>
