@@ -9,5 +9,5 @@
   <%= input %>
   <%= error %>
 <% end %>
-  <%%= submit gettext("Submit") %>
+  <%%= submit gettext("Submit"), class: "button" %>
 <%% end %>
