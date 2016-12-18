@@ -5,7 +5,7 @@
     </div>
   </div>
 </header>
-<%= render Vutuv.LayoutView, "flash.html", assigns %>
+<%= "<%=" %> render Vutuv.LayoutView, "flash.html", assigns <%= "%\>" %>
 
 <div class="breadcrumbs">
 </div>
