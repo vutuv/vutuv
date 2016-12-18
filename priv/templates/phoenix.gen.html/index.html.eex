@@ -1,8 +1,18 @@
-<div class="pure-g">
-  <div class="pure-u-1-1">
-    <h2><%= "<%= gettext \"" %>Listing <%= template_plural %><%= "\" %\>" %></h2>
+<%# header tag begins in parent template %>
+  <div class="profile-header">
+    <div class="profile-header__info">
+      <h1><%= "<%= gettext \"" %>All <%= template_plural %><%= "\" %\>" %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
 
-    <table class="pure-table pure-table-horizontal">
+<div class="breadcrumbs">
+</div>
+
+<div class="card-list">
+  <section class="card">
+    <table>
       <thead>
         <tr>
     <%= for {k, _} <- attrs do %>      <th><%= "<%= gettext \"" %><%= Phoenix.Naming.humanize(Atom.to_string(k)) %><%= "\" %\>" %></th>
@@ -12,19 +22,24 @@
       </thead>
       <tbody>
     <%= "<%=" %> for {<%= singular %>, index} <- Enum.with_index(@<%= plural %>) do <%= "%\>" %>
-        <tr class="<%= "<%=" %> if rem(index, 2) == 1, do: "pure-table-odd" <%= "%\>" %>">
+        <tr>
     <%= for {k, _} <- attrs do %>      <td><%= "<%=" %> <%= singular %>.<%= k %> <%= "%\>" %></td>
     <% end %>
-          <td class="text-right">
-            <%= "<%=" %> link gettext("Show"), to: <%= singular %>_path(@conn, :show, <%= singular %>), class: "pure-button" <%= "%\>" %>
-            <%= "<%=" %> link gettext("Edit"), to: <%= singular %>_path(@conn, :edit, <%= singular %>), class: "pure-button" <%= "%\>" %>
-            <%= "<%=" %> link gettext("Delete"), to: <%= singular %>_path(@conn, :delete, <%= singular %>), method: :delete, data: [confirm: gettext("Are you sure?")], class: "pure-button" <%= "%\>" %>
+          <td>
+            <%= "<%=" %> link gettext("Show"), to: <%= singular %>_path(@conn, :show, <%= singular %>) <%= "%\>" %>
+            <%= "<%=" %> link gettext("Edit"), to: <%= singular %>_path(@conn, :edit, <%= singular %>) <%= "%\>" %>
+            <%= "<%=" %> link gettext("Delete"), to: <%= singular %>_path(@conn, :delete, <%= singular %>), method: :delete, data: [confirm: gettext("Are you sure?")] <%= "%\>" %>
           </td>
         </tr>
     <%% end %>
       </tbody>
     </table>
 
-    <%= "<%=" %> link gettext("New <%= template_singular %>"), to: <%= singular %>_path(@conn, :new), class: "pure-button" %>
-  </div>
+    <p>
+      <%= "<%=" %> link gettext("New <%= template_singular %>"), to: <%= singular %>_path(@conn, :new) %>
+    </p>
+  </section>
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
 </div>

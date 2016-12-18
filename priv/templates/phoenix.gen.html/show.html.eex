@@ -1,7 +1,17 @@
-<div class="pure-g">
-  <div class="pure-u-1-1">
-    <h2><%= "<%= gettext \"" %>Show <%= template_singular %><%= "\" %\>" %></h2>
+<%# header tag begins in parent template %>
+  <div class="profile-header">
+    <div class="profile-header__info">
+      <h1><%= "<%= gettext \"" %>Show <%= template_singular %><%= "\" %\>" %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
 
+<div class="breadcrumbs">
+</div>
+
+<div class="card-list">
+  <section class="card">
     <ul>
     <%= for {k, _} <- attrs do %>
       <li>
@@ -11,7 +21,12 @@
     <% end %>
     </ul>
 
-    <%= "<%=" %> link gettext("Edit"), to: <%= singular %>_path(@conn, :edit, @<%= singular %>), class: "pure-button" <%= "%\>" %>
-    <%= "<%=" %> link gettext("Back"), to: <%= singular %>_path(@conn, :index), class: "pure-button" <%= "%\>" %>
-  </div>
+    <p>
+      <%= "<%=" %> link gettext("Edit"), to: <%= singular %>_path(@conn, :edit, @<%= singular %>) <%= "%\>" %>
+      <%= "<%=" %> link gettext("Back"), to: <%= singular %>_path(@conn, :index) <%= "%\>" %>
+    </p>
+  </section>
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
 </div>

@@ -1,10 +1,25 @@
-<div class="pure-g">
-  <div class="pure-u-1-1">
-    <h2><%= "<%= gettext \"" %>New <%= template_singular %><%= "\"%\>" %></h2>
+<%# header tag begins in parent template %>
+  <div class="profile-header">
+    <div class="profile-header__info">
+      <h1><%= "<%= gettext \"" %>New <%= template_singular %><%= "\" %\>" %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
 
+<div class="breadcrumbs">
+</div>
+
+<div class="card-list">
+  <section class="card">
     <%= "<%=" %> render "form.html", changeset: @changeset,
                             action: <%= singular %>_path(@conn, :create) <%= "%\>" %>
 
-    <%= "<%=" %> link gettext("Back"), to: <%= singular %>_path(@conn, :index), class: "pure-button" <%= "%\>" %>
-  </div>
+    <p>
+      <%= "<%=" %> link gettext("Back"), to: <%= singular %>_path(@conn, :index) <%= "%\>" %>
+    </p>
+  </section>
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
 </div>
