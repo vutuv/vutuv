@@ -1197,7 +1197,7 @@ msgid "Enter a single skill (e.g. skating)"
 msgstr "Einzelne Fähigkeit (z.B. Schlittschuhlaufen)"
 
 #: web/templates/user/show.html.eex:82
-msgid "Enter comma separated skills here. Max length per skill: 45 charaters"
+msgid "Enter comma separated skills here. Max length per skill: 45 characters"
 msgstr "Bitte mit Komma separieren. Maximale Länge pro Fähigkeit: 45 Buchstaben."
 
 #: web/views/work_experience_view.ex:21
