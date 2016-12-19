@@ -21,7 +21,7 @@
       <%= link to: user_phone_number_path(@conn, :edit, @user, @phone_number), class: "button button-link button--icon button--small" do %>
         <i class="icon icon--edit"></i>
       <% end %>
-      <%= button to: user_phone_number_path(@conn, :delete, @user, @phone_number), class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
+      <%= button to: user_phone_number_path(@conn, :delete, @user, @phone_number), method: :delete, class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
         <i class="icon icon--delete"></i>
       <% end %>
     </div>
