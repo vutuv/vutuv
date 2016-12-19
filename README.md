@@ -19,7 +19,7 @@ We run a private Slack channel. Once you get involved by commiting code we'll in
 
 Vutuv is a [Phoenix Framework](http://www.phoenixframework.org/) application. Please install the following software first:
 
-- [latest version of Erlang/Elixir](http://elixir-lang.org/install.html).
+- [latest stable version of Erlang/Elixir](http://elixir-lang.org/install.html)
 - [Phoenix Framework](http://www.phoenixframework.org/)
 - [MySQL](http://www.mysql.com/)
 
@@ -34,6 +34,16 @@ Go to the `/config` directory and create two files named
 `dev.secret.exs` and `prod.secret.exs` with this content:
 ```elixir
 use Mix.Config
+```
+
+### Configure secret_key_base
+
+You need to configure a `secret_key_base` for the cookies and sessions. The command `mix phoenix.gen.secret` will generate one for you but you have to create the configuration like this in the `config/dev.secret.exs` file:
+```
+use Mix.Config
+
+config :vutuv, Vutuv.Endpoint,
+  secret_key_base: "d6aaXKavOSzzyQXsLYpNqBE+h3qtzzwlXifVoxpPP6uoUYgTqpMzz8ISb1AETFZa"
 ```
 
 ## Configure your SMTP setup
