@@ -24,24 +24,19 @@ defmodule Vutuv.SocialMediaAccountController do
 
     case Repo.insert(changeset) do
       {:ok, social_media_account} ->
-        case social_media_account.provider do
+        info = case social_media_account.provider do
           "Twitter" ->
-            conn
-            |> put_flash(:info, gettext("Social media account created successfully. Shameless plug: Follow our Twitter account @vutuv"))
-            |> redirect(to: user_social_media_account_path(conn, :index, conn.assigns[:user]))
+            gettext("Social media account created successfully. Shameless plug: Follow our Twitter account @vutuv")
           "GitHub" ->
-            conn
-            |> put_flash(:info, gettext("Social media account created successfully. BTW: Did you know that the vutuv repo is hosted on GitHub? https://github.com/vutuv/vutuv/"))
-            |> redirect(to: user_social_media_account_path(conn, :index, conn.assigns[:user]))
+            gettext("Social media account created successfully. BTW: Did you know that the vutuv repo is hosted on GitHub? https://github.com/vutuv/vutuv/")
           "Instagram" ->
-            conn
-            |> put_flash(:info, gettext("Social media account created successfully. Shameless plug: Check out the Instagram account of @wintermeyer"))
-            |> redirect(to: user_social_media_account_path(conn, :index, conn.assigns[:user]))
+            gettext("Social media account created successfully. Shameless plug: Check out the Instagram account of @wintermeyer")
           _ ->
-            conn
-            |> put_flash(:info, gettext("Social media account created successfully."))
-            |> redirect(to: user_social_media_account_path(conn, :index, conn.assigns[:user]))
+            gettext("Social media account created successfully.")
         end
+        conn
+        |> put_flash(:info, info)
+        |> redirect(to: user_social_media_account_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
