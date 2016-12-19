@@ -427,14 +427,6 @@ msgstr "Mehr"
 msgid "More Info"
 msgstr "Mehr Informationen"
 
-#: web/templates/page/index.html.eex:26
-msgid "Mr"
-msgstr "Herr"
-
-#: web/templates/page/index.html.eex:27
-msgid "Mrs"
-msgstr "Frau"
-
 #: web/templates/admin/skill/form.html.eex:9
 #: web/templates/admin/skill/show.html.eex:31
 #: web/templates/group/index.html.eex:8
@@ -501,7 +493,7 @@ msgstr "Ups, es gab einen Validierungsfehler! Bitte überprüfen Sie Ihre Eingab
 msgid "Organization"
 msgstr "Organisation"
 
-#: web/models/user.ex:129 web/templates/page/index.html.eex:27
+#: web/models/user.ex:129
 msgid "Other"
 msgstr "Sonstiges"
 
@@ -685,15 +677,15 @@ msgstr "Social Media Accounts"
 msgid "Social Media Profiles"
 msgstr "Social Media Profile"
 
-#: web/controllers/social_media_account_controller.ex:28
+#: web/controllers/social_media_account_controller.ex:42
 msgid "Social media account created successfully."
 msgstr "Ein neuer Social Media Account wurde eingetragen."
 
-#: web/controllers/social_media_account_controller.ex:68
+#: web/controllers/social_media_account_controller.ex:83
 msgid "Social media account deleted successfully."
 msgstr "Ein Social Media Account wurde gelöscht."
 
-#: web/controllers/social_media_account_controller.ex:53
+#: web/controllers/social_media_account_controller.ex:68
 msgid "Social media account updated successfully."
 msgstr "Ein Social Media Account wurde geändert."
 
@@ -769,7 +761,7 @@ msgstr "Userdaten wurde geändert."
 msgid "User verified successfully."
 msgstr "User wurde verifiziert."
 
-#: web/controllers/user_skill_controller.ex:53
+#: web/controllers/user_skill_controller.ex:54
 msgid "UserSkill deleted successfully."
 msgstr "Eine Fähigkeit wurde gelöscht."
 
@@ -1188,10 +1180,6 @@ msgstr ""
 msgid "Your Fast and Free Career Network. No expensive premium accounts! Get a free account in 30 seconds."
 msgstr "Kontaktnetzwerk. Schnell und gratis! Keine teuren Premium-Accounts. Ihr gratis Account ist in 30 Sekunden fertig."
 
-#: web/templates/user_skill/form.html.eex:8
-msgid "The max length of a skill is 45 characters."
-msgstr "Eine Fähigkeit darf nicht mehr als 45 Buchstaben lang sein."
-
 #: web/templates/user_skill/form.html.eex:4
 msgid "Enter a single skill (e.g. skating)"
 msgstr "Einzelne Fähigkeit (z.B. Schlittschuhlaufen)"
@@ -1244,14 +1232,30 @@ msgstr "Hilfe bei der Suche"
 msgid "You can search for a name, email, or skill."
 msgstr "Sie können nach Namen (Vor- und Nachname), E-Mail Adressen und Fähigkeiten suchen."
 
-#: web/templates/user/form.html.eex:9
+#: web/templates/page/index.html.eex:27 web/templates/user/form.html.eex:9
 msgid "female"
 msgstr "weiblich"
 
-#: web/templates/user/form.html.eex:9
+#: web/templates/page/index.html.eex:26 web/templates/user/form.html.eex:9
 msgid "male"
 msgstr "männlich"
 
-#: web/templates/user/form.html.eex:9
+#: web/templates/page/index.html.eex:27 web/templates/user/form.html.eex:9
 msgid "other"
 msgstr "andere"
+
+#: web/templates/user_skill/form.html.eex:8
+msgid "A skill can be at most 45 characters long."
+msgstr "Eine Fähigkeit darf nicht mehr als 45 Buchstaben lang sein."
+
+#: web/controllers/social_media_account_controller.ex:34
+msgid "Social media account created successfully. BTW: Did you know that the vutuv repo is hosted on GitHub? https://github.com/vutuv/vutuv/"
+msgstr "Ein Social Media Account wurde erstellt. Wussten Sie, das der vutuv Source-Code auf GitHub gehostet wird? https://github.com/vutuv/vutuv/"
+
+#: web/controllers/social_media_account_controller.ex:38
+msgid "Social media account created successfully. Shameless plug: Check out the Instagram account of @wintermeyer"
+msgstr "Ein Social Media Account wurde erstellt. Schleichwerbung: Schauen Sie sich doch mal den Instagram Account von @wintermeyer an."
+
+#: web/controllers/social_media_account_controller.ex:30
+msgid "Social media account created successfully. Shameless plug: Follow our Twitter account @vutuv"
+msgstr "Ein Social Media Account wurde erstellt. Wir sind übrigens auch Twitter Fans. Unser Account: @vutuv"

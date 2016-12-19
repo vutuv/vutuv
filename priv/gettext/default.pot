@@ -428,14 +428,6 @@ msgstr ""
 msgid "More Info"
 msgstr ""
 
-#: web/templates/page/index.html.eex:26
-msgid "Mr"
-msgstr ""
-
-#: web/templates/page/index.html.eex:27
-msgid "Mrs"
-msgstr ""
-
 #: web/templates/admin/skill/form.html.eex:9
 #: web/templates/admin/skill/show.html.eex:31
 #: web/templates/group/index.html.eex:8
@@ -502,7 +494,7 @@ msgstr ""
 msgid "Organization"
 msgstr ""
 
-#: web/models/user.ex:129 web/templates/page/index.html.eex:27
+#: web/models/user.ex:129
 msgid "Other"
 msgstr ""
 
@@ -686,15 +678,15 @@ msgstr ""
 msgid "Social Media Profiles"
 msgstr ""
 
-#: web/controllers/social_media_account_controller.ex:28
+#: web/controllers/social_media_account_controller.ex:42
 msgid "Social media account created successfully."
 msgstr ""
 
-#: web/controllers/social_media_account_controller.ex:68
+#: web/controllers/social_media_account_controller.ex:83
 msgid "Social media account deleted successfully."
 msgstr ""
 
-#: web/controllers/social_media_account_controller.ex:53
+#: web/controllers/social_media_account_controller.ex:68
 msgid "Social media account updated successfully."
 msgstr ""
 
@@ -770,7 +762,7 @@ msgstr ""
 msgid "User verified successfully."
 msgstr ""
 
-#: web/controllers/user_skill_controller.ex:53
+#: web/controllers/user_skill_controller.ex:54
 msgid "UserSkill deleted successfully."
 msgstr ""
 
@@ -1189,10 +1181,6 @@ msgstr ""
 msgid "Your Fast and Free Career Network. No expensive premium accounts! Get a free account in 30 seconds."
 msgstr ""
 
-#: web/templates/user_skill/form.html.eex:8
-msgid "The max length of a skill is 45 characters."
-msgstr ""
-
 #: web/templates/user_skill/form.html.eex:4
 msgid "Enter a single skill (e.g. skating)"
 msgstr ""
@@ -1245,14 +1233,30 @@ msgstr ""
 msgid "You can search for a name, email, or skill."
 msgstr ""
 
-#: web/templates/user/form.html.eex:9
+#: web/templates/page/index.html.eex:27 web/templates/user/form.html.eex:9
 msgid "female"
 msgstr ""
 
-#: web/templates/user/form.html.eex:9
+#: web/templates/page/index.html.eex:26 web/templates/user/form.html.eex:9
 msgid "male"
 msgstr ""
 
-#: web/templates/user/form.html.eex:9
+#: web/templates/page/index.html.eex:27 web/templates/user/form.html.eex:9
 msgid "other"
+msgstr ""
+
+#: web/templates/user_skill/form.html.eex:8
+msgid "A skill can be at most 45 characters long."
+msgstr ""
+
+#: web/controllers/social_media_account_controller.ex:34
+msgid "Social media account created successfully. BTW: Did you know that the vutuv repo is hosted on GitHub? https://github.com/vutuv/vutuv/"
+msgstr ""
+
+#: web/controllers/social_media_account_controller.ex:38
+msgid "Social media account created successfully. Shameless plug: Check out the Instagram account of @wintermeyer"
+msgstr ""
+
+#: web/controllers/social_media_account_controller.ex:30
+msgid "Social media account created successfully. Shameless plug: Follow our Twitter account @vutuv"
 msgstr ""
