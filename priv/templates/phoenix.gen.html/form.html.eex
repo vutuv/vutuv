@@ -5,9 +5,19 @@
     </div>
   <%% end %>
 <%= for {label, input, error} <- inputs, input do %>
+<div class="editform__field
+	<%= "<%=" %> if(<%= error |> String.replace("<%=","") |> String.replace("%\>","")%>) do <%= "%\>" %>
+	 editform__field--error"
+	 <%% else %>
+	 "
+	 <%% end %>">
   <%= label %>
   <%= input %>
   <%= error %>
+</div>
 <% end %>
+<div class="editform__actions">
+  <%%= link gettext("Cancel"), to: @backlink, class: "button button--cancel" %>
   <%%= submit gettext("Submit"), class: "button" %>
+</div>
 <%% end %>

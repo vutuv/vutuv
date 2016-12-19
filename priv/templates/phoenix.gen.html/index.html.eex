@@ -8,6 +8,8 @@
 <%= "<%=" %> render Vutuv.LayoutView, "flash.html", assigns <%= "%\>" %>
 
 <div class="breadcrumbs">
+  <%= "<%=" %> Vutuv.UserHelpers.gen_breadcrumbs([
+      gettext("<%= Phoenix.Naming.humanize(plural) %>")]) <%= "%\>" %>
 </div>
 
 <div class="card-list">
@@ -26,9 +28,15 @@
     <%= for {k, _} <- attrs do %>      <td><%= "<%=" %> <%= singular %>.<%= k %> <%= "%\>" %></td>
     <% end %>
           <td>
-            <%= "<%=" %> link gettext("Show"), to: <%= singular %>_path(@conn, :show, <%= singular %>) <%= "%\>" %>
-            <%= "<%=" %> link gettext("Edit"), to: <%= singular %>_path(@conn, :edit, <%= singular %>) <%= "%\>" %>
-            <%= "<%=" %> link gettext("Delete"), to: <%= singular %>_path(@conn, :delete, <%= singular %>), method: :delete, data: [confirm: gettext("Are you sure?")] <%= "%\>" %>
+            <%= "<%=" %> link to: <%= singular %>_path(@conn, :show, <%= singular %>), class: "button button--icon button--small" do <%= "%\>" %>
+            <i class="icon icon--search"></i>
+            <%% end %>
+            <%= "<%=" %> link to: <%= singular %>_path(@conn, :edit, <%= singular %>), class: "button button--icon button--small" do <%= "%\>" %>
+            <i class="icon icon--edit"></i>
+            <%% end %>
+            <%= "<%=" %> button to: <%= singular %>_path(@conn, :delete, <%= singular %>), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do <%= "%\>" %>
+            <i class="icon icon--delete"></i>
+            <%% end %>
           </td>
         </tr>
     <%% end %>
@@ -36,7 +44,7 @@
     </table>
 
     <p>
-      <%= "<%=" %> link gettext("New <%= template_singular %>"), to: <%= singular %>_path(@conn, :new) %>
+      <%= "<%=" %> link gettext("New <%= template_singular %>"), to: <%= singular %>_path(@conn, :new), class: "card__morelink" %>
     </p>
   </section>
   <aside>
