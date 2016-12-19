@@ -12,7 +12,7 @@ defmodule Vutuv.SocialMediaAccount do
   @required_fields ~w(provider value)
   @optional_fields ~w()
 
-  @accepted_providers ~w(Facebook Twitter Google+ Instagram Youtube Snapchat LinkedIn XING)
+  @accepted_providers ~w(Facebook Twitter Google+ Instagram Youtube Snapchat LinkedIn XING GitHub)
 
   base_urls = [
     {"Facebook" , "http://facebook.com/"},
@@ -22,7 +22,8 @@ defmodule Vutuv.SocialMediaAccount do
     {"Youtube" , "http://youtube.com/channel/"},
     {"Snapchat" , nil},
     {"LinkedIn", "https://www.linkedin.com/in/"},
-    {"XING", "https://www.xing.com/profile/"}
+    {"XING", "https://www.xing.com/profile/"},
+    {"GitHub", "https://github.com/"}
   ]
 
   display_rules = [
@@ -33,7 +34,8 @@ defmodule Vutuv.SocialMediaAccount do
     {"Youtube" , ""},
     {"Snapchat" , ""},
     {"LinkedIn", ""},
-    {"XING", ""}
+    {"XING", ""},
+    {"GitHub", ""}
   ]
 
   @doc """
