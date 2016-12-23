@@ -1,0 +1,53 @@
+
+  <div class="profile-header">
+    <div class="profile-header__info">
+      <h1><%= gettext "All locales" %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+
+<div class="breadcrumbs">
+  <%= Vutuv.UserHelpers.gen_breadcrumbs([
+      gettext("Locales")]) %>
+</div>
+
+<div class="card-list">
+  <section class="card">
+    <table>
+      <thead>
+        <tr>
+          <th><%= gettext "Value" %></th>
+    
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    <%= for {locale, index} <- Enum.with_index(@locales) do %>
+        <tr>
+          <td><%= locale.value %></td>
+    
+          <td>
+            <%= link to: admin_locale_path(@conn, :show, locale), class: "button button--icon button--small" do %>
+            <i class="icon icon--search"></i>
+            <% end %>
+            <%= link to: admin_locale_path(@conn, :edit, locale), class: "button button--icon button--small" do %>
+            <i class="icon icon--edit"></i>
+            <% end %>
+            <%= button to: admin_locale_path(@conn, :delete, locale), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
+            <i class="icon icon--delete"></i>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+      </tbody>
+    </table>
+
+    <p>
+      <%= link gettext("New locale"), to: admin_locale_path(@conn, :new), class: "card__morelink" %>
+    </p>
+  </section>
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
+</div>
