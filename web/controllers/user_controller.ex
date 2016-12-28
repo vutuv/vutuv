@@ -61,7 +61,7 @@ defmodule Vutuv.UserController do
     link_limit = if total_links>5, do: 3, else: total_links
     address_limit = if total_addresses>5, do: 3, else: total_addresses
     user_skill_limit = if total_user_skills>5, do: 4, else: total_user_skills
-    user = 
+    user =
       conn.assigns[:user]
       |> Repo.preload([
         :social_media_accounts,
@@ -70,8 +70,8 @@ defmodule Vutuv.UserController do
         user_skills: from(u in Vutuv.UserSkill, left_join: e in assoc(u, :endorsements), left_join: s in assoc(u, :skill),
           order_by: s.name, group_by: u.id, limit: ^user_skill_limit, # order_by: fragment("count(?) DESC", e.id) orders by endorsements
           preload: [:endorsements]),
-        followee_connections: {Connection.latest_with_avatars(3), [:followee]},
-        follower_connections: {Connection.latest_with_avatars(3), [:follower]},
+        followee_connections: {Connection.latest(3), [:followee]},
+        follower_connections: {Connection.latest(3), [:follower]},
         phone_numbers: from(u in Vutuv.PhoneNumber, order_by: [desc: u.updated_at], limit: ^number_limit),
         urls: from(u in Vutuv.Url, order_by: [desc: u.updated_at], limit: ^link_limit),
         addresses: from(u in Vutuv.Address, order_by: [desc: u.updated_at], limit: ^address_limit),
@@ -82,7 +82,7 @@ defmodule Vutuv.UserController do
     emails = Vutuv.UserHelpers.emails_for_display(user, conn.assigns[:current_user])
 
     # Display an introduction message for new users
-    
+
     inserted_at = :calendar.datetime_to_gregorian_seconds(Ecto.DateTime.to_erl(user.inserted_at))
     now = :calendar.datetime_to_gregorian_seconds(:calendar.universal_time)
     display_welcome_message = now - inserted_at <= 600
@@ -111,7 +111,7 @@ defmodule Vutuv.UserController do
   end
 
   def edit(conn, _params) do
-    user = 
+    user =
       conn.assigns[:user]
       |> Repo.preload([:emails, :slugs, :oauth_providers])
     changeset = User.changeset(user)
@@ -219,11 +219,11 @@ defmodule Vutuv.UserController do
   end
 
   defp welcome_wagon(user) do
-    time_created = 
+    time_created =
       user.inserted_at
       |> Ecto.DateTime.to_erl
       |> :calendar.datetime_to_gregorian_seconds
-    now = 
+    now =
       :calendar.universal_time
       |> :calendar.datetime_to_gregorian_seconds
     if(now - time_created <= @welcome_wagon_cut_off_time) do
