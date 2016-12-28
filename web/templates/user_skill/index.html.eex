@@ -19,7 +19,30 @@
   <section class="card">
     <h1>Skills</h1>
 
-    <%= render "card_list.html", assigns %>
+    <table>
+      <thead>
+        <tr>
+          <th><%= gettext "Skill name" %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for user_skill <- @user_skills do %>
+        <tr>
+          <td>
+          <p style="word-wrap: break-word; max-width: 600px;"><%= link Vutuv.Skill.resolve_name(user_skill.skill_id), to: user_user_skill_path(@conn, :show, @user, user_skill) %></p>
+          </td>
+          <td>
+          <%= if @current_user && same_user?(@user, @current_user) do %>
+          <%= button to: user_user_skill_path(@conn, :delete, @user, user_skill), method: :delete, class: "delete button button--icon button--small", style: "height:25px;margin-right:-5px;", form: [class: "button button--icon button--small"] do %>
+          <i class="icon icon--delete"></i>
+          <% end %>
+          <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
 
     <%= if same_user?(@user, @current_user) do %>
       <%= link gettext("Add"), to: user_user_skill_path(@conn, :new, @current_user), class: "card__morelink" %>
