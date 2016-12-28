@@ -9,11 +9,10 @@ defmodule Vutuv.UserSkillController do
   def index(conn, _params) do
     user =
       Repo.get!(Vutuv.User, conn.assigns[:user].id)
-      |> Repo.preload([user_skills: [:endorsements]])
-    user_skills = 
-      user.user_skills
-      |> Enum.sort(&(Enum.count(&1.endorsements)>Enum.count(&2.endorsements)))
-    render(conn, "index.html", user_skills: user_skills)
+      |> Repo.preload([user_skills: from(u in Vutuv.UserSkill, left_join: e in assoc(u, :endorsements), left_join: s in assoc(u, :skill),
+          order_by: s.name, group_by: u.id, # order_by: fragment("count(?) DESC", e.id) orders by endorsements
+          preload: [:endorsements])])
+    render(conn, "index.html", user_skills: user.user_skills)
   end
 
   def new(conn, _params) do

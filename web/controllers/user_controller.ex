@@ -67,8 +67,8 @@ defmodule Vutuv.UserController do
         :social_media_accounts,
         :followees,
         :followers,
-        user_skills: from(u in Vutuv.UserSkill, left_join: e in assoc(u, :endorsements),
-          order_by: fragment("count(?) DESC", e.id), group_by: u.id, limit: ^user_skill_limit,
+        user_skills: from(u in Vutuv.UserSkill, left_join: e in assoc(u, :endorsements), left_join: s in assoc(u, :skill),
+          order_by: s.name, group_by: u.id, limit: ^user_skill_limit, # order_by: fragment("count(?) DESC", e.id) orders by endorsements
           preload: [:endorsements]),
         followee_connections: {Connection.latest_with_avatars(3), [:followee]},
         follower_connections: {Connection.latest_with_avatars(3), [:follower]},

@@ -1,31 +1,26 @@
-<ol class="button-list skills">
+<ol class="tags">
   <%= for user_skill <- @user_skills do %>
-    <li>
-      <span style="max-width: 85%; word-wrap: break-word;">
-        <%= link Skill.resolve_name(user_skill.skill_id), to: user_user_skill_path(@conn, :show, @user, user_skill) %>
-        <em>
-          <%= render_upvotes(Enum.count(user_skill.endorsements)) %>
-        </em>
-      </span>
-      <div class="button button--icon button-list">
+    <li class="<%= if @current_user && Vutuv.Endorsement.skill_endorsed?(user_skill.id, @current_user_id), do: "upvoted" %>">
+        <%= link to: user_user_skill_path(@conn, :show, @user, user_skill), class: "tag" do %>
+          <%= Skill.resolve_name(user_skill.skill_id) %>
+          <i><%= Enum.count(user_skill.endorsements) %></i>
+        <% end %>
       <%= if @current_user do %>
         <%= if Vutuv.Endorsement.skill_endorsed?(user_skill.id, @current_user_id) do %>
-          <%= button to: user_endorsement_path(@conn, :delete, @user, user_skill), method: :delete , class: "button button--icon", form: [class: "button button--icon"] do %>
-            <i class="icon icon--upvote-remove"></i>
+          <%= button to: user_endorsement_path(@conn, :delete, @user, user_skill), method: :delete , class: "button-link", form: [class: "upvote button_list"] do %>
+            <i class="fa-png-16 fa-png-16-thumbs-up"></i>
           <% end %>
         <%= else %>
-          <%= button to: user_endorsement_path(@conn, :create, @user, id: user_skill), method: :post , class: "button button--icon", form: [class: "button button--icon"] do %>
-            <i class="icon icon--upvote"></i>
+          <%= button to: user_endorsement_path(@conn, :create, @user, id: user_skill), method: :post, class: "button-link", form: [class: "upvote button_list"] do %>
+            <i class="fa-png-16 fa-png-16-thumbs-up"></i>
           <% end %>
         <%= end %>
-        <%= if same_user?(@user, @current_user) do %>
-        <%= button to: user_user_skill_path(@conn, :delete, @user, user_skill), method: :delete, class: "button button--icon", form: [class: "button button--icon"] do %>
-        <i class="icon icon--delete"></i>
-        <% end %>
-        <% end %>
       <% end %>
-      </div>
-      <hr style="width: <%= (Enum.count(user_skill.endorsements)+1)/(Enum.count(hd(@user_skills).endorsements)+1)*100 %>%" />
+      <%= if same_user?(@user, @current_user) do %>
+      <%= button to: user_user_skill_path(@conn, :delete, @user, user_skill), method: :delete, class: "delete button button--icon button--small", style: "height:25px;margin-right:-5px;", form: [class: "button button--icon button--small"] do %>
+      <i class="icon icon--delete"></i>
+      <% end %>
+      <% end %>
     </li>
   <% end %>
 </ol>
