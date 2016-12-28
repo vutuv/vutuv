@@ -16,11 +16,6 @@
           <% end %>
         <%= end %>
       <% end %>
-      <%= if same_user?(@user, @current_user) do %>
-      <%= button to: user_user_skill_path(@conn, :delete, @user, user_skill), method: :delete, class: "delete button button--icon button--small", style: "height:25px;margin-right:-5px;", form: [class: "button button--icon button--small"] do %>
-      <i class="icon icon--delete"></i>
-      <% end %>
-      <% end %>
     </li>
   <% end %>
 </ol>
