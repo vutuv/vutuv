@@ -60,7 +60,7 @@ defmodule Vutuv.UserController do
     number_limit = if total_numbers>5, do: 3, else: total_numbers
     link_limit = if total_links>5, do: 3, else: total_links
     address_limit = if total_addresses>5, do: 3, else: total_addresses
-    user_skill_limit = if total_user_skills>5, do: 4, else: total_user_skills
+    user_skill_limit = if total_user_skills>10, do: 10, else: total_user_skills
     user =
       conn.assigns[:user]
       |> Repo.preload([
