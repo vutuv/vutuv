@@ -3,7 +3,9 @@
     <li class="<%= if @current_user && Vutuv.Endorsement.skill_endorsed?(user_skill.id, @current_user_id), do: "upvoted" %>">
         <%= link to: user_user_skill_path(@conn, :show, @user, user_skill), class: "tag" do %>
           <%= Skill.resolve_name(user_skill.skill_id) %>
-          <i><%= Enum.count(user_skill.endorsements) %></i>
+          <%= if @current_user || Enum.count(user_skill.endorsements) > 0 do %>
+            <i><%= Enum.count(user_skill.endorsements) %></i>
+          <% end %>
         <% end %>
       <%= if @current_user do %>
         <%= unless Vutuv.Endorsement.skill_endorsed?(user_skill.id, @current_user_id) do %>
