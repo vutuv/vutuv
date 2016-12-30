@@ -17,7 +17,8 @@
     <table>
       <thead>
         <tr>
-          <th><%= gettext "Value" %></th>
+          <th><%= gettext "Endonym" %></th>
+          <th><%= gettext "Code" %></th>
     
           <th></th>
         </tr>
@@ -25,27 +26,18 @@
       <tbody>
     <%= for {locale, index} <- Enum.with_index(@locales) do %>
         <tr>
+          <td><%= locale.endonym %></td>
           <td><%= locale.value %></td>
     
           <td>
             <%= link to: admin_locale_path(@conn, :show, locale), class: "button button--icon button--small" do %>
             <i class="icon icon--search"></i>
             <% end %>
-            <%= link to: admin_locale_path(@conn, :edit, locale), class: "button button--icon button--small" do %>
-            <i class="icon icon--edit"></i>
-            <% end %>
-            <%= button to: admin_locale_path(@conn, :delete, locale), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
-            <i class="icon icon--delete"></i>
-            <% end %>
           </td>
         </tr>
     <% end %>
       </tbody>
     </table>
-
-    <p>
-      <%= link gettext("New locale"), to: admin_locale_path(@conn, :new), class: "card__morelink" %>
-    </p>
   </section>
   <aside>
     <%= render Vutuv.SharedView, "_ad.html" %>

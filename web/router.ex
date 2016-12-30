@@ -34,6 +34,9 @@ defmodule Vutuv.Router do
   scope "/", Vutuv do
     pipe_through :browser # Use the default browser stack
 
+    resources "/tags", TagController
+
+
     get "/", PageController, :index
     get "/impressum", PageController, :impressum
     get "/listings/most_followed_users", PageController, :most_followed_users
@@ -67,6 +70,7 @@ defmodule Vutuv.Router do
       resources "/addresses", AddressController
       resources "/oauth_providers", OAuthProviderController
       resources "/search_terms", SearchTermController, only: [:show,:index]
+      resources "/user_tags", UserTagController, only: [:new, :create, :show, :delete, :index]
     end
 
     post "/users/:slug/skills_create", UserController, :skills_create
@@ -78,16 +82,22 @@ defmodule Vutuv.Router do
     get "/follow_back/:id", UserController, :follow_back
   end
 
-  scope "/admin", as: :admin do
+  scope "/admin", Vutuv.Admin, as: :admin do
     pipe_through :browser
-    resources "/", Vutuv.Admin.AdminController, only: [:index]
-    resources "/skills", Vutuv.Admin.SkillController, param: "slug", only: [:index, :show, :edit, :update, :delete]
-    post "/skills/:slug/easy_validate", Vutuv.Admin.SkillController, :easy_validate
-    post "/skills/:slug/to_synonym", Vutuv.Admin.SkillController, :to_synonym
-    post "/skills/:slug/add_synonym", Vutuv.Admin.SkillController, :add_synonym
-    delete "/skills/:slug/delete_synonym/:id", Vutuv.Admin.SkillController, :delete_synonym
-    post "/slugs", Vutuv.Admin.SlugController, :update
-    post "/users", Vutuv.Admin.UserController, :update
+    resources "/", AdminController, only: [:index]
+    resources "/skills", SkillController, param: "slug", only: [:index, :show, :edit, :update, :delete]
+    post "/skills/:slug/easy_validate", SkillController, :easy_validate
+    post "/skills/:slug/to_synonym", SkillController, :to_synonym
+    post "/skills/:slug/add_synonym", SkillController, :add_synonym
+    delete "/skills/:slug/delete_synonym/:id", SkillController, :delete_synonym
+    post "/slugs", SlugController, :update
+    post "/users", UserController, :update
+    resources "/locales", LocaleController, only: [:index, :show]
+    resources "/tag_localizations", TagLocalizationController
+    resources "/tag_synonyms", TagSynonymController
+    resources "/tag_urls", TagUrlController
+    resources "/tag_closures", TagClosureController
+    resources "/exonyms", ExonymController
   end
 
   scope "/api/1.0/", as: :api do

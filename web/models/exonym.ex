@@ -6,7 +6,7 @@ defmodule Vutuv.Exonym do
 
     belongs_to :locale, Vutuv.Locale
 
-    has_one :exonym_locale, Vutuv.Locale
+    belongs_to :exonym_locale, Vutuv.Locale
 
     timestamps()
   end
@@ -16,7 +16,11 @@ defmodule Vutuv.Exonym do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:value])
-    |> validate_required([:value])
+    |> cast(params, [:value, :locale_id, :exonym_locale_id])
+    |> validate_required([:value, :locale_id, :exonym_locale_id])
+    |> foreign_key_constraint(:locale)
+    |> foreign_key_constraint(:exonym_locale)
+    |> unique_constraint(:value_locale_id)
+    |> validate_length(:value, max: 40)
   end
 end

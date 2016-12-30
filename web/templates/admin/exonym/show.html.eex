@@ -30,6 +30,17 @@
       <p>
         <%= @exonym.value %>
       </p>
+      <h1>
+      <strong><%= gettext "Language Endonym" %>:</strong>
+      </h1>
+      <p>
+        <%= @exonym.locale.endonym %>
+      </p>
+      <strong><%= gettext "Exonym Locale" %>:</strong>
+      </h1>
+      <p>
+        <%= @exonym.exonym_locale.value %>
+      </p>
     
   </section>
   <aside>

@@ -6,7 +6,7 @@ defmodule Vutuv.Admin.ExonymController do
   alias Vutuv.Exonym
 
   def index(conn, _params) do
-    exonyms = Repo.all(Exonym)
+    exonyms = Repo.all(from e in Exonym, preload: [:locale, :exonym_locale])
     render(conn, "index.html", exonyms: exonyms)
   end
 
@@ -29,7 +29,9 @@ defmodule Vutuv.Admin.ExonymController do
   end
 
   def show(conn, %{"id" => id}) do
-    exonym = Repo.get!(Exonym, id)
+    exonym = 
+      Repo.get!(Exonym, id)
+      |> Repo.preload([:locale, :exonym_locale])
     render(conn, "show.html", exonym: exonym)
   end
 

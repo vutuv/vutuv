@@ -14,34 +14,8 @@
 
 <div class="card-list">
   <section class="card">
-    <table>
-      <thead>
-        <tr>
-          <th><%= gettext "Value" %></th>
-    
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-    <%= for {exonym, index} <- Enum.with_index(@exonyms) do %>
-        <tr>
-          <td><%= exonym.value %></td>
-    
-          <td>
-            <%= link to: admin_exonym_path(@conn, :show, exonym), class: "button button--icon button--small" do %>
-            <i class="icon icon--search"></i>
-            <% end %>
-            <%= link to: admin_exonym_path(@conn, :edit, exonym), class: "button button--icon button--small" do %>
-            <i class="icon icon--edit"></i>
-            <% end %>
-            <%= button to: admin_exonym_path(@conn, :delete, exonym), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
-            <i class="icon icon--delete"></i>
-            <% end %>
-          </td>
-        </tr>
-    <% end %>
-      </tbody>
-    </table>
+      
+    <%= render "card_list.html", assigns %>
 
     <p>
       <%= link gettext("New exonym"), to: admin_exonym_path(@conn, :new), class: "card__morelink" %>

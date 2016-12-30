@@ -14,6 +14,14 @@
   <%= label f, :value, class: "control-label" %>
   <%= text_input f, :value, class: "form-control" %>
   <%= error_tag f, :value %>
+
+  <%= label f, :locale_id, class: "control-label" %>
+  <%= text_input f, :locale_id, class: "form-control" %>
+  <%= error_tag f, :locale_id %>
+
+  <%= label f, :exonym_locale_id, class: "control-label" %>
+  <%= text_input f, :exonym_locale_id, class: "form-control" %>
+  <%= error_tag f, :exonym_locale_id %>
 </div>
 
 <div class="editform__actions">
