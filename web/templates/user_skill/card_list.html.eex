@@ -2,7 +2,7 @@
   <%= for user_skill <- @user_skills do %>
     <li class="<%= if @current_user && Vutuv.Endorsement.skill_endorsed?(user_skill.id, @current_user_id), do: "upvoted" %>">
         <%= link to: user_user_skill_path(@conn, :show, @user, user_skill), class: "tag" do %>
-          <%= Skill.resolve_name(user_skill.skill_id) %>
+          <%= Skill.truncated_name(user_skill.skill_id) %>
           <%= if @current_user || Enum.count(user_skill.endorsements) > 0 do %>
             <i><%= Enum.count(user_skill.endorsements) %></i>
           <% end %>

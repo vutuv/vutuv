@@ -43,7 +43,7 @@ defmodule Vutuv.Skill do
       nil ->
         changeset
       name ->
-        term_params = 
+        term_params =
           if(model == %__MODULE__{}) do
             %__MODULE__{downcase_name: String.downcase(name), skill_synonyms: []}
           else
@@ -72,6 +72,20 @@ defmodule Vutuv.Skill do
 
   def resolve_name(skill_id) do
     Vutuv.Repo.one!(from s in Vutuv.Skill, where: s.id == ^skill_id, select: [s.name])
+  end
+
+  def truncated_name(skill_id) do
+    skill_name = resolve_name(skill_id)
+    |>Enum.join
+
+    truncated_skill_name = skill_name
+    |>String.slice(0..50)
+
+    if truncated_skill_name == skill_name do
+      skill_name
+    else
+      truncated_skill_name <> " ..."
+    end
   end
 
   def related_users(_, nil), do: []
