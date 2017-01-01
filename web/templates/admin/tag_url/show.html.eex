@@ -1,0 +1,59 @@
+
+  <div class="profile-header">
+    <div class="profile-header__info">
+      <h1><%= gettext "Show tag url" %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+
+<div class="breadcrumbs">
+<%= Vutuv.UserHelpers.gen_breadcrumbs([
+      {gettext("Tag urls"), admin_tag_url_path(@conn, :index)},
+      gettext("Show")]) %>
+</div>
+
+<div class="card-list">
+  <section class="card">
+    <div class="card__edit button__list">
+      <%= link to: admin_tag_url_path(@conn, :edit, @tag_url), class: "button button-link button--icon button--small" do %>
+        <i class="icon icon--edit"></i>
+      <% end %>
+      <%= button to: admin_tag_url_path(@conn, :delete, @tag_url), method: :delete, class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
+        <i class="icon icon--delete"></i>
+      <% end %>
+    </div>
+    
+      <h1>
+        <strong><%= gettext "Tag localization" %>:</strong>
+      </h1>
+      <p>
+        <%= inspect @tag_url.tag_localization %>
+      </p>
+    
+      <h1>
+        <strong><%= gettext "Value" %>:</strong>
+      </h1>
+      <p>
+        <%= @tag_url.value %>
+      </p>
+    
+      <h1>
+        <strong><%= gettext "Name" %>:</strong>
+      </h1>
+      <p>
+        <%= @tag_url.name %>
+      </p>
+    
+      <h1>
+        <strong><%= gettext "Description" %>:</strong>
+      </h1>
+      <p>
+        <%= @tag_url.description %>
+      </p>
+    
+  </section>
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
+</div>

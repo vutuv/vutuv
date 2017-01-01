@@ -1,0 +1,24 @@
+
+  <div class="profile-header">
+    <div class="profile-header__info">
+      <h1><%= gettext "New tag" %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+
+<div class="breadcrumbs">
+  <%= Vutuv.UserHelpers.gen_breadcrumbs([
+        {gettext("Tags"), tag_path(@conn, :index)},
+        gettext("New")]) %>
+</div>
+
+<div class="card-list">
+  <section class="card">
+    <%= render "form.html", backlink: tag_path(@conn, :index), changeset: @changeset,
+                            action: tag_path(@conn, :create) %>
+  </section>
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
+</div>

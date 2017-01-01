@@ -1,0 +1,59 @@
+
+  <div class="profile-header">
+    <div class="profile-header__info">
+      <h1><%= gettext "All tag localizations" %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+
+<div class="breadcrumbs">
+  <%= Vutuv.UserHelpers.gen_breadcrumbs([
+      gettext("Tag localizations")]) %>
+</div>
+
+<div class="card-list">
+  <section class="card">
+    <table>
+      <thead>
+        <tr>
+          <th><%= gettext "Tag" %></th>
+          <th><%= gettext "Locale" %></th>
+          <th><%= gettext "Name" %></th>
+          <th><%= gettext "Description" %></th>
+    
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    <%= for {tag_localization, index} <- Enum.with_index(@tag_localizations) do %>
+        <tr>
+          <td><%= inspect tag_localization.tag %></td>
+          <td><%= to_string tag_localization.locale %></td>
+          <td><%= tag_localization.name %></td>
+          <td><%= tag_localization.description %></td>
+    
+          <td>
+            <%= link to: admin_tag_localization_path(@conn, :show, tag_localization), class: "button button--icon button--small" do %>
+            <i class="icon icon--search"></i>
+            <% end %>
+            <%= link to: admin_tag_localization_path(@conn, :edit, tag_localization), class: "button button--icon button--small" do %>
+            <i class="icon icon--edit"></i>
+            <% end %>
+            <%= button to: admin_tag_localization_path(@conn, :delete, tag_localization), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
+            <i class="icon icon--delete"></i>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+      </tbody>
+    </table>
+
+    <p>
+      <%= link gettext("New tag localization"), to: admin_tag_localization_path(@conn, :new), class: "card__morelink" %>
+    </p>
+  </section>
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
+</div>
