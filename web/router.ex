@@ -33,7 +33,7 @@ defmodule Vutuv.Router do
 
   scope "/", Vutuv do
     pipe_through :browser # Use the default browser stack
-
+    
     resources "/tags", TagController
 
     get "/", PageController, :index
@@ -69,7 +69,6 @@ defmodule Vutuv.Router do
       resources "/addresses", AddressController
       resources "/oauth_providers", OAuthProviderController
       resources "/search_terms", SearchTermController, only: [:show,:index]
-      #resources "/user_tags", UserTagController, only: [:new, :create, :show, :delete, :index]
     end
 
     post "/users/:slug/skills_create", UserController, :skills_create
