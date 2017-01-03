@@ -9,6 +9,9 @@
 
 <div class="breadcrumbs">
   <%= Vutuv.UserHelpers.gen_breadcrumbs([
+      {gettext("Admin"), admin_admin_path(@conn, :index)},
+      {gettext("Tags"), admin_tag_path(@conn, :index)},
+      {@tag.slug, admin_tag_path(@conn, :show, @tag)},
       gettext("Tag synonyms")]) %>
 </div>
 
@@ -17,28 +20,27 @@
     <table>
       <thead>
         <tr>
+          <th><%= gettext "Value" %></th>
           <th><%= gettext "Tag" %></th>
           <th><%= gettext "Locale" %></th>
-          <th><%= gettext "Value" %></th>
-    
           <th></th>
         </tr>
       </thead>
       <tbody>
     <%= for {tag_synonym, index} <- Enum.with_index(@tag_synonyms) do %>
         <tr>
-          <td><%= inspect tag_synonym.tag %></td>
-          <td><%= inspect tag_synonym.locale %></td>
           <td><%= tag_synonym.value %></td>
+          <td><%= inspect tag_synonym.tag.slug %></td>
+          <td><%= inspect tag_synonym.locale.value %></td>
     
           <td>
-            <%= link to: admin_tag_synonym_path(@conn, :show, tag_synonym), class: "button button--icon button--small" do %>
+            <%= link to: admin_tag_synonym_path(@conn, :show, @tag, tag_synonym), class: "button button--icon button--small" do %>
             <i class="icon icon--search"></i>
             <% end %>
-            <%= link to: admin_tag_synonym_path(@conn, :edit, tag_synonym), class: "button button--icon button--small" do %>
+            <%= link to: admin_tag_synonym_path(@conn, :edit, @tag, tag_synonym), class: "button button--icon button--small" do %>
             <i class="icon icon--edit"></i>
             <% end %>
-            <%= button to: admin_tag_synonym_path(@conn, :delete, tag_synonym), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
+            <%= button to: admin_tag_synonym_path(@conn, :delete, @tag, tag_synonym), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
             <i class="icon icon--delete"></i>
             <% end %>
           </td>
@@ -48,7 +50,7 @@
     </table>
 
     <p>
-      <%= link gettext("New tag synonym"), to: admin_tag_synonym_path(@conn, :new), class: "card__morelink" %>
+      <%= link gettext("New tag synonym"), to: admin_tag_synonym_path(@conn, :new, @tag), class: "card__morelink" %>
     </p>
   </section>
   <aside>

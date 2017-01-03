@@ -5,19 +5,8 @@
     </div>
   <% end %>
 
-  <div class="editform__field
-    <%= if( error_tag f, :language_id ) do %>
-     editform__field--error"
-     <% else %>
-     "
-     <% end %>">
-    <%= label f, :locale_id, "Language", class: "control-label" %>
-    <%= select f, :locale_id, Vutuv.Locale.locale_select_list, class: "form-control" %>
-    <%= error_tag f, :locale_id %>
-  </div>
-
 <div class="editform__field
-	<%= if( error_tag f, :value ) do %>
+	<%= if( error_tag f, :slug ) do %>
 	 editform__field--error"
 	 <% else %>
 	 "

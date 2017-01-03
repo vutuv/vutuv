@@ -9,6 +9,7 @@
 
 <div class="breadcrumbs">
   <%= Vutuv.UserHelpers.gen_breadcrumbs([
+      {gettext("Admin"), admin_admin_path(@conn, :index)},
       gettext("Tags")]) %>
 </div>
 
@@ -28,8 +29,14 @@
           <td><%= tag.slug %></td>
     
           <td>
-            <%= link to: tag_path(@conn, :show, tag), class: "button button--icon button--small" do %>
+            <%= link to: admin_tag_path(@conn, :show, tag), class: "button button--icon button--small" do %>
             <i class="icon icon--search"></i>
+            <% end %>
+            <%= link to: admin_tag_path(@conn, :edit, tag), class: "button button--icon button--small" do %>
+            <i class="icon icon--edit"></i>
+            <% end %>
+            <%= button to: admin_tag_path(@conn, :delete, tag), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
+            <i class="icon icon--delete"></i>
             <% end %>
           </td>
         </tr>
@@ -38,7 +45,7 @@
     </table>
 
     <p>
-      <%= link gettext("New tag"), to: tag_path(@conn, :new), class: "card__morelink" %>
+      <%= link gettext("New tag"), to: admin_tag_path(@conn, :new), class: "card__morelink" %>
     </p>
   </section>
   <aside>

@@ -5,7 +5,7 @@ defmodule Vutuv.TagSynonym do
     field :value, :string
 
     belongs_to :tag, Vutuv.Tag
-    has_one :locale, Vutuv.Locale, on_delete: :delete_all
+    belongs_to :locale, Vutuv.Locale
 
     timestamps()
   end
@@ -15,7 +15,9 @@ defmodule Vutuv.TagSynonym do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:value])
-    |> validate_required([:value])
+    |> cast(params, [:value, :locale_id])
+    |> validate_required([:value, :locale_id])
+    |> unique_constraint(:tag_id_locale_id, message: "A synonym with this locale already exists for this tag.")
+    |> unique_constraint(:value)
   end
 end

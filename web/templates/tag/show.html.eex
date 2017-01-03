@@ -1,7 +1,7 @@
 
   <div class="profile-header">
     <div class="profile-header__info">
-      <h1><%= gettext "Show tag" %></h1>
+      <h1><%= @loc.name %></h1>
     </div>
   </div>
 </header>
@@ -15,24 +15,22 @@
 
 <div class="card-list">
   <section class="card">
-    <div class="card__edit button__list">
-      <%= link to: tag_path(@conn, :edit, @tag), class: "button button-link button--icon button--small" do %>
-        <i class="icon icon--edit"></i>
-      <% end %>
-      <%= button to: tag_path(@conn, :delete, @tag), method: :delete, class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
-        <i class="icon icon--delete"></i>
-      <% end %>
-    </div>
-    
       <h1>
-        <strong><%= gettext "Slug" %>:</strong>
       </h1>
-      <p>
-        <%= @tag.slug %>
+      <p style="word-wrap: break-word; max-width: 600px;">
+        <%= @loc.description %>
       </p>
-    
   </section>
   <aside>
     <%= render Vutuv.SharedView, "_ad.html" %>
+    <section class="card">
+      <h1> <%= if (Enum.count(@loc.tag_urls) == 1), do: gettext("Url"), else: gettext("Urls") %> </h1>
+      <dl class="email-list">
+        <%= for url <- @loc.tag_urls do %>
+        <dt class="email-list"><span style="font-weight: bold"><%= url.name %></span><br><%= url.description %></dt>
+        <dd class="email-list"><a href="<%= url.value %>"><%= url.value %></a></dd>
+        <% end %>
+      </dl>
+    </section>
   </aside>
 </div>

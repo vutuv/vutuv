@@ -33,8 +33,8 @@ defmodule Vutuv.Router do
 
   scope "/", Vutuv do
     pipe_through :browser # Use the default browser stack
-    
-    resources "/tags", TagController
+
+    resources "/tags", TagController, only: [:index, :new, :create, :show], param: "slug"
 
     get "/", PageController, :index
     get "/impressum", PageController, :impressum
@@ -91,11 +91,14 @@ defmodule Vutuv.Router do
     post "/slugs", SlugController, :update
     post "/users", UserController, :update
     resources "/locales", LocaleController, only: [:index, :show]
-    resources "/tag_localizations", TagLocalizationController
-    resources "/tag_synonyms", TagSynonymController
-    resources "/tag_urls", TagUrlController
-    resources "/tag_closures", TagClosureController
     resources "/exonyms", ExonymController
+    resources "/tags", TagController, param: "slug" do
+      resources "/tag_localizations", TagLocalizationController, as: :localization do
+        resources "/tag_urls", TagUrlController, as: :url
+      end
+      resources "/tag_synonyms", TagSynonymController, as: :synonym
+      resources "/tag_closures", TagClosureController
+    end
   end
 
   scope "/api/1.0/", as: :api do

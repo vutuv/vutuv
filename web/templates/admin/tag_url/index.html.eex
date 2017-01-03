@@ -9,6 +9,11 @@
 
 <div class="breadcrumbs">
   <%= Vutuv.UserHelpers.gen_breadcrumbs([
+      {gettext("Admin"), admin_admin_path(@conn, :index)},
+      {gettext("Tags"), admin_tag_path(@conn, :index)},
+      {@tag.slug, admin_tag_path(@conn, :show, @tag)},
+      {gettext("Tag localizations"), admin_tag_localization_path(@conn, :index, @tag)},
+      {@tag_localization.name, admin_tag_localization_path(@conn, :show, @tag, @tag_localization)},
       gettext("Tag urls")]) %>
 </div>
 
@@ -28,19 +33,19 @@
       <tbody>
     <%= for {tag_url, index} <- Enum.with_index(@tag_urls) do %>
         <tr>
-          <td><%= inspect tag_url.tag_localization %></td>
-          <td><%= tag_url.value %></td>
-          <td><%= tag_url.name %></td>
-          <td><%= tag_url.description %></td>
+          <td><%= inspect tag_url.tag_localization.name %></td>
+          <td style = "word-wrap: break-word; max-width: 200px;"><%= tag_url.value %></td>
+          <td style = "word-wrap: break-word; max-width: 200px;"><%= tag_url.name %></td>
+          <td style = "word-wrap: break-word; max-width: 200px;"><%= tag_url.description %></td>
     
           <td>
-            <%= link to: admin_tag_url_path(@conn, :show, tag_url), class: "button button--icon button--small" do %>
+            <%= link to: admin_tag_localization_url_path(@conn, :show, @tag, @tag_localization, tag_url), class: "button button--icon button--small" do %>
             <i class="icon icon--search"></i>
             <% end %>
-            <%= link to: admin_tag_url_path(@conn, :edit, tag_url), class: "button button--icon button--small" do %>
+            <%= link to: admin_tag_localization_url_path(@conn, :edit, @tag, @tag_localization, tag_url), class: "button button--icon button--small" do %>
             <i class="icon icon--edit"></i>
             <% end %>
-            <%= button to: admin_tag_url_path(@conn, :delete, tag_url), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
+            <%= button to: admin_tag_localization_url_path(@conn, :delete, @tag, @tag_localization, tag_url), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
             <i class="icon icon--delete"></i>
             <% end %>
           </td>
@@ -50,7 +55,7 @@
     </table>
 
     <p>
-      <%= link gettext("New tag url"), to: admin_tag_url_path(@conn, :new), class: "card__morelink" %>
+      <%= link gettext("New tag url"), to: admin_tag_localization_url_path(@conn, :new, @tag, @tag_localization), class: "card__morelink" %>
     </p>
   </section>
   <aside>

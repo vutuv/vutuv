@@ -2,9 +2,9 @@
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p class="editform__error"><%= gettext "Oops, something went wrong! Please check the errors below." %></p>
+      <p><%= error_tag f, :tag_id_locale_id %></p>
     </div>
   <% end %>
-
 <div class="editform__field
 	<%= if( error_tag f, :language_id ) do %>
 	 editform__field--error"

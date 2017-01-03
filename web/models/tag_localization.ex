@@ -22,5 +22,8 @@ defmodule Vutuv.TagLocalization do
     |> validate_required([:name, :locale_id])
     |> foreign_key_constraint(:tag_id)
     |> foreign_key_constraint(:locale_id)
+    |> unique_constraint(:tag_id_locale_id, message: "A localization with this locale already exists for this tag.")
+    |> validate_length(:name, max: 40)
+    |> validate_length(:description, max: 255)
   end
 end

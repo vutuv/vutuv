@@ -9,14 +9,17 @@
 
 <div class="breadcrumbs">
   <%= Vutuv.UserHelpers.gen_breadcrumbs([
-        {gettext("Tag synonyms"), admin_tag_synonym_path(@conn, :index)},
-        gettext("New")]) %>
+      {gettext("Admin"), admin_admin_path(@conn, :index)},
+      {gettext("Tags"), admin_tag_path(@conn, :index)},
+      {@tag.slug, admin_tag_path(@conn, :show, @tag)},
+      {gettext("Tag synonyms"), admin_tag_synonym_path(@conn, :index, @tag)},
+      gettext("New")]) %>
 </div>
 
 <div class="card-list">
   <section class="card">
-    <%= render "form.html", backlink: admin_tag_synonym_path(@conn, :index), changeset: @changeset,
-                            action: admin_tag_synonym_path(@conn, :create) %>
+    <%= render "form.html", backlink: admin_tag_synonym_path(@conn, :index, @tag), changeset: @changeset,
+                            action: admin_tag_synonym_path(@conn, :create, @tag) %>
   </section>
   <aside>
     <%= render Vutuv.SharedView, "_ad.html" %>

@@ -10,6 +10,6 @@ defmodule Vutuv.Repo.Migrations.CreateTagLocalization do
 
       timestamps()
     end
-
+    create unique_index(:tag_localizations, [:tag_id, :locale_id], unique: true)
   end
 end

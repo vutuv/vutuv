@@ -1,5 +1,7 @@
 defmodule Vutuv.Tag do
   use Vutuv.Web, :model
+  @derive {Phoenix.Param, key: :slug}
+  
 
   schema "tags" do
     field :slug, :string
@@ -20,20 +22,24 @@ defmodule Vutuv.Tag do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
-  def changeset(struct, params \\ %{})
+  def changeset(struct, params \\ %{}, locale \\ "en")
 
-  def changeset(struct, %{"value" => value} = params) do
+  def changeset(struct, %{"value" => value} = params, locale) do
     struct
     |> cast(params, [:slug])
     |> gen_slug(value)
-    |> default_localization(value)
+    |> default_localization(value, locale)
     |> validate_required([:slug])
+    |> unique_constraint(:slug)
   end
 
-  def changeset(struct, params) do
+  def changeset(struct, params, locale) do
     struct
     |> cast(params, [:slug])
     |> validate_required([:slug])
+    |> unique_constraint(:slug)
+    |> validate_length(:slug, max: 60)
+    |> default_localization(params["slug"], locale)
   end
 
   def gen_slug(changeset, value) do
@@ -41,15 +47,15 @@ defmodule Vutuv.Tag do
     |> put_change(:slug, Vutuv.SlugHelpers.gen_slug_unique(value, __MODULE__, :slug))
   end
 
-  def default_localization(changeset, value) do
+  def default_localization(changeset, value, locale) do
     localization = 
       %Vutuv.TagLocalization{}
-      |> Vutuv.TagLocalization.changeset(%{name: value, locale_id: Vutuv.Locale.locale_id("en")})
+      |> Vutuv.TagLocalization.changeset(%{name: value, locale_id: Vutuv.Locale.locale_id(locale)})
     changeset
     |> put_assoc(:tag_localizations, [localization])
   end
 
-  def create_or_link_tag(changeset, %{"value" => value} = params) do
+  def create_or_link_tag(changeset, %{"value" => value} = params, locale) do
     downcase_value = String.downcase(value)
     Vutuv.Repo.one(from t in __MODULE__, 
       left_join: syn in assoc(t, :tag_synonyms),
@@ -57,7 +63,7 @@ defmodule Vutuv.Tag do
       where: syn.value == ^downcase_value or loc.name == ^downcase_value, limit: 1)
     |> case do
       nil ->
-        tag = __MODULE__.changeset(%__MODULE__{}, params)
+        tag = __MODULE__.changeset(%__MODULE__{}, params, locale)
         put_assoc(changeset, :tag, tag)
       tag ->
         put_change(changeset, :tag_id, tag.id)

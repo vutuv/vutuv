@@ -10,6 +10,6 @@ defmodule Vutuv.Repo.Migrations.CreateTagUrl do
 
       timestamps()
     end
-
+    create unique_index(:tag_urls, [:tag_localization_id, :value], unique: true)
   end
 end

@@ -7,6 +7,6 @@ defmodule Vutuv.Repo.Migrations.CreateTag do
 
       timestamps()
     end
-
+  	create unique_index(:tags, [:slug], unique: true)
   end
 end
