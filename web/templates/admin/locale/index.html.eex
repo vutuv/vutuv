@@ -9,6 +9,7 @@
 
 <div class="breadcrumbs">
   <%= Vutuv.UserHelpers.gen_breadcrumbs([
+      {gettext("Admin Home"), admin_admin_path(@conn, :index)},
       gettext("Locales")]) %>
 </div>
 
