@@ -1,0 +1,46 @@
+
+  <div class="profile-header">
+    <div class="profile-header__info">
+      <h1><%= gettext "All locales" %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+
+<div class="breadcrumbs">
+  <%= Vutuv.UserHelpers.gen_breadcrumbs([
+      {gettext("Admin Home"), admin_admin_path(@conn, :index)},
+      gettext("Locales")]) %>
+</div>
+
+<div class="card-list">
+  <section class="card">
+    <table>
+      <thead>
+        <tr>
+          <th><%= gettext "Endonym" %></th>
+          <th><%= gettext "Code" %></th>
+    
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    <%= for {locale, index} <- Enum.with_index(@locales) do %>
+        <tr>
+          <td><%= locale.endonym %></td>
+          <td><%= locale.value %></td>
+    
+          <td>
+            <%= link to: admin_locale_path(@conn, :show, locale), class: "button button--icon button--small" do %>
+            <i class="icon icon--search"></i>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+      </tbody>
+    </table>
+  </section>
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
+</div>

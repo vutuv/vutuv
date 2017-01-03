@@ -1,0 +1,25 @@
+
+  <div class="profile-header">
+    <div class="profile-header__info">
+      <h1><%= gettext "Edit exonym" %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+
+<div class="breadcrumbs">
+<%= Vutuv.UserHelpers.gen_breadcrumbs([
+      {gettext("Admin Home"), admin_admin_path(@conn, :index)},
+      {gettext("Exonyms"), admin_exonym_path(@conn, :index)},
+      gettext("Edit")]) %>
+</div>
+
+<div class="card-list">
+  <section class="card">
+    <%= render "form.html", backlink: admin_exonym_path(@conn, :index), changeset: @changeset,
+                            action: admin_exonym_path(@conn, :update, @exonym) %>
+  </section>
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
+</div>

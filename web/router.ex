@@ -34,6 +34,8 @@ defmodule Vutuv.Router do
   scope "/", Vutuv do
     pipe_through :browser # Use the default browser stack
 
+
+
     get "/", PageController, :index
     get "/impressum", PageController, :impressum
     get "/listings/most_followed_users", PageController, :most_followed_users
@@ -78,16 +80,18 @@ defmodule Vutuv.Router do
     get "/follow_back/:id", UserController, :follow_back
   end
 
-  scope "/admin", as: :admin do
+  scope "/admin", Vutuv.Admin, as: :admin do
     pipe_through :browser
-    resources "/", Vutuv.Admin.AdminController, only: [:index]
-    resources "/skills", Vutuv.Admin.SkillController, param: "slug", only: [:index, :show, :edit, :update, :delete]
-    post "/skills/:slug/easy_validate", Vutuv.Admin.SkillController, :easy_validate
-    post "/skills/:slug/to_synonym", Vutuv.Admin.SkillController, :to_synonym
-    post "/skills/:slug/add_synonym", Vutuv.Admin.SkillController, :add_synonym
-    delete "/skills/:slug/delete_synonym/:id", Vutuv.Admin.SkillController, :delete_synonym
-    post "/slugs", Vutuv.Admin.SlugController, :update
-    post "/users", Vutuv.Admin.UserController, :update
+    resources "/", AdminController, only: [:index]
+    resources "/skills", SkillController, param: "slug", only: [:index, :show, :edit, :update, :delete]
+    post "/skills/:slug/easy_validate", SkillController, :easy_validate
+    post "/skills/:slug/to_synonym", SkillController, :to_synonym
+    post "/skills/:slug/add_synonym", SkillController, :add_synonym
+    delete "/skills/:slug/delete_synonym/:id", SkillController, :delete_synonym
+    post "/slugs", SlugController, :update
+    post "/users", UserController, :update
+    resources "/locales", LocaleController, only: [:index, :show]
+    resources "/exonyms", ExonymController
   end
 
   scope "/api/1.0/", as: :api do

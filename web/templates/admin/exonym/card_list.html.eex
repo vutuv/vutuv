@@ -1,0 +1,32 @@
+<table>
+  <thead>
+    <tr>
+      <th><%= gettext "Value" %></th>
+      <th><%= gettext "Language" %></th>
+      <th><%= gettext "Locale" %></th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for {exonym, index} <- Enum.with_index(@exonyms) do %>
+    <tr>
+      <td><%= exonym.value %></td>
+      <td><%= exonym.locale.endonym %></td>
+      <td><%= exonym.exonym_locale.value %></td>
+
+      <td>
+        <%= link to: admin_exonym_path(@conn, :show, exonym), class: "button button--icon button--small" do %>
+        <i class="icon icon--search"></i>
+        <% end %>
+        <%= link to: admin_exonym_path(@conn, :edit, exonym), class: "button button--icon button--small" do %>
+        <i class="icon icon--edit"></i>
+        <% end %>
+        <%= button to: admin_exonym_path(@conn, :delete, exonym), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
+        <i class="icon icon--delete"></i>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+    </tbody>
+</table>
