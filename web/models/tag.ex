@@ -28,18 +28,27 @@ defmodule Vutuv.Tag do
     struct
     |> cast(params, [:slug])
     |> gen_slug(value)
-    |> default_localization(value, locale)
     |> validate_required([:slug])
+    |> validate_length(:slug, max: 60)
     |> unique_constraint(:slug)
+    |> default_localization(value, locale)
   end
 
   def changeset(struct, params, locale) do
     struct
     |> cast(params, [:slug])
     |> validate_required([:slug])
+    |> validate_length(:slug, max: 60)
+    |> unique_constraint(:slug)
+    |> default_localization(params["slug"], locale)
+  end
+
+  def edit_changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:slug])
+    |> validate_required([:slug])
     |> unique_constraint(:slug)
     |> validate_length(:slug, max: 60)
-    |> default_localization(params["slug"], locale)
   end
 
   def gen_slug(changeset, value) do

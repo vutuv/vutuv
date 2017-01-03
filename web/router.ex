@@ -34,7 +34,7 @@ defmodule Vutuv.Router do
   scope "/", Vutuv do
     pipe_through :browser # Use the default browser stack
 
-    resources "/tags", TagController, only: [:index, :new, :create, :show], param: "slug"
+    resources "/tags", TagController, only: [:index, :show], param: "slug"
 
     get "/", PageController, :index
     get "/impressum", PageController, :impressum

@@ -17,7 +17,7 @@ defmodule Vutuv.Admin.TagController do
   end
 
   def create(conn, %{"tag" => tag_params}) do
-    changeset = Tag.changeset(%Tag{}, tag_params)
+    changeset = Tag.changeset(%Tag{}, tag_params, conn.assigns[:locale])
 
     case Repo.insert(changeset) do
       {:ok, _tag} ->
@@ -39,14 +39,15 @@ defmodule Vutuv.Admin.TagController do
   end
 
   def edit(conn, _params) do
-    tag = conn.assigns[:tag]
-    changeset = Tag.changeset(tag)
+    tag =  conn.assigns[:tag]
+    changeset = Tag.edit_changeset(tag)
     render(conn, "edit.html", tag: tag, changeset: changeset)
   end
 
   def update(conn, %{"tag" => tag_params}) do
-    tag = conn.assigns[:tag]
-    changeset = Tag.changeset(tag, tag_params)
+    tag = 
+      conn.assigns[:tag]
+    changeset = Tag.edit_changeset(tag, tag_params)
 
     case Repo.update(changeset) do
       {:ok, tag} ->

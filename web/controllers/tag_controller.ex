@@ -12,24 +12,6 @@ defmodule Vutuv.TagController do
     render(conn, "index.html", tags: tags)
   end
 
-  def new(conn, _params) do
-    changeset = Tag.changeset(%Tag{})
-    render(conn, "new.html", changeset: changeset)
-  end
-
-  def create(conn, %{"tag" => tag_params}) do
-    changeset = Tag.changeset(%Tag{}, tag_params)
-
-    case Repo.insert(changeset) do
-      {:ok, _tag} ->
-        conn
-        |> put_flash(:info, gettext("Tag created successfully."))
-        |> redirect(to: tag_path(conn, :index))
-      {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
-    end
-  end
-
   def show(conn, _params) do
     tag = 
       conn.assigns[:tag]
