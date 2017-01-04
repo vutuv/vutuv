@@ -17,7 +17,6 @@ defmodule Vutuv.TagSynonym do
     struct
     |> cast(params, [:value, :locale_id])
     |> validate_required([:value, :locale_id])
-    |> unique_constraint(:tag_id_locale_id, message: "A synonym with this locale already exists for this tag.")
-    |> unique_constraint(:value)
+    |> unique_constraint(:value_locale_id, message: "A synonym with this value and locale already exists for this tag.")
   end
 end

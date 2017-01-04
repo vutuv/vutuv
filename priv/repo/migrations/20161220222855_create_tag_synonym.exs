@@ -9,7 +9,6 @@ defmodule Vutuv.Repo.Migrations.CreateTagSynonym do
 
       timestamps()
     end
-    create unique_index(:tag_synonyms, [:value], unique: true)
-    create unique_index(:tag_synonyms, [:tag_id, :locale_id], unique: true)
+    create unique_index(:tag_synonyms, [:value, :locale_id], unique: true)
   end
 end
