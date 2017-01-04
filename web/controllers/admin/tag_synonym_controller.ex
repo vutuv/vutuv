@@ -7,7 +7,12 @@ defmodule Vutuv.Admin.TagSynonymController do
   alias Vutuv.TagSynonym
 
   def index(conn, _params) do
-    tag_synonyms = Repo.all(from t in TagSynonym, preload: [:tag, :locale])
+    assoc =
+      conn.assigns[:tag]
+      |> assoc(:tag_synonyms)
+    tag_synonyms = 
+      from(f in assoc, preload: [:locale, :tag])
+      |> Repo.all
     render(conn, "index.html", tag_synonyms: tag_synonyms)
   end
 
