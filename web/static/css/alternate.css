@@ -241,7 +241,7 @@ ol.tags {
     ol.tags li.inactive > .upvote {
       display: none; }
     ol.tags li > .upvote button {
-      background: 0 0!important;
+      background:none!important;
       border:none; 
       padding:0!important;
       font: inherit;

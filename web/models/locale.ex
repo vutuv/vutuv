@@ -30,8 +30,6 @@ defmodule Vutuv.Locale do
   
   def locale_id(nil), do: locale_id("en")
 
-  def locale_id(nil), do: locale_id("en")
-
   def locale_id(code) do
     Vutuv.Repo.one(from l in __MODULE__, where: l.value == ^code, select: l.id)
   end
