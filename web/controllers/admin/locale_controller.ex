@@ -9,7 +9,7 @@ defmodule Vutuv.Admin.LocaleController do
     locales = Repo.all(Locale)
     render(conn, "index.html", locales: locales)
   end
-
+  
   def show(conn, %{"id" => id}) do
     locale = 
       Repo.get!(Locale, id)

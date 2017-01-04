@@ -22,8 +22,13 @@ defmodule Vutuv.Locale do
   end
 
   def locale_select_list do
-    Vutuv.Repo.all(from l in __MODULE__, select: {l.endonym, l.id})
+    list = Vutuv.Repo.all(from l in __MODULE__, select: {l.endonym, l.id}, order_by: l.endonym)
+    for({endonym, id} <- list) do
+      {String.capitalize(endonym), id}
+    end
   end
+  
+  def locale_id(nil), do: locale_id("en")
 
   def locale_id(code) do
     Vutuv.Repo.one(from l in __MODULE__, where: l.value == ^code, select: l.id)

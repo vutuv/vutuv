@@ -1,7 +1,8 @@
 body {
   color: #333;
   background: #fff;
-  font-family: sans-serif; }
+  font-family: sans-serif;
+  font-size: 14px; }
 
 h1 small,
 h2 small,
@@ -11,7 +12,7 @@ h4 small {
 
 a,
 a:link {
-  color: #333; }
+  color: #39c; }
 
 .bar-title {
   margin: 5px 0 2px; }
@@ -172,7 +173,7 @@ ol.tags {
     padding: 0;
     list-style: none;
     text-align: center; }
-    ol.tags li a button form {
+    ol.tags li a {
       text-decoration: none; }
     ol.tags li > .tag {
       height: 1.5em;
@@ -182,7 +183,7 @@ ol.tags {
       border-radius: 1.5em;
       background: #ddd;
       color: #069;
-      padding: 0 0 0 .6em;
+      padding: 0 7px 0 7px;
       float: left;
       margin: 0;
       z-index: 50;
@@ -198,7 +199,7 @@ ol.tags {
         border-radius: 1.5em;
         padding: 0 .4em;
         font-style: normal;
-        margin: -2px -2px 0 .4em;
+        margin: -2px -9px 0 .4em;
         background: #fff;
         color: #069;
         border: 2px solid #ddd; }
@@ -214,7 +215,7 @@ ol.tags {
       position: relative;
       z-index: 25;
       cursor: pointer;
-      margin: 0;
+      margin: 0 0 0 -27px;
       padding: 0 .4em 0 30px;
       font-size: 1em;
       -webkit-border-radius: 1.5em;
@@ -224,7 +225,7 @@ ol.tags {
       border: 2px solid #39c;
       color: #fff;
       height: 1.5em;
-      line-height: 1.5em;}
+      line-height: 1.5em; }
       ol.tags li > .upvote i {
         line-height: 1em;
         padding: 0;
@@ -233,6 +234,7 @@ ol.tags {
         background: #069;
         border-color: #069; }
     ol.tags li.upvoted > .upvote {
+      pointer-events: none;
       cursor: default;
       background: #ccc;
       border-color: #ccc; }
@@ -244,6 +246,7 @@ ol.tags {
       padding:0!important;
       font: inherit;
       cursor: pointer;
+      margin: 0;
     }
 
 .fa-png-16 {
@@ -259,5 +262,43 @@ ol.tags {
 
 .fa-png-16-thumbs-up {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAgVBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9d3yJTAAAAKnRSTlMAAQIDBAUGCgsPFyMkJiczNDs8R1xmcHh7f4CSlJijrbW3utze4ubv9fs64n5EAAAAbUlEQVQYGY3BVxKCQBRFwYsZlVHHxCiCOZz9L5Cpkid82i2zgKm6clirY/iCpVrJBd4DtQ7AI4RdKs29n/UCjWciooyfvogcppCIHOYoETmMl9hUOEwmsT3jaNwl5WW5n1z5OsmMVsWNTzXWH2rZ1RT9S7X5BAAAAABJRU5ErkJggg==); }
+
+ul.followers,
+ul.following {
+  margin: 0;
+  padding: 0; }
+  ul.followers > li,
+  ul.following > li {
+    display: block;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #ddd; }
+    ul.followers > li:last-child,
+    ul.following > li:last-child {
+      border-bottom: none; }
+    ul.followers > li .profile,
+    ul.following > li .profile {
+      display: block;
+      float: left;
+      margin: 10px 15px 15px 0; }
+    ul.followers > li .name,
+    ul.following > li .name {
+      margin: 10px 0 5px;
+      display: block;
+      font-weight: bold; }
+      ul.followers > li .name, ul.followers > li .name a,
+      ul.following > li .name,
+      ul.following > li .name a {
+        text-decoration: none; }
+    ul.followers > li .position,
+    ul.following > li .position {
+      margin: 0 0 5px; }
+    ul.followers > li .tags,
+    ul.following > li .tags {
+      margin: 0;
+      display: block;
+      overflow: hidden; }
 
 /*# sourceMappingURL=vutuv.css.map */
