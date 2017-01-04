@@ -45,8 +45,11 @@ defmodule Vutuv.Tag do
   end
 
   def gen_slug(changeset, value) do
-    changeset
-    |> put_change(:slug, Vutuv.SlugHelpers.gen_slug_unique(value, __MODULE__, :slug))
+    slug = 
+      value
+      |> Vutuv.SlugHelpers.gen_slug_unique( __MODULE__, :slug)
+      |> String.replace(".", "_")
+    put_change(changeset, :slug, slug)
   end
 
   def default_localization(changeset, value, locale) do
