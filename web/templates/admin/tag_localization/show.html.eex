@@ -1,0 +1,105 @@
+
+  <div class="profile-header">
+    <div class="profile-header__info">
+      <h1><%= gettext "Show tag localization" %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+
+<div class="breadcrumbs">
+<%= Vutuv.UserHelpers.gen_breadcrumbs([
+      {gettext("Admin"), admin_admin_path(@conn, :index)},
+      {gettext("Tags"), admin_tag_path(@conn, :index)},
+      {@tag.slug, admin_tag_path(@conn, :show, @tag)},
+      {gettext("Tag localizations"), admin_tag_localization_path(@conn, :index, @tag)},
+      gettext("Show")]) %>
+</div>
+
+<div class="card-list">
+  <section class="card">
+    <div class="card__edit button__list">
+      <%= link to: admin_tag_localization_path(@conn, :edit, @tag, @tag_localization), class: "button button-link button--icon button--small" do %>
+        <i class="icon icon--edit"></i>
+      <% end %>
+      <%= button to: admin_tag_localization_path(@conn, :delete, @tag, @tag_localization), method: :delete, class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
+        <i class="icon icon--delete"></i>
+      <% end %>
+    </div>
+    
+    <h1>
+      <strong><%= gettext "Tag" %>:</strong>
+    </h1>
+    <p>
+      <%= to_string @tag_localization.tag  %>
+    </p>
+  
+    <h1>
+      <strong><%= gettext "Language" %>:</strong>
+    </h1>
+    <p>
+      <%= to_string @tag_localization.locale %>
+    </p>
+  
+    <h1>
+      <strong><%= gettext "Name" %>:</strong>
+    </h1>
+    <p style = "word-wrap: break-word; max-width: 600px;">
+      <%= @tag_localization.name %>
+    </p>
+  
+    <h1>
+      <strong><%= gettext "Description" %>:</strong>
+    </h1>
+    <p style = "word-wrap: break-word; max-width: 600px;">
+      <%= @tag_localization.description %>
+    </p>
+    
+  </section>
+
+  <section class="card">
+    <h1> Tag Urls </h1>
+    <table>
+      <thead>
+        <tr>
+          <th><%= gettext "Tag localization" %></th>
+          <th><%= gettext "Value" %></th>
+          <th><%= gettext "Name" %></th>
+          <th><%= gettext "Description" %></th>
+    
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    <%= for tag_url <- @tag_localization.tag_urls do %>
+        <tr>
+          <td><%= inspect tag_url.tag_localization.name %></td>
+          <td style = "word-wrap: break-word; max-width: 200px;"><%= tag_url.value %></td>
+          <td style = "word-wrap: break-word; max-width: 200px;"><%= tag_url.name %></td>
+          <td style = "word-wrap: break-word; max-width: 200px;"><%= tag_url.description %></td>
+    
+          <td>
+            <%= link to: admin_tag_localization_url_path(@conn, :show, @tag, @tag_localization, tag_url), class: "button button--icon button--small" do %>
+            <i class="icon icon--search"></i>
+            <% end %>
+            <%= link to: admin_tag_localization_url_path(@conn, :edit, @tag, @tag_localization, tag_url), class: "button button--icon button--small" do %>
+            <i class="icon icon--edit"></i>
+            <% end %>
+            <%= button to: admin_tag_localization_url_path(@conn, :delete, @tag, @tag_localization, tag_url), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
+            <i class="icon icon--delete"></i>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+      </tbody>
+    </table>
+
+    <p>
+      <%= link gettext("New tag url"), to: admin_tag_localization_url_path(@conn, :new, @tag, @tag_localization), class: "card__morelink" %>
+    </p>
+  </section>
+
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
+</div>
