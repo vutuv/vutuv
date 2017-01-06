@@ -1,7 +1,6 @@
 <section class="ad">
   <label><%= gettext("Ad") %></label>
-  <h1>Fire TV Stick</h1>
-  <p>Mit einer riesigen Auswahl an Filmen und Serienepisoden.</p>
-  <p>EUR 39,99</p>
-  <a href="http://amzn.to/2hhOMY1">https://www.amazon.de</a>
+  <h1>AMOOMA GmbH</h1>
+  <p>Phoenix Framework, Ruby on Rails und WebPerformance Consulting und Training durch das vutuv Entwicklerteam.</p>
+  <a href="https://www.amooma.de">https://www.amooma.de</a>
 </section>
