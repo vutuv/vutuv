@@ -1,7 +1,7 @@
 <%# header tag begins in parent template %>
   <div class="profile-header<%= if @user.verified, do: " profile-header--verified" %>">
     <div class="profile-header__image profile-image">
-      <img src="<%= Vutuv.Avatar.binary(@user, :medium) %>" width="130", height="130", alt="Avatar of <%= full_name(@user) %>">
+      <img src="<%= Vutuv.Avatar.binary(@user, :medium) %>" width="130", height="130" alt="Avatar of <%= full_name(@user) %>">
     </div>
     <div class="profile-header__info">
       <h1>
