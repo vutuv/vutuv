@@ -13,6 +13,7 @@
         <meta name="description" content="<%= user_content_description(@user, @conn.assigns[:user_skills]) %>">
         <% else %>
         <meta name="description" content="<%= gettext("Your Fast and Free Career Network. No expensive premium accounts! Get a free account in 30 seconds.") %>">
+        <link rel="prefetch a popular list" title="Most followed users" href="/listings/most_followed_users">
         <% end %>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="/favicon.ico">
