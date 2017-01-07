@@ -48,6 +48,23 @@ defmodule Vutuv.Avatar do
     |>String.replace("web/static/assets", "")
   end
 
+  def sym_link_for_avatar_exists?(user) do
+    timestamp = user.updated_at
+    |> Ecto.DateTime.to_string
+    |> String.replace(~r/[^0-9]/,"")
+
+    nginx_path = user.active_slug
+    |> String.replace(".","/")
+
+    sym_link_path = "/var/www/www.vutuv.de/avatars/#{nginx_path}/#{timestamp}"
+
+    if File.exists?(sym_link_path) do
+      true
+    else
+      false
+    end
+  end
+
   def webserver_static_url(user, version) do
     timestamp = user.updated_at
     |> Ecto.DateTime.to_string
