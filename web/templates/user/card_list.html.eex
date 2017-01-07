@@ -4,9 +4,9 @@
       <div class="profile-image">
         <%= link to: user_path(@conn, :show, user) do %>
           <%= if Vutuv.Avatar.sym_link_for_avatar_exists?(user) do %>
-            <img src="<%= Vutuv.Avatar.webserver_static_url(user, :thumb) %>">
+            <img src="<%= Vutuv.Avatar.webserver_static_url(user, :thumb) %>" width="50" height="50", alt="Avatar of <%= full_name(user) %>">
           <% else %>
-            <img src="<%= Vutuv.Avatar.binary(user, :thumb) %>">
+            <img src="<%= Vutuv.Avatar.binary(user, :thumb) %>" width="50" height="50", alt="Avatar of <%= full_name(user) %>">
           <% end %>
         <%= end %>
       </div>
