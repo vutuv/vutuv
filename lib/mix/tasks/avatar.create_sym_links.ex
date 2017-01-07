@@ -9,7 +9,7 @@ defmodule Mix.Tasks.Avatar.CreateSymLinks do
 
   def run(_args) do
     ensure_started(Repo, [])
-    users = Repo.all(from u in User, where: not is_nil(u.avatar), limit: 10)
+    users = Repo.all(from u in User, where: not is_nil(u.avatar))
 
     for(user <- users) do
       timestamp = user.updated_at
