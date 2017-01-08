@@ -6,36 +6,20 @@
   <% end %>
 
 <div class="editform__field
-	<%= if( error_tag f, :parent_id ) do %>
+	<%= if( error_tag f, :value ) do %>
 	 editform__field--error"
 	 <% else %>
 	 "
 	 <% end %>">
-  <%= label f, :parent_id, class: "control-label" %>
-  <%= number_input f, :parent_id, class: "form-control" %>
-  <%= error_tag f, :parent_id %>
-</div>
-
-<div class="editform__field
-	<%= if( error_tag f, :child_id ) do %>
-	 editform__field--error"
-	 <% else %>
-	 "
-	 <% end %>">
-  <%= label f, :child_id, class: "control-label" %>
-  <%= number_input f, :child_id, class: "form-control" %>
-  <%= error_tag f, :child_id %>
-</div>
-
-<div class="editform__field
-	<%= if( error_tag f, :depth ) do %>
-	 editform__field--error"
-	 <% else %>
-	 "
-	 <% end %>">
-  <%= label f, :depth, class: "control-label" %>
-  <%= number_input f, :depth, class: "form-control" %>
-  <%= error_tag f, :depth %>
+<%= if @conn.params["parent"] == "true" do %>
+  <%= hidden_input f, :type, value: "parent" %>
+  <%= label f, :value, gettext("Parent slug"), class: "control-label" %>
+<%= else %>
+  <%= hidden_input f, :type, value: "child" %>
+  <%= label f, :value, gettext("Child slug"), class: "control-label" %>
+<% end %>
+  <%= text_input f, :value, class: "form-control" %>
+  <%= error_tag f, :value %>
 </div>
 
 <div class="editform__actions">

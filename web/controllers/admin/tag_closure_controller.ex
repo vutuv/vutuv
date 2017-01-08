@@ -2,6 +2,7 @@ defmodule Vutuv.Admin.TagClosureController do
   use Vutuv.Web, :controller
   plug :logged_in?
   plug Vutuv.Plug.AuthAdmin
+  plug :resolve_tag
 
   alias Vutuv.TagClosure
 
@@ -15,14 +16,18 @@ defmodule Vutuv.Admin.TagClosureController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"tag_closure" => tag_closure_params}) do
-    changeset = TagClosure.changeset(%TagClosure{}, tag_closure_params)
-
-    case Repo.insert(changeset) do
+  def create(conn, %{"tag_closure" => %{"type" => type, "value" => value}}) do
+    id = Repo.one(from t in Vutuv.Tag, where: t.slug == ^value, select: t.id)
+    if type == "parent" do
+      TagClosure.add_closure(id, conn.assigns[:tag].id)
+    else
+      TagClosure.add_closure(conn.assigns[:tag].id, id)
+    end
+    |> case do
       {:ok, _tag_closure} ->
         conn
         |> put_flash(:info, gettext("Tag closure created successfully."))
-        |> redirect(to: admin_tag_closure_path(conn, :index))
+        |> redirect(to: admin_tag_closure_path(conn, :index, conn.assigns[:tag]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -33,36 +38,16 @@ defmodule Vutuv.Admin.TagClosureController do
     render(conn, "show.html", tag_closure: tag_closure)
   end
 
-  def edit(conn, %{"id" => id}) do
-    tag_closure = Repo.get!(TagClosure, id)
-    changeset = TagClosure.changeset(tag_closure)
-    render(conn, "edit.html", tag_closure: tag_closure, changeset: changeset)
-  end
-
-  def update(conn, %{"id" => id, "tag_closure" => tag_closure_params}) do
-    tag_closure = Repo.get!(TagClosure, id)
-    changeset = TagClosure.changeset(tag_closure, tag_closure_params)
-
-    case Repo.update(changeset) do
-      {:ok, tag_closure} ->
-        conn
-        |> put_flash(:info, gettext("Tag closure updated successfully."))
-        |> redirect(to: admin_tag_closure_path(conn, :show, tag_closure))
-      {:error, changeset} ->
-        render(conn, "edit.html", tag_closure: tag_closure, changeset: changeset)
-    end
-  end
-
   def delete(conn, %{"id" => id}) do
     tag_closure = Repo.get!(TagClosure, id)
 
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
-    Repo.delete!(tag_closure)
+    TagClosure.delete_closure(tag_closure.parent_id, tag_closure.child_id)
 
     conn
     |> put_flash(:info, gettext("Tag closure deleted successfully."))
-    |> redirect(to: admin_tag_closure_path(conn, :index))
+    |> redirect(to: admin_tag_closure_path(conn, :index, conn.assigns[:tag]))
   end
 
   defp logged_in?(conn, _opts) do
@@ -73,6 +58,21 @@ defmodule Vutuv.Admin.TagClosureController do
       |> put_flash(:error, gettext("You must be logged in to access that page"))
       |> redirect(to: page_path(conn, :index))
       |> halt()
+    end
+  end
+
+  defp resolve_tag(%{params: %{"tag_slug" => slug}} = conn, _opts) do
+    Repo.one(from t in Vutuv.Tag, where: t.slug == ^slug)
+    |> case do
+      nil -> 
+        conn
+        |> put_status(:not_found)
+        |> render(Vutuv.ErrorView, "404.html")
+        |> halt
+      tag ->
+        assign(conn, :tag, tag |> Repo.preload([
+          parent_closures: from(c in TagClosure, where: c.depth > 0, preload: [:parent]),
+          child_closures: from(c in TagClosure, where: c.depth > 0, preload: [:child])]))
     end
   end
 end

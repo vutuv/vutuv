@@ -9,17 +9,20 @@
 
 <div class="breadcrumbs">
 <%= Vutuv.UserHelpers.gen_breadcrumbs([
-      {gettext("Tag closures"), admin_tag_closure_path(@conn, :index)},
+      {gettext("Admin"), admin_admin_path(@conn, :index)},
+      {gettext("Tags"), admin_tag_path(@conn, :index)},
+      {@tag.slug, admin_tag_path(@conn, :show, @tag)},
+      {gettext("Tag closures"), admin_tag_closure_path(@conn, :index, @tag)},
       gettext("Show")]) %>
 </div>
 
 <div class="card-list">
   <section class="card">
     <div class="card__edit button__list">
-      <%= link to: admin_tag_closure_path(@conn, :edit, @tag_closure), class: "button button-link button--icon button--small" do %>
+      <%= link to: admin_tag_closure_path(@conn, :edit, @tag, @tag_closure), class: "button button-link button--icon button--small" do %>
         <i class="icon icon--edit"></i>
       <% end %>
-      <%= button to: admin_tag_closure_path(@conn, :delete, @tag_closure), method: :delete, class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
+      <%= button to: admin_tag_closure_path(@conn, :delete, @tag, @tag_closure), method: :delete, class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
         <i class="icon icon--delete"></i>
       <% end %>
     </div>
