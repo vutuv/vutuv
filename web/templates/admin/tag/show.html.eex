@@ -31,6 +31,7 @@
       <p>
         <%= @tag.slug %>
       </p>
+      <%= link gettext("View related tags"), to: admin_tag_closure_path(@conn, :index, @tag), class: "card__morelink" %>
     
   </section>
 

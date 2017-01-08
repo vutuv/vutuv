@@ -9,6 +9,6 @@ defmodule Vutuv.Repo.Migrations.CreateTagClosure do
 
       timestamps()
     end
-
+    create unique_index(:tag_closures, [:parent_id, :child_id], unique: true)
   end
 end
