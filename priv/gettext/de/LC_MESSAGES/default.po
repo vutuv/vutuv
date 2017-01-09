@@ -1058,7 +1058,7 @@ msgstr "Die 100 User mit den meisten Followern"
 
 #: web/templates/page/index.html.eex:16
 msgid "100 users with the most followers"
-msgstr "100 Usern mit den meisten Followern"
+msgstr "der 100 User mit den meisten Followern"
 
 #: web/templates/page/index.html.eex:16
 msgid "Curious? Have a look at the "
