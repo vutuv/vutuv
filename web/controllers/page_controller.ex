@@ -39,7 +39,7 @@ defmodule Vutuv.PageController do
                 |> render("new_registration.html", body_class: "stretch")
               _ -> 
                 conn
-                |> render("pin_login.html", body_class: "stretch")
+                |> render("pin_new_registration.html", body_class: "stretch")
             end
           {:error, _reason, conn} ->
             conn
@@ -72,7 +72,7 @@ defmodule Vutuv.PageController do
       nil -> delete_resp_cookie(conn, "_vutuv_fbs_temp", max_age: 1800)
       _ ->
         conn
-        |> render("pin_login.html", body_class: "stretch")
+        |> render(Vutuv.SessionView, "pin_user_login.html", body_class: "stretch")
         |> halt
     end
   end

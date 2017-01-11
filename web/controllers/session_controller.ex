@@ -16,7 +16,7 @@ defmodule Vutuv.SessionController do
             |> render("user_login.html", body_class: "stretch")
           _ -> 
             conn
-            |> render(Vutuv.PageView, "pin_login.html", body_class: "stretch")
+            |> render("pin_user_login.html", body_class: "stretch")
         end
       {:error, _reason, conn} ->
         conn
