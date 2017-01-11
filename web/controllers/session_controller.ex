@@ -10,12 +10,45 @@ defmodule Vutuv.SessionController do
   def create(conn, %{"session" => %{"email" => email}}) do
     case Vutuv.Auth.login_by_email(conn, email) do
       {:ok, conn} ->
-        conn
-        |> render("user_login.html", body_class: "stretch")
+        case conn.cookies["_vutuv_fbs_temp"] do
+          nil -> 
+            conn
+            |> render("user_login.html", body_class: "stretch")
+          _ -> 
+            conn
+            |> render(Vutuv.PageView, "pin_login.html", body_class: "stretch")
+        end
       {:error, _reason, conn} ->
         conn
         |> put_flash(:error, gettext("Invalid email"))
         |> render("new.html", body_class: "stretch")
+    end
+  end
+
+  def create(conn, %{"session" => %{"pin" => pin}}) do
+    conn
+    |> unform_pin_cookie
+    |> Vutuv.MagicLinkHelpers.check_pin(pin, "login")
+    |> case do
+      {:ok, user} -> #correct, delete cookie, login user
+        Vutuv.Auth.login(conn, user)
+        |> delete_resp_cookie("_vutuv_fbs_temp", max_age: 1800)
+        |> put_flash(:info, gettext("Welcome back!"))
+        |> redirect(to: user_path(conn, :show, user))
+      {:error, reason} -> #incorrect, inform user
+        conn
+        |> put_flash(:error, reason)
+        |> redirect(to: page_path(conn, :index))
+      {:expired, message} -> #locked out, delete cookie
+        conn
+        |> delete_resp_cookie("_vutuv_fbs_temp", max_age: 1800)
+        |> put_flash(:error, message)
+        |> redirect(to: session_path(conn, :new))
+      :lockout -> #locked out, delete cookie
+        conn
+        |> delete_resp_cookie("_vutuv_fbs_temp", max_age: 1800)
+        |> put_flash(:error, gettext("Too many incorrect attempts."))
+        |> redirect(to: session_path(conn, :new))
     end
   end
 
@@ -37,5 +70,11 @@ defmodule Vutuv.SessionController do
     conn
     |> Vutuv.Auth.logout()
     |> redirect(to: user_path(conn, :show, user))
+  end
+
+  defp unform_pin_cookie(%{cookies: %{"_vutuv_fbs_temp" => payload}} = conn) do
+    salt = Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:secret_key_base]
+    {:ok, email} = Phoenix.Token.verify(conn, salt, payload)
+    email
   end
 end

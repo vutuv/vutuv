@@ -33,8 +33,14 @@ defmodule Vutuv.PageController do
       {:ok, _user} ->
         case Vutuv.Auth.login_by_email(conn, email) do
           {:ok, conn} ->
-            conn
-            |> render("new_registration.html", body_class: "stretch")
+            case conn.cookies["_vutuv_fbs_temp"] do
+              nil -> 
+                conn
+                |> render("new_registration.html", body_class: "stretch")
+              _ -> 
+                conn
+                |> render("pin_login.html", body_class: "stretch")
+            end
           {:error, _reason, conn} ->
             conn
             |> redirect(to: page_path(conn, :index))
@@ -50,13 +56,33 @@ defmodule Vutuv.PageController do
   end
 
   defp display_pin_entry(conn, _params) do
-    IO.puts "\n\n#{inspect get_session(conn, :pin)}\n\n"
-    case get_session(conn, :pin) do
+    case conn.cookies["_vutuv_fbs_temp"] do
       nil -> conn
-      _ -> 
+      _ -> check_pin_session conn
+    end
+  end
+
+  defp check_pin_session(conn) do
+    Vutuv.Repo.one(from m in Vutuv.MagicLink,
+        left_join: u in assoc(m, :user), 
+        left_join: e in assoc(u, :emails),
+        where: e.value == ^unform_pin_cookie(conn) and m.magic_link_type == ^("login"),
+        select: m.magic_link_created_at)
+    |> case do
+      nil -> delete_resp_cookie(conn, "_vutuv_fbs_temp", max_age: 1800)
+      _ ->
         conn
         |> render("pin_login.html", body_class: "stretch")
         |> halt
+    end
+  end
+
+  defp unform_pin_cookie(%{cookies: %{"_vutuv_fbs_temp" => payload}} = conn) do
+    salt = Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:secret_key_base]
+    Phoenix.Token.verify(conn, salt, payload)
+    |> case do
+      {:ok, email} -> email
+      _ -> ""
     end
   end
 end

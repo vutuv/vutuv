@@ -7,7 +7,6 @@ defmodule Vutuv.MagicLink do
     field :magic_link_type, :string
     field :magic_link_created_at, Ecto.DateTime
     field :pin, :string
-    field :pin_created_at, Ecto.DateTime
     field :pin_login_attempts, :integer, default: 0
 
 
@@ -24,6 +23,6 @@ defmodule Vutuv.MagicLink do
   """
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, [:value, :magic_link, :magic_link_created_at, :magic_link_type, :pin, :pin_created_at, :pin_login_attempts])
+    |> cast(params, [:value, :magic_link, :magic_link_created_at, :magic_link_type, :pin, :pin_login_attempts])
   end
 end

@@ -1,3 +1,4 @@
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
 </header>
 <style>
 .imagebox {
@@ -13,7 +14,18 @@
   <section class="card imagebox__card">
     <div class="imagebox__intro">
       <h1><%= gettext "Please check your email." %></h1>
-      <p><%= gettext "Your account has been created, and an email has been sent with your pin. Thats right, no passwords to remember! Once you enter your pin here, you'll be logged in on this device for the next 90 days, or until you log out." %></p>
+      <p><%= gettext "Your account has been created, and an email has been sent with your pin. Thats right, no passwords to remember! Once you enter your pin below, you'll be logged in on this device for the next 90 days, or until you log out." %></p>
+
+      <%= form_for @conn, session_path(@conn, :create), [as: :session, class: "imagebox__form", method: "post"], fn f -> %>
+			  <div class="editform__field">
+			    <%= text_input f, :pin, class: "imagebox__input", autofocus: true, placeholder: gettext("Enter your pin") %>
+			  </div>
+
+			  <div class="editform__actions">
+			    <%= submit gettext("submit"), class: "imagebox__input" %>
+			  </div>
+			<% end %>
+
       <p><%= gettext "Please check your spam folder in case you don't find the email in your inbox." %></p>
       <p><%= gettext "Updates about vutuv are available at " %><a href="https://twitter.com/vutuv">https://twitter.com/vutuv</a></p>
     </div>
