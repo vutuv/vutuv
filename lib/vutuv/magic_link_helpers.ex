@@ -8,15 +8,19 @@ defmodule Vutuv.MagicLinkHelpers do
   #Generates a magic link for the user and stores it for 60 mintues
   def gen_magic_link(user, type, value \\ nil) do
     hash = gen_hash(user.id)
+    pin = gen_pin
+    current_time = Ecto.DateTime.from_erl :calendar.universal_time()
     case Vutuv.Repo.one(from m in MagicLink, where: m.user_id == ^user.id and m.magic_link_type == ^type) do
       nil -> Ecto.build_assoc(user, :magic_links)
       magic_link -> magic_link
     end
     |>MagicLink.changeset(%{
       magic_link: hash, magic_link_type: type, 
-      value: value, magic_link_created_at: Ecto.DateTime.from_erl(:calendar.universal_time())})
+      value: value, magic_link_created_at: current_time,
+      pin: pin, pin_created_at: current_time,
+      pin_login_attempts: 0})
     |>Vutuv.Repo.insert_or_update! #With a bang because this should never fail
-    hash
+    {hash, pin}
   end
 
   #Generates a hash from "<current_time><random_integer><user_id>"
@@ -34,6 +38,12 @@ defmodule Vutuv.MagicLinkHelpers do
     :crypto.hash(:sha256, "#{seconds_string}#{rand_string}#{id_string}")
     |> Base.encode16
     |> String.downcase
+  end
+
+  defp gen_pin do
+    :rand.uniform(1000000)
+    |> Integer.to_string
+    |> String.rjust(6,?0)
   end
 
   defp expire_magic_link(magic_link) do

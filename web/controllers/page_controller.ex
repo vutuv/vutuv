@@ -1,5 +1,6 @@
 defmodule Vutuv.PageController do
   use Vutuv.Web, :controller
+  plug :display_pin_entry when action in [:index]
   plug Vutuv.Plug.RequireUserLoggedOut when action in [:index]
   alias Vutuv.User
   alias Vutuv.Email
@@ -33,7 +34,6 @@ defmodule Vutuv.PageController do
         case Vutuv.Auth.login_by_email(conn, email) do
           {:ok, conn} ->
             conn
-            |> Vutuv.Auth.logout
             |> render("new_registration.html", body_class: "stretch")
           {:error, _reason, conn} ->
             conn
@@ -47,5 +47,16 @@ defmodule Vutuv.PageController do
   def most_followed_users(conn, _params) do
     users = Repo.all(from u in User, left_join: f in assoc(u, :followers), group_by: u.id, order_by: [fragment("count(?) DESC", f.id), u.first_name, u.last_name], limit: 100)
     render conn, "most_followed_users.html", users: users
+  end
+
+  defp display_pin_entry(conn, _params) do
+    IO.puts "\n\n#{inspect get_session(conn, :pin)}\n\n"
+    case get_session(conn, :pin) do
+      nil -> conn
+      _ -> 
+        conn
+        |> render("pin_login.html", body_class: "stretch")
+        |> halt
+    end
   end
 end

@@ -51,6 +51,7 @@ defmodule Vutuv.UserController do
   end
 
   def show(conn, _params) do
+    IO.puts "\n\n#{inspect conn}\n\n"
     total_jobs = count_user_assoc Vutuv.WorkExperience, conn.assigns[:user]
     total_numbers = count_user_assoc Vutuv.PhoneNumber, conn.assigns[:user]
     total_links = count_user_assoc Vutuv.Url, conn.assigns[:user]

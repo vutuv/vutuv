@@ -1,0 +1,20 @@
+<%= email_greeting(@user) %>,
+
+Danke das Sie bei vutuv mitmachen. Zum Einloggen klicken Sie bitte auf 
+diesen Link:
+<%= @url %>magic/login/<%=@link%>
+
+Der Link verfällt nach 60 Minuten. Sie können aber jederzeit einen 
+neuen unter der folgenden URL abrufen:
+https://www.vutuv.de/sessions/new
+
+Bitte erzählen Sie Ihren Freunden und Geschäftspartnern von vutuv!
+
+Mit freundlichen Grüßen
+Ihr vutuv Team
+
+--
+vutuv is a service provided by AMOOMA GmbH. https://www.amooma.de
+AMOOMA GmbH - Bachstr. 124 - 56566 Neuwied - Germany
+Geschäftsführer: Stefan Wintermeyer, Handelsregister Montabaur B14998
+Updates about vutuv: https://twitter.com/vutuv
