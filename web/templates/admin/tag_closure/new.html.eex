@@ -19,7 +19,7 @@
 <div class="card-list">
   <section class="card">
     <%= render "form.html", conn: @conn, backlink: admin_tag_closure_path(@conn, :index, @tag), changeset: @changeset,
-                            action: admin_tag_closure_path(@conn, :create, @tag) %>
+                            action: admin_tag_closure_path(@conn, :create, @tag), value: @conn.assigns[:value] %>
   </section>
   <aside>
     <%= render Vutuv.SharedView, "_ad.html" %>

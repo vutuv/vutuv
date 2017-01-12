@@ -18,7 +18,7 @@
   <%= hidden_input f, :type, value: "child" %>
   <%= label f, :value, gettext("Child slug"), class: "control-label" %>
 <% end %>
-  <%= text_input f, :value, class: "form-control" %>
+  <%= text_input f, :value, class: "form-control", value: @value %>
   <%= error_tag f, :value %>
 </div>
 

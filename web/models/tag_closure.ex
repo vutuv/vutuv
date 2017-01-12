@@ -20,6 +20,23 @@ defmodule Vutuv.TagClosure do
     |> cast(params, [:depth, :parent_id, :child_id])
     |> validate_required([:depth, :parent_id, :child_id])
     |> unique_constraint(:parent_id_child_id)
+    |> validate_not_circular
+  end
+
+  defp validate_not_circular(changeset) do
+    parent_id = get_field(changeset, :parent_id)
+    child_id = get_field(changeset, :child_id)
+    if(parent_id && child_id && parent_id != child_id) do
+      IO.puts "\n\nParent: #{parent_id}, Child: #{child_id}\n\n"
+      from(c in __MODULE__, where: c.parent_id == ^child_id and c.child_id == ^parent_id, limit: 1)
+      |> Repo.one
+      |> case do
+        nil -> changeset
+        _ -> add_error(changeset, :value, "This closure would cause a circular tree")
+      end
+    else
+      changeset
+    end
   end
 
   def add_closure(parent_id, child_id) do
