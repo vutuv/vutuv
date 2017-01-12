@@ -28,6 +28,8 @@ defmodule Vutuv.Admin.TagClosureController do
         conn
         |> put_flash(:info, gettext("Tag closure created successfully."))
         |> redirect(to: admin_tag_closure_path(conn, :index, conn.assigns[:tag]))
+      {:error, _, changeset, errors} ->
+        render(conn, "new.html", changeset: changeset, value: value)
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
