@@ -1,12 +1,14 @@
 <%= email_greeting(@user) %>,
 
-Thank you for joining vutuv. Enter the following pin on vutuv to login
+Thank you for joining vutuv. Here is the PIN you need to access:
+
   <%=@pin%>
 
-This link expires in 30 minutes. You can always get a new one by
-returning to vutuv and logging in.
+You can always get a new one by returning to vutuv and logging in. You find 
+the login link in the top left corner of each page.
 
-If you like our service, feel free to share us with your friends!
+If you like our service, please share us with your friends and business
+partners!
 
 Regards
 The vutuv team
