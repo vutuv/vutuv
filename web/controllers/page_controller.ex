@@ -9,8 +9,9 @@ defmodule Vutuv.PageController do
     changeset =
       User.changeset(%User{})
       |> Ecto.Changeset.put_assoc(:emails, [%Email{}])
+    prefetch = "/listings/most_followed_users"
 
-    render conn, "index.html", changeset: changeset, body_class: "stretch"
+    render conn, "index.html", changeset: changeset, body_class: "stretch", prefetch: prefetch
   end
 
   def redirect_index(conn, _params) do
