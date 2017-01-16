@@ -1,5 +1,6 @@
 defmodule Vutuv.PageController do
   use Vutuv.Web, :controller
+  plug :display_pin_entry when action in [:index]
   plug Vutuv.Plug.RequireUserLoggedOut when action in [:index]
   alias Vutuv.User
   alias Vutuv.Email
@@ -33,9 +34,14 @@ defmodule Vutuv.PageController do
       {:ok, _user} ->
         case Vutuv.Auth.login_by_email(conn, email) do
           {:ok, conn} ->
-            conn
-            |> Vutuv.Auth.logout
-            |> render("new_registration.html", body_class: "stretch")
+            case conn.cookies["_vutuv_fbs_temp"] do
+              nil -> 
+                conn
+                |> render("new_registration.html", body_class: "stretch")
+              _ -> 
+                conn
+                |> render("pin_new_registration.html", body_class: "stretch")
+            end
           {:error, _reason, conn} ->
             conn
             |> redirect(to: page_path(conn, :index))
@@ -48,5 +54,36 @@ defmodule Vutuv.PageController do
   def most_followed_users(conn, _params) do
     users = Repo.all(from u in User, left_join: f in assoc(u, :followers), group_by: u.id, order_by: [fragment("count(?) DESC", f.id), u.first_name, u.last_name], limit: 100)
     render conn, "most_followed_users.html", users: users
+  end
+
+  defp display_pin_entry(conn, _params) do
+    case conn.cookies["_vutuv_fbs_temp"] do
+      nil -> conn
+      _ -> check_pin_session conn
+    end
+  end
+
+  defp check_pin_session(conn) do
+    Vutuv.Repo.one(from m in Vutuv.MagicLink,
+        left_join: u in assoc(m, :user), 
+        left_join: e in assoc(u, :emails),
+        where: e.value == ^unform_pin_cookie(conn) and m.magic_link_type == ^("login"),
+        select: m.magic_link_created_at)
+    |> case do
+      nil -> delete_resp_cookie(conn, "_vutuv_fbs_temp", max_age: 1800)
+      _ ->
+        conn
+        |> render(Vutuv.SessionView, "pin_user_login.html", body_class: "stretch")
+        |> halt
+    end
+  end
+
+  defp unform_pin_cookie(%{cookies: %{"_vutuv_fbs_temp" => payload}} = conn) do
+    salt = Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:secret_key_base]
+    Phoenix.Token.verify(conn, salt, payload)
+    |> case do
+      {:ok, email} -> email
+      _ -> ""
+    end
   end
 end

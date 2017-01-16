@@ -1,0 +1,20 @@
+<%= email_greeting(@user) %>,
+
+Thank you for joining vutuv. Here is the PIN you need to access:
+
+  <%=@pin%>
+
+You can always get a new one by returning to vutuv and logging in. You find 
+the login link in the top left corner of each page.
+
+If you like our service, please share us with your friends and business
+partners!
+
+Regards
+The vutuv team
+
+--
+vutuv is a service provided by AMOOMA GmbH. https://www.amooma.de
+AMOOMA GmbH - Bachstr. 124 - 56566 Neuwied - Germany
+Geschäftsführer: Stefan Wintermeyer, Handelsregister Montabaur B14998
+Updates about vutuv: https://twitter.com/vutuv

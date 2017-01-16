@@ -1,0 +1,19 @@
+<%= email_greeting(@user) %>,
+
+zum Einloggen bitte den folgenden PIN eingeben:
+
+  <%= @pin %>
+
+Vielen Dank das Sie vutuv benutzen!
+
+Mit freundlichen Grüßen
+Ihr vutuv Team
+
+PS: Der PIN verfällt nach 30 Minuten. Sie können aber jederzeit einen 
+neuen unter https://www.vutuv.de/sessions/new abrufen.
+
+--
+vutuv is a service provided by AMOOMA GmbH. https://www.amooma.de
+AMOOMA GmbH - Bachstr. 124 - 56566 Neuwied - Germany
+Geschäftsführer: Stefan Wintermeyer, Handelsregister Montabaur B14998
+Updates about vutuv: https://twitter.com/vutuv

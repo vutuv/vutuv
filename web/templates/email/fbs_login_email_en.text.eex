@@ -1,0 +1,20 @@
+<%= email_greeting(@user) %>,
+
+please use the following PIN to login on vutuv:
+
+  <%=@pin%>
+
+Thanks for using vutuv! If you like our service, feel free to share us
+with your friends!
+
+Regards
+The vutuv team
+
+PS: The PIN expires after 30 minutes. You can always get a new one by
+returning to vutuv and logging in.
+
+--
+vutuv is a service provided by AMOOMA GmbH. https://www.amooma.de
+AMOOMA GmbH - Bachstr. 124 - 56566 Neuwied - Germany
+Geschäftsführer: Stefan Wintermeyer, Handelsregister Montabaur B14998
+Updates about vutuv: https://twitter.com/vutuv
