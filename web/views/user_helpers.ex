@@ -131,18 +131,28 @@ defmodule Vutuv.UserHelpers do
   defp most_recent_job(job, _), do: job
 
 
-  def user_content_description(nil, _), do: ""
-  def user_content_description(_, nil), do: ""
+  def meta_description(nil, _), do: ""
+  def meta_description(_, nil), do: ""
 
-  def user_content_description(user, skills) do
-    skills_string =
-      for(skill <- skills) do
-        Skill.resolve_name(skill.skill_id)
-      end
-      |> Enum.join(", ")
-    String.trim("#{if (work_information_string(user) != ""), do: work_information_string(user)<>"."}#{if (skills_string != ""), do: " Skills: #{skills_string}"}")
+  def meta_description(user, skills) do
+    case {work_information_string(user), skills_to_string(skills)} do
+      {"", ""} ->
+        []
+      {"", skills} ->
+        ["Skills: ", skills]
+      {work, ""} ->
+        [work]
+      {work, skills} ->
+        [work, ". Skills: ", skills]
+    end
   end
 
+  def skills_to_string(skills) do
+    for(skill <- skills) do
+      Skill.resolve_name(skill.skill_id)
+    end
+    |> Enum.join(", ")
+  end
 
   def work_information_string(user, len \\ 256)
 
