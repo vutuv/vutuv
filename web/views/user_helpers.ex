@@ -140,7 +140,7 @@ defmodule Vutuv.UserHelpers do
         Skill.resolve_name(skill.skill_id)
       end
       |> Enum.join(", ")
-    "#{work_information_string(user)}.#{if (skills_string != ""), do: " Skills: #{skills_string}"}"
+    String.trim("#{if (work_information_string(user) != ""), do: work_information_string(user)<>"."}#{if (skills_string != ""), do: " Skills: #{skills_string}"}")
   end
 
 
