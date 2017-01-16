@@ -1392,7 +1392,7 @@ msgid "All tags"
 msgstr ""
 
 #: web/templates/session/pin_user_login.html.eex:17
-msgid "An email has been sent with your pin. Once you enter your pin below, you'll be logged in for the next 90 days on this device, or until you log out."
+msgid "An email has been sent with your PIN. Once you enter your PIN below, you'll be logged in for the next 90 days on this device, or until you log out."
 msgstr ""
 
 #: web/templates/admin/locale/index.html.eex:22
