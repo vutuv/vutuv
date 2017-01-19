@@ -9,7 +9,7 @@ defmodule Mix.Tasks.Avatar.Optimize do
 
   def run(_args) do
     ensure_started(Repo, [])
-    users = Repo.all(from u in User, where: not is_nil(u.avatar), limit: 10)
+    users = Repo.all(from u in User, where: not is_nil(u.avatar), limit: 50)
 
     for(user <- users) do
       source_path = "/srv/vutuv/avatars/#{user.id}"
