@@ -12,6 +12,12 @@ defmodule Mix.Tasks.Avatar.Optimize do
     users = Repo.all(from u in User, where: not is_nil(u.avatar))
 
     for(user <- users) do
+      # Stats
+      #
+      if trunc(user.id / 100) == user.id/100 do
+        IO.puts "* #{user.id}"
+      end
+
       source_path = "/srv/vutuv/avatars/#{user.id}"
 
       size_name = "medium"
@@ -35,30 +41,34 @@ defmodule Mix.Tasks.Avatar.Optimize do
           #
           System.cmd "convert", [source_file, "-colorspace", "YUV", "-resize", "#{Integer.to_string(width)}x#{Integer.to_string(height)}", "-strip", tmp_file]
 
-          # encode with guetzli
-          #
-          System.cmd "guetzli", ["-quality", "75", tmp_file, q75_file]
+          {:ok, tmp_file_stat} = File.stat tmp_file
 
-          # cut a circle of the good version and
-          # put it in the q75_file
-          #
-          System.cmd "convert", [tmp_file, q75_file, "-fx", "hypot(#{Integer.to_string(trunc(width / 2))}-i, #{Integer.to_string(trunc(height / 2))}-j) < #{Integer.to_string(trunc(width / 2))} ? u : v", optimized_file]
+          if tmp_file_stat.size > 0 do
+            # encode with guetzli
+            #
+            System.cmd "guetzli", ["-quality", "75", tmp_file, q75_file]
 
-          # Copy to the target location
-          #
-          if target_file do
-            {:ok, old_file_stat} = File.stat target_file
-            {:ok, new_file_stat} = File.stat optimized_file
-            if new_file_stat.size > 0 do
-              if new_file_stat.size < old_file_stat.size do
-                File.rename(optimized_file, target_file)
+            # cut a circle of the good version and
+            # put it in the q75_file
+            #
+            System.cmd "convert", [tmp_file, q75_file, "-fx", "hypot(#{Integer.to_string(trunc(width / 2))}-i, #{Integer.to_string(trunc(height / 2))}-j) < #{Integer.to_string(trunc(width / 2))} ? u : v", optimized_file]
 
-                # Basic output
-                #
-                IO.puts source_path
-                IO.puts Float.round((old_file_stat.size - new_file_stat.size) / 1024,1)
-                IO.puts "#{100 - Float.round((new_file_stat.size / old_file_stat.size) * 100)} %"
-                IO.puts ""
+            # Copy to the target location
+            #
+            if target_file do
+              {:ok, old_file_stat} = File.stat target_file
+              {:ok, new_file_stat} = File.stat optimized_file
+              if new_file_stat.size > 0 do
+                if new_file_stat.size < old_file_stat.size do
+                  File.rename(optimized_file, target_file)
+
+                  # Basic output
+                  #
+                  IO.puts source_path
+                  IO.puts Float.round((old_file_stat.size - new_file_stat.size) / 1024,1)
+                  IO.puts "#{100 - Float.round((new_file_stat.size / old_file_stat.size) * 100)} %"
+                  IO.puts ""
+                end
               end
             end
           end
@@ -66,12 +76,6 @@ defmodule Mix.Tasks.Avatar.Optimize do
           # Remove tmp dir
           #
           File.rm_rf(temp_dir)
-
-          # Stats
-          #
-          if trunc(user.id / 100) == user.id/100 do
-            IO.puts "* #{user.id}"
-          end
         end
       end
     end
