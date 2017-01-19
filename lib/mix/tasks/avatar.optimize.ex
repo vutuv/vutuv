@@ -48,26 +48,30 @@ defmodule Mix.Tasks.Avatar.Optimize do
             #
             System.cmd "guetzli", ["-quality", "75", tmp_file, q75_file]
 
-            # cut a circle of the good version and
-            # put it in the q75_file
-            #
-            System.cmd "convert", [tmp_file, q75_file, "-fx", "hypot(#{Integer.to_string(trunc(width / 2))}-i, #{Integer.to_string(trunc(height / 2))}-j) < #{Integer.to_string(trunc(width / 2))} ? u : v", optimized_file]
+            {:ok, q75_file_stat} = File.stat q75_file
 
-            # Copy to the target location
-            #
-            if target_file do
-              {:ok, old_file_stat} = File.stat target_file
-              {:ok, new_file_stat} = File.stat optimized_file
-              if new_file_stat.size > 0 do
-                if new_file_stat.size < old_file_stat.size do
-                  File.rename(optimized_file, target_file)
+            if q75_file_stat.size > 0 do
+              # cut a circle of the good version and
+              # put it in the q75_file
+              #
+              System.cmd "convert", [tmp_file, q75_file, "-fx", "hypot(#{Integer.to_string(trunc(width / 2))}-i, #{Integer.to_string(trunc(height / 2))}-j) < #{Integer.to_string(trunc(width / 2))} ? u : v", optimized_file]
 
-                  # Basic output
-                  #
-                  IO.puts source_path
-                  IO.puts Float.round((old_file_stat.size - new_file_stat.size) / 1024,1)
-                  IO.puts "#{100 - Float.round((new_file_stat.size / old_file_stat.size) * 100)} %"
-                  IO.puts ""
+              # Copy to the target location
+              #
+              if target_file do
+                {:ok, old_file_stat} = File.stat target_file
+                {:ok, new_file_stat} = File.stat optimized_file
+                if new_file_stat.size > 0 do
+                  if new_file_stat.size < old_file_stat.size do
+                    File.rename(optimized_file, target_file)
+
+                    # Basic output
+                    #
+                    IO.puts source_path
+                    IO.puts Float.round((old_file_stat.size - new_file_stat.size) / 1024,1)
+                    IO.puts "#{100 - Float.round((new_file_stat.size / old_file_stat.size) * 100)} %"
+                    IO.puts ""
+                  end
                 end
               end
             end
