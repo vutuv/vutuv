@@ -323,9 +323,12 @@ textarea {
 [type="text"],
 [type="email"],
 [type="tel"],
-[type="submit"]:not(.button-link, .btn-icon),
 [type="date"] {
   height: 44px; }
+
+[type="submit"]:not(.button-link, .btn-icon){
+  height: 44px; }
+
 
 input[type="submit"] {
   border: 0; }
