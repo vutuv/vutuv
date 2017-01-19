@@ -34,7 +34,7 @@ defmodule Mix.Tasks.Avatar.Optimize do
 
           # Convert medium size 130x130
           #
-          System.cmd "convert", [source_file, "-quantize", "YUV", "-resize", "#{Integer.to_string(width)}x#{Integer.to_string(height)}", "-strip", tmp_file]
+          System.cmd "convert", [source_file, "-colorspace", "YUV", "-resize", "#{Integer.to_string(width)}x#{Integer.to_string(height)}", "-strip", tmp_file]
 
           # encode with guetzli
           #
@@ -57,6 +57,8 @@ defmodule Mix.Tasks.Avatar.Optimize do
               #
               IO.puts source_path
               IO.puts Float.round((old_file_stat.size - new_file_stat.size) / 1024,1)
+              IO.puts "#{100 - Float.round((new_file_stat.size / old_file_stat.size) * 100)} %"
+              IO.puts ""
             end
           end
 
