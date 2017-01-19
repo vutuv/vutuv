@@ -20,9 +20,13 @@ defmodule Mix.Tasks.Avatar.Optimize do
 
       source_path = "/srv/vutuv/avatars/#{user.id}"
 
-      size_name = "medium"
-      width = 130
-      height = 130
+      # size_name = "medium"
+      # width = 130
+      # height = 130
+
+      size_name = "thumb"
+      width = 50
+      height = 50
       for file_extension <- ["jpeg", "jpg"] do
         original_file = List.first(Path.wildcard("#{source_path}/*_original.#{file_extension}"))
         target_file = List.first(Path.wildcard("#{source_path}/*_#{size_name}.#{file_extension}"))
