@@ -26,7 +26,6 @@ defmodule Mix.Tasks.Avatar.Optimize do
           source_file = "#{temp_dir}/original.#{file_extension}"
           tmp_file = "#{temp_dir}/#{size_name}-#{Integer.to_string(width)}x#{Integer.to_string(height)}.#{file_extension}"
           q75_file = List.first(String.split(tmp_file, ".#{file_extension}")) <> "-q75.#{file_extension}"
-          q95_file = List.first(String.split(tmp_file, ".#{file_extension}")) <> "-q95.#{file_extension}"
           optimized_file = List.first(String.split(tmp_file, ".#{file_extension}")) <> "-optimized.#{file_extension}"
 
           File.mkdir(temp_dir)
@@ -50,21 +49,29 @@ defmodule Mix.Tasks.Avatar.Optimize do
           if target_file do
             {:ok, old_file_stat} = File.stat target_file
             {:ok, new_file_stat} = File.stat optimized_file
-            if new_file_stat.size < old_file_stat.size do
-              File.rename(optimized_file, target_file)
+            if new_file_stat.size > 0 do
+              if new_file_stat.size < old_file_stat.size do
+                File.rename(optimized_file, target_file)
 
-              # Basic output
-              #
-              IO.puts source_path
-              IO.puts Float.round((old_file_stat.size - new_file_stat.size) / 1024,1)
-              IO.puts "#{100 - Float.round((new_file_stat.size / old_file_stat.size) * 100)} %"
-              IO.puts ""
+                # Basic output
+                #
+                IO.puts source_path
+                IO.puts Float.round((old_file_stat.size - new_file_stat.size) / 1024,1)
+                IO.puts "#{100 - Float.round((new_file_stat.size / old_file_stat.size) * 100)} %"
+                IO.puts ""
+              end
             end
           end
 
           # Remove tmp dir
           #
           File.rm_rf(temp_dir)
+
+          # Stats
+          #
+          if trunc(user.id / 100) == user.id/100 do
+            IO.puts "* #{user.id}"
+          end
         end
       end
     end
