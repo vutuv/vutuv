@@ -67,12 +67,28 @@ a:link {
   .tagcloud .size-5 {
     font-size: 1.8em; }
 
+form.btn-form {
+  display: inline;
+  margin: 0;
+  float: none;
+  clear: none;
+  padding: 0; }
+
+.btns-right .btn {
+  float: right;
+  margin: 0 0 0 10px; }
+
+.btns-left .btn {
+  float: left;
+  margin: 0 10px 0 0; }
+
 .btn,
 a.btn {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
   display: inline-block;
+  cursor: pointer;
   color: #fff;
   line-height: 1em;
   font-size: 15px;
