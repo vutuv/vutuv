@@ -323,7 +323,7 @@ textarea {
 [type="text"],
 [type="email"],
 [type="tel"],
-[type="submit"]:not(.button-link),
+[type="submit"]:not(.button-link, .btn-icon),
 [type="date"] {
   height: 44px; }
 
