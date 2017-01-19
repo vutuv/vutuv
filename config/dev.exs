@@ -40,7 +40,7 @@ config :phoenix, :stacktrace_depth, 20
 config :vutuv, Vutuv.Repo,
   adapter: Ecto.Adapters.MySQL,
   username: "root",
-  password: "wf7D2vQRTUaWdYt",
+  password: "",
   database: "vutuv_dev",
   hostname: "localhost",
   pool_size: 10
