@@ -44,3 +44,5 @@ rel/vutuv
 #
 vutuv.sublime-project
 vutuv.sublime-workspace
+
+config/dev.exs
