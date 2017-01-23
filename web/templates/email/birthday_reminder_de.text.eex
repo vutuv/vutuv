@@ -1,0 +1,18 @@
+<%= email_greeting(@user) %>,
+
+heute haben die folgenen Personen, denen Sie auf vutuv
+folgen Geburtstag:
+
+<%= for(birthday_child <- @birthday_childs) do %>
+* <%= birthday_child %> (<%= birthday_child.birthdate %>)
+  https://www.vutuv.de/users/<%= birthday_child.active_slug %>
+<% end %>
+
+Mit freundlichen Grüßen
+Ihr vutuv Team
+
+-- 
+vutuv is a service provided by AMOOMA GmbH. https://www.amooma.de
+AMOOMA GmbH - Bachstr. 124 - 56566 Neuwied - Germany
+Geschäftsführer: Stefan Wintermeyer, Handelsregister Montabaur B14998
+Updates about vutuv: https://twitter.com/vutuv
