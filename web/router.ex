@@ -97,7 +97,7 @@ defmodule Vutuv.Router do
         resources "/tag_urls", TagUrlController, as: :url
       end
       resources "/tag_synonyms", TagSynonymController, as: :synonym
-      resources "/tag_closures", TagClosureController
+      resources "/tag_closures", TagClosureController, as: :closure
     end
   end
 

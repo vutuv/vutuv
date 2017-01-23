@@ -9,6 +9,12 @@ defmodule Vutuv.Tag do
     has_many :tag_localizations, Vutuv.TagLocalization, on_delete: :delete_all
     has_many :tag_synonyms, Vutuv.TagSynonym, on_delete: :delete_all
 
+    has_many :parent_closures, Vutuv.TagClosure, foreign_key: :child_id, on_delete: :delete_all
+    has_many :parents, through: [:parent_closures, :parent]
+
+    has_many :child_closures, Vutuv.TagClosure, foreign_key: :parent_id, on_delete: :delete_all
+    has_many :children, through: [:child_closures, :child]
+
     timestamps()
   end
 
