@@ -69,6 +69,7 @@ defmodule Vutuv.Router do
       resources "/addresses", AddressController
       resources "/oauth_providers", OAuthProviderController
       resources "/search_terms", SearchTermController, only: [:show,:index]
+      resources "/tags", UserTagController, only: [:new, :create, :show, :delete, :index], as: :tag
     end
 
     post "/users/:slug/skills_create", UserController, :skills_create

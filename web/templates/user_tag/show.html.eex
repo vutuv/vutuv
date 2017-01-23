@@ -1,0 +1,42 @@
+
+  <div class="profile-header">
+    <div class="profile-header__info">
+      <h1><%= gettext "Show user tag" %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+
+<div class="breadcrumbs">
+<%= Vutuv.UserHelpers.gen_breadcrumbs([
+      {gettext("User tags"), user_tag_path(@conn, :index, @conn.assigns[:user])},
+      gettext("Show")]) %>
+</div>
+
+<div class="card-list">
+  <section class="card">
+    <div class="card__edit button__list">
+      <%= button to: user_tag_path(@conn, :delete, @conn.assigns[:user], @user_tag), method: :delete, class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
+        <i class="icon icon--delete"></i>
+      <% end %>
+    </div>
+    
+      <h1>
+        <strong><%= gettext "User" %>:</strong>
+      </h1>
+      <p>
+        <%= @user_tag.user_id %>
+      </p>
+    
+      <h1>
+        <strong><%= gettext "Tag" %>:</strong>
+      </h1>
+      <p>
+        <%= @user_tag.tag_id %>
+      </p>
+    
+  </section>
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
+</div>
