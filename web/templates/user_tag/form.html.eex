@@ -14,6 +14,8 @@
   <%= label f, :value, class: "control-label" %>
   <%= text_input f, :value, class: "form-control" %>
   <%= error_tag f, :value %>
+  <%= error_tag @changeset, :user_id_tag_id %>
+
 </div>
 
 <div class="editform__actions">

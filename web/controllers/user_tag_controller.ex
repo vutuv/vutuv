@@ -23,15 +23,14 @@ defmodule Vutuv.UserTagController do
     conn.assigns[:current_user]
     |> Ecto.build_assoc(:user_tags, %{})
     |> UserTag.changeset
-    |> Tag.create_or_link_tag(tag_param)
+    |> Tag.create_or_link_tag(tag_param, conn.assigns[:locale])
     |> Repo.insert
     |> case do
       {:ok, _user_tag} ->
         conn
         |> put_flash(:info, gettext("User tag created successfully."))
-        |> redirect(to: user_user_tag_path(conn, :index, conn.assigns[:user]))
+        |> redirect(to: user_tag_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
-        IO.puts "\n\n#{inspect changeset}\n\n"
         render(conn, "new.html", changeset: changeset)
     end
   end
@@ -50,6 +49,6 @@ defmodule Vutuv.UserTagController do
 
     conn
     |> put_flash(:info, gettext("User tag deleted successfully."))
-    |> redirect(to: user_user_tag_path(conn, :index, conn.assigns[:user]))
+    |> redirect(to: user_tag_path(conn, :index, conn.assigns[:user]))
   end
 end

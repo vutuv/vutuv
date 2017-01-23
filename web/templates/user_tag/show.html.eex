@@ -9,14 +9,14 @@
 
 <div class="breadcrumbs">
 <%= Vutuv.UserHelpers.gen_breadcrumbs([
-      {gettext("User tags"), user_user_tag_path(@conn, :index, @conn.assigns[:user])},
+      {gettext("User tags"), user_tag_path(@conn, :index, @conn.assigns[:user])},
       gettext("Show")]) %>
 </div>
 
 <div class="card-list">
   <section class="card">
     <div class="card__edit button__list">
-      <%= button to: user_user_tag_path(@conn, :delete, @conn.assigns[:user], @user_tag), method: :delete, class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
+      <%= button to: user_tag_path(@conn, :delete, @conn.assigns[:user], @user_tag), method: :delete, class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
         <i class="icon icon--delete"></i>
       <% end %>
     </div>

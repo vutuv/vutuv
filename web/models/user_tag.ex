@@ -17,13 +17,14 @@ defmodule Vutuv.UserTag do
     |> cast(params, [:user_id, :tag_id])
     |> foreign_key_constraint(:user_id)
     |> foreign_key_constraint(:tag_id)
+    |> unique_constraint(:user_id_tag_id, message: "You already have this tag.")
   end
 
   def default_name(user_tag) do
     Vutuv.Repo.one(from l in assoc(user_tag.tag, :tag_localizations),
       left_join: loc in assoc(l, :locale),
-      where: loc.value == "en",
-      select: l.name)
+      select: l.name,
+      limit: 1)
   end
 
   def resolve_name(user_tag, locale) do

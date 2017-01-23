@@ -32,10 +32,10 @@
           <td><%= user_tag.tag_id %></td>
     
           <td>
-            <%= link to: user_user_tag_path(@conn, :show, @conn.assigns[:user], user_tag), class: "button button--icon button--small" do %>
+            <%= link to: user_tag_path(@conn, :show, @conn.assigns[:user], user_tag), class: "button button--icon button--small" do %>
             <i class="icon icon--search"></i>
             <% end %>
-            <%= button to: user_user_tag_path(@conn, :delete, @conn.assigns[:user], user_tag), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
+            <%= button to: user_tag_path(@conn, :delete, @conn.assigns[:user], user_tag), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
             <i class="icon icon--delete"></i>
             <% end %>
           </td>
@@ -45,7 +45,7 @@
     </table>
 
     <p>
-      <%= link gettext("New user tag"), to: user_user_tag_path(@conn, :new, @conn.assigns[:user]), class: "card__morelink" %>
+      <%= link gettext("New user tag"), to: user_tag_path(@conn, :new, @conn.assigns[:user]), class: "card__morelink" %>
     </p>
   </section>
   <aside>

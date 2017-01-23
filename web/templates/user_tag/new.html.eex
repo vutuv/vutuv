@@ -9,14 +9,14 @@
 
 <div class="breadcrumbs">
   <%= Vutuv.UserHelpers.gen_breadcrumbs([
-        {gettext("User tags"), user_user_tag_path(@conn, :index, @conn.assigns[:user])},
+        {gettext("User tags"), user_tag_path(@conn, :index, @conn.assigns[:user])},
         gettext("New")]) %>
 </div>
 
 <div class="card-list">
   <section class="card">
-    <%= render "form.html", conn: @conn, backlink: user_user_tag_path(@conn, :index, @conn.assigns[:user]), changeset: @changeset,
-                            action: user_user_tag_path(@conn, :create, @conn.assigns[:user]) %>
+    <%= render "form.html", conn: @conn, backlink: user_tag_path(@conn, :index, @conn.assigns[:user]), changeset: @changeset,
+                            action: user_tag_path(@conn, :create, @conn.assigns[:user]) %>
   </section>
   <aside>
     <%= render Vutuv.SharedView, "_ad.html" %>
