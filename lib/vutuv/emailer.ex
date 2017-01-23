@@ -28,6 +28,37 @@ defmodule Vutuv.Emailer do
     gen_email(link, pin, email, user,"user_deletion_email_#{get_locale(user.locale)}", Vutuv.Gettext.gettext("Confirm your account deletion"))
   end
 
+  def birthday_reminder(user, birthday_childs) do
+    {{today_year, _month, _day}, {_, _, _}} = :calendar.local_time()
+
+    name_list = for(birthday_child <- birthday_childs) do
+      {:ok, {birthday_year, _, _}} = Ecto.Date.dump(birthday_child.birthdate)
+      "#{Vutuv.UserHelpers.full_name(birthday_child)} (#{today_year - birthday_year})"
+    end
+
+    # Don't let the subject become to long.
+    #
+    full_names_with_age = Enum.join(name_list, ", ")
+    truncated_subject = if String.length(full_names_with_age) > 50 do
+      "#{String.slice(full_names_with_age, 0..45)} ..."
+    else
+      full_names_with_age
+    end
+
+    template = "birthday_reminder_#{get_locale(user.locale)}"
+
+    email = "stefan.wintermeyer@amooma.de"
+
+    new_email
+    |> put_text_layout({Vutuv.EmailView, "#{template}.text"})
+    |> assign(:user, user)
+    |> assign(:birthday_childs, birthday_childs)
+    |> to("#{Vutuv.UserHelpers.name_for_email_to_field(user)} <#{email}>")
+    |> from("vutuv <info@vutuv.de>")
+    |> subject("#{Vutuv.Gettext.gettext("Birthday")}: #{truncated_subject}")
+    |> render("#{template}.text")
+  end
+
   defp gen_email(link, pin, email, user, template, email_subject) do
     url = Application.get_env(:vutuv, Vutuv.Endpoint)[:public_url]
     new_email
