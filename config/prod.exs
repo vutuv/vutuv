@@ -46,6 +46,11 @@ config :vutuv, Vutuv.Mailer,
   ssl: false, # can be `true`
   retries: 3
 
+config :quantum, cron: [
+    # Every minute
+    # "* * * * *": {MyApp.MyModule, :my_method}
+]
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key
