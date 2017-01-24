@@ -10,7 +10,7 @@ defmodule Vutuv.Repo.Migrations.MigrateSkillsToTags do
 		Repo.delete_all(from(t in Vutuv.Tag, where: t.id > 0))
   	skills = Repo.all(from s in Vutuv.Skill, preload: [user_skills: [:user, endorsements: [:user]]])
   	multi = Multi.new
-  	Enum.reduce(skills, multi, fn (skill, acc) ->
+  	for(skill <- skills) do
   		params = %{"value" => truncate_value(skill.downcase_name)}
   		user_tags = 
 		  	for(user_skill <- skill.user_skills) do
@@ -22,14 +22,11 @@ defmodule Vutuv.Repo.Migrations.MigrateSkillsToTags do
 		  		Ecto.build_assoc(user_skill.user, :user_tags)
 					|> Vutuv.UserTag.changeset()
 					|> Ecto.Changeset.put_assoc(:endorsements, endorsements)
-		  	end
-		  changeset = 
-	  		Vutuv.Tag.changeset(%Vutuv.Tag{}, params, get_locale(skill))
-	  		|> Ecto.Changeset.put_assoc(:user_tags, user_tags)
-  		Multi.insert(acc, skill.downcase_name, changeset)
-  	end)
-  	|> Repo.transaction
-  	|> IO.inspect
+		  	end 
+  		Vutuv.Tag.changeset(%Vutuv.Tag{}, params, get_locale(skill))
+  		|> Ecto.Changeset.put_assoc(:user_tags, user_tags)
+  		|> Repo.insert()
+  	end
   end
 
   def down do
