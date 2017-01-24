@@ -1,52 +1,52 @@
-
+<%# header tag begins in parent template %>
   <div class="profile-header">
     <div class="profile-header__info">
-      <h1><%= gettext "All user tags" %></h1>
+      <h1><%= full_name(@user) %>'s tags</h1>
     </div>
   </div>
 </header>
 <%= render Vutuv.LayoutView, "flash.html", assigns %>
 
 <div class="breadcrumbs">
-  <%= Vutuv.UserHelpers.gen_breadcrumbs([
-      gettext("User tags")]) %>
+  <%= gen_breadcrumbs([
+    gettext("Users"),
+    {full_name(@user), user_path(@conn, :show, @user)},
+    gettext("Tags")]) %>
 </div>
 
 <div class="card-list">
+
   <section class="card">
+    <h1>tags</h1>
+
     <table>
       <thead>
         <tr>
-          <th><%= gettext "Name" %></th>
-          <th><%= gettext "User" %></th>
-          <th><%= gettext "Tag" %></th>
-    
+          <th><%= gettext "tag name" %></th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-    <%= for {user_tag, index} <- Enum.with_index(@user_tags) do %>
+        <%= for user_tag <- @user_tags do %>
         <tr>
-          <td><%= Vutuv.UserTag.resolve_name user_tag, @locale %></td>
-          <td><%= user_tag.user_id %></td>
-          <td><%= user_tag.tag_id %></td>
-    
           <td>
-            <%= link to: user_tag_path(@conn, :show, @conn.assigns[:user], user_tag), class: "button button--icon button--small" do %>
-            <i class="icon icon--search"></i>
-            <% end %>
-            <%= button to: user_tag_path(@conn, :delete, @conn.assigns[:user], user_tag), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
-            <i class="icon icon--delete"></i>
-            <% end %>
+          <p style="word-wrap: break-word; max-width: 600px;"><%= link Vutuv.UserTag.resolve_name(user_tag, @conn.assigns[:locale]), to: user_tag_path(@conn, :show, @user, user_tag) %></p>
+          </td>
+          <td>
+          <%= if @current_user && same_user?(@user, @current_user) do %>
+          <%= button to: user_tag_path(@conn, :delete, @user, user_tag), method: :delete, class: "delete button button--icon button--small", style: "height:25px;margin-right:-5px;", form: [class: "button button--icon button--small"] do %>
+          <i class="icon icon--delete"></i>
+          <% end %>
+          <% end %>
           </td>
         </tr>
-    <% end %>
+        <% end %>
       </tbody>
     </table>
 
-    <p>
-      <%= link gettext("New user tag"), to: user_tag_path(@conn, :new, @conn.assigns[:user]), class: "card__morelink" %>
-    </p>
+    <%= if same_user?(@user, @current_user) do %>
+      <%= link gettext("Add"), to: user_tag_path(@conn, :new, @current_user), class: "card__morelink" %>
+    <% end %>
   </section>
   <aside>
     <%= render Vutuv.SharedView, "_ad.html" %>
