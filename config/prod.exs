@@ -49,6 +49,9 @@ config :vutuv, Vutuv.Mailer,
 config :quantum, cron: [
     # Every minute
     # "* * * * *": {MyApp.MyModule, :my_method}
+
+    # Birthday reminders
+    "42 * * * *": {Vutuv.Cronjob, :send_birthday_reminders}
 ]
 
 # ## SSL Support
