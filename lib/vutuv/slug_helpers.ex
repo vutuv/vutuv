@@ -17,11 +17,16 @@ defmodule Vutuv.SlugHelpers do
       where: field(s, ^slug_field) == ^slug,
       limit: 1,
       select: field(s, ^slug_field))
-		|> case do
-			nil -> slug
-			_result -> "#{slug}.#{short_sha}"
-		end
+		|> ensure_slug(slug, resource)
 	end
+
+	defp ensure_slug(nil, "", resource), do: to_string(resource)
+
+	defp ensure_slug(nil, slug, _), do: slug
+
+	defp ensure_slug(_, "", resource), do: "#{to_string(resource)}.#{short_sha}"
+
+	defp ensure_slug(_, slug, _), do: "#{slug}.#{short_sha}"
 
 	def short_sha do
 		string = 
