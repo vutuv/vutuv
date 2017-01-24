@@ -1,13 +1,21 @@
 <%= email_greeting(@user) %>,
 
-heute haben die folgenen Personen, denen Sie auf vutuv
-folgen Geburtstag:
+heute haben die folgenen Personen Geburtstag:
 
 <%= for(birthday_child <- @birthday_childs) do %>
-* <%= birthday_child %> (<%= birthday_child.birthdate %>)
+- <%= birthday_child %> (<%= birthday_child.birthdate %>)
   https://www.vutuv.de/users/<%= birthday_child.active_slug %>
 <% end %>
 
+<%= if @future_birthday_childs do %>
+Weitere Geburtstage in den nächsten zwei Wochen:
+
+<%= for(birthday_child <- @future_birthday_childs) do %>
+- <%= birthday_child %> (<%= birthday_child.birthdate %>)
+  https://www.vutuv.de/users/<%= birthday_child.active_slug %>
+<% end %>
+
+<% end %>
 Mit freundlichen Grüßen
 Ihr vutuv Team
 

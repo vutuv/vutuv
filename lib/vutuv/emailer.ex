@@ -28,7 +28,7 @@ defmodule Vutuv.Emailer do
     gen_email(link, pin, email, user,"user_deletion_email_#{get_locale(user.locale)}", Vutuv.Gettext.gettext("Confirm your account deletion"))
   end
 
-  def birthday_reminder(user, birthday_childs) do
+  def birthday_reminder(user, birthday_childs, future_birthday_childs) do
     {{today_year, _month, _day}, {_, _, _}} = :calendar.local_time()
 
     name_list = for(birthday_child <- birthday_childs) do
@@ -53,6 +53,7 @@ defmodule Vutuv.Emailer do
     |> put_text_layout({Vutuv.EmailView, "#{template}.text"})
     |> assign(:user, user)
     |> assign(:birthday_childs, birthday_childs)
+    |> assign(:future_birthday_childs, future_birthday_childs)
     |> to("#{Vutuv.UserHelpers.name_for_email_to_field(user)} <#{email}>")
     |> from("vutuv <info@vutuv.de>")
     |> subject("#{Vutuv.Gettext.gettext("Birthday")}: #{truncated_subject}")

@@ -1,17 +1,25 @@
 <%= email_greeting(@user) %>,
 
-the following people who you follow on vutuv celebrate
-their birthday today:
+the following people celebrate their birthday today:
 
 <%= for(birthday_child <- @birthday_childs) do %>
-* <%= birthday_child %> (<%= birthday_child.birthdate %>)
+- <%= birthday_child %> (<%= birthday_child.birthdate %>)
   https://www.vutuv.de/users/<%= birthday_child.active_slug %>
 <% end %>
 
+<%= if @future_birthday_childs do %>
+Birthdays in the next two weeks:
+
+<%= for(birthday_child <- @future_birthday_childs) do %>
+- <%= birthday_child %> (<%= birthday_child.birthdate %>)
+  https://www.vutuv.de/users/<%= birthday_child.active_slug %>
+<% end %>
+
+<% end %>
 Regards
 The vutuv team
 
--- 
+--
 vutuv is a service provided by AMOOMA GmbH. https://www.amooma.de
 AMOOMA GmbH - Bachstr. 124 - 56566 Neuwied - Germany
 Geschäftsführer: Stefan Wintermeyer, Handelsregister Montabaur B14998
