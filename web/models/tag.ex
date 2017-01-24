@@ -55,8 +55,7 @@ defmodule Vutuv.Tag do
   def gen_slug(changeset, value) do
     slug = 
       value
-      |> Vutuv.SlugHelpers.gen_slug_unique( __MODULE__, :slug)
-      |> String.replace(".", "_")
+      |> Vutuv.SlugHelpers.gen_slug_unique( __MODULE__, :slug, ?_)
     put_change(changeset, :slug, slug)
   end
 
