@@ -5,12 +5,13 @@ defmodule Vutuv.Repo.Migrations.MigrateSkillsToTags do
   alias Vutuv.Repo
 
   def change do
+		Repo.delete_all(from(e in Vutuv.Endorsement, where:  is_nil(e.user_id) or is_nil(e.user_skill_id)))
+		Repo.delete_all(from(e in Vutuv.UserSkill, where: is_nil(e.user_id) or is_nil(e.skill_id)))
+		Repo.delete_all(from(t in Vutuv.Tag, where: t.id > 0))
   	skills = Repo.all(from s in Vutuv.Skill, preload: [user_skills: [:user, endorsements: [:user]]])
-  	multi =
-  		Multi.new
-  		|> Multi.delete_all(:delete_tags, from(t in Vutuv.Tag, where: t.id > 0))
+  	multi = Multi.new
   	Enum.reduce(skills, multi, fn (skill, acc) ->
-  		params = %{"value" => skill.downcase_name}
+  		params = %{"value" => truncate_value(skill.downcase_name)}
   		user_tags = 
 		  	for(user_skill <- skill.user_skills) do
 		  		endorsements = 
@@ -33,6 +34,14 @@ defmodule Vutuv.Repo.Migrations.MigrateSkillsToTags do
 
   def down do
   	
+  end
+
+  defp truncate_value(value) do
+  	if(String.length(value)>40) do
+  		"#{String.slice(value, 0..36)}..."
+  	else
+  		value
+  	end
   end
 
   defp get_locale(%{user_skills: [user_skill | _] }) do
