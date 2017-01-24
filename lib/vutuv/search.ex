@@ -15,8 +15,7 @@ defmodule Vutuv.Search do
       and (like(t.value, ^("#{value}%")) or ^cologne_fuzzy_value == t.value or ^soundex_fuzzy_value == t.value))) do
       %{score: term.score, 
         result: %SearchQueryResult{
-          user_id: term.user_id,
-          skill_id: term.skill_id}}
+          user_id: term.user_id}}
     end
     |> Enum.sort(&(&1.score> &2.score)) #Sorts by score
     |> Enum.uniq_by(&(&1.result)) #Filters duplicates

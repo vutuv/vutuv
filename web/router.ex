@@ -58,7 +58,6 @@ defmodule Vutuv.Router do
       resources "/groups", GroupController
       resources "/followers", FollowerController, only: [:index]
       resources "/followees", FolloweeController, only: [:index]
-      resources "/endorsements", EndorsementController, only: [:create, :delete]
       resources "/user_tag_endorsements", UserTagEndorsementController, only: [:create, :delete], as: :tag_endorsement
       resources "/phone_numbers", PhoneNumberController
       resources "/dates", DateController
@@ -112,7 +111,6 @@ defmodule Vutuv.Router do
       resources "/followers", Vutuv.Api.FollowerController, only: [:index]
       resources "/followees", Vutuv.Api.FolloweeController, only: [:index]
 
-      #resources "/endorsements", Vutuv.Api.EndorsementController, only: [:create, :delete]
       resources "/phone_numbers", Vutuv.Api.PhoneNumberController, only: [:index, :show]
       resources "/links", Vutuv.Api.UrlController, only: [:index, :show]
       resources "/social_media_accounts", Vutuv.Api.SocialMediaAccountController, only: [:index, :show]

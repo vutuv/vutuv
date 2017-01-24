@@ -1,8 +1,8 @@
 defmodule Vutuv.UserController do
   use Vutuv.Web, :controller
-  plug Vutuv.Plug.UserResolveSlug when action in [:edit, :update, :index, :show, :skills_create]
+  plug Vutuv.Plug.UserResolveSlug when action in [:edit, :update, :index, :show, :tags_create]
   plug :logged_in? when action in [:index]
-  plug :auth when action in [:edit, :update, :skills_create, :skills_create]
+  plug :auth when action in [:edit, :update, :tags_create]
   plug Vutuv.Plug.RequireUserLoggedOut when action in [:new, :create]
   plug Vutuv.Plug.EnsureValidated when not action in [:delete, :magic_delete]
   import Vutuv.UserHelpers
@@ -10,8 +10,6 @@ defmodule Vutuv.UserController do
 
   alias Vutuv.Slug
   alias Vutuv.User
-  alias Vutuv.UserSkill
-  alias Vutuv.Skill
   alias Vutuv.UserTag
   alias Vutuv.Tag
   alias Vutuv.Email
@@ -188,23 +186,23 @@ defmodule Vutuv.UserController do
     |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
   end
 
-  def skills_create(conn, %{"skills" => %{"skills" => skills}}) do
+  def tags_create(conn, %{"tag" => %{"tag" => tags}}) do
     user =
       conn.assigns[:user]
-      |> Repo.preload([user_skills: [:skill]])
-    skill_list =
-      skills
+      |> Repo.preload([user_tags: [:tag]])
+    tag_list =
+      tags
       |> String.split(",")
     results =
-      for(skill <- skill_list) do
-        downcase_skill =
-          skill
+      for(tag <- tag_list) do
+        downcase_tag =
+          tag
           |> String.trim
           |> String.downcase
         user
-        |> Ecto.build_assoc(:user_skills, %{})
-        |> UserSkill.changeset
-        |> Skill.create_or_link_skill(%{"name" => downcase_skill})
+        |> Ecto.build_assoc(:user_tags, %{})
+        |> UserTag.changeset
+        |> tag.create_or_link_tag(%{"name" => downcase_tag})
         |> Repo.insert
       end
     failures =
@@ -216,7 +214,7 @@ defmodule Vutuv.UserController do
       end)
     welcome_wagon(user)
     conn
-    |> put_flash(:info, Vutuv.Gettext.gettext("Successfully added %{successes} skills with %{failures} failures.", successes: Enum.count(skill_list)-failures, failures: failures))
+    |> put_flash(:info, Vutuv.Gettext.gettext("Successfully added %{successes} tags with %{failures} failures.", successes: Enum.count(tag_list)-failures, failures: failures))
     |> redirect(to: user_path(conn, :show, user))
   end
 
@@ -229,7 +227,7 @@ defmodule Vutuv.UserController do
       :calendar.universal_time
       |> :calendar.datetime_to_gregorian_seconds
     if(now - time_created <= @welcome_wagon_cut_off_time) do
-      Task.start(Vutuv.Registration, :skill_welcome_wagon, [user])
+      Task.start(Vutuv.Registration, :tag_welcome_wagon, [user])
     end
   end
 

@@ -17,8 +17,6 @@ defmodule Vutuv.UserTag do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:user_id, :tag_id])
-    |> foreign_key_constraint(:user_id)
-    |> foreign_key_constraint(:tag_id)
     |> unique_constraint(:user_id_tag_id, message: "You already have this tag.")
   end
 

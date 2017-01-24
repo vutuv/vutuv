@@ -15,6 +15,8 @@ defmodule Vutuv.Tag do
     has_many :child_closures, Vutuv.TagClosure, foreign_key: :parent_id, on_delete: :delete_all
     has_many :children, through: [:child_closures, :child]
 
+    has_many :user_tags, Vutuv.UserTag, on_delete: :delete_all
+
     timestamps()
   end
 

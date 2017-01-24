@@ -15,7 +15,6 @@ defmodule Vutuv.UserTagEndorsement do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:user_id, :user_tag_id])
-    |> validate_required([:user_id, :user_tag_id])
     |> unique_constraint(:user_id_user_tag_id)
   end
 
