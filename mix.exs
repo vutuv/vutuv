@@ -3,7 +3,7 @@ defmodule Vutuv.Mixfile do
 
   def project do
     [app: :vutuv,
-     version: "1.2.47",
+     version: "1.2.48",
      elixir: "~> 1.4.0",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
@@ -36,7 +36,7 @@ defmodule Vutuv.Mixfile do
                     :word_smith,
                     :arc,
                     :arc_ecto,
-                    :quantum]]
+                    :quantum, :stdlib, :kernel]]
   end
 
   # Specifies which paths to compile per environment.
