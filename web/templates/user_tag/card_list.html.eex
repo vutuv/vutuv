@@ -1,0 +1,19 @@
+<ol class="tags">
+  <%= for user_tag <- @user_tags do %>
+    <li class="<%= if @current_user && Vutuv.UserTagEndorsement.tag_endorsed?(user_tag.id, @current_user_id), do: "upvoted" %>">
+        <%= link to: user_tag_path(@conn, :show, @user, user_tag), class: "tag" do %>
+          <%= Vutuv.UserTag.truncated_name(user_tag, @conn.assigns[:locale]) %>
+          <%= if @current_user || Enum.count(user_tag.endorsements) > 0 do %>
+            <i><%= Enum.count(user_tag.endorsements) %></i>
+          <% end %>
+        <% end %>
+      <%= if @current_user do %>
+        <%= unless Vutuv.UserTagEndorsement.tag_endorsed?(user_tag.id, @current_user_id) do %>
+          <%= button to: user_tag_endorsement_path(@conn, :create, @user, id: user_tag), method: :post, class: "button-link", form: [class: "upvote button_list"] do %>
+            <i class="fa-png-16 fa-png-16-thumbs-up"></i>
+          <% end %>
+        <%= end %>
+      <% end %>
+    </li>
+  <% end %>
+</ol>

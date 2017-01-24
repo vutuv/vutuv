@@ -81,6 +81,49 @@ defmodule Vutuv.Tag do
     end
   end
 
+  def resolve_localization(tag, locale) do
+    Vutuv.Repo.one(from(t in Vutuv.TagLocalization, 
+      where: t.locale_id == ^(Vutuv.Locale.locale_id(locale)) and
+      t.tag_id == ^tag.id,
+      preload: [:tag_urls]))
+    ||
+    Vutuv.Repo.one(from(t in Vutuv.TagLocalization, 
+      where: t.tag_id == ^tag.id,
+      preload: [:tag_urls],
+      limit: 1))
+  end
+
+  def related_users(_, nil), do: []
+
+  def related_users(tag, current_user) do
+    (Vutuv.Repo.all(from u in assoc(current_user, :followers),
+      left_join: us in assoc(u, :user_tags),
+      left_join: e in assoc(us, :endorsements),
+      where: us.tag_id == ^tag.id,
+      order_by: fragment("count(?) DESC", e.id), #most endorsed
+      group_by: u.id,
+      limit: 10)
+    ++
+    Vutuv.Repo.all(from u in assoc(current_user, :followees),
+      left_join: us in assoc(u, :user_tags),
+      left_join: e in assoc(us, :endorsements),
+      where: us.tag_id == ^tag.id,
+      order_by: fragment("count(?) DESC", e.id), #most endorsed
+      group_by: u.id,
+      limit: 10))
+    |> Enum.uniq_by(&(&1.id))
+  end
+
+  def reccomended_users(tag) do
+    Vutuv.Repo.all(from u in Vutuv.User,
+      left_join: us in assoc(u, :user_tags),
+      left_join: e in assoc(us, :endorsements),
+      where: us.tag_id == ^tag.id,
+      order_by: fragment("count(?) DESC", e.id), #most endorsed
+      group_by: u.id,
+      limit: 10)
+  end
+
   defimpl String.Chars, for: Vutuv.Tag do
     def to_string(tag), do: "#{tag.slug}"
   end

@@ -6,6 +6,8 @@ defmodule Vutuv.UserTag do
     belongs_to :user, Vutuv.User
     belongs_to :tag, Vutuv.Tag
 
+    has_many :endorsements, Vutuv.UserTagEndorsement, on_delete: :delete_all
+
     timestamps()
   end
 
@@ -39,6 +41,25 @@ defmodule Vutuv.UserTag do
       default_name(user_tag)
     else
       Vutuv.Repo.one(query |> select([l], l.name))
+    end
+  end
+
+  def truncated_name(user_tag, locale) do
+    tag_name = resolve_name(user_tag, locale)
+
+    truncated_tag_name = tag_name
+    |>String.slice(0..50)
+
+    if truncated_tag_name == tag_name do
+      tag_name
+    else
+      truncated_tag_name <> " ..."
+    end
+  end
+
+  defimpl Phoenix.Param, for: __MODULE__ do
+    def to_param(user_tag) do
+      Vutuv.Repo.preload(user_tag, [:tag]).tag.slug
     end
   end
 end
