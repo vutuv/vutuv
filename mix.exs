@@ -64,7 +64,7 @@ defmodule Vutuv.Mixfile do
      {:word_smith, "~> 0.1.0"},
      {:slugger, "~> 0.1.0"},
      {:httpoison, "~> 0.9.0"},
-     {:distillery, "~> 0.10"},
+     {:distillery, "~> 1.1.0"},
      {:quantum, ">= 1.8.1"}]
   end
 
