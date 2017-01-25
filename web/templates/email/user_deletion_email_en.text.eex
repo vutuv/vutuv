@@ -8,11 +8,6 @@ Your account will be deleted when you click on the link!
 
 But of course you can always create a new account.
 
-Regards
-The vutuv team
+<%= render "_signature_en.text" %>
 
---
-vutuv is a service provided by AMOOMA GmbH. https://www.amooma.de
-AMOOMA GmbH - Bachstr. 124 - 56566 Neuwied - Germany
-Geschäftsführer: Stefan Wintermeyer, Handelsregister Montabaur B14998
-Updates about vutuv: https://twitter.com/vutuv
+<%= render "_footer.text" %>
