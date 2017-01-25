@@ -73,7 +73,6 @@ defmodule Vutuv.Emailer do
     |> from("vutuv <info@vutuv.de>")
     |> subject("#{Vutuv.Gettext.gettext("Birthday")}: #{truncated_subject}")
     |> render("#{template}.text")
-    |> Vutuv.Mailer.deliver_now
   end
 
   defp gen_email(link, pin, email, user, template, email_subject) do
