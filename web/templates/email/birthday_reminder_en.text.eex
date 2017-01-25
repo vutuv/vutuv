@@ -1,17 +1,25 @@
 <%= email_greeting(@user) %>,
 
-the following people celebrate their birthday today:
+<%= if length(@birthday_childs) == 1 do %>
+one of your vutuv contacts celebrates birthday today:
+<% else %>
+the following vutuv contacts celebrate birthday today:
+<% end %>
 
 <%= for(birthday_child <- @birthday_childs) do %>
-- <%= birthday_child %> (<%= birthday_child.birthdate %>)
+- <%= birthday_child %> (<%= format_date(birthday_child.birthdate, @user.locale) %>)
   https://www.vutuv.de/users/<%= birthday_child.active_slug %>
 <% end %>
 
 <%= if @future_birthday_childs do %>
-Birthdays in the next two weeks:
+<%= if length(@future_birthday_childs) == 1 do %>
+There is one more birthday in the next couple of days:
+<% else %>
+A couple of more birthdays in the near future:
+<% end %>
 
 <%= for(birthday_child <- @future_birthday_childs) do %>
-- <%= birthday_child %> (<%= birthday_child.birthdate %>)
+- <%= birthday_child %> (<%= format_date(birthday_child.birthdate, @user.locale) %>)
   https://www.vutuv.de/users/<%= birthday_child.active_slug %>
 <% end %>
 
