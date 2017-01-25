@@ -46,13 +46,13 @@ config :vutuv, Vutuv.Mailer,
   ssl: false, # can be `true`
   retries: 3
 
-# config :quantum, cron: [
-#     # Every minute
-#     # "* * * * *": {MyApp.MyModule, :my_method}
-#
-#     # Birthday reminders
-#     "42 * * * *": {Vutuv.Cronjob, :send_birthday_reminders}
-# ]
+config :quantum, cron: [
+    # Every minute
+    # "* * * * *": {MyApp.MyModule, :my_method}
+
+    # Birthday reminders
+    "24 * * * *": {Vutuv.Cronjob, :send_birthday_reminders}
+]
 
 # ## SSL Support
 #
