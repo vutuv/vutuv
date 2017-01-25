@@ -40,6 +40,7 @@ defmodule Vutuv.Emailer do
     |> from("vutuv <info@vutuv.de>")
     |> subject(Vutuv.Gettext.gettext("vutuv Account verified"))
     |> render("#{template}.text")
+    |> Vutuv.Mailer.deliver_now
   end
 
   def birthday_reminder(user, birthday_childs, future_birthday_childs) do
@@ -72,6 +73,7 @@ defmodule Vutuv.Emailer do
     |> from("vutuv <info@vutuv.de>")
     |> subject("#{Vutuv.Gettext.gettext("Birthday")}: #{truncated_subject}")
     |> render("#{template}.text")
+    |> Vutuv.Mailer.deliver_now
   end
 
   defp gen_email(link, pin, email, user, template, email_subject) do
