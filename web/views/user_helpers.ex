@@ -330,23 +330,85 @@ defmodule Vutuv.UserHelpers do
 
 
 
-  def email_greeting(%User{locale: "de", last_name: nil}), do: "Hallo"
+  def email_greeting(%User{locale: "de", last_name: nil}), do: "#{greeting("de")}"
 
   def email_greeting(%User{locale: "de", gender: "male", last_name: last_name}) do
-    "Hallo Herr #{last_name}"
+    "#{greeting("de")} Herr #{last_name}"
   end
 
   def email_greeting(%User{locale: "de", gender: "female", last_name: last_name}) do
-    "Hallo Frau #{last_name}"
+    "#{greeting("de")} Frau #{last_name}"
   end
 
-  def email_greeting(%User{locale: "de", gender: _}), do: "Hallo"
+  def email_greeting(%User{locale: "de", gender: _}), do: "#{greeting("de")}"
 
   def email_greeting(%User{locale: "en", first_name: nil}), do: "Hi"
 
   def email_greeting(%User{locale: "en", first_name: first_name}), do: "Hi #{first_name}"
 
   def email_greeting(_), do: "Hi"
+
+
+  def greeting("de") do
+     {{_, _, _}, {hour, _, _}} = :calendar.local_time()
+
+     case hour do
+       1 ->
+         "Guten Morgen"
+       2 ->
+         "Guten Morgen"
+       3 ->
+         "Guten Morgen"
+       4 ->
+         "Guten Morgen"
+       5 ->
+         "Guten Morgen"
+       6 ->
+         "Guten Morgen"
+       7 ->
+         "Guten Morgen"
+       8 ->
+         "Guten Morgen"
+       9 ->
+         "Guten Morgen"
+       10 ->
+         "Guten Morgen"
+       11 ->
+         "Hallo"
+       12 ->
+         "Hallo"
+       13 ->
+         "Hallo"
+       14 ->
+         "Hallo"
+       15 ->
+         "Hallo"
+       16 ->
+         "Hallo"
+       17 ->
+         "Hallo"
+       18 ->
+         "Guten Abend"
+       19 ->
+         "Guten Abend"
+       20 ->
+         "Guten Abend"
+       21 ->
+         "Guten Abend"
+       22 ->
+         "Guten Abend"
+       23 ->
+         "Guten Abend"
+       0 ->
+         "Guten Abend"
+       _ ->
+         "Hallo"
+     end
+  end
+
+  def greeting(_) do
+    "Hi"
+  end
 
   def admin_visitor?(conn) do
     admin?(conn.assigns[:current_user])
