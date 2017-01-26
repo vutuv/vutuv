@@ -52,9 +52,11 @@ config :quantum,
     # "* * * * *": {MyApp.MyModule, :my_method}
 
     # Birthday reminders
-    "15 7 * * *": {Vutuv.Cronjob, :send_birthday_reminders}
+    #
+    "30 5 * * *": {Vutuv.Cronjob, :send_birthday_reminders}
   ],
-  global?: true
+  global?: true,
+  timezone: "Europe/Berlin"
 
 # ## SSL Support
 #
