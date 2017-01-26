@@ -53,7 +53,7 @@ config :quantum,
 
     # Birthday reminders
     #
-    "30 5 * * *": {Vutuv.Cronjob, :send_birthday_reminders}
+    "30 7 * * *": {Vutuv.Cronjob, :send_birthday_reminders}
   ],
   global?: true,
   timezone: "Europe/Berlin"
