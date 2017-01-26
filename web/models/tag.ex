@@ -125,6 +125,19 @@ defmodule Vutuv.Tag do
       limit: 10)
   end
 
+  def resolve_name(tag, locale) do
+    tag = Vutuv.Repo.preload(tag, [tag_localizations: :locale])
+    localization = 
+      Enum.reduce(tag.tag_localizations, fn f, acc ->
+        if(f.locale.value == locale) do
+          f
+        else
+          acc
+        end
+      end)
+    localization.name
+  end
+
   defimpl String.Chars, for: Vutuv.Tag do
     def to_string(tag), do: "#{tag.slug}"
   end

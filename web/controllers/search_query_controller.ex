@@ -45,14 +45,21 @@ defmodule Vutuv.SearchQueryController do
 
   def show(conn, %{"id" => query_id}) do
     empty_changeset = SearchQuery.changeset(%SearchQuery{})
+    tags = get_tags query_id 
     Repo.one(from q in SearchQuery, where: q.value == ^query_id)
     |> case do #if query is nil, it doesn't yet exist, so create it.
       nil -> create(conn, %{"search_query" => %{"value" => query_id}})
       query ->
         query = Repo.preload(query, [:search_query_results, :user_results])
         conn
-        |> render("new.html", query: query, user_results: query.user_results, changeset: empty_changeset, value: query.value)
+        |> Map.put(:params, Map.put_new(conn.params, "tags", "#{Enum.count(query.user_results) < Enum.count(tags)}"))
+        |> render("new.html", query: query, user_results: query.user_results, tag_results: tags, changeset: empty_changeset, value: query.value)
     end
+  end
+
+  defp get_tags(value) do
+    Repo.all(from t in Vutuv.Tag, left_join: l in assoc(t, :tag_localizations),
+      where: like(l.name, ^("#{value}%")) or like(t.slug, ^("#{value}%")))
   end
 
   defp validate_email(nil), do: false
