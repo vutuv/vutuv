@@ -2,7 +2,7 @@ defmodule Vutuv.UserTagEndorsementController do
   use Vutuv.Web, :controller
 
   plug :resolve_slug
-  plug Vutuv.Plug.AuthUser
+  plug :require_user_logged_in
 
   alias Vutuv.UserTagEndorsement
 
@@ -54,4 +54,14 @@ defmodule Vutuv.UserTagEndorsementController do
   end
 
   defp resolve_slug(conn, _), do: conn
+
+  defp require_user_logged_in(conn, _) do
+    case(conn.assigns[:current_user_id]) do
+      nil ->
+        conn
+        |> put_status(404)
+        |> render(Vutuv.ErrorView, "404.html")
+      id -> conn
+    end
+  end
 end
