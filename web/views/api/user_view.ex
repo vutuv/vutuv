@@ -27,7 +27,7 @@ defmodule Vutuv.Api.UserView do
     |> put_relationship(:phone_numbers, Vutuv.Api.PhoneNumberView, "index_lite.json", user)
     |> put_relationship(:social_media_accounts, Vutuv.Api.SocialMediaAccountView, "index_lite.json", user)
     |> put_relationship(:urls, Vutuv.Api.UrlView, "index_lite.json", user)
-    |> put_relationship(:user_skills, Vutuv.Api.UserSkillView, "index.json", user)
+    #|> put_relationship(:user_tags, Vutuv.Api.UserTagView, "index.json", user)
     |> put_relationship(:followers, Vutuv.Api.FollowerView, "index_lite.json", user)
     |> put_relationship(:followees, Vutuv.Api.FolloweeView, "index_lite.json", user)
     |> put_relationship(:groups, Vutuv.Api.GroupView, "index_lite.json", user)

@@ -50,7 +50,6 @@ defmodule Vutuv.Router do
 
     resources "/search_queries", SearchQueryController, only: [:create, :new, :show]
 
-    resources "/skills", SkillController, only: [:show, :index], param: "slug"
 
     resources "/users", UserController, param: "slug" do
       pipe_through :user_pipe
@@ -59,8 +58,7 @@ defmodule Vutuv.Router do
       resources "/groups", GroupController
       resources "/followers", FollowerController, only: [:index]
       resources "/followees", FolloweeController, only: [:index]
-      resources "/skills", UserSkillController, only: [:new, :create, :show, :delete, :index]
-      resources "/endorsements", EndorsementController, only: [:create, :delete]
+      resources "/user_tag_endorsements", UserTagEndorsementController, only: [:create, :delete], as: :tag_endorsement
       resources "/phone_numbers", PhoneNumberController
       resources "/dates", DateController
       resources "/links", UrlController
@@ -72,7 +70,7 @@ defmodule Vutuv.Router do
       resources "/tags", UserTagController, only: [:new, :create, :show, :delete, :index], as: :tag
     end
 
-    post "/users/:slug/skills_create", UserController, :skills_create
+    post "/users/:slug/tags_create", UserController, :tags_create
 
     resources "/sessions", SessionController, only: [:new, :create, :delete]
     get "/magic/login/:magiclink", SessionController, :show
@@ -84,11 +82,6 @@ defmodule Vutuv.Router do
   scope "/admin", Vutuv.Admin, as: :admin do
     pipe_through :browser
     resources "/", AdminController, only: [:index]
-    resources "/skills", SkillController, param: "slug", only: [:index, :show, :edit, :update, :delete]
-    post "/skills/:slug/easy_validate", SkillController, :easy_validate
-    post "/skills/:slug/to_synonym", SkillController, :to_synonym
-    post "/skills/:slug/add_synonym", SkillController, :add_synonym
-    delete "/skills/:slug/delete_synonym/:id", SkillController, :delete_synonym
     post "/slugs", SlugController, :update
     post "/users", UserController, :update
     resources "/locales", LocaleController, only: [:index, :show]
@@ -118,8 +111,6 @@ defmodule Vutuv.Router do
       resources "/followers", Vutuv.Api.FollowerController, only: [:index]
       resources "/followees", Vutuv.Api.FolloweeController, only: [:index]
 
-      resources "/skills", Vutuv.Api.UserSkillController, only: [:index, :show]
-      #resources "/endorsements", Vutuv.Api.EndorsementController, only: [:create, :delete]
       resources "/phone_numbers", Vutuv.Api.PhoneNumberController, only: [:index, :show]
       resources "/links", Vutuv.Api.UrlController, only: [:index, :show]
       resources "/social_media_accounts", Vutuv.Api.SocialMediaAccountController, only: [:index, :show]
@@ -130,7 +121,6 @@ defmodule Vutuv.Router do
     end
 
     pipe_through :render_404
-    resources "/skills", Vutuv.Api.SkillController, only: [:index, :show]
 
   end
 

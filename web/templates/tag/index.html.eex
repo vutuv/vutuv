@@ -37,6 +37,7 @@
     <% end %>
       </tbody>
     </table>
+    <%= Vutuv.Pages.page_list(@conn.params, @tags_count) %>
   </section>
   <aside>
     <%= render Vutuv.SharedView, "_ad.html" %>

@@ -10,7 +10,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title><%= if @conn.assigns[:user], do: "#{full_name(@conn.assigns[:user])} - vutuv", else: "vutuv" %></title>
         <%= if @conn.assigns[:user] do %>
-        <meta name="description" content="<%= meta_description(@user, @conn.assigns[:user_skills]) %>">
+        <meta name="description" content="<%= meta_description(@user, @conn.assigns[:user_tags]) %>">
         <% else %>
         <meta name="description" content="<%= gettext("Your Fast and Free Career Network. No expensive premium accounts! Get a free account in 30 seconds.") %>">
         <%= if @conn.assigns[:prefetch] do %>

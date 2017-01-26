@@ -27,7 +27,6 @@ defmodule Vutuv.TagClosure do
     parent_id = get_field(changeset, :parent_id)
     child_id = get_field(changeset, :child_id)
     if(parent_id && child_id && parent_id != child_id) do
-      IO.puts "\n\nParent: #{parent_id}, Child: #{child_id}\n\n"
       from(c in __MODULE__, where: c.parent_id == ^child_id and c.child_id == ^parent_id, limit: 1)
       |> Repo.one
       |> case do
@@ -55,7 +54,6 @@ defmodule Vutuv.TagClosure do
   defp create_parents(multi, id, [%{parent_id: id, depth: depth} | tail]), do: create_parents(multi, id, tail)
 
   defp create_parents(multi, child_id, [%{parent_id: parent_id, depth: depth} | tail]) do
-    IO.puts "\ntag_closure_#{parent_id}_#{child_id}"
     changeset = 
       %__MODULE__{}
       |>changeset(%{parent_id: parent_id, child_id: child_id, depth: depth+1})
@@ -68,7 +66,6 @@ defmodule Vutuv.TagClosure do
   defp create_children(multi, id, [%{child_id: id, depth: depth} | tail]), do: create_parents(multi, id, tail)
 
   defp create_children(multi, parent_id, [%{child_id: child_id, depth: depth} | tail]) do
-    IO.puts "\ntag_closure_#{parent_id}_#{child_id}"
     changeset = 
       %__MODULE__{}
       |>changeset(%{parent_id: parent_id, child_id: child_id, depth: depth+1})

@@ -3,8 +3,8 @@ defmodule Vutuv.UserHelpers do
   import Ecto
   alias Vutuv.User
   alias Vutuv.Repo
-  alias Vutuv.Skill
-  alias Vutuv.UserSkill
+  alias Vutuv.Tag
+  alias Vutuv.UserTag
   alias Vutuv.WorkExperience
   alias Vutuv.Connection
   alias Vutuv.Address
@@ -134,22 +134,22 @@ defmodule Vutuv.UserHelpers do
   def meta_description(nil, _), do: ""
   def meta_description(_, nil), do: ""
 
-  def meta_description(user, skills) do
-    case {work_information_string(user), skills_to_string(skills)} do
+  def meta_description(user, tags) do
+    case {work_information_string(user), tags_to_string(tags)} do
       {"", ""} ->
         []
-      {"", skills} ->
-        ["Skills: ", skills]
+      {"", tags} ->
+        ["tags: ", tags]
       {work, ""} ->
         [work]
-      {work, skills} ->
-        [work, ". Skills: ", skills]
+      {work, tags} ->
+        [work, ". tags: ", tags]
     end
   end
 
-  def skills_to_string(skills) do
-    for(skill <- skills) do
-      Skill.resolve_name(skill.skill_id)
+  def tags_to_string(tags) do
+    for(tag <- tags) do
+      UserTag.resolve_name(tag, "en")
     end
     |> Enum.join(", ")
   end
@@ -418,9 +418,9 @@ defmodule Vutuv.UserHelpers do
 
   defp admin?(_), do: false
 
-  def has_skill?(%User{id: user_id}, %Skill{id: skill_id}) do
-    !is_nil Repo.one(from u in UserSkill, where: u.user_id == ^user_id and u.skill_id == ^skill_id)
+  def has_tag?(%User{id: user_id}, %Tag{id: tag_id}) do
+    !is_nil Repo.one(from u in UserTag, where: u.user_id == ^user_id and u.tag_id == ^tag_id)
   end
 
-  def has_skill?(_, _), do: false
+  def has_tag?(_, _), do: false
 end

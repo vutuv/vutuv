@@ -1,6 +1,6 @@
 defmodule Vutuv.UserTagController do
   use Vutuv.Web, :controller
-
+  plug :resolve_slug
   plug Vutuv.Plug.AuthUser when not action in [:index, :show]
   plug :scrub_params, "tag_param" when action in [:create]
 
@@ -36,12 +36,13 @@ defmodule Vutuv.UserTagController do
   end
 
   def show(conn, %{"id" => id}) do
-    user_tag = Repo.get!(assoc(conn.assigns[:user], :user_tags), id)
+    user_tag = conn.assigns[:user_tag]
+      |> Repo.preload([:tag, :endorsements])
     render(conn, "show.html", user_tag: user_tag)
   end
 
   def delete(conn, %{"id" => id}) do
-    user_tag = Repo.get!(UserTag, id)
+    user_tag = conn.assigns[:user_tag]
 
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
@@ -51,4 +52,17 @@ defmodule Vutuv.UserTagController do
     |> put_flash(:info, gettext("User tag deleted successfully."))
     |> redirect(to: user_tag_path(conn, :index, conn.assigns[:user]))
   end
+
+  defp resolve_slug(%{params: %{"id" => slug}} = conn, _) do
+    Repo.one(from w in assoc(conn.assigns[:user], :user_tags), join: t in assoc(w, :tag), where: t.slug == ^slug)
+    |>case do
+      nil -> 
+        conn
+        |> put_status(404)
+        |> render(Vutuv.ErrorView, "404.html")
+      user_tag -> assign(conn, :user_tag, user_tag)
+    end
+  end
+
+  defp resolve_slug(conn, _), do: conn
 end

@@ -34,7 +34,7 @@ use Vutuv.Web, :controller
                     :addresses, :phone_numbers,
                     :social_media_accounts, :urls,
                     :followers, :followees,
-                    :groups, user_skills: :skill])
+                    :groups])
     render(conn, "show.json", user: user)
   end
 
