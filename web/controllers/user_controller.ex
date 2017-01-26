@@ -186,7 +186,7 @@ defmodule Vutuv.UserController do
     |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
   end
 
-  def tags_create(conn, %{"tag" => %{"tag" => tags}}) do
+  def tags_create(conn, %{"tags" => %{"tags" => tags}}) do
     user =
       conn.assigns[:user]
       |> Repo.preload([user_tags: [:tag]])
@@ -202,7 +202,7 @@ defmodule Vutuv.UserController do
         user
         |> Ecto.build_assoc(:user_tags, %{})
         |> UserTag.changeset
-        |> tag.create_or_link_tag(%{"name" => downcase_tag})
+        |> Tag.create_or_link_tag(%{"value" => downcase_tag}, conn.assigns[:locale])
         |> Repo.insert
       end
     failures =
