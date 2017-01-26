@@ -52,7 +52,7 @@ config :quantum,
     # "* * * * *": {MyApp.MyModule, :my_method}
 
     # Birthday reminders
-    "15 6 * * *": {Vutuv.Cronjob, :send_birthday_reminders}
+    "15 7 * * *": {Vutuv.Cronjob, :send_birthday_reminders}
   ],
   global?: true
 
