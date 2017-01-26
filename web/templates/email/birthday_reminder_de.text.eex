@@ -1,26 +1,33 @@
 <%= email_greeting(@user) %>,
 
-heute haben die folgenen Personen Geburtstag:
+<%= if length(@birthday_childs) == 1 do %>
+heute feiert Ihr folgender vutuv Kontakt Geburtstag:
+<% else %>
+heute feiern Ihre folgenden vutuv Kontakte Geburtstag:
+<% end %>
 
 <%= for(birthday_child <- @birthday_childs) do %>
-- <%= birthday_child %> (<%= birthday_child.birthdate %>)
+- <%= birthday_child %> (<%= format_date(birthday_child.birthdate, @user.locale) %>)
   https://www.vutuv.de/users/<%= birthday_child.active_slug %>
 <% end %>
 
 <%= if @future_birthday_childs do %>
-Weitere Geburtstage in den nächsten zwei Wochen:
+<%= if length(@future_birthday_childs) == 1 do %>
+Ein weiterer Geburtstag steht in den nächsten Tagen an:
+<% else %>
+Weitere Geburtstage in den nächsten Tagen:
+<% end %>
 
 <%= for(birthday_child <- @future_birthday_childs) do %>
-- <%= birthday_child %> (<%= birthday_child.birthdate %>)
+- <%= birthday_child %> (<%= format_date(birthday_child.birthdate, @user.locale) %>)
   https://www.vutuv.de/users/<%= birthday_child.active_slug %>
 <% end %>
 
-<% end %>
-Mit freundlichen Grüßen
-Ihr vutuv Team
+Noch ist genügend Zeit ein Geschenk zu versenden.
+Hier der Link zur Amazon Geschenke-Seite:
+http://amzn.to/2jzIilp
 
--- 
-vutuv is a service provided by AMOOMA GmbH. https://www.amooma.de
-AMOOMA GmbH - Bachstr. 124 - 56566 Neuwied - Germany
-Geschäftsführer: Stefan Wintermeyer, Handelsregister Montabaur B14998
-Updates about vutuv: https://twitter.com/vutuv
+<% end %>
+<%= render "_signature_de.text" %>
+
+<%= render "_footer.text" %>

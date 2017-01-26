@@ -48,3 +48,11 @@ config :vutuv, Vutuv.Repo,
 # Bamboo Email
 config :vutuv, Vutuv.Mailer,
   adapter: Bamboo.LocalAdapter
+
+config :quantum, cron: [
+    # Every minute
+    # "* * * * *": {MyApp.MyModule, :my_method}
+
+    # Birthday reminders
+    # "19 * * * *": {Vutuv.Cronjob, :send_birthday_reminders}
+]
