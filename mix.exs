@@ -3,14 +3,14 @@ defmodule Vutuv.Mixfile do
 
   def project do
     [app: :vutuv,
-     version: "1.2.44",
+     version: "1.3.0",
      elixir: "~> 1.4.0",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     aliases: aliases,
-     deps: deps]
+     aliases: aliases(),
+     deps: deps()]
   end
 
   # Configuration for the OTP application.
@@ -35,7 +35,8 @@ defmodule Vutuv.Mixfile do
                     :timex_ecto,
                     :word_smith,
                     :arc,
-                    :arc_ecto]]
+                    :arc_ecto,
+                    :quantum]]
   end
 
   # Specifies which paths to compile per environment.
@@ -63,7 +64,8 @@ defmodule Vutuv.Mixfile do
      {:word_smith, "~> 0.1.0"},
      {:slugger, "~> 0.1.0"},
      {:httpoison, "~> 0.9.0"},
-     {:distillery, "~> 0.10"}]
+     {:distillery, "~> 1.1.0"},
+     {:quantum, ">= 1.8.1"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

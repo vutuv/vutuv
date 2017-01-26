@@ -1,14 +1,10 @@
 <%= email_greeting(@user) %>,
 
-Use the following link to validate your email address:
+Please use the following link to validate your
+email address:
 
 <%= @url %>magic/email/<%=@link%>
 
-Regards
-The vutuv team
+<%= render "_signature_en.text" %>
 
---
-vutuv is a service provided by AMOOMA GmbH. https://www.amooma.de
-AMOOMA GmbH - Bachstr. 124 - 56566 Neuwied - Germany
-Geschäftsführer: Stefan Wintermeyer, Handelsregister Montabaur B14998
-Updates about vutuv: https://twitter.com/vutuv
+<%= render "_footer.text" %>

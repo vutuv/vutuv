@@ -1,6 +1,6 @@
 <%= email_greeting(@user) %>,
 
-Danke das Sie bei vutuv mitmachen. Hier ist der PIN, den Sie zum 
+Danke das Sie bei vutuv mitmachen. Hier ist der PIN, den Sie zum
 Einloggen benötigen:
 
   <%=@pin%>
@@ -10,11 +10,6 @@ https://www.vutuv.de/sessions/new
 
 Bitte erzählen Sie Ihren Freunden und Geschäftspartnern von vutuv!
 
-Mit freundlichen Grüßen
-Ihr vutuv Team
+<%= render "_signature_de.text" %>
 
---
-vutuv is a service provided by AMOOMA GmbH. https://www.amooma.de
-AMOOMA GmbH - Bachstr. 124 - 56566 Neuwied - Germany
-Geschäftsführer: Stefan Wintermeyer, Handelsregister Montabaur B14998
-Updates about vutuv: https://twitter.com/vutuv
+<%= render "_footer.text" %>

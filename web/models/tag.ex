@@ -9,6 +9,14 @@ defmodule Vutuv.Tag do
     has_many :tag_localizations, Vutuv.TagLocalization, on_delete: :delete_all
     has_many :tag_synonyms, Vutuv.TagSynonym, on_delete: :delete_all
 
+    has_many :parent_closures, Vutuv.TagClosure, foreign_key: :child_id, on_delete: :delete_all
+    has_many :parents, through: [:parent_closures, :parent]
+
+    has_many :child_closures, Vutuv.TagClosure, foreign_key: :parent_id, on_delete: :delete_all
+    has_many :children, through: [:child_closures, :child]
+
+    has_many :user_tags, Vutuv.UserTag, on_delete: :delete_all
+
     timestamps()
   end
 
@@ -47,8 +55,7 @@ defmodule Vutuv.Tag do
   def gen_slug(changeset, value) do
     slug = 
       value
-      |> Vutuv.SlugHelpers.gen_slug_unique( __MODULE__, :slug)
-      |> String.replace(".", "_")
+      |> Vutuv.SlugHelpers.gen_slug_unique( __MODULE__, :slug, ?_)
     put_change(changeset, :slug, slug)
   end
 
@@ -73,6 +80,62 @@ defmodule Vutuv.Tag do
       tag ->
         put_change(changeset, :tag_id, tag.id)
     end
+  end
+
+  def resolve_localization(tag, locale) do
+    Vutuv.Repo.one(from(t in Vutuv.TagLocalization, 
+      where: t.locale_id == ^(Vutuv.Locale.locale_id(locale)) and
+      t.tag_id == ^tag.id,
+      preload: [:tag_urls]))
+    ||
+    Vutuv.Repo.one(from(t in Vutuv.TagLocalization, 
+      where: t.tag_id == ^tag.id,
+      preload: [:tag_urls],
+      limit: 1))
+  end
+
+  def related_users(_, nil), do: []
+
+  def related_users(tag, current_user) do
+    (Vutuv.Repo.all(from u in assoc(current_user, :followers),
+      left_join: us in assoc(u, :user_tags),
+      left_join: e in assoc(us, :endorsements),
+      where: us.tag_id == ^tag.id,
+      order_by: fragment("count(?) DESC", e.id), #most endorsed
+      group_by: u.id,
+      limit: 10)
+    ++
+    Vutuv.Repo.all(from u in assoc(current_user, :followees),
+      left_join: us in assoc(u, :user_tags),
+      left_join: e in assoc(us, :endorsements),
+      where: us.tag_id == ^tag.id,
+      order_by: fragment("count(?) DESC", e.id), #most endorsed
+      group_by: u.id,
+      limit: 10))
+    |> Enum.uniq_by(&(&1.id))
+  end
+
+  def reccomended_users(tag) do
+    Vutuv.Repo.all(from u in Vutuv.User,
+      left_join: us in assoc(u, :user_tags),
+      left_join: e in assoc(us, :endorsements),
+      where: us.tag_id == ^tag.id,
+      order_by: fragment("count(?) DESC", e.id), #most endorsed
+      group_by: u.id,
+      limit: 10)
+  end
+
+  def resolve_name(tag, locale) do
+    tag = Vutuv.Repo.preload(tag, [tag_localizations: :locale])
+    localization = 
+      Enum.reduce(tag.tag_localizations, fn f, acc ->
+        if(f.locale.value == locale) do
+          f
+        else
+          acc
+        end
+      end)
+    localization.name
   end
 
   defimpl String.Chars, for: Vutuv.Tag do

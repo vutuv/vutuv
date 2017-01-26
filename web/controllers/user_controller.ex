@@ -1,8 +1,8 @@
 defmodule Vutuv.UserController do
   use Vutuv.Web, :controller
-  plug Vutuv.Plug.UserResolveSlug when action in [:edit, :update, :index, :show, :skills_create]
+  plug Vutuv.Plug.UserResolveSlug when action in [:edit, :update, :index, :show, :tags_create]
   plug :logged_in? when action in [:index]
-  plug :auth when action in [:edit, :update, :skills_create, :skills_create]
+  plug :auth when action in [:edit, :update, :tags_create]
   plug Vutuv.Plug.RequireUserLoggedOut when action in [:new, :create]
   plug Vutuv.Plug.EnsureValidated when not action in [:delete, :magic_delete]
   import Vutuv.UserHelpers
@@ -10,8 +10,8 @@ defmodule Vutuv.UserController do
 
   alias Vutuv.Slug
   alias Vutuv.User
-  alias Vutuv.UserSkill
-  alias Vutuv.Skill
+  alias Vutuv.UserTag
+  alias Vutuv.Tag
   alias Vutuv.Email
   alias Vutuv.Connection
 
@@ -55,20 +55,20 @@ defmodule Vutuv.UserController do
     total_numbers = count_user_assoc Vutuv.PhoneNumber, conn.assigns[:user]
     total_links = count_user_assoc Vutuv.Url, conn.assigns[:user]
     total_addresses = count_user_assoc Vutuv.Address, conn.assigns[:user]
-    total_user_skills = count_user_assoc Vutuv.UserSkill, conn.assigns[:user]
+    total_user_tags = count_user_assoc Vutuv.UserTag, conn.assigns[:user]
     job_limit = if total_jobs>5, do: 3, else: total_jobs
     number_limit = if total_numbers>5, do: 3, else: total_numbers
     link_limit = if total_links>5, do: 3, else: total_links
     address_limit = if total_addresses>5, do: 3, else: total_addresses
-    user_skill_limit = if total_user_skills>10, do: 10, else: total_user_skills
+    user_tag_limit = if total_user_tags>10, do: 10, else: total_user_tags
     user =
       conn.assigns[:user]
       |> Repo.preload([
         :social_media_accounts,
         :followees,
         :followers,
-        user_skills: from(u in Vutuv.UserSkill, left_join: e in assoc(u, :endorsements), left_join: s in assoc(u, :skill),
-          order_by: s.name, group_by: u.id, limit: ^user_skill_limit, # order_by: fragment("count(?) DESC", e.id) orders by endorsements
+        user_tags: from(u in Vutuv.UserTag, left_join: e in assoc(u, :endorsements), left_join: t in assoc(u, :tag),
+          order_by: t.slug, group_by: u.id, limit: ^user_tag_limit, # order_by: fragment("count(?) DESC", e.id) orders by endorsements
           preload: [:endorsements]),
         followee_connections: {Connection.latest(3), [:followee]},
         follower_connections: {Connection.latest(3), [:follower]},
@@ -89,7 +89,7 @@ defmodule Vutuv.UserController do
 
     conn
     |> assign(:emails, emails)
-    |> assign(:user_skills, user.user_skills)
+    |> assign(:user_tags, user.user_tags)
     |> assign(:work_experience, user.work_experiences)
     |> assign(:follower_count, follower_count(user))
     |> assign(:followee_count, followee_count(user))
@@ -101,7 +101,7 @@ defmodule Vutuv.UserController do
     |> assign(:total_numbers, total_numbers)
     |> assign(:total_links, total_links)
     |> assign(:total_addresses, total_addresses)
-    |> assign(:total_user_skills, total_user_skills)
+    |> assign(:total_user_tags, total_user_tags)
     |> assign(:display_welcome_message, display_welcome_message)
     |> render("show.html", conn: conn)
   end
@@ -186,23 +186,22 @@ defmodule Vutuv.UserController do
     |> redirect(to: user_path(conn, :show, conn.assigns[:current_user]))
   end
 
-  def skills_create(conn, %{"skills" => %{"skills" => skills}}) do
+  def tags_create(conn, %{"tags" => %{"tags" => tags}}) do
     user =
       conn.assigns[:user]
-      |> Repo.preload([user_skills: [:skill]])
-    skill_list =
-      skills
+      |> Repo.preload([user_tags: [:tag]])
+    tag_list =
+      tags
       |> String.split(",")
     results =
-      for(skill <- skill_list) do
-        downcase_skill =
-          skill
+      for(tag <- tag_list) do
+        capitalized_tag =
+          tag
           |> String.trim
-          |> String.downcase
         user
-        |> Ecto.build_assoc(:user_skills, %{})
-        |> UserSkill.changeset
-        |> Skill.create_or_link_skill(%{"name" => downcase_skill})
+        |> Ecto.build_assoc(:user_tags, %{})
+        |> UserTag.changeset
+        |> Tag.create_or_link_tag(%{"value" => capitalized_tag}, conn.assigns[:locale])
         |> Repo.insert
       end
     failures =
@@ -214,7 +213,7 @@ defmodule Vutuv.UserController do
       end)
     welcome_wagon(user)
     conn
-    |> put_flash(:info, Vutuv.Gettext.gettext("Successfully added %{successes} skills with %{failures} failures.", successes: Enum.count(skill_list)-failures, failures: failures))
+    |> put_flash(:info, Vutuv.Gettext.gettext("Successfully added %{successes} tags with %{failures} failures.", successes: Enum.count(tag_list)-failures, failures: failures))
     |> redirect(to: user_path(conn, :show, user))
   end
 
@@ -227,7 +226,7 @@ defmodule Vutuv.UserController do
       :calendar.universal_time
       |> :calendar.datetime_to_gregorian_seconds
     if(now - time_created <= @welcome_wagon_cut_off_time) do
-      Task.start(Vutuv.Registration, :skill_welcome_wagon, [user])
+      Task.start(Vutuv.Registration, :tag_welcome_wagon, [user])
     end
   end
 
