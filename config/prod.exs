@@ -46,6 +46,18 @@ config :vutuv, Vutuv.Mailer,
   ssl: false, # can be `true`
   retries: 3
 
+config :quantum,
+  cron: [
+    # Every minute
+    # "* * * * *": {MyApp.MyModule, :my_method}
+
+    # Birthday reminders
+    #
+    "30 7 * * *": {Vutuv.Cronjob, :send_birthday_reminders}
+  ],
+  global?: true,
+  timezone: "Europe/Berlin"
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

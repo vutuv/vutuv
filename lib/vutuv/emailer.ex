@@ -1,5 +1,6 @@
 defmodule Vutuv.Emailer do
   import Bamboo.Email
+  require Ecto.Query
   require Vutuv.Gettext
   use Bamboo.Phoenix, view: Vutuv.EmailView
 
@@ -28,7 +29,21 @@ defmodule Vutuv.Emailer do
     gen_email(link, pin, email, user,"user_deletion_email_#{get_locale(user.locale)}", Vutuv.Gettext.gettext("Confirm your account deletion"))
   end
 
-  def birthday_reminder(user, birthday_childs) do
+  def verification_notice(user) do
+    email = Vutuv.Repo.one(Ecto.Query.from e in Vutuv.Email, where: e.user_id == ^user.id, limit: 1, select: e.value)
+    template = "verification_confirmation_#{get_locale(user.locale)}"
+
+    new_email
+    |> put_text_layout({Vutuv.EmailView, "#{template}.text"})
+    |> assign(:user, user)
+    |> to("#{Vutuv.UserHelpers.name_for_email_to_field(user)} <#{email}>")
+    |> from("vutuv <info@vutuv.de>")
+    |> subject(Vutuv.Gettext.gettext("vutuv Account verified"))
+    |> render("#{template}.text")
+    |> Vutuv.Mailer.deliver_now
+  end
+
+  def birthday_reminder(user, birthday_childs, future_birthday_childs) do
     {{today_year, _month, _day}, {_, _, _}} = :calendar.local_time()
 
     name_list = for(birthday_child <- birthday_childs) do
@@ -47,12 +62,15 @@ defmodule Vutuv.Emailer do
 
     template = "birthday_reminder_#{get_locale(user.locale)}"
 
-    email = "stefan.wintermeyer@amooma.de"
+    email = Vutuv.Repo.one(Ecto.Query.from e in Vutuv.Email, where: e.user_id == ^user.id, limit: 1, select: e.value)
+
+    Gettext.put_locale(Vutuv.Gettext, user.locale)
 
     new_email
     |> put_text_layout({Vutuv.EmailView, "#{template}.text"})
     |> assign(:user, user)
     |> assign(:birthday_childs, birthday_childs)
+    |> assign(:future_birthday_childs, future_birthday_childs)
     |> to("#{Vutuv.UserHelpers.name_for_email_to_field(user)} <#{email}>")
     |> from("vutuv <info@vutuv.de>")
     |> subject("#{Vutuv.Gettext.gettext("Birthday")}: #{truncated_subject}")

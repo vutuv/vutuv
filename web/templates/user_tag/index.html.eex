@@ -1,7 +1,7 @@
 <%# header tag begins in parent template %>
   <div class="profile-header">
     <div class="profile-header__info">
-      <h1><%= full_name(@user) %>'s Skills</h1>
+      <h1><%= full_name(@user) %>'s tags</h1>
     </div>
   </div>
 </header>
@@ -11,30 +11,30 @@
   <%= gen_breadcrumbs([
     gettext("Users"),
     {full_name(@user), user_path(@conn, :show, @user)},
-    gettext("Skills")]) %>
+    gettext("Tags")]) %>
 </div>
 
 <div class="card-list">
 
   <section class="card">
-    <h1>Skills</h1>
+    <h1>tags</h1>
 
     <table>
       <thead>
         <tr>
-          <th><%= gettext "Skill name" %></th>
+          <th><%= gettext "tag name" %></th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <%= for user_skill <- @user_skills do %>
+        <%= for user_tag <- @user_tags do %>
         <tr>
           <td>
-          <p style="word-wrap: break-word; max-width: 600px;"><%= link Vutuv.Skill.resolve_name(user_skill.skill_id), to: user_user_skill_path(@conn, :show, @user, user_skill) %></p>
+          <p style="word-wrap: break-word; max-width: 600px;"><%= link Vutuv.UserTag.resolve_name(user_tag, @conn.assigns[:locale]), to: user_tag_path(@conn, :show, @user, user_tag) %></p>
           </td>
           <td>
           <%= if @current_user && same_user?(@user, @current_user) do %>
-          <%= button to: user_user_skill_path(@conn, :delete, @user, user_skill), method: :delete, class: "delete button button--icon button--small", style: "height:25px;margin-right:-5px;", form: [class: "button button--icon button--small"] do %>
+          <%= button to: user_tag_path(@conn, :delete, @user, user_tag), method: :delete, class: "delete button button--icon button--small", style: "height:25px;margin-right:-5px;", form: [class: "button button--icon button--small"] do %>
           <i class="icon icon--delete"></i>
           <% end %>
           <% end %>
@@ -45,7 +45,7 @@
     </table>
 
     <%= if same_user?(@user, @current_user) do %>
-      <%= link gettext("Add"), to: user_user_skill_path(@conn, :new, @current_user), class: "card__morelink" %>
+      <%= link gettext("Add"), to: user_tag_path(@conn, :new, @current_user), class: "card__morelink" %>
     <% end %>
   </section>
   <aside>

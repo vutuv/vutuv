@@ -1,4 +1,4 @@
-defmodule Vutuv.Admin.SkillView do
+defmodule Vutuv.UserTagView do
   use Vutuv.Web, :view
   import Vutuv.UserHelpers
 end

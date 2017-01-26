@@ -48,7 +48,7 @@ defmodule Vutuv.Registration do
     end)
   end
 
-  def skill_welcome_wagon(%User{}=user) do
+  def tag_welcome_wagon(%User{}=user) do
     stefan_id = Repo.one!(from u in User, join: e in assoc(u, :emails), where: e.value == @stefan_email, select: u.id)
     user
     |> Ecto.build_assoc(:follower_connections)

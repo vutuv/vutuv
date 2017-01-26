@@ -1,22 +1,21 @@
 <%# header tag begins in parent template %>
   <div class="profile-header">
     <div class="profile-header__info">
-      <h1><%= @skill.name %></h1>
+      <h1><%= Vutuv.UserTag.resolve_name(@user_tag, @conn.assigns[:locale]) %></h1>
     </div>
   </div>
 </header>
 <%= render Vutuv.LayoutView, "flash.html", assigns %>
 <div class="breadcrumbs">
   <%= gen_breadcrumbs([
-    {gettext("Skills"), skill_path(@conn, :index)},
+    gettext("Users"),
+    {full_name(@user), user_path(@conn, :show, @user)},
+    {gettext("Tags"), user_tag_path(@conn, :index, @user)},
     gettext("Show")]) %>
 </div>
 
 <div class="card-list">
 
-  <%= render "single_card.html", assigns %>
+  <%= render Vutuv.TagView, "single_card.html", Map.put(assigns, :tag, @user_tag.tag) %>
 
-  <aside>
-  <%= render Vutuv.SharedView, "_ad.html" %>
-  </aside>
 </div>

@@ -6,7 +6,6 @@ defmodule Vutuv.SearchTerm do
     field :score, :integer
 
     belongs_to :user, Vutuv.User
-    belongs_to :skill, Vutuv.Skill
     timestamps
   end
 
@@ -58,18 +57,5 @@ defmodule Vutuv.SearchTerm do
       "#{last_name} #{first_name}",
       "#{first_name}, #{last_name}",
       "#{last_name}, #{first_name}"]
-  end
-
-  def skill_search_terms(%{skill_synonyms: %Ecto.Association.NotLoaded{}} = skill) do
-    skill
-    |> skill_search_terms
-  end
-
-  def skill_search_terms(%{downcase_name: downcase_name, skill_synonyms: synonyms}) do
-    [changeset(%Vutuv.SearchTerm{}, %{value: downcase_name, score: 100})]
-    ++
-    for(synonym <- synonyms) do
-      changeset(%Vutuv.SearchTerm{}, %{value: synonym.value, score: 80})
-    end
   end
 end

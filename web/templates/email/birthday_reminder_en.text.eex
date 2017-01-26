@@ -1,18 +1,29 @@
 <%= email_greeting(@user) %>,
 
-the following people who you follow on vutuv celebrate
-their birthday today:
+<%= if length(@birthday_childs) == 1 do %>
+one of your vutuv contacts celebrates his/her birthday today:
+<% else %>
+the following vutuv contacts celebrate their birthday today:
+<% end %>
 
 <%= for(birthday_child <- @birthday_childs) do %>
-* <%= birthday_child %> (<%= birthday_child.birthdate %>)
+- <%= birthday_child %> (<%= format_date(birthday_child.birthdate, @user.locale) %>)
   https://www.vutuv.de/users/<%= birthday_child.active_slug %>
 <% end %>
 
-Regards
-The vutuv team
+<%= if @future_birthday_childs do %>
+<%= if length(@future_birthday_childs) == 1 do %>
+There is one more birthday in the next couple of days:
+<% else %>
+A couple of more birthdays in the near future:
+<% end %>
 
--- 
-vutuv is a service provided by AMOOMA GmbH. https://www.amooma.de
-AMOOMA GmbH - Bachstr. 124 - 56566 Neuwied - Germany
-Geschäftsführer: Stefan Wintermeyer, Handelsregister Montabaur B14998
-Updates about vutuv: https://twitter.com/vutuv
+<%= for(birthday_child <- @future_birthday_childs) do %>
+- <%= birthday_child %> (<%= format_date(birthday_child.birthdate, @user.locale) %>)
+  https://www.vutuv.de/users/<%= birthday_child.active_slug %>
+<% end %>
+
+<% end %>
+<%= render "_signature_en.text" %>
+
+<%= render "_footer.text" %>
