@@ -198,8 +198,6 @@ defmodule Vutuv.UserController do
         capitalized_tag =
           tag
           |> String.trim
-          |> String.capitalize
-        IO.puts "\n\n#{tag}\n\n"
         user
         |> Ecto.build_assoc(:user_tags, %{})
         |> UserTag.changeset
