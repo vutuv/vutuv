@@ -1,9 +1,9 @@
 <%= email_greeting(@user) %>,
 
 <%= if length(@birthday_childs) == 1 do %>
-heute feiert der folgende vutuv Kontakt Geburtstag:
+heute feiert Ihr folgender vutuv Kontakt Geburtstag:
 <% else %>
-heute feiern die folgenden vutuv Kontakte Geburtstag:
+heute feiern Ihre folgenden vutuv Kontakte Geburtstag:
 <% end %>
 
 <%= for(birthday_child <- @birthday_childs) do %>
@@ -22,6 +22,10 @@ Weitere Geburtstage in den nächsten Tagen:
 - <%= birthday_child %> (<%= format_date(birthday_child.birthdate, @user.locale) %>)
   https://www.vutuv.de/users/<%= birthday_child.active_slug %>
 <% end %>
+
+Noch ist genügend Zeit ein Geschenk zu versenden.
+Hier der Link zur Amazon Geschenke-Seite:
+http://amzn.to/2jzIilp
 
 <% end %>
 <%= render "_signature_de.text" %>

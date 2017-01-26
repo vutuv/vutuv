@@ -16,14 +16,14 @@ defmodule Vutuv.Cronjob do
       todays_users = followees_who_have_birthday(user, today)
 
       # Get the next 10 birthdays within the
-      # next 2 weeks.
+      # next 3 weeks.
       #
-      future_users = for n <- 1..14 do
+      future_users = for n <- 1..21 do
         date = Timex.shift(today, days: n)
         followees_who_have_birthday(user, date)
       end
       future_users = List.flatten(future_users)
-                     |> Enum.take(10)
+                     |> Enum.take(5)
 
       if length(todays_users) > 0 do
         Vutuv.Emailer.birthday_reminder(user, todays_users, future_users)

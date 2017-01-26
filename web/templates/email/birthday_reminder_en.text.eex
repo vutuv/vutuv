@@ -1,9 +1,9 @@
 <%= email_greeting(@user) %>,
 
 <%= if length(@birthday_childs) == 1 do %>
-one of your vutuv contacts celebrates birthday today:
+one of your vutuv contacts celebrates his/her birthday today:
 <% else %>
-the following vutuv contacts celebrate birthday today:
+the following vutuv contacts celebrate their birthday today:
 <% end %>
 
 <%= for(birthday_child <- @birthday_childs) do %>

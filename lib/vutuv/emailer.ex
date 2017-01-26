@@ -64,6 +64,8 @@ defmodule Vutuv.Emailer do
 
     email = Vutuv.Repo.one(Ecto.Query.from e in Vutuv.Email, where: e.user_id == ^user.id, limit: 1, select: e.value)
 
+    Gettext.put_locale(Vutuv.Gettext, user.locale)
+
     new_email
     |> put_text_layout({Vutuv.EmailView, "#{template}.text"})
     |> assign(:user, user)
