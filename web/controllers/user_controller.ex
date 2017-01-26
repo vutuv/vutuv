@@ -195,14 +195,15 @@ defmodule Vutuv.UserController do
       |> String.split(",")
     results =
       for(tag <- tag_list) do
-        downcase_tag =
+        capitalized_tag =
           tag
           |> String.trim
-          |> String.downcase
+          |> String.capitalize
+        IO.puts "\n\n#{tag}\n\n"
         user
         |> Ecto.build_assoc(:user_tags, %{})
         |> UserTag.changeset
-        |> Tag.create_or_link_tag(%{"value" => downcase_tag}, conn.assigns[:locale])
+        |> Tag.create_or_link_tag(%{"value" => capitalized_tag}, conn.assigns[:locale])
         |> Repo.insert
       end
     failures =
