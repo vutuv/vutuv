@@ -171,9 +171,9 @@ a.btn {
   filter: dropshadow(color=rgba(0,0,0,.2), offx=1, offy=1);
   font-family: Arial, sans-serif;
   font-weight: bold;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
+  -webkit-border-radius: .333em;
+  -moz-border-radius: .333em;
+  border-radius: .333em;
   i {
     display: inline-block;
     float: left;
@@ -197,6 +197,15 @@ a.btn {
       svg {
         width: 13px !important;
         height: 13px !important;
+      }
+    }
+  }
+  &.btn-xs {
+    font-size: 11px;
+    i {
+      svg {
+        width: 11px !important;
+        height: 11px !important;
       }
     }
   }
