@@ -552,3 +552,31 @@ ul.following {
     }
   }
 }
+
+ul.thumbs {
+  margin: 0;
+  padding: 0;
+  li {
+    list-style: none;
+    display: block;
+    margin: 0 0 10px;
+    overflow: hidden;
+    border-bottom: 1px solid $color_grey_light;
+    .img {
+      display: inline-block;
+      float: left;
+      img {
+        display: block;
+      }
+    }
+    .text {
+      font-size: 14px;
+      padding: 0 0 10px 10px;
+      margin: 0 0 0 150px;
+      .title {
+        font-weight: bold;
+        margin: 0 0 .25em;
+      }
+    }
+  }
+}
