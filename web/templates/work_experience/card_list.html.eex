@@ -3,7 +3,7 @@
   <li class="job">
     <h2 class="job__title"><%= link job.title, to: user_work_experience_path(@conn, :show, @user, job) %>
       <%= if same_user?(@user, @current_user) do %>
-      <div class="btns-right">
+      <div class="btns job__edit">
       <%= button to: user_work_experience_path(@conn, :delete, @user, job), method: :delete, class: "btn btn-sm btn-danger btn-icon", form: [class: "btn-form"] do %>
         <i class="icon">
           <%= render Vutuv.IconView, "close.html" %>

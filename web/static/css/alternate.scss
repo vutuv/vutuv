@@ -163,7 +163,11 @@ a.btn {
   color: #fff;
   line-height: 1em;
   font-size: 15px;
+<<<<<<< HEAD
   padding: 5px;
+=======
+  padding: .25em;
+>>>>>>> af1e184a15b53672a427626c08f63b13e80d315f
   margin: 0;
   text-decoration: none;
   border: 1px solid #ccc;
@@ -171,9 +175,15 @@ a.btn {
   filter: dropshadow(color=rgba(0,0,0,.2), offx=1, offy=1);
   font-family: Arial, sans-serif;
   font-weight: bold;
+<<<<<<< HEAD
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+=======
+  -webkit-border-radius: .333em;
+  -moz-border-radius: .333em;
+  border-radius: .333em;
+>>>>>>> af1e184a15b53672a427626c08f63b13e80d315f
   i {
     display: inline-block;
     float: left;
@@ -200,6 +210,18 @@ a.btn {
       }
     }
   }
+<<<<<<< HEAD
+=======
+  &.btn-xs {
+    font-size: 11px;
+    i {
+      svg {
+        width: 11px !important;
+        height: 11px !important;
+      }
+    }
+  }
+>>>>>>> af1e184a15b53672a427626c08f63b13e80d315f
   &.btn-lg {
     font-size: 20px;
     i {
@@ -543,3 +565,34 @@ ul.following {
     }
   }
 }
+<<<<<<< HEAD
+=======
+
+ul.thumbs {
+  margin: 0;
+  padding: 0;
+  li {
+    list-style: none;
+    display: block;
+    margin: 0 0 10px;
+    overflow: hidden;
+    border-bottom: 1px solid $color_grey_light;
+    .img {
+      display: inline-block;
+      float: left;
+      img {
+        display: block;
+      }
+    }
+    .text {
+      font-size: 14px;
+      padding: 0 0 10px 10px;
+      margin: 0 0 0 150px;
+      .title {
+        font-weight: bold;
+        margin: 0 0 .25em;
+      }
+    }
+  }
+}
+>>>>>>> af1e184a15b53672a427626c08f63b13e80d315f
