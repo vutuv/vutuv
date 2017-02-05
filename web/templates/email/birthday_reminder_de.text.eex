@@ -28,6 +28,8 @@ Hier der Link zur Amazon Geschenke-Seite:
 http://amzn.to/2jzIilp
 
 <% end %>
+Unter https://www.vutuv.de/users/<%= @user.active_slug %>/edit
+können Sie den Versand diese E-Mails deaktivieren.
 <%= render "_signature_de.text" %>
 
 <%= render "_footer.text" %>

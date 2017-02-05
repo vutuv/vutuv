@@ -92,12 +92,17 @@
     </div>
   <% end %>
 
-    <div class="editform__field<%= if error_tag(f, :noindex?), do: " editform__field--error"%>">
+  <div class="editform__field<%= if error_tag(f, :noindex?), do: " editform__field--error"%>">
     <%= label f, :noindex?, gettext("Would you like to allow search engines to index your profile?") %>
     <%= select f, :noindex?, [{gettext("Yes"), false}, {gettext("No"), true}] %>
     <%= error_tag f, :noindex? %>
-    </div>
+  </div>
 
+  <div class="editform__field<%= if error_tag(f, :noindex?), do: " editform__field--error"%>">
+    <%= label f, :send_birthday_reminder, gettext("Would you like to receive birthday reminder emails?") %>
+    <%= select f, :send_birthday_reminder, [{gettext("Yes"), true}, {gettext("No"), false}] %>
+    <%= error_tag f, :send_birthday_reminder %>
+  </div>
 
   <div class="editform__actions">
     <%= link gettext("Cancel"), to: @backlink, class: "button button--cancel" %>

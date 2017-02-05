@@ -44,7 +44,6 @@ msgstr ""
 
 #: web/templates/address/index.html.eex:24
 #: web/templates/admin/locale/show.html.eex:40
-#: web/templates/admin/skill/show.html.eex:66
 #: web/templates/email/index.html.eex:24
 #: web/templates/phone_number/index.html.eex:24
 #: web/templates/social_media_account/index.html.eex:24
@@ -52,9 +51,7 @@ msgstr ""
 #: web/templates/user/show.html.eex:96 web/templates/user/show.html.eex:129
 #: web/templates/user/show.html.eex:174 web/templates/user/show.html.eex:230
 #: web/templates/user/show.html.eex:250 web/templates/user/show.html.eex:270
-#: web/templates/user/show.html.eex:290
-#: web/templates/user_skill/form.html.eex:12
-#: web/templates/user_skill/index.html.eex:48
+#: web/templates/user/show.html.eex:290 web/templates/user_tag/index.html.eex:48
 #: web/templates/work_experience/index.html.eex:25
 msgid "Add"
 msgstr ""
@@ -89,7 +86,7 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: web/templates/user/form.html.eex:93
+#: web/templates/user/form.html.eex:9
 msgid "Avater"
 msgstr ""
 
@@ -99,11 +96,11 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: web/templates/user/form.html.eex:65 web/templates/user/index.html.eex:13
+#: web/templates/user/form.html.eex:75 web/templates/user/index.html.eex:13
 msgid "Birthdate"
 msgstr ""
 
-#: web/templates/user/show.html.eex:152
+#: lib/vutuv/emailer.ex:81 web/templates/user/show.html.eex:152
 msgid "Birthday"
 msgstr ""
 
@@ -115,8 +112,8 @@ msgstr ""
 #: web/templates/address/form_en.html.eex:49
 #: web/templates/address/form_generic.html.eex:49
 #: web/templates/admin/exonym/form.html.eex:28
-#: web/templates/admin/skill/form.html.eex:34
 #: web/templates/admin/tag/form.html.eex:22
+#: web/templates/admin/tag_closure/form.html.eex:26
 #: web/templates/admin/tag_localization/form.html.eex:42
 #: web/templates/admin/tag_synonym/form.html.eex:31
 #: web/templates/admin/tag_url/form.html.eex:42
@@ -125,8 +122,8 @@ msgstr ""
 #: web/templates/phone_number/form.html.eex:21
 #: web/templates/slug/form.html.eex:15
 #: web/templates/social_media_account/form.html.eex:22
-#: web/templates/url/form.html.eex:21 web/templates/user/form.html.eex:102
-#: web/templates/user_skill/form.html.eex:11
+#: web/templates/url/form.html.eex:21 web/templates/user/form.html.eex:108
+#: web/templates/user_tag/form.html.eex:22
 #: web/templates/work_experience/form.html.eex:57
 msgid "Cancel"
 msgstr ""
@@ -155,11 +152,11 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: web/controllers/user_controller.ex:250
+#: web/controllers/user_controller.ex:249
 msgid "Couldn't follow back to %{name}."
 msgstr ""
 
-#: web/templates/user/form.html.eex:103
+#: web/templates/user/form.html.eex:109
 msgid "Create Account"
 msgstr ""
 
@@ -168,15 +165,13 @@ msgid "Delete"
 msgstr ""
 
 #: web/templates/address/card_list.html.eex:4
-#: web/templates/admin/skill/form.html.eex:24
-#: web/templates/admin/skill/show.html.eex:35
-#: web/templates/admin/tag/show.html.eex:45
+#: web/templates/admin/tag/show.html.eex:46
 #: web/templates/admin/tag_localization/index.html.eex:26
 #: web/templates/admin/tag_localization/show.html.eex:52
 #: web/templates/admin/tag_localization/show.html.eex:68
 #: web/templates/admin/tag_url/index.html.eex:28
 #: web/templates/admin/tag_url/show.html.eex:54
-#: web/templates/skill/single_card.html.eex:11
+#: web/templates/tag/single_card.html.eex:6
 #: web/templates/url/card_list.html.eex:5 web/templates/url/form.html.eex:15
 #: web/templates/url/show.html.eex:32
 #: web/templates/work_experience/form.html.eex:21
@@ -193,8 +188,8 @@ msgstr ""
 
 #: web/templates/address/edit.html.eex:9
 #: web/templates/admin/exonym/edit.html.eex:14
-#: web/templates/admin/skill/edit.html.eex:8
 #: web/templates/admin/tag/edit.html.eex:14
+#: web/templates/admin/tag_closure/edit.html.eex:16
 #: web/templates/admin/tag_localization/edit.html.eex:16
 #: web/templates/admin/tag_synonym/edit.html.eex:16
 #: web/templates/admin/tag_url/edit.html.eex:18
@@ -216,7 +211,7 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: web/templates/email/form.html.eex:9 web/templates/user/form.html.eex:27
+#: web/templates/email/form.html.eex:9 web/templates/user/form.html.eex:37
 msgid "Email Address"
 msgstr ""
 
@@ -242,15 +237,15 @@ msgstr ""
 msgid "Emails belonging to "
 msgstr ""
 
-#: web/controllers/endorsement_controller.ex:12
+#: web/controllers/user_tag_endorsement_controller.ex:15
 msgid "Endorsement successful."
 msgstr ""
 
-#: web/controllers/endorsement_controller.ex:16
+#: web/controllers/user_tag_endorsement_controller.ex:19
 msgid "Endorsement unsuccessful."
 msgstr ""
 
-#: web/templates/user/form.html.eex:80
+#: web/templates/user/form.html.eex:90
 msgid "English"
 msgstr ""
 
@@ -278,7 +273,7 @@ msgstr ""
 msgid "Fax"
 msgstr ""
 
-#: web/templates/user/form.html.eex:14
+#: web/templates/user/form.html.eex:24
 msgid "First Name"
 msgstr ""
 
@@ -296,12 +291,12 @@ msgstr ""
 msgid "Following"
 msgstr ""
 
-#: web/templates/user/form.html.eex:8 web/templates/user/index.html.eex:12
+#: web/templates/user/form.html.eex:18 web/templates/user/index.html.eex:12
 #: web/templates/user/show.html.eex:148
 msgid "Gender"
 msgstr ""
 
-#: web/templates/user/form.html.eex:80
+#: web/templates/user/form.html.eex:90
 msgid "German"
 msgstr ""
 
@@ -325,7 +320,7 @@ msgstr ""
 msgid "Groups"
 msgstr ""
 
-#: web/templates/user/form.html.eex:73
+#: web/templates/user/form.html.eex:83
 msgid "Headline"
 msgstr ""
 
@@ -354,7 +349,7 @@ msgstr ""
 msgid "Invalid email"
 msgstr ""
 
-#: web/templates/user/form.html.eex:33
+#: web/templates/user/form.html.eex:43
 msgid "Is this email public or private?"
 msgstr ""
 
@@ -369,11 +364,11 @@ msgstr ""
 
 #: web/templates/admin/exonym/card_list.html.eex:5
 #: web/templates/admin/tag_localization/show.html.eex:38
-#: web/templates/user/form.html.eex:79
+#: web/templates/user/form.html.eex:89
 msgid "Language"
 msgstr ""
 
-#: web/templates/user/form.html.eex:20
+#: web/templates/user/form.html.eex:30
 msgid "Last Name"
 msgstr ""
 
@@ -427,7 +422,7 @@ msgstr ""
 msgid "Membership deleted successfully."
 msgstr ""
 
-#: web/templates/user/form.html.eex:41
+#: web/templates/user/form.html.eex:51
 msgid "Middle Name"
 msgstr ""
 
@@ -446,9 +441,7 @@ msgstr ""
 msgid "More Info"
 msgstr ""
 
-#: web/templates/admin/skill/form.html.eex:9
-#: web/templates/admin/skill/show.html.eex:31
-#: web/templates/admin/tag/show.html.eex:44
+#: web/templates/admin/tag/show.html.eex:45
 #: web/templates/admin/tag_localization/index.html.eex:25
 #: web/templates/admin/tag_localization/show.html.eex:45
 #: web/templates/admin/tag_localization/show.html.eex:67
@@ -461,6 +454,7 @@ msgstr ""
 #: web/templates/address/new.html.eex:9
 #: web/templates/admin/exonym/new.html.eex:14
 #: web/templates/admin/tag/new.html.eex:14
+#: web/templates/admin/tag_closure/new.html.eex:16
 #: web/templates/admin/tag_localization/new.html.eex:16
 #: web/templates/admin/tag_synonym/new.html.eex:16
 #: web/templates/admin/tag_url/new.html.eex:18
@@ -468,16 +462,16 @@ msgstr ""
 #: web/templates/phone_number/new.html.eex:8
 #: web/templates/social_media_account/new.html.eex:8
 #: web/templates/url/new.html.eex:8 web/templates/user/new.html.eex:6
-#: web/templates/user_skill/new.html.eex:9
+#: web/templates/user_tag/new.html.eex:15
 #: web/templates/work_experience/new.html.eex:9
 msgid "New"
 msgstr ""
 
-#: web/templates/user/form.html.eex:47 web/templates/user/index.html.eex:9
+#: web/templates/user/form.html.eex:57 web/templates/user/index.html.eex:9
 msgid "Nickname"
 msgstr ""
 
-#: web/templates/user/form.html.eex:87
+#: web/templates/user/form.html.eex:97 web/templates/user/form.html.eex:103
 msgid "No"
 msgstr ""
 
@@ -509,8 +503,8 @@ msgstr ""
 #: web/templates/address/form_en.html.eex:4
 #: web/templates/address/form_generic.html.eex:4
 #: web/templates/admin/exonym/form.html.eex:4
-#: web/templates/admin/skill/form.html.eex:4
 #: web/templates/admin/tag/form.html.eex:4
+#: web/templates/admin/tag_closure/form.html.eex:4
 #: web/templates/admin/tag_localization/form.html.eex:4
 #: web/templates/admin/tag_synonym/form.html.eex:4
 #: web/templates/admin/tag_url/form.html.eex:4
@@ -520,6 +514,7 @@ msgstr ""
 #: web/templates/search_query/form.html.eex:4 web/templates/slug/form.html.eex:4
 #: web/templates/social_media_account/form.html.eex:4
 #: web/templates/url/form.html.eex:4 web/templates/user/form.html.eex:4
+#: web/templates/user_tag/form.html.eex:4
 #: web/templates/work_experience/form.html.eex:4
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
@@ -529,7 +524,7 @@ msgstr ""
 msgid "Organization"
 msgstr ""
 
-#: web/models/user.ex:129
+#: web/models/user.ex:132
 msgid "Other"
 msgstr ""
 
@@ -569,7 +564,7 @@ msgstr ""
 msgid "Phone number updated successfully."
 msgstr ""
 
-#: web/templates/user/form.html.eex:53
+#: web/templates/user/form.html.eex:63
 msgid "Prefix"
 msgstr ""
 
@@ -613,7 +608,7 @@ msgstr ""
 msgid "Results"
 msgstr ""
 
-#: web/templates/user/form.html.eex:103
+#: web/templates/user/form.html.eex:109
 msgid "Save"
 msgstr ""
 
@@ -648,15 +643,14 @@ msgstr ""
 #: web/templates/address/show.html.eex:14
 #: web/templates/admin/exonym/show.html.eex:14
 #: web/templates/admin/locale/show.html.eex:14
-#: web/templates/admin/skill/show.html.eex:12
 #: web/templates/admin/tag/show.html.eex:14
+#: web/templates/admin/tag_closure/show.html.eex:16
 #: web/templates/admin/tag_localization/show.html.eex:16
 #: web/templates/admin/tag_synonym/show.html.eex:16
 #: web/templates/admin/tag_url/show.html.eex:18
 #: web/templates/search_term/index.html.eex:21
-#: web/templates/skill/show.html.eex:12 web/templates/tag/show.html.eex:13
-#: web/templates/user/index.html.eex:33
-#: web/templates/user_skill/show.html.eex:14
+#: web/templates/tag/show.html.eex:13 web/templates/user/index.html.eex:33
+#: web/templates/user_tag/show.html.eex:14
 #: web/templates/work_experience/show.html.eex:14
 msgid "Show"
 msgstr ""
@@ -669,26 +663,11 @@ msgstr ""
 msgid "Sign up"
 msgstr ""
 
-#: web/controllers/user_skill_controller.ex:31
-msgid "Skill added successfully."
-msgstr ""
-
-#: web/templates/admin/skill/edit.html.eex:6
-#: web/templates/admin/skill/index.html.eex:13
-#: web/templates/admin/skill/show.html.eex:11
-#: web/templates/skill/index.html.eex:12 web/templates/skill/show.html.eex:11
-#: web/templates/user/show.html.eex:71
-#: web/templates/user_skill/index.html.eex:14
-#: web/templates/user_skill/new.html.eex:8
-#: web/templates/user_skill/show.html.eex:13
-msgid "Skills"
-msgstr ""
-
-#: web/templates/admin/skill/form.html.eex:19
-#: web/templates/admin/skill/show.html.eex:37
 #: web/templates/admin/tag/index.html.eex:21
-#: web/templates/admin/tag/show.html.eex:29 web/templates/slug/index.html.eex:1
-#: web/templates/tag/index.html.eex:21
+#: web/templates/admin/tag/show.html.eex:29
+#: web/templates/admin/tag_closure/index.html.eex:24
+#: web/templates/admin/tag_closure/index.html.eex:54
+#: web/templates/slug/index.html.eex:1 web/templates/tag/index.html.eex:21
 msgid "Slug"
 msgstr ""
 
@@ -742,8 +721,8 @@ msgstr ""
 #: web/templates/address/form_en.html.eex:50
 #: web/templates/address/form_generic.html.eex:50
 #: web/templates/admin/exonym/form.html.eex:29
-#: web/templates/admin/skill/form.html.eex:35
 #: web/templates/admin/tag/form.html.eex:23
+#: web/templates/admin/tag_closure/form.html.eex:27
 #: web/templates/admin/tag_localization/form.html.eex:43
 #: web/templates/admin/tag_synonym/form.html.eex:32
 #: web/templates/admin/tag_url/form.html.eex:43
@@ -753,7 +732,7 @@ msgstr ""
 #: web/templates/phone_number/form.html.eex:22
 #: web/templates/slug/form.html.eex:16
 #: web/templates/social_media_account/form.html.eex:23
-#: web/templates/url/form.html.eex:22
+#: web/templates/url/form.html.eex:22 web/templates/user_tag/form.html.eex:23
 #: web/templates/work_experience/form.html.eex:58
 msgid "Submit"
 msgstr ""
@@ -762,7 +741,7 @@ msgstr ""
 msgid "Submit a bugreport or a feature request."
 msgstr ""
 
-#: web/templates/user/form.html.eex:59
+#: web/templates/user/form.html.eex:69
 msgid "Suffix"
 msgstr ""
 
@@ -787,10 +766,6 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: web/controllers/endorsement_controller.ex:28
-msgid "Unendorsed skill successfully."
-msgstr ""
-
 #: web/templates/admin/user/index.html.eex:6
 msgid "User"
 msgstr ""
@@ -807,12 +782,8 @@ msgstr ""
 msgid "User updated successfully."
 msgstr ""
 
-#: web/controllers/admin/user_controller.ex:14
+#: web/controllers/admin/user_controller.ex:15
 msgid "User verified successfully."
-msgstr ""
-
-#: web/controllers/user_skill_controller.ex:53
-msgid "UserSkill deleted successfully."
 msgstr ""
 
 #: web/templates/social_media_account/card_list.html.eex:4
@@ -837,10 +808,9 @@ msgstr ""
 #: web/templates/url/edit.html.eex:5 web/templates/url/index.html.eex:12
 #: web/templates/url/new.html.eex:5 web/templates/url/show.html.eex:11
 #: web/templates/user/edit.html.eex:5 web/templates/user/new.html.eex:5
-#: web/templates/user/show.html.eex:51
-#: web/templates/user_skill/index.html.eex:12
-#: web/templates/user_skill/new.html.eex:6
-#: web/templates/user_skill/show.html.eex:11
+#: web/templates/user/show.html.eex:51 web/templates/user_tag/index.html.eex:12
+#: web/templates/user_tag/new.html.eex:12
+#: web/templates/user_tag/show.html.eex:11
 #: web/templates/work_experience/edit.html.eex:6
 #: web/templates/work_experience/index.html.eex:12
 #: web/templates/work_experience/new.html.eex:6
@@ -850,7 +820,7 @@ msgstr ""
 
 #: web/templates/admin/exonym/card_list.html.eex:4
 #: web/templates/admin/exonym/show.html.eex:29
-#: web/templates/admin/tag/show.html.eex:84
+#: web/templates/admin/tag/show.html.eex:85
 #: web/templates/admin/tag_localization/show.html.eex:66
 #: web/templates/admin/tag_synonym/index.html.eex:23
 #: web/templates/admin/tag_synonym/show.html.eex:45
@@ -912,11 +882,11 @@ msgstr ""
 msgid "Work experience updated successfully."
 msgstr ""
 
-#: web/templates/user/form.html.eex:86
+#: web/templates/user/form.html.eex:96
 msgid "Would you like to allow search engines to index your profile?"
 msgstr ""
 
-#: web/templates/user/form.html.eex:87
+#: web/templates/user/form.html.eex:97 web/templates/user/form.html.eex:103
 msgid "Yes"
 msgstr ""
 
@@ -924,7 +894,7 @@ msgstr ""
 msgid "You don't have any followers yet! If you want more followers, you could follow others, invite your friends, or link your Vutuv profile on other social media websites."
 msgstr ""
 
-#: web/controllers/user_controller.ex:246
+#: web/controllers/user_controller.ex:245
 msgid "You follow back %{name}."
 msgstr ""
 
@@ -932,12 +902,13 @@ msgstr ""
 #: web/controllers/admin/exonym_controller.ex:75
 #: web/controllers/admin/locale_controller.ex:25
 #: web/controllers/admin/slug_controller.ex:52
+#: web/controllers/admin/tag_closure_controller.ex:60
 #: web/controllers/admin/tag_controller.ex:93
 #: web/controllers/admin/tag_localization_controller.ex:99
 #: web/controllers/admin/tag_synonym_controller.ex:95
 #: web/controllers/admin/tag_url_controller.ex:99
-#: web/controllers/admin/user_controller.ex:28
-#: web/controllers/user_controller.ex:260
+#: web/controllers/admin/user_controller.ex:29
+#: web/controllers/user_controller.ex:259
 msgid "You must be logged in to access that page"
 msgstr ""
 
@@ -957,18 +928,6 @@ msgstr ""
 msgid "our blog"
 msgstr ""
 
-#: web/views/user_skill_view.ex:11
-msgid "upvote"
-msgstr ""
-
-#: web/views/user_skill_view.ex:15
-msgid "upvotes"
-msgstr ""
-
-#: web/controllers/user_controller.ex:217
-msgid "Successfully added %{successes} skills with %{failures} failures."
-msgstr ""
-
 #: web/controllers/user_controller.ex:185
 msgid "An email has been sent to your email address with instructions on how to delete your account."
 msgstr ""
@@ -979,10 +938,6 @@ msgstr ""
 
 #: web/templates/user/show.html.eex:60
 msgid "Your New vutuv Profile Page"
-msgstr ""
-
-#: web/templates/user/show.html.eex:62
-msgid "Please take a couple of minutes to add information that might be interesting for your future followers. Why don't you start with your skills and work experiences?"
 msgstr ""
 
 #: web/templates/page/index.html.eex:44
@@ -1057,11 +1012,11 @@ msgstr ""
 msgid "Select a year"
 msgstr ""
 
-#: web/models/user.ex:125
+#: web/models/user.ex:128
 msgid "Female"
 msgstr ""
 
-#: web/models/user.ex:121
+#: web/models/user.ex:124
 msgid "Male"
 msgstr ""
 
@@ -1077,7 +1032,7 @@ msgstr ""
 msgid "You are not allowed to view this page."
 msgstr ""
 
-#: web/controllers/admin/user_controller.ex:18
+#: web/controllers/admin/user_controller.ex:19
 msgid "An error occurred"
 msgstr ""
 
@@ -1093,23 +1048,23 @@ msgstr ""
 msgid "Verify"
 msgstr ""
 
-#: web/templates/page/index.html.eex:27 web/templates/user/form.html.eex:9
+#: web/templates/page/index.html.eex:27 web/templates/user/form.html.eex:19
 msgid "Choose a gender"
 msgstr ""
 
-#: lib/vutuv/emailer.ex:28
+#: lib/vutuv/emailer.ex:29
 msgid "Confirm your account deletion"
 msgstr ""
 
-#: lib/vutuv/emailer.ex:24
+#: lib/vutuv/emailer.ex:25
 msgid "Confirm your email"
 msgstr ""
 
-#: lib/vutuv/emailer.ex:7 lib/vutuv/emailer.ex:15
+#: lib/vutuv/emailer.ex:8 lib/vutuv/emailer.ex:16
 msgid "Confirm your vutuv account"
 msgstr ""
 
-#: lib/vutuv/emailer.ex:11 lib/vutuv/emailer.ex:19
+#: lib/vutuv/emailer.ex:12 lib/vutuv/emailer.ex:20
 msgid "Login to vutuv"
 msgstr ""
 
@@ -1140,130 +1095,17 @@ msgstr ""
 msgid "Updates about vutuv are available at "
 msgstr ""
 
-#: web/templates/admin/skill/show.html.eex:45
-msgid "Add this skill as a synonym for another skill"
-msgstr ""
-
 #: web/templates/admin/exonym/edit.html.eex:12
 #: web/templates/admin/exonym/index.html.eex:12
 #: web/templates/admin/exonym/new.html.eex:12
 #: web/templates/admin/exonym/show.html.eex:12
 #: web/templates/admin/locale/index.html.eex:12
 #: web/templates/admin/locale/show.html.eex:12
-#: web/templates/admin/skill/edit.html.eex:5
-#: web/templates/admin/skill/index.html.eex:12
 msgid "Admin Home"
-msgstr ""
-
-#: web/templates/admin/skill/index.html.eex:4
-#: web/templates/skill/index.html.eex:4
-msgid "All Skills"
-msgstr ""
-
-#: web/controllers/admin/skill_controller.ex:87
-msgid "Conversion to synonym failed"
-msgstr ""
-
-#: web/controllers/admin/skill_controller.ex:53
-#: web/controllers/admin/skill_controller.ex:109
-msgid "Deletion Failed"
-msgstr ""
-
-#: web/controllers/admin/skill_controller.ex:52
-#: web/controllers/admin/skill_controller.ex:108
-msgid "Deletion Succeeded"
-msgstr ""
-
-#: web/templates/admin/skill/form.html.eex:14
-#: web/templates/admin/skill/show.html.eex:33
-msgid "Downcased Name"
-msgstr ""
-
-#: web/templates/admin/skill/card_list.html.eex:5
-msgid "Downcased name"
-msgstr ""
-
-#: web/templates/admin/skill/show.html.eex:63
-msgid "Enter synonym value here"
-msgstr ""
-
-#: web/templates/admin/skill/form.html.eex:29
-#: web/templates/admin/skill/show.html.eex:39
-msgid "External URL"
-msgstr ""
-
-#: web/templates/admin/skill/show.html.eex:49
-msgid "Migrate"
-msgstr ""
-
-#: web/templates/admin/skill/show.html.eex:42
-msgid "Migrate to Synonym"
-msgstr ""
-
-#: web/templates/admin/skill/synonym_list.html.eex:22
-msgid "No synonyms"
-msgstr ""
-
-#: web/controllers/admin/skill_controller.ex:76
-msgid "Skill does not exist"
-msgstr ""
-
-#: web/templates/admin/skill/card_list.html.eex:4
-#: web/templates/skill/card_list.html.eex:4
-#: web/templates/user_skill/index.html.eex:25
-msgid "Skill name"
-msgstr ""
-
-#: web/templates/admin/skill/index.html.eex:19
-msgid "Skills Without Synonyms"
-msgstr ""
-
-#: web/controllers/admin/skill_controller.ex:83
-msgid "Succeeded in conversion to synonym"
-msgstr ""
-
-#: web/controllers/admin/skill_controller.ex:98
-msgid "Synonym Added Successfully"
-msgstr ""
-
-#: web/controllers/admin/skill_controller.ex:99
-msgid "Synonym Added Unsuccessfully. This usually means it already exists."
-msgstr ""
-
-#: web/templates/admin/skill/synonym_list.html.eex:5
-msgid "Synonym value"
-msgstr ""
-
-#: web/templates/admin/skill/show.html.eex:58
-msgid "Synonyms"
-msgstr ""
-
-#: web/templates/admin/skill/synonym_list.html.eex:23
-msgid "This means the skill is not \"validated\". A validated skill has at least 1 synonyn."
-msgstr ""
-
-#: web/templates/admin/skill/synonym_list.html.eex:24
-msgid "To quickly validate, click the \"Easy Validate\" button above."
-msgstr ""
-
-#: web/controllers/admin/skill_controller.ex:66
-msgid "Validation Failed"
-msgstr ""
-
-#: web/controllers/admin/skill_controller.ex:65
-msgid "Validation Succeeded"
 msgstr ""
 
 #: web/templates/layout/app.html.eex:15
 msgid "Your Fast and Free Career Network. No expensive premium accounts! Get a free account in 30 seconds."
-msgstr ""
-
-#: web/templates/user_skill/form.html.eex:4
-msgid "Enter a single skill (e.g. skating)"
-msgstr ""
-
-#: web/templates/user/show.html.eex:82
-msgid "Enter comma separated skills here. Max length per skill: 45 characters"
 msgstr ""
 
 #: web/views/work_experience_view.ex:21
@@ -1283,18 +1125,6 @@ msgstr ""
 msgid "Can't find URL"
 msgstr ""
 
-#: web/templates/skill/single_card.html.eex:15
-msgid "People you may know with this skill"
-msgstr ""
-
-#: web/templates/skill/single_card.html.eex:19
-msgid "The most endorsed users with this skill"
-msgstr ""
-
-#: web/templates/skill/single_card.html.eex:24
-msgid "You can find more information at"
-msgstr ""
-
 #: web/templates/search_query/new.html.eex:51
 msgid "No results"
 msgstr ""
@@ -1307,24 +1137,16 @@ msgstr ""
 msgid "Search Tips"
 msgstr ""
 
-#: web/templates/search_query/new.html.eex:21
-msgid "You can search for a name, email, or skill."
-msgstr ""
-
-#: web/templates/page/index.html.eex:27 web/templates/user/form.html.eex:9
+#: web/templates/page/index.html.eex:27 web/templates/user/form.html.eex:19
 msgid "female"
 msgstr ""
 
-#: web/templates/page/index.html.eex:26 web/templates/user/form.html.eex:9
+#: web/templates/page/index.html.eex:26 web/templates/user/form.html.eex:19
 msgid "male"
 msgstr ""
 
-#: web/templates/page/index.html.eex:27 web/templates/user/form.html.eex:9
+#: web/templates/page/index.html.eex:27 web/templates/user/form.html.eex:19
 msgid "other"
-msgstr ""
-
-#: web/templates/user_skill/form.html.eex:8
-msgid "A skill can be at most 45 characters long."
 msgstr ""
 
 #: web/controllers/social_media_account_controller.ex:31
@@ -1339,8 +1161,8 @@ msgstr ""
 msgid "Social media account created successfully. Shameless plug: Follow our Twitter account @vutuv"
 msgstr ""
 
-#: web/templates/admin/tag/show.html.eex:137
-#: web/templates/admin/tag/show.html.eex:156
+#: web/templates/admin/tag/show.html.eex:138
+#: web/templates/admin/tag/show.html.eex:157
 msgid "Add Localization"
 msgstr ""
 
@@ -1352,6 +1174,10 @@ msgstr ""
 #: web/templates/admin/tag/index.html.eex:12
 #: web/templates/admin/tag/new.html.eex:12
 #: web/templates/admin/tag/show.html.eex:12
+#: web/templates/admin/tag_closure/edit.html.eex:12
+#: web/templates/admin/tag_closure/index.html.eex:12
+#: web/templates/admin/tag_closure/new.html.eex:12
+#: web/templates/admin/tag_closure/show.html.eex:12
 #: web/templates/admin/tag_localization/edit.html.eex:12
 #: web/templates/admin/tag_localization/index.html.eex:12
 #: web/templates/admin/tag_localization/new.html.eex:12
@@ -1460,8 +1286,8 @@ msgid "Language Endonym"
 msgstr ""
 
 #: web/templates/admin/exonym/card_list.html.eex:6
-#: web/templates/admin/tag/show.html.eex:43
-#: web/templates/admin/tag/show.html.eex:83
+#: web/templates/admin/tag/show.html.eex:44
+#: web/templates/admin/tag/show.html.eex:84
 #: web/templates/admin/tag_localization/index.html.eex:24
 #: web/templates/admin/tag_synonym/index.html.eex:25
 #: web/templates/admin/tag_synonym/show.html.eex:38
@@ -1503,8 +1329,8 @@ msgstr ""
 msgid "New tag url"
 msgstr ""
 
-#: web/templates/admin/tag/show.html.eex:73
-#: web/templates/admin/tag/show.html.eex:113
+#: web/templates/admin/tag/show.html.eex:74
+#: web/templates/admin/tag/show.html.eex:114
 msgid "Show all"
 msgstr ""
 
@@ -1532,8 +1358,8 @@ msgstr ""
 msgid "Show tag url"
 msgstr ""
 
-#: web/templates/admin/tag/show.html.eex:42
-#: web/templates/admin/tag/show.html.eex:82
+#: web/templates/admin/tag/show.html.eex:43
+#: web/templates/admin/tag/show.html.eex:83
 #: web/templates/admin/tag_localization/index.html.eex:23
 #: web/templates/admin/tag_localization/show.html.eex:31
 #: web/templates/admin/tag_synonym/index.html.eex:24
@@ -1624,6 +1450,10 @@ msgstr ""
 #: web/templates/admin/tag/index.html.eex:13
 #: web/templates/admin/tag/new.html.eex:13
 #: web/templates/admin/tag/show.html.eex:13
+#: web/templates/admin/tag_closure/edit.html.eex:13
+#: web/templates/admin/tag_closure/index.html.eex:13
+#: web/templates/admin/tag_closure/new.html.eex:13
+#: web/templates/admin/tag_closure/show.html.eex:13
 #: web/templates/admin/tag_localization/edit.html.eex:13
 #: web/templates/admin/tag_localization/index.html.eex:13
 #: web/templates/admin/tag_localization/new.html.eex:13
@@ -1637,7 +1467,9 @@ msgstr ""
 #: web/templates/admin/tag_url/new.html.eex:13
 #: web/templates/admin/tag_url/show.html.eex:13
 #: web/templates/tag/index.html.eex:12 web/templates/tag/index.html.eex:17
-#: web/templates/tag/show.html.eex:12
+#: web/templates/tag/show.html.eex:12 web/templates/user/show.html.eex:71
+#: web/templates/user_tag/index.html.eex:14
+#: web/templates/user_tag/show.html.eex:13
 msgid "Tags"
 msgstr ""
 
@@ -1645,11 +1477,11 @@ msgstr ""
 msgid "Too many incorrect attempts."
 msgstr ""
 
-#: web/templates/tag/show.html.eex:27
+#: web/templates/tag/single_card.html.eex:28
 msgid "Url"
 msgstr ""
 
-#: web/templates/tag/show.html.eex:27
+#: web/templates/tag/single_card.html.eex:28
 msgid "Urls"
 msgstr ""
 
@@ -1660,4 +1492,150 @@ msgstr ""
 #: web/templates/page/pin_new_registration.html.eex:25
 #: web/templates/session/pin_user_login.html.eex:24
 msgid "submit"
+msgstr ""
+
+#: web/templates/admin/tag_closure/index.html.eex:76
+msgid "Add a Child"
+msgstr ""
+
+#: web/templates/admin/tag_closure/index.html.eex:46
+msgid "Add a parent"
+msgstr ""
+
+#: web/templates/user/edit.html.eex:17
+msgid "Administration"
+msgstr ""
+
+#: web/templates/admin/tag_closure/show.html.eex:38
+msgid "Child"
+msgstr ""
+
+#: web/templates/admin/tag_closure/form.html.eex:19
+msgid "Child slug"
+msgstr ""
+
+#: web/templates/admin/tag_closure/index.html.eex:25
+#: web/templates/admin/tag_closure/index.html.eex:55
+#: web/templates/admin/tag_closure/show.html.eex:45
+msgid "Depth"
+msgstr ""
+
+#: web/templates/admin/tag_closure/edit.html.eex:4
+msgid "Edit tag closure"
+msgstr ""
+
+#, fuzzy
+#: web/templates/user/show.html.eex:82
+msgid "Enter comma separated tags here. Max length per tag: 45 characters"
+msgstr ""
+
+#: web/templates/admin/tag_closure/new.html.eex:4
+msgid "New tag closure"
+msgstr ""
+
+#: web/templates/user_tag/new.html.eex:4
+msgid "New user tag"
+msgstr ""
+
+#: web/templates/admin/tag_closure/show.html.eex:31
+msgid "Parent"
+msgstr ""
+
+#: web/templates/admin/tag_closure/form.html.eex:16
+msgid "Parent slug"
+msgstr ""
+
+#, fuzzy
+#: web/templates/tag/single_card.html.eex:12
+msgid "People you may know with this tag"
+msgstr ""
+
+#, fuzzy
+#: web/templates/user/show.html.eex:62
+msgid "Please take a couple of minutes to add information that might be interesting for your future followers. Why don't you start with your tags and work experiences?"
+msgstr ""
+
+#: web/templates/admin/tag_closure/index.html.eex:4
+#: web/templates/admin/tag_closure/index.html.eex:15
+msgid "Related Tags"
+msgstr ""
+
+#: web/templates/admin/tag_closure/show.html.eex:4
+msgid "Show tag closure"
+msgstr ""
+
+#, fuzzy
+#: web/controllers/user_controller.ex:216
+msgid "Successfully added %{successes} tags with %{failures} failures."
+msgstr ""
+
+#: web/controllers/admin/tag_closure_controller.ex:29
+msgid "Tag closure created successfully."
+msgstr ""
+
+#: web/controllers/admin/tag_closure_controller.ex:51
+msgid "Tag closure deleted successfully."
+msgstr ""
+
+#: web/templates/admin/tag_closure/edit.html.eex:15
+#: web/templates/admin/tag_closure/new.html.eex:15
+#: web/templates/admin/tag_closure/show.html.eex:15
+msgid "Tag closures"
+msgstr ""
+
+#: web/templates/tag/card_list.html.eex:4
+msgid "Tag name"
+msgstr ""
+
+#, fuzzy
+#: web/templates/tag/single_card.html.eex:16
+msgid "The most endorsed users with this tag"
+msgstr ""
+
+#: web/templates/tag/single_card.html.eex:9
+msgid "This skill doesn't have a description yet."
+msgstr ""
+
+#, fuzzy
+#: web/controllers/user_tag_endorsement_controller.ex:31
+msgid "Unendorsed tag successfully."
+msgstr ""
+
+#: web/controllers/user_tag_controller.ex:31
+msgid "User tag created successfully."
+msgstr ""
+
+#, fuzzy
+#: web/controllers/user_tag_controller.ex:52
+msgid "User tag deleted successfully."
+msgstr ""
+
+#: web/templates/user_tag/new.html.eex:14
+msgid "User tags"
+msgstr ""
+
+#: web/templates/admin/tag_closure/index.html.eex:35
+#: web/templates/admin/tag_closure/index.html.eex:65
+msgid "View related"
+msgstr ""
+
+#: web/templates/admin/tag/show.html.eex:34
+msgid "View related tags"
+msgstr ""
+
+#: web/templates/user/form.html.eex:102
+msgid "Would you like to receive birthday reminder emails?"
+msgstr ""
+
+#, fuzzy
+#: web/templates/search_query/new.html.eex:21
+msgid "You can search for a name, email, or tag."
+msgstr ""
+
+#: web/templates/user_tag/index.html.eex:25
+msgid "tag name"
+msgstr ""
+
+#: lib/vutuv/emailer.ex:41
+msgid "vutuv Account verified"
 msgstr ""

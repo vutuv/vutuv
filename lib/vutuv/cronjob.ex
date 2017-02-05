@@ -6,9 +6,7 @@ defmodule Vutuv.Cronjob do
   alias Vutuv.User
 
   def send_birthday_reminders do
-    # TODO: Remove where: u.id == 1 after testing
-    #
-    users = Repo.all(from u in User, where: u.validated? == true, where: u.id == 1) |> Repo.preload([:followees])
+    users = Repo.all(from u in User, where: u.validated? == true, where: u.send_birthday_reminder == true) |> Repo.preload([:followees])
 
     today = Timex.Date.today
 
