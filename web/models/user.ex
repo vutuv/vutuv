@@ -50,7 +50,7 @@ defmodule Vutuv.User do
   end
 
   @required_fields ~w()
-  @optional_fields ~w(validated? noindex? headline first_name last_name middlename nickname honorific_prefix honorific_suffix gender birthdate locale active_slug)a
+  @optional_fields ~w(validated? noindex? headline first_name last_name middlename nickname honorific_prefix honorific_suffix gender birthdate locale active_slug)
 
   @required_file_fields ~w()
   @optional_file_fields ~w(avatar)
@@ -87,7 +87,7 @@ defmodule Vutuv.User do
   defp validate_avatar(changeset, %{avatar: avatar}), do: validate_avatar(changeset, %{"avatar" => avatar})
 
   defp validate_avatar(changeset, %{"avatar" => avatar} = params) do
-    stat = 
+    stat =
       avatar.path
       |>File.stat!
     if(stat.size>@max_image_filesize) do
