@@ -444,7 +444,11 @@ ol.tags {
         }
       }
     }
-    > .upvote {
+    form {
+      display: inline-block;
+      float: left;
+    }
+    .upvote {
       display: inline-block;
       float: left;
       position: relative;
@@ -459,12 +463,22 @@ ol.tags {
       background: $color_blue;
       border: 2px solid $color_blue;;
       color: #fff;
-      height: 1.5em;
+      height: 1.75em;
       line-height: 1.5em;
       i {
-        line-height: 1em;
+        display: inline-block;
+        line-height: 1.75em;
+        height: 1.75em;
         padding: 0;
-        margin: .25em;
+        margin: 1px 0 0;
+        width: auto;
+        svg {
+          fill: #fff;
+          width: 18px !important;
+          height: 18px !important;
+          display: block;
+          overflow: hidden;
+        }
       }
       &:hover {
         background: $color_blue_dark;
