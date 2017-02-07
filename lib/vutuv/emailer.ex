@@ -48,7 +48,12 @@ defmodule Vutuv.Emailer do
 
     name_list = for(birthday_child <- birthday_childs) do
       {:ok, {birthday_year, _, _}} = Ecto.Date.dump(birthday_child.birthdate)
-      "#{Vutuv.UserHelpers.full_name(birthday_child)} (#{today_year - birthday_year})"
+      case birthday_year do
+        1900 ->
+          Vutuv.UserHelpers.full_name(birthday_child)
+        _ ->
+          "#{Vutuv.UserHelpers.full_name(birthday_child)} (#{today_year - birthday_year})"
+      end
     end
 
     # Don't let the subject become to long.

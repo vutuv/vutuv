@@ -24,6 +24,9 @@ A couple of more birthdays in the near future:
 <% end %>
 
 <% end %>
+Please change your settings at
+https://www.vutuv.de/users/<%= @user.active_slug %>/edit
+to deactivate this birthday reminder email.
 <%= render "_signature_en.text" %>
 
 <%= render "_footer.text" %>

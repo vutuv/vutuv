@@ -17,13 +17,8 @@ defmodule Vutuv.TagController do
   end
 
   def show(conn, _params) do
-    tag = 
-      conn.assigns[:tag]
-      |> Repo.preload([
-        tag_localizations: from(t in Vutuv.TagLocalization, 
-          where: t.locale_id == ^(Locale.locale_id(conn.assigns[:locale])),
-          preload: [:tag_urls])])
-    render(conn, "show.html", tag: tag, loc: hd(tag.tag_localizations))
+    tag = conn.assigns[:tag]
+    render(conn, "show.html", tag: tag, loc: Vutuv.Tag.resolve_localization(tag, conn.assigns[:locale]))
   end
 
   defp resolve_tag(%{params: %{"slug" => slug}} = conn, _opts) do

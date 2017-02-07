@@ -14,7 +14,7 @@
         <% else %>
         <meta name="description" content="<%= gettext("Your Fast and Free Career Network. No expensive premium accounts! Get a free account in 30 seconds.") %>">
         <%= if @conn.assigns[:prefetch] do %>
-          <link rel="prefetch a popular list" title="Most followed users" href="/listings/most_followed_users">
+          <link rel="prefetch" title="Most followed users" href="/listings/most_followed_users">
         <% end %>
         <% end %>
         <meta name="viewport" content="width=device-width, initial-scale=1">
