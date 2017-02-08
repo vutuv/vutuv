@@ -1,3 +1,12 @@
+$media_xs: "(max-width: 449px)";
+$media_sm_min: "(min-width: 450px)";
+$media_sm: "(min-width: 450px) and (max-width: 599px)";
+$media_sm_max: "(max-width: 599px)";
+$media_md: "(min-width: 600px) and (max-width: 939px)";
+$media_md_min: "(min-width: 600px)";
+$media_md_max: "(max-width: 939px)";
+$media_lg: "(min-width: 940px)";
+
 $color_text: #333;
 $color_blue: #39c;
 $color_blue_dark: #069;
@@ -600,3 +609,138 @@ ul.thumbs {
     }
   }
 }
+
+
+
+
+
+.card--simple {
+  border-top: 0;
+  margin-top: 10px; }
+
+.card__edit {
+  float: right; }
+
+.card__morelink-border {
+  border-top: 1px solid #eee;
+}
+
+.card__morelink {
+  box-sizing: border-box;
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  height: 44px;
+  padding-top: 12px;
+  text-align: center; }
+
+.card__empty {
+  font-size: 16px;
+  color: #777;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  top: 40px;
+  position: absolute;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center; 
+  overflow: hidden;
+  
+  
+}
+
+.card-list {
+  box-sizing: border-box;
+  padding: 0 10px 20px 10px;
+  max-width: 900px;
+  width: auto;
+  margin: auto;
+  display: block;
+  overflow: hidden;
+  margin: 0 auto;
+  @media #{$media_md} {
+    width: 600px;
+  }
+  .card {
+    position: relative;
+    float: left;
+    overflow: hidden;
+    width: 600px;
+    background: #fff;
+    border-bottom: 2px solid #ddd;
+    border-top: 2px solid #4A90E2;
+    margin: 15px 0 0;
+    padding: 12px 10px 0 10px;
+    @media #{$media_md} {
+      width: 300px;
+    }
+    @media #{$media_sm_max} {
+      width: auto;
+      max-width: auto;
+      float: none;
+      clear: both;
+    }
+    &.card--empty {
+      min-height: 200px;
+      @media #{$media_xs} {
+        height: auto;
+      }
+      .card+&,
+      &+.card {
+        min-height: 200px;
+      }
+    }
+    &.half {
+      max-width: 280px;
+      margin-right: 20px;
+      @media #{$media_md} {
+        max-width: 300px;
+        margin-right: 0;
+      }
+      @media #{$media_sm_max} {
+        width: auto;
+        float: none;
+        clear: both;
+        max-width: 100%;
+        margin-right: 0;
+      }
+      &.last {
+        height: auto;
+        margin-right: 0;
+      }
+    }
+  }
+  
+  aside {
+    margin: 15px 0 0;
+    float: right;
+    display: block;
+    width: 240px;
+    .ad {
+      
+    }
+    @media #{$media_sm_max} {
+      width: auto;
+      float: none;
+      clear: both;
+    }
+    > .card {
+      width: 220px;
+      @media #{$media_sm_max} {
+        width: auto;
+        float: none;
+        clear: both;
+      }
+    }
+  }
+  
+}
+
+
+
+
+
+
