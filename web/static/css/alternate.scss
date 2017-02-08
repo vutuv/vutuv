@@ -8,9 +8,8 @@ $media_md_max: "(max-width: 939px)";
 $media_lg: "(min-width: 940px)";
 
 $color_text: #333;
-$color_blue: #39c;
-$color_blue_dark: #069;
-$color_ci_blue: #39c;
+$color_blue: #4A90E2;
+$color_blue_dark: darken($color_blue,10%);
 $color_ci_blue: #4A90E2;
 
 $color_grey: #ccc;
