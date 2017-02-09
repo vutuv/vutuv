@@ -4,6 +4,16 @@
       <p class="editform__error"><%= gettext "Oops, something went wrong! Please check the errors below." %></p>
     </div>
   <% end %>
+  <%= if @current_user do %>
+    <div class="editform__field<%= if error_tag(f, :avatar), do: " editform__field--error"%>">
+    <%= label f, :avatar, gettext("Avater") %>
+    <div class="editform__inputwrap<%= if error_tag(f, :avatar), do: " editform__field--error"%>">
+      <%= file_input f, :avatar %>
+    </div>
+    <%= error_tag f, :avatar %>
+    </div>
+  <% end %>
+
   <div class="editform__field<%= if error_tag(f, :gender), do: " editform__field--error"%>">
   <%= label f, :gender, gettext("Gender") %>
   <%= select f, :gender, [{gettext("male"), "male"}, {gettext("female"), "female"}, {gettext("other"), "other"}], id: "gender", prompt: gettext("Choose a gender") %>
@@ -82,22 +92,18 @@
     </div>
   <% end %>
 
-    <div class="editform__field<%= if error_tag(f, :noindex?), do: " editform__field--error"%>">
+  <div class="editform__field<%= if error_tag(f, :noindex?), do: " editform__field--error"%>">
     <%= label f, :noindex?, gettext("Would you like to allow search engines to index your profile?") %>
     <%= select f, :noindex?, [{gettext("Yes"), false}, {gettext("No"), true}] %>
     <%= error_tag f, :noindex? %>
-    </div>
+  </div>
 
-  <%= if @current_user do %>
-    <div class="editform__field<%= if error_tag(f, :avatar), do: " editform__field--error"%>">
-    <%= label f, :avatar, gettext("Avater") %>
-    <div class="editform__inputwrap<%= if error_tag(f, :avatar), do: " editform__field--error"%>">
-      <%= file_input f, :avatar %>
-    </div>
-    <%= error_tag f, :avatar %>
-    </div>
+  <div class="editform__field<%= if error_tag(f, :noindex?), do: " editform__field--error"%>">
+    <%= label f, :send_birthday_reminder, gettext("Would you like to receive birthday reminder emails?") %>
+    <%= select f, :send_birthday_reminder, [{gettext("Yes"), true}, {gettext("No"), false}] %>
+    <%= error_tag f, :send_birthday_reminder %>
+  </div>
 
-  <% end %>
   <div class="editform__actions">
     <%= link gettext("Cancel"), to: @backlink, class: "button button--cancel" %>
     <%= submit if((@current_user), do: gettext("Save"), else: gettext("Create Account")), class: "button" %>

@@ -20,12 +20,16 @@
 
 <div class="card-list">
   <section class="card">
-    <div class="card__edit button__list">
-      <%= link to: admin_tag_localization_url_path(@conn, :edit, @tag, @tag_localization, @tag_url), class: "button button-link button--icon button--small" do %>
-        <i class="icon icon--edit"></i>
+    <div class="btns-right">
+      <%= button to: admin_tag_localization_url_path(@conn, :delete, @tag, @tag_localization, @tag_url), method: :delete, class: "pull-right btn btn-xs btn-danger btn-icon", form: [class: "btn-form"] do %>
+        <i>
+          <%= render Vutuv.IconView, "close.html" %>
+        </i>
       <% end %>
-      <%= button to: admin_tag_localization_url_path(@conn, :delete, @tag, @tag_localization, @tag_url), method: :delete, class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
-        <i class="icon icon--delete"></i>
+      <%= link to: admin_tag_localization_url_path(@conn, :edit, @tag, @tag_localization, @tag_url), class: "pull-right btn btn-xs btn-primary btn-icon" do %>
+        <i>
+          <%= render Vutuv.IconView, "pencil.html" %>
+        </i>
       <% end %>
     </div>
     
