@@ -17,7 +17,7 @@
     </div>
     <%= form_for @conn, session_path(@conn, :create), [as: :session, class: "imagebox__form"], fn f -> %>
       <%= text_input f, :email, class: "imagebox__input", placeholder: gettext("Enter your email address"), autofocus: true %>
-      <%= submit gettext("Log in"), class: "imagebox__input" %>
+      <%= submit gettext("Log in"), class: "btn btn-lg btn-primary btn-block btn-submit" %>
     <% end %>
   </section>
 </div>

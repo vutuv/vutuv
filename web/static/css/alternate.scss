@@ -45,6 +45,89 @@ $color_btn_danger: #EF476F;
   font-weight: bold;
 }
 
+@mixin gradient($from, $to) {
+  background: -moz-linear-gradient(top,  $from 0%, $to 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$from), color-stop(100%,$to)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  $from 0%,$to 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  $from 0%,$to 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  $from 0%,$to 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  $from 0%,$to 100%); /* W3C */
+}
+
+@mixin box_shadow() {
+  -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, .15);
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, .15);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, .15);
+}
+
+@mixin box_shadow_strong() {
+  -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
+}
+
+@mixin text_shadow() {
+  text-shadow: 1px 1px 5px rgba(0,0,0,.3);
+  filter: dropshadow(color=rgba(0,0,0,.3), offx=1, offy=1);
+}
+
+$font_size_default: 16px;
+
+@mixin font_size_base {
+  font-size: 16px;
+  @media #{$media_sm} {
+    font-size: 15px;
+  }
+  @media #{$media_xs} {
+    font-size: 14px;
+  }
+}
+
+@mixin font_size_xxxxl {
+  font-size: 3em;
+  line-height: 1.2em;
+}
+@mixin font_size_xxxl {
+  font-size: 2em;
+  line-height: 1.2em;
+}
+@mixin font_size_xxl {
+  font-size: 1.75em;
+  line-height: 1.2em;
+}
+@mixin font_size_xl {
+  font-size: 1.5em;
+  line-height: 1.2em;
+}
+@mixin font_size_l {
+  font-size: 1.25em;
+  line-height: 1.2em;
+}
+@mixin font_size_m {
+  @include font_size_base;
+  line-height: 1.2em;
+}
+@mixin font_size_s {
+  font-size: .9em;
+  line-height: 1.2em;
+}
+@mixin font_size_xs {
+  font-size: .7em;
+  line-height: 1.2em;
+}
+@mixin font_size_xxs {
+  font-size: .6em;
+  line-height: 1.2em;
+}
+@mixin font_size_xxxs {
+  font-size: .4em;
+  line-height: 1.2em;
+}
+@mixin font_size_xxxxs {
+  font-size: .3em;
+  line-height: 1.2em;
+}
+
 body {
   color: $color_text;
   background: #fff;
@@ -232,6 +315,11 @@ a.btn {
       }
     }
   }
+  &.btn-block {
+    width: 100%;
+    max-width: 100%;
+    display: block;
+  }
   &.btn-default,
   &.btn-reset {
     background: none;
@@ -249,6 +337,9 @@ a.btn {
   &.btn-submit {
     border-color: $color_link;
     background: $color_link;
+  }
+  &.btn-submit {
+    margin-top: 15px;
   }
   &.btn-success {
     border-color: $color_btn_success;
@@ -309,7 +400,7 @@ hr {
   float: right;
   margin: 0 0 0 10px;
   &.btn {
-    margin: 0 0 0 10px; 
+    margin: 0 0 0 10px;
   }
 }
 .clearfix {
@@ -610,8 +701,39 @@ ul.thumbs {
 }
 
 
+.imagebox .imagebox__form {
+  color: #fff;
+  border: none;
+  p,
+  label {
+    color: #fff;
+    text-align: left;
+    padding: 0 0 10px;
+    @include font_size_m;
+    @include text_shadow;
+    line-height: 1.5em;
+    text-align: center;
+    margin: 10px 0;
+  }
+  label {
+    text-align: left;
+    margin: 0 0 10px;
+    .checkbox {
+      display: inline-block;
+      float: left;
+      margin: 0 10px 0 0;
+      input {
+        display: inline-block;
+        @include font_size_m;
+        margin: 0;
+      }
+    }
+  }
+}
 
 
+
+/* card layout fixes */
 
 .card--simple {
   border-top: 0;
