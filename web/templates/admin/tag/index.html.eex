@@ -27,16 +27,22 @@
     <%= for {tag, index} <- Enum.with_index(@tags) do %>
         <tr>
           <td><%= tag.slug %></td>
-    
+
           <td>
-            <%= link to: admin_tag_path(@conn, :show, tag), class: "button button--icon button--small" do %>
-            <i class="icon icon--search"></i>
+            <%= link to: admin_tag_path(@conn, :show, tag), class: "btn btn-sm btn-primary btn-icon" do %>
+            <i class="icon">
+              <%= render Vutuv.IconView, "search.html" %>
+            </i>
             <% end %>
-            <%= link to: admin_tag_path(@conn, :edit, tag), class: "button button--icon button--small" do %>
-            <i class="icon icon--edit"></i>
+            <%= link to: admin_tag_path(@conn, :edit, tag), class: "btn btn-sm btn-primary btn-icon" do %>
+            <i class="icon">
+              <%= render Vutuv.IconView, "pencil.html" %>
+            </i>
             <% end %>
-            <%= button to: admin_tag_path(@conn, :delete, tag), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
-            <i class="icon icon--delete"></i>
+            <%= button to: admin_tag_path(@conn, :delete, tag), method: :delete, class: "btn btn-sm btn-danger btn-icon", form: [class: "btn-form"] do %>
+            <i class="icon">
+              <%= render Vutuv.IconView, "close.html" %>
+            </i>
             <% end %>
           </td>
         </tr>

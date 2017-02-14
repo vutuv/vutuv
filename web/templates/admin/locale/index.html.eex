@@ -31,8 +31,10 @@
           <td><%= locale.value %></td>
     
           <td>
-            <%= link to: admin_locale_path(@conn, :show, locale), class: "button button--icon button--small" do %>
-            <i class="icon icon--search"></i>
+            <%= link to: admin_locale_path(@conn, :show, locale), class: "btn btn-sm btn-primary btn-icon" do %>
+            <i class="icon">
+              <%= render Vutuv.IconView, "search.html" %>
+            </i>
             <% end %>
           </td>
         </tr>

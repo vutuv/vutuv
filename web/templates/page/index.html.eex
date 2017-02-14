@@ -40,24 +40,24 @@
         <%= email_input ef, :value, class: "imagebox__input" , placeholder: gettext "Enter your email address" %>
         <%= error_tag ef, :value %>
       </p>
-	  	<p style="float:left;width:90%;text-align: left;">
-	  	<%= gettext("Allow others to view your email address") %>
-	  	</p>
-	  	<p style="float:right;width:10%;text-align: right;">
-	    <%= checkbox ef, :public? %>
-	    <%= error_tag ef, :public? %>
-	    </p>
+	  	<label>
+  	  	<span class="checkbox">
+    	    <%= checkbox ef, :public? %>
+    	    <%= error_tag ef, :public? %>
+        </span>
+  	  	<%= gettext("Allow others to view your email address") %>
+      </label>
       <% end %>
-    	<p style="float:left;width:90%;text-align: left;">
-    	<%= gettext("Prevent search engines from indexing your profile") %>
-    	</p>
-    	<p style="float:right;width:10%;text-align: right;">
-      <%= checkbox f, :noindex?, style: "margin-left:5%" %>
-      <%= error_tag f, :noindex? %>
-      </p>
+      <label>
+        <span class="checkbox">
+        <%= checkbox f, :noindex?, style: "margin-left:5%" %>
+        <%= error_tag f, :noindex? %>
+        </span>
+      	<%= gettext("Prevent search engines from indexing your profile") %>
+      </label>
       <p><%= gettext "By signing up you agree that we set a cookie in your browser." %></p>
       <p>
-      <%= submit gettext("Sign up"), class: "imagebox__input" %>
+      <%= submit gettext("Sign up"), class: "btn btn-lg btn-primary btn-block" %>
       </p>
       <p><a href="<%= session_path(@conn, :new) %>" class="imagebox__alreadymember"><%= gettext "Already a member? Sign in here." %></a></p>
       <p><%= gettext "We reserve the right to stop this service or delete your account anytime without warning." %></p>

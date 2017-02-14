@@ -18,12 +18,16 @@
 
   <section class="card">
     <%= if same_user?(@user, @current_user) do %>
-    <div class="card__edit button__list">
-      <%= link to: user_address_path(@conn, :edit, @user, @address), class: "button button-link button--icon button--small" do %>
-        <i class="icon icon--edit"></i>
+    <div class="btns-right">
+      <%= button to: user_address_path(@conn, :delete, @user, @address), class: "pull-right btn btn-xs btn-danger btn-icon", form: [class: "btn-form"] do %>
+        <i>
+          <%= render Vutuv.IconView, "close.html" %>
+        </i>
       <% end %>
-      <%= button to: user_address_path(@conn, :delete, @user, @address), class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
-        <i class="icon icon--delete"></i>
+      <%= link to: user_address_path(@conn, :edit, @user, @address), class: "pull-right btn btn-xs btn-primary btn-icon" do %>
+        <i>
+          <%= render Vutuv.IconView, "pencil.html" %>
+        </i>
       <% end %>
     </div>
     <% end %>

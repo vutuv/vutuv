@@ -21,7 +21,7 @@
 			  </div>
 
 			  <div class="editform__actions">
-			    <%= submit gettext("submit"), class: "imagebox__input" %>
+			    <%= submit gettext("submit"), class: "btn btn-lg btn-primary btn-block" %>
 			  </div>
 			<% end %>
 
