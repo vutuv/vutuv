@@ -746,7 +746,7 @@ footer {
 @media all and (min-width: 450px) {
   .imagebox__card {
     padding-top: 40px;
-    padding-bottom: 50px; } }
+    padding-bottom: 30px; } }
 
 .skills {
   font-size: 14px;

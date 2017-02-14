@@ -704,14 +704,11 @@ ul.thumbs {
 .imagebox .imagebox__form {
   color: #fff;
   border: none;
+  min-width: 300px;
   p,
   label {
-    color: #fff;
     text-align: left;
     padding: 0 0 10px;
-    @include font_size_m;
-    @include text_shadow;
-    line-height: 1.5em;
     text-align: center;
     margin: 10px 0;
   }
@@ -771,6 +768,15 @@ ul.thumbs {
   overflow: hidden;
   
   
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  border-bottom: 2px solid #ddd;
+  border-top: 2px solid #4A90E2;
+  padding: 12px 10px 0 10px;
 }
 
 .card-list {
