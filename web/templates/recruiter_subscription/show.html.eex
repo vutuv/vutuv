@@ -1,0 +1,80 @@
+
+  <div class="profile-header">
+    <div class="profile-header__info">
+      <h1><%= gettext "Show recruiter subscription" %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+
+<div class="breadcrumbs">
+<%= Vutuv.UserHelpers.gen_breadcrumbs([
+  gettext("Users"),
+  {full_name(@user), user_path(@conn, :show, @user)},
+  {gettext("Active Subscription"), user_recruiter_subscription_path(@conn, :new, @user)},
+  {gettext("Subscription History"), user_recruiter_subscription_path(@conn, :index, @user)},
+  gettext("Show Subscription")]) %>
+</div>
+
+<div class="card-list">
+  <section class="card">
+
+      <h1>
+        <strong><%= gettext "Recruiter package" %>:</strong>
+      </h1>
+      <p>
+        <%= @recruiter_subscription.recruiter_package.name %>
+      </p>
+
+      <h1>
+        <strong><%= gettext "Subscription start date" %>:</strong>
+      </h1>
+      <p>
+        <%= @recruiter_subscription.subscription_begins %>
+      </p>
+
+      <h1>
+        <strong><%= gettext "Subscription end date" %>:</strong>
+      </h1>
+      <p>
+        <%= @recruiter_subscription.subscription_ends %>
+      </p>
+
+      <h1>
+        <strong><%= gettext "Address" %>:</strong>
+      </h1>
+      <p>
+        <%= @recruiter_subscription.line1 %><br>
+        <%= if @recruiter_subscription.line2 do %><%= @recruiter_subscription.line2 %><br><% end %>
+        <%= @recruiter_subscription.street %><br>
+        <%= @recruiter_subscription.zip_code %><br>
+        <%= @recruiter_subscription.city %><br>
+        <%= @recruiter_subscription.country %><br>
+      </p>
+
+      <h1>
+        <strong><%= gettext "Paid on" %>:</strong>
+      </h1>
+      <p>
+        <%= @recruiter_subscription.paid_on %>
+      </p>
+
+      <h1>
+        <strong><%= gettext "Invoice number" %>:</strong>
+      </h1>
+      <p>
+        <%= @recruiter_subscription.invoice_number %>
+      </p>
+
+      <h1>
+        <strong><%= gettext "Invoiced on" %>:</strong>
+      </h1>
+      <p>
+        <%= @recruiter_subscription.invoiced_on %>
+      </p>
+
+  </section>
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
+</div>

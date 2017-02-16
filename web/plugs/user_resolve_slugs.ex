@@ -27,7 +27,9 @@ defmodule Vutuv.Plug.UserResolveSlug do
     if(user.active_slug != slug) do
       redirect(conn, to: Helpers.user_path(conn, :show, user))
     else
-      assign(conn, :user, user)
+      conn
+      |> assign(:user_id, user.id)
+      |> assign(:user, user)
     end
   end
 

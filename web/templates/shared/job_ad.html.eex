@@ -1,0 +1,5 @@
+<section class="ad">
+  <label><%= gettext("Job ad") %></label>
+  <h1>Job ad goes here</h1>
+  <%= link "Post jobs for your company", to: user_recruiter_subscription_path(@conn, :new, @user) %>
+</section>
