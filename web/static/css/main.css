@@ -299,9 +299,6 @@ td a + a {
   margin-left: 10px; }
 
 input:not([type="checkbox"]), textarea {
-  box-sizing: border-box;
-  vertical-align: bottom;
-  -webkit-appearance: none;
   margin: 0;
   border-radius: 0; }
 

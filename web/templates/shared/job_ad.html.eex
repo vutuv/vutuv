@@ -1,5 +1,62 @@
-<section class="ad">
-  <label><%= gettext("Job ad") %></label>
-  <h1>Job ad goes here</h1>
-  <%= link "Post jobs for your company", to: user_recruiter_subscription_path(@conn, :new, @user) %>
+<section class="card jobs">
+  <h1>Job offers</h1>
+  <a href="#" class="job">
+    <h2>Job Title</h2>
+    <h3>Organization</h3>
+    <ul>
+      <li>
+        <i class="icon"><%= render Vutuv.IconView, "tag.html" %></i>
+        <div>
+          <div class="badges">
+            <span class="badge">Lorem</span>
+            <span class="badge">Ipsum</span>
+            <span class="badge">Dolor</span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <i class="icon"><%= render Vutuv.IconView, "map-marker.html" %></i>
+        <div>
+          Location
+        </div>
+      </li>
+      <li>
+        <i class="icon"><%= render Vutuv.IconView, "eur.html" %></i>
+        <div>
+          XX.XXX - XX.XXX €
+        </div>
+      </li>
+    </ul>
+  </a>
+  <a href="#" class="job">
+    <h2>Job Title</h2>
+    <h3>Organization</h3>
+    <ul>
+      <li>
+        <i class="icon"><%= render Vutuv.IconView, "tag.html" %></i>
+        <div>
+          <div class="badges">
+            <span class="badge">Lorem</span>
+            <span class="badge">Ipsum</span>
+            <span class="badge">Dolor</span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <i class="icon"><%= render Vutuv.IconView, "map-marker.html" %></i>
+        <div>
+          Location
+        </div>
+      </li>
+      <li>
+        <i class="icon"><%= render Vutuv.IconView, "eur.html" %></i>
+        <div>
+          XX.XXX - XX.XXX €
+        </div>
+      </li>
+    </ul>
+  </a>
+  <div class="card__morelink">
+    <%= link "Post jobs for your company", to: user_recruiter_subscription_path(@conn, :new, @user) %>
+  </div>
 </section>
