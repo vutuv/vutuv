@@ -1,12 +1,9 @@
+@import 'import/base';
 @import 'import/vars.scss';
 @import 'import/mixins.scss';
 
 body {
   color: $color_text;
-  background: #fff;
-  font-family: sans-serif;
-  font-size: 14px;
-  padding: 20px;
 }
 
 h1,
@@ -785,6 +782,7 @@ section.jobs {
     border-bottom: 2px solid $color_grey_light;
     margin: -2px 0 0;
     color: $color_text;
+    
     padding: 10px 0 6px;
     
     .badges {
