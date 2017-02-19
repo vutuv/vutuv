@@ -1,7 +1,7 @@
 defmodule Vutuv.Tag do
   use Vutuv.Web, :model
   @derive {Phoenix.Param, key: :slug}
-  
+
 
   schema "tags" do
     field :slug, :string
@@ -16,6 +16,7 @@ defmodule Vutuv.Tag do
     has_many :children, through: [:child_closures, :child]
 
     has_many :user_tags, Vutuv.UserTag, on_delete: :delete_all
+    has_many :job_posting_tags, Vutuv.JobPostingTag, on_delete: :delete_all
 
     timestamps()
   end
@@ -53,14 +54,14 @@ defmodule Vutuv.Tag do
   end
 
   def gen_slug(changeset, value) do
-    slug = 
+    slug =
       value
       |> Vutuv.SlugHelpers.gen_slug_unique( __MODULE__, :slug, ?_)
     put_change(changeset, :slug, slug)
   end
 
   def default_localization(changeset, value, locale) do
-    localization = 
+    localization =
       %Vutuv.TagLocalization{}
       |> Vutuv.TagLocalization.changeset(%{name: value, locale_id: Vutuv.Locale.locale_id(locale)})
     changeset
@@ -69,7 +70,7 @@ defmodule Vutuv.Tag do
 
   def create_or_link_tag(changeset, %{"value" => value} = params, locale) do
     downcase_value = String.downcase(value)
-    Vutuv.Repo.one(from t in __MODULE__, 
+    Vutuv.Repo.one(from t in __MODULE__,
       left_join: syn in assoc(t, :tag_synonyms),
       left_join: loc in assoc(t, :tag_localizations),
       where: syn.value == ^downcase_value or loc.name == ^downcase_value, limit: 1)
@@ -83,12 +84,12 @@ defmodule Vutuv.Tag do
   end
 
   def resolve_localization(tag, locale) do
-    Vutuv.Repo.one(from(t in Vutuv.TagLocalization, 
+    Vutuv.Repo.one(from(t in Vutuv.TagLocalization,
       where: t.locale_id == ^(Vutuv.Locale.locale_id(locale)) and
       t.tag_id == ^tag.id,
       preload: [:tag_urls]))
     ||
-    Vutuv.Repo.one(from(t in Vutuv.TagLocalization, 
+    Vutuv.Repo.one(from(t in Vutuv.TagLocalization,
       where: t.tag_id == ^tag.id,
       preload: [:tag_urls],
       limit: 1))
@@ -127,7 +128,7 @@ defmodule Vutuv.Tag do
 
   def resolve_name(tag, locale) do
     tag = Vutuv.Repo.preload(tag, [tag_localizations: :locale])
-    localization = 
+    localization =
       Enum.reduce(tag.tag_localizations, fn f, acc ->
         if(f.locale.value == locale) do
           f

@@ -43,6 +43,8 @@ defmodule Vutuv.User do
     has_many :job_postings,           Vutuv.JobPosting,           on_delete: :delete_all
     has_many :recruiter_subscriptions,Vutuv.RecruiterSubscription,on_delete: :delete_all
 
+    has_many :tags, through: [:user_tags, :tag]
+
     has_many :follower_connections, Vutuv.Connection, foreign_key: :followee_id, on_delete: :delete_all
     has_many :followers, through: [:follower_connections, :follower]
 

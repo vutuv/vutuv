@@ -13,7 +13,7 @@ defmodule Vutuv.JobPostingTagController do
   def index(conn, _params) do
     job_posting =
       conn.assigns[:job_posting]
-      |> Repo.preload([:job_posting_tags])
+      |> Repo.preload([job_posting_tags: :tag])
     render(conn, "index.html", job_posting_tags: job_posting.job_posting_tags)
   end
 

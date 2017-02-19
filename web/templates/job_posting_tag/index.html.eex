@@ -17,20 +17,18 @@
     <table>
       <thead>
         <tr>
-          <th><%= gettext "Job posting" %></th>
           <th><%= gettext "Tag" %></th>
           <th><%= gettext "Priority" %></th>
-    
+
           <th></th>
         </tr>
       </thead>
       <tbody>
     <%= for {job_posting_tag, index} <- Enum.with_index(@job_posting_tags) do %>
         <tr>
-          <td><%= job_posting_tag.job_posting_id %></td>
-          <td><%= job_posting_tag.tag_id %></td>
+          <td><%= Vutuv.Tag.resolve_name(job_posting_tag.tag, @locale) %></td>
           <td><%= job_posting_tag.priority %></td>
-    
+
           <td>
             <%= link to: user_job_posting_tag_path(@conn, :show, @user, @job_posting, job_posting_tag), class: "button button--icon button--small" do %>
             <i class="icon icon--search"></i>
