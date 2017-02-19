@@ -89,16 +89,16 @@ defmodule Vutuv.JobPosting do
   def get_postings_for_user(user) do
     tags = Vutuv.Repo.preload(user, [:tags]).tags
     tag_ids = for tag <- tags, do: tag.id
-    jobs =
-      Vutuv.Repo.all(from j in __MODULE__,
-        left_join: jt in Vutuv.JobPostingTag, on: jt.job_posting_id == j.id,
-        where: jt.tag_id in ^tag_ids,
-        limit: 2,
-        group_by: j.id,
-        order_by: [
-          desc: fragment("SUM(CASE WHEN ? = 2 THEN 1 ELSE 0 END)",jt.priority),
-          desc: fragment("SUM(CASE WHEN ? = 1 THEN 1 ELSE 0 END)",jt.priority),
-          desc: fragment("SUM(CASE WHEN ? = 0 THEN 1 ELSE 0 END)",jt.priority)])
+    Vutuv.Repo.all(from j in __MODULE__,
+      left_join: jt in Vutuv.JobPostingTag, on: jt.job_posting_id == j.id,
+      where: jt.tag_id in ^tag_ids,
+      limit: 2,
+      group_by: j.id,
+      order_by: [
+        desc: fragment("SUM(CASE WHEN ? = 2 THEN 1 ELSE 0 END)",jt.priority),
+        desc: fragment("SUM(CASE WHEN ? = 1 THEN 1 ELSE 0 END)",jt.priority),
+        desc: fragment("SUM(CASE WHEN ? = 0 THEN 1 ELSE 0 END)",jt.priority)])
+    |> ensure_jobs_returned()
   end
 
   defp ensure_jobs_returned([]) do
@@ -106,8 +106,10 @@ defmodule Vutuv.JobPosting do
   end
 
   defp ensure_jobs_returned([head | []]) do
-    [head | Vutuv.Repo.all(from j in __MODULE__, where: not j.id == head.id, limit: 1)]
+    [head | Vutuv.Repo.all(from j in __MODULE__, where: not j.id == ^head.id, limit: 1)]
   end
+
+  defp ensure_jobs_returned(jobs), do: jobs
 
   def get_important_tags(job) do
     Vutuv.Repo.all(from t in Vutuv.Tag, left_join: j in assoc(t, :job_posting_tags), where: j.job_posting_id == ^job.id and j.priority == 2, limit: 3)
