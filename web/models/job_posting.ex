@@ -29,7 +29,7 @@ defmodule Vutuv.JobPosting do
     |> cast(params, [:user_id, :title, :description, :location, :prerequisites, :slug, :open_on, :closed_on])
     |> gen_slug()
     |> validate_required([:user_id, :title, :description, :location, :prerequisites, :slug])
-    |> validate_length(:title, max: 80)
+    |> validate_length(:title, max: 40)
     |> validate_length(:description, max: 8192)
     |> validate_length(:prerequisites, max: 8192)
     |> validate_length(:location, max: 8192)
