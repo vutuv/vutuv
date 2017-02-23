@@ -6,6 +6,7 @@ defmodule Vutuv.Url do
   schema "urls" do
     field :value, :string
     field :description, :string
+    field :screenshot, Vutuv.Screenshot.Type
 
     belongs_to :user, Vutuv.User
     timestamps
