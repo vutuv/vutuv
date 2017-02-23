@@ -106,7 +106,7 @@ defmodule Vutuv.JobPosting do
   end
 
   defp ensure_jobs_returned([head | []]) do
-    [head | Vutuv.Repo.all(from j in __MODULE__, where: not j.id == ^head.id, limit: 1)]
+    [head | Vutuv.Repo.all(from j in __MODULE__, where: not (j.id == ^head.id), limit: 1)]
   end
 
   defp ensure_jobs_returned(jobs), do: jobs
