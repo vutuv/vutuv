@@ -1,0 +1,55 @@
+
+  <div class="profile-header">
+    <div class="profile-header__info">
+      <h1><%= gettext "Subscription" %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+
+<div class="breadcrumbs">
+  <%= Vutuv.UserHelpers.gen_breadcrumbs([
+    gettext("Users"),
+    {full_name(@user), user_path(@conn, :show, @user)},
+    gettext("Active Subscription")]) %>
+</div>
+
+<div class="card-list">
+  <section class="card">
+    <%= if @conn.assigns[:active_subscription] do %>
+
+      <h1><%= gettext("Active subscription") %></h1>
+      <%= render Vutuv.Admin.RecruiterPackageView, "package_minicard.html", package: @active_subscription.recruiter_package, style: "" %>
+      <p><%= gettext("Subscription ends on") %> <%= @active_subscription.subscription_ends %></p>
+      <%= if @active_subscription.paid do %>
+        <p><%= gettext("Paid on") %> <%= @active_subscription.paid_on %></p>
+        <%= if @active_subscription.paid do %>
+        <p><%= gettext("Invoice number:") %> <%= @active_subscription.invoice_number %></p>
+        <p><%= gettext("Invoiced on") %> <%= @active_subscription.invoiced_on %></p>
+        <% end %>
+      <% else %>
+        <p><%= gettext("Payment not yet recieved") %></p>
+      <% end %>
+
+    <% else %>
+    <%= if Enum.count(@packages) > 0 do %>
+    <%= render "form.html", backlink: user_recruiter_subscription_path(@conn, :index, @user), changeset: @changeset,
+                            action: user_recruiter_subscription_path(@conn, :create, @user),
+                            packages: @packages %>
+    <% else %>
+    <h1><%= gettext("There are no packages available at this time") %></h1>
+    <p><%= gettext("We apologize for the inconvenience.") %><p>
+    <% end %>
+    <% end %>
+    <%= link gettext("History"), to: user_recruiter_subscription_path(@conn, :index, @user), class: "card__morelink" %>
+  </section>
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+    <%= render Vutuv.SharedView, "job_ad.html", assigns %>
+    <%= if @conn.assigns[:active_subscription] do %>
+    <section class="card">
+      <%= link gettext("Post jobs"), to: user_job_posting_path(@conn, :index, @user), class: "card__morelink" %>
+    </section>
+    <% end %>
+  </aside>
+</div>

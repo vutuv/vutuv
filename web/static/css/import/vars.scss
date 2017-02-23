@@ -1,0 +1,46 @@
+$media_xs: "(max-width: 449px)";
+$media_sm_min: "(min-width: 450px)";
+$media_sm: "(min-width: 450px) and (max-width: 599px)";
+$media_sm_max: "(max-width: 599px)";
+$media_md: "(min-width: 600px) and (max-width: 939px)";
+$media_md_min: "(min-width: 600px)";
+$media_md_max: "(max-width: 939px)";
+$media_lg: "(min-width: 940px)";
+
+$font_size_default: 16px;
+
+$color_text: #333;
+$color_blue: #4A90E2;
+$color_blue_dark: darken($color_blue,10%);
+$color_ci_blue: #4A90E2;
+
+$color_grey: #ccc;
+$color_grey_light: #eee;
+$color_grey_dark: #999;
+$color_grey_contrast: #666;
+$color_primary: $color_ci_blue;
+$color_success: #2aa65d;
+$color_cancel: #f99;
+$color_verified: #2aa65d;
+$color_ci_blue_hover: darken($color_ci_blue, 10%);
+$color_highlight: #3cc;
+
+/* https://coolors.co/cc0c00-577590-f5c936-72c156-3891a6 */
+
+$color_link: $color_ci_blue;
+$color_btn_default: $color_ci_blue;
+$color_btn_primary: $color_ci_blue;
+$color_btn_success: #72C156;
+$color_btn_info: #577590;
+$color_btn_warning: #F5C936;
+$color_btn_danger: #F15524;
+
+/* https://coolors.co/cc0c00-577590-f5c936-72c156-3891a6 */
+
+$color_link: $color_ci_blue;
+$color_btn_default: $color_ci_blue;
+$color_btn_primary: $color_ci_blue;
+$color_btn_success: #06D6A0;
+$color_btn_info: #14ECFF;
+$color_btn_warning: #FFD166;
+$color_btn_danger: #EF476F;

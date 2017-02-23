@@ -1,0 +1,91 @@
+<%= form_for @changeset, @action, [class: "editform"], fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p class="editform__error"><%= gettext "Oops, something went wrong! Please check the errors below." %></p>
+    </div>
+  <% end %>
+
+<h1><%= gettext("Packages") %></label>
+<br>
+<br>
+<%= render "package_list.html", f: f, packages: @packages %>
+<br>
+<%= error_tag f, :recruiter_package_id %>
+
+<h1><%= gettext("Address") %></label>
+<br>
+<br>
+<div class="editform__field
+	<%= if( error_tag f, :line1 ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, :line1, class: "control-label" %>
+  <%= text_input f, :line1, class: "form-control" %>
+  <%= error_tag f, :line1 %>
+</div>
+
+<div class="editform__field
+	<%= if( error_tag f, :line2 ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, :line2, class: "control-label" %>
+  <%= text_input f, :line2, class: "form-control" %>
+  <%= error_tag f, :line2 %>
+</div>
+
+<div class="editform__field
+	<%= if( error_tag f, :street ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, :street, class: "control-label" %>
+  <%= text_input f, :street, class: "form-control" %>
+  <%= error_tag f, :street %>
+</div>
+
+<div class="editform__field
+	<%= if( error_tag f, :zip_code ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, :zip_code, class: "control-label" %>
+  <%= text_input f, :zip_code, class: "form-control" %>
+  <%= error_tag f, :zip_code %>
+</div>
+
+<div class="editform__field
+	<%= if( error_tag f, :city ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, :city, class: "control-label" %>
+  <%= text_input f, :city, class: "form-control" %>
+  <%= error_tag f, :city %>
+</div>
+
+<%= render Vutuv.AddressView, "country_input.html", Map.put(assigns, :form, f) %>
+
+<div class="editform__field
+	<%= if( error_tag f, :subscription_begins ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, :subscription_begins, class: "control-label" %>
+  <div class = "editform__inputwrap">
+    <%= date_select f, :subscription_begins, default: Ecto.Date.utc, class: "form-control" %>
+  </div>
+  <%= error_tag f, :subscription_begins %>
+</div>
+
+<div class="editform__actions">
+  <%= submit gettext("Subscribe"), class: "button" %>
+</div>
+<% end %>

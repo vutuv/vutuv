@@ -1,0 +1,17 @@
+<div style="<%= assigns[:style] || "margin: 0 auto;width: 90%;" %>margin-bottom: 10px;border:1px solid #4A90E2; padding: 5px;text-align: center;">
+  <%= if(assigns[:f]) do %>
+  <%= radio_button @f, :recruiter_package_id, @package.id, style: "width:100%" %>
+  <% end %>
+  <h1><%= @package.name %> </h1>
+  <p><%= @package.description %></p>
+  <p><%= get_currency_symbol(@package.currency) %><%= @package.price %></p>
+  <p>
+    <%= @package.duration_in_months %> <%= gettext("months") %>,
+    <%= if @package.auto_renewal do %>
+    automatically renewed
+    <% else %>
+    one time
+    <% end %>
+  </p>
+  <p><%= gettext("Up to") %> <%= @package.max_job_postings %> <%= gettext("job postings")%></p>
+</div>

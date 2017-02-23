@@ -52,7 +52,7 @@
 </div>
 
 <div class="card-list">
-  
+
   <%= if @display_welcome_message do %>
     <%= if same_user?(@user, @current_user) do %>
       <%= if Enum.count(@user_tags) == 0 do %>
@@ -107,6 +107,7 @@
 
   <aside>
     <%= render Vutuv.SharedView, "_ad.html" %>
+    <%= render Vutuv.SharedView, "job_ad.html", assigns %>
 
     <%= if(Enum.count(@emails) > 0 or same_user?(@user, @current_user)) do %>
     <section class="card">
@@ -266,7 +267,7 @@
   <%= if @total_links > 0 or same_user?(@user, @current_user) do %>
   <section class="card">
     <h1><%= gettext "Links" %></h1>
-    
+
     <ul class="thumbs">
       <li>
         <div class="img">
@@ -333,7 +334,7 @@
         </div>
       </li>
     </ul>
-    
+
     <%= if @total_links > 0 do %>
     <%= render Vutuv.UrlView, "card_list.html", urls: @user.urls, user: @user, conn: @conn, current_user: @current_user %>
     <% end %>

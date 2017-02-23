@@ -1,0 +1,20 @@
+
+  <div class="profile-header">
+    <div class="profile-header__info">
+      <h1><%= gettext "Show job posting tag" %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+
+<div class="breadcrumbs">
+<%= Vutuv.UserHelpers.gen_breadcrumbs([
+      {gettext("Job posting tags"), user_job_posting_tag_path(@conn, :index, @user, @job_posting)},
+      gettext("Show")]) %>
+</div>
+
+<div class="card-list">
+
+  <%= render Vutuv.TagView, "single_card.html", Map.put(assigns, :tag, @job_posting_tag.tag) %>
+  
+</div>

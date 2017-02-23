@@ -1,0 +1,85 @@
+
+  <div class="profile-header">
+    <div class="profile-header__info">
+      <h1><%= gettext "Show job posting" %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+
+<div class="breadcrumbs">
+<%= Vutuv.UserHelpers.gen_breadcrumbs([
+    gettext("Users"),
+    {full_name(@user), user_path(@conn, :show, @user)},
+    {gettext("Job postings"), user_job_posting_path(@conn, :index, @user)},
+    gettext("Show")]) %>
+</div>
+
+<div class="card-list">
+  <section class="card">
+    <div class="card__edit button__list">
+      <%= link to: user_job_posting_path(@conn, :edit, @user, @job_posting), class: "button button-link button--icon button--small" do %>
+        <i class="icon icon--edit"></i>
+      <% end %>
+      <%= button to: user_job_posting_path(@conn, :delete, @user, @job_posting), method: :delete, class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
+        <i class="icon icon--delete"></i>
+      <% end %>
+    </div>
+
+      <h1>
+        <strong><%= gettext "Title" %>:</strong>
+      </h1>
+      <p>
+        <%= @job_posting.title %>
+      </p>
+
+      <h1>
+        <strong><%= gettext "Description" %>:</strong>
+      </h1>
+      <p>
+        <%= @job_posting.description %>
+      </p>
+
+      <h1>
+        <strong><%= gettext "Location" %>:</strong>
+      </h1>
+      <p>
+        <%= @job_posting.location %>
+      </p>
+
+      <h1>
+        <strong><%= gettext "Prerequisites" %>:</strong>
+      </h1>
+      <p>
+        <%= @job_posting.prerequisites %>
+      </p>
+
+      <h1>
+        <strong><%= gettext "Open on" %>:</strong>
+      </h1>
+      <p>
+        <%= @job_posting.open_on %>
+      </p>
+
+      <h1>
+        <strong><%= gettext "Closed on" %>:</strong>
+      </h1>
+      <p>
+        <%= @job_posting.closed_on %>
+      </p>
+
+      <p>
+        <div class="tagcloud tagcloud-center">
+        <%= for job_posting_tag <- @job_posting.job_posting_tags do %>
+          <%= link Vutuv.Tag.resolve_name(job_posting_tag.tag, @locale), to: tag_path(@conn, :show, job_posting_tag.tag), class: "size-#{job_posting_tag.priority}" %>
+        <% end %>
+        </div>
+      </p>
+
+      <%= link gettext("Edit Tags"), to: user_job_posting_tag_path(@conn, :index, @user, @job_posting), class: "card__morelink" %>
+
+  </section>
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
+</div>

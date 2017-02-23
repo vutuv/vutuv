@@ -1,0 +1,124 @@
+<%= form_for @changeset, @action, [class: "editform"], fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p class="editform__error"><%= gettext "Oops, something went wrong! Please check the errors below." %></p>
+    </div>
+  <% end %>
+
+<div class="editform__field
+	<%= if( error_tag f, :title ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, :title, class: "control-label" %>
+  <%= text_input f, :title, class: "form-control" %>
+  <%= error_tag f, :title %>
+</div>
+
+<div class="editform__field
+	<%= if( error_tag f, :description ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, :description, class: "control-label" %>
+  <%= textarea f, :description, class: "form-control" %>
+  <%= error_tag f, :description %>
+</div>
+
+<div class="editform__field
+	<%= if( error_tag f, :location ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, :location, class: "control-label" %>
+  <%= textarea f, :location, class: "form-control" %>
+  <%= error_tag f, :location %>
+</div>
+
+<div class="editform__field
+	<%= if( error_tag f, :prerequisites ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, :prerequisites, class: "control-label" %>
+  <%= textarea f, :prerequisites, class: "form-control" %>
+  <%= error_tag f, :prerequisites %>
+</div>
+
+<br>
+<p><strong><%= gettext("When do you want your job posting to be displayed?") %></strong></p>
+<br>
+
+
+<div class="editform__field
+	<%= if( error_tag f, :open_on ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, :open_on, class: "control-label" %>
+  <div class="editform__inputwrap">
+  	<%= date_select f, :open_on, default: Ecto.Date.utc %>
+  </div>
+  <%= error_tag f, :open_on %>
+</div>
+
+<div class="editform__field
+	<%= if( error_tag f, :closed_on ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, :closed_on, class: "control-label" %>
+  <div class="editform__inputwrap">
+  	<%= date_select f, :closed_on, default: Ecto.Date.utc %>
+  </div>
+  <%= error_tag f, :closed_on %>
+</div>
+
+<br>
+<p><strong><%= gettext("List some tags for your job posting seperated by commas") %></strong></p>
+<br>
+
+<div class="editform__field
+	<%= if( error_tag f, :important_tags ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, :important_tags, class: "control-label" %>
+  <%= text_input f, :important_tags, class: "form-control" %>
+  <%= error_tag f, :important_tags %>
+</div>
+
+<div class="editform__field
+	<%= if( error_tag f, :optional_tags ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, :optional_tags, class: "control-label" %>
+  <%= text_input f, :optional_tags, class: "form-control" %>
+  <%= error_tag f, :optional_tags %>
+</div>
+
+<div class="editform__field
+	<%= if( error_tag f, :other_tags ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, :other_tags, class: "control-label" %>
+  <%= text_input f, :other_tags, class: "form-control" %>
+  <%= error_tag f, :other_tags %>
+</div>
+
+<div class="editform__actions">
+  <%= link gettext("Cancel"), to: @backlink, class: "button button--cancel" %>
+  <%= submit gettext("Submit"), class: "button" %>
+</div>
+<% end %>

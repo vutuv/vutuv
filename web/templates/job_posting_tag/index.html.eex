@@ -1,0 +1,55 @@
+
+  <div class="profile-header">
+    <div class="profile-header__info">
+      <h1><%= gettext "All job posting tags" %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+
+<div class="breadcrumbs">
+  <%= Vutuv.UserHelpers.gen_breadcrumbs([
+      gettext("Job posting tags")]) %>
+</div>
+
+<div class="card-list">
+  <section class="card">
+    <table>
+      <thead>
+        <tr>
+          <th><%= gettext "Tag" %></th>
+          <th><%= gettext "Priority" %></th>
+
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    <%= for {job_posting_tag, index} <- Enum.with_index(@job_posting_tags) do %>
+        <tr>
+          <td><%= Vutuv.Tag.resolve_name(job_posting_tag.tag, @locale) %></td>
+          <td><%= job_posting_tag.priority %></td>
+
+          <td>
+            <%= link to: user_job_posting_tag_path(@conn, :show, @user, @job_posting, job_posting_tag), class: "button button--icon button--small" do %>
+            <i class="icon icon--search"></i>
+            <% end %>
+            <%= link to: user_job_posting_tag_path(@conn, :edit, @user, @job_posting, job_posting_tag), class: "button button--icon button--small" do %>
+            <i class="icon icon--edit"></i>
+            <% end %>
+            <%= button to: user_job_posting_tag_path(@conn, :delete, @user, @job_posting, job_posting_tag), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
+            <i class="icon icon--delete"></i>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+      </tbody>
+    </table>
+
+    <p>
+      <%= link gettext("New job posting tag"), to: user_job_posting_tag_path(@conn, :new, @user, @job_posting), class: "card__morelink" %>
+    </p>
+  </section>
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
+</div>
