@@ -1,6 +1,6 @@
 <% jobs = Vutuv.JobPosting.get_postings_for_user(@user) %>
-<%= if Enum.count(jobs) > 0 do %>
 <section class="card jobs">
+<%= if Enum.count(jobs) > 0 do %>
   <h1>Job offers</h1>
   <%= for job <- jobs do %>
   <%= link to: user_job_posting_path(@conn, :show, Vutuv.Repo.preload(job, [:user]).user, job), class: "job" do %>
@@ -33,8 +33,8 @@
     </ul>
   <% end %>
   <% end %>
+  <% end %>
   <div class="card__morelink">
     <%= link "Post jobs for your company", to: user_recruiter_subscription_path(@conn, :new, @user) %>
   </div>
 </section>
-<% end %>
