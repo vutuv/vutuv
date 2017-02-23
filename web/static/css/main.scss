@@ -598,28 +598,34 @@ ul.thumbs {
 }
 
 
-.imagebox .imagebox__form {
-  color: #fff;
-  border: none;
-  min-width: 300px;
-  p,
-  label {
-    text-align: left;
-    padding: 0 0 10px;
-    text-align: center;
-    margin: 10px 0;
-  }
-  label {
-    text-align: left;
-    margin: 0 0 10px;
-    .checkbox {
-      display: inline-block;
-      float: left;
-      margin: 0 10px 0 0;
-      input {
-        display: inline-block;
-        @include font_size_m;
-        margin: 0;
+.imagebox {
+  .imagebox__card {
+    .imagebox__form {
+      color: #fff;
+      border: none;
+      min-width: 300px;
+      padding: 10px;
+      p,
+      label {
+        text-align: left;
+        padding: 0 0 10px;
+        text-align: center;
+        margin: 10px 0;
+      }
+      label {
+        text-align: left;
+        margin: 0 0 10px;
+        .checkbox {
+          display: inline-block;
+          float: left;
+          margin: 0 10px 0 0;
+          input {
+            display: inline-block;
+            @include font_size_m;
+            margin: 0;
+            width: auto;
+          }
+        }
       }
     }
   }
@@ -673,7 +679,7 @@ ul.thumbs {
   background: #fff;
   border-bottom: 2px solid #ddd;
   border-top: 2px solid #4A90E2;
-  padding: 12px 10px 0 10px;
+  padding: 12px 10px 10px 10px;
 }
 
 .card-list {
