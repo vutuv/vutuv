@@ -1,3 +1,9 @@
+# The idea of this module is to generate screenshots
+# of Urls and save them in Screenshot.
+# We use browserstack.com for this and are greatful
+# that they give us a free account because we are
+# an open-source project.
+#
 defmodule Vutuv.Browserstack do
   import Ecto.Query
   alias Vutuv.Screenshot
@@ -5,13 +11,20 @@ defmodule Vutuv.Browserstack do
   alias Vutuv.Repo
 
   def store_screenshot(url) do
-    job_id = job_id(url)
-    :timer.sleep(30000)
+    job_id = new_job_id(url)
+    :timer.sleep(45000)
     image_url = image_url(job_id)
     image_url
+    # TODO: Download the image from image_url and save it as
+    # a Screenshot to Url.
   end
 
-  def job_id(url) do
+  # Ask browserstack.com to generate a screenshot.
+  # WARNING: The generation of a screenshot takes time.
+  #          You have to wait at least 15 seconds after
+  #          new_job_id(url) to run image_url(url).
+  #
+  def new_job_id(url) do
     hackney = [basic_auth: {Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:browserstack_user], Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:browserstack_password]}]
     headers = ["Content-Type": "application/json", "Accept": "Application/json; Charset=utf-8"]
 
@@ -25,6 +38,8 @@ defmodule Vutuv.Browserstack do
     end
   end
 
+  # Fetch the image_url of a given job_id
+  #
   def image_url(job_id) do
     hackney = [basic_auth: {Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:browserstack_user], Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:browserstack_password]}]
 
@@ -38,25 +53,4 @@ defmodule Vutuv.Browserstack do
       _ -> nil
     end
   end
-
-  # def store_gravatar(user) do
-  #   case HTTPoison.get("https://www.gravatar.com/avatar/#{hd(user.emails).md5sum}?s=130&d=404", [], [timeout: 1000, recv_timeout: 1000])  do
-  #     {:ok, %HTTPoison.Response{status_code: 404}} -> nil
-  #     {:ok, %HTTPoison.Response{body: body, headers: headers}} ->
-  #       content_type = find_content_type(headers)
-  #       filename = "/#{user.active_slug}.#{String.replace(content_type,"image/", "")}"
-  #       path = System.tmp_dir
-  #       upload = #create the upload struct that arc-ecto will use to store the file and update the database
-  #         %Plug.Upload{content_type: content_type,
-  #         filename: filename,
-  #         path: path<>filename}
-  #       File.write(path<>filename, body) #Write the file temporarily to the disk
-  #       user
-  #       |> Repo.preload([:slugs, :oauth_providers, :emails])
-  #       |> User.changeset(%{avatar: upload}) #update the user with the upload struct
-  #       |> Repo.update
-  #     _ -> nil
-  #   end
-  # end
-
 end
