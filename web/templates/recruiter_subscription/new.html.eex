@@ -15,11 +15,12 @@
 </div>
 
 <div class="card-list">
-  <section class="card">
+  <section class="card jobs">
     <%= if @conn.assigns[:active_subscription] do %>
-
       <h1><%= gettext("Active subscription") %></h1>
+      <div class="subscriptions-list radio">
       <%= render Vutuv.Admin.RecruiterPackageView, "package_minicard.html", package: @active_subscription.recruiter_package, style: "" %>
+      </div>
       <p><%= gettext("Subscription ends on") %> <%= @active_subscription.subscription_ends %></p>
       <%= if @active_subscription.paid do %>
         <p><%= gettext("Paid on") %> <%= @active_subscription.paid_on %></p>

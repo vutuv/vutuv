@@ -21,6 +21,12 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, .15);
 }
 
+@mixin box_shadow_small() {
+  -moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, .15);
+  -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, .15);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, .15);
+}
+
 @mixin box_shadow_strong() {
   -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
   -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);

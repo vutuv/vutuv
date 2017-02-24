@@ -16,7 +16,7 @@
 </div>
 
 <div class="card-list">
-  <section class="card">
+  <section class="card jobs">
     <div class="card__edit button__list">
       <%= link to: user_job_posting_path(@conn, :edit, @user, @job_posting), class: "button button-link button--icon button--small" do %>
         <i class="icon icon--edit"></i>

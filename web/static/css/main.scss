@@ -234,6 +234,10 @@ a.btn {
   &.btn-submit {
     border-color: $color_link;
     background: $color_link;
+    .jobs & {
+      border-color: $color_highlight;
+      background: $color_highlight;
+    }
   }
   &.btn-submit {
     margin-top: 15px;
@@ -576,11 +580,18 @@ ul.thumbs {
     list-style: none;
     display: block;
     margin: 0 0 10px;
-    overflow: hidden;
+    padding: 0 0 10px;
     border-bottom: 1px solid $color_grey_light;
+    &:after {
+      content: '';
+      float: none;
+      clear: both;
+      display: block;
+    }
     .img {
       display: inline-block;
       float: left;
+      border: 1px solid $color_grey;
       img {
         display: block;
       }
@@ -847,8 +858,64 @@ section.jobs {
   }
 }
 
+ul.list {
+  list-style-type: disc; 
+  list-style-position: outside;
+  @include font_normal;
+  margin: .5em 0;
+  @include font_size_base;
+  line-height: 1.3em;
+  > li {
+    margin: 0 0 .5em 1.2em;
+    padding: 0;
+  }
+}
 
-
+.subscriptions-list {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  > label {
+    margin: 0 0 10px;
+    overflow: hidden;
+    border: none;
+    display: block;
+    padding: 10px;
+    border: 2px solid $color_blue;
+    .jobs & {
+      border: 2px solid $color_highlight;
+    }
+    .radio {
+      float: left;
+      width: 2em;
+      display: inline-block;
+      input {
+        @include font_size_xl;
+      }
+    }
+    .description {
+      @include font_normal;
+      margin: 0 0 0 2em;
+      .title {
+        @include font_size_l;
+        @include font_bold;
+        color: $color_blue;
+        .jobs & {
+          color: $color_highlight;
+        }
+        line-height: 1em;
+        margin: 0 0 .5em;
+      }
+      > ul {
+        @extend ul.list;
+      }
+      p {
+        margin: 0;
+        border-top: 2px solid $color_grey_light;
+      }
+    }
+  }
+}
 
 
 

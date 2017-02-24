@@ -14,7 +14,7 @@
 </div>
 
 <div class="card-list">
-  <section class="card">
+  <section class="card jobs">
     <%= render "form.html", backlink: user_recruiter_subscription_path(@conn, :index, @user), changeset: @changeset,
                             action: user_recruiter_subscription_path(@conn, :update, @user, @recruiter_subscription),
                             packages: @packages %>

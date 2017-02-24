@@ -12,9 +12,8 @@
         {gettext("Recruiter packages"), admin_recruiter_package_path(@conn, :index)},
         gettext("New")]) %>
 </div>
-
 <div class="card-list">
-  <section class="card">
+  <section class="card jobs">
     <%= render "form.html", backlink: admin_recruiter_package_path(@conn, :index), changeset: @changeset,
                             action: admin_recruiter_package_path(@conn, :create) %>
   </section>

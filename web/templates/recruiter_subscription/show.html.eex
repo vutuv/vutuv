@@ -17,7 +17,7 @@
 </div>
 
 <div class="card-list">
-  <section class="card">
+  <section class="card jobs">
 
       <h1>
         <strong><%= gettext "Recruiter package" %>:</strong>
