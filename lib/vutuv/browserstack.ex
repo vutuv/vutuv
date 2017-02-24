@@ -10,18 +10,36 @@ defmodule Vutuv.Browserstack do
   alias Vutuv.Url
   alias Vutuv.Repo
 
-  def store_screenshot(url) do
+  def generate_screenshot(url) do
     job_id = new_job_id(url)
-    :timer.sleep(45000)
-    image_url = image_url(job_id)
-    image_url
-    # TODO: Download the image from image_url and save it as
-    # a Screenshot to Url.
+
+    # TODO: The sleep is lazy and error-prone.
+    #       It should be replaced by a recursion.
+    :timer.sleep(55000)
+
+    job_id
+    |> image_url()
+    |> HTTPoison.get([], [timeout: 1000, recv_timeout: 1000])
+    |> case do
+      {:ok, %HTTPoison.Response{status_code: 404}} -> nil
+      {:ok, %HTTPoison.Response{body: body, headers: headers}} ->
+        content_type = "image/png"
+        filename = "#{String.replace(url.value, ~r/.*\/\//, "") |> String.replace(".","_")}.png"
+        path = System.tmp_dir
+        upload = %Plug.Upload{content_type: content_type,
+                 filename: filename,
+                 path: path<>filename}
+        File.write(path<>filename, body)
+        url
+        |> Url.changeset(%{screenshot: upload})
+        |> Repo.update
+      _ -> nil
+    end
   end
 
   # Ask browserstack.com to generate a screenshot.
   # WARNING: The generation of a screenshot takes time.
-  #          You have to wait at least 15 seconds after
+  #          You have to wait at least 10 seconds after
   #          new_job_id(url) to run image_url(url).
   #
   def new_job_id(url) do

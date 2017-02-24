@@ -24,9 +24,10 @@ erl_crash.dump
 /config/prod.secret.exs
 /config/dev.secret.exs
 
-# avatars in local storage
+# attachements in local storage
 #
 /web/static/assets/images/avatars
+/web/static/assets/images/screenshots
 
 # OS X stuff
 #

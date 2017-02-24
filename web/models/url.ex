@@ -1,5 +1,6 @@
 defmodule Vutuv.Url do
   use Vutuv.Web, :model
+  use Arc.Ecto.Schema
 
   import Vutuv.Gettext
 
@@ -21,6 +22,7 @@ defmodule Vutuv.Url do
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, [:value, :description])
+    |> cast_attachments(params, [:screenshot])
     |> validate_required([:value])
     |> validate_length(:description, max: 45)
     |> ensure_http_prefix
