@@ -13,12 +13,7 @@ defmodule Vutuv.Browserstack do
   def generate_screenshot(url) do
     job_id = new_job_id(url)
 
-    # TODO: The sleep is lazy and error-prone.
-    #       It should be replaced by a recursion.
-    :timer.sleep(55000)
-
-    job_id
-    |> image_url()
+    image_url(job_id, 0)
     |> HTTPoison.get([], [timeout: 1000, recv_timeout: 1000])
     |> case do
       {:ok, %HTTPoison.Response{status_code: 404}} -> nil
@@ -56,9 +51,23 @@ defmodule Vutuv.Browserstack do
     end
   end
 
+  # When the counter reaches 5 stop
+  defp image_url(job_id, 5) do
+    fetch_image_url(job_id)
+  end
+
+  # Try every 25 seconds to fetch the image_url
+  defp image_url(job_id, count) do
+    case fetch_image_url(job_id) do
+      nil ->
+        :timer.sleep(25000)
+        image_url(job_id, count + 1)
+      url -> url
+    end
+  end
+
   # Fetch the image_url of a given job_id
-  #
-  def image_url(job_id) do
+  defp fetch_image_url(job_id) do
     hackney = [basic_auth: {Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:browserstack_user], Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:browserstack_password]}]
 
     case HTTPoison.get("https://www.browserstack.com/screenshots/#{job_id}.json", %{},[ hackney: hackney ]) do
