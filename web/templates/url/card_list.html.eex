@@ -1,19 +1,14 @@
-<table>
-  <thead>
-    <tr>
-      <th><%= gettext "URL" %></th>
-      <th><%= gettext "Description" %></th>
-      <%= if same_user?(@user, @current_user) do %>
-        <th></th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <%= for url <- @urls do %>
-    <tr>
-      <td><%= link url.value, to: url.value %></td>
-      <td><%= link url.description, to: user_url_path(@conn, :show, @user, url) %></td>
-      <td>
+<ul class="thumbs">
+  <%= for url <- @urls do %>
+  <li>
+    <%= if url.screenshot do %>
+      <div class="img">
+        <a href="<%= url.value %>">
+          <img src="<%= Vutuv.Screenshot.url({url.screenshot, url}, :thumb)|> String.replace("web/static/assets", "") %>" alt="Screenshot" width="200" height="150" />
+        </a>
+      </div>
+    <% end %>
+    <div class="text">
       <%= if same_user?(@user, @current_user) do %>
       	<div class="btns-right">
         <%= button to: user_url_path(@conn, :delete, @user, url), method: :delete, class: "btn btn-sm btn-danger btn-icon", form: [class: "btn-form"] do %>
@@ -28,8 +23,13 @@
         <% end %>
         </div>
       <% end %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+      <div class="title">
+        <%= url.description %>
+      </div>
+      <div class="url">
+        <%= link url.value, to: url.value %>
+      </div>
+    </div>
+  </li>
+  <% end %>
+</ul>

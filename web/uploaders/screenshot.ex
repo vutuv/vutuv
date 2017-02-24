@@ -28,4 +28,8 @@ defmodule Vutuv.Screenshot do
   def filename(version, _) do
     version
   end
+
+  def default_url(:thumb) do
+    "https://placehold.it/200x150"
+  end
 end
