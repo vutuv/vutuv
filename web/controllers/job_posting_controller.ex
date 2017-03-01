@@ -27,6 +27,8 @@ defmodule Vutuv.JobPostingController do
     |> Ecto.build_assoc(:job_postings)
     |> JobPosting.changeset(job_posting_params, conn.assigns[:locale])
 
+    IO.puts "\n\n#{inspect changeset}\n\n"
+
     case Repo.insert(changeset) do
       {:ok, _job_posting} ->
         conn

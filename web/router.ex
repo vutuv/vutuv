@@ -69,7 +69,7 @@ defmodule Vutuv.Router do
       resources "/search_terms", SearchTermController, only: [:show,:index]
       resources "/tags", UserTagController, only: [:new, :create, :show, :delete, :index], as: :tag
       resources "/job_postings", JobPostingController, param: "job_slug" do
-        resources "/tags", JobPostingTagController, as: :tag
+        resources "/tags", JobPostingTagController, as: :tag, only: [:index, :new, :create, :delete]
       end
       resources "/recruiter_subscriptions", RecruiterSubscriptionController
     end

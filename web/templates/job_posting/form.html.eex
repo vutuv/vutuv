@@ -80,42 +80,47 @@
   <%= error_tag f, :closed_on %>
 </div>
 
-<br>
-<p><strong><%= gettext("List some tags for your job posting seperated by commas") %></strong></p>
-<br>
+<%= if !assigns[:edit] do %>
 
-<div class="editform__field
-	<%= if( error_tag f, :important_tags ) do %>
-	 editform__field--error"
-	 <% else %>
-	 "
-	 <% end %>">
-  <%= label f, :important_tags, class: "control-label" %>
-  <%= text_input f, :important_tags, class: "form-control" %>
-  <%= error_tag f, :important_tags %>
-</div>
+	<br>
+	<p><strong><%= gettext("List some tags for your job posting seperated by commas") %></strong></p>
+	<br>
 
-<div class="editform__field
-	<%= if( error_tag f, :optional_tags ) do %>
-	 editform__field--error"
-	 <% else %>
-	 "
-	 <% end %>">
-  <%= label f, :optional_tags, class: "control-label" %>
-  <%= text_input f, :optional_tags, class: "form-control" %>
-  <%= error_tag f, :optional_tags %>
-</div>
+	<div class="editform__field
+		<%= if( error_tag f, :job_posting_id_tag_id ) do %>
+		editform__field--error"
+		<% else %>
+		"
+		<% end %>">
+		<%= label f, :important_tags, class: "control-label" %>
+		<%= text_input f, :important_tags, class: "form-control" %>
+		<%= error_tag f, :important_tags %>
+	</div>
 
-<div class="editform__field
-	<%= if( error_tag f, :other_tags ) do %>
-	 editform__field--error"
-	 <% else %>
-	 "
-	 <% end %>">
-  <%= label f, :other_tags, class: "control-label" %>
-  <%= text_input f, :other_tags, class: "form-control" %>
-  <%= error_tag f, :other_tags %>
-</div>
+	<div class="editform__field
+		<%= if( error_tag f, :job_posting_id_tag_id ) do %>
+		editform__field--error"
+		<% else %>
+		"
+		<% end %>">
+		<%= label f, :optional_tags, class: "control-label" %>
+		<%= text_input f, :optional_tags, class: "form-control" %>
+		<%= error_tag f, :optional_tags %>
+	</div>
+
+	<div class="editform__field
+		<%= if( error_tag f, :job_posting_id_tag_id ) do %>
+		editform__field--error"
+		<% else %>
+		"
+		<% end %>">
+		<%= label f, :other_tags, class: "control-label" %>
+		<%= text_input f, :other_tags, class: "form-control" %>
+		<%= error_tag f, :other_tags %>
+	</div>
+
+	<%= error_tag f, :job_posting_id_tag_id %>
+<% end %>
 
 <div class="editform__actions">
   <%= link gettext("Cancel"), to: @backlink, class: "button button--cancel" %>

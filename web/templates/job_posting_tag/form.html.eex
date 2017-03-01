@@ -6,13 +6,24 @@
   <% end %>
 
 <div class="editform__field
+	<%= if( error_tag f, :value ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, :value, class: "control-label" %>
+  <%= text_input f, :value, class: "form-control" %>
+  <%= error_tag f, :value %>
+</div>
+
+<div class="editform__field
 	<%= if( error_tag f, :priority ) do %>
 	 editform__field--error"
 	 <% else %>
 	 "
 	 <% end %>">
   <%= label f, :priority, class: "control-label" %>
-  <%= text_input f, :priority, class: "form-control" %>
+  <%= select f, :priority, %{"Important" => 2, "Optional" => 1, "Other" => 0}, class: "form-control" %>
   <%= error_tag f, :priority %>
 </div>
 

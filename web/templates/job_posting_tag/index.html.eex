@@ -1,4 +1,3 @@
-
   <div class="profile-header">
     <div class="profile-header__info">
       <h1><%= gettext "All job posting tags" %></h1>
@@ -8,8 +7,12 @@
 <%= render Vutuv.LayoutView, "flash.html", assigns %>
 
 <div class="breadcrumbs">
-  <%= Vutuv.UserHelpers.gen_breadcrumbs([
-      gettext("Job posting tags")]) %>
+<%= Vutuv.UserHelpers.gen_breadcrumbs([
+  gettext("Users"),
+  {full_name(@user), user_path(@conn, :show, @user)},
+  {gettext("Job postings"), user_job_posting_path(@conn, :index, @user)},
+  {@job_posting.title, user_job_posting_path(@conn, :show, @user, @job_posting)},
+  gettext("Job posting tags")]) %>
 </div>
 
 <div class="card-list">
@@ -27,15 +30,9 @@
     <%= for {job_posting_tag, index} <- Enum.with_index(@job_posting_tags) do %>
         <tr>
           <td><%= Vutuv.Tag.resolve_name(job_posting_tag.tag, @locale) %></td>
-          <td><%= job_posting_tag.priority %></td>
+          <td><%= resolve_priority job_posting_tag.priority %></td>
 
           <td>
-            <%= link to: user_job_posting_tag_path(@conn, :show, @user, @job_posting, job_posting_tag), class: "button button--icon button--small" do %>
-            <i class="icon icon--search"></i>
-            <% end %>
-            <%= link to: user_job_posting_tag_path(@conn, :edit, @user, @job_posting, job_posting_tag), class: "button button--icon button--small" do %>
-            <i class="icon icon--edit"></i>
-            <% end %>
             <%= button to: user_job_posting_tag_path(@conn, :delete, @user, @job_posting, job_posting_tag), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
             <i class="icon icon--delete"></i>
             <% end %>

@@ -21,6 +21,13 @@ defmodule Vutuv.JobPosting do
     timestamps()
   end
 
+  @max_important_tags 3
+
+  @max_optional_tags 7
+
+  @max_othert_tags 7
+  
+
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
@@ -46,8 +53,8 @@ defmodule Vutuv.JobPosting do
   end
 
   defp validate_dates(changeset) do
-    open = get_change(changeset, :open_on)
-    closed = get_change(changeset, :closed_on)
+    open = get_field(changeset, :open_on)
+    closed = get_field(changeset, :closed_on)
     if(open && closed && Ecto.Date.compare(open, closed) == :lt) do
       changeset
     else
@@ -55,34 +62,77 @@ defmodule Vutuv.JobPosting do
     end
   end
 
-  defp put_tags(changeset, %{"important_tags" => important, "optional_tags" => optional, "other_tags" => other}, locale) do
-    IO.puts "\n\n\n"
-    IO.inspect parse_tags(important, 2, locale)
-    IO.inspect parse_tags(optional, 1, locale)
-    IO.inspect parse_tags(other, 0, locale)
-    IO.puts "\n\n\n"
+  defp put_tags(changeset, %{"important_tags" => important_tags, "optional_tags" => optional_tags, "other_tags" => other_tags}, locale) do
+    important = parse_tags(important_tags)
+    optional = parse_tags(optional_tags)
+    other = parse_tags(other_tags)
     changeset
-    |> put_assoc(:job_posting_tags,
-    parse_tags(important, 2, locale)++
-    parse_tags(optional, 1, locale)++
-    parse_tags(other, 0, locale))
+    |> validate_tag_uniqueness(important, optional, other)
+    |> validate_important_tags(important)
+    |> validate_optional_tags(optional)
+    |> validate_other_tags(other)
+    |> put_assocs(important, optional, other, locale)
   end
 
-  defp put_tags(changeset, _, nil), do: changeset
+  defp put_tags(changeset, _, _), do: changeset
 
-  defp parse_tags(tags, priority, locale) do
+  defp parse_tags(tags) do
     tag_list =
       tags
       |> String.split(",")
-    results =
     for(tag <- tag_list) do
-      capitalized_tag =
-        tag
-        |> String.trim
+      String.trim tag
+    end
+  end
 
+  defp validate_tag_uniqueness(changeset, important, optional, other) do
+    tags = important ++ optional ++ other
+    if(Enum.count(tags) == Enum.count(Enum.uniq(tags))) do
+      changeset
+    else
+      add_error(changeset, :job_posting_id_tag_id, "Tags must all be different")
+    end
+  end
+
+  defp validate_important_tags(changeset, important) do
+    if(Enum.count(important) != @max_important_tags) do
+      add_error(changeset, :important_tags, "You must have #{@max_important_tags} important tags.")
+    else
+      changeset
+    end
+  end
+
+  defp validate_optional_tags(changeset, optional) do
+    if(Enum.count(optional) > @max_optional_tags) do
+      add_error(changeset, :optional_tags, "You can have a maximum of #{@max_optional_tags} optional tags.")
+    else
+      changeset
+    end
+  end
+
+  defp validate_other_tags(changeset, other) do
+    if(Enum.count(other) > @max_other_tags) do
+      add_error(changeset, :other_tags, "You can have a maximum of #{@max_other_tags} other tags.")
+    else
+      changeset
+    end
+  end
+
+  defp put_assocs(%Ecto.Changeset{valid?: false} = changeset, _, _, _, _), do: changeset
+
+  defp put_assocs(changeset, important, optional, other, locale) do
+    changeset
+    |> put_assoc(:job_posting_tags,
+      tag_changesets(important, 2, locale)++
+      tag_changesets(optional, 1, locale)++
+      tag_changesets(other, 0, locale))
+  end
+
+  defp tag_changesets(tags, priority, locale) do
+    for(tag <- tags) do
       %JobPostingTag{}
       |> JobPostingTag.changeset(%{priority: priority})
-      |> Vutuv.Tag.create_or_link_tag(%{"value" => capitalized_tag}, locale)
+      |> Vutuv.Tag.create_or_link_tag(%{"value" => tag}, locale)
     end
   end
 

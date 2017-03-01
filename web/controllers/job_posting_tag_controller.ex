@@ -27,6 +27,7 @@ defmodule Vutuv.JobPostingTagController do
       conn.assigns[:job_posting]
       |> Ecto.build_assoc(:job_posting_tags)
       |> JobPostingTag.changeset(job_posting_tag_params)
+      |> Vutuv.Tag.create_or_link_tag(job_posting_tag_params, conn.assigns[:locale])
 
     case Repo.insert(changeset) do
       {:ok, _job_posting_tag} ->
@@ -43,26 +44,6 @@ defmodule Vutuv.JobPostingTagController do
       conn.assigns[:job_posting_tag]
       |> Repo.preload([:tag])
     render(conn, "show.html", job_posting_tag: job_posting_tag)
-  end
-
-  def edit(conn, _params) do
-    job_posting_tag = conn.assigns[:job_posting_tag]
-    changeset = JobPostingTag.changeset(job_posting_tag)
-    render(conn, "edit.html", job_posting_tag: job_posting_tag, changeset: changeset)
-  end
-
-  def update(conn, %{"job_posting_tag" => job_posting_tag_params}) do
-    job_posting_tag = conn.assigns[:job_posting_tag]
-    changeset = JobPostingTag.changeset(job_posting_tag, job_posting_tag_params)
-
-    case Repo.update(changeset) do
-      {:ok, job_posting_tag} ->
-        conn
-        |> put_flash(:info, gettext("Job posting tag updated successfully."))
-        |> redirect(to: user_job_posting_tag_path(conn, :show, conn.assigns[:user], conn.assigns[:job_posting], job_posting_tag))
-      {:error, changeset} ->
-        render(conn, "edit.html", job_posting_tag: job_posting_tag, changeset: changeset)
-    end
   end
 
   def delete(conn, _params) do

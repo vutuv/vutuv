@@ -9,16 +9,17 @@
 
 <div class="breadcrumbs">
 <%= Vutuv.UserHelpers.gen_breadcrumbs([
-    gettext("Users"),
-    {full_name(@user), user_path(@conn, :show, @user)},
-    {gettext("Job postings"), user_job_posting_path(@conn, :index, @user)},
-    gettext("Edit")]) %>
+  gettext("Users"),
+  {full_name(@user), user_path(@conn, :show, @user)},
+  {gettext("Job postings"), user_job_posting_path(@conn, :index, @user)},
+  {@job_posting.title, user_job_posting_path(@conn, :show, @user, @job_posting)},
+  gettext("Edit")]) %>
 </div>
 
 <div class="card-list">
   <section class="card">
     <%= render "form.html", backlink: user_job_posting_path(@conn, :index, @user), changeset: @changeset,
-                            action: user_job_posting_path(@conn, :update, @user, @job_posting) %>
+                            action: user_job_posting_path(@conn, :update, @user, @job_posting), edit: true %>
   </section>
   <aside>
     <%= render Vutuv.SharedView, "_ad.html" %>
