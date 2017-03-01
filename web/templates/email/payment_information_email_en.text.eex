@@ -1,6 +1,10 @@
 <%= email_greeting(@user) %>,
 
-Email Body
+thank you for ordering the following subscription:
+<%= name_of_the_package %>
+
+A human will check your data and send an invoice
+within the next 24 hours to this email address.
 
 <%= render "_signature_en.text" %>
 
