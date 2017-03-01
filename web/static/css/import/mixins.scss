@@ -39,58 +39,58 @@
 }
 
 @mixin font_size_base {
-  font-size: 16px;
+  font-size: $font_size_base;
   @media #{$media_sm} {
-    font-size: 15px;
+    font-size: $font_size_base_sm;
   }
   @media #{$media_xs} {
-    font-size: 14px;
+    font-size: $font_size_base_xs;
   }
 }
 
 @mixin font_size_xxxxl {
-  font-size: 3em;
-  line-height: 1.2em;
+  font-size: $font_size_xxxxl;
+  line-height: $font_line_height;
 }
 @mixin font_size_xxxl {
-  font-size: 2em;
-  line-height: 1.2em;
+  font-size: $font_size_xxxl;
+  line-height: $font_line_height;
 }
 @mixin font_size_xxl {
-  font-size: 1.75em;
-  line-height: 1.2em;
+  font-size: $font_size_xxl;
+  line-height: $font_line_height;
 }
 @mixin font_size_xl {
-  font-size: 1.5em;
-  line-height: 1.2em;
+  font-size: $font_size_xl;
+  line-height: $font_line_height;
 }
-@mixin font_size_l {
-  font-size: 1.25em;
-  line-height: 1.2em;
+@mixin font_size_l() {
+  font-size: $font_size_l;
+  line-height: $font_line_height;
 }
 @mixin font_size_m {
   @include font_size_base;
-  line-height: 1.2em;
+  line-height: $font_line_height;
 }
 @mixin font_size_s {
-  font-size: .9em;
-  line-height: 1.2em;
+  font-size: $font_size_s;
+  line-height: $font_line_height;
 }
 @mixin font_size_xs {
-  font-size: .7em;
-  line-height: 1.2em;
+  font-size: $font_size_xs;
+  line-height: $font_line_height;
 }
 @mixin font_size_xxs {
-  font-size: .6em;
-  line-height: 1.2em;
+  font-size: $font_size_xxs;
+  line-height: $font_line_height;
 }
 @mixin font_size_xxxs {
-  font-size: .4em;
-  line-height: 1.2em;
+  font-size: $font_size_xxxs;
+  line-height: $font_line_height;
 }
 @mixin font_size_xxxxs {
-  font-size: .3em;
-  line-height: 1.2em;
+  font-size: $font_size_xxxxs;
+  line-height: $font_line_height;
 }
 
 @mixin hyphens() {

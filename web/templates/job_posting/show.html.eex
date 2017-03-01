@@ -18,63 +18,82 @@
 <div class="card-list">
   <section class="card jobs">
     <div class="card__edit button__list">
-      <%= link to: user_job_posting_path(@conn, :edit, @user, @job_posting), class: "button button-link button--icon button--small" do %>
-        <i class="icon icon--edit"></i>
-      <% end %>
-      <%= button to: user_job_posting_path(@conn, :delete, @user, @job_posting), method: :delete, class: "button button-link button--icon button--small", form: [class: "button button--icon button--small"] do %>
-        <i class="icon icon--delete"></i>
-      <% end %>
-    </div>
-
-      <h1>
-        <strong><%= gettext "Title" %>:</strong>
-      </h1>
-      <p>
-        <%= @job_posting.title %>
-      </p>
-
-      <h1>
-        <strong><%= gettext "Description" %>:</strong>
-      </h1>
-      <p>
-        <%= @job_posting.description %>
-      </p>
-
-      <h1>
-        <strong><%= gettext "Location" %>:</strong>
-      </h1>
-      <p>
-        <%= @job_posting.location %>
-      </p>
-
-      <h1>
-        <strong><%= gettext "Prerequisites" %>:</strong>
-      </h1>
-      <p>
-        <%= @job_posting.prerequisites %>
-      </p>
-
-      <h1>
-        <strong><%= gettext "Open on" %>:</strong>
-      </h1>
-      <p>
-        <%= @job_posting.open_on %>
-      </p>
-
-      <h1>
-        <strong><%= gettext "Closed on" %>:</strong>
-      </h1>
-      <p>
-        <%= @job_posting.closed_on %>
-      </p>
-
-      <p>
-        <div class="tagcloud tagcloud-center">
-        <%= for job_posting_tag <- @job_posting.job_posting_tags do %>
-          <%= link Vutuv.Tag.resolve_name(job_posting_tag.tag, @locale), to: tag_path(@conn, :show, job_posting_tag.tag), class: "size-#{job_posting_tag.priority}" %>
+      <div class="btns-right">
+        <%= button to: user_job_posting_path(@conn, :delete, @user, @job_posting), method: :delete, class: "btn btn-sm btn-danger btn-icon", form: [class: ""] do %>
+        <i class="icon">
+          <%= render Vutuv.IconView, "close.html" %>
+        </i>
         <% end %>
-        </div>
-      </p>
+        <%= link to: user_job_posting_path(@conn, :edit, @user, @job_posting), class: "btn btn-icon btn-sm btn-primary" do %>
+        <i class="icon">
+          <%= render Vutuv.IconView, "pencil.html" %>
+        </i>
+        <% end %>
+      </div>
+    </div>
+      <h1><%= gettext "Job offer" %></h1>
+      <dl class="profile">
+        <dt>
+          <%= gettext "Title" %>
+        </dt>
+        <dd>
+          <p>
+            <%= @job_posting.title %>
+          </p>
+        </dd>
+        <dt>
+          <%= gettext "Description" %>
+        </dt>
+        <dd>
+          <p>
+            <%= @job_posting.description %>
+          </p>
+        </dd>
+        <dt>
+          <%= gettext "Location" %>
+        </dt>
+        <dd>
+          <p>
+            <%= @job_posting.location %>
+          </p>
+        </dd>
+        <dt>
+          <%= gettext "Prerequisites" %>
+        </dt>
+        <dd>
+          <p>
+            <%= @job_posting.prerequisites %>
+          </p>
+        </dd>
+        <dt>
+          <%= gettext "Open on" %>
+        </dt>
+        <dd>
+          <p>
+            <%= @job_posting.open_on %>
+          </p>
+        </dd>
+        <dt>
+          <%= gettext "Closed on" %>
+        </dt>
+        <dd>
+          <p>
+            <%= @job_posting.closed_on %>
+          </p>
+        </dd>
+        <dt>
+          <%= gettext "Tags" %>
+        </dt>
+        <dd>
+          <div class="badges">
+          <%= for job_posting_tag <- @job_posting.job_posting_tags do %>
+            <%= link Vutuv.Tag.resolve_name(job_posting_tag.tag, @locale), to: tag_path(@conn, :show, job_posting_tag.tag), class: "badge size-#{job_posting_tag.priority}" %>
+          <% end %>
+          </div>
+        </dd>
+      </dl>
+
+
 
       <%= link gettext("Edit Tags"), to: user_job_posting_tag_path(@conn, :index, @user, @job_posting), class: "card__morelink" %>
 

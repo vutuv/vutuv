@@ -121,6 +121,11 @@ form.btn-form {
     float: right;
     margin: 0 0 0 10px;
   }
+  form {
+    display: inline-block;
+    float: right;
+    margin: 0;
+  }
 }
 
 .btns-left {
@@ -664,7 +669,11 @@ ul.thumbs {
   font-weight: bold;
   height: 44px;
   padding-top: 12px;
-  text-align: center; }
+  text-align: center; 
+  .card.jobs & {
+    color: $color_highlight;
+  }
+}
 
 .card__empty {
   font-size: 16px;
@@ -917,6 +926,42 @@ ul.list {
   }
 }
 
-
+dl.profile {
+  margin: 0;
+  @include font_size_m;
+  dt {
+    font-size: $font_size_s !important;
+    @include font_bold;
+    color: $color_grey_dark;
+    text-transform: uppercase;
+    width: 100%;
+    height: auto;
+    padding: .25em 0;
+    margin: 0;
+    border: none;
+    border-bottom: 1px solid $color_grey_light;
+  }
+  dd {
+    font-size: inherit !important;
+    border: none !important;
+    display: block;
+    width: 100%;
+    padding: .25em 0;
+    margin: 0;
+    @include font_normal;
+    p {
+      font-size: inherit !important;
+      margin: 0 0 .5em;
+    }
+    a.badge {
+      width: auto;
+      border-color: $color_highlight;
+      background: $color_highlight;
+      @include font_bold;
+      color: #fff;
+      @include font_size_m;
+    }
+  }
+}
 
 
