@@ -72,19 +72,6 @@
 
 <%= render Vutuv.AddressView, "country_input.html", Map.put(assigns, :form, f) %>
 
-<div class="editform__field
-	<%= if( error_tag f, :subscription_begins ) do %>
-	 editform__field--error"
-	 <% else %>
-	 "
-	 <% end %>">
-  <%= label f, :subscription_begins, class: "control-label" %>
-  <div class = "editform__inputwrap">
-    <%= date_select f, :subscription_begins, default: Ecto.Date.utc, class: "form-control" %>
-  </div>
-  <%= error_tag f, :subscription_begins %>
-</div>
-
 <div class="editform__actions">
   <%= submit gettext("Subscribe"), class: "button" %>
 </div>

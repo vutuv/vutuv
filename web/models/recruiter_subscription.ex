@@ -29,23 +29,10 @@ defmodule Vutuv.RecruiterSubscription do
     |> cast(params, [:user_id, :recruiter_package_id, :subscription_begins, :line1, :line2, :street, :zip_code, :city, :country, :invoice_number, :invoiced_on, :paid, :paid_on])
     |> validate_required([:recruiter_package_id, :line1, :street, :zip_code, :city, :country])
     |> foreign_key_constraint(:recruiter_package)
-    |> validate_start_date()
-    |> determine_subscription_end_date()
+    |> set_dates()
   end
 
-  defp validate_start_date(changeset) do
-    start = get_change(changeset, :subscription_begins)
-    if(start) do
-      case Ecto.Date.compare(start, Ecto.Date.utc) do
-        :lt -> add_error(changeset, :subscription_begins, "This date has past")
-        _ -> changeset
-      end
-    else
-      changeset
-    end
-  end
-
-  defp determine_subscription_end_date(changeset) do
+  defp set_dates(changeset) do
     case get_change(changeset, :recruiter_package_id) do
       nil ->
         changeset
@@ -53,11 +40,12 @@ defmodule Vutuv.RecruiterSubscription do
         with package           <- Vutuv.Repo.get(Vutuv.RecruiterPackage, id),
              years             <- div(package.duration_in_months, 12),
              months            <- rem(package.duration_in_months, 12),
-             {year, month, _}  <- Ecto.Date.to_erl(get_field(changeset, :subscription_begins)),
+             {year, month, _}  <- Ecto.Date.to_erl(Ecto.Date.utc()),
              {:ok, end_date}   <- Ecto.Date.cast({year+years, month+months, 1}) do
              put_change(changeset, :subscription_ends, end_date)
+             |> put_change(:subscription_begins, Ecto.Date.utc())
         else
-          _ -> add_error(changeset, :subscription_begins, "Invalid date")
+          _ -> add_error(changeset, :recruiter_package_id, "Something went wrong")
         end
     end
   end

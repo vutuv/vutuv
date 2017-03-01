@@ -6,7 +6,6 @@
   </div>
 </header>
 <%= render Vutuv.LayoutView, "flash.html", assigns %>
-<% IO.inspect @conn.assigns[:job_posting] %>
 <div class="breadcrumbs">
 <%= Vutuv.UserHelpers.gen_breadcrumbs([
   gettext("Users"),

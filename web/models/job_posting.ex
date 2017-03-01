@@ -141,7 +141,9 @@ defmodule Vutuv.JobPosting do
     tag_ids = for tag <- tags, do: tag.id
     Vutuv.Repo.all(from j in __MODULE__,
       left_join: jt in Vutuv.JobPostingTag, on: jt.job_posting_id == j.id,
-      where: jt.tag_id in ^tag_ids,
+      left_join: u in assoc(j, :user),
+      left_join: s in assoc(u, :recruiter_subscriptions),
+      where: jt.tag_id in ^tag_ids and s.paid == true,
       limit: 2,
       group_by: j.id,
       order_by: [
@@ -152,11 +154,18 @@ defmodule Vutuv.JobPosting do
   end
 
   defp ensure_jobs_returned([]) do
-    Vutuv.Repo.all(from j in __MODULE__, limit: 2)
+    Vutuv.Repo.all(from j in __MODULE__,
+      left_join: u in assoc(j, :user),
+      left_join: s in assoc(u, :recruiter_subscriptions),
+      where: s.paid == true,
+      limit: 2)
   end
 
   defp ensure_jobs_returned([head | []]) do
-    [head | Vutuv.Repo.all(from j in __MODULE__, where: not (j.id == ^head.id), limit: 1)]
+    [head | Vutuv.Repo.all(from j in __MODULE__, 
+      left_join: u in assoc(j, :user),
+      left_join: s in assoc(u, :recruiter_subscriptions),
+      where: not (j.id == ^head.id) and s.paid == true, limit: 1)]
   end
 
   defp ensure_jobs_returned(jobs), do: jobs

@@ -22,6 +22,8 @@ defmodule Vutuv.RecruiterSubscriptionController do
 
     case Repo.insert(changeset) do
       {:ok, _recruiter_subscription} ->
+        Vutuv.Emailer.payment_information_email(Vutuv.UserHelpers.email(conn.assigns[:user]), conn.assigns[:user])
+        |> Vutuv.Mailer.deliver_now
         conn
         |> put_flash(:info, gettext("Recruiter subscription created successfully."))
         |> redirect(to: user_recruiter_subscription_path(conn, :new, conn.assigns[:user]))
@@ -31,21 +33,15 @@ defmodule Vutuv.RecruiterSubscriptionController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    recruiter_subscription = Repo.get!(RecruiterSubscription, id)
-      |> Repo.preload([:recruiter_package])
-    render(conn, "show.html", recruiter_subscription: recruiter_subscription)
-  end
+  # def delete(conn, %{"id" => id}) do
+  #   recruiter_subscription = Repo.get!(RecruiterSubscription, id)
 
-  def delete(conn, %{"id" => id}) do
-    recruiter_subscription = Repo.get!(RecruiterSubscription, id)
+  #   # Here we use delete! (with a bang) because we expect
+  #   # it to always work (and if it does not, it will raise).
+  #   Repo.delete!(recruiter_subscription)
 
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(recruiter_subscription)
-
-    conn
-    |> put_flash(:info, gettext("Recruiter subscription deleted successfully."))
-    |> redirect(to: user_recruiter_subscription_path(conn, :index, conn.assigns[:user]))
-  end
+  #   conn
+  #   |> put_flash(:info, gettext("Recruiter subscription deleted successfully."))
+  #   |> redirect(to: user_recruiter_subscription_path(conn, :index, conn.assigns[:user]))
+  # end
 end

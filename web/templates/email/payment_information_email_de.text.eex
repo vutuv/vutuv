@@ -1,0 +1,7 @@
+<%= email_greeting(@user) %>,
+
+Email Body
+
+<%= render "_signature_de.text" %>
+
+<%= render "_footer.text" %>

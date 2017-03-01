@@ -29,6 +29,10 @@ defmodule Vutuv.Emailer do
     gen_email(link, pin, email, user,"user_deletion_email_#{get_locale(user.locale)}", Vutuv.Gettext.gettext("Confirm your account deletion"))
   end
 
+  def payment_information_email(email, user) do
+    gen_email(nil, nil, email, user,"payment_information_email_#{get_locale(user.locale)}", Vutuv.Gettext.gettext("Subject"))
+  end
+
   def verification_notice(user) do
     email = Vutuv.Repo.one(Ecto.Query.from e in Vutuv.Email, where: e.user_id == ^user.id, limit: 1, select: e.value)
     template = "verification_confirmation_#{get_locale(user.locale)}"
