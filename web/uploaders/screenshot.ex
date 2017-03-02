@@ -14,7 +14,7 @@ defmodule Vutuv.Screenshot do
 
   # Define a thumbnail transformation:
   def transform(:thumb, _) do
-    {:convert, "-strip -resize 200^x150 -gravity north -extent 200x150 -format png", :png}
+    {:convert, "-strip -resize 150^x112 -gravity north -extent 150x112 -format png", :png}
   end
 
   # Use local storage
