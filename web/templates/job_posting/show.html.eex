@@ -16,6 +16,9 @@
 </div>
 
 <div class="card-list">
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
   <section class="card jobs">
     <div class="card__edit button__list">
       <div class="btns-right">
@@ -98,7 +101,15 @@
       <%= link gettext("Edit Tags"), to: user_job_posting_tag_path(@conn, :index, @user, @job_posting), class: "card__morelink" %>
 
   </section>
-  <aside>
-    <%= render Vutuv.SharedView, "_ad.html" %>
-  </aside>
+  <section class="card jobs">
+    <div class="clearfix">
+      <div class="pull-left">
+        <img src="<%= Vutuv.Avatar.binary(@user, :thumb) %>" width="50", height="50" alt="Avatar of <%= full_name(@user) %>">
+      </div>
+      <div class="pull-left">
+        <h1><%= full_name(@user) %></h1>
+        <h2><%= work_information_string(@user, 50) %></h2>
+      </div>
+    </div>
+  </section>
 </div>
