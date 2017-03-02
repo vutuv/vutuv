@@ -7,7 +7,22 @@ $media_md_min: "(min-width: 600px)";
 $media_md_max: "(max-width: 939px)";
 $media_lg: "(min-width: 940px)";
 
-$font_size_default: 16px;
+$font_size_base: 15px;
+$font_size_base_sm: 14px;
+$font_size_base_xs: 14px;
+$font_size_default: $font_size_base;
+$font_size_xxxxl: 3em;
+$font_size_xxxl: 2em;
+$font_size_xxl: 1.75em;
+$font_size_xl: 1.5em;
+$font_size_l: 1.25em;
+$font_size_m: $font_size_base;
+$font_size_s: .9em;
+$font_size_xs: .7em;
+$font_size_xxs: .6em;
+$font_size_xxxs: .4em;
+$font_size_xxxxs: .3em;
+$font_line_height: 1.2em;
 
 $color_text: #333;
 $color_blue: #4A90E2;
