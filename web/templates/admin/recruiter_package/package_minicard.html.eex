@@ -7,17 +7,20 @@
 <div class="description">
   <div class="title"><%= @package.name %></div>
   <ul class="list">
-    <li><%= @package.description %></li>
-    <li><%= get_currency_symbol(@package.currency) %><%= @package.price %></li>
+    <%= if @package.description do %>
+      <li><%= @package.description %></li>
+    <% end %>
+    <li><%= get_currency_symbol(@package.currency) %> <%= @package.price |> Float.to_string |> String.replace(".0","") %> <%= gettext("per month") %></li>
     <li>
-      <%= @package.duration_in_months %> <%= gettext("months") %>,
+      <strong><%= gettext("Subscription length") %>:</strong>
+      <%= @package.duration_in_months %> <%= gettext("months") %>
       <%= if @package.auto_renewal do %>
-      automatically renewed
+        (<%= gettext("automatically renewed") %>)
       <% else %>
-      one time
+        <%= gettext("one time") %>
       <% end %>
     </li>
-    <li><%= gettext("Up to") %> <%= @package.max_job_postings %> <%= gettext("job postings")%></li>
+    <li><strong><%= gettext("Number of concurrent job postings") %>:</strong> <%= @package.max_job_postings %></li>
   </ul>
 </div>
 </label>
