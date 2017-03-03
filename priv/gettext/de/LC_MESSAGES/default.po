@@ -1971,3 +1971,7 @@ msgstr "einmalig"
 #: web/templates/admin/recruiter_package/package_minicard.html.eex:13
 msgid "per month"
 msgstr "pro Monat"
+
+#: web/templates/shared/job_ad.html.eex:37
+msgid "Post a job offer"
+msgstr "Stellenanzeige aufgeben"
