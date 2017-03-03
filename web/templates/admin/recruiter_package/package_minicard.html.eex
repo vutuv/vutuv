@@ -10,7 +10,8 @@
     <%= if @package.description do %>
       <li><%= @package.description %></li>
     <% end %>
-    <li><%= get_currency_symbol(@package.currency) %> <%= @package.price |> Float.to_string |> String.replace(".0","") %> <%= gettext("per month") %></li>
+    <li>
+      <%= number_to_currency(@package.price, precision: 0, delimiter: ".", unit: get_currency_symbol(@package.currency) <> " ") %> <%= gettext("per month") %></li>
     <li>
       <strong><%= gettext("Subscription length") %>:</strong>
       <%= @package.duration_in_months %> <%= gettext("months") %>
