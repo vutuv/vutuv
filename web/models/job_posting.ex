@@ -26,7 +26,7 @@ defmodule Vutuv.JobPosting do
   @max_optional_tags 7
 
   @max_othert_tags 7
-  
+
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -35,7 +35,7 @@ defmodule Vutuv.JobPosting do
     struct
     |> cast(params, [:user_id, :title, :description, :location, :prerequisites, :slug, :open_on, :closed_on])
     |> gen_slug()
-    |> validate_required([:user_id, :title, :description, :location, :prerequisites, :slug])
+    |> validate_required([:user_id, :title, :slug])
     |> validate_length(:title, max: 40)
     |> validate_length(:description, max: 8192)
     |> validate_length(:prerequisites, max: 8192)
@@ -162,7 +162,7 @@ defmodule Vutuv.JobPosting do
   end
 
   defp ensure_jobs_returned([head | []]) do
-    [head | Vutuv.Repo.all(from j in __MODULE__, 
+    [head | Vutuv.Repo.all(from j in __MODULE__,
       left_join: u in assoc(j, :user),
       left_join: s in assoc(u, :recruiter_subscriptions),
       where: not (j.id == ^head.id) and s.paid == true, limit: 1)]
