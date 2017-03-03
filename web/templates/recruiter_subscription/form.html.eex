@@ -12,16 +12,15 @@
 <br>
 <%= error_tag f, :recruiter_package_id %>
 
-<h1><%= gettext("Address") %></label>
-<br>
-<br>
+<h1><%= gettext("Invoice Address") %></h1>
+  <p><%= gettext("You'll recieve an email with an invoice. Payment can be done by wire transfer or PayPal.") %></p>
 <div class="editform__field
 	<%= if( error_tag f, :line1 ) do %>
 	 editform__field--error"
 	 <% else %>
 	 "
 	 <% end %>">
-  <%= label f, :line1, class: "control-label" %>
+  <%= label f, gettext("Line1"), class: "control-label" %>
   <%= text_input f, :line1, class: "form-control" %>
   <%= error_tag f, :line1 %>
 </div>
@@ -32,7 +31,7 @@
 	 <% else %>
 	 "
 	 <% end %>">
-  <%= label f, :line2, class: "control-label" %>
+  <%= label f, gettext("Line2"), class: "control-label" %>
   <%= text_input f, :line2, class: "form-control" %>
   <%= error_tag f, :line2 %>
 </div>
@@ -43,7 +42,7 @@
 	 <% else %>
 	 "
 	 <% end %>">
-  <%= label f, :street, class: "control-label" %>
+  <%= label f, gettext("Street"), class: "control-label" %>
   <%= text_input f, :street, class: "form-control" %>
   <%= error_tag f, :street %>
 </div>
@@ -54,7 +53,7 @@
 	 <% else %>
 	 "
 	 <% end %>">
-  <%= label f, :zip_code, class: "control-label" %>
+  <%= label f, gettext("Zip Code"), class: "control-label" %>
   <%= text_input f, :zip_code, class: "form-control" %>
   <%= error_tag f, :zip_code %>
 </div>
@@ -65,7 +64,7 @@
 	 <% else %>
 	 "
 	 <% end %>">
-  <%= label f, :city, class: "control-label" %>
+  <%= label f, gettext("City"), class: "control-label" %>
   <%= text_input f, :city, class: "form-control" %>
   <%= error_tag f, :city %>
 </div>
