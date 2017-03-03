@@ -5,20 +5,28 @@
   <%= for job <- jobs do %>
   <%= link to: user_job_posting_path(@conn, :show, Vutuv.Repo.preload(job, [:user]).user, job), class: "job" do %>
     <h2><%= job.title %></h2>
-    <h3>Organization</h3>
+    <%= if job.company do %>
+      <h3><%= job.company %></h3>
+    <% end %>
     <ul>
+      <%= if job.location do %>
       <li>
         <i class="icon"><%= render Vutuv.IconView, "map-marker.html" %></i>
         <div>
           <%= job.location %>
         </div>
       </li>
-      <li>
-        <i class="icon"><%= render Vutuv.IconView, "eur.html" %></i>
-        <div>
-          XX.XXX - XX.XXX €
-        </div>
-      </li>
+      <% end %>
+      <%= if job.currency == "euro" do %>
+        <%= if job.min_salary do %>
+          <li>
+            <i class="icon"><%= render Vutuv.IconView, "eur.html" %></i>
+            <div>
+              <%= number_to_currency(job.min_salary, precision: 0, delimiter: ".", unit: "") %><%= if job.max_salary do %> - <%= number_to_currency(job.max_salary, precision: 0, delimiter: ".", unit: "") %><% end %>
+            </div>
+          </li>
+        <% end %>
+      <% end %>
       <li>
         <i class="icon"><%= render Vutuv.IconView, "tag.html" %></i>
         <div>

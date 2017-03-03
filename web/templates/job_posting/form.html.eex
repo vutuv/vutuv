@@ -11,9 +11,20 @@
 	 <% else %>
 	 "
 	 <% end %>">
-  <%= label f, :title, class: "control-label" %>
+  <%= label f, gettext("Job title"), class: "control-label" %>
   <%= text_input f, :title, class: "form-control" %>
   <%= error_tag f, :title %>
+</div>
+
+<div class="editform__field
+	<%= if( error_tag f, :company ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, gettext("Company"), class: "control-label" %>
+  <%= text_input f, :company, class: "form-control" %>
+  <%= error_tag f, :company %>
 </div>
 
 <div class="editform__field
@@ -22,7 +33,7 @@
 	 <% else %>
 	 "
 	 <% end %>">
-  <%= label f, :description, class: "control-label" %>
+  <%= label f, gettext("Job description"), class: "control-label" %>
   <%= textarea f, :description, class: "form-control" %>
   <%= error_tag f, :description %>
 </div>
@@ -33,8 +44,8 @@
 	 <% else %>
 	 "
 	 <% end %>">
-  <%= label f, :location, class: "control-label" %>
-  <%= textarea f, :location, class: "form-control" %>
+  <%= label f, gettext("Location"), class: "control-label" %>
+  <%= text_input f, :location, class: "form-control" %>
   <%= error_tag f, :location %>
 </div>
 
@@ -44,9 +55,42 @@
 	 <% else %>
 	 "
 	 <% end %>">
-  <%= label f, :prerequisites, class: "control-label" %>
+  <%= label f, gettext("Prerequisites"), class: "control-label" %>
   <%= textarea f, :prerequisites, class: "form-control" %>
   <%= error_tag f, :prerequisites %>
+</div>
+
+<div class="editform__field
+	<%= if( error_tag f, :min_salary ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, gettext("Min. salary"), class: "control-label" %>
+  <%= text_input f, :min_salary, class: "form-control" %>
+  <%= error_tag f, :min_salary %>
+</div>
+
+<div class="editform__field
+	<%= if( error_tag f, :max_salary ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, gettext("Max. salary"), class: "control-label" %>
+  <%= text_input f, :max_salary, class: "form-control" %>
+  <%= error_tag f, :max_salary %>
+</div>
+
+<div class="editform__field
+	<%= if( error_tag f, :currency ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, :currency, class: "control-label" %>
+  <%= select f, :currency, %{"$" => "dollar", "€" => "euro"}, class: "form-control" %>
+  <%= error_tag f, :currency %>
 </div>
 
 <br>
@@ -60,7 +104,7 @@
 	 <% else %>
 	 "
 	 <% end %>">
-  <%= label f, :open_on, class: "control-label" %>
+  <%= label f, gettext("Open on"), class: "control-label" %>
   <div class="editform__inputwrap">
   	<%= date_select f, :open_on, default: Ecto.Date.utc %>
   </div>
@@ -73,7 +117,7 @@
 	 <% else %>
 	 "
 	 <% end %>">
-  <%= label f, :closed_on, class: "control-label" %>
+  <%= label f, gettext("Closed on"), class: "control-label" %>
   <div class="editform__inputwrap">
   	<%= date_select f, :closed_on, default: Ecto.Date.utc %>
   </div>
@@ -92,7 +136,7 @@
 		<% else %>
 		"
 		<% end %>">
-		<%= label f, :important_tags, class: "control-label" %>
+		<%= label f, gettext("Important tags"), class: "control-label" %>
 		<%= text_input f, :important_tags, class: "form-control" %>
 		<%= error_tag f, :important_tags %>
 	</div>
@@ -103,7 +147,7 @@
 		<% else %>
 		"
 		<% end %>">
-		<%= label f, :optional_tags, class: "control-label" %>
+		<%= label f, gettext("Optional tags"), class: "control-label" %>
 		<%= text_input f, :optional_tags, class: "form-control" %>
 		<%= error_tag f, :optional_tags %>
 	</div>
@@ -114,7 +158,7 @@
 		<% else %>
 		"
 		<% end %>">
-		<%= label f, :other_tags, class: "control-label" %>
+		<%= label f, gettext("Other tags"), class: "control-label" %>
 		<%= text_input f, :other_tags, class: "form-control" %>
 		<%= error_tag f, :other_tags %>
 	</div>

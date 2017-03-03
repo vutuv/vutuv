@@ -20,9 +20,10 @@
       <thead>
         <tr>
           <th><%= gettext "Title" %></th>
-          <th><%= gettext "Open on" %></th>
-          <th><%= gettext "Closed on" %></th>
-    
+          <th><%= gettext "Company" %></th>
+          <th><%= gettext "Location" %></th>
+          <th><%= gettext "Salary" %></th>
+
           <th></th>
         </tr>
       </thead>
@@ -30,9 +31,12 @@
     <%= for {job_posting, index} <- Enum.with_index(@job_postings) do %>
         <tr>
           <td><%= job_posting.title %></td>
-          <td><%= job_posting.open_on %></td>
-          <td><%= job_posting.closed_on %></td>
-    
+          <td><%= job_posting.company %></td>
+          <td><%= job_posting.location %></td>
+          <td><%= if job_posting.min_salary do %>
+          <%= number_to_currency(job_posting.min_salary, precision: 0, delimiter: ".", unit: "") %><%= if job_posting.max_salary do %> - <%= number_to_currency(job_posting.max_salary, precision: 0, delimiter: ".", unit: "") %><% end %>
+          <% end %></td>
+
           <td>
             <%= link to: user_job_posting_path(@conn, :show, @user, job_posting), class: "button button--icon button--small" do %>
             <i class="icon icon--search"></i>

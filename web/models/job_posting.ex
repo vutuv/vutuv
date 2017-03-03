@@ -12,7 +12,12 @@ defmodule Vutuv.JobPosting do
     field :slug, :string
     field :open_on, Ecto.Date
     field :closed_on, Ecto.Date
-
+    field :company, :string
+    field :min_salary, :integer
+    field :max_salary, :integer
+    field :currency, :string
+    field :remote, :boolean
+    
     belongs_to :user, Vutuv.User
 
     has_many :job_posting_tags, JobPostingTag
@@ -33,13 +38,14 @@ defmodule Vutuv.JobPosting do
   """
   def changeset(struct, params \\ %{}, locale \\ nil) do
     struct
-    |> cast(params, [:user_id, :title, :description, :location, :prerequisites, :slug, :open_on, :closed_on])
+    |> cast(params, [:user_id, :title, :description, :location, :prerequisites, :slug, :open_on, :closed_on, :company, :min_salary, :max_salary, :currency, :remote])
     |> gen_slug()
     |> validate_required([:user_id, :title, :slug])
     |> validate_length(:title, max: 40)
     |> validate_length(:description, max: 8192)
     |> validate_length(:prerequisites, max: 8192)
-    |> validate_length(:location, max: 8192)
+    |> validate_length(:location, max: 200)
+    |> validate_length(:company, max: 80)
     |> validate_dates()
     |> put_tags(params, locale)
   end

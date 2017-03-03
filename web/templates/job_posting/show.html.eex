@@ -44,46 +44,36 @@
             <%= @job_posting.title %>
           </p>
         </dd>
-        <dt>
-          <%= gettext "Description" %>
-        </dt>
-        <dd>
-          <p>
-            <%= @job_posting.description %>
-          </p>
-        </dd>
-        <dt>
-          <%= gettext "Location" %>
-        </dt>
-        <dd>
-          <p>
-            <%= @job_posting.location %>
-          </p>
-        </dd>
-        <dt>
-          <%= gettext "Prerequisites" %>
-        </dt>
-        <dd>
-          <p>
-            <%= @job_posting.prerequisites %>
-          </p>
-        </dd>
-        <dt>
-          <%= gettext "Open on" %>
-        </dt>
-        <dd>
-          <p>
-            <%= @job_posting.open_on %>
-          </p>
-        </dd>
-        <dt>
-          <%= gettext "Closed on" %>
-        </dt>
-        <dd>
-          <p>
-            <%= @job_posting.closed_on %>
-          </p>
-        </dd>
+        <%= if @job_posting.description do %>
+          <dt>
+            <%= gettext "Description" %>
+          </dt>
+          <dd>
+            <p>
+              <%= @job_posting.description %>
+            </p>
+          </dd>
+        <% end %>
+        <%= if @job_posting.location do %>
+          <dt>
+            <%= gettext "Location" %>
+          </dt>
+          <dd>
+            <p>
+              <%= @job_posting.location %>
+            </p>
+          </dd>
+        <% end %>
+        <%= if @job_posting.prerequisites do %>
+          <dt>
+            <%= gettext "Prerequisites" %>
+          </dt>
+          <dd>
+            <p>
+              <%= @job_posting.prerequisites %>
+            </p>
+          </dd>
+        <% end %>
         <dt>
           <%= gettext "Tags" %>
         </dt>
@@ -95,10 +85,6 @@
           </div>
         </dd>
       </dl>
-
-
-
-      <%= link gettext("Edit Tags"), to: user_job_posting_tag_path(@conn, :index, @user, @job_posting), class: "card__morelink" %>
 
   </section>
   <section class="card jobs">
