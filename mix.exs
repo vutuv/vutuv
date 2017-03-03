@@ -36,7 +36,8 @@ defmodule Vutuv.Mixfile do
                     :word_smith,
                     :arc,
                     :arc_ecto,
-                    :quantum]]
+                    :quantum,
+                    :number]]
   end
 
   # Specifies which paths to compile per environment.
@@ -65,7 +66,9 @@ defmodule Vutuv.Mixfile do
      {:slugger, "~> 0.1.0"},
      {:httpoison, "~> 0.9.0"},
      {:distillery, "~> 1.1.0"},
-     {:quantum, ">= 1.8.1"}]
+     {:quantum, ">= 1.8.1"},
+     {:number, "~> 0.5.1"}
+    ]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
