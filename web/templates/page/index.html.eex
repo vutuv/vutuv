@@ -35,11 +35,17 @@
       <%= error_tag f, :last_name %>
       </p>
 
+      <p>
+      <%= text_input f, :easy_tags, class: "imagebox__input", placeholder: gettext "Your tags (e.g. JavaScript, Ruby on Rails, Cooking, Origami)" %>
+      <%= error_tag f, :easy_tags %>
+      </p>
+
       <%= inputs_for f, :emails, fn ef -> %>
       <p>
         <%= email_input ef, :value, class: "imagebox__input" , placeholder: gettext "Enter your email address" %>
         <%= error_tag ef, :value %>
       </p>
+
 	  	<label>
   	  	<span class="checkbox">
     	    <%= checkbox ef, :public? %>

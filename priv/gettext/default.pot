@@ -58,7 +58,6 @@ msgid "Add"
 msgstr ""
 
 #: web/templates/address/card_list.html.eex:5
-#: web/templates/recruiter_subscription/form.html.eex:15
 msgid "Address"
 msgstr ""
 
@@ -80,7 +79,7 @@ msgstr ""
 msgid "Addresses"
 msgstr ""
 
-#: web/templates/page/index.html.eex:62
+#: web/templates/page/index.html.eex:68
 msgid "Already a member? Sign in here."
 msgstr ""
 
@@ -107,7 +106,7 @@ msgstr ""
 msgid "Birthday"
 msgstr ""
 
-#: web/templates/page/index.html.eex:58
+#: web/templates/page/index.html.eex:64
 msgid "By signing up you agree that we set a cookie in your browser."
 msgstr ""
 
@@ -122,7 +121,7 @@ msgstr ""
 #: web/templates/admin/tag_synonym/form.html.eex:31
 #: web/templates/admin/tag_url/form.html.eex:42
 #: web/templates/email/form.html.eex:22 web/templates/group/form.html.eex:15
-#: web/templates/job_posting/form.html.eex:126
+#: web/templates/job_posting/form.html.eex:170
 #: web/templates/job_posting_tag/form.html.eex:31
 #: web/templates/membership/form.html.eex:17
 #: web/templates/phone_number/form.html.eex:21
@@ -178,7 +177,7 @@ msgstr ""
 #: web/templates/admin/tag_localization/show.html.eex:72
 #: web/templates/admin/tag_url/index.html.eex:28
 #: web/templates/admin/tag_url/show.html.eex:58
-#: web/templates/job_posting/show.html.eex:48
+#: web/templates/job_posting/show.html.eex:49
 #: web/templates/tag/single_card.html.eex:6 web/templates/url/form.html.eex:15
 #: web/templates/url/show.html.eex:36
 #: web/templates/work_experience/form.html.eex:21
@@ -258,7 +257,7 @@ msgstr ""
 msgid "English"
 msgstr ""
 
-#: web/templates/page/index.html.eex:40 web/templates/session/new.html.eex:19
+#: web/templates/page/index.html.eex:45 web/templates/session/new.html.eex:19
 msgid "Enter your email address"
 msgstr ""
 
@@ -541,7 +540,7 @@ msgstr ""
 msgid "Organization"
 msgstr ""
 
-#: web/models/user.ex:136 web/views/job_posting_tag_view.ex:7
+#: web/models/user.ex:137 web/views/job_posting_tag_view.ex:7
 msgid "Other"
 msgstr ""
 
@@ -677,7 +676,7 @@ msgstr ""
 msgid "Show search term"
 msgstr ""
 
-#: web/templates/page/index.html.eex:60
+#: web/templates/page/index.html.eex:66
 msgid "Sign up"
 msgstr ""
 
@@ -748,7 +747,7 @@ msgstr ""
 #: web/templates/admin/tag_url/form.html.eex:43
 #: web/templates/admin/user/form.html.eex:10
 #: web/templates/email/form.html.eex:23 web/templates/group/form.html.eex:16
-#: web/templates/job_posting/form.html.eex:127
+#: web/templates/job_posting/form.html.eex:171
 #: web/templates/job_posting_tag/form.html.eex:32
 #: web/templates/membership/form.html.eex:18
 #: web/templates/phone_number/form.html.eex:22
@@ -882,7 +881,7 @@ msgstr ""
 msgid "We can't find em' cap'n!"
 msgstr ""
 
-#: web/templates/page/index.html.eex:63
+#: web/templates/page/index.html.eex:69
 msgid "We reserve the right to stop this service or delete your account anytime without warning."
 msgstr ""
 
@@ -969,11 +968,11 @@ msgstr ""
 msgid "Your New vutuv Profile Page"
 msgstr ""
 
-#: web/templates/page/index.html.eex:48
+#: web/templates/page/index.html.eex:54
 msgid "Allow others to view your email address"
 msgstr ""
 
-#: web/templates/page/index.html.eex:56
+#: web/templates/page/index.html.eex:62
 msgid "Prevent search engines from indexing your profile"
 msgstr ""
 
@@ -1041,11 +1040,11 @@ msgstr ""
 msgid "Select a year"
 msgstr ""
 
-#: web/models/user.ex:132
+#: web/models/user.ex:133
 msgid "Female"
 msgstr ""
 
-#: web/models/user.ex:128
+#: web/models/user.ex:129
 msgid "Male"
 msgstr ""
 
@@ -1495,7 +1494,7 @@ msgstr ""
 #: web/templates/admin/tag_url/index.html.eex:13
 #: web/templates/admin/tag_url/new.html.eex:13
 #: web/templates/admin/tag_url/show.html.eex:13
-#: web/templates/job_posting/show.html.eex:88
+#: web/templates/job_posting/show.html.eex:78
 #: web/templates/tag/index.html.eex:12 web/templates/tag/index.html.eex:17
 #: web/templates/tag/show.html.eex:12 web/templates/user/show.html.eex:71
 #: web/templates/user_tag/index.html.eex:14
@@ -1686,8 +1685,7 @@ msgstr ""
 msgid "Begins"
 msgstr ""
 
-#: web/templates/job_posting/index.html.eex:24
-#: web/templates/job_posting/show.html.eex:80
+#: web/templates/job_posting/form.html.eex:120
 msgid "Closed on"
 msgstr ""
 
@@ -1701,10 +1699,6 @@ msgstr ""
 
 #: web/templates/admin/recruiter_package/show.html.eex:70
 msgid "Duration in months"
-msgstr ""
-
-#: web/templates/job_posting/show.html.eex:101
-msgid "Edit Tags"
 msgstr ""
 
 #: web/templates/job_posting/edit.html.eex:4
@@ -1721,10 +1715,6 @@ msgstr ""
 
 #: web/templates/recruiter_subscription/index.html.eex:24
 msgid "Expires on"
-msgstr ""
-
-#: web/templates/recruiter_subscription/new.html.eex:45
-msgid "History"
 msgstr ""
 
 #: web/views/job_posting_tag_view.ex:5
@@ -1783,11 +1773,13 @@ msgstr ""
 msgid "Job postings"
 msgstr ""
 
-#: web/templates/job_posting/form.html.eex:86
+#: web/templates/job_posting/form.html.eex:130
 msgid "List some tags for your job posting seperated by commas"
 msgstr ""
 
-#: web/templates/job_posting/show.html.eex:56
+#: web/templates/job_posting/form.html.eex:47
+#: web/templates/job_posting/index.html.eex:24
+#: web/templates/job_posting/show.html.eex:59
 msgid "Location"
 msgstr ""
 
@@ -1799,7 +1791,7 @@ msgstr ""
 msgid "Max posts"
 msgstr ""
 
-#: web/templates/job_posting/index.html.eex:53
+#: web/templates/job_posting/index.html.eex:57
 #: web/templates/job_posting/new.html.eex:4
 msgid "New job posting"
 msgstr ""
@@ -1814,7 +1806,7 @@ msgstr ""
 msgid "New recruiter package"
 msgstr ""
 
-#: web/templates/admin/recruiter_package/package_minicard.html.eex:23
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:24
 msgid "Number of concurrent job postings"
 msgstr ""
 
@@ -1826,8 +1818,7 @@ msgstr ""
 msgid "Offer ends"
 msgstr ""
 
-#: web/templates/job_posting/index.html.eex:23
-#: web/templates/job_posting/show.html.eex:72
+#: web/templates/job_posting/form.html.eex:107
 msgid "Open on"
 msgstr ""
 
@@ -1856,11 +1847,12 @@ msgstr ""
 msgid "Payment not yet recieved"
 msgstr ""
 
-#: web/templates/recruiter_subscription/new.html.eex:52
+#: web/templates/recruiter_subscription/new.html.eex:51
 msgid "Post jobs"
 msgstr ""
 
-#: web/templates/job_posting/show.html.eex:64
+#: web/templates/job_posting/form.html.eex:58
+#: web/templates/job_posting/show.html.eex:69
 msgid "Prerequisites"
 msgstr ""
 
@@ -1912,7 +1904,7 @@ msgstr ""
 msgid "Subject"
 msgstr ""
 
-#: web/templates/recruiter_subscription/form.html.eex:76
+#: web/templates/recruiter_subscription/form.html.eex:75
 msgid "Subscribe"
 msgstr ""
 
@@ -1928,11 +1920,11 @@ msgstr ""
 msgid "Subscription History"
 msgstr ""
 
-#: web/templates/recruiter_subscription/new.html.eex:24
+#: web/templates/recruiter_subscription/new.html.eex:25
 msgid "Subscription ends on"
 msgstr ""
 
-#: web/templates/admin/recruiter_package/package_minicard.html.eex:15
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:16
 msgid "Subscription length"
 msgstr ""
 
@@ -1949,7 +1941,7 @@ msgstr ""
 msgid "We apologize for the inconvenience."
 msgstr ""
 
-#: web/templates/job_posting/form.html.eex:53
+#: web/templates/job_posting/form.html.eex:97
 msgid "When do you want your job posting to be displayed?"
 msgstr ""
 
@@ -1957,22 +1949,91 @@ msgstr ""
 msgid "Your subscription"
 msgstr ""
 
-#: web/templates/admin/recruiter_package/package_minicard.html.eex:18
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:19
 msgid "automatically renewed"
 msgstr ""
 
-#: web/templates/admin/recruiter_package/package_minicard.html.eex:16
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:17
 msgid "months"
 msgstr ""
 
-#: web/templates/admin/recruiter_package/package_minicard.html.eex:20
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:21
 msgid "one time"
 msgstr ""
 
-#: web/templates/admin/recruiter_package/package_minicard.html.eex:13
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:14
 msgid "per month"
 msgstr ""
 
-#: web/templates/shared/job_ad.html.eex:37
+#: web/templates/shared/job_ad.html.eex:45
 msgid "Post a job offer"
+msgstr ""
+
+#: web/templates/recruiter_subscription/form.html.eex:67
+msgid "City"
+msgstr ""
+
+#: web/templates/job_posting/form.html.eex:25
+#: web/templates/job_posting/index.html.eex:23
+msgid "Company"
+msgstr ""
+
+#: web/templates/job_posting/form.html.eex:139
+msgid "Important tags"
+msgstr ""
+
+#: web/templates/recruiter_subscription/form.html.eex:15
+msgid "Invoice Address"
+msgstr ""
+
+#: web/templates/job_posting/form.html.eex:36
+msgid "Job description"
+msgstr ""
+
+#: web/templates/job_posting/form.html.eex:14
+msgid "Job title"
+msgstr ""
+
+#: web/templates/recruiter_subscription/form.html.eex:23
+msgid "Line1"
+msgstr ""
+
+#: web/templates/recruiter_subscription/form.html.eex:34
+msgid "Line2"
+msgstr ""
+
+#: web/templates/job_posting/form.html.eex:80
+msgid "Max. salary"
+msgstr ""
+
+#: web/templates/job_posting/form.html.eex:69
+msgid "Min. salary"
+msgstr ""
+
+#: web/templates/job_posting/form.html.eex:150
+msgid "Optional tags"
+msgstr ""
+
+#: web/templates/job_posting/form.html.eex:161
+msgid "Other tags"
+msgstr ""
+
+#: web/templates/job_posting/index.html.eex:25
+msgid "Salary"
+msgstr ""
+
+#: web/templates/recruiter_subscription/form.html.eex:45
+msgid "Street"
+msgstr ""
+
+#: web/templates/recruiter_subscription/form.html.eex:16
+msgid "You'll recieve an email with an invoice. Payment can be done by wire transfer or PayPal."
+msgstr ""
+
+#: web/templates/recruiter_subscription/form.html.eex:56
+msgid "Zip Code"
+msgstr ""
+
+#: web/templates/page/index.html.eex:39
+msgid "Your tags (e.g. JavaScript, Ruby on Rails, Cooking, Origami)"
 msgstr ""
