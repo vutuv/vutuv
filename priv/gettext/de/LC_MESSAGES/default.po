@@ -991,19 +991,14 @@ msgstr "Der Zeitstempel dieses Login-Links ist abgelaufen."
 #: web/templates/page/pin_new_registration.html.eex:16
 #: web/templates/session/pin_user_login.html.eex:16
 #: web/templates/session/user_login.html.eex:15
-msgid "Please check your email."
+msgid "Please check your INBOX."
 msgstr "Bitte überprüfen Sie Ihr E-Mail Postfach."
 
-#: web/templates/page/new_registration.html.eex:17
 #: web/templates/page/pin_new_registration.html.eex:29
 #: web/templates/session/pin_user_login.html.eex:28
 #: web/templates/session/user_login.html.eex:17
 msgid "Please check your spam folder in case you don't find the email in your inbox."
 msgstr "Bitte überprüfen Sie Ihren SPAM Ordner, falls Sie keine E-Mail in Ihrer INBOX vorfinden."
-
-#: web/templates/page/new_registration.html.eex:16
-msgid "Your account has been created, and an email has been sent with a login link. Thats right, no passwords to remember! Once you login, you'll be logged in on this device for the next 90 days, or until you log out."
-msgstr "Ihr neuer Account wurde angelegt. Zur Überprüfung Ihrer E-Mail Adresse haben wir Ihnen eine E-Mail geschickt. Bitte klicken Sie auf den dort enthaltenen Bestätigungs-Link. Damit werden Sie gleichzeitig automatisch für 90 Tage mit diesem Browser eingeloggt. Kein Passwort!"
 
 #: web/templates/phone_number/form.html.eex:10
 msgid "+49 30 12345678"
@@ -1115,7 +1110,7 @@ msgstr "100 Usern mit den meisten Followern"
 msgid "Curious? Have a look at the "
 msgstr "Neugierig? Hier ist die Liste "
 
-#: web/templates/page/new_registration.html.eex:18
+#: web/templates/page/new_registration.html.eex:17
 #: web/templates/page/pin_new_registration.html.eex:30
 #: web/templates/session/pin_user_login.html.eex:29
 #: web/templates/session/user_login.html.eex:18
@@ -2033,7 +2028,10 @@ msgstr "Sie bekommen per E-Mail eine Rechnung. Die Zahlung kann per Überweisung
 msgid "Zip Code"
 msgstr "Postleitzahl"
 
-#, fuzzy
 #: web/templates/page/index.html.eex:39
 msgid "Your tags (e.g. JavaScript, Ruby on Rails, Cooking, Origami)"
 msgstr "Ihre Tags (z.B. JavaScript, Ruby on Rails, Kochen, Origami)"
+
+#: web/templates/page/new_registration.html.eex:16
+msgid "You'll receive an email with a login link."
+msgstr "Sie bekommen in den nächsten Sekunden/Minuten eine E-Mail mit einem Login Link."

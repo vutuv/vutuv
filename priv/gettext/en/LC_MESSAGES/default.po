@@ -991,18 +991,13 @@ msgstr ""
 #: web/templates/page/pin_new_registration.html.eex:16
 #: web/templates/session/pin_user_login.html.eex:16
 #: web/templates/session/user_login.html.eex:15
-msgid "Please check your email."
+msgid "Please check your INBOX."
 msgstr ""
 
-#: web/templates/page/new_registration.html.eex:17
 #: web/templates/page/pin_new_registration.html.eex:29
 #: web/templates/session/pin_user_login.html.eex:28
 #: web/templates/session/user_login.html.eex:17
 msgid "Please check your spam folder in case you don't find the email in your inbox."
-msgstr ""
-
-#: web/templates/page/new_registration.html.eex:16
-msgid "Your account has been created, and an email has been sent with a login link. Thats right, no passwords to remember! Once you login, you'll be logged in on this device for the next 90 days, or until you log out."
 msgstr ""
 
 #: web/templates/phone_number/form.html.eex:10
@@ -1115,7 +1110,7 @@ msgstr ""
 msgid "Curious? Have a look at the "
 msgstr ""
 
-#: web/templates/page/new_registration.html.eex:18
+#: web/templates/page/new_registration.html.eex:17
 #: web/templates/page/pin_new_registration.html.eex:30
 #: web/templates/session/pin_user_login.html.eex:29
 #: web/templates/session/user_login.html.eex:18
@@ -2033,7 +2028,10 @@ msgstr ""
 msgid "Zip Code"
 msgstr ""
 
-#, fuzzy
 #: web/templates/page/index.html.eex:39
 msgid "Your tags (e.g. JavaScript, Ruby on Rails, Cooking, Origami)"
+msgstr ""
+
+#: web/templates/page/new_registration.html.eex:16
+msgid "You'll receive an email with a login link."
 msgstr ""
