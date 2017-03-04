@@ -69,27 +69,6 @@ defmodule Vutuv.Registration do
     end)
   end
 
-  def tag_welcome_wagon(%User{}=user) do
-    stefan_id = Repo.one!(from u in User, join: e in assoc(u, :emails), where: e.value == @stefan_email, select: u.id)
-    user
-    |> Ecto.build_assoc(:follower_connections)
-    |> Ecto.Changeset.cast(%{follower_id: stefan_id}, [:follower_id])
-    |> Repo.insert
-  end
-
-  # defp welcome_wagon(changeset) do
-  #   Repo.one(from u in User, join: e in assoc(u, :emails), where: e.value == @stefan_email, select: u.id)
-  #   |> case do
-  #     nil -> changeset
-  #     stefan_id ->
-  #       connection_changeset = Ecto.Changeset.cast(%Vutuv.Connection{}, %{follower_id: stefan_id}, [:follower_id, :followee_id])
-  #       changeset
-  #       |> Ecto.Changeset.put_assoc(:follower_connections, [connection_changeset])
-  #   end
-  # end
-
-
-
   # This downloads and stores a users gravatar. It then updates
   # the user's model with the information for arc-ecto to
   # retrieve the file later. If they do not have one, it stores
