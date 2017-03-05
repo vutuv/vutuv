@@ -30,6 +30,7 @@
         <% end %>
       <% else %>
         <p><%= gettext("Payment not yet recieved") %></p>
+        <p><%= gettext("Please check your INBOX.") %></p>
       <% end %>
 
     <% else %>

@@ -989,6 +989,7 @@ msgstr ""
 
 #: web/templates/page/new_registration.html.eex:15
 #: web/templates/page/pin_new_registration.html.eex:16
+#: web/templates/recruiter_subscription/new.html.eex:33
 #: web/templates/session/pin_user_login.html.eex:16
 #: web/templates/session/user_login.html.eex:15
 msgid "Please check your INBOX."
@@ -1841,7 +1842,7 @@ msgstr ""
 msgid "Payment not yet recieved"
 msgstr ""
 
-#: web/templates/recruiter_subscription/new.html.eex:51
+#: web/templates/recruiter_subscription/new.html.eex:52
 msgid "Post jobs"
 msgstr ""
 
@@ -1922,7 +1923,7 @@ msgstr ""
 msgid "Subscription length"
 msgstr ""
 
-#: web/templates/recruiter_subscription/new.html.eex:41
+#: web/templates/recruiter_subscription/new.html.eex:42
 msgid "There are no packages available at this time"
 msgstr ""
 
@@ -1931,7 +1932,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: web/templates/recruiter_subscription/new.html.eex:42
+#: web/templates/recruiter_subscription/new.html.eex:43
 msgid "We apologize for the inconvenience."
 msgstr ""
 

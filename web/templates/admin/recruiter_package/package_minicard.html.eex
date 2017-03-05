@@ -11,7 +11,7 @@
       <li><%= @package.description %></li>
     <% end %>
     <li>
-      <%= number_to_currency(@package.price, precision: 0, delimiter: ".", unit: get_currency_symbol(@package.currency) <> " ") %> <%= gettext("per month") %></li>
+      <strong><%= gettext("Price") %>:</strong> <%= number_to_currency(@package.price, precision: 0, delimiter: ".", unit: get_currency_symbol(@package.currency) <> " ") %> <%= gettext("per month") %></li>
     <li>
       <strong><%= gettext("Subscription length") %>:</strong>
       <%= @package.duration_in_months %> <%= gettext("months") %>
