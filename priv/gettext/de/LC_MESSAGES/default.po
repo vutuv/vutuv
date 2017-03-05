@@ -1732,7 +1732,6 @@ msgid "Invoiced on"
 msgstr "Rechnung vom"
 
 #: web/templates/job_posting/show.html.eex:37
-#: web/templates/shared/job_ad.html.eex:5
 msgid "Job offer"
 msgstr "Stellenanzeige"
 
@@ -2064,3 +2063,15 @@ msgstr "z.B. Linux, MySQL"
 #: web/templates/job_posting/form.html.eex:141
 msgid "e.g. Ruby on Rails, HTML5, Git"
 msgstr "z.B. Ruby on Rails, HTML5, Git"
+
+#: web/templates/job_posting/show.html.eex:91
+msgid "Contact Information"
+msgstr "Kontaktinformationen"
+
+#: web/templates/job_posting/show.html.eex:92
+msgid "Please contact this person if you want to apply for the job."
+msgstr "Bitte schicken Sie Ihre Bewerbung an folgende Person."
+
+#: web/templates/shared/job_ad.html.eex:5
+msgid "Job offers"
+msgstr "Stellenanzeigen"

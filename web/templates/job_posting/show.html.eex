@@ -88,12 +88,14 @@
 
   </section>
   <section class="card jobs">
+    <h1><%= gettext "Contact Information" %></h1>
+    <p><%= gettext "Please contact this person if you want to apply for the job." %></p>
     <div class="clearfix">
       <div class="pull-left">
         <img src="<%= Vutuv.Avatar.binary(@user, :thumb) %>" width="50", height="50" alt="Avatar of <%= full_name(@user) %>">
       </div>
       <div class="pull-left">
-        <h1><%= full_name(@user) %></h1>
+        <h1><%= link full_name(@user), to: user_path(@conn, :show, @user) %></h1>
         <h2><%= work_information_string(@user, 50) %></h2>
       </div>
     </div>

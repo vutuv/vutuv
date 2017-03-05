@@ -2,7 +2,7 @@
 <%= if Enum.count(jobs) > 0 || Enum.count(@recruiter_packages) > 0 do %>
 <section class="card jobs">
 <%= if Enum.count(jobs) > 0 do %>
-  <h1><%= gettext "Job offer" %></h1>
+  <h1><%= gettext "Job offers" %></h1>
   <%= for job <- jobs do %>
   <%= link to: user_job_posting_path(@conn, :show, Vutuv.Repo.preload(job, [:user]).user, job), class: "job" do %>
     <h2><%= job.title %></h2>
