@@ -157,7 +157,7 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: web/controllers/user_controller.ex:249
+#: web/controllers/user_controller.ex:233
 msgid "Couldn't follow back to %{name}."
 msgstr ""
 
@@ -701,7 +701,7 @@ msgstr ""
 msgid "Slug doesn't exist."
 msgstr ""
 
-#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:154
+#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:152
 msgid "Slug updated successfully."
 msgstr ""
 
@@ -770,7 +770,7 @@ msgstr ""
 msgid "The Fast and Free Career Network"
 msgstr ""
 
-#: web/controllers/user_controller.ex:45
+#: web/controllers/user_controller.ex:43
 msgid "There was an error"
 msgstr ""
 
@@ -790,15 +790,15 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: web/controllers/user_controller.ex:41
+#: web/controllers/user_controller.ex:39
 msgid "User %{name} created successfully. An email has been sent with your login link."
 msgstr ""
 
-#: web/controllers/user_controller.ex:171
+#: web/controllers/user_controller.ex:169
 msgid "User deleted successfully."
 msgstr ""
 
-#: web/controllers/user_controller.ex:131
+#: web/controllers/user_controller.ex:129
 msgid "User updated successfully."
 msgstr ""
 
@@ -922,7 +922,7 @@ msgstr ""
 msgid "You don't have any followers yet! If you want more followers, you could follow others, invite your friends, or link your Vutuv profile on other social media websites."
 msgstr ""
 
-#: web/controllers/user_controller.ex:245
+#: web/controllers/user_controller.ex:229
 msgid "You follow back %{name}."
 msgstr ""
 
@@ -936,7 +936,7 @@ msgstr ""
 #: web/controllers/admin/tag_synonym_controller.ex:95
 #: web/controllers/admin/tag_url_controller.ex:99
 #: web/controllers/admin/user_controller.ex:29
-#: web/controllers/user_controller.ex:259
+#: web/controllers/user_controller.ex:243
 msgid "You must be logged in to access that page"
 msgstr ""
 
@@ -956,7 +956,7 @@ msgstr ""
 msgid "our blog"
 msgstr ""
 
-#: web/controllers/user_controller.ex:185
+#: web/controllers/user_controller.ex:183
 msgid "An email has been sent to your email address with instructions on how to delete your account."
 msgstr ""
 
@@ -1581,7 +1581,7 @@ msgstr ""
 msgid "Show tag closure"
 msgstr ""
 
-#: web/controllers/user_controller.ex:216
+#: web/controllers/user_controller.ex:213
 msgid "Successfully added %{successes} tags with %{failures} failures."
 msgstr ""
 
@@ -2035,4 +2035,12 @@ msgstr ""
 
 #: web/templates/page/new_registration.html.eex:16
 msgid "You'll receive an email with a login link."
+msgstr ""
+
+#: web/templates/address/country_input.html.eex:2
+msgid "Country"
+msgstr ""
+
+#: web/templates/address/country_input.html.eex:5
+msgid "Select a Country"
 msgstr ""
