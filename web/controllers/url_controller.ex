@@ -25,7 +25,9 @@ defmodule Vutuv.UrlController do
       |> Url.changeset(url_params)
 
     case Repo.insert(changeset) do
-      {:ok, _url} ->
+      {:ok, url} ->
+        Task.start(__MODULE__, :generate_screenshot, [url])
+
         conn
         |> put_flash(:info, gettext("Link created successfully."))
         |> redirect(to: user_url_path(conn, :index, conn.assigns[:user]))
@@ -52,6 +54,8 @@ defmodule Vutuv.UrlController do
     changeset = Url.changeset(url, url_params)
     case Repo.update(changeset) do
       {:ok, url} ->
+        Task.start(__MODULE__, :generate_screenshot, [url])
+
         conn
         |> put_flash(:info, gettext("Link updated successfully."))
         |> redirect(to: user_url_path(conn, :show, conn.assigns[:user], url))
@@ -71,5 +75,9 @@ defmodule Vutuv.UrlController do
     conn
     |> put_flash(:info, gettext("Link deleted successfully."))
     |> redirect(to: user_url_path(conn, :index, conn.assigns[:user]))
+  end
+
+  def generate_screenshot(url) do
+    Vutuv.Browserstack.generate_screenshot(url)
   end
 end
