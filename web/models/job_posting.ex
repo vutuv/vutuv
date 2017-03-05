@@ -17,7 +17,7 @@ defmodule Vutuv.JobPosting do
     field :max_salary, :integer
     field :currency, :string
     field :remote, :boolean
-    
+
     belongs_to :user, Vutuv.User
 
     has_many :job_posting_tags, JobPostingTag
@@ -68,16 +68,14 @@ defmodule Vutuv.JobPosting do
     end
   end
 
-  defp put_tags(changeset, %{"important_tags" => important_tags, "optional_tags" => optional_tags, "other_tags" => other_tags}, locale) do
+  defp put_tags(changeset, %{"important_tags" => important_tags, "optional_tags" => optional_tags}, locale) do
     important = parse_tags(important_tags)
     optional = parse_tags(optional_tags)
-    other = parse_tags(other_tags)
     changeset
-    |> validate_tag_uniqueness(important, optional, other)
+    |> validate_tag_uniqueness(important, optional)
     |> validate_important_tags(important)
     |> validate_optional_tags(optional)
-    |> validate_other_tags(other)
-    |> put_assocs(important, optional, other, locale)
+    |> put_assocs(important, optional, locale)
   end
 
   defp put_tags(changeset, _, _), do: changeset
@@ -91,8 +89,8 @@ defmodule Vutuv.JobPosting do
     end
   end
 
-  defp validate_tag_uniqueness(changeset, important, optional, other) do
-    tags = important ++ optional ++ other
+  defp validate_tag_uniqueness(changeset, important, optional) do
+    tags = important ++ optional
     if(Enum.count(tags) == Enum.count(Enum.uniq(tags))) do
       changeset
     else
@@ -126,12 +124,11 @@ defmodule Vutuv.JobPosting do
 
   defp put_assocs(%Ecto.Changeset{valid?: false} = changeset, _, _, _, _), do: changeset
 
-  defp put_assocs(changeset, important, optional, other, locale) do
+  defp put_assocs(changeset, important, optional, locale) do
     changeset
     |> put_assoc(:job_posting_tags,
       tag_changesets(important, 2, locale)++
-      tag_changesets(optional, 1, locale)++
-      tag_changesets(other, 0, locale))
+      tag_changesets(optional, 1, locale))
   end
 
   defp tag_changesets(tags, priority, locale) do

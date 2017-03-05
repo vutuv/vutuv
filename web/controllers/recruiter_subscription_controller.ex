@@ -11,8 +11,8 @@ defmodule Vutuv.RecruiterSubscriptionController do
   def new(conn, _params) do
     changeset = RecruiterSubscription.changeset(%RecruiterSubscription{})
     active_subscription = RecruiterSubscription.active_subscription(conn.assigns[:user_id])
-    packages = Vutuv.RecruiterPackage.get_packages(conn.assigns[:locale])
-    render(conn, "new.html", changeset: changeset, active_subscription: active_subscription, packages: packages)
+    recruiter_packages = Vutuv.RecruiterPackage.get_packages(conn.assigns[:locale])
+    render(conn, "new.html", changeset: changeset, active_subscription: active_subscription, recruiter_packages: recruiter_packages)
   end
 
   def create(conn, %{"recruiter_subscription" => recruiter_subscription_params}) do

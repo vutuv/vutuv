@@ -34,13 +34,13 @@
       <% end %>
 
     <% else %>
-    <%= if Enum.count(@packages) > 0 do %>
-    <%= render "form.html", backlink: user_recruiter_subscription_path(@conn, :index, @user), changeset: @changeset,
-                            action: user_recruiter_subscription_path(@conn, :create, @user),
-                            packages: @packages %>
+    <%= if Enum.count(@recruiter_packages) > 0 do %>
+      <%= render "form.html", backlink: user_recruiter_subscription_path(@conn, :index, @user), changeset: @changeset,
+                              action: user_recruiter_subscription_path(@conn, :create, @user),
+                              packages: @recruiter_packages %>
     <% else %>
-    <h1><%= gettext("There are no packages available at this time") %></h1>
-    <p><%= gettext("We apologize for the inconvenience.") %><p>
+      <h1><%= gettext("There are no packages available at this time") %></h1>
+      <p><%= gettext("We apologize for the inconvenience.") %><p>
     <% end %>
     <% end %>
   </section>

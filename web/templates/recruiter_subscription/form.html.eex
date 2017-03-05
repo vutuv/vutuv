@@ -12,6 +12,8 @@
 <br>
 <%= error_tag f, :recruiter_package_id %>
 
+<p><%= gettext("Each subscription can be canceled up to 30 days before it ends.") %><p>
+
 <h1><%= gettext("Invoice Address") %></h1>
   <p><%= gettext("You'll recieve an email with an invoice. Payment can be done by wire transfer or PayPal.") %></p>
 <div class="editform__field
@@ -72,6 +74,6 @@
 <%= render Vutuv.AddressView, "country_input.html", Map.put(assigns, :form, f) %>
 
 <div class="editform__actions">
-  <%= submit gettext("Subscribe"), class: "button" %>
+  <%= submit gettext("Subscribe to this recruiter package"), class: "button" %>
 </div>
 <% end %>

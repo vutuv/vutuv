@@ -121,7 +121,7 @@ msgstr ""
 #: web/templates/admin/tag_synonym/form.html.eex:31
 #: web/templates/admin/tag_url/form.html.eex:42
 #: web/templates/email/form.html.eex:22 web/templates/group/form.html.eex:15
-#: web/templates/job_posting/form.html.eex:170
+#: web/templates/job_posting/form.html.eex:160
 #: web/templates/job_posting_tag/form.html.eex:31
 #: web/templates/membership/form.html.eex:17
 #: web/templates/phone_number/form.html.eex:21
@@ -157,7 +157,7 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: web/controllers/user_controller.ex:233
+#: web/controllers/user_controller.ex:238
 msgid "Couldn't follow back to %{name}."
 msgstr ""
 
@@ -701,7 +701,7 @@ msgstr ""
 msgid "Slug doesn't exist."
 msgstr ""
 
-#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:152
+#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:157
 msgid "Slug updated successfully."
 msgstr ""
 
@@ -747,7 +747,7 @@ msgstr ""
 #: web/templates/admin/tag_url/form.html.eex:43
 #: web/templates/admin/user/form.html.eex:10
 #: web/templates/email/form.html.eex:23 web/templates/group/form.html.eex:16
-#: web/templates/job_posting/form.html.eex:171
+#: web/templates/job_posting/form.html.eex:161
 #: web/templates/job_posting_tag/form.html.eex:32
 #: web/templates/membership/form.html.eex:18
 #: web/templates/phone_number/form.html.eex:22
@@ -770,7 +770,7 @@ msgstr ""
 msgid "The Fast and Free Career Network"
 msgstr ""
 
-#: web/controllers/user_controller.ex:43
+#: web/controllers/user_controller.ex:44
 msgid "There was an error"
 msgstr ""
 
@@ -790,15 +790,15 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: web/controllers/user_controller.ex:39
+#: web/controllers/user_controller.ex:40
 msgid "User %{name} created successfully. An email has been sent with your login link."
 msgstr ""
 
-#: web/controllers/user_controller.ex:169
+#: web/controllers/user_controller.ex:174
 msgid "User deleted successfully."
 msgstr ""
 
-#: web/controllers/user_controller.ex:129
+#: web/controllers/user_controller.ex:134
 msgid "User updated successfully."
 msgstr ""
 
@@ -922,7 +922,7 @@ msgstr ""
 msgid "You don't have any followers yet! If you want more followers, you could follow others, invite your friends, or link your Vutuv profile on other social media websites."
 msgstr ""
 
-#: web/controllers/user_controller.ex:229
+#: web/controllers/user_controller.ex:234
 msgid "You follow back %{name}."
 msgstr ""
 
@@ -936,7 +936,7 @@ msgstr ""
 #: web/controllers/admin/tag_synonym_controller.ex:95
 #: web/controllers/admin/tag_url_controller.ex:99
 #: web/controllers/admin/user_controller.ex:29
-#: web/controllers/user_controller.ex:243
+#: web/controllers/user_controller.ex:248
 msgid "You must be logged in to access that page"
 msgstr ""
 
@@ -956,7 +956,7 @@ msgstr ""
 msgid "our blog"
 msgstr ""
 
-#: web/controllers/user_controller.ex:183
+#: web/controllers/user_controller.ex:188
 msgid "An email has been sent to your email address with instructions on how to delete your account."
 msgstr ""
 
@@ -993,6 +993,7 @@ msgstr ""
 #: web/templates/recruiter_subscription/new.html.eex:33
 #: web/templates/session/pin_user_login.html.eex:16
 #: web/templates/session/user_login.html.eex:15
+#: web/templates/shared/job_ad.html.eex:54
 msgid "Please check your INBOX."
 msgstr ""
 
@@ -1582,7 +1583,7 @@ msgstr ""
 msgid "Show tag closure"
 msgstr ""
 
-#: web/controllers/user_controller.ex:213
+#: web/controllers/user_controller.ex:218
 msgid "Successfully added %{successes} tags with %{failures} failures."
 msgstr ""
 
@@ -1686,6 +1687,7 @@ msgid "Closed on"
 msgstr ""
 
 #: web/templates/admin/recruiter_package/show.html.eex:63
+#: web/templates/job_posting/form.html.eex:91
 msgid "Currency"
 msgstr ""
 
@@ -1731,7 +1733,7 @@ msgid "Invoiced on"
 msgstr ""
 
 #: web/templates/job_posting/show.html.eex:37
-#: web/templates/shared/job_ad.html.eex:4
+#: web/templates/shared/job_ad.html.eex:5
 msgid "Job offer"
 msgstr ""
 
@@ -1803,7 +1805,7 @@ msgid "New recruiter package"
 msgstr ""
 
 #: web/templates/admin/recruiter_package/package_minicard.html.eex:24
-msgid "Number of concurrent job postings"
+msgid "Number of concurrent active job postings"
 msgstr ""
 
 #: web/templates/admin/recruiter_package/show.html.eex:84
@@ -1853,6 +1855,7 @@ msgid "Prerequisites"
 msgstr ""
 
 #: web/templates/admin/recruiter_package/index.html.eex:21
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:14
 #: web/templates/admin/recruiter_package/show.html.eex:56
 msgid "Price"
 msgstr ""
@@ -1894,14 +1897,6 @@ msgstr ""
 
 #: web/templates/admin/recruiter_package/show.html.eex:4
 msgid "Show recruiter package"
-msgstr ""
-
-#: lib/vutuv/emailer.ex:33
-msgid "Subject"
-msgstr ""
-
-#: web/templates/recruiter_subscription/form.html.eex:75
-msgid "Subscribe"
 msgstr ""
 
 #: web/templates/recruiter_subscription/index.html.eex:23
@@ -1961,11 +1956,12 @@ msgstr ""
 msgid "per month"
 msgstr ""
 
-#: web/templates/shared/job_ad.html.eex:45
+#: web/templates/shared/job_ad.html.eex:49
+#: web/templates/shared/job_ad.html.eex:59
 msgid "Post a job offer"
 msgstr ""
 
-#: web/templates/recruiter_subscription/form.html.eex:67
+#: web/templates/recruiter_subscription/form.html.eex:69
 msgid "City"
 msgstr ""
 
@@ -1974,11 +1970,11 @@ msgstr ""
 msgid "Company"
 msgstr ""
 
-#: web/templates/job_posting/form.html.eex:139
+#: web/templates/job_posting/form.html.eex:140
 msgid "Important tags"
 msgstr ""
 
-#: web/templates/recruiter_subscription/form.html.eex:15
+#: web/templates/recruiter_subscription/form.html.eex:17
 msgid "Invoice Address"
 msgstr ""
 
@@ -1990,11 +1986,11 @@ msgstr ""
 msgid "Job title"
 msgstr ""
 
-#: web/templates/recruiter_subscription/form.html.eex:23
+#: web/templates/recruiter_subscription/form.html.eex:25
 msgid "Line1"
 msgstr ""
 
-#: web/templates/recruiter_subscription/form.html.eex:34
+#: web/templates/recruiter_subscription/form.html.eex:36
 msgid "Line2"
 msgstr ""
 
@@ -2006,27 +2002,23 @@ msgstr ""
 msgid "Min. salary"
 msgstr ""
 
-#: web/templates/job_posting/form.html.eex:150
+#: web/templates/job_posting/form.html.eex:151
 msgid "Optional tags"
-msgstr ""
-
-#: web/templates/job_posting/form.html.eex:161
-msgid "Other tags"
 msgstr ""
 
 #: web/templates/job_posting/index.html.eex:25
 msgid "Salary"
 msgstr ""
 
-#: web/templates/recruiter_subscription/form.html.eex:45
+#: web/templates/recruiter_subscription/form.html.eex:47
 msgid "Street"
 msgstr ""
 
-#: web/templates/recruiter_subscription/form.html.eex:16
+#: web/templates/recruiter_subscription/form.html.eex:18
 msgid "You'll recieve an email with an invoice. Payment can be done by wire transfer or PayPal."
 msgstr ""
 
-#: web/templates/recruiter_subscription/form.html.eex:56
+#: web/templates/recruiter_subscription/form.html.eex:58
 msgid "Zip Code"
 msgstr ""
 
@@ -2044,4 +2036,32 @@ msgstr ""
 
 #: web/templates/address/country_input.html.eex:5
 msgid "Select a Country"
+msgstr ""
+
+#: web/templates/shared/job_ad.html.eex:53
+msgid "You have a recruiter subscription but we haven't received a payment yet."
+msgstr ""
+
+#: web/templates/recruiter_subscription/form.html.eex:77
+msgid "Subscribe to this recruiter package"
+msgstr ""
+
+#: web/templates/recruiter_subscription/form.html.eex:15
+msgid "Each subscription can be canceled up to 30 days before it ends."
+msgstr ""
+
+#: lib/vutuv/emailer.ex:33
+msgid "vutuv recruiter package subscription"
+msgstr ""
+
+#: web/templates/job_posting/form.html.eex:131
+msgid "We use these tags to display your job posting to people who might be a good fit for them."
+msgstr ""
+
+#: web/templates/job_posting/form.html.eex:152
+msgid "e.g. Linux, MySQL"
+msgstr ""
+
+#: web/templates/job_posting/form.html.eex:141
+msgid "e.g. Ruby on Rails, HTML5, Git"
 msgstr ""

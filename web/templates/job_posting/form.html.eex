@@ -88,7 +88,7 @@
 	 <% else %>
 	 "
 	 <% end %>">
-  <%= label f, :currency, class: "control-label" %>
+  <%= label f, gettext("Currency"), class: "control-label" %>
   <%= select f, :currency, %{"€" => "euro", "$" => "dollar"}, class: "form-control" %>
   <%= error_tag f, :currency %>
 </div>
@@ -128,7 +128,8 @@
 
 	<br>
 	<p><strong><%= gettext("List some tags for your job posting seperated by commas") %></strong></p>
-	<br>
+  <p><%= gettext("We use these tags to display your job posting to people who might be a good fit for them.") %></p>
+  <br>
 
 	<div class="editform__field
 		<%= if( error_tag f, :job_posting_id_tag_id ) do %>
@@ -136,8 +137,8 @@
 		<% else %>
 		"
 		<% end %>">
-		<%= label f, gettext("Important tags"), class: "control-label" %>
-		<%= text_input f, :important_tags, class: "form-control" %>
+		<%= label f, "3 " <> gettext("Important tags"), class: "control-label" %>
+		<%= text_input f, :important_tags, class: "form-control", placeholder: gettext "e.g. Ruby on Rails, HTML5, Git" %>
 		<%= error_tag f, :important_tags %>
 	</div>
 
@@ -148,19 +149,8 @@
 		"
 		<% end %>">
 		<%= label f, gettext("Optional tags"), class: "control-label" %>
-		<%= text_input f, :optional_tags, class: "form-control" %>
+		<%= text_input f, :optional_tags, class: "form-control", placeholder: gettext "e.g. Linux, MySQL" %>
 		<%= error_tag f, :optional_tags %>
-	</div>
-
-	<div class="editform__field
-		<%= if( error_tag f, :job_posting_id_tag_id ) do %>
-		editform__field--error"
-		<% else %>
-		"
-		<% end %>">
-		<%= label f, gettext("Other tags"), class: "control-label" %>
-		<%= text_input f, :other_tags, class: "form-control" %>
-		<%= error_tag f, :other_tags %>
 	</div>
 
 	<%= error_tag f, :job_posting_id_tag_id %>

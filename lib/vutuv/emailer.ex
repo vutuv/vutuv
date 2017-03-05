@@ -30,7 +30,7 @@ defmodule Vutuv.Emailer do
   end
 
   def payment_information_email(email, user) do
-    gen_email(nil, nil, email, user,"payment_information_email_#{get_locale(user.locale)}", Vutuv.Gettext.gettext("Subject"))
+    gen_email(nil, nil, email, user,"payment_information_email_#{get_locale(user.locale)}", Vutuv.Gettext.gettext("vutuv recruiter package subscription"))
   end
 
   def verification_notice(user) do

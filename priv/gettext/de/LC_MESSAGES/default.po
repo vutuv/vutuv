@@ -120,7 +120,7 @@ msgstr "Achtung: Ab hier benutzen wir Cookies."
 #: web/templates/admin/tag_synonym/form.html.eex:31
 #: web/templates/admin/tag_url/form.html.eex:42
 #: web/templates/email/form.html.eex:22 web/templates/group/form.html.eex:15
-#: web/templates/job_posting/form.html.eex:170
+#: web/templates/job_posting/form.html.eex:160
 #: web/templates/job_posting_tag/form.html.eex:31
 #: web/templates/membership/form.html.eex:17
 #: web/templates/phone_number/form.html.eex:21
@@ -156,7 +156,7 @@ msgstr "Verbindung gelöscht"
 msgid "Contact"
 msgstr "Kontakt"
 
-#: web/controllers/user_controller.ex:233
+#: web/controllers/user_controller.ex:238
 msgid "Couldn't follow back to %{name}."
 msgstr "Konnte nicht zu %{name} zurückfolgen."
 
@@ -700,7 +700,7 @@ msgstr ""
 msgid "Slug doesn't exist."
 msgstr ""
 
-#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:152
+#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:157
 msgid "Slug updated successfully."
 msgstr ""
 
@@ -746,7 +746,7 @@ msgstr ""
 #: web/templates/admin/tag_url/form.html.eex:43
 #: web/templates/admin/user/form.html.eex:10
 #: web/templates/email/form.html.eex:23 web/templates/group/form.html.eex:16
-#: web/templates/job_posting/form.html.eex:171
+#: web/templates/job_posting/form.html.eex:161
 #: web/templates/job_posting_tag/form.html.eex:32
 #: web/templates/membership/form.html.eex:18
 #: web/templates/phone_number/form.html.eex:22
@@ -769,7 +769,7 @@ msgstr ""
 msgid "The Fast and Free Career Network"
 msgstr "Ihr Kontaktnetzwerk. Schnell und gratis!"
 
-#: web/controllers/user_controller.ex:43
+#: web/controllers/user_controller.ex:44
 msgid "There was an error"
 msgstr "Es gab einen Fehler"
 
@@ -789,15 +789,15 @@ msgstr "URL"
 msgid "User"
 msgstr "User"
 
-#: web/controllers/user_controller.ex:39
+#: web/controllers/user_controller.ex:40
 msgid "User %{name} created successfully. An email has been sent with your login link."
 msgstr "Der User %{name} wurde angelegt. Eine E-Mail mit einem Login Link wurde verschickt."
 
-#: web/controllers/user_controller.ex:169
+#: web/controllers/user_controller.ex:174
 msgid "User deleted successfully."
 msgstr "User wurde gelöscht."
 
-#: web/controllers/user_controller.ex:129
+#: web/controllers/user_controller.ex:134
 msgid "User updated successfully."
 msgstr "Userdaten wurde geändert."
 
@@ -921,7 +921,7 @@ msgstr "Ja"
 msgid "You don't have any followers yet! If you want more followers, you could follow others, invite your friends, or link your Vutuv profile on other social media websites."
 msgstr "Sie haben noch keine Followers."
 
-#: web/controllers/user_controller.ex:229
+#: web/controllers/user_controller.ex:234
 msgid "You follow back %{name}."
 msgstr "Sie folgen %{name}."
 
@@ -935,7 +935,7 @@ msgstr "Sie folgen %{name}."
 #: web/controllers/admin/tag_synonym_controller.ex:95
 #: web/controllers/admin/tag_url_controller.ex:99
 #: web/controllers/admin/user_controller.ex:29
-#: web/controllers/user_controller.ex:243
+#: web/controllers/user_controller.ex:248
 msgid "You must be logged in to access that page"
 msgstr "Sie müssen für diese Seite eingeloggt sein."
 
@@ -955,7 +955,7 @@ msgstr "hat"
 msgid "our blog"
 msgstr "unserem Blog"
 
-#: web/controllers/user_controller.ex:183
+#: web/controllers/user_controller.ex:188
 msgid "An email has been sent to your email address with instructions on how to delete your account."
 msgstr "Eine E-Mail mit einem Löschlink wurde gerade an Sie verschickt."
 
@@ -992,6 +992,7 @@ msgstr "Der Zeitstempel dieses Login-Links ist abgelaufen."
 #: web/templates/recruiter_subscription/new.html.eex:33
 #: web/templates/session/pin_user_login.html.eex:16
 #: web/templates/session/user_login.html.eex:15
+#: web/templates/shared/job_ad.html.eex:54
 msgid "Please check your INBOX."
 msgstr "Bitte überprüfen Sie Ihr E-Mail Postfach."
 
@@ -1581,7 +1582,7 @@ msgstr ""
 msgid "Show tag closure"
 msgstr ""
 
-#: web/controllers/user_controller.ex:213
+#: web/controllers/user_controller.ex:218
 msgid "Successfully added %{successes} tags with %{failures} failures."
 msgstr "%{successes} neue Fähigkeiten wurden hinzugefügt."
 
@@ -1685,6 +1686,7 @@ msgid "Closed on"
 msgstr "Beendet am"
 
 #: web/templates/admin/recruiter_package/show.html.eex:63
+#: web/templates/job_posting/form.html.eex:91
 msgid "Currency"
 msgstr "Währung"
 
@@ -1730,7 +1732,7 @@ msgid "Invoiced on"
 msgstr "Rechnung vom"
 
 #: web/templates/job_posting/show.html.eex:37
-#: web/templates/shared/job_ad.html.eex:4
+#: web/templates/shared/job_ad.html.eex:5
 msgid "Job offer"
 msgstr "Stellenanzeige"
 
@@ -1802,8 +1804,8 @@ msgid "New recruiter package"
 msgstr "Neues Recruiter Packet"
 
 #: web/templates/admin/recruiter_package/package_minicard.html.eex:24
-msgid "Number of concurrent job postings"
-msgstr "Anzahl an gleichzeitig schaltbaren Stellenanzeigen"
+msgid "Number of concurrent active job postings"
+msgstr "Anzahl gleichzeitig aktiver Stellenanzeigen"
 
 #: web/templates/admin/recruiter_package/show.html.eex:84
 msgid "Offer begins"
@@ -1852,6 +1854,7 @@ msgid "Prerequisites"
 msgstr "Voraussetzungen"
 
 #: web/templates/admin/recruiter_package/index.html.eex:21
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:14
 #: web/templates/admin/recruiter_package/show.html.eex:56
 msgid "Price"
 msgstr "Preis"
@@ -1895,14 +1898,6 @@ msgstr "Stellenanzeige anzeigen"
 msgid "Show recruiter package"
 msgstr "Recruiter Packet anzeigen"
 
-#: lib/vutuv/emailer.ex:33
-msgid "Subject"
-msgstr "Betreff"
-
-#: web/templates/recruiter_subscription/form.html.eex:75
-msgid "Subscribe"
-msgstr ""
-
 #: web/templates/recruiter_subscription/index.html.eex:23
 msgid "Subscribed on"
 msgstr "Gekauft am"
@@ -1938,7 +1933,7 @@ msgstr "Bitte entschuldigen Sie diese Unannehmlichkeit."
 
 #: web/templates/job_posting/form.html.eex:97
 msgid "When do you want your job posting to be displayed?"
-msgstr "Ab wann soll diese Stellenanzeige veröffentlicht werden?"
+msgstr "In welchem Zeitraum soll diese Stellenanzeige veröffentlicht werden?"
 
 #: web/templates/recruiter_subscription/index.html.eex:4
 msgid "Your subscription"
@@ -1960,11 +1955,12 @@ msgstr "einmalig"
 msgid "per month"
 msgstr "pro Monat"
 
-#: web/templates/shared/job_ad.html.eex:45
+#: web/templates/shared/job_ad.html.eex:49
+#: web/templates/shared/job_ad.html.eex:59
 msgid "Post a job offer"
 msgstr "Stellenanzeige aufgeben"
 
-#: web/templates/recruiter_subscription/form.html.eex:67
+#: web/templates/recruiter_subscription/form.html.eex:69
 msgid "City"
 msgstr "Stadt"
 
@@ -1973,11 +1969,11 @@ msgstr "Stadt"
 msgid "Company"
 msgstr "Firma oder Organisation"
 
-#: web/templates/job_posting/form.html.eex:139
+#: web/templates/job_posting/form.html.eex:140
 msgid "Important tags"
 msgstr "Wichtige Tags"
 
-#: web/templates/recruiter_subscription/form.html.eex:15
+#: web/templates/recruiter_subscription/form.html.eex:17
 msgid "Invoice Address"
 msgstr "Rechnungsadresse"
 
@@ -1989,11 +1985,11 @@ msgstr "Stellenbeschreibung"
 msgid "Job title"
 msgstr "Stellenbezeichnung"
 
-#: web/templates/recruiter_subscription/form.html.eex:23
+#: web/templates/recruiter_subscription/form.html.eex:25
 msgid "Line1"
 msgstr "Zeile 1 der Adresse"
 
-#: web/templates/recruiter_subscription/form.html.eex:34
+#: web/templates/recruiter_subscription/form.html.eex:36
 msgid "Line2"
 msgstr "Zeile 1 der Adresse"
 
@@ -2005,27 +2001,23 @@ msgstr "Maximales Gehalt"
 msgid "Min. salary"
 msgstr "Minimales Gehalt"
 
-#: web/templates/job_posting/form.html.eex:150
+#: web/templates/job_posting/form.html.eex:151
 msgid "Optional tags"
-msgstr "Optimale Tags"
-
-#: web/templates/job_posting/form.html.eex:161
-msgid "Other tags"
-msgstr "Andere Tags"
+msgstr "Optionale Tags"
 
 #: web/templates/job_posting/index.html.eex:25
 msgid "Salary"
 msgstr "Gehalt"
 
-#: web/templates/recruiter_subscription/form.html.eex:45
+#: web/templates/recruiter_subscription/form.html.eex:47
 msgid "Street"
 msgstr "Straße"
 
-#: web/templates/recruiter_subscription/form.html.eex:16
+#: web/templates/recruiter_subscription/form.html.eex:18
 msgid "You'll recieve an email with an invoice. Payment can be done by wire transfer or PayPal."
 msgstr "Sie bekommen per E-Mail eine Rechnung. Die Zahlung kann per Überweisung oder PayPal geschehen."
 
-#: web/templates/recruiter_subscription/form.html.eex:56
+#: web/templates/recruiter_subscription/form.html.eex:58
 msgid "Zip Code"
 msgstr "Postleitzahl"
 
@@ -2044,3 +2036,31 @@ msgstr "Land"
 #: web/templates/address/country_input.html.eex:5
 msgid "Select a Country"
 msgstr "Land auswählen"
+
+#: web/templates/shared/job_ad.html.eex:53
+msgid "You have a recruiter subscription but we haven't received a payment yet."
+msgstr "Sie haben ein Recruiter Abo. Wir konnten aber noch keinen Zahlungseingang feststellen."
+
+#: web/templates/recruiter_subscription/form.html.eex:77
+msgid "Subscribe to this recruiter package"
+msgstr "Stellenanzeigen-Abo kaufen"
+
+#: web/templates/recruiter_subscription/form.html.eex:15
+msgid "Each subscription can be canceled up to 30 days before it ends."
+msgstr "Jedes Abo kann bis 30 Tage vor Ende gekündigt werden."
+
+#: lib/vutuv/emailer.ex:33
+msgid "vutuv recruiter package subscription"
+msgstr "vutuv Recruiter Abo"
+
+#: web/templates/job_posting/form.html.eex:131
+msgid "We use these tags to display your job posting to people who might be a good fit for them."
+msgstr "Diese Tags werden benutzt, um Ihre Stellenanzeige optimal zu plazieren."
+
+#: web/templates/job_posting/form.html.eex:152
+msgid "e.g. Linux, MySQL"
+msgstr "z.B. Linux, MySQL"
+
+#: web/templates/job_posting/form.html.eex:141
+msgid "e.g. Ruby on Rails, HTML5, Git"
+msgstr "z.B. Ruby on Rails, HTML5, Git"

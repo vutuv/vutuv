@@ -21,7 +21,7 @@
         <%= gettext("one time") %>
       <% end %>
     </li>
-    <li><strong><%= gettext("Number of concurrent job postings") %>:</strong> <%= @package.max_job_postings %></li>
+    <li><strong><%= gettext("Number of concurrent active job postings") %>:</strong> <%= @package.max_job_postings %></li>
   </ul>
 </div>
 </label>

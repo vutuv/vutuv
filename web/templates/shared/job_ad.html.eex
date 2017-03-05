@@ -1,4 +1,5 @@
 <% jobs = Vutuv.JobPosting.get_postings_for_user(@user) %>
+<%= if Enum.count(jobs) > 0 || Enum.count(@recruiter_packages) > 0 do %>
 <section class="card jobs">
 <%= if Enum.count(jobs) > 0 do %>
   <h1><%= gettext "Job offer" %></h1>
@@ -41,7 +42,23 @@
   <% end %>
   <% end %>
   <% end %>
-  <div class="card__morelink">
-    <%= link gettext("Post a job offer"), to: user_recruiter_subscription_path(@conn, :new, @user) %>
-  </div>
+  <%= if Enum.count(@recruiter_packages) > 0 do %>
+    <%= if @active_subscription do %>
+      <%= if @active_subscription.paid do %>
+        <div class="card__morelink">
+          <%= link gettext("Post a job offer"), to: user_recruiter_subscription_path(@conn, :new, @user) %>
+        </div>
+      <% else %>
+        <div class="card__morelink">
+          <p><%= gettext("You have a recruiter subscription but we haven't received a payment yet.") %>
+          <%= gettext("Please check your INBOX.") %></p>
+        </div>
+      <%= end %>
+    <% else %>
+      <div class="card__morelink">
+        <%= link gettext("Post a job offer"), to: user_recruiter_subscription_path(@conn, :new, @user) %>
+      </div>
+    <% end %>
+  <% end %>
 </section>
+<% end %>

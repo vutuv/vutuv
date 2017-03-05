@@ -14,6 +14,7 @@ defmodule Vutuv.UserController do
   alias Vutuv.Tag
   alias Vutuv.Email
   alias Vutuv.Connection
+  alias Vutuv.RecruiterSubscription
 
   plug :scrub_params, "user" when action in [:create, :update]
 
@@ -78,6 +79,8 @@ defmodule Vutuv.UserController do
 
     job = current_job(user)
     emails = Vutuv.UserHelpers.emails_for_display(user, conn.assigns[:current_user])
+    active_subscription = RecruiterSubscription.active_subscription(conn.assigns[:user_id])
+    recruiter_packages = Vutuv.RecruiterPackage.get_packages(conn.assigns[:locale])
 
     # Display an introduction message for new users
 
@@ -101,6 +104,8 @@ defmodule Vutuv.UserController do
     |> assign(:total_addresses, total_addresses)
     |> assign(:total_user_tags, total_user_tags)
     |> assign(:display_welcome_message, display_welcome_message)
+    |> assign(:active_subscription, active_subscription)
+    |> assign(:recruiter_packages, recruiter_packages)
     |> render("show.html", conn: conn)
   end
 
