@@ -63,7 +63,7 @@ defmodule Vutuv.Avatar do
     image_file_name = Vutuv.Avatar.url({user.avatar, user}, version, signed: true)
     |> String.replace(~r/web\/static\/assets\/images\/avatars\/[0-9]+\//,"")
 
-    "/avatars/#{nginx_path}/#{timestamp}#{image_file_name}"
+    "/avatars/#{nginx_path}/#{timestamp}/#{image_file_name}"
   end
 
   def binary(user, version) do
