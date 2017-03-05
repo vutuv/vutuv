@@ -13,7 +13,8 @@ config :vutuv, Vutuv.Endpoint,
            adapter: Phoenix.PubSub.PG2],
   locales: ~w(en de),
   max_image_filesize: 2000000,
-  max_page_items: 250
+  max_page_items: 250,
+  srv_attachment_path: "" # where the files are stored
 
 # Configures Elixir's Logger
 config :logger, :console,
