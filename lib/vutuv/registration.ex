@@ -4,17 +4,38 @@ defmodule Vutuv.Registration do
   alias Vutuv.Slug
   alias Vutuv.Repo
   alias Vutuv.SearchTerm
+  alias Vutuv.UserTag
+  alias Vutuv.Tag
 
   @stefan_email ~s"stefan.wintermeyer@amooma.de"
 
   def register_user(conn, user_params, assocs \\ []) do
+    tags = user_params["easy_tags"]
     user_params
     |> slug_changeset
     |> user_changeset(conn, user_params, assocs)
-    #|> welcome_wagon
     |> Repo.insert
     |> case do
       {:ok, user} ->
+
+        user =
+          user
+          |> Repo.preload([user_tags: [:tag]])
+        tag_list =
+          tags
+          |> String.split(",")
+        results =
+          for(tag <- tag_list) do
+            capitalized_tag =
+              tag
+              |> String.trim
+            user
+            |> Ecto.build_assoc(:user_tags, %{})
+            |> UserTag.changeset
+            |> Tag.create_or_link_tag(%{"value" => capitalized_tag}, conn.assigns[:locale])
+            |> Repo.insert
+          end
+
         Task.start(__MODULE__, :store_gravatar, [user])
         {:ok, user}
       error ->
@@ -47,27 +68,6 @@ defmodule Vutuv.Registration do
       |>Ecto.Changeset.put_assoc(type, [params])
     end)
   end
-
-  def tag_welcome_wagon(%User{}=user) do
-    stefan_id = Repo.one!(from u in User, join: e in assoc(u, :emails), where: e.value == @stefan_email, select: u.id)
-    user
-    |> Ecto.build_assoc(:follower_connections)
-    |> Ecto.Changeset.cast(%{follower_id: stefan_id}, [:follower_id])
-    |> Repo.insert
-  end
-
-  # defp welcome_wagon(changeset) do
-  #   Repo.one(from u in User, join: e in assoc(u, :emails), where: e.value == @stefan_email, select: u.id)
-  #   |> case do
-  #     nil -> changeset
-  #     stefan_id ->
-  #       connection_changeset = Ecto.Changeset.cast(%Vutuv.Connection{}, %{follower_id: stefan_id}, [:follower_id, :followee_id])
-  #       changeset
-  #       |> Ecto.Changeset.put_assoc(:follower_connections, [connection_changeset])
-  #   end
-  # end
-
-
 
   # This downloads and stores a users gravatar. It then updates
   # the user's model with the information for arc-ecto to

@@ -13,7 +13,7 @@
 <div class="imagebox">
   <section class="card imagebox__card">
     <div class="imagebox__intro">
-      <h1><%= gettext "Please check your email." %></h1>
+      <h1><%= gettext "Please check your INBOX." %></h1>
       <p><%= gettext "An email has been sent with your PIN. Once you enter your PIN below, you'll be logged in for the next 90 days on this device, or until you log out." %></p>
       <%= form_for @conn, session_path(@conn, :create), [as: :session, class: "imagebox__form", method: "post"], fn f -> %>
 			  <div class="editform__field">

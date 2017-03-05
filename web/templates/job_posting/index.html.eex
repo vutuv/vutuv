@@ -1,0 +1,63 @@
+
+  <div class="profile-header">
+    <div class="profile-header__info">
+      <h1><%= gettext "All job postings" %></h1>
+    </div>
+  </div>
+</header>
+<%= render Vutuv.LayoutView, "flash.html", assigns %>
+
+<div class="breadcrumbs">
+<%= Vutuv.UserHelpers.gen_breadcrumbs([
+  gettext("Users"),
+  {full_name(@user), user_path(@conn, :show, @user)},
+  gettext("Job postings")]) %>
+</div>
+
+<div class="card-list">
+  <section class="card jobs">
+    <table>
+      <thead>
+        <tr>
+          <th><%= gettext "Title" %></th>
+          <th><%= gettext "Company" %></th>
+          <th><%= gettext "Location" %></th>
+          <th><%= gettext "Salary" %></th>
+
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    <%= for {job_posting, index} <- Enum.with_index(@job_postings) do %>
+        <tr>
+          <td><%= job_posting.title %></td>
+          <td><%= job_posting.company %></td>
+          <td><%= job_posting.location %></td>
+          <td><%= if job_posting.min_salary do %>
+          <%= number_to_currency(job_posting.min_salary, precision: 0, delimiter: ".", unit: "") %><%= if job_posting.max_salary do %> - <%= number_to_currency(job_posting.max_salary, precision: 0, delimiter: ".", unit: "") %><% end %>
+          <% end %></td>
+
+          <td>
+            <%= link to: user_job_posting_path(@conn, :show, @user, job_posting), class: "button button--icon button--small" do %>
+            <i class="icon icon--search"></i>
+            <% end %>
+            <%= link to: user_job_posting_path(@conn, :edit, @user, job_posting), class: "button button--icon button--small" do %>
+            <i class="icon icon--edit"></i>
+            <% end %>
+            <%= button to: user_job_posting_path(@conn, :delete, @user, job_posting), method: :delete, class: "button button--icon button--small", form: [class: "button button--icon button--small"] do %>
+            <i class="icon icon--delete"></i>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+      </tbody>
+    </table>
+
+    <p>
+      <%= link gettext("New job posting"), to: user_job_posting_path(@conn, :new, @user), class: "card__morelink" %>
+    </p>
+  </section>
+  <aside>
+    <%= render Vutuv.SharedView, "_ad.html" %>
+  </aside>
+</div>

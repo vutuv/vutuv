@@ -36,7 +36,8 @@ defmodule Vutuv.Mixfile do
                     :word_smith,
                     :arc,
                     :arc_ecto,
-                    :quantum]]
+                    :quantum,
+                    :number]]
   end
 
   # Specifies which paths to compile per environment.
@@ -48,24 +49,27 @@ defmodule Vutuv.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [{:ecto, "~> 2.0.1", override: true},
-     {:bamboo, "~> 0.6"},
-     {:bamboo_smtp, "~> 1.1.0"},
+     {:bamboo, "~> 0.7"},
+     {:bamboo_smtp, "~> 1.2.1"},
      {:phoenix, "~> 1.2.0"},
      {:phoenix_ecto, "~> 3.0.0-rc"},
      {:phoenix_html, "~> 2.8"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.12.1"},
      {:cowboy, "~> 1.0"},
-     {:arc, "~> 0.5.3"},
+     {:arc, "~> 0.6.0"},
      {:arc_ecto, "~> 0.4.2"},
      {:ex_machina, "~> 1.0"},
      {:phoenix_html_simplified_helpers, "~> 0.6.0"},
      {:mariaex, ">= 0.0.0"},
      {:word_smith, "~> 0.1.0"},
      {:slugger, "~> 0.1.0"},
-     {:httpoison, "~> 0.9.0"},
+     {:httpoison, "~> 0.10.0"},
      {:distillery, "~> 1.1.0"},
-     {:quantum, ">= 1.8.1"}]
+     {:quantum, ">= 1.8.1"},
+     {:number, "~> 0.5.1"},
+     {:poison, "~> 2.0"}
+    ]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

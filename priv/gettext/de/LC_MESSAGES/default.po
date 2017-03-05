@@ -48,10 +48,10 @@ msgstr "Anzeige"
 #: web/templates/phone_number/index.html.eex:24
 #: web/templates/social_media_account/index.html.eex:24
 #: web/templates/url/index.html.eex:25 web/templates/user/show.html.eex:87
-#: web/templates/user/show.html.eex:96 web/templates/user/show.html.eex:129
-#: web/templates/user/show.html.eex:174 web/templates/user/show.html.eex:230
-#: web/templates/user/show.html.eex:250 web/templates/user/show.html.eex:270
-#: web/templates/user/show.html.eex:290 web/templates/user_tag/index.html.eex:48
+#: web/templates/user/show.html.eex:96 web/templates/user/show.html.eex:132
+#: web/templates/user/show.html.eex:181 web/templates/user/show.html.eex:237
+#: web/templates/user/show.html.eex:257 web/templates/user/show.html.eex:277
+#: web/templates/user/show.html.eex:297 web/templates/user_tag/index.html.eex:48
 #: web/templates/work_experience/index.html.eex:25
 msgid "Add"
 msgstr "Eintrag hinzufügen"
@@ -74,11 +74,11 @@ msgstr "Eine Adresse wurde geändert."
 
 #: web/templates/address/edit.html.eex:8 web/templates/address/index.html.eex:14
 #: web/templates/address/new.html.eex:8 web/templates/address/show.html.eex:13
-#: web/templates/user/show.html.eex:282
+#: web/templates/user/show.html.eex:289
 msgid "Addresses"
 msgstr "Adressen"
 
-#: web/templates/page/index.html.eex:62
+#: web/templates/page/index.html.eex:68
 msgid "Already a member? Sign in here."
 msgstr "Schon ein Mitglied? Einloggen."
 
@@ -92,6 +92,7 @@ msgstr "Avatar"
 
 #: web/templates/admin/slug/edit.html.eex:6
 #: web/templates/admin/user/edit.html.eex:6
+#: web/templates/recruiter_subscription/index.html.eex:48
 #: web/templates/search_term/show.html.eex:22
 msgid "Back"
 msgstr "Zurück"
@@ -100,11 +101,11 @@ msgstr "Zurück"
 msgid "Birthdate"
 msgstr "Geburtstag"
 
-#: lib/vutuv/emailer.ex:81 web/templates/user/show.html.eex:152
+#: lib/vutuv/emailer.ex:85 web/templates/user/show.html.eex:157
 msgid "Birthday"
 msgstr "Geburtstag"
 
-#: web/templates/page/index.html.eex:58
+#: web/templates/page/index.html.eex:64
 msgid "By signing up you agree that we set a cookie in your browser."
 msgstr "Achtung: Ab hier benutzen wir Cookies."
 
@@ -112,12 +113,15 @@ msgstr "Achtung: Ab hier benutzen wir Cookies."
 #: web/templates/address/form_en.html.eex:49
 #: web/templates/address/form_generic.html.eex:49
 #: web/templates/admin/exonym/form.html.eex:28
+#: web/templates/admin/recruiter_package/form.html.eex:134
 #: web/templates/admin/tag/form.html.eex:22
 #: web/templates/admin/tag_closure/form.html.eex:26
 #: web/templates/admin/tag_localization/form.html.eex:42
 #: web/templates/admin/tag_synonym/form.html.eex:31
 #: web/templates/admin/tag_url/form.html.eex:42
 #: web/templates/email/form.html.eex:22 web/templates/group/form.html.eex:15
+#: web/templates/job_posting/form.html.eex:160
+#: web/templates/job_posting_tag/form.html.eex:31
 #: web/templates/membership/form.html.eex:17
 #: web/templates/phone_number/form.html.eex:21
 #: web/templates/slug/form.html.eex:15
@@ -148,11 +152,11 @@ msgstr "Verbindung hergestellt"
 msgid "Connection deleted successfully."
 msgstr "Verbindung gelöscht"
 
-#: web/templates/user/show.html.eex:118
+#: web/templates/user/show.html.eex:121
 msgid "Contact"
 msgstr "Kontakt"
 
-#: web/controllers/user_controller.ex:249
+#: web/controllers/user_controller.ex:238
 msgid "Couldn't follow back to %{name}."
 msgstr "Konnte nicht zu %{name} zurückfolgen."
 
@@ -165,15 +169,16 @@ msgid "Delete"
 msgstr "Löschen"
 
 #: web/templates/address/card_list.html.eex:4
-#: web/templates/admin/tag/show.html.eex:46
+#: web/templates/admin/recruiter_package/show.html.eex:35
+#: web/templates/admin/tag/show.html.eex:50
 #: web/templates/admin/tag_localization/index.html.eex:26
-#: web/templates/admin/tag_localization/show.html.eex:52
-#: web/templates/admin/tag_localization/show.html.eex:68
+#: web/templates/admin/tag_localization/show.html.eex:56
+#: web/templates/admin/tag_localization/show.html.eex:72
 #: web/templates/admin/tag_url/index.html.eex:28
-#: web/templates/admin/tag_url/show.html.eex:54
-#: web/templates/tag/single_card.html.eex:6
-#: web/templates/url/card_list.html.eex:5 web/templates/url/form.html.eex:15
-#: web/templates/url/show.html.eex:32
+#: web/templates/admin/tag_url/show.html.eex:58
+#: web/templates/job_posting/show.html.eex:49
+#: web/templates/tag/single_card.html.eex:6 web/templates/url/form.html.eex:15
+#: web/templates/url/show.html.eex:36
 #: web/templates/work_experience/form.html.eex:21
 msgid "Description"
 msgstr "Beschreibung"
@@ -182,17 +187,19 @@ msgstr "Beschreibung"
 msgid "Disable"
 msgstr "Inaktivieren"
 
-#: web/templates/user/show.html.eex:185
+#: web/templates/user/show.html.eex:192
 msgid "Download"
 msgstr "Download"
 
 #: web/templates/address/edit.html.eex:9
 #: web/templates/admin/exonym/edit.html.eex:14
+#: web/templates/admin/recruiter_package/edit.html.eex:13
 #: web/templates/admin/tag/edit.html.eex:14
 #: web/templates/admin/tag_closure/edit.html.eex:16
 #: web/templates/admin/tag_localization/edit.html.eex:16
 #: web/templates/admin/tag_synonym/edit.html.eex:16
 #: web/templates/admin/tag_url/edit.html.eex:18
+#: web/templates/job_posting/edit.html.eex:16
 #: web/templates/phone_number/edit.html.eex:8
 #: web/templates/social_media_account/edit.html.eex:8
 #: web/templates/url/edit.html.eex:8 web/templates/user/edit.html.eex:7
@@ -206,8 +213,8 @@ msgstr "Ändern"
 msgid "Edit user"
 msgstr "Userdaten ändern"
 
-#: web/templates/email/card_list.html.eex:4 web/templates/email/show.html.eex:29
-#: web/templates/user/show.html.eex:121
+#: web/templates/email/card_list.html.eex:4 web/templates/email/show.html.eex:33
+#: web/templates/user/show.html.eex:124
 msgid "Email"
 msgstr "E-Mail-Adresse"
 
@@ -229,7 +236,7 @@ msgstr "E-Mail-Adresse wurde geändert."
 
 #: web/templates/email/edit.html.eex:7 web/templates/email/index.html.eex:14
 #: web/templates/email/new.html.eex:7 web/templates/email/show.html.eex:13
-#: web/templates/user/show.html.eex:121
+#: web/templates/user/show.html.eex:124
 msgid "Emails"
 msgstr "E-Mail-Adressen"
 
@@ -249,7 +256,7 @@ msgstr "Endorsement konnte nicht eingetragen werden."
 msgid "English"
 msgstr "Englisch"
 
-#: web/templates/page/index.html.eex:40 web/templates/session/new.html.eex:19
+#: web/templates/page/index.html.eex:45 web/templates/session/new.html.eex:19
 msgid "Enter your email address"
 msgstr "E-Mail-Adresse eingeben"
 
@@ -261,7 +268,7 @@ msgstr "Vorname eingeben"
 msgid "Enter your last name"
 msgstr "Nachname eingeben"
 
-#: web/templates/user/show.html.eex:220
+#: web/templates/user/show.html.eex:227
 #: web/templates/work_experience/edit.html.eex:8
 #: web/templates/work_experience/index.html.eex:14
 #: web/templates/work_experience/new.html.eex:8
@@ -282,17 +289,17 @@ msgid "First name"
 msgstr "Vorname"
 
 #: web/templates/follower/index.html.eex:7
-#: web/templates/follower/index.html.eex:16 web/templates/user/show.html.eex:191
+#: web/templates/follower/index.html.eex:16 web/templates/user/show.html.eex:198
 msgid "Followers"
 msgstr "Followers"
 
 #: web/templates/followee/index.html.eex:7
-#: web/templates/followee/index.html.eex:15 web/templates/user/show.html.eex:205
+#: web/templates/followee/index.html.eex:15 web/templates/user/show.html.eex:212
 msgid "Following"
 msgstr ""
 
 #: web/templates/user/form.html.eex:18 web/templates/user/index.html.eex:12
-#: web/templates/user/show.html.eex:148
+#: web/templates/user/show.html.eex:153
 msgid "Gender"
 msgstr "Geschlecht"
 
@@ -358,12 +365,12 @@ msgid "It doesn't look like you're following anyone yet. Find someone a profile 
 msgstr "Sie folgen aktuell keinem anderen Account."
 
 #: web/templates/work_experience/form.html.eex:15
-#: web/templates/work_experience/show.html.eex:29
+#: web/templates/work_experience/show.html.eex:33
 msgid "Job Title"
 msgstr "Stellenbezeichnung"
 
 #: web/templates/admin/exonym/card_list.html.eex:5
-#: web/templates/admin/tag_localization/show.html.eex:38
+#: web/templates/admin/tag_localization/show.html.eex:42
 #: web/templates/user/form.html.eex:89
 msgid "Language"
 msgstr "Sprache"
@@ -390,7 +397,7 @@ msgstr "Link wurde geändert."
 
 #: web/templates/url/edit.html.eex:7 web/templates/url/index.html.eex:14
 #: web/templates/url/new.html.eex:7 web/templates/url/show.html.eex:13
-#: web/templates/user/show.html.eex:262
+#: web/templates/user/show.html.eex:269
 msgid "Links"
 msgstr "Links"
 
@@ -430,7 +437,7 @@ msgstr "Zweiter Vorname"
 msgid "Middlename"
 msgstr "Zweiter Vorname"
 
-#: web/templates/user/show.html.eex:200 web/templates/user/show.html.eex:214
+#: web/templates/user/show.html.eex:207 web/templates/user/show.html.eex:221
 msgid "More"
 msgstr "Mehr"
 
@@ -441,24 +448,28 @@ msgstr "Mehr"
 msgid "More Info"
 msgstr "Mehr Informationen"
 
-#: web/templates/admin/tag/show.html.eex:45
+#: web/templates/admin/recruiter_package/index.html.eex:20
+#: web/templates/admin/recruiter_package/show.html.eex:28
+#: web/templates/admin/tag/show.html.eex:49
 #: web/templates/admin/tag_localization/index.html.eex:25
-#: web/templates/admin/tag_localization/show.html.eex:45
-#: web/templates/admin/tag_localization/show.html.eex:67
+#: web/templates/admin/tag_localization/show.html.eex:49
+#: web/templates/admin/tag_localization/show.html.eex:71
 #: web/templates/admin/tag_url/index.html.eex:27
-#: web/templates/admin/tag_url/show.html.eex:47
+#: web/templates/admin/tag_url/show.html.eex:51
 #: web/templates/group/index.html.eex:8
 msgid "Name"
 msgstr "Name"
 
 #: web/templates/address/new.html.eex:9
 #: web/templates/admin/exonym/new.html.eex:14
+#: web/templates/admin/recruiter_package/new.html.eex:13
 #: web/templates/admin/tag/new.html.eex:14
-#: web/templates/admin/tag_closure/new.html.eex:16
 #: web/templates/admin/tag_localization/new.html.eex:16
 #: web/templates/admin/tag_synonym/new.html.eex:16
 #: web/templates/admin/tag_url/new.html.eex:18
 #: web/templates/email/edit.html.eex:8 web/templates/email/new.html.eex:8
+#: web/templates/job_posting/new.html.eex:14
+#: web/templates/job_posting_tag/new.html.eex:17
 #: web/templates/phone_number/new.html.eex:8
 #: web/templates/social_media_account/new.html.eex:8
 #: web/templates/url/new.html.eex:8 web/templates/user/new.html.eex:6
@@ -475,7 +486,7 @@ msgstr "Spitzname"
 msgid "No"
 msgstr "Nein"
 
-#: web/templates/user/show.html.eex:197
+#: web/templates/user/show.html.eex:204
 msgid "No Followers yet!"
 msgstr "Noch keine Followers!"
 
@@ -483,15 +494,15 @@ msgstr "Noch keine Followers!"
 msgid "No expensive premium accounts! Read more about it in"
 msgstr "Keine teuren Premium-Accounts. Lesen Sie mehr in"
 
-#: web/templates/user/show.html.eex:211
+#: web/templates/user/show.html.eex:218
 msgid "Not following anyone yet!"
 msgstr "Keine"
 
-#: web/templates/phone_number/show.html.eex:32
+#: web/templates/phone_number/show.html.eex:36
 msgid "Number"
 msgstr "Nummer"
 
-#: web/templates/phone_number/show.html.eex:30
+#: web/templates/phone_number/show.html.eex:34
 msgid "Number Type"
 msgstr "Typ"
 
@@ -503,14 +514,18 @@ msgstr "Typ"
 #: web/templates/address/form_en.html.eex:4
 #: web/templates/address/form_generic.html.eex:4
 #: web/templates/admin/exonym/form.html.eex:4
+#: web/templates/admin/recruiter_package/form.html.eex:4
 #: web/templates/admin/tag/form.html.eex:4
 #: web/templates/admin/tag_closure/form.html.eex:4
 #: web/templates/admin/tag_localization/form.html.eex:4
 #: web/templates/admin/tag_synonym/form.html.eex:4
 #: web/templates/admin/tag_url/form.html.eex:4
 #: web/templates/email/form.html.eex:4 web/templates/group/form.html.eex:4
+#: web/templates/job_posting/form.html.eex:4
+#: web/templates/job_posting_tag/form.html.eex:4
 #: web/templates/membership/form.html.eex:4 web/templates/page/index.html.eex:21
 #: web/templates/phone_number/form.html.eex:4
+#: web/templates/recruiter_subscription/form.html.eex:4
 #: web/templates/search_query/form.html.eex:4 web/templates/slug/form.html.eex:4
 #: web/templates/social_media_account/form.html.eex:4
 #: web/templates/url/form.html.eex:4 web/templates/user/form.html.eex:4
@@ -520,11 +535,11 @@ msgid "Oops, something went wrong! Please check the errors below."
 msgstr "Ups, es gab einen Validierungsfehler! Bitte überprüfen Sie Ihre Eingaben."
 
 #: web/templates/work_experience/form.html.eex:9
-#: web/templates/work_experience/show.html.eex:31
+#: web/templates/work_experience/show.html.eex:35
 msgid "Organization"
 msgstr "Organisation"
 
-#: web/models/user.ex:132
+#: web/models/user.ex:137 web/views/job_posting_tag_view.ex:7
 msgid "Other"
 msgstr "Sonstiges"
 
@@ -540,7 +555,7 @@ msgstr "Telefonnummer"
 #: web/templates/phone_number/index.html.eex:14
 #: web/templates/phone_number/new.html.eex:7
 #: web/templates/phone_number/show.html.eex:13
-#: web/templates/user/show.html.eex:242
+#: web/templates/user/show.html.eex:249
 msgid "Phone Numbers"
 msgstr "Telefonnummern"
 
@@ -573,7 +588,7 @@ msgid "Privacy Policy"
 msgstr "Datenschutzerklärung"
 
 #: web/templates/email/card_list.html.eex:15
-#: web/templates/email/show.html.eex:32
+#: web/templates/email/show.html.eex:36
 msgid "Private"
 msgstr "Privat"
 
@@ -585,12 +600,12 @@ msgstr "Provider"
 msgid "Profiles belonging to "
 msgstr "Profile von "
 
-#: web/templates/social_media_account/show.html.eex:29
+#: web/templates/social_media_account/show.html.eex:33
 msgid "Provider"
 msgstr "Provider"
 
 #: web/templates/email/card_list.html.eex:15
-#: web/templates/email/show.html.eex:32
+#: web/templates/email/show.html.eex:36
 msgid "Public"
 msgstr "Öffentlich"
 
@@ -643,6 +658,7 @@ msgstr "Suche erfolgreich ausgeführt."
 #: web/templates/address/show.html.eex:14
 #: web/templates/admin/exonym/show.html.eex:14
 #: web/templates/admin/locale/show.html.eex:14
+#: web/templates/admin/recruiter_package/show.html.eex:13
 #: web/templates/admin/tag/show.html.eex:14
 #: web/templates/admin/tag_closure/show.html.eex:16
 #: web/templates/admin/tag_localization/show.html.eex:16
@@ -659,12 +675,13 @@ msgstr "Anzeigen"
 msgid "Show search term"
 msgstr "Suchbegriff anzeigen"
 
-#: web/templates/page/index.html.eex:60
+#: web/templates/page/index.html.eex:66
 msgid "Sign up"
 msgstr "Account erstellen"
 
+#: web/templates/admin/recruiter_package/show.html.eex:42
 #: web/templates/admin/tag/index.html.eex:21
-#: web/templates/admin/tag/show.html.eex:29
+#: web/templates/admin/tag/show.html.eex:33
 #: web/templates/admin/tag_closure/index.html.eex:24
 #: web/templates/admin/tag_closure/index.html.eex:54
 #: web/templates/slug/index.html.eex:1 web/templates/tag/index.html.eex:21
@@ -683,11 +700,11 @@ msgstr ""
 msgid "Slug doesn't exist."
 msgstr ""
 
-#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:154
+#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:157
 msgid "Slug updated successfully."
 msgstr ""
 
-#: web/templates/user/show.html.eex:166
+#: web/templates/user/show.html.eex:173
 msgid "Social Media"
 msgstr "Social Media"
 
@@ -721,6 +738,7 @@ msgstr ""
 #: web/templates/address/form_en.html.eex:50
 #: web/templates/address/form_generic.html.eex:50
 #: web/templates/admin/exonym/form.html.eex:29
+#: web/templates/admin/recruiter_package/form.html.eex:135
 #: web/templates/admin/tag/form.html.eex:23
 #: web/templates/admin/tag_closure/form.html.eex:27
 #: web/templates/admin/tag_localization/form.html.eex:43
@@ -728,6 +746,8 @@ msgstr ""
 #: web/templates/admin/tag_url/form.html.eex:43
 #: web/templates/admin/user/form.html.eex:10
 #: web/templates/email/form.html.eex:23 web/templates/group/form.html.eex:16
+#: web/templates/job_posting/form.html.eex:161
+#: web/templates/job_posting_tag/form.html.eex:32
 #: web/templates/membership/form.html.eex:18
 #: web/templates/phone_number/form.html.eex:22
 #: web/templates/slug/form.html.eex:16
@@ -749,11 +769,11 @@ msgstr ""
 msgid "The Fast and Free Career Network"
 msgstr "Ihr Kontaktnetzwerk. Schnell und gratis!"
 
-#: web/controllers/user_controller.ex:45
+#: web/controllers/user_controller.ex:44
 msgid "There was an error"
 msgstr "Es gab einen Fehler"
 
-#: web/templates/work_experience/show.html.eex:33
+#: web/templates/work_experience/show.html.eex:37
 msgid "Time Period"
 msgstr "Zeitraum"
 
@@ -761,8 +781,7 @@ msgstr "Zeitraum"
 msgid "Type of Number"
 msgstr ""
 
-#: web/templates/url/card_list.html.eex:4 web/templates/url/form.html.eex:9
-#: web/templates/url/show.html.eex:30
+#: web/templates/url/form.html.eex:9 web/templates/url/show.html.eex:34
 msgid "URL"
 msgstr "URL"
 
@@ -770,15 +789,15 @@ msgstr "URL"
 msgid "User"
 msgstr "User"
 
-#: web/controllers/user_controller.ex:41
+#: web/controllers/user_controller.ex:40
 msgid "User %{name} created successfully. An email has been sent with your login link."
 msgstr "Der User %{name} wurde angelegt. Eine E-Mail mit einem Login Link wurde verschickt."
 
-#: web/controllers/user_controller.ex:171
+#: web/controllers/user_controller.ex:174
 msgid "User deleted successfully."
 msgstr "User wurde gelöscht."
 
-#: web/controllers/user_controller.ex:131
+#: web/controllers/user_controller.ex:134
 msgid "User updated successfully."
 msgstr "Userdaten wurde geändert."
 
@@ -787,7 +806,7 @@ msgid "User verified successfully."
 msgstr "User wurde verifiziert."
 
 #: web/templates/social_media_account/card_list.html.eex:4
-#: web/templates/social_media_account/show.html.eex:31
+#: web/templates/social_media_account/show.html.eex:35
 msgid "Username"
 msgstr "Name des Users"
 
@@ -797,10 +816,18 @@ msgstr "Name des Users"
 #: web/templates/email/new.html.eex:5 web/templates/email/show.html.eex:11
 #: web/templates/followee/index.html.eex:5
 #: web/templates/follower/index.html.eex:5
+#: web/templates/job_posting/edit.html.eex:12
+#: web/templates/job_posting/index.html.eex:12
+#: web/templates/job_posting/new.html.eex:11
+#: web/templates/job_posting/show.html.eex:12
+#: web/templates/job_posting_tag/index.html.eex:11
+#: web/templates/job_posting_tag/new.html.eex:12
 #: web/templates/phone_number/edit.html.eex:5
 #: web/templates/phone_number/index.html.eex:12
 #: web/templates/phone_number/new.html.eex:5
 #: web/templates/phone_number/show.html.eex:11
+#: web/templates/recruiter_subscription/index.html.eex:12
+#: web/templates/recruiter_subscription/new.html.eex:12
 #: web/templates/social_media_account/edit.html.eex:5
 #: web/templates/social_media_account/index.html.eex:12
 #: web/templates/social_media_account/new.html.eex:5
@@ -819,19 +846,19 @@ msgid "Users"
 msgstr "Benutzer"
 
 #: web/templates/admin/exonym/card_list.html.eex:4
-#: web/templates/admin/exonym/show.html.eex:29
-#: web/templates/admin/tag/show.html.eex:85
-#: web/templates/admin/tag_localization/show.html.eex:66
+#: web/templates/admin/exonym/show.html.eex:33
+#: web/templates/admin/tag/show.html.eex:95
+#: web/templates/admin/tag_localization/show.html.eex:70
 #: web/templates/admin/tag_synonym/index.html.eex:23
-#: web/templates/admin/tag_synonym/show.html.eex:45
+#: web/templates/admin/tag_synonym/show.html.eex:49
 #: web/templates/admin/tag_url/index.html.eex:26
-#: web/templates/admin/tag_url/show.html.eex:40
+#: web/templates/admin/tag_url/show.html.eex:44
 #: web/templates/search_term/index.html.eex:9
 #: web/templates/slug/index.html.eex:6
 msgid "Value"
 msgstr "Wert"
 
-#: web/templates/user/show.html.eex:184
+#: web/templates/user/show.html.eex:191
 msgid "Vcard"
 msgstr "Vcard"
 
@@ -839,13 +866,13 @@ msgstr "Vcard"
 msgid "Verified"
 msgstr "Verifiziert"
 
-#: web/templates/user/show.html.eex:100 web/templates/user/show.html.eex:234
-#: web/templates/user/show.html.eex:254 web/templates/user/show.html.eex:274
-#: web/templates/user/show.html.eex:294
+#: web/templates/user/show.html.eex:100 web/templates/user/show.html.eex:241
+#: web/templates/user/show.html.eex:261 web/templates/user/show.html.eex:281
+#: web/templates/user/show.html.eex:301
 msgid "View All"
 msgstr "Alles anzeigen"
 
-#: web/templates/email/card_list.html.eex:5 web/templates/email/show.html.eex:31
+#: web/templates/email/card_list.html.eex:5 web/templates/email/show.html.eex:35
 msgid "Visibility"
 msgstr "Sichtbarkeit"
 
@@ -853,7 +880,7 @@ msgstr "Sichtbarkeit"
 msgid "We can't find em' cap'n!"
 msgstr ""
 
-#: web/templates/page/index.html.eex:63
+#: web/templates/page/index.html.eex:69
 msgid "We reserve the right to stop this service or delete your account anytime without warning."
 msgstr "Wir behalten uns das Recht vor, Accounts ohne Warnung zu löschen oder den Dienst einzustellen."
 
@@ -894,7 +921,7 @@ msgstr "Ja"
 msgid "You don't have any followers yet! If you want more followers, you could follow others, invite your friends, or link your Vutuv profile on other social media websites."
 msgstr "Sie haben noch keine Followers."
 
-#: web/controllers/user_controller.ex:245
+#: web/controllers/user_controller.ex:234
 msgid "You follow back %{name}."
 msgstr "Sie folgen %{name}."
 
@@ -908,7 +935,7 @@ msgstr "Sie folgen %{name}."
 #: web/controllers/admin/tag_synonym_controller.ex:95
 #: web/controllers/admin/tag_url_controller.ex:99
 #: web/controllers/admin/user_controller.ex:29
-#: web/controllers/user_controller.ex:259
+#: web/controllers/user_controller.ex:248
 msgid "You must be logged in to access that page"
 msgstr "Sie müssen für diese Seite eingeloggt sein."
 
@@ -928,7 +955,7 @@ msgstr "hat"
 msgid "our blog"
 msgstr "unserem Blog"
 
-#: web/controllers/user_controller.ex:185
+#: web/controllers/user_controller.ex:188
 msgid "An email has been sent to your email address with instructions on how to delete your account."
 msgstr "Eine E-Mail mit einem Löschlink wurde gerade an Sie verschickt."
 
@@ -940,11 +967,11 @@ msgstr "Account (User-Konto) löschen"
 msgid "Your New vutuv Profile Page"
 msgstr "Ihr neues vutuv Profil"
 
-#: web/templates/page/index.html.eex:44
+#: web/templates/page/index.html.eex:54
 msgid "Allow others to view your email address"
 msgstr "Diese E-Mail-Adresse darf jeder sehen"
 
-#: web/templates/page/index.html.eex:52
+#: web/templates/page/index.html.eex:62
 msgid "Prevent search engines from indexing your profile"
 msgstr "Suchmaschinen sollen dieses Profil nicht indizieren"
 
@@ -962,21 +989,18 @@ msgstr "Der Zeitstempel dieses Login-Links ist abgelaufen."
 
 #: web/templates/page/new_registration.html.eex:15
 #: web/templates/page/pin_new_registration.html.eex:16
+#: web/templates/recruiter_subscription/new.html.eex:33
 #: web/templates/session/pin_user_login.html.eex:16
 #: web/templates/session/user_login.html.eex:15
-msgid "Please check your email."
+#: web/templates/shared/job_ad.html.eex:54
+msgid "Please check your INBOX."
 msgstr "Bitte überprüfen Sie Ihr E-Mail Postfach."
 
-#: web/templates/page/new_registration.html.eex:17
 #: web/templates/page/pin_new_registration.html.eex:29
 #: web/templates/session/pin_user_login.html.eex:28
 #: web/templates/session/user_login.html.eex:17
 msgid "Please check your spam folder in case you don't find the email in your inbox."
 msgstr "Bitte überprüfen Sie Ihren SPAM Ordner, falls Sie keine E-Mail in Ihrer INBOX vorfinden."
-
-#: web/templates/page/new_registration.html.eex:16
-msgid "Your account has been created, and an email has been sent with a login link. Thats right, no passwords to remember! Once you login, you'll be logged in on this device for the next 90 days, or until you log out."
-msgstr "Ihr neuer Account wurde angelegt. Zur Überprüfung Ihrer E-Mail Adresse haben wir Ihnen eine E-Mail geschickt. Bitte klicken Sie auf den dort enthaltenen Bestätigungs-Link. Damit werden Sie gleichzeitig automatisch für 90 Tage mit diesem Browser eingeloggt. Kein Passwort!"
 
 #: web/templates/phone_number/form.html.eex:10
 msgid "+49 30 12345678"
@@ -1012,11 +1036,11 @@ msgstr "Wählen Sie einen Monat"
 msgid "Select a year"
 msgstr "Wählen Sie ein Jahr"
 
-#: web/models/user.ex:128
+#: web/models/user.ex:133
 msgid "Female"
 msgstr "Frau"
 
-#: web/models/user.ex:124
+#: web/models/user.ex:129
 msgid "Male"
 msgstr "Mann"
 
@@ -1036,11 +1060,11 @@ msgstr "Diese Seite ist für Sie gesperrt."
 msgid "An error occurred"
 msgstr "Es gab einen Fehler."
 
-#: web/templates/user/show.html.eex:181
+#: web/templates/user/show.html.eex:188
 msgid "Exports"
 msgstr "Exporte"
 
-#: web/templates/user/show.html.eex:142
+#: web/templates/user/show.html.eex:147
 msgid "General Info"
 msgstr "Allgemeines"
 
@@ -1088,7 +1112,7 @@ msgstr "100 Usern mit den meisten Followern"
 msgid "Curious? Have a look at the "
 msgstr "Neugierig? Hier ist die Liste "
 
-#: web/templates/page/new_registration.html.eex:18
+#: web/templates/page/new_registration.html.eex:17
 #: web/templates/page/pin_new_registration.html.eex:30
 #: web/templates/session/pin_user_login.html.eex:29
 #: web/templates/session/user_login.html.eex:18
@@ -1116,12 +1140,12 @@ msgstr "Heute"
 msgid "Homepage"
 msgstr ""
 
-#: web/models/tag_url.ex:35 web/models/tag_url.ex:36 web/models/url.ex:35
-#: web/models/url.ex:36
+#: web/models/tag_url.ex:35 web/models/tag_url.ex:36 web/models/url.ex:38
+#: web/models/url.ex:39
 msgid "Invalid URL"
 msgstr "Die URL ist ungültig"
 
-#: web/models/tag_url.ex:40 web/models/url.ex:40
+#: web/models/tag_url.ex:40 web/models/url.ex:43
 msgid "Can't find URL"
 msgstr "Die URL kann nicht gefunden werden"
 
@@ -1161,8 +1185,8 @@ msgstr "Ein Social Media Account wurde erstellt. Schleichwerbung: Schauen Sie si
 msgid "Social media account created successfully. Shameless plug: Follow our Twitter account @vutuv"
 msgstr "Ein Social Media Account wurde erstellt. Wir sind übrigens auch Twitter Fans. Unser Account: @vutuv"
 
-#: web/templates/admin/tag/show.html.eex:138
-#: web/templates/admin/tag/show.html.eex:157
+#: web/templates/admin/tag/show.html.eex:148
+#: web/templates/admin/tag/show.html.eex:167
 msgid "Add Localization"
 msgstr ""
 
@@ -1176,7 +1200,6 @@ msgstr ""
 #: web/templates/admin/tag/show.html.eex:12
 #: web/templates/admin/tag_closure/edit.html.eex:12
 #: web/templates/admin/tag_closure/index.html.eex:12
-#: web/templates/admin/tag_closure/new.html.eex:12
 #: web/templates/admin/tag_closure/show.html.eex:12
 #: web/templates/admin/tag_localization/edit.html.eex:12
 #: web/templates/admin/tag_localization/index.html.eex:12
@@ -1258,7 +1281,7 @@ msgstr ""
 msgid "Enter your pin"
 msgstr ""
 
-#: web/templates/admin/exonym/show.html.eex:40
+#: web/templates/admin/exonym/show.html.eex:44
 msgid "Exonym Locale"
 msgstr ""
 
@@ -1281,16 +1304,17 @@ msgstr ""
 msgid "Exonyms"
 msgstr ""
 
-#: web/templates/admin/exonym/show.html.eex:35
+#: web/templates/admin/exonym/show.html.eex:39
 msgid "Language Endonym"
 msgstr ""
 
 #: web/templates/admin/exonym/card_list.html.eex:6
-#: web/templates/admin/tag/show.html.eex:44
-#: web/templates/admin/tag/show.html.eex:84
+#: web/templates/admin/recruiter_package/show.html.eex:49
+#: web/templates/admin/tag/show.html.eex:48
+#: web/templates/admin/tag/show.html.eex:94
 #: web/templates/admin/tag_localization/index.html.eex:24
 #: web/templates/admin/tag_synonym/index.html.eex:25
-#: web/templates/admin/tag_synonym/show.html.eex:38
+#: web/templates/admin/tag_synonym/show.html.eex:42
 msgid "Locale"
 msgstr ""
 
@@ -1308,7 +1332,7 @@ msgstr ""
 msgid "New exonym"
 msgstr ""
 
-#: web/templates/admin/tag/index.html.eex:48
+#: web/templates/admin/tag/index.html.eex:54
 #: web/templates/admin/tag/new.html.eex:4
 msgid "New tag"
 msgstr ""
@@ -1323,14 +1347,14 @@ msgstr ""
 msgid "New tag synonym"
 msgstr ""
 
-#: web/templates/admin/tag_localization/show.html.eex:98
+#: web/templates/admin/tag_localization/show.html.eex:102
 #: web/templates/admin/tag_url/index.html.eex:58
 #: web/templates/admin/tag_url/new.html.eex:4
 msgid "New tag url"
 msgstr ""
 
-#: web/templates/admin/tag/show.html.eex:74
-#: web/templates/admin/tag/show.html.eex:114
+#: web/templates/admin/tag/show.html.eex:84
+#: web/templates/admin/tag/show.html.eex:124
 msgid "Show all"
 msgstr ""
 
@@ -1358,12 +1382,13 @@ msgstr ""
 msgid "Show tag url"
 msgstr ""
 
-#: web/templates/admin/tag/show.html.eex:43
-#: web/templates/admin/tag/show.html.eex:83
+#: web/templates/admin/tag/show.html.eex:47
+#: web/templates/admin/tag/show.html.eex:93
 #: web/templates/admin/tag_localization/index.html.eex:23
-#: web/templates/admin/tag_localization/show.html.eex:31
+#: web/templates/admin/tag_localization/show.html.eex:35
 #: web/templates/admin/tag_synonym/index.html.eex:24
-#: web/templates/admin/tag_synonym/show.html.eex:31
+#: web/templates/admin/tag_synonym/show.html.eex:35
+#: web/templates/job_posting_tag/index.html.eex:23
 msgid "Tag"
 msgstr ""
 
@@ -1375,9 +1400,9 @@ msgstr ""
 msgid "Tag deleted successfully."
 msgstr ""
 
-#: web/templates/admin/tag_localization/show.html.eex:65
+#: web/templates/admin/tag_localization/show.html.eex:69
 #: web/templates/admin/tag_url/index.html.eex:25
-#: web/templates/admin/tag_url/show.html.eex:33
+#: web/templates/admin/tag_url/show.html.eex:37
 msgid "Tag localization"
 msgstr ""
 
@@ -1452,7 +1477,6 @@ msgstr ""
 #: web/templates/admin/tag/show.html.eex:13
 #: web/templates/admin/tag_closure/edit.html.eex:13
 #: web/templates/admin/tag_closure/index.html.eex:13
-#: web/templates/admin/tag_closure/new.html.eex:13
 #: web/templates/admin/tag_closure/show.html.eex:13
 #: web/templates/admin/tag_localization/edit.html.eex:13
 #: web/templates/admin/tag_localization/index.html.eex:13
@@ -1466,6 +1490,7 @@ msgstr ""
 #: web/templates/admin/tag_url/index.html.eex:13
 #: web/templates/admin/tag_url/new.html.eex:13
 #: web/templates/admin/tag_url/show.html.eex:13
+#: web/templates/job_posting/show.html.eex:78
 #: web/templates/tag/index.html.eex:12 web/templates/tag/index.html.eex:17
 #: web/templates/tag/show.html.eex:12 web/templates/user/show.html.eex:71
 #: web/templates/user_tag/index.html.eex:14
@@ -1506,7 +1531,7 @@ msgstr ""
 msgid "Administration"
 msgstr ""
 
-#: web/templates/admin/tag_closure/show.html.eex:38
+#: web/templates/admin/tag_closure/show.html.eex:42
 msgid "Child"
 msgstr ""
 
@@ -1516,7 +1541,7 @@ msgstr ""
 
 #: web/templates/admin/tag_closure/index.html.eex:25
 #: web/templates/admin/tag_closure/index.html.eex:55
-#: web/templates/admin/tag_closure/show.html.eex:45
+#: web/templates/admin/tag_closure/show.html.eex:49
 msgid "Depth"
 msgstr ""
 
@@ -1524,20 +1549,15 @@ msgstr ""
 msgid "Edit tag closure"
 msgstr ""
 
-#, fuzzy
 #: web/templates/user/show.html.eex:82
 msgid "Enter comma separated tags here. Max length per tag: 45 characters"
 msgstr "Bitte mit Komma separieren. Maximale Länge pro Tag: 45 Buchstaben."
-
-#: web/templates/admin/tag_closure/new.html.eex:4
-msgid "New tag closure"
-msgstr ""
 
 #: web/templates/user_tag/new.html.eex:4
 msgid "New user tag"
 msgstr ""
 
-#: web/templates/admin/tag_closure/show.html.eex:31
+#: web/templates/admin/tag_closure/show.html.eex:35
 msgid "Parent"
 msgstr ""
 
@@ -1545,12 +1565,10 @@ msgstr ""
 msgid "Parent slug"
 msgstr ""
 
-#, fuzzy
 #: web/templates/tag/single_card.html.eex:12
 msgid "People you may know with this tag"
 msgstr "Personen mit dieser Fähigkeit"
 
-#, fuzzy
 #: web/templates/user/show.html.eex:62
 msgid "Please take a couple of minutes to add information that might be interesting for your future followers. Why don't you start with your tags and work experiences?"
 msgstr "Bitte nehmen Sie sich ein wenig Zeit um weitere Informationen einzutragen. Ein guter Start sind Tags (z.B. Ihre Fähigkeiten) und Ihr Lebenslauf."
@@ -1564,8 +1582,7 @@ msgstr ""
 msgid "Show tag closure"
 msgstr ""
 
-#, fuzzy
-#: web/controllers/user_controller.ex:216
+#: web/controllers/user_controller.ex:218
 msgid "Successfully added %{successes} tags with %{failures} failures."
 msgstr "%{successes} neue Fähigkeiten wurden hinzugefügt."
 
@@ -1578,7 +1595,6 @@ msgid "Tag closure deleted successfully."
 msgstr ""
 
 #: web/templates/admin/tag_closure/edit.html.eex:15
-#: web/templates/admin/tag_closure/new.html.eex:15
 #: web/templates/admin/tag_closure/show.html.eex:15
 msgid "Tag closures"
 msgstr ""
@@ -1587,7 +1603,6 @@ msgstr ""
 msgid "Tag name"
 msgstr ""
 
-#, fuzzy
 #: web/templates/tag/single_card.html.eex:16
 msgid "The most endorsed users with this tag"
 msgstr "Die höchst bewerteten Personen mit dieser Fähigkeit"
@@ -1596,7 +1611,6 @@ msgstr "Die höchst bewerteten Personen mit dieser Fähigkeit"
 msgid "This skill doesn't have a description yet."
 msgstr ""
 
-#, fuzzy
 #: web/controllers/user_tag_endorsement_controller.ex:31
 msgid "Unendorsed tag successfully."
 msgstr "Endorsement erfolgreich."
@@ -1605,7 +1619,6 @@ msgstr "Endorsement erfolgreich."
 msgid "User tag created successfully."
 msgstr ""
 
-#, fuzzy
 #: web/controllers/user_tag_controller.ex:52
 msgid "User tag deleted successfully."
 msgstr "Eine Fähigkeit wurde gelöscht."
@@ -1619,7 +1632,7 @@ msgstr ""
 msgid "View related"
 msgstr ""
 
-#: web/templates/admin/tag/show.html.eex:34
+#: web/templates/admin/tag/show.html.eex:38
 msgid "View related tags"
 msgstr ""
 
@@ -1627,15 +1640,438 @@ msgstr ""
 msgid "Would you like to receive birthday reminder emails?"
 msgstr "Möchten Sie Geburtstag-Erinnerungs-E-Mails erhalten?"
 
-#, fuzzy
 #: web/templates/search_query/new.html.eex:21
 msgid "You can search for a name, email, or tag."
 msgstr "Sie können nach Namen (Vor- und Nachname), E-Mail Adressen und Fähigkeiten suchen."
 
 #: web/templates/user_tag/index.html.eex:25
 msgid "tag name"
+msgstr "Tag Name"
+
+#: lib/vutuv/emailer.ex:45
+msgid "vutuv Account verified"
+msgstr "verifizierter Account"
+
+#: web/templates/recruiter_subscription/index.html.eex:14
+#: web/templates/recruiter_subscription/new.html.eex:14
+msgid "Active Subscription"
+msgstr "Aktives Abo"
+
+#: web/templates/recruiter_subscription/new.html.eex:20
+msgid "Active subscription"
+msgstr "Aktives Abo"
+
+#: web/templates/job_posting_tag/index.html.eex:3
+msgid "All job posting tags"
+msgstr "Alle Stellenanzeigen Tags"
+
+#: web/templates/job_posting/index.html.eex:4
+msgid "All job postings"
+msgstr "Alle Stellenanzeigen"
+
+#: web/templates/admin/recruiter_package/index.html.eex:4
+msgid "All recruiter packages"
+msgstr "Alle Recruiter Packete"
+
+#: web/templates/admin/recruiter_package/show.html.eex:77
+msgid "Auto renewal"
+msgstr "Automatische Verlängerung"
+
+#: web/templates/admin/recruiter_package/index.html.eex:24
+msgid "Begins"
+msgstr "Beginnt am"
+
+#: web/templates/job_posting/form.html.eex:120
+msgid "Closed on"
+msgstr "Beendet am"
+
+#: web/templates/admin/recruiter_package/show.html.eex:63
+#: web/templates/job_posting/form.html.eex:91
+msgid "Currency"
+msgstr "Währung"
+
+#: web/templates/admin/recruiter_package/index.html.eex:22
+msgid "Duration"
+msgstr "Länge"
+
+#: web/templates/admin/recruiter_package/show.html.eex:70
+msgid "Duration in months"
+msgstr "Länge in Monaten"
+
+#: web/templates/job_posting/edit.html.eex:4
+msgid "Edit job posting"
+msgstr "Stellenanzeige verändern"
+
+#: web/templates/admin/recruiter_package/edit.html.eex:4
+msgid "Edit recruiter package"
+msgstr "Recruiter Packet verändern"
+
+#: web/templates/admin/recruiter_package/index.html.eex:25
+msgid "Ends"
+msgstr "Endet am"
+
+#: web/templates/recruiter_subscription/index.html.eex:24
+msgid "Expires on"
+msgstr "Endet am"
+
+#: web/views/job_posting_tag_view.ex:5
+msgid "Important"
+msgstr "Wichtig"
+
+#: web/templates/recruiter_subscription/index.html.eex:27
+msgid "Invoice number"
+msgstr "Rechungsnummer"
+
+#: web/templates/recruiter_subscription/new.html.eex:28
+msgid "Invoice number:"
+msgstr "Rechnungsnummer:"
+
+#: web/templates/recruiter_subscription/index.html.eex:28
+#: web/templates/recruiter_subscription/new.html.eex:29
+msgid "Invoiced on"
+msgstr "Rechnung vom"
+
+#: web/templates/job_posting/show.html.eex:37
+msgid "Job offer"
+msgstr "Stellenanzeige"
+
+#: web/controllers/job_posting_controller.ex:33
+msgid "Job posting created successfully."
+msgstr "Eine Stellenanzeige wurde erstellt."
+
+#: web/controllers/job_posting_controller.ex:75
+msgid "Job posting deleted successfully."
+msgstr "Eine Stellenanzeige wurde gelöscht."
+
+#: web/controllers/job_posting_tag_controller.ex:35
+msgid "Job posting tag created successfully."
+msgstr "Ein Stellenanzeigen Tag wurde erstellt."
+
+#: web/controllers/job_posting_tag_controller.ex:57
+msgid "Job posting tag deleted successfully."
+msgstr "Ein Stellenanzeigen Tag wurde gelöscht."
+
+#: web/templates/job_posting_tag/index.html.eex:15
+#: web/templates/job_posting_tag/new.html.eex:16
+msgid "Job posting tags"
+msgstr "Stellenanzeigen Tags"
+
+#: web/controllers/job_posting_controller.ex:60
+msgid "Job posting updated successfully."
+msgstr "Eine Stellenanzeige wurde verändert."
+
+#: web/templates/job_posting/edit.html.eex:14
+#: web/templates/job_posting/index.html.eex:14
+#: web/templates/job_posting/new.html.eex:13
+#: web/templates/job_posting/show.html.eex:14
+#: web/templates/job_posting_tag/index.html.eex:13
+#: web/templates/job_posting_tag/new.html.eex:14
+msgid "Job postings"
+msgstr "Stellenanzeigen"
+
+#: web/templates/job_posting/form.html.eex:130
+msgid "List some tags for your job posting seperated by commas"
+msgstr "Bitte geben Sie ein paar Tags für diese Stellenanzeige an"
+
+#: web/templates/job_posting/form.html.eex:47
+#: web/templates/job_posting/index.html.eex:24
+#: web/templates/job_posting/show.html.eex:59
+msgid "Location"
+msgstr "Ort"
+
+#: web/templates/admin/recruiter_package/show.html.eex:98
+msgid "Max job postings"
+msgstr "Maximale Anzahl von gleichzeitigen Stellenanzeigen"
+
+#: web/templates/admin/recruiter_package/index.html.eex:26
+msgid "Max posts"
 msgstr ""
 
-#: lib/vutuv/emailer.ex:41
-msgid "vutuv Account verified"
-msgstr ""
+#: web/templates/job_posting/index.html.eex:57
+#: web/templates/job_posting/new.html.eex:4
+msgid "New job posting"
+msgstr "Neue Stellenanzeige"
+
+#: web/templates/job_posting_tag/index.html.eex:46
+#: web/templates/job_posting_tag/new.html.eex:4
+msgid "New job posting tag"
+msgstr "Neues Stellenanzeigen Tag"
+
+#: web/templates/admin/recruiter_package/index.html.eex:59
+#: web/templates/admin/recruiter_package/new.html.eex:4
+msgid "New recruiter package"
+msgstr "Neues Recruiter Packet"
+
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:24
+msgid "Number of concurrent active job postings"
+msgstr "Anzahl gleichzeitig aktiver Stellenanzeigen"
+
+#: web/templates/admin/recruiter_package/show.html.eex:84
+msgid "Offer begins"
+msgstr "Angebot beginnt am"
+
+#: web/templates/admin/recruiter_package/show.html.eex:91
+msgid "Offer ends"
+msgstr "Angebot endet am"
+
+#: web/templates/job_posting/form.html.eex:107
+msgid "Open on"
+msgstr "Ab dem"
+
+#: web/views/job_posting_tag_view.ex:6
+msgid "Optional"
+msgstr "Optional"
+
+#: web/templates/recruiter_subscription/index.html.eex:22
+msgid "Package"
+msgstr "Packet"
+
+#: web/templates/recruiter_subscription/form.html.eex:8
+msgid "Packages"
+msgstr "Packete"
+
+#: web/templates/recruiter_subscription/index.html.eex:25
+msgid "Paid"
+msgstr "Bezahlt"
+
+#: web/templates/recruiter_subscription/index.html.eex:26
+#: web/templates/recruiter_subscription/new.html.eex:26
+msgid "Paid on"
+msgstr "Zahlungseingang am"
+
+#: web/templates/recruiter_subscription/new.html.eex:32
+msgid "Payment not yet recieved"
+msgstr "Es wurde noch kein Zahlungseingang festgestellt."
+
+#: web/templates/recruiter_subscription/new.html.eex:52
+msgid "Post jobs"
+msgstr "Stellenzeigen"
+
+#: web/templates/job_posting/form.html.eex:58
+#: web/templates/job_posting/show.html.eex:69
+msgid "Prerequisites"
+msgstr "Voraussetzungen"
+
+#: web/templates/admin/recruiter_package/index.html.eex:21
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:14
+#: web/templates/admin/recruiter_package/show.html.eex:56
+msgid "Price"
+msgstr "Preis"
+
+#: web/templates/job_posting_tag/index.html.eex:24
+msgid "Priority"
+msgstr "Priorität"
+
+#: web/controllers/admin/recruiter_package_controller.ex:22
+msgid "Recruiter package created successfully."
+msgstr "Ein Recruiter Packet wurde angelegt."
+
+#: web/controllers/admin/recruiter_package_controller.ex:62
+msgid "Recruiter package deleted successfully."
+msgstr "Ein Recruiter Packet wurde gelöscht."
+
+#: web/controllers/admin/recruiter_package_controller.ex:47
+msgid "Recruiter package updated successfully."
+msgstr "Ein Recruiter Packet wurde verändert."
+
+#: web/templates/admin/recruiter_package/edit.html.eex:12
+#: web/templates/admin/recruiter_package/index.html.eex:12
+#: web/templates/admin/recruiter_package/new.html.eex:12
+#: web/templates/admin/recruiter_package/show.html.eex:12
+msgid "Recruiter packages"
+msgstr "Recruiter Packete"
+
+#: web/controllers/recruiter_subscription_controller.ex:28
+msgid "Recruiter subscription created successfully."
+msgstr "Ein Recruiter Abo wurde angelegt."
+
+#: web/templates/admin/recruiter_package/index.html.eex:23
+msgid "Renews?"
+msgstr "Automatische Verlängerung?"
+
+#: web/templates/job_posting/show.html.eex:4
+msgid "Show job posting"
+msgstr "Stellenanzeige anzeigen"
+
+#: web/templates/admin/recruiter_package/show.html.eex:4
+msgid "Show recruiter package"
+msgstr "Recruiter Packet anzeigen"
+
+#: web/templates/recruiter_subscription/index.html.eex:23
+msgid "Subscribed on"
+msgstr "Gekauft am"
+
+#: web/templates/recruiter_subscription/new.html.eex:4
+msgid "Subscription"
+msgstr "Abo"
+
+#: web/templates/recruiter_subscription/index.html.eex:15
+msgid "Subscription History"
+msgstr "Abo Historie"
+
+#: web/templates/recruiter_subscription/new.html.eex:25
+msgid "Subscription ends on"
+msgstr "Abo endet am"
+
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:16
+msgid "Subscription length"
+msgstr "Abo-Dauer"
+
+#: web/templates/recruiter_subscription/new.html.eex:42
+msgid "There are no packages available at this time"
+msgstr "Aktuell gibt es keine Packete."
+
+#: web/templates/job_posting/index.html.eex:22
+#: web/templates/job_posting/show.html.eex:40
+msgid "Title"
+msgstr "Titel"
+
+#: web/templates/recruiter_subscription/new.html.eex:43
+msgid "We apologize for the inconvenience."
+msgstr "Bitte entschuldigen Sie diese Unannehmlichkeit."
+
+#: web/templates/job_posting/form.html.eex:97
+msgid "When do you want your job posting to be displayed?"
+msgstr "In welchem Zeitraum soll diese Stellenanzeige veröffentlicht werden?"
+
+#: web/templates/recruiter_subscription/index.html.eex:4
+msgid "Your subscription"
+msgstr "Ihr Abo"
+
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:19
+msgid "automatically renewed"
+msgstr "verlängert sich automatisch"
+
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:17
+msgid "months"
+msgstr "Monate"
+
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:21
+msgid "one time"
+msgstr "einmalig"
+
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:14
+msgid "per month"
+msgstr "pro Monat"
+
+#: web/templates/shared/job_ad.html.eex:49
+#: web/templates/shared/job_ad.html.eex:59
+msgid "Post a job offer"
+msgstr "Stellenanzeige aufgeben"
+
+#: web/templates/recruiter_subscription/form.html.eex:69
+msgid "City"
+msgstr "Stadt"
+
+#: web/templates/job_posting/form.html.eex:25
+#: web/templates/job_posting/index.html.eex:23
+msgid "Company"
+msgstr "Firma oder Organisation"
+
+#: web/templates/job_posting/form.html.eex:140
+msgid "Important tags"
+msgstr "Wichtige Tags"
+
+#: web/templates/recruiter_subscription/form.html.eex:17
+msgid "Invoice Address"
+msgstr "Rechnungsadresse"
+
+#: web/templates/job_posting/form.html.eex:36
+msgid "Job description"
+msgstr "Stellenbeschreibung"
+
+#: web/templates/job_posting/form.html.eex:14
+msgid "Job title"
+msgstr "Stellenbezeichnung"
+
+#: web/templates/recruiter_subscription/form.html.eex:25
+msgid "Line1"
+msgstr "Zeile 1 der Adresse"
+
+#: web/templates/recruiter_subscription/form.html.eex:36
+msgid "Line2"
+msgstr "Zeile 1 der Adresse"
+
+#: web/templates/job_posting/form.html.eex:80
+msgid "Max. salary"
+msgstr "Maximales Gehalt"
+
+#: web/templates/job_posting/form.html.eex:69
+msgid "Min. salary"
+msgstr "Minimales Gehalt"
+
+#: web/templates/job_posting/form.html.eex:151
+msgid "Optional tags"
+msgstr "Optionale Tags"
+
+#: web/templates/job_posting/index.html.eex:25
+msgid "Salary"
+msgstr "Gehalt"
+
+#: web/templates/recruiter_subscription/form.html.eex:47
+msgid "Street"
+msgstr "Straße"
+
+#: web/templates/recruiter_subscription/form.html.eex:18
+msgid "You'll recieve an email with an invoice. Payment can be done by wire transfer or PayPal."
+msgstr "Sie bekommen per E-Mail eine Rechnung. Die Zahlung kann per Überweisung oder PayPal geschehen."
+
+#: web/templates/recruiter_subscription/form.html.eex:58
+msgid "Zip Code"
+msgstr "Postleitzahl"
+
+#: web/templates/page/index.html.eex:39
+msgid "Your tags (e.g. JavaScript, Ruby on Rails, Cooking, Origami)"
+msgstr "Ihre Tags (z.B. JavaScript, Ruby on Rails, Kochen, Origami)"
+
+#: web/templates/page/new_registration.html.eex:16
+msgid "You'll receive an email with a login link."
+msgstr "Sie bekommen in den nächsten Sekunden/Minuten eine E-Mail mit einem Login Link."
+
+#: web/templates/address/country_input.html.eex:2
+msgid "Country"
+msgstr "Land"
+
+#: web/templates/address/country_input.html.eex:5
+msgid "Select a Country"
+msgstr "Land auswählen"
+
+#: web/templates/shared/job_ad.html.eex:53
+msgid "You have a recruiter subscription but we haven't received a payment yet."
+msgstr "Sie haben ein Recruiter Abo. Wir konnten aber noch keinen Zahlungseingang feststellen."
+
+#: web/templates/recruiter_subscription/form.html.eex:77
+msgid "Subscribe to this recruiter package"
+msgstr "Stellenanzeigen-Abo kaufen"
+
+#: web/templates/recruiter_subscription/form.html.eex:15
+msgid "Each subscription can be canceled up to 30 days before it ends."
+msgstr "Jedes Abo kann bis 30 Tage vor Ende gekündigt werden."
+
+#: lib/vutuv/emailer.ex:33
+msgid "vutuv recruiter package subscription"
+msgstr "vutuv Recruiter Abo"
+
+#: web/templates/job_posting/form.html.eex:131
+msgid "We use these tags to display your job posting to people who might be a good fit for them."
+msgstr "Diese Tags werden benutzt, um Ihre Stellenanzeige optimal zu plazieren."
+
+#: web/templates/job_posting/form.html.eex:152
+msgid "e.g. Linux, MySQL"
+msgstr "z.B. Linux, MySQL"
+
+#: web/templates/job_posting/form.html.eex:141
+msgid "e.g. Ruby on Rails, HTML5, Git"
+msgstr "z.B. Ruby on Rails, HTML5, Git"
+
+#: web/templates/job_posting/show.html.eex:91
+msgid "Contact Information"
+msgstr "Kontaktinformationen"
+
+#: web/templates/job_posting/show.html.eex:92
+msgid "Please contact this person if you want to apply for the job."
+msgstr "Bitte schicken Sie Ihre Bewerbung an folgende Person."
+
+#: web/templates/shared/job_ad.html.eex:5
+msgid "Job offers"
+msgstr "Stellenanzeigen"

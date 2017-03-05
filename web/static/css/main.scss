@@ -1,139 +1,9 @@
-$media_xs: "(max-width: 449px)";
-$media_sm_min: "(min-width: 450px)";
-$media_sm: "(min-width: 450px) and (max-width: 599px)";
-$media_sm_max: "(max-width: 599px)";
-$media_md: "(min-width: 600px) and (max-width: 939px)";
-$media_md_min: "(min-width: 600px)";
-$media_md_max: "(max-width: 939px)";
-$media_lg: "(min-width: 940px)";
-
-$color_text: #333;
-$color_blue: #4A90E2;
-$color_blue_dark: darken($color_blue,10%);
-$color_ci_blue: #4A90E2;
-
-$color_grey: #ccc;
-$color_grey_light: #eee;
-$color_grey_dark: #999;
-$color_primary: $color_ci_blue;
-$color_success: #2aa65d;
-$color_cancel: #f99;
-$color_verified: #2aa65d;
-$color_ci_blue_hover: darken($color_ci_blue, 10%);
-
-/* https://coolors.co/cc0c00-577590-f5c936-72c156-3891a6 */
-
-$color_link: $color_ci_blue;
-$color_btn_default: $color_ci_blue;
-$color_btn_primary: $color_ci_blue;
-$color_btn_success: #72C156;
-$color_btn_info: #577590;
-$color_btn_warning: #F5C936;
-$color_btn_danger: #F15524;
-
-/* https://coolors.co/cc0c00-577590-f5c936-72c156-3891a6 */
-
-$color_link: $color_ci_blue;
-$color_btn_default: $color_ci_blue;
-$color_btn_primary: $color_ci_blue;
-$color_btn_success: #06D6A0;
-$color_btn_info: #14ECFF;
-$color_btn_warning: #FFD166;
-$color_btn_danger: #EF476F;
-
-@mixin font_bold {
-  font-weight: bold;
-}
-
-@mixin gradient($from, $to) {
-  background: -moz-linear-gradient(top,  $from 0%, $to 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$from), color-stop(100%,$to)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  $from 0%,$to 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  $from 0%,$to 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  $from 0%,$to 100%); /* IE10+ */
-  background: linear-gradient(to bottom,  $from 0%,$to 100%); /* W3C */
-}
-
-@mixin box_shadow() {
-  -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, .15);
-  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, .15);
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, .15);
-}
-
-@mixin box_shadow_strong() {
-  -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
-  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
-}
-
-@mixin text_shadow() {
-  text-shadow: 1px 1px 5px rgba(0,0,0,.3);
-  filter: dropshadow(color=rgba(0,0,0,.3), offx=1, offy=1);
-}
-
-$font_size_default: 16px;
-
-@mixin font_size_base {
-  font-size: 16px;
-  @media #{$media_sm} {
-    font-size: 15px;
-  }
-  @media #{$media_xs} {
-    font-size: 14px;
-  }
-}
-
-@mixin font_size_xxxxl {
-  font-size: 3em;
-  line-height: 1.2em;
-}
-@mixin font_size_xxxl {
-  font-size: 2em;
-  line-height: 1.2em;
-}
-@mixin font_size_xxl {
-  font-size: 1.75em;
-  line-height: 1.2em;
-}
-@mixin font_size_xl {
-  font-size: 1.5em;
-  line-height: 1.2em;
-}
-@mixin font_size_l {
-  font-size: 1.25em;
-  line-height: 1.2em;
-}
-@mixin font_size_m {
-  @include font_size_base;
-  line-height: 1.2em;
-}
-@mixin font_size_s {
-  font-size: .9em;
-  line-height: 1.2em;
-}
-@mixin font_size_xs {
-  font-size: .7em;
-  line-height: 1.2em;
-}
-@mixin font_size_xxs {
-  font-size: .6em;
-  line-height: 1.2em;
-}
-@mixin font_size_xxxs {
-  font-size: .4em;
-  line-height: 1.2em;
-}
-@mixin font_size_xxxxs {
-  font-size: .3em;
-  line-height: 1.2em;
-}
+@import 'import/base';
+@import 'import/vars.scss';
+@import 'import/mixins.scss';
 
 body {
   color: $color_text;
-  background: #fff;
-  font-family: sans-serif;
-  font-size: 14px;
-  padding: 20px;
 }
 
 h1,
@@ -148,6 +18,33 @@ h4 {
 a,
 a:link {
   color: $color_blue;
+}
+
+i.icon {
+  display: inline-block;
+  svg {
+    fill: $color_text;
+    width: 1em !important;
+    height: 1em !important;
+    display: block;
+    overflow: hidden;
+  }
+}
+
+.badges {
+  overflow: hidden;
+  display: block;
+  margin-bottom: -.15em;
+}
+
+.badge {
+  border: 1px solid $color_grey;
+  padding: .2em .4em;
+  display: inline-block;
+  line-height: 1em;
+  font-size: .85em;
+  margin: 0 .2em .2em 0;
+  @include radius(.25em);
 }
 
 .bar-title {
@@ -223,6 +120,11 @@ form.btn-form {
   .btn {
     float: right;
     margin: 0 0 0 10px;
+  }
+  form {
+    display: inline-block;
+    float: right;
+    margin: 0;
   }
 }
 
@@ -337,6 +239,10 @@ a.btn {
   &.btn-submit {
     border-color: $color_link;
     background: $color_link;
+    .jobs & {
+      border-color: $color_highlight;
+      background: $color_highlight;
+    }
   }
   &.btn-submit {
     margin-top: 15px;
@@ -568,7 +474,7 @@ ol.tags {
       background: $color_blue;
       border: 2px solid $color_blue;;
       color: #fff;
-      height: 1.75em;
+      height: 1.75em !important;
       line-height: 1.5em;
       i {
         display: inline-block;
@@ -679,11 +585,18 @@ ul.thumbs {
     list-style: none;
     display: block;
     margin: 0 0 10px;
-    overflow: hidden;
+    padding: 0 0 10px;
     border-bottom: 1px solid $color_grey_light;
+    &:after {
+      content: '';
+      float: none;
+      clear: both;
+      display: block;
+    }
     .img {
       display: inline-block;
       float: left;
+      border: 1px solid $color_grey;
       img {
         display: block;
       }
@@ -701,28 +614,34 @@ ul.thumbs {
 }
 
 
-.imagebox .imagebox__form {
-  color: #fff;
-  border: none;
-  min-width: 300px;
-  p,
-  label {
-    text-align: left;
-    padding: 0 0 10px;
-    text-align: center;
-    margin: 10px 0;
-  }
-  label {
-    text-align: left;
-    margin: 0 0 10px;
-    .checkbox {
-      display: inline-block;
-      float: left;
-      margin: 0 10px 0 0;
-      input {
-        display: inline-block;
-        @include font_size_m;
-        margin: 0;
+.imagebox {
+  .imagebox__card {
+    .imagebox__form {
+      color: #fff;
+      border: none;
+      min-width: 300px;
+      padding: 10px;
+      p,
+      label {
+        text-align: left;
+        padding: 0 0 10px;
+        text-align: center;
+        margin: 10px 0;
+      }
+      label {
+        text-align: left;
+        margin: 0 0 10px;
+        .checkbox {
+          display: inline-block;
+          float: left;
+          margin: 0 10px 0 0;
+          input {
+            display: inline-block;
+            @include font_size_m;
+            margin: 0;
+            width: auto;
+          }
+        }
       }
     }
   }
@@ -750,7 +669,11 @@ ul.thumbs {
   font-weight: bold;
   height: 44px;
   padding-top: 12px;
-  text-align: center; }
+  text-align: center; 
+  .card.jobs & {
+    color: $color_highlight;
+  }
+}
 
 .card__empty {
   font-size: 16px;
@@ -776,7 +699,7 @@ ul.thumbs {
   background: #fff;
   border-bottom: 2px solid #ddd;
   border-top: 2px solid #4A90E2;
-  padding: 12px 10px 0 10px;
+  padding: 12px 10px 10px 10px;
 }
 
 .card-list {
@@ -866,8 +789,183 @@ ul.thumbs {
   
 }
 
+section.jobs {
+  margin: 20px 0 0;
+  background: #fff;
+  border-top: 2px solid $color_highlight !important;
+  h1 {
+  }
+  .card__morelink {
+    a {
+      color: $color_highlight !important;
+    }
+  }
+  a.job {
+    @include font_size_m;
+    display: block;
+    overflow: hidden;
+    border-top: 2px solid $color_grey_light;
+    border-bottom: 2px solid $color_grey_light;
+    margin: -2px 0 0;
+    color: $color_text;
+    
+    padding: 10px 0 6px;
+    
+    .badges {
+      .badge {
+        border-color: $color_highlight;
+        background: $color_highlight;
+        @include font_bold;
+        color: #fff;
+      }
+    }
+    
+    h2 {
+      @include font_bold;
+      color: $color_highlight;
+    }
+    h3 {
+      @include font_size_s;
+      @include font_normal;
+      margin: 0 0 .25em;
+      color: $color_grey_contrast;
+      > i.icon {
+        display: inline-block;
+        float: none;
+        color: $color_text;
+        svg {
+          fill: $color_highlight;
+        }
+      }      
+    }
+    &:hover {
+      color: #000;
+    }
+    ul {
+      @include font_size_s;
+      display: block;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      li {
+        list-style: none;
+        overflow: hidden;
+        margin: .25em 0;
+        > i.icon {
+          display: inline-block;
+          float: left;
+          color: $color_text;
+          svg {
+            fill: $color_highlight;
+          }
+        }
+        > div {
+          margin: 0 0 0 1.5em;
+        }
+      }
+    }
+  }
+}
 
+ul.list {
+  list-style-type: disc; 
+  list-style-position: outside;
+  @include font_normal;
+  margin: .5em 0;
+  @include font_size_base;
+  line-height: 1.3em;
+  > li {
+    margin: 0 0 .5em 1.2em;
+    padding: 0;
+  }
+}
 
+.subscriptions-list {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  > label {
+    margin: 0 0 10px;
+    overflow: hidden;
+    border: none;
+    display: block;
+    padding: 10px;
+    border: 2px solid $color_blue;
+    .jobs & {
+      border: 2px solid $color_highlight;
+    }
+    .radio {
+      float: left;
+      width: 2em;
+      display: inline-block;
+      input {
+        @include font_size_xl;
+      }
+    }
+    .description {
+      @include font_normal;
+      margin: 0 0 0 2em;
+      .title {
+        @include font_size_l;
+        @include font_bold;
+        color: $color_blue;
+        .jobs & {
+          color: $color_highlight;
+        }
+        line-height: 1em;
+        margin: 0 0 .5em;
+      }
+      > ul {
+        @extend ul.list;
+      }
+      p {
+        margin: 0;
+        border-top: 2px solid $color_grey_light;
+      }
+    }
+  }
+}
 
+dl.profile {
+  margin: 0;
+  @include font_size_m;
+  dt {
+    font-size: $font_size_s !important;
+    @include font_bold;
+    color: $color_grey_dark;
+    text-transform: uppercase;
+    width: 100%;
+    height: auto;
+    padding: .25em 0;
+    margin: 0;
+    border: none;
+    border-bottom: 1px solid $color_grey_light;
+  }
+  dd {
+    font-size: inherit !important;
+    border: none !important;
+    display: block;
+    width: 100%;
+    padding: .25em 0;
+    margin: 0;
+    @include font_normal;
+    p {
+      font-size: inherit !important;
+      margin: 0 0 .5em;
+    }
+    a.badge {
+      width: auto;
+      border-color: $color_highlight;
+      background: $color_highlight;
+      @include font_bold;
+      color: #fff;
+      @include font_size_m;
+    }
+  }
+}
 
-
+.pull-left {
+  margin: 0 10px 0 0;
+  float: left;
+  display: block;
+}

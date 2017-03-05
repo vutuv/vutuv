@@ -1,0 +1,11 @@
+<%= email_greeting(@user) %>,
+
+vielen Dank für den Kauf eines Recruiter Abos.
+
+Ein Mensch wird alle Daten überprüfen und Ihren Kauf freischalten.
+Sie bekommen dann per E-Mail eine Rechnung. Diese können Sie per PayPal
+oder klassischer Überweisung bezahlen.
+
+<%= render "_signature_de.text" %>
+
+<%= render "_footer.text" %>

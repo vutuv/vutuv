@@ -34,6 +34,7 @@ defmodule Vutuv.Router do
   scope "/", Vutuv do
     pipe_through :browser # Use the default browser stack
 
+
     resources "/tags", TagController, only: [:index, :show], param: "slug"
 
     get "/", PageController, :index
@@ -49,7 +50,6 @@ defmodule Vutuv.Router do
     end
 
     resources "/search_queries", SearchQueryController, only: [:create, :new, :show]
-
 
     resources "/users", UserController, param: "slug" do
       pipe_through :user_pipe
@@ -68,6 +68,10 @@ defmodule Vutuv.Router do
       resources "/oauth_providers", OAuthProviderController
       resources "/search_terms", SearchTermController, only: [:show,:index]
       resources "/tags", UserTagController, only: [:new, :create, :show, :delete, :index], as: :tag
+      resources "/job_postings", JobPostingController, param: "job_slug" do
+        resources "/tags", JobPostingTagController, as: :tag, only: [:index, :new, :create, :delete]
+      end
+      resources "/recruiter_subscriptions", RecruiterSubscriptionController, only: [:index, :new, :create]
     end
 
     post "/users/:slug/tags_create", UserController, :tags_create
@@ -93,6 +97,7 @@ defmodule Vutuv.Router do
       resources "/tag_synonyms", TagSynonymController, as: :synonym
       resources "/tag_closures", TagClosureController, as: :closure
     end
+    resources "/recruiter_packages", RecruiterPackageController, param: "package_slug"
   end
 
   scope "/api/1.0/", as: :api do

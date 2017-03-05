@@ -4,7 +4,7 @@
     <%= if url.screenshot do %>
       <div class="img">
         <a href="<%= url.value %>">
-          <img src="<%= Vutuv.Screenshot.url({url.screenshot, url}, :thumb)|> String.replace("web/static/assets", "") %>" alt="Screenshot" width="200" height="150" />
+          <img src="<%= Vutuv.Screenshot.url({url.screenshot, url}, :thumb)|> String.replace("web/static/assets", "") %>" alt="Screenshot" width="150" height="112" />
         </a>
       </div>
     <% end %>
