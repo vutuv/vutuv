@@ -1,5 +1,6 @@
 defmodule Vutuv.Admin.RecruiterPackageController do
   use Vutuv.Web, :controller
+  plug Vutuv.Plug.AuthAdmin
 
   alias Vutuv.RecruiterPackage
 
