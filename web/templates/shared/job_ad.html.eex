@@ -46,7 +46,7 @@
     <%= if @active_subscription do %>
       <%= if @active_subscription.paid do %>
         <div class="card__morelink">
-          <%= link gettext("Post a job offer"), to: user_recruiter_subscription_path(@conn, :new, @user) %>
+          <%= link gettext("New job posting"), to: user_job_posting_path(@conn, :new, @user), class: "card__morelink" %>
         </div>
       <% else %>
         <div class="card__morelink">

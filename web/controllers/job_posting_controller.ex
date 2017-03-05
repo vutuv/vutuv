@@ -1,6 +1,6 @@
 defmodule Vutuv.JobPostingController do
   use Vutuv.Web, :controller
-
+  plug Vutuv.Plug.AuthRecruiter when action in [:edit, :update, :new, :create, :delete]
   plug :validate_recruiter
   plug Vutuv.Plug.ResolveSlug,
       slug: "job_slug",
