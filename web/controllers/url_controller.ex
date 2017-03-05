@@ -7,16 +7,6 @@ defmodule Vutuv.UrlController do
 
   def index(conn, _params) do
     urls = Repo.all(assoc(conn.assigns[:user], :urls))
-
-    # Generate a screenshot if non is generated yet
-    # TODO: Needs to be removed when all screenshots are generated.
-    # And the one in create needs to be put in again.
-    for url <- urls do
-      unless url.screenshot do
-        Task.start(__MODULE__, :generate_screenshot, [url])
-      end
-    end
-
     render(conn, "index.html", urls: urls)
   end
 
@@ -36,7 +26,7 @@ defmodule Vutuv.UrlController do
 
     case Repo.insert(changeset) do
       {:ok, url} ->
-        # Task.start(__MODULE__, :generate_screenshot, [url])
+        Task.start(__MODULE__, :generate_screenshot, [url])
 
         conn
         |> put_flash(:info, gettext("Link created successfully."))
