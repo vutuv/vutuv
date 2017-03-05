@@ -89,7 +89,7 @@
 	 "
 	 <% end %>">
   <%= label f, :currency, class: "control-label" %>
-  <%= select f, :currency, %{"$" => "dollar", "€" => "euro"}, class: "form-control" %>
+  <%= select f, :currency, %{"€" => "euro", "$" => "dollar"}, class: "form-control" %>
   <%= error_tag f, :currency %>
 </div>
 
