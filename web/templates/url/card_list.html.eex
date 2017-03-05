@@ -1,13 +1,15 @@
 <ul class="thumbs">
   <%= for url <- @urls do %>
   <li>
-    <%= if url.screenshot do %>
-      <div class="img">
-        <a href="<%= url.value %>">
-          <img src="<%= Vutuv.Screenshot.url({url.screenshot, url}, :thumb)|> String.replace("web/static/assets", "") %>" alt="Screenshot" width="150" height="112" />
-        </a>
-      </div>
-    <% end %>
+    <div class="img">
+      <a href="<%= url.value %>">
+        <%= if url.screenshot do %>
+          <img src="<%= Vutuv.Screenshot.url({url.screenshot, url}, :thumb)|> String.replace("web/static/assets", "")|> String.replace("//", "/") %>" alt="Screenshot" width="150" height="112" />
+        <% else %>
+          <img src="/images/screenshot.png" alt="<%= gettext("A screenshot has not been created yet.") %>" width="150" height="112" />
+        <% end %>
+      </a>
+    </div>
     <div class="text">
       <%= if same_user?(@user, @current_user) do %>
       	<div class="btns-right">

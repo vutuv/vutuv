@@ -1790,6 +1790,7 @@ msgstr ""
 
 #: web/templates/job_posting/index.html.eex:57
 #: web/templates/job_posting/new.html.eex:4
+#: web/templates/shared/job_ad.html.eex:49
 msgid "New job posting"
 msgstr ""
 
@@ -1863,15 +1864,15 @@ msgstr ""
 msgid "Priority"
 msgstr ""
 
-#: web/controllers/admin/recruiter_package_controller.ex:22
+#: web/controllers/admin/recruiter_package_controller.ex:23
 msgid "Recruiter package created successfully."
 msgstr ""
 
-#: web/controllers/admin/recruiter_package_controller.ex:62
+#: web/controllers/admin/recruiter_package_controller.ex:63
 msgid "Recruiter package deleted successfully."
 msgstr ""
 
-#: web/controllers/admin/recruiter_package_controller.ex:47
+#: web/controllers/admin/recruiter_package_controller.ex:48
 msgid "Recruiter package updated successfully."
 msgstr ""
 
@@ -1955,7 +1956,6 @@ msgstr ""
 msgid "per month"
 msgstr ""
 
-#: web/templates/shared/job_ad.html.eex:49
 #: web/templates/shared/job_ad.html.eex:59
 msgid "Post a job offer"
 msgstr ""
@@ -2075,4 +2075,8 @@ msgstr ""
 
 #: web/templates/shared/job_ad.html.eex:5
 msgid "Job offers"
+msgstr ""
+
+#: web/templates/url/card_list.html.eex:9
+msgid "A screenshot has not been created yet."
 msgstr ""

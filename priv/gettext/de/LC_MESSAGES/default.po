@@ -1789,6 +1789,7 @@ msgstr ""
 
 #: web/templates/job_posting/index.html.eex:57
 #: web/templates/job_posting/new.html.eex:4
+#: web/templates/shared/job_ad.html.eex:49
 msgid "New job posting"
 msgstr "Neue Stellenanzeige"
 
@@ -1862,15 +1863,15 @@ msgstr "Preis"
 msgid "Priority"
 msgstr "Priorität"
 
-#: web/controllers/admin/recruiter_package_controller.ex:22
+#: web/controllers/admin/recruiter_package_controller.ex:23
 msgid "Recruiter package created successfully."
 msgstr "Ein Recruiter Packet wurde angelegt."
 
-#: web/controllers/admin/recruiter_package_controller.ex:62
+#: web/controllers/admin/recruiter_package_controller.ex:63
 msgid "Recruiter package deleted successfully."
 msgstr "Ein Recruiter Packet wurde gelöscht."
 
-#: web/controllers/admin/recruiter_package_controller.ex:47
+#: web/controllers/admin/recruiter_package_controller.ex:48
 msgid "Recruiter package updated successfully."
 msgstr "Ein Recruiter Packet wurde verändert."
 
@@ -1954,7 +1955,6 @@ msgstr "einmalig"
 msgid "per month"
 msgstr "pro Monat"
 
-#: web/templates/shared/job_ad.html.eex:49
 #: web/templates/shared/job_ad.html.eex:59
 msgid "Post a job offer"
 msgstr "Stellenanzeige aufgeben"
@@ -2075,3 +2075,7 @@ msgstr "Bitte schicken Sie Ihre Bewerbung an folgende Person."
 #: web/templates/shared/job_ad.html.eex:5
 msgid "Job offers"
 msgstr "Stellenanzeigen"
+
+#: web/templates/url/card_list.html.eex:9
+msgid "A screenshot has not been created yet."
+msgstr "Es wurde noch kein Screenshot erstellt."
