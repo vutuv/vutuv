@@ -19,7 +19,7 @@ defmodule Vutuv.Browserstack do
       {:ok, %HTTPoison.Response{status_code: 404}} -> nil
       {:ok, %HTTPoison.Response{body: body, headers: headers}} ->
         content_type = "image/png"
-        filename = "#{String.replace(url.value, ~r/.*\/\//, "") |> String.replace(".","_")}.png"
+        filename = "/#{String.replace(url.value, ~r/.*\/\//, "") |> String.replace(".","_")}.png"
         path = System.tmp_dir
         upload = %Plug.Upload{content_type: content_type,
                  filename: filename,
