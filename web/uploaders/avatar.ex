@@ -67,12 +67,7 @@ defmodule Vutuv.Avatar do
   end
 
   def binary(user, version) do
-    path = Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:srv_attachment_path]
-    file_name = path <> Vutuv.Avatar.url({user.avatar, user}, version, signed: true)
-
-    file_name
-    |> String.replace("web/static/assets/images", "images")
-    |> String.replace("//","/")
+    Vutuv.Avatar.url({user.avatar, user}, version, signed: true)
     |> validate_file
     |> read_file
   end
