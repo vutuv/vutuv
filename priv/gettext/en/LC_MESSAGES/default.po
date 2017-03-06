@@ -47,11 +47,11 @@ msgstr ""
 #: web/templates/email/index.html.eex:24
 #: web/templates/phone_number/index.html.eex:24
 #: web/templates/social_media_account/index.html.eex:24
-#: web/templates/url/index.html.eex:25 web/templates/user/show.html.eex:87
-#: web/templates/user/show.html.eex:96 web/templates/user/show.html.eex:132
-#: web/templates/user/show.html.eex:181 web/templates/user/show.html.eex:237
-#: web/templates/user/show.html.eex:257 web/templates/user/show.html.eex:277
-#: web/templates/user/show.html.eex:297 web/templates/user_tag/index.html.eex:48
+#: web/templates/url/index.html.eex:25 web/templates/user/show.html.eex:91
+#: web/templates/user/show.html.eex:100 web/templates/user/show.html.eex:136
+#: web/templates/user/show.html.eex:185 web/templates/user/show.html.eex:241
+#: web/templates/user/show.html.eex:261 web/templates/user/show.html.eex:281
+#: web/templates/user/show.html.eex:301 web/templates/user_tag/index.html.eex:48
 #: web/templates/work_experience/index.html.eex:25
 msgid "Add"
 msgstr ""
@@ -74,7 +74,7 @@ msgstr ""
 
 #: web/templates/address/edit.html.eex:8 web/templates/address/index.html.eex:14
 #: web/templates/address/new.html.eex:8 web/templates/address/show.html.eex:13
-#: web/templates/user/show.html.eex:289
+#: web/templates/user/show.html.eex:293
 msgid "Addresses"
 msgstr ""
 
@@ -101,7 +101,7 @@ msgstr ""
 msgid "Birthdate"
 msgstr ""
 
-#: lib/vutuv/emailer.ex:85 web/templates/user/show.html.eex:157
+#: lib/vutuv/emailer.ex:117 web/templates/user/show.html.eex:161
 msgid "Birthday"
 msgstr ""
 
@@ -152,7 +152,7 @@ msgstr ""
 msgid "Connection deleted successfully."
 msgstr ""
 
-#: web/templates/user/show.html.eex:121
+#: web/templates/user/show.html.eex:125
 msgid "Contact"
 msgstr ""
 
@@ -187,7 +187,7 @@ msgstr ""
 msgid "Disable"
 msgstr ""
 
-#: web/templates/user/show.html.eex:192
+#: web/templates/user/show.html.eex:196
 msgid "Download"
 msgstr ""
 
@@ -214,7 +214,7 @@ msgid "Edit user"
 msgstr ""
 
 #: web/templates/email/card_list.html.eex:4 web/templates/email/show.html.eex:33
-#: web/templates/user/show.html.eex:124
+#: web/templates/user/show.html.eex:128
 msgid "Email"
 msgstr ""
 
@@ -236,7 +236,7 @@ msgstr ""
 
 #: web/templates/email/edit.html.eex:7 web/templates/email/index.html.eex:14
 #: web/templates/email/new.html.eex:7 web/templates/email/show.html.eex:13
-#: web/templates/user/show.html.eex:124
+#: web/templates/user/show.html.eex:128
 msgid "Emails"
 msgstr ""
 
@@ -268,7 +268,7 @@ msgstr ""
 msgid "Enter your last name"
 msgstr ""
 
-#: web/templates/user/show.html.eex:227
+#: web/templates/user/show.html.eex:231
 #: web/templates/work_experience/edit.html.eex:8
 #: web/templates/work_experience/index.html.eex:14
 #: web/templates/work_experience/new.html.eex:8
@@ -289,17 +289,17 @@ msgid "First name"
 msgstr ""
 
 #: web/templates/follower/index.html.eex:7
-#: web/templates/follower/index.html.eex:16 web/templates/user/show.html.eex:198
+#: web/templates/follower/index.html.eex:16 web/templates/user/show.html.eex:202
 msgid "Followers"
 msgstr ""
 
 #: web/templates/followee/index.html.eex:7
-#: web/templates/followee/index.html.eex:15 web/templates/user/show.html.eex:212
+#: web/templates/followee/index.html.eex:15 web/templates/user/show.html.eex:216
 msgid "Following"
 msgstr ""
 
 #: web/templates/user/form.html.eex:18 web/templates/user/index.html.eex:12
-#: web/templates/user/show.html.eex:153
+#: web/templates/user/show.html.eex:157
 msgid "Gender"
 msgstr ""
 
@@ -383,21 +383,21 @@ msgstr ""
 msgid "Last name"
 msgstr ""
 
-#: web/controllers/url_controller.ex:30
+#: web/controllers/url_controller.ex:32
 msgid "Link created successfully."
 msgstr ""
 
-#: web/controllers/url_controller.ex:72
+#: web/controllers/url_controller.ex:76
 msgid "Link deleted successfully."
 msgstr ""
 
-#: web/controllers/url_controller.ex:56
+#: web/controllers/url_controller.ex:60
 msgid "Link updated successfully."
 msgstr ""
 
 #: web/templates/url/edit.html.eex:7 web/templates/url/index.html.eex:14
 #: web/templates/url/new.html.eex:7 web/templates/url/show.html.eex:13
-#: web/templates/user/show.html.eex:269
+#: web/templates/user/show.html.eex:273
 msgid "Links"
 msgstr ""
 
@@ -437,7 +437,7 @@ msgstr ""
 msgid "Middlename"
 msgstr ""
 
-#: web/templates/user/show.html.eex:207 web/templates/user/show.html.eex:221
+#: web/templates/user/show.html.eex:211 web/templates/user/show.html.eex:225
 msgid "More"
 msgstr ""
 
@@ -486,7 +486,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: web/templates/user/show.html.eex:204
+#: web/templates/user/show.html.eex:208
 msgid "No Followers yet!"
 msgstr ""
 
@@ -494,7 +494,7 @@ msgstr ""
 msgid "No expensive premium accounts! Read more about it in"
 msgstr ""
 
-#: web/templates/user/show.html.eex:218
+#: web/templates/user/show.html.eex:222
 msgid "Not following anyone yet!"
 msgstr ""
 
@@ -543,7 +543,7 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: web/templates/user/show.html.eex:83
+#: web/templates/user/show.html.eex:87
 msgid "PHP, JavaScript, Tap Dancing, Origami, Recruiting"
 msgstr ""
 
@@ -555,7 +555,7 @@ msgstr ""
 #: web/templates/phone_number/index.html.eex:14
 #: web/templates/phone_number/new.html.eex:7
 #: web/templates/phone_number/show.html.eex:13
-#: web/templates/user/show.html.eex:249
+#: web/templates/user/show.html.eex:253
 msgid "Phone Numbers"
 msgstr ""
 
@@ -704,7 +704,7 @@ msgstr ""
 msgid "Slug updated successfully."
 msgstr ""
 
-#: web/templates/user/show.html.eex:173
+#: web/templates/user/show.html.eex:177
 msgid "Social Media"
 msgstr ""
 
@@ -835,7 +835,7 @@ msgstr ""
 #: web/templates/url/edit.html.eex:5 web/templates/url/index.html.eex:12
 #: web/templates/url/new.html.eex:5 web/templates/url/show.html.eex:11
 #: web/templates/user/edit.html.eex:5 web/templates/user/new.html.eex:5
-#: web/templates/user/show.html.eex:51 web/templates/user_tag/index.html.eex:12
+#: web/templates/user/show.html.eex:55 web/templates/user_tag/index.html.eex:12
 #: web/templates/user_tag/new.html.eex:12
 #: web/templates/user_tag/show.html.eex:11
 #: web/templates/work_experience/edit.html.eex:6
@@ -858,7 +858,7 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: web/templates/user/show.html.eex:191
+#: web/templates/user/show.html.eex:195
 msgid "Vcard"
 msgstr ""
 
@@ -866,9 +866,9 @@ msgstr ""
 msgid "Verified"
 msgstr ""
 
-#: web/templates/user/show.html.eex:100 web/templates/user/show.html.eex:241
-#: web/templates/user/show.html.eex:261 web/templates/user/show.html.eex:281
-#: web/templates/user/show.html.eex:301
+#: web/templates/user/show.html.eex:104 web/templates/user/show.html.eex:245
+#: web/templates/user/show.html.eex:265 web/templates/user/show.html.eex:285
+#: web/templates/user/show.html.eex:305
 msgid "View All"
 msgstr ""
 
@@ -939,7 +939,7 @@ msgstr ""
 msgid "You must be logged in to access that page"
 msgstr ""
 
-#: web/templates/user/show.html.eex:29
+#: web/templates/user/show.html.eex:33
 msgid "followers"
 msgstr ""
 
@@ -947,7 +947,7 @@ msgstr ""
 msgid "follows"
 msgstr ""
 
-#: web/templates/user/show.html.eex:29
+#: web/templates/user/show.html.eex:33
 msgid "has"
 msgstr ""
 
@@ -963,7 +963,7 @@ msgstr ""
 msgid "Delete Account"
 msgstr ""
 
-#: web/templates/user/show.html.eex:60
+#: web/templates/user/show.html.eex:64
 msgid "Your New vutuv Profile Page"
 msgstr ""
 
@@ -1060,15 +1060,15 @@ msgstr ""
 msgid "An error occurred"
 msgstr ""
 
-#: web/templates/user/show.html.eex:188
+#: web/templates/user/show.html.eex:192
 msgid "Exports"
 msgstr ""
 
-#: web/templates/user/show.html.eex:147
+#: web/templates/user/show.html.eex:151
 msgid "General Info"
 msgstr ""
 
-#: web/templates/user/show.html.eex:11
+#: web/templates/user/show.html.eex:15
 msgid "Verify"
 msgstr ""
 
@@ -1492,7 +1492,7 @@ msgstr ""
 #: web/templates/admin/tag_url/show.html.eex:13
 #: web/templates/job_posting/show.html.eex:78
 #: web/templates/tag/index.html.eex:12 web/templates/tag/index.html.eex:17
-#: web/templates/tag/show.html.eex:12 web/templates/user/show.html.eex:71
+#: web/templates/tag/show.html.eex:12 web/templates/user/show.html.eex:75
 #: web/templates/user_tag/index.html.eex:14
 #: web/templates/user_tag/show.html.eex:13
 msgid "Tags"
@@ -1549,7 +1549,7 @@ msgstr ""
 msgid "Edit tag closure"
 msgstr ""
 
-#: web/templates/user/show.html.eex:82
+#: web/templates/user/show.html.eex:86
 msgid "Enter comma separated tags here. Max length per tag: 45 characters"
 msgstr ""
 
@@ -1569,7 +1569,7 @@ msgstr ""
 msgid "People you may know with this tag"
 msgstr ""
 
-#: web/templates/user/show.html.eex:62
+#: web/templates/user/show.html.eex:66
 msgid "Please take a couple of minutes to add information that might be interesting for your future followers. Why don't you start with your tags and work experiences?"
 msgstr ""
 
@@ -1648,7 +1648,7 @@ msgstr ""
 msgid "tag name"
 msgstr ""
 
-#: lib/vutuv/emailer.ex:45
+#: lib/vutuv/emailer.ex:77
 msgid "vutuv Account verified"
 msgstr ""
 
@@ -1882,7 +1882,7 @@ msgstr ""
 msgid "Recruiter packages"
 msgstr ""
 
-#: web/controllers/recruiter_subscription_controller.ex:28
+#: web/controllers/recruiter_subscription_controller.ex:36
 msgid "Recruiter subscription created successfully."
 msgstr ""
 
@@ -1959,7 +1959,7 @@ msgstr ""
 msgid "Post a job offer"
 msgstr ""
 
-#: web/templates/recruiter_subscription/form.html.eex:69
+#: web/templates/recruiter_subscription/form.html.eex:70
 msgid "City"
 msgstr ""
 
@@ -1972,7 +1972,7 @@ msgstr ""
 msgid "Important tags"
 msgstr ""
 
-#: web/templates/recruiter_subscription/form.html.eex:17
+#: web/templates/recruiter_subscription/form.html.eex:18
 msgid "Invoice Address"
 msgstr ""
 
@@ -1984,11 +1984,11 @@ msgstr ""
 msgid "Job title"
 msgstr ""
 
-#: web/templates/recruiter_subscription/form.html.eex:25
+#: web/templates/recruiter_subscription/form.html.eex:26
 msgid "Line1"
 msgstr ""
 
-#: web/templates/recruiter_subscription/form.html.eex:36
+#: web/templates/recruiter_subscription/form.html.eex:37
 msgid "Line2"
 msgstr ""
 
@@ -2008,15 +2008,15 @@ msgstr ""
 msgid "Salary"
 msgstr ""
 
-#: web/templates/recruiter_subscription/form.html.eex:47
+#: web/templates/recruiter_subscription/form.html.eex:48
 msgid "Street"
 msgstr ""
 
-#: web/templates/recruiter_subscription/form.html.eex:18
+#: web/templates/recruiter_subscription/form.html.eex:19
 msgid "You'll recieve an email with an invoice. Payment can be done by wire transfer or PayPal."
 msgstr ""
 
-#: web/templates/recruiter_subscription/form.html.eex:58
+#: web/templates/recruiter_subscription/form.html.eex:59
 msgid "Zip Code"
 msgstr ""
 
@@ -2040,16 +2040,12 @@ msgstr ""
 msgid "You have a recruiter subscription but we haven't received a payment yet."
 msgstr ""
 
-#: web/templates/recruiter_subscription/form.html.eex:77
+#: web/templates/recruiter_subscription/form.html.eex:78
 msgid "Subscribe to this recruiter package"
 msgstr ""
 
-#: web/templates/recruiter_subscription/form.html.eex:15
+#: web/templates/recruiter_subscription/form.html.eex:16
 msgid "Each subscription can be canceled up to 30 days before it ends."
-msgstr ""
-
-#: lib/vutuv/emailer.ex:33
-msgid "vutuv recruiter package subscription"
 msgstr ""
 
 #: web/templates/job_posting/form.html.eex:131
@@ -2078,4 +2074,20 @@ msgstr ""
 
 #: web/templates/url/card_list.html.eex:9
 msgid "A screenshot has not been created yet."
+msgstr ""
+
+#: lib/vutuv/emailer.ex:44
+msgid "Order"
+msgstr ""
+
+#: lib/vutuv/emailer.ex:44
+msgid "subscription"
+msgstr ""
+
+#: web/templates/recruiter_subscription/form.html.eex:16
+msgid "All prices include the German VAT."
+msgstr ""
+
+#: web/templates/recruiter_subscription/form.html.eex:10
+msgid "We offer the following recruiter packages."
 msgstr ""

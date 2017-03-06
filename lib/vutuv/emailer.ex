@@ -29,9 +29,41 @@ defmodule Vutuv.Emailer do
     gen_email(link, pin, email, user,"user_deletion_email_#{get_locale(user.locale)}", Vutuv.Gettext.gettext("Confirm your account deletion"))
   end
 
-  def payment_information_email(email, user) do
-    gen_email(nil, nil, email, user,"payment_information_email_#{get_locale(user.locale)}", Vutuv.Gettext.gettext("vutuv recruiter package subscription"))
+  def payment_information_email(recruiter_subscription, user, email) do
+    recuiter_package = Vutuv.Repo.get(Vutuv.RecruiterPackage, recruiter_subscription.recruiter_package_id)
+    template = "payment_information_email_#{get_locale(user.locale)}"
+    accounting_email = Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:accounting_email]
+
+    new_email
+    |> put_text_layout({Vutuv.EmailView, "#{template}.text"})
+    |> assign(:recuiter_package, recuiter_package)
+    |> assign(:user, user)
+    |> to("#{Vutuv.UserHelpers.name_for_email_to_field(user)} <#{email}>")
+    |> bcc("#{accounting_email}")
+    |> from("vutuv <info@vutuv.de>")
+    |> subject(Vutuv.Gettext.gettext("Order")<>" \"#{recuiter_package.name}\" "<>Vutuv.Gettext.gettext("subscription"))
+    |> render("#{template}.text")
   end
+
+  def issue_invoice(recruiter_subscription, user, email) do
+    accounting_email = Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:accounting_email]
+
+    if accounting_email do
+      recuiter_package = Vutuv.Repo.get(Vutuv.RecruiterPackage, recruiter_subscription.recruiter_package_id)
+
+      new_email
+      |> put_text_layout({Vutuv.EmailView, "trigger_recruiter_subscription_invoice.text"})
+      |> assign(:recruiter_subscription, recruiter_subscription)
+      |> assign(:recuiter_package, recuiter_package)
+      |> assign(:user, user)
+      |> to("#{accounting_email}")
+      |> from("vutuv <info@vutuv.de>")
+      |> subject("Rechnung: #{recuiter_package.name} für #{user.first_name} #{user.last_name}")
+      |> render("trigger_recruiter_subscription_invoice.text")
+      |> Vutuv.Mailer.deliver_now
+    end
+  end
+
 
   def verification_notice(user) do
     email = Vutuv.Repo.one(Ecto.Query.from e in Vutuv.Email, where: e.user_id == ^user.id, limit: 1, select: e.value)

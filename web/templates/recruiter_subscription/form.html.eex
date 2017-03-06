@@ -5,14 +5,15 @@
     </div>
   <% end %>
 
-<h1><%= gettext("Packages") %></label>
-<br>
-<br>
+<h1><%= gettext("Packages") %></h1>
+<p>
+<%= gettext("We offer the following recruiter packages.") %>
+</p>
 <%= render "package_list.html", f: f, packages: @packages %>
 <br>
 <%= error_tag f, :recruiter_package_id %>
 
-<p><%= gettext("Each subscription can be canceled up to 30 days before it ends.") %><p>
+<p><%= gettext("All prices include the German VAT.") %> <%= gettext("Each subscription can be canceled up to 30 days before it ends.") %><p>
 
 <h1><%= gettext("Invoice Address") %></h1>
   <p><%= gettext("You'll recieve an email with an invoice. Payment can be done by wire transfer or PayPal.") %></p>

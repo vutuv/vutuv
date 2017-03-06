@@ -21,9 +21,17 @@ defmodule Vutuv.RecruiterSubscriptionController do
       |> RecruiterSubscription.changeset(recruiter_subscription_params)
 
     case Repo.insert(changeset) do
-      {:ok, _recruiter_subscription} ->
-        Vutuv.Emailer.payment_information_email(Vutuv.UserHelpers.email(conn.assigns[:user]), conn.assigns[:user])
+      {:ok, recruiter_subscription} ->
+        # Send an email to the client
+        Vutuv.Emailer.payment_information_email(recruiter_subscription, conn.assigns[:user], Vutuv.UserHelpers.email(conn.assigns[:user]))
         |> Vutuv.Mailer.deliver_now
+
+        # Send an email to accounting
+        accounting_email = Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:accounting_email]
+        if accounting_email do
+          Vutuv.Emailer.issue_invoice(recruiter_subscription, conn.assigns[:user], accounting_email)
+        end
+
         conn
         |> put_flash(:info, gettext("Recruiter subscription created successfully."))
         |> redirect(to: user_recruiter_subscription_path(conn, :new, conn.assigns[:user]))
