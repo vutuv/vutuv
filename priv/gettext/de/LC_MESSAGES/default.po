@@ -1671,7 +1671,7 @@ msgstr "Alle Stellenanzeigen"
 
 #: web/templates/admin/recruiter_package/index.html.eex:4
 msgid "All recruiter packages"
-msgstr "Alle Recruiter Packete"
+msgstr "Alle Recruiter Pakete"
 
 #: web/templates/admin/recruiter_package/show.html.eex:77
 msgid "Auto renewal"
@@ -1704,7 +1704,7 @@ msgstr "Stellenanzeige verändern"
 
 #: web/templates/admin/recruiter_package/edit.html.eex:4
 msgid "Edit recruiter package"
-msgstr "Recruiter Packet verändern"
+msgstr "Recruiter Paket verändern"
 
 #: web/templates/admin/recruiter_package/index.html.eex:25
 msgid "Ends"
@@ -1801,7 +1801,7 @@ msgstr "Neues Stellenanzeigen Tag"
 #: web/templates/admin/recruiter_package/index.html.eex:59
 #: web/templates/admin/recruiter_package/new.html.eex:4
 msgid "New recruiter package"
-msgstr "Neues Recruiter Packet"
+msgstr "Neues Recruiter Paket"
 
 #: web/templates/admin/recruiter_package/package_minicard.html.eex:24
 msgid "Number of concurrent active job postings"
@@ -1825,11 +1825,11 @@ msgstr "Optional"
 
 #: web/templates/recruiter_subscription/index.html.eex:22
 msgid "Package"
-msgstr "Packet"
+msgstr "Paket"
 
 #: web/templates/recruiter_subscription/form.html.eex:8
 msgid "Packages"
-msgstr "Packete"
+msgstr "Pakete"
 
 #: web/templates/recruiter_subscription/index.html.eex:25
 msgid "Paid"
@@ -1865,22 +1865,22 @@ msgstr "Priorität"
 
 #: web/controllers/admin/recruiter_package_controller.ex:23
 msgid "Recruiter package created successfully."
-msgstr "Ein Recruiter Packet wurde angelegt."
+msgstr "Ein Recruiter Paket wurde angelegt."
 
 #: web/controllers/admin/recruiter_package_controller.ex:63
 msgid "Recruiter package deleted successfully."
-msgstr "Ein Recruiter Packet wurde gelöscht."
+msgstr "Ein Recruiter Paket wurde gelöscht."
 
 #: web/controllers/admin/recruiter_package_controller.ex:48
 msgid "Recruiter package updated successfully."
-msgstr "Ein Recruiter Packet wurde verändert."
+msgstr "Ein Recruiter Paket wurde verändert."
 
 #: web/templates/admin/recruiter_package/edit.html.eex:12
 #: web/templates/admin/recruiter_package/index.html.eex:12
 #: web/templates/admin/recruiter_package/new.html.eex:12
 #: web/templates/admin/recruiter_package/show.html.eex:12
 msgid "Recruiter packages"
-msgstr "Recruiter Packete"
+msgstr "Recruiter Pakete"
 
 #: web/controllers/recruiter_subscription_controller.ex:36
 msgid "Recruiter subscription created successfully."
@@ -1896,7 +1896,7 @@ msgstr "Stellenanzeige anzeigen"
 
 #: web/templates/admin/recruiter_package/show.html.eex:4
 msgid "Show recruiter package"
-msgstr "Recruiter Packet anzeigen"
+msgstr "Recruiter Paket anzeigen"
 
 #: web/templates/recruiter_subscription/index.html.eex:23
 msgid "Subscribed on"
@@ -1920,7 +1920,7 @@ msgstr "Abo-Dauer"
 
 #: web/templates/recruiter_subscription/new.html.eex:42
 msgid "There are no packages available at this time"
-msgstr "Aktuell gibt es keine Packete."
+msgstr "Aktuell gibt es keine Pakete."
 
 #: web/templates/job_posting/index.html.eex:22
 #: web/templates/job_posting/show.html.eex:40
@@ -2090,4 +2090,4 @@ msgstr "Alle Preise verstehen sich inklusive Umsatzsteuer."
 
 #: web/templates/recruiter_subscription/form.html.eex:10
 msgid "We offer the following recruiter packages."
-msgstr "Wir bieten die folgenden Recruiter Packete an."
+msgstr "Wir bieten die folgenden Recruiter Pakete an."
