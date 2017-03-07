@@ -48,8 +48,7 @@ defmodule Vutuv.Browserstack do
     headers = ["Content-Type": "application/json", "Accept": "Application/json; Charset=utf-8"]
 
     case HTTPoison.post "https://www.browserstack.com/screenshots", "{\"browsers\": [{\"os\": \"Windows\", \"os_version\": \"10\", \"browser_version\": \"50.0\", \"browser\": \"chrome\", \"orientation\": \"landscape\"}], \"url\": \"#{url.value}\"}", headers, [ hackney: hackney ] do
-      {:ok, %HTTPoison.Response{status_code: 404}} -> nil
-      {:ok, %HTTPoison.Response{body: body, headers: headers}} ->
+      {:ok, %HTTPoison.Response{body: body, headers: headers, status_code: 200}} ->
         decoded_body = body |> Poison.decode!
         {:ok, job_id} = Map.fetch(decoded_body, "job_id")
         job_id
@@ -61,8 +60,8 @@ defmodule Vutuv.Browserstack do
     image_url(job_id, 0)
   end
 
-  # When the counter reaches 5 stop
-  defp image_url(job_id, 5) do
+  # When the counter reaches 7 stop
+  defp image_url(job_id, 7) do
     fetch_image_url(job_id)
   end
 
