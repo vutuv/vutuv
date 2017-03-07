@@ -13,13 +13,15 @@ defmodule Vutuv.Browserstack do
   def generate_screenshot(url) do
     job_id = new_job_id(url)
 
-    image_url(job_id, 0)
-    |> HTTPoison.get([], [timeout: 1000, recv_timeout: 1000])
+    image_url(job_id)
+    |> HTTPoison.get([], [timeout: 1500, recv_timeout: 1500])
     |> case do
       {:ok, %HTTPoison.Response{status_code: 404}} -> nil
       {:ok, %HTTPoison.Response{body: body, headers: headers}} ->
-        content_type = "image/png"
-        filename = "/#{String.replace(url.value, ~r/.*\/\//, "") |> String.replace(".","_")}.png"
+        {_, content_type} = List.keyfind(headers, "Content-Type", 0)
+        file_extension = String.split(content_type, "/")
+                         |> List.last
+        filename = "#{url.id}.#{file_extension}"
         path = System.tmp_dir
         upload = %Plug.Upload{content_type: content_type,
                  filename: filename,
@@ -49,6 +51,10 @@ defmodule Vutuv.Browserstack do
         job_id
       _ -> nil
     end
+  end
+
+  def image_url(job_id) do
+    image_url(job_id, 0)
   end
 
   # When the counter reaches 5 stop
