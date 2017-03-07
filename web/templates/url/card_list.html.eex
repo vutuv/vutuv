@@ -2,7 +2,7 @@
   <%= for url <- @urls do %>
   <li>
     <div class="img">
-      <a href="<%= url.value %>">
+      <a href="<%= linkable_url(url.value) %>">
         <%= if url.screenshot do %>
           <img src="<%= Vutuv.Screenshot.url({url.screenshot, url}, :thumb)|> String.replace("web/static/assets", "")|> String.replace("//", "/") %>" alt="Screenshot" width="150" height="112" />
         <% else %>
@@ -29,7 +29,7 @@
         <%= url.description %>
       </div>
       <div class="url">
-        <%= link url.value, to: url.value %>
+        <%= link linkable_url(url.value), to: linkable_url(url.value) %>
       </div>
     </div>
   </li>
