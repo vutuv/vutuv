@@ -22,14 +22,18 @@ defmodule Vutuv.Browserstack do
         file_extension = String.split(content_type, "/")
                          |> List.last
         filename = "#{url.id}.#{file_extension}"
-        path = System.tmp_dir
+        temp_dir_path = System.tmp_dir
+        temp_file = "#{temp_dir_path}/screen-shot-#{filename}"
+                    |> String.replace("//","/")
+        File.rm(temp_file)
+        File.write(temp_file, body)
         upload = %Plug.Upload{content_type: content_type,
                  filename: filename,
-                 path: path<>filename}
-        File.write(path<>filename, body)
+                 path: temp_file}
         url
         |> Url.changeset(%{screenshot: upload})
         |> Repo.update
+        File.rm(temp_file)
       _ -> nil
     end
   end
