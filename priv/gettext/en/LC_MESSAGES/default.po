@@ -49,9 +49,9 @@ msgstr ""
 #: web/templates/social_media_account/index.html.eex:24
 #: web/templates/url/index.html.eex:25 web/templates/user/show.html.eex:91
 #: web/templates/user/show.html.eex:100 web/templates/user/show.html.eex:136
-#: web/templates/user/show.html.eex:185 web/templates/user/show.html.eex:241
-#: web/templates/user/show.html.eex:261 web/templates/user/show.html.eex:281
-#: web/templates/user/show.html.eex:301 web/templates/user_tag/index.html.eex:48
+#: web/templates/user/show.html.eex:185 web/templates/user/show.html.eex:245
+#: web/templates/user/show.html.eex:265 web/templates/user/show.html.eex:285
+#: web/templates/user/show.html.eex:305 web/templates/user_tag/index.html.eex:48
 #: web/templates/work_experience/index.html.eex:25
 msgid "Add"
 msgstr ""
@@ -74,7 +74,7 @@ msgstr ""
 
 #: web/templates/address/edit.html.eex:8 web/templates/address/index.html.eex:14
 #: web/templates/address/new.html.eex:8 web/templates/address/show.html.eex:13
-#: web/templates/user/show.html.eex:293
+#: web/templates/user/show.html.eex:297
 msgid "Addresses"
 msgstr ""
 
@@ -156,7 +156,7 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: web/controllers/user_controller.ex:238
+#: web/controllers/user_controller.ex:253
 msgid "Couldn't follow back to %{name}."
 msgstr ""
 
@@ -268,7 +268,7 @@ msgstr ""
 msgid "Enter your last name"
 msgstr ""
 
-#: web/templates/user/show.html.eex:231
+#: web/templates/user/show.html.eex:235
 #: web/templates/work_experience/edit.html.eex:8
 #: web/templates/work_experience/index.html.eex:14
 #: web/templates/work_experience/new.html.eex:8
@@ -294,7 +294,7 @@ msgid "Followers"
 msgstr ""
 
 #: web/templates/followee/index.html.eex:7
-#: web/templates/followee/index.html.eex:15 web/templates/user/show.html.eex:216
+#: web/templates/followee/index.html.eex:15 web/templates/user/show.html.eex:218
 msgid "Following"
 msgstr ""
 
@@ -397,7 +397,7 @@ msgstr ""
 
 #: web/templates/url/edit.html.eex:7 web/templates/url/index.html.eex:14
 #: web/templates/url/new.html.eex:7 web/templates/url/show.html.eex:13
-#: web/templates/user/show.html.eex:273
+#: web/templates/user/show.html.eex:277
 msgid "Links"
 msgstr ""
 
@@ -555,7 +555,7 @@ msgstr ""
 #: web/templates/phone_number/index.html.eex:14
 #: web/templates/phone_number/new.html.eex:7
 #: web/templates/phone_number/show.html.eex:13
-#: web/templates/user/show.html.eex:253
+#: web/templates/user/show.html.eex:257
 msgid "Phone Numbers"
 msgstr ""
 
@@ -700,7 +700,7 @@ msgstr ""
 msgid "Slug doesn't exist."
 msgstr ""
 
-#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:157
+#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:172
 msgid "Slug updated successfully."
 msgstr ""
 
@@ -793,11 +793,11 @@ msgstr ""
 msgid "User %{name} created successfully. An email has been sent with your login link."
 msgstr ""
 
-#: web/controllers/user_controller.ex:174
+#: web/controllers/user_controller.ex:189
 msgid "User deleted successfully."
 msgstr ""
 
-#: web/controllers/user_controller.ex:134
+#: web/controllers/user_controller.ex:149
 msgid "User updated successfully."
 msgstr ""
 
@@ -866,9 +866,9 @@ msgstr ""
 msgid "Verified"
 msgstr ""
 
-#: web/templates/user/show.html.eex:104 web/templates/user/show.html.eex:245
-#: web/templates/user/show.html.eex:265 web/templates/user/show.html.eex:285
-#: web/templates/user/show.html.eex:305
+#: web/templates/user/show.html.eex:104 web/templates/user/show.html.eex:249
+#: web/templates/user/show.html.eex:269 web/templates/user/show.html.eex:289
+#: web/templates/user/show.html.eex:309
 msgid "View All"
 msgstr ""
 
@@ -921,7 +921,7 @@ msgstr ""
 msgid "You don't have any followers yet! If you want more followers, you could follow others, invite your friends, or link your Vutuv profile on other social media websites."
 msgstr ""
 
-#: web/controllers/user_controller.ex:234
+#: web/controllers/user_controller.ex:249
 msgid "You follow back %{name}."
 msgstr ""
 
@@ -935,7 +935,7 @@ msgstr ""
 #: web/controllers/admin/tag_synonym_controller.ex:95
 #: web/controllers/admin/tag_url_controller.ex:99
 #: web/controllers/admin/user_controller.ex:29
-#: web/controllers/user_controller.ex:248
+#: web/controllers/user_controller.ex:263
 msgid "You must be logged in to access that page"
 msgstr ""
 
@@ -955,7 +955,7 @@ msgstr ""
 msgid "our blog"
 msgstr ""
 
-#: web/controllers/user_controller.ex:188
+#: web/controllers/user_controller.ex:203
 msgid "An email has been sent to your email address with instructions on how to delete your account."
 msgstr ""
 
@@ -1140,12 +1140,12 @@ msgstr ""
 msgid "Homepage"
 msgstr ""
 
-#: web/models/tag_url.ex:35 web/models/tag_url.ex:36 web/models/url.ex:38
-#: web/models/url.ex:39
+#: web/models/tag_url.ex:35 web/models/tag_url.ex:36 web/models/url.ex:39
+#: web/models/url.ex:40
 msgid "Invalid URL"
 msgstr ""
 
-#: web/models/tag_url.ex:40 web/models/url.ex:43
+#: web/models/tag_url.ex:40 web/models/url.ex:44
 msgid "Can't find URL"
 msgstr ""
 
@@ -1582,7 +1582,7 @@ msgstr ""
 msgid "Show tag closure"
 msgstr ""
 
-#: web/controllers/user_controller.ex:218
+#: web/controllers/user_controller.ex:233
 msgid "Successfully added %{successes} tags with %{failures} failures."
 msgstr ""
 
@@ -1844,7 +1844,7 @@ msgstr ""
 msgid "Payment not yet recieved"
 msgstr ""
 
-#: web/templates/recruiter_subscription/new.html.eex:52
+#: web/templates/recruiter_subscription/new.html.eex:58
 msgid "Post jobs"
 msgstr ""
 
@@ -2090,4 +2090,24 @@ msgstr ""
 
 #: web/templates/recruiter_subscription/form.html.eex:10
 msgid "We offer the following recruiter packages."
+msgstr ""
+
+#: lib/vutuv/robert.ex:149
+msgid "Added"
+msgstr ""
+
+#: lib/vutuv/robert.ex:69
+msgid "Added an avatar photo."
+msgstr ""
+
+#: lib/vutuv/robert.ex:109
+msgid "Added website:"
+msgstr ""
+
+#: web/templates/user/show.html.eex:228
+msgid "Recommended"
+msgstr ""
+
+#: lib/vutuv/robert.ex:149
+msgid "account"
 msgstr ""

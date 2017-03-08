@@ -88,7 +88,7 @@ defmodule Vutuv.UserController do
     now = :calendar.datetime_to_gregorian_seconds(:calendar.universal_time)
     display_welcome_message = now - inserted_at <= 600
 
-    # Find recomended users
+    # Find Recommended users
     user_tag = Repo.one(from w in assoc(user, :user_tags), join: t in assoc(w, :tag), order_by: w.inserted_at, limit: 1)
     if user_tag do
       reccomended_users = Vutuv.Tag.reccomended_users(Repo.get(Vutuv.Tag, user_tag.tag_id))

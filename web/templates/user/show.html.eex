@@ -225,7 +225,7 @@
           <%= link "#{@followee_count-3} #{gettext "More"}", to: user_followee_path(@conn, :index, @user), class: "card__morelink" %>
         <% end %>
       <% else %>
-        <h1><%= gettext "Recomended" %></h1>
+        <h1><%= gettext "Recommended" %></h1>
         <%= render Vutuv.UserView, "card_list.html", Map.put(assigns, :users, @reccomended_users) %>
       <% end %>
   </section>
