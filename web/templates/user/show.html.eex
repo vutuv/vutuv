@@ -212,18 +212,22 @@
     <% end %>
   </section>
 
+
   <section class="card half last">
-  <h1><%= gettext "Following" %></h1>
     <%= if(@followee_count > 0) do %>
-
-    <%= render "card_list.html", conn: @conn, users: @user.followees, current_user: @current_user, current_user_id: @current_user_id, work_string_length: 20 %>
-
-    <% else %>
-      <p class="card__empty"><%= gettext "Not following anyone yet!" %></p>
-    <% end %>
-    <%= if(@followee_count > 3) do %>
-      <%= link "#{@followee_count-3} #{gettext "More"}", to: user_followee_path(@conn, :index, @user), class: "card__morelink" %>
-    <% end %>
+      <h1><%= gettext "Following" %></h1>
+        <%= if(@followee_count > 0) do %>
+          <%= render "card_list.html", conn: @conn, users: @user.followees, current_user: @current_user, current_user_id: @current_user_id, work_string_length: 20 %>
+        <% else %>
+          <p class="card__empty"><%= gettext "Not following anyone yet!" %></p>
+        <% end %>
+        <%= if(@followee_count > 3) do %>
+          <%= link "#{@followee_count-3} #{gettext "More"}", to: user_followee_path(@conn, :index, @user), class: "card__morelink" %>
+        <% end %>
+      <% else %>
+        <h1><%= gettext "Recomended" %></h1>
+        <%= render Vutuv.UserView, "card_list.html", Map.put(assigns, :users, @reccomended_users) %>
+      <% end %>
   </section>
 
     <%= if @total_jobs > 0 or same_user?(@user, @current_user) do %>

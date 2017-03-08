@@ -88,6 +88,19 @@ defmodule Vutuv.UserController do
     now = :calendar.datetime_to_gregorian_seconds(:calendar.universal_time)
     display_welcome_message = now - inserted_at <= 600
 
+    # Find recomended users
+    user_tag = Repo.one(from w in assoc(user, :user_tags), join: t in assoc(w, :tag), order_by: w.inserted_at, limit: 1)
+    if user_tag do
+      reccomended_users = Vutuv.Tag.reccomended_users(Repo.get(Vutuv.Tag, user_tag.tag_id))
+      if reccomended_users = [user] do
+        # It's an exotic tag and only the user itself comes up.
+        reccomended_users = Repo.all(from u in User, left_join: f in assoc(u, :followers), group_by: u.id, order_by: [fragment("count(?) DESC", f.id), u.first_name, u.last_name], limit: 10)
+      end
+    else
+      reccomended_users = Repo.all(from u in User, left_join: f in assoc(u, :followers), group_by: u.id, order_by: [fragment("count(?) DESC", f.id), u.first_name, u.last_name], limit: 10)
+    end
+    work_string_length = 35
+
     conn
     |> assign(:emails, emails)
     |> assign(:user_tags, user.user_tags)
@@ -106,6 +119,8 @@ defmodule Vutuv.UserController do
     |> assign(:display_welcome_message, display_welcome_message)
     |> assign(:active_subscription, active_subscription)
     |> assign(:recruiter_packages, recruiter_packages)
+    |> assign(:reccomended_users, reccomended_users)
+    |> assign(:work_string_length, work_string_length)
     |> render("show.html", conn: conn)
   end
 
