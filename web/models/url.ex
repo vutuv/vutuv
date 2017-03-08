@@ -8,6 +8,7 @@ defmodule Vutuv.Url do
     field :value, :string
     field :description, :string
     field :screenshot, Vutuv.Screenshot.Type
+    field :broken, :boolean
 
     belongs_to :user, Vutuv.User
     timestamps
@@ -21,7 +22,7 @@ defmodule Vutuv.Url do
   """
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, [:value, :description])
+    |> cast(params, [:value, :description, :broken])
     |> cast_attachments(params, [:screenshot])
     |> validate_required([:value])
     |> validate_length(:description, max: 45)
