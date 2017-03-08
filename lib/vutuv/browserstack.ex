@@ -5,39 +5,52 @@
 # an open-source project.
 #
 defmodule Vutuv.Browserstack do
-  import Ecto.Query
+  import Ecto
   alias Vutuv.Screenshot
   alias Vutuv.Url
   alias Vutuv.Repo
+  alias Vutuv.User
 
   def generate_screenshot(url) do
-    job_id = new_job_id(url)
+    unless url.broken do
+      user = Repo.get(User, url.user_id)
+      url = Repo.get!(assoc(user, :urls), url.id)
+      changeset = Url.changeset(url, %{broken: true})
+      Repo.update(changeset)
 
-    if job_id do
-      image_url(job_id)
-      |> HTTPoison.get([], [timeout: 1500, recv_timeout: 1500])
-      |> case do
-        {:ok, %HTTPoison.Response{status_code: 404}} -> nil
-        {:ok, %HTTPoison.Response{body: body, headers: headers}} ->
-          {_, content_type} = List.keyfind(headers, "Content-Type", 0)
-          file_extension = String.split(content_type, "/")
-                           |> List.last
-          filename = "#{url.id}.#{file_extension}"
-          temp_dir_path = System.tmp_dir
-          temp_file = "#{temp_dir_path}/screen-shot-#{filename}"
-                      |> String.replace("//","/")
-          File.rm(temp_file)
-          File.write(temp_file, body)
-          upload = %Plug.Upload{content_type: content_type,
-                   filename: filename,
-                   path: temp_file}
-          url
-          |> Url.changeset(%{screenshot: upload})
-          |> Repo.update
-          File.rm(temp_file)
-        _ -> nil
+      job_id = new_job_id(url)
+
+      if job_id do
+        image_url(job_id)
+        |> HTTPoison.get([], [timeout: 1500, recv_timeout: 1500])
+        |> case do
+          {:ok, %HTTPoison.Response{status_code: 404}} -> nil
+          {:ok, %HTTPoison.Response{body: body, headers: headers}} ->
+            {_, content_type} = List.keyfind(headers, "Content-Type", 0)
+            file_extension = String.split(content_type, "/")
+                             |> List.last
+            filename = "#{url.id}.#{file_extension}"
+            temp_dir_path = System.tmp_dir
+            temp_file = "#{temp_dir_path}/screen-shot-#{filename}"
+                        |> String.replace("//","/")
+            File.rm(temp_file)
+            File.write(temp_file, body)
+            upload = %Plug.Upload{content_type: content_type,
+                     filename: filename,
+                     path: temp_file}
+            url
+            |> Url.changeset(%{screenshot: upload})
+            |> Repo.update
+            File.rm(temp_file)
+          _ -> nil
+        end
       end
+
+      changeset = Url.changeset(url, %{broken: false})
+      Repo.update(changeset)
     end
+
+
   end
 
   # Ask browserstack.com to generate a screenshot.

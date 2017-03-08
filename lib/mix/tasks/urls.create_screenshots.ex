@@ -25,12 +25,12 @@ defmodule Mix.Tasks.Urls.CreateScreenshots do
           unless url.screenshot do
             unless url.broken do
               IO.puts "-> #{url.value}"
-              changeset = Url.changeset(url, %{broken: true})
-              Repo.update(changeset)
+              # changeset = Url.changeset(url, %{broken: true})
+              # Repo.update(changeset)
               Vutuv.Browserstack.generate_screenshot(url)
               :timer.sleep(500)
-              changeset = Url.changeset(url, %{broken: false})
-              Repo.update(changeset)
+              # changeset = Url.changeset(url, %{broken: false})
+              # Repo.update(changeset)
             end
           end
         end
