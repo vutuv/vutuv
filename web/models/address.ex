@@ -16,8 +16,8 @@ defmodule Vutuv.Address do
     timestamps
   end
 
-  @required_fields ~w(description line_1 zip_code city state country)
-  @optional_fields ~w(line_2)
+  @required_fields ~w(country)
+  @optional_fields ~w(line_2 description line_1 zip_code city state )
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -28,6 +28,6 @@ defmodule Vutuv.Address do
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, [:description, :line_1, :line_2, :line_3, :line_4, :zip_code, :city, :state, :country])
-    |> validate_required([:description, :line_1, :zip_code, :city, :country])
+    |> validate_required([:description, :country])
   end
 end

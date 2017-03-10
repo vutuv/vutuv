@@ -27,7 +27,7 @@
           </i>
         <% end %>
         </div>
-      <% end %> 
+      <% end %>
       </td>
     </tr>
 <% end %>
