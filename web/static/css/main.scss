@@ -329,6 +329,28 @@ dl {
     text-align: left;
   }
 }
+.card {
+  dl {
+    display: block;
+    overflow: hidden;
+    border: none;
+    margin: 0 0 15px;
+    dt {
+      border-top: 1px solid $color_grey_light;
+      display: block;
+      padding: 5px 0 0;
+      margin: 0;
+      line-height: 1.3em;
+    }
+    dd {
+      border: none;
+      display: block;
+      padding: 0 0 5px;
+      margin: 0;
+      line-height: 1.3em;
+    }
+  }
+}
 .profile {
   display: inline-block;
   position: relative;
@@ -667,8 +689,7 @@ ul.thumbs {
   display: block;
   font-size: 14px;
   font-weight: bold;
-  height: 44px;
-  padding-top: 12px;
+  padding: 15px 0 15px;
   text-align: center; 
   .card.jobs & {
     color: $color_highlight;
@@ -722,7 +743,7 @@ ul.thumbs {
     background: #fff;
     border-bottom: 2px solid #ddd;
     border-top: 2px solid #4A90E2;
-    margin: 15px 0 0;
+    margin: 0 0 15px;
     padding: 12px 10px 0 10px;
     @media #{$media_md} {
       width: 300px;
@@ -765,7 +786,7 @@ ul.thumbs {
   }
   
   aside {
-    margin: 15px 0 0;
+    margin: 0;
     float: right;
     display: block;
     width: 240px;

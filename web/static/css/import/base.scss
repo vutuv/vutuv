@@ -522,7 +522,8 @@ footer {
   font-size: 14px;
   padding: 18px 10px 0px 10px;
   max-width: 620px;
-  margin: auto; }
+  margin: 0 auto 15px;
+}
 
 .breadcrumbs__link {
   color: #444; }
@@ -852,7 +853,7 @@ footer {
 .ad {
   background: #fff;
   padding: 15px 20px;
-  margin-top: 0;
+  margin: 0 0 15px;
   position: relative; }
   .ad * {
     font-size: 13px;
