@@ -1,7 +1,7 @@
 
   <div class="profile-header">
     <div class="profile-header__info">
-      <h1><%= gettext "New job posting" %></h1>
+      <h1><%= gettext "Create a new job posting" %></h1>
     </div>
   </div>
 </header>

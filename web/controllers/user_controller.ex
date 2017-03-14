@@ -79,7 +79,12 @@ defmodule Vutuv.UserController do
 
     job = current_job(user)
     emails = Vutuv.UserHelpers.emails_for_display(user, conn.assigns[:current_user])
-    active_subscription = RecruiterSubscription.active_subscription(conn.assigns[:user_id])
+    current_user = conn.assigns[:current_user]
+    if current_user do
+      active_subscription = RecruiterSubscription.active_subscription(current_user.id)
+    else
+      active_subscription = nil
+    end
     recruiter_packages = Vutuv.RecruiterPackage.get_packages(conn.assigns[:locale])
 
     # Display an introduction message for new users

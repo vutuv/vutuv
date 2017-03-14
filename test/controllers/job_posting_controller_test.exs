@@ -12,7 +12,7 @@ defmodule Vutuv.JobPostingControllerTest do
 
   test "renders form for new resources", %{conn: conn} do
     conn = get conn, job_posting_path(conn, :new)
-    assert html_response(conn, 200) =~ "New job posting"
+    assert html_response(conn, 200) =~ "Create a new job posting"
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
@@ -23,7 +23,7 @@ defmodule Vutuv.JobPostingControllerTest do
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
     conn = post conn, job_posting_path(conn, :create), job_posting: @invalid_attrs
-    assert html_response(conn, 200) =~ "New job posting"
+    assert html_response(conn, 200) =~ "Create a new job posting"
   end
 
   test "shows chosen resource", %{conn: conn} do

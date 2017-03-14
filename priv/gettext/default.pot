@@ -1791,7 +1791,7 @@ msgstr ""
 #: web/templates/job_posting/index.html.eex:57
 #: web/templates/job_posting/new.html.eex:4
 #: web/templates/shared/job_ad.html.eex:49
-msgid "New job posting"
+msgid "Create a new job posting"
 msgstr ""
 
 #: web/templates/job_posting_tag/index.html.eex:46
