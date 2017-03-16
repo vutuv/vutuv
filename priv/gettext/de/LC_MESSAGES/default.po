@@ -38,10 +38,6 @@ msgstr "Über diesen Social Media Account"
 msgid "About us"
 msgstr "Impressum"
 
-#: web/templates/shared/_ad.html.eex:2
-msgid "Ad"
-msgstr "Anzeige"
-
 #: web/templates/address/index.html.eex:24
 #: web/templates/admin/locale/show.html.eex:40
 #: web/templates/email/index.html.eex:24
@@ -112,6 +108,7 @@ msgstr "Achtung: Ab hier benutzen wir Cookies."
 #: web/templates/address/form_de.html.eex:37
 #: web/templates/address/form_en.html.eex:49
 #: web/templates/address/form_generic.html.eex:49
+#: web/templates/admin/coupon/form.html.eex:75
 #: web/templates/admin/exonym/form.html.eex:28
 #: web/templates/admin/recruiter_package/form.html.eex:134
 #: web/templates/admin/tag/form.html.eex:22
@@ -156,7 +153,7 @@ msgstr "Verbindung gelöscht"
 msgid "Contact"
 msgstr "Kontakt"
 
-#: web/controllers/user_controller.ex:253
+#: web/controllers/user_controller.ex:276
 msgid "Couldn't follow back to %{name}."
 msgstr "Konnte nicht zu %{name} zurückfolgen."
 
@@ -192,6 +189,7 @@ msgid "Download"
 msgstr "Download"
 
 #: web/templates/address/edit.html.eex:9
+#: web/templates/admin/coupon/edit.html.eex:13
 #: web/templates/admin/exonym/edit.html.eex:14
 #: web/templates/admin/recruiter_package/edit.html.eex:13
 #: web/templates/admin/tag/edit.html.eex:14
@@ -461,6 +459,7 @@ msgid "Name"
 msgstr "Name"
 
 #: web/templates/address/new.html.eex:9
+#: web/templates/admin/coupon/new.html.eex:13
 #: web/templates/admin/exonym/new.html.eex:14
 #: web/templates/admin/recruiter_package/new.html.eex:13
 #: web/templates/admin/tag/new.html.eex:14
@@ -513,6 +512,7 @@ msgstr "Typ"
 #: web/templates/address/form_de.html.eex:4
 #: web/templates/address/form_en.html.eex:4
 #: web/templates/address/form_generic.html.eex:4
+#: web/templates/admin/coupon/form.html.eex:4
 #: web/templates/admin/exonym/form.html.eex:4
 #: web/templates/admin/recruiter_package/form.html.eex:4
 #: web/templates/admin/tag/form.html.eex:4
@@ -539,7 +539,7 @@ msgstr "Ups, es gab einen Validierungsfehler! Bitte überprüfen Sie Ihre Eingab
 msgid "Organization"
 msgstr "Organisation"
 
-#: web/models/user.ex:137 web/views/job_posting_tag_view.ex:7
+#: web/models/user.ex:138 web/views/job_posting_tag_view.ex:7
 msgid "Other"
 msgstr "Sonstiges"
 
@@ -656,6 +656,7 @@ msgid "Search query executed successfully."
 msgstr "Suche erfolgreich ausgeführt."
 
 #: web/templates/address/show.html.eex:14
+#: web/templates/admin/coupon/show.html.eex:13
 #: web/templates/admin/exonym/show.html.eex:14
 #: web/templates/admin/locale/show.html.eex:14
 #: web/templates/admin/recruiter_package/show.html.eex:13
@@ -700,7 +701,7 @@ msgstr ""
 msgid "Slug doesn't exist."
 msgstr ""
 
-#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:172
+#: web/controllers/slug_controller.ex:26 web/controllers/user_controller.ex:195
 msgid "Slug updated successfully."
 msgstr ""
 
@@ -737,6 +738,7 @@ msgstr ""
 #: web/templates/address/form_de.html.eex:38
 #: web/templates/address/form_en.html.eex:50
 #: web/templates/address/form_generic.html.eex:50
+#: web/templates/admin/coupon/form.html.eex:76
 #: web/templates/admin/exonym/form.html.eex:29
 #: web/templates/admin/recruiter_package/form.html.eex:135
 #: web/templates/admin/tag/form.html.eex:23
@@ -750,6 +752,7 @@ msgstr ""
 #: web/templates/job_posting_tag/form.html.eex:32
 #: web/templates/membership/form.html.eex:18
 #: web/templates/phone_number/form.html.eex:22
+#: web/templates/shared/_admin_card.html.eex:39
 #: web/templates/slug/form.html.eex:16
 #: web/templates/social_media_account/form.html.eex:23
 #: web/templates/url/form.html.eex:22 web/templates/user_tag/form.html.eex:23
@@ -769,7 +772,7 @@ msgstr ""
 msgid "The Fast and Free Career Network"
 msgstr "Ihr Kontaktnetzwerk. Schnell und gratis!"
 
-#: web/controllers/user_controller.ex:44
+#: web/controllers/user_controller.ex:47
 msgid "There was an error"
 msgstr "Es gab einen Fehler"
 
@@ -785,19 +788,21 @@ msgstr ""
 msgid "URL"
 msgstr "URL"
 
+#: web/templates/admin/coupon/index.html.eex:21
+#: web/templates/admin/coupon/show.html.eex:35
 #: web/templates/admin/user/index.html.eex:6
 msgid "User"
 msgstr "User"
 
-#: web/controllers/user_controller.ex:40
+#: web/controllers/user_controller.ex:43
 msgid "User %{name} created successfully. An email has been sent with your login link."
 msgstr "Der User %{name} wurde angelegt. Eine E-Mail mit einem Login Link wurde verschickt."
 
-#: web/controllers/user_controller.ex:189
+#: web/controllers/user_controller.ex:212
 msgid "User deleted successfully."
 msgstr "User wurde gelöscht."
 
-#: web/controllers/user_controller.ex:149
+#: web/controllers/user_controller.ex:172
 msgid "User updated successfully."
 msgstr "Userdaten wurde geändert."
 
@@ -921,11 +926,12 @@ msgstr "Ja"
 msgid "You don't have any followers yet! If you want more followers, you could follow others, invite your friends, or link your Vutuv profile on other social media websites."
 msgstr "Sie haben noch keine Followers."
 
-#: web/controllers/user_controller.ex:249
+#: web/controllers/user_controller.ex:272
 msgid "You follow back %{name}."
 msgstr "Sie folgen %{name}."
 
 #: web/controllers/admin/admin_controller.ex:18
+#: web/controllers/admin/coupon_controller.ex:73
 #: web/controllers/admin/exonym_controller.ex:75
 #: web/controllers/admin/locale_controller.ex:25
 #: web/controllers/admin/slug_controller.ex:52
@@ -935,7 +941,7 @@ msgstr "Sie folgen %{name}."
 #: web/controllers/admin/tag_synonym_controller.ex:95
 #: web/controllers/admin/tag_url_controller.ex:99
 #: web/controllers/admin/user_controller.ex:29
-#: web/controllers/user_controller.ex:263
+#: web/controllers/user_controller.ex:286
 msgid "You must be logged in to access that page"
 msgstr "Sie müssen für diese Seite eingeloggt sein."
 
@@ -955,7 +961,7 @@ msgstr "hat"
 msgid "our blog"
 msgstr "unserem Blog"
 
-#: web/controllers/user_controller.ex:203
+#: web/controllers/user_controller.ex:226
 msgid "An email has been sent to your email address with instructions on how to delete your account."
 msgstr "Eine E-Mail mit einem Löschlink wurde gerade an Sie verschickt."
 
@@ -1036,11 +1042,11 @@ msgstr "Wählen Sie einen Monat"
 msgid "Select a year"
 msgstr "Wählen Sie ein Jahr"
 
-#: web/models/user.ex:133
+#: web/models/user.ex:134
 msgid "Female"
 msgstr "Frau"
 
-#: web/models/user.ex:129
+#: web/models/user.ex:130
 msgid "Male"
 msgstr "Mann"
 
@@ -1244,6 +1250,8 @@ msgstr ""
 msgid "An email has been sent with your PIN. Once you enter your PIN below, you'll be logged in for the next 90 days on this device, or until you log out."
 msgstr ""
 
+#: web/templates/admin/coupon/index.html.eex:20
+#: web/templates/admin/coupon/show.html.eex:28
 #: web/templates/admin/locale/index.html.eex:22
 msgid "Code"
 msgstr ""
@@ -1582,7 +1590,7 @@ msgstr ""
 msgid "Show tag closure"
 msgstr ""
 
-#: web/controllers/user_controller.ex:233
+#: web/controllers/user_controller.ex:256
 msgid "Successfully added %{successes} tags with %{failures} failures."
 msgstr "%{successes} neue Fähigkeiten wurden hinzugefügt."
 
@@ -1790,6 +1798,7 @@ msgstr ""
 #: web/templates/job_posting/index.html.eex:57
 #: web/templates/job_posting/new.html.eex:4
 #: web/templates/shared/job_ad.html.eex:49
+#: web/templates/shared/job_ad.html.eex:60
 msgid "Create a new job posting"
 msgstr "Neue Stellenanzeige erstellen"
 
@@ -1803,7 +1812,7 @@ msgstr "Neues Stellenanzeigen Tag"
 msgid "New recruiter package"
 msgstr "Neues Recruiter Paket"
 
-#: web/templates/admin/recruiter_package/package_minicard.html.eex:24
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:35
 msgid "Number of concurrent active job postings"
 msgstr "Anzahl gleichzeitig aktiver Stellenanzeigen"
 
@@ -1914,7 +1923,7 @@ msgstr "Abo Historie"
 msgid "Subscription ends on"
 msgstr "Abo endet am"
 
-#: web/templates/admin/recruiter_package/package_minicard.html.eex:16
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:18
 msgid "Subscription length"
 msgstr "Abo-Dauer"
 
@@ -1939,25 +1948,21 @@ msgstr "In welchem Zeitraum soll diese Stellenanzeige veröffentlicht werden?"
 msgid "Your subscription"
 msgstr "Ihr Abo"
 
-#: web/templates/admin/recruiter_package/package_minicard.html.eex:19
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:30
 msgid "automatically renewed"
 msgstr "verlängert sich automatisch"
 
-#: web/templates/admin/recruiter_package/package_minicard.html.eex:17
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:27
 msgid "months"
 msgstr "Monate"
 
-#: web/templates/admin/recruiter_package/package_minicard.html.eex:21
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:32
 msgid "one time"
 msgstr "einmalig"
 
 #: web/templates/admin/recruiter_package/package_minicard.html.eex:14
 msgid "per month"
 msgstr "pro Monat"
-
-#: web/templates/shared/job_ad.html.eex:59
-msgid "Post a job offer"
-msgstr "Stellenanzeige aufgeben"
 
 #: web/templates/recruiter_subscription/form.html.eex:70
 msgid "City"
@@ -2092,22 +2097,86 @@ msgstr "Alle Preise verstehen sich inklusive Umsatzsteuer."
 msgid "We offer the following recruiter packages."
 msgstr "Wir bieten die folgenden Recruiter Pakete an."
 
-#: lib/vutuv/robert.ex:149
-msgid "Added"
-msgstr "Hinzugefügt"
-
-#: lib/vutuv/robert.ex:69
-msgid "Added an avatar photo."
-msgstr "Ein Avatar Foto wurde hinzugefügt."
-
-#: lib/vutuv/robert.ex:109
-msgid "Added website:"
-msgstr "Hinzugefügte Webseite:"
-
 #: web/templates/user/show.html.eex:228
 msgid "Recommended"
 msgstr "Empfehlung"
 
-#: lib/vutuv/robert.ex:149
-msgid "account"
-msgstr "Account"
+#: web/templates/shared/_admin_card.html.eex:3
+msgid "Admin Area"
+msgstr ""
+
+#: web/templates/admin/coupon/index.html.eex:4
+msgid "All coupons"
+msgstr "Alle Coupons"
+
+#: web/templates/admin/coupon/index.html.eex:23
+#: web/templates/admin/coupon/show.html.eex:49
+msgid "Amount"
+msgstr "Betrag"
+
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:20
+msgid "Contract period"
+msgstr "Laufzeit"
+
+#: web/controllers/admin/coupon_controller.ex:24
+msgid "Coupon created successfully."
+msgstr ""
+
+#: web/controllers/admin/coupon_controller.ex:64
+msgid "Coupon deleted successfully."
+msgstr ""
+
+#: web/controllers/admin/coupon_controller.ex:49
+msgid "Coupon updated successfully."
+msgstr ""
+
+#: web/templates/admin/coupon/edit.html.eex:12
+#: web/templates/admin/coupon/index.html.eex:12
+#: web/templates/admin/coupon/new.html.eex:12
+#: web/templates/admin/coupon/show.html.eex:12
+msgid "Coupons"
+msgstr "Coupons"
+
+#: web/templates/admin/coupon/edit.html.eex:4
+msgid "Edit coupon"
+msgstr "Coupon ändern"
+
+#: web/templates/admin/coupon/index.html.eex:25
+#: web/templates/admin/coupon/show.html.eex:63
+msgid "Ends on"
+msgstr "Endet am"
+
+#: web/templates/shared/_admin_card.html.eex:4
+msgid "Existing Coupons"
+msgstr "Bestehende Coupons"
+
+#: web/templates/shared/_admin_card.html.eex:15
+msgid "New Coupon"
+msgstr "Neuer Coupon"
+
+#: web/templates/admin/coupon/index.html.eex:57
+#: web/templates/admin/coupon/new.html.eex:4
+msgid "New coupon"
+msgstr "Neuer Coupon"
+
+#: web/templates/admin/coupon/index.html.eex:24
+#: web/templates/admin/coupon/show.html.eex:56
+msgid "Percentage"
+msgstr "Prozent"
+
+#: web/templates/admin/coupon/index.html.eex:22
+#: web/templates/admin/coupon/show.html.eex:42
+msgid "RecruiterPackage"
+msgstr ""
+
+#: web/templates/admin/coupon/show.html.eex:4
+msgid "Show coupon"
+msgstr "Coupon anzeigen"
+
+#: web/templates/shared/job_ad.html.eex:62
+msgid "To create a new job posting you need to login first."
+msgstr "Zum Erstellen einer Stellenanzeige bitte einloggen."
+
+#: web/templates/admin/recruiter_package/package_minicard.html.eex:25
+msgid "month"
+msgstr "Monat"
