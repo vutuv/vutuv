@@ -37,6 +37,7 @@ defmodule Vutuv.Emailer do
     new_email
     |> put_text_layout({Vutuv.EmailView, "#{template}.text"})
     |> assign(:recuiter_package, recuiter_package)
+    |> assign(:recruiter_subscription, recruiter_subscription)
     |> assign(:user, user)
     |> to("#{Vutuv.UserHelpers.name_for_email_to_field(user)} <#{email}>")
     |> bcc("#{accounting_email}")

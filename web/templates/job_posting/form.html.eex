@@ -12,7 +12,7 @@
 	 "
 	 <% end %>">
   <%= label f, gettext("Job title"), class: "control-label" %>
-  <%= text_input f, :title, class: "form-control" %>
+  <%= text_input f, :title, class: "form-control", autofocus: true %>
   <%= error_tag f, :title %>
 </div>
 

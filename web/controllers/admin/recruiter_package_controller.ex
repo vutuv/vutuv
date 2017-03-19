@@ -10,7 +10,13 @@ defmodule Vutuv.Admin.RecruiterPackageController do
   end
 
   def new(conn, _params) do
-    changeset = RecruiterPackage.changeset(%RecruiterPackage{})
+    {{year, month, day}, {_hour, _min, _sec}} = :erlang.localtime
+    {end_year, end_month, end_day} = :calendar.gregorian_days_to_date(:calendar.date_to_gregorian_days({year, month, day}) + 365)
+
+    changeset = RecruiterPackage.changeset(%RecruiterPackage{
+                  offer_begins: Ecto.DateTime.from_erl({{year, month, day}, {0, 0, 0}}),
+                  offer_ends: Ecto.DateTime.from_erl({{end_year, end_month, end_day}, {0, 0, 0}})
+                  })
     render(conn, "new.html", changeset: changeset)
   end
 

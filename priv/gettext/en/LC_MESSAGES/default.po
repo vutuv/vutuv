@@ -110,7 +110,7 @@ msgstr ""
 #: web/templates/address/form_generic.html.eex:49
 #: web/templates/admin/coupon/form.html.eex:75
 #: web/templates/admin/exonym/form.html.eex:28
-#: web/templates/admin/recruiter_package/form.html.eex:134
+#: web/templates/admin/recruiter_package/form.html.eex:148
 #: web/templates/admin/tag/form.html.eex:22
 #: web/templates/admin/tag_closure/form.html.eex:26
 #: web/templates/admin/tag_localization/form.html.eex:42
@@ -740,7 +740,7 @@ msgstr ""
 #: web/templates/address/form_generic.html.eex:50
 #: web/templates/admin/coupon/form.html.eex:76
 #: web/templates/admin/exonym/form.html.eex:29
-#: web/templates/admin/recruiter_package/form.html.eex:135
+#: web/templates/admin/recruiter_package/form.html.eex:149
 #: web/templates/admin/tag/form.html.eex:23
 #: web/templates/admin/tag_closure/form.html.eex:27
 #: web/templates/admin/tag_localization/form.html.eex:43
@@ -1685,7 +1685,7 @@ msgstr ""
 msgid "Auto renewal"
 msgstr ""
 
-#: web/templates/admin/recruiter_package/index.html.eex:24
+#: web/templates/admin/recruiter_package/index.html.eex:25
 msgid "Begins"
 msgstr ""
 
@@ -1714,7 +1714,7 @@ msgstr ""
 msgid "Edit recruiter package"
 msgstr ""
 
-#: web/templates/admin/recruiter_package/index.html.eex:25
+#: web/templates/admin/recruiter_package/index.html.eex:26
 msgid "Ends"
 msgstr ""
 
@@ -1791,7 +1791,7 @@ msgstr ""
 msgid "Max job postings"
 msgstr ""
 
-#: web/templates/admin/recruiter_package/index.html.eex:26
+#: web/templates/admin/recruiter_package/index.html.eex:27
 msgid "Max posts"
 msgstr ""
 
@@ -1807,7 +1807,7 @@ msgstr ""
 msgid "New job posting tag"
 msgstr ""
 
-#: web/templates/admin/recruiter_package/index.html.eex:59
+#: web/templates/admin/recruiter_package/index.html.eex:61
 #: web/templates/admin/recruiter_package/new.html.eex:4
 msgid "New recruiter package"
 msgstr ""
@@ -1872,15 +1872,15 @@ msgstr ""
 msgid "Priority"
 msgstr ""
 
-#: web/controllers/admin/recruiter_package_controller.ex:23
+#: web/controllers/admin/recruiter_package_controller.ex:29
 msgid "Recruiter package created successfully."
 msgstr ""
 
-#: web/controllers/admin/recruiter_package_controller.ex:63
+#: web/controllers/admin/recruiter_package_controller.ex:69
 msgid "Recruiter package deleted successfully."
 msgstr ""
 
-#: web/controllers/admin/recruiter_package_controller.ex:48
+#: web/controllers/admin/recruiter_package_controller.ex:54
 msgid "Recruiter package updated successfully."
 msgstr ""
 
@@ -1891,7 +1891,7 @@ msgstr ""
 msgid "Recruiter packages"
 msgstr ""
 
-#: web/controllers/recruiter_subscription_controller.ex:36
+#: web/controllers/recruiter_subscription_controller.ex:39
 msgid "Recruiter subscription created successfully."
 msgstr ""
 
@@ -1909,10 +1909,6 @@ msgstr ""
 
 #: web/templates/recruiter_subscription/index.html.eex:23
 msgid "Subscribed on"
-msgstr ""
-
-#: web/templates/recruiter_subscription/new.html.eex:4
-msgid "Subscription"
 msgstr ""
 
 #: web/templates/recruiter_subscription/index.html.eex:15
@@ -2045,7 +2041,7 @@ msgstr ""
 msgid "You have a recruiter subscription but we haven't received a payment yet."
 msgstr ""
 
-#: web/templates/recruiter_subscription/form.html.eex:78
+#: web/templates/recruiter_subscription/form.html.eex:89
 msgid "Subscribe to this recruiter package"
 msgstr ""
 
@@ -2179,4 +2175,20 @@ msgstr ""
 
 #: web/templates/admin/recruiter_package/package_minicard.html.eex:25
 msgid "month"
+msgstr ""
+
+#: web/templates/admin/recruiter_package/index.html.eex:24
+msgid "Only with Coupon?"
+msgstr ""
+
+#: web/templates/recruiter_subscription/new.html.eex:4
+msgid "Job Postings"
+msgstr ""
+
+#: web/templates/recruiter_subscription/form.html.eex:83
+msgid "Coupon Code"
+msgstr ""
+
+#: web/templates/recruiter_subscription/form.html.eex:84
+msgid "Enter code here if you have a valid Coupon."
 msgstr ""

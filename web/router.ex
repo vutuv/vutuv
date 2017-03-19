@@ -98,6 +98,7 @@ defmodule Vutuv.Router do
       resources "/tag_closures", TagClosureController, as: :closure
     end
     resources "/recruiter_packages", RecruiterPackageController, param: "package_slug"
+    resources "/coupons", CouponController
   end
 
   scope "/api/1.0/", as: :api do

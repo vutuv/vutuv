@@ -17,7 +17,12 @@ defmodule Vutuv.JobPostingController do
   end
 
   def new(conn, _params) do
-    changeset = JobPosting.changeset(%JobPosting{})
+    today = Ecto.Date.utc
+    {{current_year, current_month, current_day}, {_hour, _min, _sec}} = :erlang.localtime
+    {year, month, day} = :calendar.gregorian_days_to_date(:calendar.date_to_gregorian_days({current_year, current_month, current_day}) + 90)
+    in_nity_days = Ecto.DateTime.from_erl({{year, month, day}, {0, 0, 0}})
+
+    changeset = JobPosting.changeset(%JobPosting{open_on: today, closed_on: in_nity_days})
     render(conn, "new.html", changeset: changeset)
   end
 

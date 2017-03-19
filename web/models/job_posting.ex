@@ -61,7 +61,7 @@ defmodule Vutuv.JobPosting do
   defp validate_dates(changeset) do
     open = get_field(changeset, :open_on)
     closed = get_field(changeset, :closed_on)
-    if(open && closed && Ecto.Date.compare(open, closed) == :lt) do
+    if (open && closed && (open < closed)) do
       changeset
     else
       add_error(changeset, :open_on, "Open date must be less than Closed date.")

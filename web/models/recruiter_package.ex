@@ -8,10 +8,11 @@ defmodule Vutuv.RecruiterPackage do
     field :price, :float
     field :currency, :string
     field :duration_in_months, :integer
-    field :auto_renewal, :boolean
+    field :auto_renewal, :boolean, default: true
     field :offer_begins, Ecto.Date
     field :offer_ends, Ecto.Date
     field :max_job_postings, :integer
+    field :only_with_coupon, :boolean, default: false
 
     belongs_to :locale, Vutuv.Locale
 
@@ -25,11 +26,8 @@ defmodule Vutuv.RecruiterPackage do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :description, :slug, :locale_id, :price, :currency, :duration_in_months, :auto_renewal, :offer_begins, :offer_ends, :max_job_postings])
-    #|> validate_required([:name, :description, :slug, :locale_id, :price, :currency, :duration_in_months, :auto_renewal, :offer_begins, :offer_ends, :max_job_postings])
+    |> cast(params, [:name, :description, :slug, :locale_id, :price, :currency, :duration_in_months, :auto_renewal, :offer_begins, :offer_ends, :max_job_postings, :only_with_coupon])
+    |> validate_required([:name, :description, :locale_id, :price, :currency, :duration_in_months, :auto_renewal, :offer_begins, :offer_ends, :max_job_postings, :only_with_coupon])
   end
 
-  def get_packages(locale) do
-    Vutuv.Repo.all(from r in Vutuv.RecruiterPackage, where: r.locale_id == ^Vutuv.Locale.locale_id(locale))
-  end
 end

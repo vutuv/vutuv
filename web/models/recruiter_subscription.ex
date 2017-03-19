@@ -14,6 +14,7 @@ defmodule Vutuv.RecruiterSubscription do
     field :invoiced_on, Ecto.Date
     field :paid, :boolean, default: false
     field :paid_on, Ecto.Date
+    field :coupon_code, :string
 
     belongs_to :user, Vutuv.User
     belongs_to :recruiter_package, Vutuv.RecruiterPackage
@@ -26,8 +27,8 @@ defmodule Vutuv.RecruiterSubscription do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:user_id, :recruiter_package_id, :subscription_begins, :line1, :line2, :street, :zip_code, :city, :country, :invoice_number, :invoiced_on, :paid, :paid_on])
-    |> validate_required([:recruiter_package_id, :line1, :street, :zip_code, :city, :country])
+    |> cast(params, [:user_id, :recruiter_package_id, :subscription_begins, :line1, :line2, :street, :zip_code, :city, :country, :invoice_number, :invoiced_on, :paid, :paid_on, :coupon_code])
+    |> validate_required([:recruiter_package_id, :line1, :zip_code, :city, :country])
     |> foreign_key_constraint(:recruiter_package)
     |> set_dates()
   end

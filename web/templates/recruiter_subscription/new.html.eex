@@ -1,7 +1,7 @@
 
   <div class="profile-header">
     <div class="profile-header__info">
-      <h1><%= gettext "Subscription" %></h1>
+      <h1><%= gettext "Job Postings" %></h1>
     </div>
   </div>
 </header>
@@ -24,10 +24,11 @@
       <%= if @active_subscription.paid do %>
         <p><%= gettext("Subscription ends on") %> <%= @active_subscription.subscription_ends %></p>
         <p><%= gettext("Paid on") %> <%= @active_subscription.paid_on %></p>
-        <%= if @active_subscription.paid do %>
-        <p><%= gettext("Invoice number:") %> <%= @active_subscription.invoice_number %></p>
-        <p><%= gettext("Invoiced on") %> <%= @active_subscription.invoiced_on %></p>
+        <%= if @active_subscription.paid && @active_subscription.invoice_number do %>
+          <p><%= gettext("Invoice number:") %> <%= @active_subscription.invoice_number %></p>
+          <p><%= gettext("Invoiced on") %> <%= @active_subscription.invoiced_on %></p>
         <% end %>
+        <p><%= link gettext("Create a new job posting"), to: user_job_posting_path(@conn, :new, @current_user) %></p>
       <% else %>
         <p><%= gettext("Payment not yet recieved") %></p>
         <p><%= gettext("Please check your INBOX.") %></p>
@@ -37,7 +38,8 @@
     <%= if Enum.count(@recruiter_packages) > 0 do %>
       <%= render "form.html", backlink: user_recruiter_subscription_path(@conn, :index, @user), changeset: @changeset,
                               action: user_recruiter_subscription_path(@conn, :create, @user),
-                              packages: @recruiter_packages %>
+                              packages: @recruiter_packages,
+                              has_valid_coupons: @has_valid_coupons %>
     <% else %>
       <h1><%= gettext("There are no packages available at this time") %></h1>
       <p><%= gettext("We apologize for the inconvenience.") %><p>

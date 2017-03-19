@@ -8,6 +8,8 @@ defmodule Vutuv.UserController do
   import Vutuv.UserHelpers
   use Arc.Ecto.Schema
 
+  import Ecto.Query
+
   alias Vutuv.Slug
   alias Vutuv.User
   alias Vutuv.UserTag
@@ -15,6 +17,7 @@ defmodule Vutuv.UserController do
   alias Vutuv.Email
   alias Vutuv.Connection
   alias Vutuv.RecruiterSubscription
+  alias Vutuv.Coupon
 
   plug :scrub_params, "user" when action in [:create, :update]
 
@@ -66,6 +69,7 @@ defmodule Vutuv.UserController do
         :social_media_accounts,
         :followees,
         :followers,
+        :coupons,
         user_tags: from(u in Vutuv.UserTag, left_join: e in assoc(u, :endorsements), left_join: t in assoc(u, :tag),
           order_by: t.slug, group_by: u.id, limit: ^user_tag_limit, # order_by: fragment("count(?) DESC", e.id) orders by endorsements
           preload: [:endorsements]),
@@ -85,10 +89,13 @@ defmodule Vutuv.UserController do
     else
       active_subscription = nil
     end
-    recruiter_packages = Vutuv.RecruiterPackage.get_packages(conn.assigns[:locale])
+
+    # TODO: Add the date for the coupon search.
+    recruiter_packages = Repo.all(from r in Vutuv.RecruiterPackage,
+                                  where: r.locale_id == ^Vutuv.Locale.locale_id(conn.assigns[:locale]),
+                                  select: {r.name, r.id})
 
     # Display an introduction message for new users
-
     inserted_at = :calendar.datetime_to_gregorian_seconds(Ecto.DateTime.to_erl(user.inserted_at))
     now = :calendar.datetime_to_gregorian_seconds(:calendar.universal_time)
     display_welcome_message = now - inserted_at <= 600
@@ -99,12 +106,22 @@ defmodule Vutuv.UserController do
       reccomended_users = Vutuv.Tag.reccomended_users(Repo.get(Vutuv.Tag, user_tag.tag_id))
       if reccomended_users = [user] do
         # It's an exotic tag and only the user itself comes up.
-        reccomended_users = Repo.all(from u in User, left_join: f in assoc(u, :followers), group_by: u.id, order_by: [fragment("count(?) DESC", f.id), u.first_name, u.last_name], limit: 10)
+        reccomended_users = Repo.all(from u in User, left_join: f in assoc(u, :followers), group_by: u.id, order_by: [fragment("count(?) DESC", f.id), u.first_name, u.last_name], limit: 6)
       end
     else
-      reccomended_users = Repo.all(from u in User, left_join: f in assoc(u, :followers), group_by: u.id, order_by: [fragment("count(?) DESC", f.id), u.first_name, u.last_name], limit: 10)
+      reccomended_users = Repo.all(from u in User, left_join: f in assoc(u, :followers), group_by: u.id, order_by: [fragment("count(?) DESC", f.id), u.first_name, u.last_name], limit: 6)
     end
     work_string_length = 35
+
+    # Build a new coupon for this user.
+    # It's valid for a week.
+    {{current_year, current_month, current_day}, {_hour, _min, _sec}} = :erlang.localtime
+    {year, month, day} = :calendar.gregorian_days_to_date(:calendar.date_to_gregorian_days({current_year, current_month, current_day}) + 7)
+
+    new_coupon = Coupon.changeset(%Coupon{code: Coupon.random_code(),
+                                          user_id: user.id,
+                                          percentage: 20,
+                                          ends_on: Ecto.DateTime.from_erl({{year, month, day}, {0, 0, 0}})})
 
     conn
     |> assign(:emails, emails)
@@ -126,6 +143,7 @@ defmodule Vutuv.UserController do
     |> assign(:recruiter_packages, recruiter_packages)
     |> assign(:reccomended_users, reccomended_users)
     |> assign(:work_string_length, work_string_length)
+    |> assign(:new_coupon, new_coupon)
     |> render("show.html", conn: conn)
   end
 

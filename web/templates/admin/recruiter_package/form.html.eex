@@ -94,6 +94,20 @@
   </div>
   <%= error_tag f, :auto_renewal %>
 </div>
+
+<div class="editform__field
+	<%= if( error_tag f, :only_with_coupon ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, :only_with_coupon, class: "control-label" %>
+  <div class="editform__inputwrap">
+    <%= checkbox f, :only_with_coupon %>
+  </div>
+  <%= error_tag f, :only_with_coupon %>
+</div>
+
 <div class="editform__field
 	<%= if( error_tag f, :offer_begins ) do %>
 	 editform__field--error"

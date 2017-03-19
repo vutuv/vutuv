@@ -43,6 +43,7 @@ defmodule Vutuv.User do
     has_many :skill_endorsements,     Vutuv.Endorsement,          on_delete: :delete_all
     has_many :job_postings,           Vutuv.JobPosting,           on_delete: :delete_all
     has_many :recruiter_subscriptions,Vutuv.RecruiterSubscription,on_delete: :delete_all
+    has_many :coupons,                Vutuv.Coupon,               on_delete: :delete_all
 
     has_many :tags, through: [:user_tags, :tag]
 

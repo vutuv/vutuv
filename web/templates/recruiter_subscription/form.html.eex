@@ -74,6 +74,19 @@
 
 <%= render Vutuv.AddressView, "country_input.html", Map.put(assigns, :form, f) %>
 
+<%= if @has_valid_coupons do %>
+<div class="editform__field
+	<%= if( error_tag f, :coupon_code ) do %>
+	 editform__field--error"
+	 <% else %>
+	 "
+	 <% end %>">
+  <%= label f, gettext("Coupon Code"), class: "control-label" %>
+  <%= text_input f, :coupon_code, class: "form-control", placeholder: gettext("Enter code here if you have a valid Coupon.") %>
+  <%= error_tag f, :coupon_code %>
+</div>
+<% end %>
+
 <div class="editform__actions">
   <%= submit gettext("Subscribe to this recruiter package"), class: "button" %>
 </div>

@@ -1,0 +1,43 @@
+<%= if @current_user && @current_user.administrator do %>
+  <section class="ad">
+    <label><%= gettext("Admin Area") %></label>
+    <h1><%= gettext("Existing Coupons") %></h1>
+    <ul>
+      <%= for coupon <- @user.coupons do %>
+        <li>
+          <%= link to: admin_coupon_path(@conn, :show, coupon) do %>
+            <%= coupon.code %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+
+    <h1><%= gettext("New Coupon") %></h1>
+
+    <p>Code: <%= @new_coupon.data.code %></p>
+
+    <%= form_for @new_coupon, admin_coupon_path(@conn, :create), [class: "editform"], fn f -> %>
+      <%= hidden_input f, :code, class: "form-control" %>
+      <%= hidden_input f, :user_id, class: "form-control" %>
+
+      <div class="editform__field" %>
+        <%= label f, :recruiter_package_id, class: "control-label" %>
+        <%= select f, :recruiter_package_id, @recruiter_packages %>
+      </div>
+
+      <div class="editform__field" %>
+        <%= label f, :percentage, class: "control-label" %>
+        <%= number_input f, :percentage, class: "form-control" %>
+      </div>
+
+      <div class="editform__field" %>
+        <%= label f, :ends_on, class: "control-label" %>
+        <%= date_select f, :ends_on, class: "form-control" %>
+      </div>
+
+      <div class="editform__actions">
+        <%= submit gettext("Submit"), class: "button" %>
+      </div>
+    <% end %>
+  </section>
+<% end %>
