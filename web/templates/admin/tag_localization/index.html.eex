@@ -24,18 +24,18 @@
           <th><%= gettext "Locale" %></th>
           <th><%= gettext "Name" %></th>
           <th><%= gettext "Description" %></th>
-    
+
           <th></th>
         </tr>
       </thead>
       <tbody>
-    <%= for {tag_localization, index} <- Enum.with_index(@tag_localizations) do %>
+    <%= for {tag_localization, _index} <- Enum.with_index(@tag_localizations) do %>
         <tr>
           <td><%= inspect tag_localization.tag.slug %></td>
           <td><%= to_string tag_localization.locale %></td>
           <td style = "word-wrap: break-word; max-width: 200px;"><%= tag_localization.name %></td>
           <td style = "word-wrap: break-word; max-width: 200px;"><%= tag_localization.description %></td>
-    
+
           <td>
             <%= link to: admin_tag_localization_path(@conn, :show, @tag, tag_localization), class: "button button--icon button--small" do %>
             <i class="icon icon--search"></i>

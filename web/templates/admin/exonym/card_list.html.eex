@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-<%= for {exonym, index} <- Enum.with_index(@exonyms) do %>
+<%= for {exonym, _index} <- Enum.with_index(@exonyms) do %>
     <tr>
       <td><%= exonym.value %></td>
       <td><%= exonym.locale.endonym %></td>

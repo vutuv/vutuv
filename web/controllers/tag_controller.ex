@@ -2,14 +2,12 @@ defmodule Vutuv.TagController do
   use Vutuv.Web, :controller
 
   alias Vutuv.Tag
-  alias Vutuv.Locale
-  alias Vutuv.TagLocalization
 
   plug :resolve_tag
 
   def index(conn, _params) do
     tags_count = Repo.one(from t in Tag, select: count(t.id))
-    tags = 
+    tags =
       from(t in Tag)
       |> Vutuv.Pages.paginate(conn.params, tags_count)
       |> Repo.all
@@ -24,7 +22,7 @@ defmodule Vutuv.TagController do
   defp resolve_tag(%{params: %{"slug" => slug}} = conn, _opts) do
     Repo.one(from t in Vutuv.Tag, where: t.slug == ^slug)
     |> case do
-      nil -> 
+      nil ->
         conn
         |> put_status(:not_found)
         |> render(Vutuv.ErrorView, "404.html")

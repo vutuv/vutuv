@@ -6,7 +6,7 @@ defmodule Vutuv.PhoneNumber do
     field :number_type, :string
 
     belongs_to :user, Vutuv.User
-    timestamps
+    timestamps()
   end
 
   @format_message ~s/Please enter a phone number/

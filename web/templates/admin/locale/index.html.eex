@@ -20,16 +20,16 @@
         <tr>
           <th><%= gettext "Endonym" %></th>
           <th><%= gettext "Code" %></th>
-    
+
           <th></th>
         </tr>
       </thead>
       <tbody>
-    <%= for {locale, index} <- Enum.with_index(@locales) do %>
+    <%= for {locale, _index} <- Enum.with_index(@locales) do %>
         <tr>
           <td><%= locale.endonym %></td>
           <td><%= locale.value %></td>
-    
+
           <td>
             <%= link to: admin_locale_path(@conn, :show, locale), class: "btn btn-sm btn-primary btn-icon" do %>
             <i class="icon">

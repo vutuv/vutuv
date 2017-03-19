@@ -5,7 +5,7 @@ defmodule Vutuv.Membership do
     belongs_to :connection, Vutuv.Connection
     belongs_to :group, Vutuv.Group
 
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w(connection_id group_id)

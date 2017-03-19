@@ -30,7 +30,7 @@
         </tr>
       </thead>
       <tbody>
-    <%= for {recruiter_subscription, index} <- Enum.with_index(@recruiter_subscriptions) do %>
+    <%= for {recruiter_subscription, _index} <- Enum.with_index(@recruiter_subscriptions) do %>
         <tr>
           <td><%= recruiter_subscription.recruiter_package.name %></td>
           <td><%= recruiter_subscription.subscription_begins %></td>

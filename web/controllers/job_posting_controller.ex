@@ -69,7 +69,7 @@ defmodule Vutuv.JobPostingController do
     end
   end
 
-  def delete(conn, params) do
+  def delete(conn, _params) do
     job_posting = conn.assigns[:job_posting]
 
     # Here we use delete! (with a bang) because we expect

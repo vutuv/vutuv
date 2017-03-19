@@ -1,5 +1,4 @@
 defmodule Vutuv.Cronjob do
-  import Mix.Ecto
   import Ecto.Query
   require Vutuv.Gettext
   alias Vutuv.Repo

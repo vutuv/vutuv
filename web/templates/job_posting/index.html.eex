@@ -28,7 +28,7 @@
         </tr>
       </thead>
       <tbody>
-    <%= for {job_posting, index} <- Enum.with_index(@job_postings) do %>
+    <%= for {job_posting, _index} <- Enum.with_index(@job_postings) do %>
         <tr>
           <td><%= job_posting.title %></td>
           <td><%= job_posting.company %></td>

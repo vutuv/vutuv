@@ -6,7 +6,7 @@ defmodule Vutuv.SocialMediaAccount do
     field :value, :string
 
     belongs_to :user, Vutuv.User
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w(provider value)

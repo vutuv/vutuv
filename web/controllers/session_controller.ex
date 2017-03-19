@@ -1,8 +1,6 @@
 defmodule Vutuv.SessionController do
   use Vutuv.Web, :controller
 
-  @api_url ~s(https://graph.facebook.com/v2.3/)
-
   def new(conn, _) do
     render conn, "new.html", body_class: "stretch"
   end
@@ -11,10 +9,10 @@ defmodule Vutuv.SessionController do
     case Vutuv.Auth.login_by_email(conn, email) do
       {:ok, conn} ->
         case conn.cookies["_vutuv_fbs_temp"] do
-          nil -> 
+          nil ->
             conn
             |> render("user_login.html", body_class: "stretch")
-          _ -> 
+          _ ->
             conn
             |> render("pin_user_login.html", body_class: "stretch")
         end

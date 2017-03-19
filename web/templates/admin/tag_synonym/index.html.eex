@@ -27,12 +27,12 @@
         </tr>
       </thead>
       <tbody>
-    <%= for {tag_synonym, index} <- Enum.with_index(@tag_synonyms) do %>
+    <%= for {tag_synonym, _index} <- Enum.with_index(@tag_synonyms) do %>
         <tr>
           <td><%= tag_synonym.value %></td>
           <td><%= inspect tag_synonym.tag.slug %></td>
           <td><%= inspect tag_synonym.locale.value %></td>
-    
+
           <td>
             <%= link to: admin_tag_synonym_path(@conn, :show, @tag, tag_synonym), class: "button button--icon button--small" do %>
             <i class="icon icon--search"></i>

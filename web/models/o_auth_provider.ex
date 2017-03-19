@@ -6,11 +6,8 @@ defmodule Vutuv.OAuthProvider do
     field :provider, :string
 
     belongs_to :user, Vutuv.User
-    timestamps
+    timestamps()
   end
-
-  @required_fields ~w()
-  @optional_fields ~w()
 
   @doc """
   Creates a changeset based on the `model` and `params`.

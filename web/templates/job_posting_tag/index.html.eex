@@ -27,7 +27,7 @@
         </tr>
       </thead>
       <tbody>
-    <%= for {job_posting_tag, index} <- Enum.with_index(@job_posting_tags) do %>
+    <%= for {job_posting_tag, _index} <- Enum.with_index(@job_posting_tags) do %>
         <tr>
           <td><%= Vutuv.Tag.resolve_name(job_posting_tag.tag, @locale) %></td>
           <td><%= resolve_priority job_posting_tag.priority %></td>

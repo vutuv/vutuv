@@ -5,16 +5,13 @@ defmodule Vutuv.SearchQuery do
   schema "search_queries" do
     field :value, :string
     field :is_email?, :boolean
-    
+
     has_many :search_query_results, Vutuv.SearchQueryResult, on_delete: :delete_all, on_replace: :delete
     has_many :search_query_requesters, Vutuv.SearchQueryRequester, on_delete: :delete_all
 
     has_many :user_results, through: [:search_query_results, :user]
-    timestamps
+    timestamps()
   end
-
-  @required_fields ~w()
-  @optional_fields ~w()
 
   @doc """
   Creates a changeset based on the `model` and `params`.

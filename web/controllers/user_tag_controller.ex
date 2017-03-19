@@ -35,13 +35,13 @@ defmodule Vutuv.UserTagController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
+  def show(conn, %{"id" => _id}) do
     user_tag = conn.assigns[:user_tag]
       |> Repo.preload([:tag, :endorsements])
     render(conn, "show.html", user_tag: user_tag)
   end
 
-  def delete(conn, %{"id" => id}) do
+  def delete(conn, %{"id" => _id}) do
     user_tag = conn.assigns[:user_tag]
 
     # Here we use delete! (with a bang) because we expect
@@ -56,7 +56,7 @@ defmodule Vutuv.UserTagController do
   defp resolve_slug(%{params: %{"id" => slug}} = conn, _) do
     Repo.one(from w in assoc(conn.assigns[:user], :user_tags), join: t in assoc(w, :tag), where: t.slug == ^slug)
     |>case do
-      nil -> 
+      nil ->
         conn
         |> put_status(404)
         |> render(Vutuv.ErrorView, "404.html")

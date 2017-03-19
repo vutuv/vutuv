@@ -53,14 +53,10 @@ defmodule Vutuv.User do
     has_many :followee_connections, Vutuv.Connection, foreign_key: :follower_id, on_delete: :delete_all
     has_many :followees, through: [:followee_connections, :followee]
 
-    timestamps
+    timestamps()
   end
 
-  @required_fields ~w()
   @optional_fields ~w(validated? noindex? headline first_name last_name middlename nickname honorific_prefix honorific_suffix gender birthdate locale active_slug send_birthday_reminder easy_tags)a
-
-  @required_file_fields ~w()
-  @optional_file_fields ~w(avatar)
 
   @max_image_filesize Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:max_image_filesize]
 

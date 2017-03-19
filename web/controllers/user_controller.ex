@@ -84,10 +84,10 @@ defmodule Vutuv.UserController do
     job = current_job(user)
     emails = Vutuv.UserHelpers.emails_for_display(user, conn.assigns[:current_user])
     current_user = conn.assigns[:current_user]
-    if current_user do
-      active_subscription = RecruiterSubscription.active_subscription(current_user.id)
+    active_subscription = if current_user do
+      RecruiterSubscription.active_subscription(current_user.id)
     else
-      active_subscription = nil
+      nil
     end
 
     # TODO: Add the date for the coupon search.

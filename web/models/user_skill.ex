@@ -7,7 +7,7 @@ defmodule Vutuv.UserSkill do
 
     has_many :endorsements, Vutuv.Endorsement, on_delete: :delete_all
 
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w(user_id skill_id)

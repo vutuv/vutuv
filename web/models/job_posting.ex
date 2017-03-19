@@ -27,11 +27,7 @@ defmodule Vutuv.JobPosting do
   end
 
   @max_important_tags 3
-
   @max_optional_tags 7
-
-  @max_othert_tags 7
-
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -113,16 +109,6 @@ defmodule Vutuv.JobPosting do
       changeset
     end
   end
-
-  defp validate_other_tags(changeset, other) do
-    if(Enum.count(other) > @max_other_tags) do
-      add_error(changeset, :other_tags, "You can have a maximum of #{@max_other_tags} other tags.")
-    else
-      changeset
-    end
-  end
-
-  defp put_assocs(%Ecto.Changeset{valid?: false} = changeset, _, _, _, _), do: changeset
 
   defp put_assocs(changeset, important, optional, locale) do
     changeset

@@ -30,7 +30,7 @@
         </tr>
       </thead>
       <tbody>
-    <%= for {recruiter_package, index} <- Enum.with_index(@recruiter_packages) do %>
+    <%= for {recruiter_package, _index} <- Enum.with_index(@recruiter_packages) do %>
         <tr>
           <td><%= recruiter_package.name %></td>
           <td><%= get_currency_symbol recruiter_package.currency %><%= recruiter_package.price %></td>

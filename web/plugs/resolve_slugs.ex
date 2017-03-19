@@ -3,7 +3,6 @@ defmodule Vutuv.Plug.ResolveSlug do
   import Ecto.Query
   import Phoenix.Controller
   alias Vutuv.Repo
-  alias Vutuv.Router.Helpers
 
   def init([slug: slug_variable_name, model: model,  assign: assign_name, field: field]) do
     %{

@@ -28,7 +28,7 @@
         </tr>
       </thead>
       <tbody>
-    <%= for {coupon, index} <- Enum.with_index(@coupons) do %>
+    <%= for {coupon, _index} <- Enum.with_index(@coupons) do %>
         <tr>
           <td><%= coupon.code %></td>
           <td><%= coupon.user_id %></td>

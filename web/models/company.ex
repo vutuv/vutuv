@@ -3,7 +3,7 @@ defmodule Vutuv.Company do
 
   schema "companies" do
     field :name, :string
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w(name)

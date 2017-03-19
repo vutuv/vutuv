@@ -11,7 +11,7 @@ defmodule Vutuv.Url do
     field :broken, :boolean
 
     belongs_to :user, Vutuv.User
-    timestamps
+    timestamps()
   end
 
   @doc """

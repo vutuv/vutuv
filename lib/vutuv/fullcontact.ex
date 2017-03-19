@@ -118,7 +118,7 @@ defmodule Vutuv.Fullcontact do
         url = "https://api.fullcontact.com/v2/person.json?email=#{URI.encode(email_address)}"
 
         case HTTPoison.post(url,"",headers) do
-          {:ok, %HTTPoison.Response{body: body, headers: headers, status_code: 200}} ->
+          {:ok, %HTTPoison.Response{body: body, headers: _headers, status_code: 200}} ->
             changeset =
               FullcontactCache.changeset(%FullcontactCache{email_address: email_address, content: body})
             case Repo.insert(changeset) do
@@ -164,6 +164,7 @@ defmodule Vutuv.Fullcontact do
         {:ok, _address} ->
           store_data_enrichment(user, session_id, "Added country", country)
         _ ->
+          nil
       end
     end
   end
@@ -187,6 +188,7 @@ defmodule Vutuv.Fullcontact do
             {:ok, _} ->
               store_data_enrichment(user, session_id, "Added tag", tag)
             _ ->
+              nil
           end
         end
       end
@@ -221,6 +223,7 @@ defmodule Vutuv.Fullcontact do
                 changeset
                 |> WorkExperience.changeset(%{start_year: year})
             _ ->
+              nil
           end
         end
 
@@ -235,6 +238,7 @@ defmodule Vutuv.Fullcontact do
                 changeset
                 |> WorkExperience.changeset(%{end_year: year})
             _ ->
+              nil
           end
         end
 
@@ -243,6 +247,7 @@ defmodule Vutuv.Fullcontact do
             {:ok, work_experience} ->
               store_data_enrichment(user, session_id, "Added work experience", work_experience_to_string(work_experience))
             _ ->
+              nil
           end
         end
       end
@@ -269,6 +274,7 @@ defmodule Vutuv.Fullcontact do
       {year, month} ->
         "#{month}/#{year}"
       _ ->
+        nil
     end
 
     end_string = case {work_experience.end_year, work_experience.end_month} do
@@ -279,6 +285,7 @@ defmodule Vutuv.Fullcontact do
       {year, month} ->
         "#{month}/#{year}"
       _ ->
+        nil
     end
 
     case {job, start_string, end_string} do
@@ -293,6 +300,7 @@ defmodule Vutuv.Fullcontact do
       {job, start_string, end_string} ->
         "#{job} (#{start_string}-#{end_string})"
       _ ->
+        nil
     end
   end
 
@@ -326,7 +334,8 @@ defmodule Vutuv.Fullcontact do
         |> User.changeset(%{avatar: upload}) #update the user with the upload struct
         |> Repo.update
         File.rm(temp_file)
-      _ -> nil
+      _ ->
+        nil
     end
   end
 
@@ -344,6 +353,7 @@ defmodule Vutuv.Fullcontact do
              Task.start(__MODULE__, :generate_screenshot, [url])
              store_data_enrichment(user, session_id, "Added website", website["url"])
            _ ->
+             nil
          end
        end
       end
@@ -368,7 +378,8 @@ defmodule Vutuv.Fullcontact do
           add_social_media_provider(user, session_id, "Instagram", username)
         "facebook" ->
           add_social_media_provider(user, session_id, "Facebook", username)
-        _ -> nil
+        _ ->
+          nil
       end
     end
     feedback
@@ -395,6 +406,7 @@ defmodule Vutuv.Fullcontact do
           {:ok, social_media_account} ->
             store_data_enrichment(user, session_id, "Added #{social_media_account.provider} account", account)
           _ ->
+            nil
         end
       end
     end

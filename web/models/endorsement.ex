@@ -5,7 +5,7 @@ defmodule Vutuv.Endorsement do
     belongs_to :user, Vutuv.User
     belongs_to :user_skill, Vutuv.UserSkill
 
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w(user_id user_skill_id)

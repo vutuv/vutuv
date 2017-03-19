@@ -19,15 +19,15 @@
       <thead>
         <tr>
           <th><%= gettext "Slug" %></th>
-    
+
           <th></th>
         </tr>
       </thead>
       <tbody>
-    <%= for {tag, index} <- Enum.with_index(@tags) do %>
+    <%= for {tag, _index} <- Enum.with_index(@tags) do %>
         <tr>
           <td><%= tag.slug %></td>
-    
+
           <td>
             <%= link to: tag_path(@conn, :show, tag), class: "button button--icon button--small" do %>
             <i class="icon icon--search"></i>

@@ -1,16 +1,10 @@
 defmodule Vutuv.Registration do
-  import Ecto.Query
   alias Vutuv.User
   alias Vutuv.Slug
   alias Vutuv.Repo
   alias Vutuv.SearchTerm
-  alias Vutuv.UserTag
-  alias Vutuv.Tag
-
-  @stefan_email ~s"stefan.wintermeyer@amooma.de"
 
   def register_user(conn, user_params, assocs \\ []) do
-    tags = user_params["easy_tags"]
     user_params
     |> slug_changeset
     |> user_changeset(conn, user_params, assocs)
@@ -21,20 +15,6 @@ defmodule Vutuv.Registration do
         user =
           user
           |> Repo.preload([user_tags: [:tag]])
-        tag_list =
-          tags
-          |> String.split(",")
-        results =
-          for(tag <- tag_list) do
-            capitalized_tag =
-              tag
-              |> String.trim
-            user
-            |> Ecto.build_assoc(:user_tags, %{})
-            |> UserTag.changeset
-            |> Tag.create_or_link_tag(%{"value" => capitalized_tag}, conn.assigns[:locale])
-            |> Repo.insert
-          end
 
         Task.start(__MODULE__, :store_gravatar, [user])
         {:ok, user}

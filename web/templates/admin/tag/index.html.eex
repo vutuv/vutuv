@@ -19,12 +19,12 @@
       <thead>
         <tr>
           <th><%= gettext "Slug" %></th>
-    
+
           <th></th>
         </tr>
       </thead>
       <tbody>
-    <%= for {tag, index} <- Enum.with_index(@tags) do %>
+    <%= for {tag, _index} <- Enum.with_index(@tags) do %>
         <tr>
           <td><%= tag.slug %></td>
 

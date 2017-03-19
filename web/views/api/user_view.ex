@@ -6,9 +6,6 @@ defmodule Vutuv.Api.UserView do
     first_name last_name middlename nickname honorific_prefix honorific_suffix gender
     birthdate
   )a
-  @relationships ~w(
-    emails
-  )a
 
   def render("index.json", %{users: users}) do
     %{data: render_many(users, Vutuv.Api.UserView, "user.json")}

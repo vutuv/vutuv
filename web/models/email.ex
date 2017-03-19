@@ -7,7 +7,7 @@ defmodule Vutuv.Email do
     field :public?, :boolean, default: true
     belongs_to :user, Vutuv.User
 
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w(value public?)

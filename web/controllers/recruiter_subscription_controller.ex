@@ -36,10 +36,11 @@ defmodule Vutuv.RecruiterSubscriptionController do
             changeset = Vutuv.Coupon.changeset(redeemed_coupon, %{valid: false})
             Vutuv.Repo.update(changeset)
 
-            if redeemed_coupon && redeemed_coupon.percentage == 100 do
+            recruiter_subscription = if redeemed_coupon && redeemed_coupon.percentage == 100 do
               today = Ecto.Date.utc
               changeset = RecruiterSubscription.changeset(recruiter_subscription, %{paid: true, paid_on: today})
               {:ok, recruiter_subscription} = Repo.update(changeset)
+              recruiter_subscription
             end
           end
         end

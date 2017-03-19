@@ -51,10 +51,10 @@ defmodule Vutuv.TagClosure do
 
   defp create_parents(multi, _, []), do: multi
 
-  defp create_parents(multi, id, [%{parent_id: id, depth: depth} | tail]), do: create_parents(multi, id, tail)
+  defp create_parents(multi, id, [%{parent_id: id, depth: _depth} | tail]), do: create_parents(multi, id, tail)
 
   defp create_parents(multi, child_id, [%{parent_id: parent_id, depth: depth} | tail]) do
-    changeset = 
+    changeset =
       %__MODULE__{}
       |>changeset(%{parent_id: parent_id, child_id: child_id, depth: depth+1})
     Ecto.Multi.insert(multi, "tag_closure_#{parent_id}_#{child_id}", changeset)
@@ -63,10 +63,10 @@ defmodule Vutuv.TagClosure do
 
   defp create_children(multi, _, []), do: multi
 
-  defp create_children(multi, id, [%{child_id: id, depth: depth} | tail]), do: create_parents(multi, id, tail)
+  defp create_children(multi, id, [%{child_id: id, depth: _depth} | tail]), do: create_parents(multi, id, tail)
 
   defp create_children(multi, parent_id, [%{child_id: child_id, depth: depth} | tail]) do
-    changeset = 
+    changeset =
       %__MODULE__{}
       |>changeset(%{parent_id: parent_id, child_id: child_id, depth: depth+1})
     Ecto.Multi.insert(multi, "tag_closure_#{parent_id}_#{child_id}", changeset)
@@ -94,7 +94,7 @@ defmodule Vutuv.TagClosure do
 
   defp delete_parents(multi, _, []), do: multi
 
-  defp delete_parents(multi, id, [%{parent_id: id, depth: depth} | tail]), do: create_parents(multi, id, tail)
+  defp delete_parents(multi, id, [%{parent_id: id, depth: _depth} | tail]), do: create_parents(multi, id, tail)
 
   defp delete_parents(multi, child_id, [%{parent_id: parent_id, depth: depth} | tail]) do
     query = from(c in __MODULE__, where: c.parent_id == ^parent_id and c.child_id == ^child_id and c.depth == ^(depth+1))

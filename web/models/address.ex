@@ -13,11 +13,8 @@ defmodule Vutuv.Address do
     field :country, :string
 
     belongs_to :user, Vutuv.User
-    timestamps
+    timestamps()
   end
-
-  @required_fields ~w(country)
-  @optional_fields ~w(line_2 description line_1 zip_code city state )
 
   @doc """
   Creates a changeset based on the `model` and `params`.

@@ -4,11 +4,8 @@ defmodule Vutuv.SearchQueryRequester do
   schema "search_query_requesters" do
     belongs_to :user, Vutuv.User
     belongs_to :search_query, Vutuv.SearchQuery
-    timestamps
+    timestamps()
   end
-
-  @required_fields ~w()
-  @optional_fields ~w()
 
   @doc """
   Creates a changeset based on the `model` and `params`.

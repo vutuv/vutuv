@@ -28,7 +28,7 @@ defmodule Vutuv.Admin.TagClosureController do
         conn
         |> put_flash(:info, gettext("Tag closure created successfully."))
         |> redirect(to: admin_tag_closure_path(conn, :index, conn.assigns[:tag]))
-      {:error, _, changeset, errors} ->
+      {:error, _, changeset, _errors} ->
         render(conn, "new.html", changeset: changeset, value: value)
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -66,7 +66,7 @@ defmodule Vutuv.Admin.TagClosureController do
   defp resolve_tag(%{params: %{"tag_slug" => slug}} = conn, _opts) do
     Repo.one(from t in Vutuv.Tag, where: t.slug == ^slug)
     |> case do
-      nil -> 
+      nil ->
         conn
         |> put_status(:not_found)
         |> render(Vutuv.ErrorView, "404.html")
