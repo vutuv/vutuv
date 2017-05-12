@@ -3,7 +3,7 @@ defmodule Vutuv.Mixfile do
 
   def project do
     [app: :vutuv,
-     version: "1.4.29",
+     version: "1.4.30",
      elixir: "~> 1.4.1",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
