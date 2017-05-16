@@ -17,25 +17,193 @@ defmodule Vutuv.Fullcontact do
   alias Vutuv.Email
   alias Vutuv.DataEnrichment
 
-  def enrich(user) do
-    # create a new session ID
+  @min_likelihood 0.94
+
+  defp likelihood(fullcontact_data) do
+    fullcontact_data["likelihood"] > @min_likelihood
+  end
+
+  defp new_session_id(user) do
     query = from d in DataEnrichment, where: d.user_id == ^user.id,
                                       order_by: :session_id,
                                       limit: 1
     last_data_enrichment = Repo.one(query)
 
-    session_id =
-      if last_data_enrichment do
-        last_data_enrichment.session_id + 1
-      else
-        1
-      end
+    # create a new session ID
+    if last_data_enrichment do
+      last_data_enrichment.session_id + 1
+    else
+      1
+    end
+  end
 
+  def emails(user) do
     query = from e in Email, where: e.user_id == ^user.id
     emails = Repo.all(query)
-    for email <- emails do
+  end
+
+  def enrichable_avatar(user) do
+    unless user.avatar do
+      fullcontact_avatars(user)
+      |> List.first
+    else
+      nil
+    end
+  end
+
+  def enrichable_websites(user) do
+    # Only use fullcontact info if no urls are there.
+    user = user|>Repo.preload([urls: from(u in Vutuv.Url)])
+
+    unless Enum.any?(user.urls) do
+      fullcontact_urls(user)
+    end
+  end
+
+  def enrichable_social_media_accounts(user) do
+    for social_media_account <- fullcontact_social_media_accounts(user) do
+      provider = social_media_account |> Map.keys |> List.first
+      account = social_media_account |> Map.values |> List.first
+      unless has_account_at_provider?(user, provider, account) do
+        social_media_account
+      end
+    end |> Enum.uniq |> Enum.filter(fn(x) -> x != nil end)
+  end
+
+  def enrichable_work_experiences(user) do
+    user = user
+           |>Repo.preload([work_experiences: from(u in Vutuv.WorkExperience)])
+
+    unless Enum.any?(user.work_experiences) do
+      fullcontact_work_experiences(user)
+    end
+  end
+
+  def fullcontact_avatars(user) do
+      urls = for email <- emails(user) do
+        fullcontact_data = decoded_fullcontact_data(email.value)
+        if fullcontact_data["photos"] && likelihood(fullcontact_data) do
+          if List.first(fullcontact_data["photos"]) do
+            List.first(fullcontact_data["photos"])["url"]
+          end
+        end
+      end |> List.flatten |> Enum.uniq |> Enum.filter(fn(x) -> x != nil end)
+  end
+
+  def fullcontact_urls(user) do
+    urls = for email <- emails(user) do
+      fullcontact_data = decoded_fullcontact_data(email.value)
+      if fullcontact_data["contactInfo"]["websites"] do
+        for website <- fullcontact_data["contactInfo"]["websites"] do
+          website["url"]
+        end
+      end
+    end |> List.flatten |> Enum.uniq |> Enum.filter(fn(x) -> x != nil end)
+  end
+
+  def fullcontact_social_media_accounts(user) do
+    social_media_accounts = for email <- emails(user) do
+      fullcontact_data = decoded_fullcontact_data(email.value)
+      for social_profile <- fullcontact_data["socialProfiles"] do
+        username = social_profile["username"]
+        case social_profile["type"] do
+          "github" ->
+            %{"GitHub" => username}
+          "google" ->
+            %{"Google+" => username}
+          "twitter" ->
+            %{"Twitter" => username}
+          "youtube" ->
+            %{"Youtube" => username}
+          # "instagram" ->
+          #   username = social_profile["url"]
+          #              |> String.replace("https://instagram.com/","")
+          #   %{"Instagram" => username}
+          "facebook" ->
+            username = social_profile["url"]
+                       |> String.replace("https://www.facebook.com/","")
+            %{"Facebook" => username}
+          _ ->
+            nil
+        end
+      end
+    end |> List.flatten |> Enum.uniq |> Enum.filter(fn(x) -> x != nil end)
+  end
+
+  def fullcontact_work_experiences(user) do
+    social_media_accounts = for email <- emails(user) do
+      fullcontact_data = decoded_fullcontact_data(email.value)
+
+      if fullcontact_data["organizations"] do
+        for organization <- fullcontact_data["organizations"] do
+          start_date = organization["startDate"]
+          end_date = organization["endDate"]
+
+          work_experience = %{
+                              organization: organization["name"],
+                              title: organization["title"],
+                              description: nil,
+                              start_month: nil,
+                              start_year: nil,
+                              end_month: nil,
+                              end_year: nil
+                             }
+
+          start_date_map = if start_date do
+            case start_date |> String.split("-") do
+              [year, month] ->
+                %{start_year: year, start_month: month}
+              [year] ->
+                %{start_year: year}
+              _ ->
+                %{}
+            end
+          else
+            %{}
+          end
+
+          end_date_map = if end_date do
+            case end_date |> String.split("-") do
+              [year, month] ->
+                %{end_year: year, end_month: month}
+              [year] ->
+                %{end_year: year}
+              _ ->
+                %{}
+            end
+          else
+            %{}
+          end
+
+          work_experience
+          |> Map.merge(start_date_map)
+          |> Map.merge(end_date_map)
+        end
+      end
+    end |> List.flatten |> Enum.uniq |> Enum.filter(fn(x) -> x != nil end)
+  end
+
+  def enrich(user) do
+    session_id = new_session_id(user)
+
+    for email <- emails(user) do
       enrich(email, user, session_id)
     end
+  end
+
+  defp enrich(email, user, session_id) do
+    add_avatar(user, session_id)
+    add_websites(user, session_id)
+    add_social_media_accounts(user, session_id)
+    add_work_experiences(user, session_id)
+
+    # add_tags(user, session_id, fullcontact_data)
+    # add_address(user, session_id, email, fullcontact_data)
+  end
+
+  defp decoded_fullcontact_data(email_address) do
+    fetch_fullcontact_json(email_address)
+    |> Poison.decode!
   end
 
   def within_api_limits?() do
@@ -92,20 +260,6 @@ defmodule Vutuv.Fullcontact do
     Repo.insert(changeset)
   end
 
-  def enrich(email, user, session_id) do
-    fullcontact_data = fetch_fullcontact_json(email.value)
-                       |> Poison.decode!
-
-    if fullcontact_data["likelihood"] > 0.91 do
-      add_avatar(user, session_id, fullcontact_data)
-      add_websites(user, session_id, fullcontact_data)
-      add_social_media_accounts(user, session_id, fullcontact_data)
-      add_work_experiences(user, session_id, fullcontact_data)
-      add_tags(user, session_id, fullcontact_data)
-      add_address(user, session_id, email, fullcontact_data)
-    end
-  end
-
   def fetch_fullcontact_json(email_address) do
     if within_api_limits?() do
       email_address = String.downcase(email_address)
@@ -140,7 +294,7 @@ defmodule Vutuv.Fullcontact do
            |>Repo.preload([addresses: from(u in Vutuv.Address)])
 
     unless Enum.any?(user.addresses) do
-      if fullcontact_data["likelihood"] > 0.96 do
+      if likelihood(fullcontact_data) do
         country = fullcontact_data["demographics"]["locationDeduced"]["normalizedLocation"]
         if country do
           add_country(user, session_id, country)
@@ -195,60 +349,19 @@ defmodule Vutuv.Fullcontact do
     end
   end
 
-  defp add_work_experiences(user, session_id, fullcontact_data) do
-    # Only add if work_experiences is empty.
-    user = user
-           |>Repo.preload([work_experiences: from(u in Vutuv.WorkExperience)])
+  defp add_work_experiences(user, session_id) do
+    for work_experience <- enrichable_work_experiences(user) do
+      changeset =
+        user
+        |> build_assoc(:work_experiences)
+        |> WorkExperience.changeset(work_experience)
 
-    unless Enum.any?(user.work_experiences) do
-      for organization <- fullcontact_data["organizations"] do
-        name = organization["name"]
-        title = organization["title"]
-        start_date = organization["startDate"]
-        end_date = organization["endDate"]
-
-        changeset =
-          user
-          |> build_assoc(:work_experiences)
-          |> WorkExperience.changeset(%{organization: name, title: title})
-
-        if start_date do
-          case start_date |> String.split("-") do
-            [year, month] ->
-              changeset =
-                changeset
-                |> WorkExperience.changeset(%{start_year: year, start_month: month})
-            [year] ->
-              changeset =
-                changeset
-                |> WorkExperience.changeset(%{start_year: year})
-            _ ->
-              nil
-          end
-        end
-
-        if end_date do
-          case end_date |> String.split("-") do
-            [year, month] ->
-              changeset =
-                changeset
-                |> WorkExperience.changeset(%{end_year: year, end_month: month})
-            [year] ->
-              changeset =
-                changeset
-                |> WorkExperience.changeset(%{end_year: year})
-            _ ->
-              nil
-          end
-        end
-
-        unless data_enrichment_exists?(user, "Added work experience", work_experience_to_string(changeset.data)) do
-          case Repo.insert(changeset) do
-            {:ok, work_experience} ->
-              store_data_enrichment(user, session_id, "Added work experience", work_experience_to_string(work_experience))
-            _ ->
-              nil
-          end
+      unless data_enrichment_exists?(user, "Added work experience", work_experience_to_string(changeset.data)) do
+        case Repo.insert(changeset) do
+          {:ok, work_experience} ->
+            store_data_enrichment(user, session_id, "Added work experience", work_experience_to_string(work_experience))
+          _ ->
+            nil
         end
       end
     end
@@ -304,14 +417,20 @@ defmodule Vutuv.Fullcontact do
     end
   end
 
-  defp add_avatar(user, session_id, fullcontact_data) do
-    unless user.avatar do
-      if List.first(fullcontact_data["photos"]) do
-        avatar_url = List.first(fullcontact_data["photos"])["url"]
-        download_and_store_avatar(user, avatar_url)
-        store_data_enrichment(user, session_id, "Added avatar photo", avatar_url)
-      end
+  defp add_avatar(user, session_id) do
+    if enrichable_avatar(user) do
+      avatar_url = enrichable_avatar(user)
+      download_and_store_avatar(user, avatar_url)
+      store_data_enrichment(user, session_id, "Added avatar photo", avatar_url)
     end
+
+    # unless user.avatar do
+    #   if List.first(fullcontact_data["photos"]) do
+    #     avatar_url = List.first(fullcontact_data["photos"])["url"]
+    #     download_and_store_avatar(user, avatar_url)
+    #     store_data_enrichment(user, session_id, "Added avatar photo", avatar_url)
+    #   end
+    # end
   end
 
   defp download_and_store_avatar(user, url) do
@@ -339,66 +458,74 @@ defmodule Vutuv.Fullcontact do
     end
   end
 
-  defp add_websites(user, session_id, fullcontact_data) do
-    # Only add fullcontact info if no urls are there.
-    user = user|>Repo.preload([urls: from(u in Vutuv.Url)])
+  defp add_websites(user, session_id) do
+    if enrichable_websites(user) do
+      for website <- enrichable_websites(user) do
+        url = Ecto.build_assoc(user, :urls, value: website)
 
-    unless Enum.any?(user.urls) do
-      for website <- fullcontact_data["contactInfo"]["websites"] do
-       url = Ecto.build_assoc(user, :urls, value: website["url"])
-
-       unless data_enrichment_exists?(user, "Added website", website["url"]) do
-         case Repo.insert(url) do
-           {:ok, url} ->
-             Task.start(__MODULE__, :generate_screenshot, [url])
-             store_data_enrichment(user, session_id, "Added website", website["url"])
-           _ ->
-             nil
-         end
-       end
+        unless data_enrichment_exists?(user, "Added website", url.value) do
+          case Repo.insert(url) do
+            {:ok, url} ->
+              Task.start(__MODULE__, :generate_screenshot, [url])
+              store_data_enrichment(user, session_id, "Added website", url.value)
+            _ ->
+              nil
+          end
+        end
       end
     end
   end
 
-  defp add_social_media_accounts(user, session_id, fullcontact_data) do
-    feedback = []
-    feedback = feedback ++ for social_profile <- fullcontact_data["socialProfiles"] do
-      feedback = []
-      username = social_profile["username"]
-      feedback = feedback ++ case social_profile["type"] do
-        "github" ->
+  defp add_social_media_accounts(user, session_id) do
+    for social_media_account <- enrichable_social_media_accounts(user) do
+      provider = social_media_account |> Map.keys |> List.first
+      username = social_media_account |> Map.values |> List.first
+      case provider do
+        "GitHub" ->
           add_social_media_provider(user, session_id, "GitHub", username)
-        "google" ->
+        "Google+" ->
           add_social_media_provider(user, session_id, "Google+", username)
-        "twitter" ->
+        "Twitter" ->
           add_social_media_provider(user, session_id, "Twitter", username)
-        "youtube" ->
+        "Youtube" ->
           add_social_media_provider(user, session_id, "Youtube", username)
-        "instagram" ->
+        "Instagram" ->
           add_social_media_provider(user, session_id, "Instagram", username)
-        "facebook" ->
+        "Facebook" ->
           add_social_media_provider(user, session_id, "Facebook", username)
         _ ->
           nil
       end
     end
-    feedback
   end
 
-  defp add_social_media_provider(user, session_id, provider, account) do
-    # Only add if not already an existing account of this provider exists.
+  defp has_account_at_provider?(user, provider) do
     user = user
            |>Repo.preload([social_media_accounts: from(u in Vutuv.SocialMediaAccount)])
 
-    results = for social_media_account <- user.social_media_accounts do
+    for social_media_account <- user.social_media_accounts do
       if social_media_account.provider == provider do
         true
-      else
-        false
       end
-    end
+    end |> Enum.member?(true)
+  end
 
-    unless Enum.member?(results, true) do
+  defp has_account_at_provider?(user, provider, account) do
+    user = user
+           |>Repo.preload([social_media_accounts: from(u in Vutuv.SocialMediaAccount)])
+
+    for social_media_account <- user.social_media_accounts do
+      if social_media_account.provider == provider do
+        if social_media_account.value == account do
+          true
+        end
+      end
+    end |> Enum.member?(true)
+  end
+
+  defp add_social_media_provider(user, session_id, provider, account) do
+    # Don't add a social media account to an already existing provider.
+    unless has_account_at_provider?(user, provider) do
       social_media_account = Ecto.build_assoc(user, :social_media_accounts, %{value: account, provider: provider})
 
       unless data_enrichment_exists?(user, "Added #{social_media_account.provider} account", account) do
