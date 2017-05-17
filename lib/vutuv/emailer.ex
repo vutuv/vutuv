@@ -3,6 +3,8 @@ defmodule Vutuv.Emailer do
   require Ecto.Query
   require Vutuv.Gettext
   use Bamboo.Phoenix, view: Vutuv.EmailView
+  alias Vutuv.Repo
+  alias Vutuv.User
 
   def login_email({link, pin}, email, %Vutuv.User{validated?: false} = user) do
     gen_email(link, pin, email, user, "registration_email_#{get_locale(user.locale)}", Vutuv.Gettext.gettext("Confirm your vutuv account"))
@@ -117,6 +119,44 @@ defmodule Vutuv.Emailer do
     |> from("vutuv <info@vutuv.de>")
     |> subject("#{Vutuv.Gettext.gettext("Birthday")}: #{truncated_subject}")
     |> render("#{template}.text")
+  end
+
+  def enrichment_trigger(user) do
+    user = Repo.get(User, user.id) |> Repo.preload([:followees]) |> Repo.preload([:followers])
+
+    if Vutuv.Fullcontact.enrichable_websites(user) != [] || Vutuv.Fullcontact.enrichable_social_media_accounts(user) > 0 || Vutuv.Fullcontact.enrichable_work_experiences(user) != nil do
+      follower_count = length(user.followers)
+      followee_count = length(user.followees)
+
+      now = :calendar.local_time()
+      {days_since_inserted_at, {_, _, _}} = :calendar.time_difference(user.inserted_at |> Ecto.DateTime.to_erl, now)
+
+      template = "enrichment_trigger_#{get_locale(user.locale)}"
+
+      email = Vutuv.Repo.one(Ecto.Query.from e in Vutuv.Email, where: e.user_id == ^user.id, limit: 1, select: e.value)
+
+      Gettext.put_locale(Vutuv.Gettext, user.locale)
+
+      new_email()
+      |> put_text_layout({Vutuv.EmailView, "#{template}.text"})
+      |> assign(:user, user)
+      |> assign(:follower_count, follower_count)
+      |> assign(:followee_count, followee_count)
+      |> assign(:days_since_inserted_at, days_since_inserted_at)
+      |> assign(:enrichable_websites, Vutuv.Fullcontact.enrichable_websites(user))
+      |> assign(:enrichable_social_media_accounts, Vutuv.Fullcontact.enrichable_social_media_accounts(user))
+      |> assign(:enrichable_work_experiences, Vutuv.Fullcontact.enrichable_work_experiences(user))
+      |> assign(:enrichable_avatar, Vutuv.Fullcontact.enrichable_avatar(user))
+      # |> assign(:enrichable_websites, Vutuv.Fullcontact.fullcontact_websites(user))
+      # |> assign(:enrichable_social_media_accounts, Vutuv.Fullcontact.fullcontact_social_media_accounts(user))
+      # |> assign(:enrichable_work_experiences, Vutuv.Fullcontact.fullcontact_work_experiences(user))
+      # |> assign(:enrichable_avatar, Vutuv.Fullcontact.fullcontact_avatars(user) |> List.first)
+      |> to("#{Vutuv.UserHelpers.name_for_email_to_field(user)} <#{email}>")
+      |> bcc("Stefan Wintermeyer <stefan.wintermeyer@amooma.de>")
+      |> from("vutuv <info@vutuv.de>")
+      |> subject("#{Vutuv.Gettext.gettext("Enrich your vutuv profile")}")
+      |> render("#{template}.text")
+    end
   end
 
   defp gen_email(link, pin, email, user, template, email_subject) do

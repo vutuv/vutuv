@@ -56,7 +56,7 @@ defmodule Vutuv.Fullcontact do
     user = user|>Repo.preload([urls: from(u in Vutuv.Url)])
 
     unless Enum.any?(user.urls) do
-      fullcontact_urls(user)
+      fullcontact_websites(user)
     end
   end
 
@@ -90,7 +90,7 @@ defmodule Vutuv.Fullcontact do
       end |> List.flatten |> Enum.uniq |> Enum.filter(fn(x) -> x != nil end)
   end
 
-  def fullcontact_urls(user) do
+  def fullcontact_websites(user) do
     urls = for email <- emails(user) do
       fullcontact_data = decoded_fullcontact_data(email.value)
       if fullcontact_data["contactInfo"]["websites"] do
@@ -109,12 +109,12 @@ defmodule Vutuv.Fullcontact do
         case social_profile["type"] do
           "github" ->
             %{"GitHub" => username}
-          "google" ->
-            %{"Google+" => username}
+          # "google" ->
+          #   %{"Google+" => username}
           "twitter" ->
             %{"Twitter" => username}
-          "youtube" ->
-            %{"Youtube" => username}
+          # "youtube" ->
+          #   %{"Youtube" => username}
           # "instagram" ->
           #   username = social_profile["url"]
           #              |> String.replace("https://instagram.com/","")

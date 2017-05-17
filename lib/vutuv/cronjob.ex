@@ -29,6 +29,15 @@ defmodule Vutuv.Cronjob do
     end
   end
 
+  # def send_enrichment_trigger do
+  #   users = Repo.all(from u in User, where: u.validated? == true, where: u.id == 1)
+  #
+  #   for(user <- users) do
+  #     Vutuv.Emailer.enrichment_trigger(user)
+  #     |> Vutuv.Mailer.deliver_now
+  #   end
+  # end
+
   def followees_who_have_birthday(user, date) do
     month = date.month
     day = date.day
