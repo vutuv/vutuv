@@ -307,7 +307,7 @@ msgstr "Deutsch"
 
 #: web/templates/page/index.html.eex:24
 msgid "Get started now. It only takes 30 seconds."
-msgstr "Ihr neuer Account ist in 30 Sekunden fertig."
+msgstr "Ihr gratis Account ist in nicht mal 30 Sekunden fertig."
 
 #: web/controllers/group_controller.ex:30
 msgid "Group created successfully."
@@ -677,8 +677,8 @@ msgid "Show search term"
 msgstr "Suchbegriff anzeigen"
 
 #: web/templates/page/index.html.eex:66
-msgid "Sign up"
-msgstr "Account erstellen"
+msgid "Sign up for a free account"
+msgstr "Gratis Account erstellen"
 
 #: web/templates/admin/recruiter_package/show.html.eex:42
 #: web/templates/admin/tag/index.html.eex:21
@@ -769,8 +769,8 @@ msgid "Suffix"
 msgstr ""
 
 #: web/templates/page/index.html.eex:15
-msgid "The Fast and Free Career Network"
-msgstr "Ihr Kontaktnetzwerk. Schnell und gratis!"
+msgid "Fast and Secure Business Networking"
+msgstr "Willkommen beim weltweit schnellsten und sichersten Business-Netzwerk!"
 
 #: web/controllers/user_controller.ex:47
 msgid "There was an error"

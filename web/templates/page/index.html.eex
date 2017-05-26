@@ -12,8 +12,7 @@
 <div class="imagebox">
   <section class="card imagebox__card">
     <div class="imagebox__intro">
-      <h1><%= gettext "The Fast and Free Career Network" %></h1>
-      <p><%= gettext "No expensive premium accounts! Read more about it in" %> <a href="https://medium.com/@vutuv"><%= gettext "our blog" %></a>. <%= gettext "Curious? Have a look at the "%> <a href="/listings/most_followed_users"><%= gettext "100 users with the most followers" %></a>.</p>
+      <h1><%= gettext "Fast and Secure Business Networking" %></h1>
     </div>
     <%= form_for @changeset, page_path(@conn, :new_registration), [multipart: true, class: "imagebox__form"], fn f -> %>
       <%= if @changeset.action do %>
@@ -21,7 +20,6 @@
           <p><%= gettext "Oops, something went wrong! Please check the errors below." %></p>
         </div>
       <% end %>
-      <h2><%= gettext "Get started now. It only takes 30 seconds." %></h2>
       <p>
       <%= select f, :gender, [{gettext("male"), "male"},
         {gettext("female"), "female"}, {gettext("other"), "other"}], class: "imagebox__input", prompt: gettext("Choose a gender"), autofocus: true %>
@@ -63,10 +61,11 @@
       </label>
       <p><%= gettext "By signing up you agree that we set a cookie in your browser." %></p>
       <p>
-      <%= submit gettext("Sign up"), class: "btn btn-lg btn-primary btn-block" %>
+      <%= submit gettext("Sign up for a free account"), class: "btn btn-lg btn-primary btn-block" %>
       </p>
       <p><a href="<%= session_path(@conn, :new) %>" class="imagebox__alreadymember"><%= gettext "Already a member? Sign in here." %></a></p>
       <p><%= gettext "We reserve the right to stop this service or delete your account anytime without warning." %></p>
+      <p><%= gettext "Tor user? => " %><a href="http://vutuvh2rmz3ynydm.onion/">vutuvh2rmz3ynydm.onion</a></p>
     <% end %>
   </section>
 </div>

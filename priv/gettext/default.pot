@@ -678,7 +678,7 @@ msgid "Show search term"
 msgstr ""
 
 #: web/templates/page/index.html.eex:66
-msgid "Sign up"
+msgid "Sign up for a free account"
 msgstr ""
 
 #: web/templates/admin/recruiter_package/show.html.eex:42
@@ -770,7 +770,7 @@ msgid "Suffix"
 msgstr ""
 
 #: web/templates/page/index.html.eex:15
-msgid "The Fast and Free Career Network"
+msgid "Fast and Secure Business Networking"
 msgstr ""
 
 #: web/controllers/user_controller.ex:47
