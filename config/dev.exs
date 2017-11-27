@@ -16,7 +16,6 @@ config :vutuv, Vutuv.Endpoint,
   watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin"]],
   public_url: "http://localhost:4000/"
 
-
 # Watch static and templates for browser reloading.
 config :vutuv, Vutuv.Endpoint,
   live_reload: [

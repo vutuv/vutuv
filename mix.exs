@@ -4,7 +4,7 @@ defmodule Vutuv.Mixfile do
   def project do
     [app: :vutuv,
      version: "1.4.34",
-     elixir: "~> 1.4.1",
+     elixir: "~> 1.5.2",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -68,7 +68,8 @@ defmodule Vutuv.Mixfile do
      {:distillery, "~> 1.1.0"},
      {:quantum, ">= 1.8.1"},
      {:number, "~> 0.5.1"},
-     {:poison, "~> 2.0"}
+     {:poison, "~> 2.0"},
+     {:plug, "~> 1.3"}
     ]
   end
 
