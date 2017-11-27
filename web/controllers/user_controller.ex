@@ -90,6 +90,13 @@ defmodule Vutuv.UserController do
       nil
     end
 
+    internet_org_connection = case conn.cookies["_vutuv_fbs_temp"] do
+      nil ->
+        false
+      _ ->
+        true
+    end
+
     # TODO: Add the date for the coupon search.
     recruiter_packages = Repo.all(from r in Vutuv.RecruiterPackage,
                                   where: r.locale_id == ^Vutuv.Locale.locale_id(conn.assigns[:locale]),
@@ -144,6 +151,7 @@ defmodule Vutuv.UserController do
     |> assign(:reccomended_users, reccomended_users)
     |> assign(:work_string_length, work_string_length)
     |> assign(:new_coupon, new_coupon)
+    |> assign(:internet_org_connection, internet_org_connection)
     |> render("show.html", conn: conn)
   end
 
