@@ -49,7 +49,7 @@
 
   <footer>
     <p>
-      Copyright © 2016 <a href="https://www.amooma.de">AMOOMA</a> | <a href="https://github.com/vutuv/vutuv/"> Source-Code</a> |
+      Copyright © 2017 <a href="https://www.wintermeyer-consulting.de">Wintermeyer Consulting</a> | <a href="https://github.com/vutuv/vutuv/"> Source-Code</a> |
       <a href="https://github.com/vutuv/vutuv/issues/new"><%= gettext "Submit a bugreport or a feature request." %></a> | <a href="/privacy-policy.html"><%= gettext "Privacy Policy" %></a> | <%= link gettext("About us"), to: page_path(@conn, :impressum) %></a> | vutuv <%= Application.spec(:vutuv, :vsn) %>
     </p>
   </footer>
