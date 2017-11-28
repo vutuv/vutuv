@@ -110,7 +110,6 @@
   <% end %>
 
   <aside>
-    <%= render Vutuv.SharedView, "_admin_card.html", assigns %>
     <%= render Vutuv.SharedView, "_ad.html", assigns %>
 
     <%= if(Enum.count(@emails) > 0 or same_user?(@user, @current_user)) do %>
