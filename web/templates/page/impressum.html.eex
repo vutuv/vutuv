@@ -12,26 +12,28 @@
 <div class="imagebox">
   <section class="card imagebox__card">
     <div class="imagebox__intro">
-      <h1>AMOOMA GmbH</h1><br>
       <p>
-				Bachstr. 124 </br>
-				56566 Neuwied</br>
-				E-Mail: info@amooma.de</br> 
-				https://www.amooma.de</br>
-				</p>
-				<p>
-				Vertretungsberechtigter Geschäftsführer: </br>
-				Stefan Wintermeyer</br>
-				</p>
-				<p>
-				Registergericht: </br>
-				Amtsgericht Montabaur</br>
-				Registernummer: </br>
-				HR B 4998</br>
-				Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: </br>
-				DE241612768</br>
-				Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV: </br>
-				Stefan Wintermeyer</br>
-			</p>
+        <address>
+          <strong>
+            Wintermeyer Consulting
+          </strong>
+          <br>
+          Johannes-Müller-Str. 10
+          <br>
+          56068 Koblenz
+        </address>
+        <address>
+          E-Mail:
+          <a href="mailto:sw@wintermeyer-consulting.de">sw@wintermeyer-consulting.de</a>
+          <br>
+          Telefon: <a href="tel:+492619886803">0261/9886803</a>
+        </address>
+      </p>
+      <p>
+        <strong>
+          Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:
+        </strong><br />
+        Stefan Wintermeyer
+      </p>
   </section>
 </div>
