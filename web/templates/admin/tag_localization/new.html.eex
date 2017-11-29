@@ -22,6 +22,6 @@
                             action: admin_tag_localization_path(@conn, :create, @tag) %>
   </section>
   <aside>
-    <%= render Vutuv.SharedView, "_ad.html" %>
+    <%= render Vutuv.SharedView, "_ad.html", assigns %>
   </aside>
 </div>

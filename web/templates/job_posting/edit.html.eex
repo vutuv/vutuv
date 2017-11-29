@@ -22,6 +22,6 @@
                             action: user_job_posting_path(@conn, :update, @user, @job_posting), edit: true %>
   </section>
   <aside>
-    <%= render Vutuv.SharedView, "_ad.html" %>
+    <%= render Vutuv.SharedView, "_ad.html", assigns %>
   </aside>
 </div>

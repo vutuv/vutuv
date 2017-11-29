@@ -163,8 +163,16 @@ defmodule Vutuv.UserController do
     user =
       conn.assigns[:user]
       |> Repo.preload([:emails, :slugs, :oauth_providers])
+
+    internet_org_connection = case conn.cookies["_vutuv_fbs_temp"] do
+      nil ->
+        false
+      _ ->
+        true
+    end
+
     changeset = User.changeset(user)
-    render(conn, "edit.html", user: user, changeset: changeset)
+    render(conn, "edit.html", user: user, changeset: changeset, internet_org_connection: internet_org_connection)
   end
 
   def update(conn, %{"user" => user_params}) do

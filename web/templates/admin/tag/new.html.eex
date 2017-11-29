@@ -20,6 +20,6 @@
                             action: admin_tag_path(@conn, :create) %>
   </section>
   <aside>
-    <%= render Vutuv.SharedView, "_ad.html" %>
+    <%= render Vutuv.SharedView, "_ad.html", assigns %>
   </aside>
 </div>

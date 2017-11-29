@@ -23,7 +23,7 @@
   <% end %>
 </section>
 <aside>
-  <%= render Vutuv.SharedView, "_ad.html" %>
+  <%= render Vutuv.SharedView, "_ad.html", assigns %>
   <section class="card">
     <h1> <%= if (Enum.count(loc.tag_urls) == 1), do: gettext("Url"), else: gettext("Urls") %> </h1>
     <dl class="email-list">

@@ -20,6 +20,6 @@
                             action: admin_exonym_path(@conn, :update, @exonym) %>
   </section>
   <aside>
-    <%= render Vutuv.SharedView, "_ad.html" %>
+    <%= render Vutuv.SharedView, "_ad.html", assigns %>
   </aside>
 </div>

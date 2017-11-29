@@ -13,7 +13,7 @@
 <div class="card-list">
 
   <aside>
-    <%= render Vutuv.SharedView, "_ad.html" %>
+    <%= render Vutuv.SharedView, "_ad.html", assigns %>
   </aside>
   <section class="card">
 

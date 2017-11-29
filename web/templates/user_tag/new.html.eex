@@ -21,6 +21,6 @@
                             action: user_tag_path(@conn, :create, @conn.assigns[:user]) %>
   </section>
   <aside>
-    <%= render Vutuv.SharedView, "_ad.html" %>
+    <%= render Vutuv.SharedView, "_ad.html", assigns %>
   </aside>
 </div>

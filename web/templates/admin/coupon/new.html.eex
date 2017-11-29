@@ -19,6 +19,6 @@
                             action: admin_coupon_path(@conn, :create) %>
   </section>
   <aside>
-    <%= render Vutuv.SharedView, "_ad.html" %>
+    <%= render Vutuv.SharedView, "_ad.html", assigns %>
   </aside>
 </div>

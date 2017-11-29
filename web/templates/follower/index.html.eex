@@ -9,7 +9,7 @@
 
 <div class="search-results card-list">
   <aside>
-    <%= render Vutuv.SharedView, "_ad.html" %>
+    <%= render Vutuv.SharedView, "_ad.html", assigns %>
   </aside>
 <%= if @user.follower_connections do %>
   <section class="card">
