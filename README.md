@@ -1,13 +1,14 @@
-[![Stories in Ready](https://badge.waffle.io/vutuv/vutuv.png?label=ready&title=Ready)](https://waffle.io/vutuv/vutuv)
-[![Build
-Status](https://travis-ci.org/vutuv/vutuv.svg?branch=master)](https://travis-ci.org/vutuv/vutuv)
+# vutuv is in hibernation mode right now
+
+We are working on it.
 
 # vutuv
+
 vutuv is a free, fast and open source social network service to host and share information about humans and organizations. It's hosted at https://www.vutuv.de. Please have a look at our [blog](https://medium.com/@vutuv) for more information about it.
 
 # Do you want to participate in the development?
 
-Great! We encourage new developers to participate in this project. Even a one line fix or improvement makes a big difference. Please do not hesitate to contact stefan.wintermeyer@amooma.de if you have any questions. Otherwise just create a pull request. You find a document with additional information about this in the file [faster_pr_reviews.md](https://github.com/vutuv/vutuv/blob/master/faster_pr_reviews.md).
+Great! We encourage new developers to participate in this project. Even a one line fix or improvement makes a big difference. Please do not hesitate to contact sw@wintermeyer-consulting.de if you have any questions. Otherwise just create a pull request. You find a document with additional information about this in the file [faster_pr_reviews.md](https://github.com/vutuv/vutuv/blob/master/faster_pr_reviews.md).
 
 We use [MIT License](https://mit-license.org/).
 
