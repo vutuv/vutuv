@@ -114,4 +114,7 @@ We are glad to have some sponsors which help us to run https://www.vutuv.de
 - [BrowserStack](https://www.browserstack.com)
   They don't charge us for using their screenshot API.
 
+![BrowserStack Logo](https://raw.githubusercontent.com/vutuv/vutuv/master/misc/Browserstack-logo@2x.png)
+
+
 In total those companies sponsor us with more than 500 USD every month. Thank you!
