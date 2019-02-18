@@ -20,7 +20,8 @@ We run a private Slack channel. Once you get involved by commiting code we'll in
 
 Vutuv is a [Phoenix Framework](http://www.phoenixframework.org/) application. Please install the following software first:
 
-- [latest stable version of Erlang/Elixir](http://elixir-lang.org/install.html)
+- Erlang version 21.2.2 ([asdf-vm is a good version manager](https://github.com/asdf-vm/asdf)) 
+- Elixir version 1.7.4 ([asdf-vm is a good version manager](https://github.com/asdf-vm/asdf))
 - [Phoenix Framework](http://www.phoenixframework.org/)
 - [MySQL](http://www.mysql.com/)
 
