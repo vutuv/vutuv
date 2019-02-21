@@ -27,6 +27,10 @@ Vutuv is a [Phoenix Framework](http://www.phoenixframework.org/) application. Pl
 
 Make sure that your database configuration in `config/dev.exs` is correct.
 
+# Database
+
+This vutuv version runs on an old MySQL version (5.7). In case you develop it on a mac OS X system you want to install it with brew. `brew install mysql@5.7` (and read the message from the brew installer).
+
 ## Create your secret config
 
 In order to compile your application, You'll need to create a `secret.config` file.
