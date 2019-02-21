@@ -92,7 +92,7 @@ $ mix phoenix.server
 ## First steps in the application
 
 You need to register as a new user on http://localhost:4000. 
-Remember that the email to verify this new user will be accessible at https://localhost:4000/sent_emails
+Remember that the email to verify this new user will be accessible at http://localhost:4000/sent_emails
 
 After creating a couple of example users you can login to them and
 connect to other others by browsing to their page and click on the "Follow" button.
