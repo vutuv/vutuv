@@ -1,6 +1,6 @@
 # vutuv
 
-vutuv is a business network. Think of it as a free, fast and secure open-source alternative to [LinkedIn](https://www.linkedin.com) or [XING](https://www.xing.com). The first version of vutuv can be found in the branch v1.1.
+vutuv is a business network. Think of it as a free, fast and secure open-source alternative for [LinkedIn](https://www.linkedin.com) or [XING](https://www.xing.com). The first version of vutuv can be found in the branch v1.1.
 
 # Development How-To
 
