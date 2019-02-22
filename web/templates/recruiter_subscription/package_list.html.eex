@@ -1,5 +1,0 @@
-<div class="subscriptions-list">
-<%= for package <- @packages do %>
-  <%= render Vutuv.Admin.RecruiterPackageView, "package_minicard.html", package: package, f: @f %>
-<% end %>
-</div>

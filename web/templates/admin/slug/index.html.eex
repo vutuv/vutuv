@@ -1,3 +1,0 @@
-<h2>Disable Slugs</h2>
-
-<%= render "form.html", conn: @conn%>
