@@ -81,6 +81,8 @@ You should now be able to run the application by following the steps below.
 
 ```bash
 $ cd vutuv
+$ rm -rf deps
+$ rm -rf _build
 $ mix deps.get
 $ mix deps.compile
 $ npm install
