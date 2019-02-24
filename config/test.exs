@@ -16,7 +16,7 @@ config :vutuv, Vutuv.Repo,
   adapter: Ecto.Adapters.MySQL,
   username: "root",
   password: "",
-  database: "vutuv_test",
+  database: "vutuv1_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 

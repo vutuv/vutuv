@@ -33,7 +33,7 @@ config :vutuv, Vutuv.Repo,
   adapter: Ecto.Adapters.MySQL,
   username: "root",
   password: "",
-  database: "vutuv_prod",
+  database: "vutuv1_prod",
   hostname: "localhost",
   pool_size: 10
 
