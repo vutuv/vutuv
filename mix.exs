@@ -56,7 +56,7 @@ defmodule Vutuv.Mixfile do
      {:phoenix_html, "~> 2.8"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.12.1"},
-     {:cowboy, "~> 1.0"},
+     {:plug_cowboy, "~> 1.0"},
      {:arc, "~> 0.5.3"},
      {:arc_ecto, "~> 0.4.2"},
      {:ex_machina, "~> 1.0"},
