@@ -152,7 +152,7 @@ defmodule Vutuv.Emailer do
       # |> assign(:enrichable_work_experiences, Vutuv.Fullcontact.fullcontact_work_experiences(user))
       # |> assign(:enrichable_avatar, Vutuv.Fullcontact.fullcontact_avatars(user) |> List.first)
       |> to("#{Vutuv.UserHelpers.name_for_email_to_field(user)} <#{email}>")
-      |> bcc("Stefan Wintermeyer <stefan.wintermeyer@amooma.de>")
+      |> bcc("Stefan Wintermeyer <sw@wintermeyer-consulting.de>")
       |> from("vutuv <info@vutuv.de>")
       |> subject("#{Vutuv.Gettext.gettext("Enrich your vutuv profile")}")
       |> render("#{template}.text")
