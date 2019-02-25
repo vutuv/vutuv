@@ -37,6 +37,7 @@ defmodule Vutuv.Mixfile do
                     :arc,
                     :arc_ecto,
                     :quantum,
+                    :plug_cowboy,
                     :number]]
   end
 
