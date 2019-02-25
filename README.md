@@ -18,10 +18,11 @@ We run a private Slack channel. Once you get involved by commiting code we'll in
 
 # Development How-To
 
-Vutuv is a [Phoenix Framework](http://www.phoenixframework.org/) application. Please install the following software first:
+Vutuv is a [Phoenix Framework](http://www.phoenixframework.org/) application. Please install the following software first ([asdf-vm is a good version manager](https://github.com/asdf-vm/asdf)):
 
-- Erlang version 20.3.8.9 ([asdf-vm is a good version manager](https://github.com/asdf-vm/asdf)) 
-- Elixir version 1.5.2 ([asdf-vm is a good version manager](https://github.com/asdf-vm/asdf))
+- Erlang version 20.3.8.9
+- Elixir version 1.5.2
+- Nodejs version 6.8.0
 - [Phoenix Framework](http://www.phoenixframework.org/)
 - [MySQL](http://www.mysql.com/)
 
