@@ -19,6 +19,6 @@
                             action: admin_recruiter_package_path(@conn, :update, @recruiter_package) %>
   </section>
   <aside>
-    <%= render Vutuv.SharedView, "_ad.html", assigns %>
+    
   </aside>
 </div>

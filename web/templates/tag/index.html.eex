@@ -40,6 +40,6 @@
     <%= Vutuv.Pages.page_list(@conn.params, @tags_count) %>
   </section>
   <aside>
-    <%= render Vutuv.SharedView, "_ad.html", assigns %>
+    
   </aside>
 </div>

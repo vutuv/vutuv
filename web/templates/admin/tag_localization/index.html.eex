@@ -57,6 +57,6 @@
     </p>
   </section>
   <aside>
-    <%= render Vutuv.SharedView, "_ad.html", assigns %>
+    
   </aside>
 </div>

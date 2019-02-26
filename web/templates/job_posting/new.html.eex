@@ -20,6 +20,6 @@
                             action: user_job_posting_path(@conn, :create, @user) %>
   </section>
   <aside>
-    <%= render Vutuv.SharedView, "_ad.html", assigns %>
+    
   </aside>
 </div>

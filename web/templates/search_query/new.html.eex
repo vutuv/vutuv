@@ -27,7 +27,7 @@
   <% end %>
 
   <aside>
-    <%= render Vutuv.SharedView, "_ad.html", assigns %>
+    
   </aside>
 <%= if @conn.assigns[:user_results] do %>
   <section class="card card--simple">

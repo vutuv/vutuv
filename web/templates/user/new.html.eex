@@ -9,7 +9,7 @@
 <div class="card-list">
 
   <aside>
-    <%= render Vutuv.SharedView, "_ad.html", assigns %>
+    
   </aside>
   <section class="card">
     <%= render "form.html", backlink: page_path(@conn, :index), changeset: @changeset, current_user: @current_user, action: user_path(@conn, :create) %>

@@ -22,6 +22,6 @@
                             action: admin_tag_synonym_path(@conn, :update, @tag, @tag_synonym) %>
   </section>
   <aside>
-    <%= render Vutuv.SharedView, "_ad.html", assigns %>
+    
   </aside>
 </div>
