@@ -65,7 +65,6 @@
       </p>
       <p><a href="<%= session_path(@conn, :new) %>" class="imagebox__alreadymember"><%= gettext "Already a member? Sign in here." %></a></p>
       <p><%= gettext "We reserve the right to stop this service or delete your account anytime without warning." %></p>
-      <p><%= gettext "Tor user? => " %><a href="http://vutuvh2rmz3ynydm.onion/">vutuvh2rmz3ynydm.onion</a></p>
     <% end %>
   </section>
 </div>
