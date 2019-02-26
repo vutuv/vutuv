@@ -13,6 +13,7 @@
   <section class="card imagebox__card">
     <div class="imagebox__intro">
       <h1><%= gettext "Fast and Secure Business Networking" %></h1>
+      <p><%= gettext "Number of Members" %>: <%= @user_counter %></p>
     </div>
     <%= form_for @changeset, page_path(@conn, :new_registration), [multipart: true, class: "imagebox__form"], fn f -> %>
       <%= if @changeset.action do %>

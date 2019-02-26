@@ -2192,3 +2192,6 @@ msgstr ""
 #: web/templates/recruiter_subscription/form.html.eex:84
 msgid "Enter code here if you have a valid Coupon."
 msgstr "Falls Sie einen gültigen Coupon Code haben."
+
+msgid "Number of Members"
+msgstr "Mitgliederzahl"
