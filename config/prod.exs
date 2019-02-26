@@ -14,7 +14,7 @@ use Mix.Config
 config :vutuv, Vutuv.Endpoint,
 #  http: [port: {:system, "PORT"}],
 #  url: [host: "localhost", port: {:system, "PORT"}],
-  http: [port: 4001],
+  http: [port: System.get_env("PORT") || 4001],
   url: [host: "localhost", port: 4001],
   cache_static_manifest: "priv/static/manifest.json",
   server: true,
