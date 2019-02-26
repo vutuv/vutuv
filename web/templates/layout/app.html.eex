@@ -49,8 +49,8 @@
 
   <footer>
     <p>
-      Copyright © 2017 <a href="https://www.wintermeyer-consulting.de">Wintermeyer Consulting</a> | <a href="https://github.com/vutuv/vutuv/"> Source-Code</a> |
-      <a href="https://github.com/vutuv/vutuv/issues/new"><%= gettext "Submit a bugreport or a feature request." %></a> | <a href="/privacy-policy.html"><%= gettext "Privacy Policy" %></a> | <%= link gettext("About us"), to: page_path(@conn, :impressum) %></a> | vutuv <%= Application.spec(:vutuv, :vsn) %>
+      Copyright © 2019 <a href="https://www.wintermeyer-consulting.de">Wintermeyer Consulting</a> | <a href="https://github.com/vutuv/vutuv/"> vutuv Source-Code</a> |
+      <a href="https://github.com/vutuv/vutuv/issues/new"><%= gettext "Submit a bugreport or a feature request." %></a> | <%= link gettext("Datenschutzerklärung"), to: page_path(@conn, :datenschutzerklaerung) %></a> | <%= link gettext("About us"), to: page_path(@conn, :impressum) %></a> | vutuv <%= Application.spec(:vutuv, :vsn) %>
     </p>
   </footer>
 </body>

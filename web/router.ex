@@ -39,6 +39,7 @@ defmodule Vutuv.Router do
 
     get "/", PageController, :index
     get "/impressum", PageController, :impressum
+    get "/datenschutzerklaerung", PageController, :datenschutzerklaerung
     get "/listings/most_followed_users", PageController, :most_followed_users
     get "/new_registration", PageController, :redirect_index
     post "/new_registration", PageController, :new_registration

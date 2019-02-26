@@ -28,6 +28,10 @@ defmodule Vutuv.PageController do
     render conn, "impressum.html", conn: conn, body_class: "stretch"
   end
 
+  def datenschutzerklaerung(conn, _params) do
+    render conn, "datenschutzerklaerung.html", conn: conn, body_class: "stretch"
+  end
+
   def new_registration(conn, %{"user" => user_params}) do
     email = user_params["emails"]["0"]["value"]
     case Vutuv.Registration.register_user(conn, user_params) do

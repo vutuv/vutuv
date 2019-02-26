@@ -47,3 +47,6 @@ vutuv.sublime-project
 vutuv.sublime-workspace
 
 config/dev.exs
+
+assets/node_modules
+.vscode/*
