@@ -20,13 +20,13 @@ defmodule Mix.Tasks.Avatar.CreateSymLinks do
       |> String.replace(".","/")
 
       source_path = "/srv/vutuv/avatars/#{user.id}"
-      destination_path = "/var/www/www.vutuv.de/avatars/#{nginx_path}/#{timestamp}"
+      destination_path = "/var/www/vutuv1/avatars/#{nginx_path}/#{timestamp}"
 
       # Create the sym link
       #
-      if File.exists?(source_path) && File.exists?("/var/www/www.vutuv.de/avatars/") do
+      if File.exists?(source_path) && File.exists?("/var/www/vutuv1/avatars/") do
         unless File.exists?(destination_path) do
-          File.mkdir_p("/var/www/www.vutuv.de/avatars/#{nginx_path}/")
+          File.mkdir_p("/var/www/vutuv1/avatars/#{nginx_path}/")
           File.ln_s(source_path, destination_path)
         end
       end

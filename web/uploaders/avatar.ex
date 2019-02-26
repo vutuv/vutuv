@@ -43,7 +43,7 @@ defmodule Vutuv.Avatar do
     nginx_path = user.active_slug
     |> String.replace(".","/")
 
-    sym_link_path = "/var/www/www.vutuv.de/avatars/#{nginx_path}/#{timestamp}"
+    sym_link_path = "/var/www/vutuv1/avatars/#{nginx_path}/#{timestamp}"
 
     if File.exists?(sym_link_path) do
       true
