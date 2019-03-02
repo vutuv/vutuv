@@ -19,8 +19,14 @@ defmodule Vutuv.EmailAddress do
     email_address
     |> cast(attrs, [:user, :value, :description, :is_public, :position])
     |> validate_required([:value, :public?, :user])
+    |> downcase_value
     |> validate_format(:value, ~r/@/)
     |> unique_constraint(:value, downcase: true)
+  end
+
+  def downcase_value(changeset) do
+    # If the value has been changed, downcase it.
+    update_change(changeset, :value, &String.downcase/1)
   end
 
 end
