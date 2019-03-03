@@ -62,7 +62,7 @@ defmodule Vutuv.Browserstack do
     hackney = [basic_auth: {Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:browserstack_user], Application.fetch_env!(:vutuv, Vutuv.Endpoint)[:browserstack_password]}]
     headers = ["Content-Type": "application/json", "Accept": "Application/json; Charset=utf-8"]
 
-    case HTTPoison.post "https://www.browserstack.com/screenshots", "{\"browsers\": [{\"os\": \"Windows\", \"os_version\": \"10\", \"browser_version\": \"50.0\", \"browser\": \"chrome\", \"orientation\": \"landscape\"}], \"url\": \"#{url.value}\"}", headers, [ hackney: hackney ] do
+    case HTTPoison.post "https://www.browserstack.com/screenshots", "{\"browsers\": [{\"os\": \"Windows\", \"os_version\": \"10\", \"browser_version\": \"71.0\", \"browser\": \"chrome\", \"orientation\": \"landscape\"}], \"url\": \"#{url.value}\"}", headers, [ hackney: hackney ] do
       {:ok, %HTTPoison.Response{body: body, headers: headers, status_code: 200}} ->
         decoded_body = body |> Poison.decode!
         {:ok, job_id} = Map.fetch(decoded_body, "job_id")
