@@ -85,6 +85,11 @@ $ cd vutuv
 $ rm -rf deps
 $ rm -rf _build
 $ mix deps.get
+```
+
+Now read [#569](https://github.com/vutuv/vutuv/issues/569) and repeat the fix in the deps directory. 
+
+```bash
 $ mix deps.compile
 $ npm install
 $ mix ecto.create
