@@ -16,3 +16,13 @@ config :vutuv, Vutuv.Repo,
   database: "vutuv2_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+
+# Password hashing test config
+config :argon2_elixir, t_cost: 1, m_cost: 8
+#config :bcrypt_elixir, log_rounds: 4
+#config :pbkdf2_elixir, rounds: 1
+
+# Mailer test configuration
+config :vutuv, VutuvWeb.Mailer,
+  adapter: Bamboo.TestAdapter
