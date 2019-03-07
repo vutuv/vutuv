@@ -14,7 +14,6 @@ defmodule Vutuv.Repo.Migrations.CreateProfiles do
       add :birthday_month, :integer
       add :birthday_year, :integer
       add :locale, :string
-      add :verified, :boolean, default: false, null: false
       add :avatar, :string
       add :active_slug, :string
       add :headline, :string

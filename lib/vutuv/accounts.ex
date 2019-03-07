@@ -191,7 +191,7 @@ defmodule Vutuv.Accounts do
     EmailAddress.changeset(email_address, %{})
   end
 
-  alias Vutuv.Accounts.Roles
+  alias Vutuv.Accounts.Role
 
   @doc """
   Returns the list of roles.
@@ -199,28 +199,28 @@ defmodule Vutuv.Accounts do
   ## Examples
 
       iex> list_roles()
-      [%Roles{}, ...]
+      [%Role{}, ...]
 
   """
   def list_roles do
-    Repo.all(Roles)
+    Repo.all(Role)
   end
 
   @doc """
   Gets a single roles.
 
-  Raises `Ecto.NoResultsError` if the Roles does not exist.
+  Raises `Ecto.NoResultsError` if the Role does not exist.
 
   ## Examples
 
       iex> get_roles!(123)
-      %Roles{}
+      %Role{}
 
       iex> get_roles!(456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_roles!(id), do: Repo.get!(Roles, id)
+  def get_roles!(id), do: Repo.get!(Role, id)
 
   @doc """
   Creates a roles.
@@ -228,15 +228,15 @@ defmodule Vutuv.Accounts do
   ## Examples
 
       iex> create_roles(%{field: value})
-      {:ok, %Roles{}}
+      {:ok, %Role{}}
 
       iex> create_roles(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
   def create_roles(attrs \\ %{}) do
-    %Roles{}
-    |> Roles.changeset(attrs)
+    %Role{}
+    |> Role.changeset(attrs)
     |> Repo.insert()
   end
 
@@ -246,31 +246,31 @@ defmodule Vutuv.Accounts do
   ## Examples
 
       iex> update_roles(roles, %{field: new_value})
-      {:ok, %Roles{}}
+      {:ok, %Role{}}
 
       iex> update_roles(roles, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_roles(%Roles{} = roles, attrs) do
+  def update_roles(%Role{} = roles, attrs) do
     roles
-    |> Roles.changeset(attrs)
+    |> Role.changeset(attrs)
     |> Repo.update()
   end
 
   @doc """
-  Deletes a Roles.
+  Deletes a Role.
 
   ## Examples
 
       iex> delete_roles(roles)
-      {:ok, %Roles{}}
+      {:ok, %Role{}}
 
       iex> delete_roles(roles)
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_roles(%Roles{} = roles) do
+  def delete_roles(%Role{} = roles) do
     Repo.delete(roles)
   end
 
@@ -280,10 +280,10 @@ defmodule Vutuv.Accounts do
   ## Examples
 
       iex> change_roles(roles)
-      %Ecto.Changeset{source: %Roles{}}
+      %Ecto.Changeset{source: %Role{}}
 
   """
-  def change_roles(%Roles{} = roles) do
-    Roles.changeset(roles, %{})
+  def change_roles(%Role{} = roles) do
+    Role.changeset(roles, %{})
   end
 end

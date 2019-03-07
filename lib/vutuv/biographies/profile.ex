@@ -18,7 +18,6 @@ defmodule Vutuv.Biographies.Profile do
     field :birthday_month, :integer
     field :birthday_year, :integer
     field :locale, :string
-    field :verified, :boolean, default: false
     field :avatar, Vutuv.Avatar.Type
     field :active_slug, :string
     field :headline, :string
@@ -31,7 +30,7 @@ defmodule Vutuv.Biographies.Profile do
 
   def changeset(profile, attrs) do
     profile
-    |> cast(attrs, [:first_name, :last_name, :middlename, :nickname, :honorific_prefix, :honorific_suffix, :gender, :birthday_day, :birthday_month, :birthday_year, :locale, :verified, :avatar, :active_slug, :headline, :noindex?, :validated?, :send_birthday_reminder])
+    |> cast(attrs, [:first_name, :last_name, :middlename, :nickname, :honorific_prefix, :honorific_suffix, :gender, :birthday_day, :birthday_month, :birthday_year, :locale, :avatar, :active_slug, :headline, :noindex?, :validated?, :send_birthday_reminder])
     |> validate_required([:user_id, :gender, :local, :birthday_day, :birthday_month])
     |> validate_first_name_or_last_name(attrs)
     |> validate_length(:first_name, max: 80)
