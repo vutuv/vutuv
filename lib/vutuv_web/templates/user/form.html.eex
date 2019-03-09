@@ -5,17 +5,27 @@
     </div>
   <% end %>
 
-  <%= label f, :email %>
-  <%= text_input f, :email %>
+  <%= text_input f, :email, placeholder: "Email"%>
   <%= error_tag f, :email %>
 
   <%= if @action == "/users" do %>
-    <%= label f, :password %>
-    <%= password_input f, :password %>
+    <%= password_input f, :password, placeholder: "Password" %>
     <%= error_tag f, :password %>
   <% end %>
 
+  <%= text_input f, :first_name, placeholder: "First Name"%>
+      <%= error_tag f, :first_name %>
+
+  <%= text_input f, :last_name, placeholder: "Last Name"%>
+      <%= error_tag f, :last_name %>
+
+  <%= select f, :gender, ["Male", "Female", "Other"]%>
+
   <div>
-    <%= submit "Save" %>
+    <%= submit "Register" %>
+  </div>
+
+  <div>
+    <p>Already have an account?</p> <a href="<%= Routes.session_path(@conn, :new) %>">Sign in</a>
   </div>
 <% end %>

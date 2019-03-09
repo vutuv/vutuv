@@ -12,7 +12,9 @@
       <section class="container">
         <nav role="navigation">
           <ul>
+            <li><a href="<%= Routes.page_path(@conn, :index) %>">Home</a></li>
               <%= if @current_user do %>
+              <li><a href="<%= Routes.user_path(@conn, :index) %>">Users</a></li>
               <li><a href="<%= Routes.user_path(@conn, :show, @current_user) %>"><%= @current_user.email %></a></li>
               <li><%= link "Logout", to: Routes.session_path(@conn, :delete, current_session(@conn)), method: :delete %></li>
               <% else %>
@@ -23,7 +25,6 @@
         </nav>
       </section>
     </header>
-
     <main role="main" class="container">
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
