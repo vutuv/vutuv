@@ -8,5 +8,8 @@ defmodule Vutuv.Repo.Migrations.CreateSessions do
 
       timestamps()
     end
+
+    create unique_index(:sessions, [:user_id])
+
   end
 end

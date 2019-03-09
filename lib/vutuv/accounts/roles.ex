@@ -5,7 +5,7 @@ defmodule Vutuv.Accounts.Role do
 
   schema "roles" do
     field :description, :string
-    field :group_name, :string
+    field :group_name, :string, default: "user"
     belongs_to :user, Vutuv.Accounts.User
 
     timestamps()

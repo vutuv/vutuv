@@ -17,7 +17,7 @@ defmodule VutuvWeb.PasswordResetController do
 
     conn
     |> put_flash(:info, "Check your inbox for instructions on how to reset your password")
-    |> redirect(to: Routes.page_path(conn, :index))
+    |> redirect(to: Routes.user_path(conn, :index))
   end
 
   def edit(conn, %{"key" => key}) do

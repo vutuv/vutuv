@@ -13,5 +13,7 @@ defmodule Vutuv.Repo.Migrations.CreateEmailAddresses do
       timestamps()
     end
 
+    create unique_index(:email_addresses, [:user_id])
+
   end
 end

@@ -74,4 +74,4 @@ config :vutuv, Vutuv.Repo,
   hostname: "localhost",
   pool_size: 10
 
-config :vpath, vutuv_base_dir: "/var/www/vutuv/"
+config :vutuv, vutuv_base_dir: "/var/www/vutuv/"

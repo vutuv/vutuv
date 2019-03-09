@@ -17,7 +17,7 @@ config :vutuv, VutuvWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
-config :vpath, vutuv_base_dir: "/var/www/vutuv/"
+config :vutuv, vutuv_base_dir: "/var/www/vutuv/"
 
 # ## SSL Support
 #

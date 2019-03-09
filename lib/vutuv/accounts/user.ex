@@ -16,7 +16,7 @@ defmodule Vutuv.Accounts.User do
     field(:reset_sent_at, :utc_datetime)
 
     has_many(:sessions, Session, on_delete: :delete_all)
-    has_one(:profiles, Profile, on_delete: :delete_all)
+    has_one(:profiles, Profile, foreign_key: :user_id, on_delete: :delete_all)
     has_many(:email_addresses, EmailAddress, on_delete: :delete_all)
     has_many(:roles, Role, on_delete: :delete_all)
 
@@ -37,6 +37,10 @@ defmodule Vutuv.Accounts.User do
     |> unique_email
     |> validate_password(:password)
     |> put_pass_hash
+    |> cast_assoc(:sessions)
+    |> cast_assoc(:profiles)
+    |> cast_assoc(:email_addresses)
+    |> cast_assoc(:roles)
   end
 
   def confirm_changeset(user) do

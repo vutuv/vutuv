@@ -19,9 +19,12 @@ defmodule Vutuv.Repo.Migrations.CreateProfiles do
       add :headline, :string
       add :noindex?, :boolean, default: false, null: false
       add :validated?, :boolean, default: false, null: false
+      add :user_id, references(:users, on_delete: :delete_all)
 
       timestamps()
     end
+
+    create unique_index(:profiles, [:user_id])
 
   end
 end
