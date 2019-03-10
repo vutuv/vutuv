@@ -9,16 +9,16 @@ defmodule Vutuv.Accounts.User do
   alias Vutuv.Biographies.Profile
 
   schema "users" do
-    field(:email, :string)
-    field(:password, :string, virtual: true)
-    field(:password_hash, :string)
-    field(:confirmed_at, :utc_datetime)
-    field(:reset_sent_at, :utc_datetime)
+    field :email, :string
+    field :password, :string, virtual: true
+    field :password_hash, :string
+    field :confirmed_at, :utc_datetime
+    field :reset_sent_at, :utc_datetime
 
-    has_many(:sessions, Session, on_delete: :delete_all)
-    has_one(:profiles, Profile, foreign_key: :user_id, on_delete: :delete_all)
-    has_many(:email_addresses, EmailAddress, on_delete: :delete_all)
-    has_many(:roles, Role, on_delete: :delete_all)
+    has_many :sessions, Session, on_delete: :delete_all
+    has_one :profiles, Profile, foreign_key: :user_id, on_delete: :delete_all
+    has_many :email_addresses, EmailAddress, on_delete: :delete_all
+    many_to_many :roles, Role, on_delete: :delete_all, join_through: "user_roles"
 
     timestamps()
   end
@@ -52,7 +52,7 @@ defmodule Vutuv.Accounts.User do
   end
 
   defp unique_email(changeset) do
-    validate_format(changeset, :email, ~r/@/)
+    validate_format(changeset, :email, ~r/^[A-Za-z0-9\._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$/)
     |> validate_length(:email, max: 80)
     |> unique_constraint(:email, downcase: true)
   end

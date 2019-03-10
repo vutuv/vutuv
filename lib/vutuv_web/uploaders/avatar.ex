@@ -43,7 +43,7 @@ defmodule Vutuv.Avatar do
     nginx_path = user.active_slug
     |> String.replace(".","/")
 
-    sym_link_path = Application.get_env(:vpath, :vutuv_base_dir) <> "#{nginx_path}/#{timestamp}"
+    sym_link_path = Application.get_env(:vutuv, :vutuv_base_dir) <> "#{nginx_path}/#{timestamp}"
 
     if File.exists?(sym_link_path) do
       true

@@ -5,7 +5,7 @@ defmodule Vutuv.Accounts do
 
   import Ecto.Query, warn: false
 
-  alias Vutuv.{Accounts.User, Repo, Sessions, Sessions.Session, Biographies, Biographies.Profile}
+  alias Vutuv.{Accounts.User, Repo, Sessions, Sessions.Session}
 
   @doc """
   Returns the list of users.
@@ -37,9 +37,7 @@ defmodule Vutuv.Accounts do
   Creates a user.
   """
   def create_user(attrs) do
-    IO.puts("=====1")
-    IO.inspect(attrs)
-    user = %User{}
+    %User{}
     |> User.create_changeset(attrs)
     |> Repo.insert()
 

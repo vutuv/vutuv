@@ -3,7 +3,7 @@ defmodule Vutuv.Repo.Migrations.CreateRoles do
 
   def change do
     create table(:roles) do
-      add :group_name, :string
+      add :group_name, :string, default: "regular user"
       add :description, :string
 
       timestamps()

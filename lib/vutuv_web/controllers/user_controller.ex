@@ -4,7 +4,7 @@ defmodule VutuvWeb.UserController do
   import VutuvWeb.Authorize
 
   alias Phauxth.Log
-  alias Vutuv.{Accounts, Accounts.User, Biographies, Repo}
+  alias Vutuv.{Accounts, Accounts.User, Repo}
   alias VutuvWeb.{Auth.Token, Email}
 
   # the following plugs are defined in the controllers/authorize.ex file
@@ -29,12 +29,13 @@ defmodule VutuvWeb.UserController do
 
         Email.confirm_request(email, key)
 
-
+        #create profile
         profile = Ecto.build_assoc(user, :profiles, %{gender: user_params["gender"], first_name: user_params["first_name"], last_name: user_params["last_name"]})
-        IO.puts("======2")
-        IO.inspect(user_params)
-        IO.inspect(profile)
         Repo.insert!(profile)
+
+        #create email_address
+        email = Ecto.build_assoc(user, :email_addresses, %{value: user_params["email"]})
+        Repo.insert!(email)
 
         conn
         |> put_flash(:info, "User created successfully.")

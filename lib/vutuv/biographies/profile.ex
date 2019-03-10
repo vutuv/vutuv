@@ -32,7 +32,7 @@ defmodule Vutuv.Biographies.Profile do
     profile
     |> cast(attrs, [:first_name, :last_name, :middlename, :nickname, :honorific_prefix, :honorific_suffix, :gender, :birthday_day, :birthday_month, :birthday_year, :locale, :avatar, :active_slug, :headline, :noindex?, :validated?, :send_birthday_reminder])
     #|> validate_required([:user_id, :gender, :locale, :birthday_day, :birthday_month])
-    |> validate_required([:user_id, :gender])
+    |> validate_required([:user_id, :first_name, :last_name, :gender])
     |> validate_first_name_or_last_name(attrs)
     |> validate_length(:first_name, max: 80)
     |> validate_length(:last_name, max: 80)
