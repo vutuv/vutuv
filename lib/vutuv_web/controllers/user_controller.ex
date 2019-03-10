@@ -4,7 +4,7 @@ defmodule VutuvWeb.UserController do
   import VutuvWeb.Authorize
 
   alias Phauxth.Log
-  alias Vutuv.{Accounts, Accounts.User, Repo}
+  alias Vutuv.{Accounts, Accounts.User, Repo, Biographies, Biographies.Profile, Socials, Socials.Post}
   alias VutuvWeb.{Auth.Token, Email}
 
   # the following plugs are defined in the controllers/authorize.ex file
@@ -48,7 +48,20 @@ defmodule VutuvWeb.UserController do
 
   def show(%Plug.Conn{assigns: %{current_user: user}} = conn, %{"id" => id}) do
     user = if id == to_string(user.id), do: user, else: Accounts.get_user(id)
-    render(conn, "show.html", user: user)
+    
+    profile = if id == to_string(user.id) do 
+      profile = Biographies.get_profile!(id) 
+    else 
+      Repo.get!(Profile, id)
+    end
+
+    post = if id == to_string(user.id) do 
+      post = Socials.get_post(id) 
+    else 
+      Repo.get!(Post, id)
+    end
+
+    render(conn, "show.html", user: user, profile: profile, post: post)
   end
 
   def edit(%Plug.Conn{assigns: %{current_user: user}} = conn, _) do

@@ -21,11 +21,18 @@
 
   <%= select f, :gender, ["Male", "Female", "Other"]%>
 
+
+<%= if @current_user do %>
+  <div>
+    <%= submit "Save" %>
+  </div>
+  <% else %>
   <div>
     <%= submit "Register" %>
   </div>
-
   <div>
     <p>Already have an account?</p> <a href="<%= Routes.session_path(@conn, :new) %>">Sign in</a>
   </div>
+<% end %>
+
 <% end %>
