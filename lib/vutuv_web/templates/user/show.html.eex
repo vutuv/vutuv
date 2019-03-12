@@ -1,0 +1,45 @@
+<h2>Show User</h2>
+
+<ul>
+
+  <li>
+    <strong>Email:</strong>
+    <%#= @user.email %>
+  </li>
+  <li>
+    <strong>First name:</strong>
+    <%= @profile.first_name %>
+  </li>
+  <li>
+    <strong>Last name:</strong>
+    <%= @profile.last_name %>
+  </li>
+  <li>
+    <strong>Gender:</strong>
+    <%= @profile.gender %>
+  </li>
+  <li>
+    <strong>Validated?:</strong>
+    <%= @profile.validated? %>
+  </li>
+
+  <h2>Post</h2>
+  <%= if @post != nil do %>
+    <%= for post <- @post do %>
+      <li>
+        <strong>Title:</strong>
+        <%= post.title %>
+      </li>
+      <li>
+        <strong>Content:</strong>
+        <%= post.body %>
+      </li>
+    <% end %>
+  <% else %>
+    <p>
+    No post yet!
+    </p>
+  <% end %>
+</ul>
+
+<span><%= link "Edit", to: Routes.user_path(@conn, :edit, @user) %></span><br>

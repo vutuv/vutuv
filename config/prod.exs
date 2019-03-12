@@ -17,6 +17,8 @@ config :vutuv, VutuvWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :vutuv, vutuv_base_dir: "/var/www/vutuv/"
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

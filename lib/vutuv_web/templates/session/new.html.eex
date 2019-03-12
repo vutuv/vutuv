@@ -1,0 +1,25 @@
+<h1>Login</h1>
+
+<%= form_for @conn, Routes.session_path(@conn, :create), [as: :session], fn f -> %>
+  <%= if f.errors != [] do %>
+    <div class="alert alert-danger">
+      <p>Please check the errors below:</p>
+    </div>
+  <% end %>
+
+  <%= text_input f, :email, placeholder: "email" %>
+  <%= error_tag f, :email %>
+
+  <%= link "Send magic link to my email?", to: Routes.password_reset_path(@conn, :new) %>
+  <p>or type your password below</p>
+
+  <%= password_input f, :password, placeholder: "password"%>
+  <%= error_tag f, :password %>
+
+  <%= link "Forgot password", to: Routes.password_reset_path(@conn, :new) %>
+
+
+  <div>
+    <%= submit "Login" %>
+  </div>
+<% end %>

@@ -1,0 +1,20 @@
+<h2>Reset Password</h2>
+
+<%= form_for @conn, Routes.password_reset_path(@conn, :update), [as: :password_reset, method: :put], fn f -> %>
+  <%= if f.errors != [] do %>
+    <div class="alert alert-danger">
+      <p>Please check the errors below:</p>
+    </div>
+  <% end %>
+
+  <%= label f, :password %>
+  <%= password_input f, :password %>
+  <%= error_tag f, :password %>
+
+  <%= hidden_input f, :key, value: @key %>
+
+  <div>
+    <%= submit "Reset password" %>
+  </div>
+<% end %>
+

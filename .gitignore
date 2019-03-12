@@ -42,3 +42,5 @@ npm-debug.log
 /config/*.secret.exs
 
 web/static/assets
+
+/.env
