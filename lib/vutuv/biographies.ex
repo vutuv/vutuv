@@ -35,7 +35,7 @@ defmodule Vutuv.Biographies do
       ** (Ecto.NoResultsError)
 
   """
-  def get_profile!(id), do: Repo.get!(Profile, id)
+  def get_profile(id), do: Repo.get_by(Profile, user_id: id)
 
   @doc """
   Creates a profile.

@@ -30,9 +30,8 @@ defmodule Vutuv.Biographies.Profile do
 
   def changeset(profile, attrs) do
     profile
-    |> cast(attrs, [:first_name, :last_name, :middlename, :nickname, :honorific_prefix, :honorific_suffix, :gender, :birthday_day, :birthday_month, :birthday_year, :locale, :avatar, :active_slug, :headline, :noindex?, :validated?, :send_birthday_reminder])
-    #|> validate_required([:user_id, :gender, :locale, :birthday_day, :birthday_month])
-    |> validate_required([:user_id, :first_name, :last_name, :gender])
+    |> cast(attrs, [:first_name, :last_name, :middlename, :nickname, :honorific_prefix, :honorific_suffix, :gender, :birthday_day, :birthday_month, :birthday_year, :locale, :avatar, :active_slug, :headline, :noindex?, :validated?])
+    |> validate_required([:gender])
     |> validate_first_name_or_last_name(attrs)
     |> validate_length(:first_name, max: 80)
     |> validate_length(:last_name, max: 80)
@@ -41,18 +40,6 @@ defmodule Vutuv.Biographies.Profile do
     |> validate_length(:honorific_prefix, max: 80)
     |> validate_length(:honorific_suffix, max: 80)
     |> validate_length(:headline, max: 255)
-  end
-
-  def gender_gettext("male") do
-    VutuvWeb.Gettext.gettext("Male")
-  end
-
-  def gender_gettext("female") do
-    VutuvWeb.Gettext.gettext("Female")
-  end
-
-  def gender_gettext(_) do
-    VutuvWeb.Gettext.gettext("Other")
   end
 
   defp validate_first_name_or_last_name(changeset, %{}) do

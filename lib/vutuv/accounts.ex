@@ -5,7 +5,7 @@ defmodule Vutuv.Accounts do
 
   import Ecto.Query, warn: false
 
-  alias Vutuv.{Accounts.User, Repo, Sessions, Sessions.Session}
+  alias Vutuv.{Accounts.User, Accounts.EmailAddress, Accounts.Role, Repo, Sessions, Sessions.Session}
 
   @doc """
   Returns the list of users.
@@ -28,7 +28,13 @@ defmodule Vutuv.Accounts do
   end
 
   def get_by(%{"email" => email}) do
-    Repo.get_by(User, email: email)
+    a = Repo.one from u in User,
+      join: e in assoc(u, :email_addresses),
+      where: e.value == ^email,
+      preload: [email_addresses: e]
+    
+    IO.inspect(a)
+    
   end
 
   def get_by(%{"user_id" => user_id}), do: Repo.get(User, user_id)
@@ -37,9 +43,23 @@ defmodule Vutuv.Accounts do
   Creates a user.
   """
   def create_user(attrs) do
-    %User{}
+    #create_user_email
+    user = %User{}
     |> User.create_changeset(attrs)
-    |> Repo.insert()
+
+    email = %EmailAddress{}
+    |> EmailAddress.changeset(%{value: attrs["email"], position: 1})
+
+    user_with_email = Ecto.Changeset.put_assoc(user, :email_addresses, [email])
+
+    new_user = Repo.insert!(user_with_email)
+
+    #create profile
+    profile = new_user
+    |> Ecto.build_assoc(:profile, %{gender: attrs["gender"], first_name: attrs["first_name"], last_name: attrs["last_name"]})
+    Repo.insert!(profile)
+
+    {:ok, new_user}
 
   end
 
@@ -96,16 +116,11 @@ defmodule Vutuv.Accounts do
     |> Repo.update()
   end
 
-  alias Vutuv.Accounts.EmailAddress
-
   @doc """
   Returns the list of email_addresses.
-
   ## Examples
-
       iex> list_email_addresses()
       [%EmailAddress{}, ...]
-
   """
   def list_email_addresses do
     Repo.all(EmailAddress)
@@ -113,31 +128,22 @@ defmodule Vutuv.Accounts do
 
   @doc """
   Gets a single email_address.
-
   Raises `Ecto.NoResultsError` if the Email address does not exist.
-
   ## Examples
-
       iex> get_email_address!(123)
       %EmailAddress{}
-
       iex> get_email_address!(456)
       ** (Ecto.NoResultsError)
-
   """
-  def get_email_address!(id), do: Repo.get!(EmailAddress, id)
+  def get_email_address(id), do: Repo.get_by(EmailAddress, user_id: id)
 
   @doc """
   Creates a email_address.
-
   ## Examples
-
       iex> create_email_address(%{field: value})
       {:ok, %EmailAddress{}}
-
       iex> create_email_address(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
-
   """
   def create_email_address(attrs \\ %{}) do
     %EmailAddress{}
@@ -147,15 +153,11 @@ defmodule Vutuv.Accounts do
 
   @doc """
   Updates a email_address.
-
   ## Examples
-
       iex> update_email_address(email_address, %{field: new_value})
       {:ok, %EmailAddress{}}
-
       iex> update_email_address(email_address, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
-
   """
   def update_email_address(%EmailAddress{} = email_address, attrs) do
     email_address
@@ -165,15 +167,11 @@ defmodule Vutuv.Accounts do
 
   @doc """
   Deletes a EmailAddress.
-
   ## Examples
-
       iex> delete_email_address(email_address)
       {:ok, %EmailAddress{}}
-
       iex> delete_email_address(email_address)
       {:error, %Ecto.Changeset{}}
-
   """
   def delete_email_address(%EmailAddress{} = email_address) do
     Repo.delete(email_address)
@@ -181,18 +179,13 @@ defmodule Vutuv.Accounts do
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking email_address changes.
-
   ## Examples
-
       iex> change_email_address(email_address)
       %Ecto.Changeset{source: %EmailAddress{}}
-
   """
   def change_email_address(%EmailAddress{} = email_address) do
     EmailAddress.changeset(email_address, %{})
   end
-
-  alias Vutuv.Accounts.Role
 
   @doc """
   Returns the list of roles.
@@ -221,7 +214,7 @@ defmodule Vutuv.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_roles!(id), do: Repo.get!(Role, id)
+  def get_roles(id), do: Repo.get(Role, id)
 
   @doc """
   Creates a roles.

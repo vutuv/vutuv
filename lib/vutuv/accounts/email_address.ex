@@ -19,7 +19,7 @@ defmodule Vutuv.Accounts.EmailAddress do
     |> cast(attrs, [:value, :user_id])
     |> validate_required([:value])
     |> validate_format(:value, ~r/^[A-Za-z0-9\._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$/)
-    |> validate_length(:value, max: 80)
+    |> validate_length(:value, max: 255)
     |> unique_constraint(:value, downcase: true)
   end
 end

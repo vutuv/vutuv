@@ -15,7 +15,7 @@
   <tbody>
 <%= for user <- @users do %>
     <tr>
-      <td><%= user.email %></td>
+      <!--<td><%#= user.email %></td>-->
 
       <td>
         <%= link "Show", to: Routes.user_path(@conn, :show, user) %>

@@ -13,7 +13,7 @@
         <nav role="navigation">
           <ul>
               <%= if @current_user do %>
-              <li><a href="<%= Routes.user_path(@conn, :show, @current_user) %>"><%= @current_user.email %></a></li>
+              <li><a href="<%= Routes.user_path(@conn, :show, @current_user) %>">My Profile</a></li>
               <li><%= link "Logout", to: Routes.session_path(@conn, :delete, current_session(@conn)), method: :delete %></li>
               <% else %>
               <li><a href="<%= Routes.user_path(@conn, :new) %>">New user</a></li>
