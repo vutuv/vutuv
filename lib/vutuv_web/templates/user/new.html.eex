@@ -1,4 +1,0 @@
-<h1>Sign Up</h1>
-<h3>Join our business network</h3>
-
-<%= render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create)) %>
