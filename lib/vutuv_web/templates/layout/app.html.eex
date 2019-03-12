@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Vutuv · Phoenix Framework</title>
+    <title>Phauxth authentication with Phoenix</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
   <body>
@@ -12,7 +12,15 @@
       <section class="container">
         <nav role="navigation">
           <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
+            <li><a href="<%= Routes.page_path(@conn, :index) %>">Home</a></li>
+              <%= if @current_user do %>
+              <li><a href="<%= Routes.user_path(@conn, :index) %>">Users</a></li>
+              <li><a href="<%= Routes.user_path(@conn, :show, @current_user) %>"><%= @current_user.email %></a></li>
+              <li><%= link "Logout", to: Routes.session_path(@conn, :delete, current_session(@conn)), method: :delete %></li>
+              <% else %>
+              <li><a href="<%= Routes.user_path(@conn, :new) %>">New user</a></li>
+              <li><a href="<%= Routes.session_path(@conn, :new) %>">Login</a></li>
+              <% end %>
           </ul>
         </nav>
         <a href="http://phoenixframework.org/" class="phx-logo">
