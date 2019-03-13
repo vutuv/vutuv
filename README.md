@@ -12,9 +12,10 @@ v1.1](https://github.com/vutuv/vutuv/tree/v1.1).
 vutuv is a [Phoenix Framework](http://www.phoenixframework.org/) application.  Please install the
 following software first ([asdf-vm is a good version manager](https://github.com/asdf-vm/asdf)):
 
-* Erlang version > 21.2.3
-* Elixir version > 1.8.1
-* nodejs version > 6.8.0
+* Erlang > 21.1
+* Elixir > 1.8
+* nodejs > 6.8.0
+* postgresql
 
 After cloning the repository, run `mix deps.get` and `(cd assets && npm install)`
 to install dependencies.
@@ -23,40 +24,16 @@ To setup the database, run `mix ecto.setup`.
 
 To start the Phoenix endpoint within an iex shell, run `iex -S mix phx.server`.
 
-### Database
+See the [contributing guide](https://github.com/vutuv/vutuv/blob/master/CONTRIBUTING.md)
+for more information about setting up your development environment and opening pull
+requests.
 
-We use for production and development [PostgreSQL](https://www.postgresql.org).
-Please make sure that your database configuration in `config/dev.exs` is correct.
+### Custom generators
 
-* Create and migrate your database with `mix ecto.setup`
-* Reset your database with `mix ecto.reset`
-
-## Recommended tooling
-
-### Pre-commit
-
-We encourage you to use [pre-commit](https://pre-commit.com/), which adds
-pre-commit git hooks (to check code before it is committed) to your local repository.
-
-To install pre-commit, run `pip install pre-commit` (or `brew install pre-commit`
-if using homebrew).
-
-To add pre-commit to your local repository, run `pre-commit install` in the
-root directory.
-
-See the `.pre-commit-config.yaml` file for more information about the
-configured checks.
-
-### Dialyzer
-
-Dialyzer can be used to analyze the Elixir code, especially for type errors.
-We can use it through [dialyxir](https://github.com/jeremyjh/dialyxir), which
-is installed as a dev dependency.
-
-To run dialyzer, run `mix dialyzer`.
-
-**NOTE**: To make dialyzer more effective, we need to write a specification, `@spec`,
-for each public function.
+We are using custom templates for context and schema generation (when
+using the Phoenix `phx.gen.*` generators). After running `phx.gen.context`,
+you will need to edit the typespec in the schema file - changing any
+instance of `any` to the correct type.
 
 ## License
 

@@ -27,7 +27,7 @@
       nil
 
   """
-  @spec get_<%= schema.singular %>(id) :: <%= inspect schema.alias %>.t() | nil
+  @spec get_<%= schema.singular %>(integer) :: <%= inspect schema.alias %>.t() | nil
   def get_<%= schema.singular %>(id), do: Repo.get(<%= inspect schema.alias %>, id)
 
   @doc """
@@ -42,7 +42,7 @@
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec create_<%= schema.singular %>(attrs \\ %{}) :: {:ok, <%= inspect schema.alias %>.t()} | changeset_error
+  @spec create_<%= schema.singular %>(map) :: {:ok, <%= inspect schema.alias %>.t()} | changeset_error
   def create_<%= schema.singular %>(attrs \\ %{}) do
     %<%= inspect schema.alias %>{}
     |> <%= inspect schema.alias %>.changeset(attrs)
@@ -61,7 +61,7 @@
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec update_<%= schema.singular %>(%<%= inspect schema.alias %>.t(), map) :: {:ok, <%= inspect schema.alias %>.t()} | changeset_error
+  @spec update_<%= schema.singular %>(<%= inspect schema.alias %>.t(), map) :: {:ok, <%= inspect schema.alias %>.t()} | changeset_error
   def update_<%= schema.singular %>(%<%= inspect schema.alias %>{} = <%= schema.singular %>, attrs) do
     <%= schema.singular %>
     |> <%= inspect schema.alias %>.changeset(attrs)
@@ -80,7 +80,7 @@
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec delete_<%= schema.singular %>(%<%= inspect schema.alias %>.t()) :: {:ok, <%= inspect schema.alias %>.t()} | changeset_error
+  @spec delete_<%= schema.singular %>(<%= inspect schema.alias %>.t()) :: {:ok, <%= inspect schema.alias %>.t()} | changeset_error
   def delete_<%= schema.singular %>(%<%= inspect schema.alias %>{} = <%= schema.singular %>) do
     Repo.delete(<%= schema.singular %>)
   end
@@ -94,7 +94,7 @@
       %Ecto.Changeset{source: %<%= inspect schema.alias %>{}}
 
   """
-  @spec change_<%= schema.singular %>(%<%= inspect schema.alias %>.t()) :: Ecto.Changeset.t()
+  @spec change_<%= schema.singular %>(<%= inspect schema.alias %>.t()) :: Ecto.Changeset.t()
   def change_<%= schema.singular %>(%<%= inspect schema.alias %>{} = <%= schema.singular %>) do
     <%= inspect schema.alias %>.changeset(<%= schema.singular %>, %{})
   end

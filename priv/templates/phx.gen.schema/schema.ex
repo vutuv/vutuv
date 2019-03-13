@@ -4,7 +4,8 @@ defmodule <%= inspect schema.module %> do
 
   @type t :: %__MODULE__{
     id: integer,
-<%= for {k, v} <- schema.types do %>    <%= inspect k %>: any,<% end %>
+<%= for {k, _v} <- schema.types do %>    <%= k %>: any,
+<% end %>
     inserted_at: DateTime.t(),
     updated_at: DateTime.t()
   }
