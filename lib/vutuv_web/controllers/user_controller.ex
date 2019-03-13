@@ -7,6 +7,8 @@ defmodule VutuvWeb.UserController do
   alias Vutuv.{Accounts, Accounts.User}
   alias VutuvWeb.{Auth.Token, Email}
 
+  @dialyzer {:nowarn_function, new: 2}
+
   # the following plugs are defined in the controllers/authorize.ex file
   plug :user_check when action in [:index, :show]
   plug :id_check when action in [:edit, :update, :delete]
@@ -23,12 +25,12 @@ defmodule VutuvWeb.UserController do
 
   def create(conn, %{"user" => %{"email" => email} = user_params}) do
     key = Token.sign(%{"email" => email})
+
     case Accounts.create_user(user_params) do
       {:ok, user} ->
         Log.info(%Log{user: user.id, message: "user created"})
 
         Email.confirm_request(email, key)
-
 
         conn
         |> put_flash(:info, "User created successfully.")

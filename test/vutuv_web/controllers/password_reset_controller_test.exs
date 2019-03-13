@@ -33,6 +33,7 @@ defmodule VutuvWeb.PasswordResetControllerTest do
 
       reset_conn =
         put(conn, Routes.password_reset_path(conn, :update), password_reset: valid_attrs)
+
       assert reset_conn.private.phoenix_flash["info"] =~ "password has been reset"
       assert redirected_to(reset_conn) == Routes.session_path(conn, :new)
       conn = post(conn, Routes.session_path(conn, :create), session: @update_attrs)

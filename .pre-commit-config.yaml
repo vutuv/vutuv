@@ -7,12 +7,14 @@
     language: system
     pass_filenames: false
     files: \.exs$
+    exclude: '^config'
 
   - id: mix-format
     name: 'elixir: mix format'
     entry: mix format --check-formatted
     language: system
     files: \.exs?$
+    exclude: '^priv/templates'
 
   - id: mix-compile
     name: 'elixir: mix compile'

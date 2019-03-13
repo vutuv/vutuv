@@ -7,6 +7,15 @@ defmodule Vutuv.Sessions.Session do
 
   @max_age 86_400
 
+  @type t :: %__MODULE__{
+          id: integer,
+          expires_at: DateTime.t(),
+          user_id: integer,
+          user: %Ecto.Association.NotLoaded{} | User.t(),
+          inserted_at: DateTime.t(),
+          updated_at: DateTime.t()
+        }
+
   schema "sessions" do
     field(:expires_at, :utc_datetime)
     belongs_to(:user, User)

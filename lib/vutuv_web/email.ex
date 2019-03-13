@@ -50,16 +50,15 @@ defmodule VutuvWeb.Email do
     prep_mail(address)
     |> subject("Reset your password")
     |> text_body(
-        "You requested a password reset, but no user is associated with the email you provided."
-      )
+      "You requested a password reset, but no user is associated with the email you provided."
+    )
     |> Mailer.deliver_now()
   end
+
   def reset_request(address, key) do
     prep_mail(address)
     |> subject("Reset your password")
-    |> text_body(
-        "Reset your password at http://www.example.com/password_resets/edit?key=#{key}"
-      )
+    |> text_body("Reset your password at http://www.example.com/password_resets/edit?key=#{key}")
     |> Mailer.deliver_now()
   end
 

@@ -24,8 +24,7 @@ config :phauxth,
   token_module: VutuvWeb.Auth.Token
 
 # Mailer configuration
-config :vutuv, VutuvWeb.Mailer,
-  adapter: Bamboo.LocalAdapter
+config :vutuv, VutuvWeb.Mailer, adapter: Bamboo.LocalAdapter
 
 # Configures Elixir's Logger
 config :logger, :console,

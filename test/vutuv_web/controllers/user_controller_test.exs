@@ -28,7 +28,7 @@ defmodule VutuvWeb.UserControllerTest do
       assert html_response(conn, 200) =~ "Listing Users"
     end
 
-    test "renders /users error for unauthorized user", %{conn: conn}  do
+    test "renders /users error for unauthorized user", %{conn: conn} do
       conn = get(conn, Routes.user_path(conn, :index))
       assert redirected_to(conn) == Routes.session_path(conn, :new)
     end
@@ -74,7 +74,7 @@ defmodule VutuvWeb.UserControllerTest do
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
       updated_user = Accounts.get_user(user.id)
       assert updated_user.email == "william@example.com"
-      conn = get conn,(Routes.user_path(conn, :show, user))
+      conn = get(conn, Routes.user_path(conn, :show, user))
       assert html_response(conn, 200) =~ "william@example.com"
     end
 
@@ -97,7 +97,7 @@ defmodule VutuvWeb.UserControllerTest do
     end
 
     @tag login: "reg@example.com"
-      test "cannot delete other user", %{conn: conn, user: user, other: other} do
+    test "cannot delete other user", %{conn: conn, user: user, other: other} do
       conn = delete(conn, Routes.user_path(conn, :delete, other))
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
       assert Accounts.get_user(other.id)

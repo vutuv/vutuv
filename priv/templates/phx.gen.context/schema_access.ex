@@ -10,6 +10,7 @@
       [%<%= inspect schema.alias %>{}, ...]
 
   """
+  @spec list_<%= schema.plural %>() :: [<%= inspect schema.alias %>.t()]
   def list_<%= schema.plural %> do
     Repo.all(<%= inspect schema.alias %>)
   end
@@ -26,6 +27,7 @@
       nil
 
   """
+  @spec get_<%= schema.singular %>(id) :: <%= inspect schema.alias %>.t() | nil
   def get_<%= schema.singular %>(id), do: Repo.get(<%= inspect schema.alias %>, id)
 
   @doc """
@@ -40,6 +42,7 @@
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_<%= schema.singular %>(attrs \\ %{}) :: {:ok, <%= inspect schema.alias %>.t()} | changeset_error
   def create_<%= schema.singular %>(attrs \\ %{}) do
     %<%= inspect schema.alias %>{}
     |> <%= inspect schema.alias %>.changeset(attrs)
@@ -58,6 +61,7 @@
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_<%= schema.singular %>(%<%= inspect schema.alias %>.t(), map) :: {:ok, <%= inspect schema.alias %>.t()} | changeset_error
   def update_<%= schema.singular %>(%<%= inspect schema.alias %>{} = <%= schema.singular %>, attrs) do
     <%= schema.singular %>
     |> <%= inspect schema.alias %>.changeset(attrs)
@@ -76,6 +80,7 @@
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_<%= schema.singular %>(%<%= inspect schema.alias %>.t()) :: {:ok, <%= inspect schema.alias %>.t()} | changeset_error
   def delete_<%= schema.singular %>(%<%= inspect schema.alias %>{} = <%= schema.singular %>) do
     Repo.delete(<%= schema.singular %>)
   end
@@ -89,6 +94,7 @@
       %Ecto.Changeset{source: %<%= inspect schema.alias %>{}}
 
   """
+  @spec change_<%= schema.singular %>(%<%= inspect schema.alias %>.t()) :: Ecto.Changeset.t()
   def change_<%= schema.singular %>(%<%= inspect schema.alias %>{} = <%= schema.singular %>) do
     <%= inspect schema.alias %>.changeset(<%= schema.singular %>, %{})
   end

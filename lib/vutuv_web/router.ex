@@ -21,5 +21,4 @@ defmodule VutuvWeb.Router do
     get "/password_resets/edit", PasswordResetController, :edit
     put "/password_resets/update", PasswordResetController, :update
   end
-
 end
