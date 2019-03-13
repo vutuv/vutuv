@@ -1,35 +1,40 @@
 # vutuv
 
-vutuv is a business network which is hosted at [https://www.vutuv.de](https://www.vutuv.de). Think of it as a free, fast and secure open-source alternative for [LinkedIn](https://www.linkedin.com) or [XING](https://www.xing.com). The first version of vutuv can be found in the [branch v1.1](https://github.com/vutuv/vutuv/tree/v1.1).
+[![Build Status](https://travis-ci.org/vutuv/vutuv.svg?branch=master)](https://travis-ci.org/vutuv/vutuv)
 
-# Development How-To
+vutuv is a business network which is hosted at [https://www.vutuv.de](https://www.vutuv.de). Think
+of it as a free, fast and secure open-source alternative for [LinkedIn](https://www.linkedin.com) or
+[XING](https://www.xing.com). The first version of vutuv can be found in the [branch
+v1.1](https://github.com/vutuv/vutuv/tree/v1.1).
 
-vutuv is a [Phoenix Framework](http://www.phoenixframework.org/) application. Please install the following software first ([asdf-vm is a good version manager](https://github.com/asdf-vm/asdf)):
+## Getting started
 
-- Erlang version 21.2.3  
-- Elixir version 1.8.1
-- nodejs version 6.8.0
+vutuv is a [Phoenix Framework](http://www.phoenixframework.org/) application.  Please install the
+following software first ([asdf-vm is a good version manager](https://github.com/asdf-vm/asdf)):
 
-## Database
+* Erlang > 21.1
+* Elixir > 1.8
+* nodejs > 6.8.0
+* postgresql
 
-We use for production and development [PostgreSQL](https://www.postgresql.org). Please make sure that your database configuration in `config/dev.exs` is correct.
+After cloning the repository, run `mix deps.get` and `(cd assets && npm install)`
+to install dependencies.
 
-  * Create and migrate your database with `mix ecto.setup`
+To setup the database, run `mix ecto.setup`.
 
-# Misc
+To start the Phoenix endpoint within an iex shell, run `iex -S mix phx.server`.
 
-To start your Phoenix server:
+See the [contributing guide](https://github.com/vutuv/vutuv/blob/master/CONTRIBUTING.md)
+for more information about setting up your development environment and opening pull
+requests.
 
-  * Install dependencies with `mix deps.get`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+### Custom generators
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+We are using custom templates for context and schema generation (when
+using the Phoenix `phx.gen.*` generators). After running `phx.gen.context`,
+you will need to edit the typespec in the schema file - changing any
+instance of `any` to the correct type.
 
-## Learn more about Phoenix
+## License
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+MIT license. See the [LICENSE](https://github.com/vutuv/vutuv/blob/master/LICENSE.TXT) for details.

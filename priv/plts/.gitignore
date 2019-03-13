@@ -1,0 +1,3 @@
+# commit directory but ignore all contents
+*
+!.gitignore

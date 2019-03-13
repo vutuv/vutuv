@@ -17,6 +17,15 @@ config :vutuv, VutuvWeb.Endpoint,
   render_errors: [view: VutuvWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Vutuv.PubSub, adapter: Phoenix.PubSub.PG2]
 
+# Phauxth authentication configuration
+config :phauxth,
+  user_context: Vutuv.Accounts,
+  crypto_module: Argon2,
+  token_module: VutuvWeb.Auth.Token
+
+# Mailer configuration
+config :vutuv, VutuvWeb.Mailer, adapter: Bamboo.LocalAdapter
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
