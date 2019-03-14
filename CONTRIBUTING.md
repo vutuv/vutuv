@@ -9,28 +9,39 @@ please open an issue and let us know.
 
 1. Make sure you have the following programs installed:
 
-* Erlang > 21.1
-* Elixir > 1.8
-* nodejs > 6.8.0
-* postgresql
+    * Erlang > 21.1
+    * Elixir > 1.8
+    * nodejs > 6.8.0
+    * postgresql
 
 1. [Fork](https://help.github.com/articles/fork-a-repo/) the project, clone your fork,
 and configure the remotes.
 
-1. Create and migrate your database with `mix ecto.setup` # add a link to guide to setting up postgresql
+1. Create and migrate your database with `mix ecto.setup`
 
 1. Install [pre-commit](https://pre-commit.com/) and run `pre-commit install`
 in the root directory of the project.
 
 ## Tooling
 
+We use the following tools in our development process.
+
 ### Pre-commit
 
 After running `pre-commit install`, several pre-commit git hooks will be
-added. These hooks perform certain checks when making a commit.
+added. These hooks perform certain checks when making a commit, and the
+commit will not be made if any of these checks fail.
 
-See the `.pre-commit-config.yaml` file for more information about the
-configured checks.
+The configured checks are:
+
+* tests check using `mix test`
+* format check using `mix format --check-formatted`
+* compilation using `mix compile --warnings-as-errors`
+* trailing whitespace check
+* merge conflict check
+* yaml file check
+* end of each file ends in a newline check
+* a check that you are not committing to the master, staging or production branch
 
 If the end-of-file-fixer fails, run the commit again and it should pass
 the second time.
@@ -43,15 +54,16 @@ is installed as a dev dependency.
 
 To run dialyzer, run `mix dialyzer`.
 
-**NOTE**: To make dialyzer more effective, we need to add specifications (`@spec`)
-to functions.
-
 ### Custom generators
 
 We are using custom templates for context and schema generation (when
 using the Phoenix `phx.gen.*` generators). After running `phx.gen.context`,
 you will need to edit the typespec in the schema file - changing any
 instance of `any` to the correct type.
+
+**NOTE**: if you use `phx.gen.html` to create new routes, you will also
+need to remove the bang functions (`get_item!`) from the controller and
+controller_test files.
 
 ## Pull requests
 
@@ -64,40 +76,40 @@ yourself to it).
 
 1. Create a new topic branch (off of `master`) to work on the issue.
 
-   **IMPORTANT**: making changes in `master` is discouraged. You should always
-   keep your local `master` in sync with upstream `master` and make your
-   changes in topic branches.
+    **IMPORTANT**: making changes in `master` is discouraged. You should always
+    keep your local `master` in sync with upstream `master` and make your
+    changes in topic branches.
 
-   ```bash
-   git checkout -b <topic-branch-name>
-   ```
+    ```bash
+    git checkout -b <topic-branch-name>
+    ```
 
 1. As you work on the issue, commit your changes in logical chunks.
 
 1. Push your topic branch up to your fork:
 
-   ```bash
-   git push origin <topic-branch-name>
-   ```
+    ```bash
+    git push origin <topic-branch-name>
+    ```
 
 1. [Open a Pull Request](https://help.github.com/articles/about-pull-requests/)
 with the following information (this should help the reviewer understand the
 pull request better):
 
-* a clear, and informative, title
-* a description that references the issue(s) you have been working on
-  * do not leave the description blank
+    * a clear, and informative, title
+    * a description that references the issue(s) you have been working on
+      * do not leave the description blank
 
 1. Make sure that your topic branch is up-to-date. If necessary, rebase
 on master and resolve any conflicts.
 
-   **IMPORTANT**: _Never ever_ merge upstream `master` into your branches. You
-   should always `git rebase` on `master` to bring your changes up to date when
-   necessary.
+    **IMPORTANT**: _Never ever_ merge upstream `master` into your branches. You
+    should always `git rebase` on `master` to bring your changes up to date when
+    necessary.
 
-   ```bash
-   git checkout master
-   git pull upstream master
-   git checkout <your-topic-branch>
-   git rebase master
-   ```
+    ```bash
+    git checkout master
+    git pull upstream master
+    git checkout <your-topic-branch>
+    git rebase master
+    ```
