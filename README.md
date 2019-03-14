@@ -20,7 +20,7 @@ following software first ([asdf-vm is a good version manager](https://github.com
 After cloning the repository, run `mix deps.get` and `(cd assets && npm install)`
 to install dependencies.
 
-To setup the database, run `mix ecto.setup`.
+To create the database and run migrations, run `mix ecto.setup`.
 
 To start the Phoenix endpoint within an iex shell, run `iex -S mix phx.server`.
 
