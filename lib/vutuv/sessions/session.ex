@@ -17,8 +17,8 @@ defmodule Vutuv.Sessions.Session do
         }
 
   schema "sessions" do
-    field(:expires_at, :utc_datetime)
-    belongs_to(:user, User)
+    field :expires_at, :utc_datetime
+    belongs_to :user, User
 
     timestamps()
   end
