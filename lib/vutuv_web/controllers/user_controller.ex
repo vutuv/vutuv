@@ -9,13 +9,16 @@ defmodule VutuvWeb.UserController do
 
   @dialyzer {:nowarn_function, new: 2}
 
-  # the following plugs are defined in the controllers/authorize.ex file
   plug :user_check when action in [:index, :show]
   plug :id_check when action in [:edit, :update, :delete]
 
   def index(conn, _) do
     users = Accounts.list_users()
     render(conn, "index.html", users: users)
+  end
+
+  def new(%Plug.Conn{assigns: %{current_user: %User{} = user}} = conn, _opts) do
+    redirect(conn, to: Routes.user_path(conn, :show, user))
   end
 
   def new(conn, _) do

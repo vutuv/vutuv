@@ -41,6 +41,12 @@ defmodule VutuvWeb.UserControllerTest do
     end
 
     @tag login: "reg@example.com"
+    test "new route redirects to show if user is logged in", %{conn: conn, user: user} do
+      conn = get(conn, Routes.user_path(conn, :new))
+      assert redirected_to(conn) == Routes.user_path(conn, :show, user)
+    end
+
+    @tag login: "reg@example.com"
     test "renders form for editing chosen user", %{conn: conn, user: user} do
       conn = get(conn, Routes.user_path(conn, :edit, user))
       assert html_response(conn, 200) =~ "Edit User"

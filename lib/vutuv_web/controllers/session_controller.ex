@@ -33,7 +33,7 @@ defmodule VutuvWeb.SessionController do
         conn
         |> delete_session(:phauxth_session_id)
         |> put_flash(:info, "User successfully logged out.")
-        |> redirect(to: Routes.page_path(conn, :index))
+        |> redirect(to: Routes.user_path(conn, :new))
 
       _ ->
         conn

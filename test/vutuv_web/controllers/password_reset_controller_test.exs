@@ -16,14 +16,14 @@ defmodule VutuvWeb.PasswordResetControllerTest do
       valid_attrs = %{email: "gladys@example.com"}
       conn = post(conn, Routes.password_reset_path(conn, :create), password_reset: valid_attrs)
       assert conn.private.phoenix_flash["info"] =~ "your inbox for instructions"
-      assert redirected_to(conn) == Routes.page_path(conn, :index)
+      assert redirected_to(conn) == Routes.user_path(conn, :new)
     end
 
     test "create function fails for no user", %{conn: conn} do
       invalid_attrs = %{email: "prettylady@example.com"}
       conn = post(conn, Routes.password_reset_path(conn, :create), password_reset: invalid_attrs)
       assert conn.private.phoenix_flash["info"] =~ "your inbox for instructions"
-      assert redirected_to(conn) == Routes.page_path(conn, :index)
+      assert redirected_to(conn) == Routes.user_path(conn, :new)
     end
   end
 

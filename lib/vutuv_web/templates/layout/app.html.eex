@@ -12,7 +12,7 @@
       <section class="container">
         <nav role="navigation">
           <ul>
-            <li><a href="<%= Routes.page_path(@conn, :index) %>">Home</a></li>
+            <li><a href="<%= Routes.user_path(@conn, :new) %>">Home</a></li>
               <%= if @current_user do %>
               <li><a href="<%= Routes.user_path(@conn, :index) %>">Users</a></li>
               <li><a href="<%= Routes.user_path(@conn, :show, @current_user) %>"><%= @current_user.email %></a></li>
