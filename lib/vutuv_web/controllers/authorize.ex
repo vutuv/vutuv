@@ -29,10 +29,10 @@ defmodule VutuvWeb.Authorize do
   """
   def guest_check(%Plug.Conn{assigns: %{current_user: nil}} = conn, _opts), do: conn
 
-  def guest_check(%Plug.Conn{assigns: %{current_user: _current_user}} = conn, _opts) do
+  def guest_check(%Plug.Conn{assigns: %{current_user: user}} = conn, _opts) do
     conn
     |> put_flash(:error, "You need to log out to view this page")
-    |> redirect(to: Routes.user_path(conn, :index))
+    |> redirect(to: Routes.user_path(conn, :show, user))
     |> halt()
   end
 
