@@ -2,10 +2,15 @@
 #
 #     mix run priv/repo/seeds.exs
 #
-# Inside the script, you can read and write to any of your
-# repositories directly:
+# It is also run when you use `mix ecto.setup` or `mix ecto.reset`
 #
-#     Vutuv.Repo.insert!(%Vutuv.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+
+users = [
+  %{email: "jane.doe@example.com", password: "password"},
+  %{email: "john.smith@example.com", password: "password"}
+]
+
+for user <- users do
+  {:ok, user} = Vutuv.Accounts.create_user(user)
+  Vutuv.Accounts.confirm_user(user)
+end

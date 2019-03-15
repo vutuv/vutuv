@@ -13,8 +13,8 @@ defmodule VutuvWeb.Router do
   scope "/", VutuvWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
-    resources "/users", UserController
+    get "/", UserController, :new
+    resources "/users", UserController, except: [:new]
     resources "/sessions", SessionController, only: [:new, :create, :delete]
     get "/confirm", ConfirmController, :index
     resources "/password_resets", PasswordResetController, only: [:new, :create]

@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Phauxth authentication with Phoenix</title>
+    <title>Vutuv business network</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
   <body>
@@ -12,20 +12,13 @@
       <section class="container">
         <nav role="navigation">
           <ul>
-            <li><a href="<%= Routes.page_path(@conn, :index) %>">Home</a></li>
-              <%= if @current_user do %>
-              <li><a href="<%= Routes.user_path(@conn, :index) %>">Users</a></li>
-              <li><a href="<%= Routes.user_path(@conn, :show, @current_user) %>"><%= @current_user.email %></a></li>
+            <%= if @current_user do %>
+              <li><%= link "Users", to: Routes.user_path(@conn, :index) %></li>
+              <li><%= link @current_user.email, to: Routes.user_path(@conn, :show, @current_user) %></li>
               <li><%= link "Logout", to: Routes.session_path(@conn, :delete, current_session(@conn)), method: :delete %></li>
-              <% else %>
-              <li><a href="<%= Routes.user_path(@conn, :new) %>">New user</a></li>
-              <li><a href="<%= Routes.session_path(@conn, :new) %>">Login</a></li>
-              <% end %>
+            <% end %>
           </ul>
         </nav>
-        <a href="http://phoenixframework.org/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
-        </a>
       </section>
     </header>
     <main role="main" class="container">
