@@ -3,9 +3,10 @@ defmodule Vutuv.Socials do
   The Socials context.
   """
 
+  import Ecto
   import Ecto.Query, warn: false
 
-  alias Vutuv.{Repo, Socials.Post}
+  alias Vutuv.{Accounts.User, Repo, Socials.Post}
 
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 
@@ -21,6 +22,14 @@ defmodule Vutuv.Socials do
   @spec list_posts() :: [Post.t()]
   def list_posts do
     Repo.all(Post)
+  end
+
+  @doc """
+  Returns a list of posts for the user.
+  """
+  @spec list_posts(User.t()) :: [Post.t()]
+  def list_posts(user) do
+    Repo.all(assoc(user, :posts))
   end
 
   @doc """
@@ -40,19 +49,11 @@ defmodule Vutuv.Socials do
 
   @doc """
   Creates a post.
-
-  ## Examples
-
-      iex> create_post(%{field: value})
-      {:ok, %Post{}}
-
-      iex> create_post(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
   """
-  @spec create_post(map) :: {:ok, Post.t()} | changeset_error
-  def create_post(attrs \\ %{}) do
-    %Post{}
+  @spec create_post(User.t(), map) :: {:ok, Post.t()} | changeset_error
+  def create_post(user, attrs \\ %{}) do
+    user
+    |> build_assoc(:posts)
     |> Post.changeset(attrs)
     |> Repo.insert()
   end
