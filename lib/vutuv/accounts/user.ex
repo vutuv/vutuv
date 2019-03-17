@@ -3,7 +3,7 @@ defmodule Vutuv.Accounts.User do
 
   import Ecto.Changeset
 
-  alias Vutuv.Sessions.Session
+  alias Vutuv.{Sessions.Session, Socials.Post}
 
   @type t :: %__MODULE__{
           id: integer,
@@ -11,6 +11,7 @@ defmodule Vutuv.Accounts.User do
           password_hash: String.t(),
           confirmed_at: DateTime.t() | nil,
           reset_sent_at: DateTime.t() | nil,
+          posts: %Ecto.Association.NotLoaded{} | [Post.t()],
           sessions: %Ecto.Association.NotLoaded{} | [Session.t()],
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
@@ -22,6 +23,7 @@ defmodule Vutuv.Accounts.User do
     field :password_hash, :string
     field :confirmed_at, :utc_datetime
     field :reset_sent_at, :utc_datetime
+    has_many :posts, Post, on_delete: :delete_all
     has_many :sessions, Session, on_delete: :delete_all
 
     timestamps()

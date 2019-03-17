@@ -31,9 +31,10 @@ requests.
 ### Custom generators
 
 We are using custom templates for context and schema generation (when
-using the Phoenix `phx.gen.*` generators). After running `phx.gen.context`,
-you will need to edit the typespec in the schema file - changing any
-instance of `any` to the correct type.
+using the Phoenix `phx.gen.*` generators).
+
+See the [Custom generator wiki page](https://github.com/vutuv/vutuv/wiki/Custom-generators)
+for help using the Phoenix generators with these templates.
 
 ## License
 
