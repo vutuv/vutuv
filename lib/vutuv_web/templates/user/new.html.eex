@@ -1,5 +1,34 @@
-<h1>New User</h1>
-
-<%= render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create)) %>
-
-<span><%= link "Login", to: Routes.session_path(@conn, :new) %></span>
+<div class="vertical-center-md">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 order-1">
+        <div class="logo size-2 size-xs-2">
+          <img src="<%= Routes.static_path(@conn, "/images/vutuv_02.svg") %>" alt="Vutuv sign"/>
+          <h1 class="sr-only">vutuv</h1>
+        </div>
+        <div class="pronunciation">
+          /vo.touf/
+        </div>
+        <h2>
+          The fast, secure &amp; less annoying social network.
+        </h2>
+        <ul class="usp d-none d-sm-block">
+          <li>Stay up to date with your favorite topics and discover more</li>
+          <li>Connect with business partners</li>
+          <li>Communicate with your peers</li>
+        </ul>
+        <ul class="usp-numbers">
+          <li><em>19,144</em> <small>Members</small></li>
+          <li><em>647,592</em> <small>Articles</small></li>
+          <li><em>979,693</em> <small>Connections</small></li>
+        </ul>
+      </div>
+      <div class="col-md-6 order-2">
+        <legend>Sign up</legend>
+        <div class="login">
+          <%= render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create)) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

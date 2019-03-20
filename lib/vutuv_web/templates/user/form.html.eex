@@ -5,25 +5,49 @@
     </div>
   <% end %>
 
-  <%= text_input f, :email, placeholder: "Email"%>
-  <%= error_tag f, :email %>
+  <fieldset>
+    <div class="form-group">
+    <%= label f, :email, class: "sr-only" %>
+    <%= text_input f, :email, [placeholder: "Email"] %>
+    <%= error_tag f, :email %>
+    </div>
 
-  <%= if @action == "/users" do %>
-    <%= password_input f, :password, placeholder: "Password" %>
-    <%= error_tag f, :password %>
-  <% end %>
+    <%= if @action == "/users" do %>
+    <div class="form-group">
+      <%= label f, :password, class: "sr-only" %>
+      <%= password_input f, :password, [placeholder: "Password"] %>
+      <%= error_tag f, :password %>
+    </div>
+    <% end %>
 
-<%= if @current_user do %>
-  <div>
-    <%= submit "Save" %>
-  </div>
-  <% else %>
-  <div>
-    <%= submit "Register" %>
-  </div>
-  <div>
-    <p>Already have an account?</p> <a href="<%= Routes.session_path(@conn, :new) %>">Sign in</a>
-  </div>
-<% end %>
+    <div class="form-group">
+    <%= label f, :first_name, class: "sr-only" %>
+    <%= text_input f, :first_name, [placeholder: "First name"] %>
+    <%= error_tag f, :first_name %>
+    </div>
 
+    <div class="form-group">
+    <%= label f, :last_name, class: "sr-only" %>
+    <%= text_input f, :last_name, [placeholder: "Last name"] %>
+    <%= error_tag f, :last_name %>
+    </div>
+
+    <div class="form-group">
+    <%= label f, :gender, class: "sr-only" %>
+    <%= select f, :gender, ["Gender": "", "Female": "female", "Male": "male", "Other": "other"] %>
+    <%= error_tag f, :gender %>
+    </div>
+
+    <div class="row row-tight">
+      <div class="col-md-6">
+        <%= submit "Sign up" %>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <p class="text-center">
+        Already signed up? <br />
+        <span><%= link "Login here", to: Routes.session_path(@conn, :new) %></span>
+      </p>
+    </div>
+  <fieldset>
 <% end %>
