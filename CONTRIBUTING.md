@@ -57,13 +57,10 @@ To run dialyzer, run `mix dialyzer`.
 ### Custom generators
 
 We are using custom templates for context and schema generation (when
-using the Phoenix `phx.gen.*` generators). After running `phx.gen.context`,
-you will need to edit the typespec in the schema file - changing any
-instance of `any` to the correct type.
+using the Phoenix `phx.gen.*` generators).
 
-**NOTE**: if you use `phx.gen.html` to create new routes, you will also
-need to remove the bang functions (`get_item!`) from the controller and
-controller_test files.
+See the [Custom generator wiki page](https://github.com/vutuv/vutuv/wiki/Custom-generators)
+for help using the Phoenix generators with these templates.
 
 ## Pull requests
 

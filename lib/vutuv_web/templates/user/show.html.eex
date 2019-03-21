@@ -1,13 +1,13 @@
 <h2>Show User</h2>
 
-<ul>
+<p>User ID: <%= @id %></p>
+<%= for email_address <- @email_addresses do %>
+  <tr>
+      <td><%= email_address %></td>
+  </tr>
+<% end %>
 
-  <li>
-    <strong>Email:</strong>
-    <%= @user.email %>
-  </li>
+<span><%= link "Edit_email", to: Routes.email_address_path(@conn, :edit, @user) %></span><br>
 
-</ul>
 
-<span><%= link "Edit", to: Routes.user_path(@conn, :edit, @user) %></span><br>
-<span><%= link "Back", to: Routes.user_path(@conn, :index) %></span>
+<span><%= link "New Email address", to: Routes.email_address_path(@conn, :new) %></span>

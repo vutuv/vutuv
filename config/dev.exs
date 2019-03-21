@@ -73,3 +73,5 @@ config :vutuv, Vutuv.Repo,
   database: "vutuv2_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :vutuv, email_url: "http://localhost:4000/confirm?key"
