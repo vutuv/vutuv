@@ -18,7 +18,7 @@ defmodule VutuvWeb.SessionController do
         conn
         |> add_session(user, params)
         |> put_flash(:info, "User successfully logged in.")
-        |> redirect(to: get_session(conn, :request_path) || Routes.user_path(conn, :index))
+        |> redirect(to: get_session(conn, :request_path) || Routes.user_path(conn, :show, user))
 
       {:error, message} ->
         conn
@@ -33,12 +33,12 @@ defmodule VutuvWeb.SessionController do
         conn
         |> delete_session(:phauxth_session_id)
         |> put_flash(:info, "User successfully logged out.")
-        |> redirect(to: Routes.page_path(conn, :index))
+        |> redirect(to: Routes.user_path(conn, :new))
 
       _ ->
         conn
         |> put_flash(:error, "Unauthorized")
-        |> redirect(to: Routes.user_path(conn, :index))
+        |> redirect(to: Routes.user_path(conn, :show, user_id))
     end
   end
 

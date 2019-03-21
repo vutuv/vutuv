@@ -7,8 +7,8 @@ defmodule VutuvWeb.AuthCase do
   alias VutuvWeb.Auth.Token
 
   def add_user(email) do
-    user = %{email: email, password: "reallyHard2gue$$"}
-    {:ok, user} = Accounts.create_user(user)
+    user_params = %{"email" => email, "password" => "reallyHard2gue$$"}
+    {:ok, user} = Accounts.create_user(user_params)
     user
   end
 

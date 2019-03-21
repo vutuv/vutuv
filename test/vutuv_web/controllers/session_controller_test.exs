@@ -3,9 +3,9 @@ defmodule VutuvWeb.SessionControllerTest do
 
   import VutuvWeb.AuthCase
 
-  @create_attrs %{email: "robin@example.com", password: "reallyHard2gue$$"}
-  @invalid_attrs %{email: "robin@example.com", password: "cannotGue$$it"}
-  @unconfirmed_attrs %{email: "lancelot@example.com", password: "reallyHard2gue$$"}
+  @create_attrs %{"email" => "robin@example.com", "password" => "reallyHard2gue$$"}
+  @invalid_attrs %{"email" => "robin@example.com", "password" => "cannotGue$$it"}
+  @unconfirmed_attrs %{"email" => "lancelot@example.com", "password" => "reallyHard2gue$$"}
 
   setup %{conn: conn} do
     conn = conn |> bypass_through(VutuvWeb.Router, [:browser]) |> get("/")
@@ -20,15 +20,15 @@ defmodule VutuvWeb.SessionControllerTest do
       user: user
     } do
       conn = conn |> add_session(user) |> send_resp(:ok, "/")
-      conn = get(conn, Routes.session_path(conn, :new))
-      assert redirected_to(conn) == Routes.page_path(conn, :index)
+      conn = get(conn, Routes.user_path(conn, :new))
+      assert redirected_to(conn) == Routes.user_path(conn, :show, user)
     end
   end
 
   describe "create session" do
-    test "login succeeds", %{conn: conn} do
+    test "login succeeds", %{conn: conn, user: user} do
       conn = post(conn, Routes.session_path(conn, :create), session: @create_attrs)
-      assert redirected_to(conn) == Routes.user_path(conn, :index)
+      assert redirected_to(conn) == Routes.user_path(conn, :show, user)
     end
 
     test "login fails for user that is not yet confirmed", %{conn: conn} do
@@ -37,9 +37,9 @@ defmodule VutuvWeb.SessionControllerTest do
     end
 
     test "login fails for user that is already logged in", %{conn: conn, user: user} do
-      conn = conn |> add_session(user) |> send_resp(:ok, "/")
+      # conn = conn |> add_session(user) |> send_resp(:ok, "/")
       conn = post(conn, Routes.session_path(conn, :create), session: @create_attrs)
-      assert redirected_to(conn) == Routes.page_path(conn, :index)
+      assert redirected_to(conn) == Routes.user_path(conn, :show, user)
     end
 
     test "login fails for invalid password", %{conn: conn} do
@@ -60,7 +60,7 @@ defmodule VutuvWeb.SessionControllerTest do
       conn = conn |> add_session(user) |> send_resp(:ok, "/")
       session_id = get_session(conn, :phauxth_session_id)
       conn = delete(conn, Routes.session_path(conn, :delete, session_id))
-      assert redirected_to(conn) == Routes.page_path(conn, :index)
+      assert redirected_to(conn) == Routes.user_path(conn, :new)
       conn = get(conn, Routes.user_path(conn, :index))
       assert redirected_to(conn) == Routes.session_path(conn, :new)
     end

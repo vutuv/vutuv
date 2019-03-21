@@ -31,9 +31,18 @@ requests.
 ### Custom generators
 
 We are using custom templates for context and schema generation (when
-using the Phoenix `phx.gen.*` generators). After running `phx.gen.context`,
-you will need to edit the typespec in the schema file - changing any
-instance of `any` to the correct type.
+using the Phoenix `phx.gen.*` generators).
+
+See the [Custom generator wiki page](https://github.com/vutuv/vutuv/wiki/Custom-generators)
+for help using the Phoenix generators with these templates.
+
+### SMTP Setup
+The system uses the [Bamboo](https://github.com/thoughtbot/bamboo) email
+library by [thoughtbot](https://thoughtbot.com/) to send emails via SMTP.
+
+#### SMTP Setup Development
+In the development environment emails are not sent to an actual SMTP
+server but displayed in the browser via [Bamboo.EmailPreviewPlug](https://hexdocs.pm/bamboo/Bamboo.EmailPreviewPlug.html). To see which emails have been sent, visit [http://localhost:4000/sent_emails](http://localhost:4000/sent_emails)
 
 ## License
 

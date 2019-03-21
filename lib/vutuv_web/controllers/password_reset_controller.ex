@@ -17,7 +17,7 @@ defmodule VutuvWeb.PasswordResetController do
 
     conn
     |> put_flash(:info, "Check your inbox for instructions on how to reset your password")
-    |> redirect(to: Routes.page_path(conn, :index))
+    |> redirect(to: Routes.user_path(conn, :new))
   end
 
   def edit(conn, %{"key" => key}) do
@@ -43,7 +43,12 @@ defmodule VutuvWeb.PasswordResetController do
   end
 
   defp update_password({:ok, user}, conn, _params) do
-    Email.reset_success(user.email)
+    # email_addresses = Accounts.get_email_address(user.id)
+    email_addresses = Accounts.list_email_address_user(user.id)
+
+    for email_address <- email_addresses do
+      Email.reset_success(email_address)
+    end
 
     conn
     |> delete_session(:phauxth_session_id)

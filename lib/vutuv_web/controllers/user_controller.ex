@@ -18,6 +18,10 @@ defmodule VutuvWeb.UserController do
     render(conn, "index.html", users: users)
   end
 
+  def new(%Plug.Conn{assigns: %{current_user: %User{} = user}} = conn, _opts) do
+    redirect(conn, to: Routes.user_path(conn, :show, user))
+  end
+
   def new(conn, _) do
     changeset = Accounts.change_user(%User{})
     render(conn, "new.html", changeset: changeset)
@@ -43,7 +47,10 @@ defmodule VutuvWeb.UserController do
 
   def show(%Plug.Conn{assigns: %{current_user: user}} = conn, %{"id" => id}) do
     user = if id == to_string(user.id), do: user, else: Accounts.get_user(id)
-    render(conn, "show.html", user: user)
+
+    email_addresses = Accounts.list_email_address_user(id)
+
+    render(conn, "show.html", user: user, email_addresses: email_addresses, id: id)
   end
 
   def edit(%Plug.Conn{assigns: %{current_user: user}} = conn, _) do

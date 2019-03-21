@@ -5,11 +5,9 @@ defmodule <%= inspect schema.module %> do
   @type t :: %__MODULE__{
     id: integer,
 <%= for {k, _v} <- schema.types do %>    <%= k %>: any,
-<% end %>
-    inserted_at: DateTime.t(),
+<% end %>    inserted_at: DateTime.t(),
     updated_at: DateTime.t()
   }
-
 <%= if schema.binary_id do %>
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id<% end %>

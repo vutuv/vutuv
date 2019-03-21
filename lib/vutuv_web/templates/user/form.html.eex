@@ -1,21 +1,29 @@
-<%= form_for @changeset, @action, [], fn f -> %>
+<%= form_for @changeset, @action, fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>Please check the errors below.</p>
     </div>
   <% end %>
 
-  <%= label f, :email %>
-  <%= text_input f, :email %>
+  <%= text_input f, :email, placeholder: "Email"%>
   <%= error_tag f, :email %>
 
   <%= if @action == "/users" do %>
-    <%= label f, :password %>
-    <%= password_input f, :password %>
+    <%= password_input f, :password, placeholder: "Password" %>
     <%= error_tag f, :password %>
   <% end %>
 
+<%= if @current_user do %>
   <div>
     <%= submit "Save" %>
   </div>
+  <% else %>
+  <div>
+    <%= submit "Register" %>
+  </div>
+  <div>
+    <p>Already have an account?</p> <a href="<%= Routes.session_path(@conn, :new) %>">Sign in</a>
+  </div>
+<% end %>
+
 <% end %>
