@@ -21,5 +21,3 @@
     <%= submit "Login" %>
   </div>
 <% end %>
-
-<span><%= link "Back", to: Routes.user_path(@conn, :new) %></span>

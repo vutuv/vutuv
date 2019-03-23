@@ -13,7 +13,7 @@ defmodule VutuvWeb.EmailTest do
   test "sends confirmation request email", %{email: email, key: key} do
     sent_email = Email.confirm_request(email, key)
     assert sent_email.subject =~ "Confirm your account"
-    assert sent_email.text_body =~ "email here http://www.example.com/confirm?key="
+    assert sent_email.text_body =~ "email here #{Application.get_env(:vutuv, :email_url)}="
     assert_delivered_email(Email.confirm_request(email, key))
   end
 

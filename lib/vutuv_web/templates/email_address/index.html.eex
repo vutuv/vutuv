@@ -1,0 +1,34 @@
+<h1>Listing Email addresses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Value</th>
+      <th>Description</th>
+      <th> is public</th>
+      <th>Position</th>
+      <th>Verified</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for email_address <- @email_addresses do %>
+    <tr>
+      <td><%= email_address.user_id %></td>
+      <td><%= email_address.value %></td>
+      <td><%= email_address.description %></td>
+      <td><%= email_address. is_public %></td>
+      <td><%= email_address.position %></td>
+      <td><%= email_address.verified %></td>
+
+      <td>
+        <%= link "Show", to: Routes.email_address_path(@conn, :show, email_address) %>
+        <%= link "Edit", to: Routes.email_address_path(@conn, :edit, email_address) %>
+        <%= link "Delete", to: Routes.email_address_path(@conn, :delete, email_address), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

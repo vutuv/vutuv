@@ -39,7 +39,7 @@ defmodule VutuvWeb.Email do
   def confirm_request(address, key) do
     prep_mail(address)
     |> subject("Confirm your account")
-    |> text_body("Confirm your email here http://www.example.com/confirm?key=#{key}")
+    |> text_body("Confirm your email here #{Application.get_env(:vutuv, :email_key_url)}=#{key}")
     |> Mailer.deliver_now()
   end
 
@@ -79,6 +79,13 @@ defmodule VutuvWeb.Email do
     prep_mail(address)
     |> subject("Password reset")
     |> text_body("Your password has been reset.")
+    |> Mailer.deliver_now()
+  end
+
+  def verify_email_request(address, key) do
+    prep_mail(address)
+    |> subject("Verify your email")
+    |> text_body("Verify your email here #{Application.get_env(:vutuv, :email_url)}=#{key}")
     |> Mailer.deliver_now()
   end
 

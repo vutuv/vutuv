@@ -1,0 +1,38 @@
+<h1>Show Email address</h1>
+
+<ul>
+
+  <li>
+    <strong>User:</strong>
+    <%= @email_address.user_id %>
+  </li>
+
+  <li>
+    <strong>Value:</strong>
+    <%= @email_address.value %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @email_address.description %>
+  </li>
+
+  <li>
+    <strong> is public:</strong>
+    <%= @email_address. is_public %>
+  </li>
+
+  <li>
+    <strong>Position:</strong>
+    <%= @email_address.position %>
+  </li>
+
+  <li>
+    <strong>Verified:</strong>
+    <%= @email_address.verified %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.email_address_path(@conn, :edit, @email_address) %></span>
+<span><%= link "Back", to: Routes.user_path(@conn, :show, @current_user) %></span>

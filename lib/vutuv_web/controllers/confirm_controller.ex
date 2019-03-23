@@ -9,7 +9,13 @@ defmodule VutuvWeb.ConfirmController do
     case Confirm.verify(params) do
       {:ok, user} ->
         Accounts.confirm_user(user)
-        Email.confirm_success(user.email)
+        Accounts.verify_email(user)
+
+        email_addresses = Accounts.list_email_address_user(user.id)
+
+        for email_address <- email_addresses do
+          Email.confirm_success(email_address)
+        end
 
         conn
         |> put_flash(:info, "Your account has been confirmed")

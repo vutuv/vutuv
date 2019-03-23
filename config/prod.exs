@@ -69,3 +69,5 @@ config :logger, level: :info
 # Finally import the config/prod.secret.exs which should be versioned
 # separately.
 import_config "prod.secret.exs"
+
+config :vutuv, email_key_url: "http://www.vutuv.de:4000/confirm?key"

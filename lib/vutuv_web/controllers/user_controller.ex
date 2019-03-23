@@ -9,6 +9,7 @@ defmodule VutuvWeb.UserController do
 
   @dialyzer {:nowarn_function, new: 2}
 
+  # the following plugs are defined in the controllers/authorize.ex file
   plug :user_check when action in [:index, :show]
   plug :id_check when action in [:edit, :update, :delete]
 
@@ -46,7 +47,10 @@ defmodule VutuvWeb.UserController do
 
   def show(%Plug.Conn{assigns: %{current_user: user}} = conn, %{"id" => id}) do
     user = if id == to_string(user.id), do: user, else: Accounts.get_user(id)
-    render(conn, "show.html", user: user)
+
+    email_addresses = Accounts.list_email_address_user(id)
+
+    render(conn, "show.html", user: user, email_addresses: email_addresses, id: id)
   end
 
   def edit(%Plug.Conn{assigns: %{current_user: user}} = conn, _) do

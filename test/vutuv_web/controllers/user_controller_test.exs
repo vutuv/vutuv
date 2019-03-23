@@ -73,6 +73,7 @@ defmodule VutuvWeb.UserControllerTest do
     end
   end
 
+  @tag :skip
   describe "updates user" do
     @tag login: "reg@example.com"
     test "updates chosen user when data is valid", %{conn: conn, user: user} do
