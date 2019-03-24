@@ -37,7 +37,7 @@ defmodule VutuvWeb.SessionControllerTest do
     end
 
     test "login fails for user that is already logged in", %{conn: conn, user: user} do
-      # conn = conn |> add_session(user) |> send_resp(:ok, "/")
+      conn = conn |> add_session(user)
       conn = post(conn, Routes.session_path(conn, :create), session: @create_attrs)
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
     end

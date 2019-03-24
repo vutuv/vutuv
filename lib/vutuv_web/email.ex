@@ -82,13 +82,6 @@ defmodule VutuvWeb.Email do
     |> Mailer.deliver_now()
   end
 
-  def verify_email_request(address, key) do
-    prep_mail(address)
-    |> subject("Verify your email")
-    |> text_body("Verify your email here #{Application.get_env(:vutuv, :email_url)}=#{key}")
-    |> Mailer.deliver_now()
-  end
-
   defp prep_mail(address) do
     new_email()
     |> to(address)

@@ -13,7 +13,6 @@ defmodule Vutuv.Accounts do
   Returns the list of users.
   """
   @spec list_users() :: [User.t()]
-  # def list_users, do: Repo.all(User)
   def list_users() do
     Repo.all(
       from u in User,
@@ -26,7 +25,6 @@ defmodule Vutuv.Accounts do
   Gets a single user.
   """
   @spec get_user(integer) :: User.t() | nil
-  # def get_user(id), do: Repo.get(User, id)
   def get_user(id) do
     Repo.one(
       from u in User,
@@ -112,6 +110,12 @@ defmodule Vutuv.Accounts do
   @spec confirm_user(User.t()) :: {:ok, User.t()} | changeset_error
   def confirm_user(%User{} = user) do
     user |> User.confirm_changeset() |> Repo.update()
+
+    email_address = hd(user.email_addresses)
+
+    email_address
+    |> EmailAddress.verify_changeset()
+    |> Repo.update()
   end
 
   @doc """
@@ -170,8 +174,6 @@ defmodule Vutuv.Accounts do
 
   @spec list_email_address_user(integer) :: [String.t()] | nil
   def list_email_address_user(user_id) do
-    # user = get_by(%{"user_id" => userid})
-    # user_id = user.id
     query =
       from e in EmailAddress,
         select: e.value,
@@ -267,15 +269,6 @@ defmodule Vutuv.Accounts do
   @spec change_user(EmailAddress.t()) :: Ecto.Changeset.t()
   def change_email_address(%EmailAddress{} = email_address) do
     EmailAddress.changeset(email_address, %{})
-  end
-
-  @spec verify_email(User.t()) :: {:ok, EmailAddress.t()} | changeset_error
-  def verify_email(%User{} = user) do
-    email_address = hd(user.email_addresses)
-
-    email_address
-    |> EmailAddress.verify_changeset()
-    |> Repo.update()
   end
 
   defp check_user_id(userid) do
