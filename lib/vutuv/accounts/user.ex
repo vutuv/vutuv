@@ -3,11 +3,10 @@ defmodule Vutuv.Accounts.User do
 
   import Ecto.Changeset
 
-  alias Vutuv.{Sessions.Session, Socials.Post}
+  alias Vutuv.{Sessions.Session, Socials.Post, Accounts.EmailAddress}
 
   @type t :: %__MODULE__{
           id: integer,
-          email: String.t(),
           password_hash: String.t(),
           confirmed_at: DateTime.t() | nil,
           reset_sent_at: DateTime.t() | nil,
@@ -18,31 +17,31 @@ defmodule Vutuv.Accounts.User do
         }
 
   schema "users" do
-    field :email, :string
     field :password, :string, virtual: true
     field :password_hash, :string
     field :confirmed_at, :utc_datetime
     field :reset_sent_at, :utc_datetime
     has_many :posts, Post, on_delete: :delete_all
     has_many :sessions, Session, on_delete: :delete_all
+    has_many :email_addresses, EmailAddress, on_delete: :delete_all
 
     timestamps()
   end
 
   def changeset(%__MODULE__{} = user, attrs) do
     user
-    |> cast(attrs, [:email])
-    |> validate_required([:email])
-    |> unique_email
+    |> cast(attrs, [:password])
+    |> validate_required([:password])
+    |> cast_assoc(:email_addresses)
   end
 
   def create_changeset(%__MODULE__{} = user, attrs) do
     user
-    |> cast(attrs, [:email, :password])
-    |> validate_required([:email, :password])
-    |> unique_email
+    |> cast(attrs, [:password])
+    |> validate_required([:password])
     |> validate_password(:password)
     |> put_pass_hash
+    |> cast_assoc(:email_addresses)
   end
 
   def confirm_changeset(%__MODULE__{} = user) do
@@ -55,12 +54,6 @@ defmodule Vutuv.Accounts.User do
 
   def password_updated_changeset(user) do
     change(user, %{reset_sent_at: nil})
-  end
-
-  defp unique_email(changeset) do
-    validate_format(changeset, :email, ~r/@/)
-    |> validate_length(:email, max: 254)
-    |> unique_constraint(:email)
   end
 
   # In the function below, strong_password? just checks that the password

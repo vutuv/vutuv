@@ -1,12 +1,14 @@
 defmodule Vutuv.AccountsTest do
   use Vutuv.DataCase
 
-  alias Vutuv.Accounts
-  alias Vutuv.Accounts.User
+  import VutuvWeb.AuthCase
 
-  @create_attrs %{email: "fred@example.com", password: "reallyHard2gue$$"}
-  @update_attrs %{email: "frederick@example.com"}
-  @invalid_attrs %{email: "", password: ""}
+  alias Vutuv.Accounts
+  alias Vutuv.Accounts.{User, EmailAddress}
+
+  @create_attrs %{"email" => "fred@example.com", "password" => "reallyHard2gue$$"}
+  @update_attrs %{"email" => "frederick@example.com", "password" => "reallyHard2gue$$"}
+  @invalid_attrs %{"email" => "", "password" => ""}
 
   def fixture(:user, attrs \\ @create_attrs) do
     {:ok, user} = Accounts.create_user(attrs)
@@ -33,7 +35,8 @@ defmodule Vutuv.AccountsTest do
   describe "write user data" do
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Accounts.create_user(@create_attrs)
-      assert user.email == "fred@example.com"
+      email_address = hd(user.email_addresses)
+      assert email_address.value == "fred@example.com"
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -44,7 +47,8 @@ defmodule Vutuv.AccountsTest do
       user = fixture(:user)
       assert {:ok, user} = Accounts.update_user(user, @update_attrs)
       assert %User{} = user
-      assert user.email == "frederick@example.com"
+      email_address = hd(user.email_addresses)
+      assert email_address.value == "fred@example.com"
     end
 
     test "update_user/2 with invalid data returns error changeset" do
@@ -72,6 +76,42 @@ defmodule Vutuv.AccountsTest do
       user = fixture(:user)
       assert {:ok, %User{}} = Accounts.delete_user(user)
       refute Accounts.get_user(user.id)
+    end
+  end
+
+  describe "email_addresses" do
+    alias Vutuv.Accounts.EmailAddress
+
+    @valid_email_attrs %{
+      "is_public" => "true",
+      "description" => "some description",
+      "position" => "",
+      "value" => "abcdef@vutuv.com",
+      "user_id" => "1",
+      "verified" => "true"
+    }
+    @update_email_attrs %{
+      is_public: false,
+      description: "abcde@gmail.com",
+      position: 43,
+      user_id: 43,
+      value: "abcde@vutuv.com",
+      verified: false
+    }
+    @invalid_email_attrs %{
+      is_public: nil,
+      description: nil,
+      position: nil,
+      user_id: nil,
+      value: nil,
+      verified: nil
+    }
+
+    setup do
+      user = add_user("abcde@vutuv.com")
+      %{@valid_email_attrs | "user_id" => user.id}
+      {:ok, email_address} = Accounts.create_email_address(@valid_email_attrs)
+      {:ok, %{email_address: email_address}}
     end
   end
 end
