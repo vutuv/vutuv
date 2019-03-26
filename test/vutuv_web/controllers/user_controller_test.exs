@@ -37,7 +37,7 @@ defmodule VutuvWeb.UserControllerTest do
   describe "renders forms" do
     test "renders form for new users", %{conn: conn} do
       conn = get(conn, Routes.user_path(conn, :new))
-      assert html_response(conn, 200) =~ "New User"
+      assert html_response(conn, 200) =~ "Sign up"
     end
 
     @tag login: "reg@example.com"
@@ -69,7 +69,7 @@ defmodule VutuvWeb.UserControllerTest do
 
     test "does not create user and renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: @invalid_attrs)
-      assert html_response(conn, 200) =~ "New User"
+      assert html_response(conn, 200) =~ "Sign up"
     end
   end
 

@@ -10,7 +10,15 @@
   <body class="splash">
     <div class="bg">
       <div class="v-bg size-10">
-        <img src="<%= Routes.static_path(@conn, "/images/vutuv_01.svg") %>" alt="Vutuv logo"/>
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
+        <svg width="117.79px" height="116.68px" enable-background="new 0 34.51 117.793 116.68" version="1.1" viewBox="0 34.51 117.79 116.68" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+        <linearGradient id="a" x1="58.897" x2="58.897" y1="151.19" y2="34.51" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#fff" stop-opacity="0" offset="0"/>
+                <stop stop-color="#fff" offset="1"/>
+        </linearGradient>
+        <path d="m45.208 151.19c-7.572-14.789-15.247-32.092-23.024-51.918-7.778-19.824-15.175-41.396-22.184-64.761h35.048c1.479 5.916 3.224 12.17 5.236 18.766l6.256 20.408 6.479 20.055c2.159 6.506 4.275 12.422 6.345 17.745l6.212-17.745 6.565-20.055 6.255-20.408c2.014-6.713 3.757-12.969 5.236-18.766h34.161c-6.979 23.365-14.373 44.958-22.184 64.783-7.809 19.825-15.484 37.107-23.018 51.896h-27.383z" fill="url(#a)"/>
+        </svg>
       </div>
       <div class="circles">
       </div>

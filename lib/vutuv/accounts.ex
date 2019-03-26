@@ -61,20 +61,16 @@ defmodule Vutuv.Accounts do
   """
   @spec create_user(map) :: {:ok, User.t()} | changeset_error
   def create_user(attrs) do
-    user =
-      %User{}
-      |> User.create_changeset(attrs)
+    user = User.create_changeset(%User{}, attrs)
 
     email =
-      %EmailAddress{}
-      |> EmailAddress.changeset(%{
+      EmailAddress.changeset(%EmailAddress{}, %{
         value: attrs["email"],
         position: 1,
         description: "email when registering vutuv"
       })
 
     user_with_email = Ecto.Changeset.put_assoc(user, :email_addresses, [email])
-
     Repo.insert(user_with_email)
   end
 
