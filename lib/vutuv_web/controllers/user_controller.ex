@@ -18,7 +18,7 @@ defmodule VutuvWeb.UserController do
     render(conn, "index.html", users: users)
   end
 
-  def new(%Plug.Conn{assigns: %{current_user: %User{} = user}} = conn, _opts) do
+  def new(%Plug.Conn{assigns: %{current_user: %User{} = user}} = conn, _) do
     redirect(conn, to: Routes.user_path(conn, :show, user))
   end
 

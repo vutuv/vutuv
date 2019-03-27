@@ -4,7 +4,7 @@ defmodule Vutuv.AccountsTest do
   import VutuvWeb.AuthCase
 
   alias Vutuv.Accounts
-  alias Vutuv.Accounts.{User, EmailAddress}
+  alias Vutuv.Accounts.{EmailAddress, User}
 
   @create_attrs %{"email" => "fred@example.com", "password" => "reallyHard2gue$$"}
   @update_attrs %{"email" => "frederick@example.com", "password" => "reallyHard2gue$$"}
@@ -80,8 +80,6 @@ defmodule Vutuv.AccountsTest do
   end
 
   describe "email_addresses" do
-    alias Vutuv.Accounts.EmailAddress
-
     @valid_email_attrs %{
       "is_public" => "true",
       "description" => "some description",

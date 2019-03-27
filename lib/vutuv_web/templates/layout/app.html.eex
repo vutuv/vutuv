@@ -4,33 +4,39 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Vutuv business network</title>
+    <title>Vutuv social network</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
-  <body>
-    <header>
-      <section class="container">
-        <nav role="navigation">
-          <ul>
-              <%= if @current_user do %>
-              <li><a href="<%= Routes.user_path(@conn, :show, @current_user) %>">My Profile</a></li>
-              <li><%= link "Logout", to: Routes.session_path(@conn, :delete, current_session(@conn)), method: :delete %></li>
-              <% else %>
-              <li><a href="<%= Routes.user_path(@conn, :new) %>">New user</a></li>
-              <li><a href="<%= Routes.session_path(@conn, :new) %>">Login</a></li>
-              <% end %>
-          </ul>
-        </nav>
-        <a href="http://phoenixframework.org/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
-        </a>
-      </section>
-    </header>
-    <main role="main" class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-      <%= render @view_module, @view_template, assigns %>
-    </main>
+  <body class="splash">
+    <div class="bg">
+      <div class="v-bg size-10">
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
+        <svg width="117.79px" height="116.68px" enable-background="new 0 34.51 117.793 116.68" version="1.1" viewBox="0 34.51 117.79 116.68" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+        <linearGradient id="a" x1="58.897" x2="58.897" y1="151.19" y2="34.51" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#fff" stop-opacity="0" offset="0"/>
+                <stop stop-color="#fff" offset="1"/>
+        </linearGradient>
+        <path d="m45.208 151.19c-7.572-14.789-15.247-32.092-23.024-51.918-7.778-19.824-15.175-41.396-22.184-64.761h35.048c1.479 5.916 3.224 12.17 5.236 18.766l6.256 20.408 6.479 20.055c2.159 6.506 4.275 12.422 6.345 17.745l6.212-17.745 6.565-20.055 6.255-20.408c2.014-6.713 3.757-12.969 5.236-18.766h34.161c-6.979 23.365-14.373 44.958-22.184 64.783-7.809 19.825-15.484 37.107-23.018 51.896h-27.383z" fill="url(#a)"/>
+        </svg>
+      </div>
+      <div class="circles">
+      </div>
+    </div>
+
+    <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+    <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    <%= render @view_module, @view_template, assigns %>
+
+    <footer>
+      <div class="container">
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Data privacy</a></li>
+          <li><a href="#">Imprint</a></li>
+        </ul>
+      </div>
+    </footer>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
