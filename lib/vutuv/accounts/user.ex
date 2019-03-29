@@ -3,7 +3,7 @@ defmodule Vutuv.Accounts.User do
 
   import Ecto.Changeset
 
-  alias Vutuv.{Sessions.Session, Socials.Post, Accounts.EmailAddress}
+  alias Vutuv.{Sessions.Session, Socials.Post, Accounts.EmailAddress, Biographies.Profile}
 
   @type t :: %__MODULE__{
           id: integer,
@@ -12,6 +12,8 @@ defmodule Vutuv.Accounts.User do
           reset_sent_at: DateTime.t() | nil,
           posts: %Ecto.Association.NotLoaded{} | [Post.t()],
           sessions: %Ecto.Association.NotLoaded{} | [Session.t()],
+          email_addresses: %Ecto.Association.NotLoaded{} | [EmailAddress.t()],
+          profile: %Ecto.Association.NotLoaded{} | [Profile.t()],
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
         }
@@ -24,6 +26,7 @@ defmodule Vutuv.Accounts.User do
     has_many :posts, Post, on_delete: :delete_all
     has_many :sessions, Session, on_delete: :delete_all
     has_many :email_addresses, EmailAddress, on_delete: :delete_all
+    has_one :profile, Profile, on_delete: :delete_all
 
     timestamps()
   end
