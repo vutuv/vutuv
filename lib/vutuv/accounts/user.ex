@@ -13,7 +13,7 @@ defmodule Vutuv.Accounts.User do
           posts: %Ecto.Association.NotLoaded{} | [Post.t()],
           sessions: %Ecto.Association.NotLoaded{} | [Session.t()],
           email_addresses: %Ecto.Association.NotLoaded{} | [EmailAddress.t()],
-          profile: %Ecto.Association.NotLoaded{} | [Profile.t()],
+          profile: %Ecto.Association.NotLoaded{} | Profile.t(),
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
         }

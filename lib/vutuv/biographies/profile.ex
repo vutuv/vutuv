@@ -84,12 +84,8 @@ defmodule Vutuv.Biographies.Profile do
     last_name = get_field(changeset, :last_name)
 
     if first_name || last_name do
-      # No error if any of those 2 are present.
-      #
       changeset
     else
-      # All the 2 fields are nil.
-      #
       message = "First name or last name must be present"
 
       changeset
