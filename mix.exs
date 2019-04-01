@@ -43,7 +43,9 @@ defmodule Vutuv.MixProject do
       {:phauxth, "~> 2.1.0"},
       {:argon2_elixir, "~> 2.0"},
       {:bamboo, "~> 1.1"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:arc, "~> 0.11.0"},
+      {:arc_ecto, git: "https://github.com/hendri-tobing/arc_ecto.git"}
     ]
   end
 

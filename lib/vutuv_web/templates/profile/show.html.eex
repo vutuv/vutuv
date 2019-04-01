@@ -1,10 +1,6 @@
-<h2>Show User</h2>
+<h1>Show Profile</h1>
 
-<p>User ID: <%= @id %></p>
-
-<div>
-<h3>Profile</h3>
-  <ul>
+<ul>
   <li>
     <strong>First name:</strong>
     <%= @profile.first_name %>
@@ -82,20 +78,5 @@
 
 </ul>
 
-  <span><%= link "Edit Profile", to: Routes.profile_path(@conn, :edit, @user) %></span><br>
-</div>
-
-<div>
-<h3>Email Address</h3>
-
-<%= for email_address <- @email_addresses do %>
-  <tr>
-      <td><%= email_address %></td>
-  </tr>
-<% end %>
-
-
-<span><%= link "Edit_email", to: Routes.email_address_path(@conn, :edit, @user) %></span><br>
-<span><%= link "New Email address", to: Routes.email_address_path(@conn, :new) %></span>
-
-</div>
+<span><%= link "Edit", to: Routes.profile_path(@conn, :edit, @profile) %></span>
+<span><%= link "Back", to: Routes.user_path(@conn, :show, @current_user) %></span>

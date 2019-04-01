@@ -26,6 +26,10 @@ defmodule Vutuv.DataCase do
   end
 
   setup tags do
+    on_exit(fn ->
+      Vutuv.FileCase.remove_test_files()
+    end)
+
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Vutuv.Repo)
 
     unless tags[:async] do

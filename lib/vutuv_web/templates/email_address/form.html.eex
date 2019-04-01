@@ -5,9 +5,7 @@
     </div>
   <% end %>
 
-  <%= label f, :user_id %>
-  <%= number_input f, :user_id, value: @current_user.id  %>
-  <%= error_tag f, :user_id %>
+  <%= hidden_input f, :user_id, value: @current_user.id  %>
 
   <%= label f, :value %>
   <%= text_input f, :value %>

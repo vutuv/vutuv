@@ -58,7 +58,7 @@ defmodule VutuvWeb.Email do
   def reset_request(address, key) do
     prep_mail(address)
     |> subject("Reset your password")
-    |> text_body("Reset your password at http://www.example.com/password_resets/edit?key=#{key}")
+    |> text_body("Reset your password at #{Application.get_env(:vutuv, :email_reset_url)}=#{key}")
     |> Mailer.deliver_now()
   end
 

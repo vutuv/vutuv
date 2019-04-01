@@ -5,49 +5,62 @@
     </div>
   <% end %>
 
+
   <fieldset>
+  <legend>Sign up</legend>
+
     <div class="form-group">
     <%= label f, :email, class: "sr-only" %>
-    <%= text_input f, :email, [placeholder: "Email"] %>
+    <%= text_input f, :email, [class: "form-control", placeholder: "Email"] %>
     <%= error_tag f, :email %>
     </div>
 
     <%= if @action == "/users" do %>
     <div class="form-group">
       <%= label f, :password, class: "sr-only" %>
-      <%= password_input f, :password, [placeholder: "Password"] %>
+      <%= password_input f, :password, [class: "form-control", placeholder: "Password"] %>
       <%= error_tag f, :password %>
     </div>
     <% end %>
-
-    <div class="form-group">
-    <%= label f, :first_name, class: "sr-only" %>
-    <%= text_input f, :first_name, [placeholder: "First name"] %>
-    <%= error_tag f, :first_name %>
-    </div>
-
-    <div class="form-group">
-    <%= label f, :last_name, class: "sr-only" %>
-    <%= text_input f, :last_name, [placeholder: "Last name"] %>
-    <%= error_tag f, :last_name %>
+    <div class="row row-tight">
+      <div class="col-sm-6">
+        <div class="form-group">
+        <%= label f, :first_name, class: "sr-only" %>
+        <%= text_input f, :first_name, [class: "form-control", placeholder: "First name"] %>
+        <%= error_tag f, :first_name %>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+        <%= label f, :last_name, class: "sr-only" %>
+        <%= text_input f, :last_name, [class: "form-control", placeholder: "Last name"] %>
+        <%= error_tag f, :last_name %>
+        </div>
+      </div>
     </div>
 
     <div class="form-group">
     <%= label f, :gender, class: "sr-only" %>
-    <%= select f, :gender, ["Gender": "", "Female": "female", "Male": "male", "Other": "other"] %>
+    <%= select f, :gender, ["Gender": "", "Female": "female", "Male": "male", "Other": "other"], [class: "form-control"] %>
     <%= error_tag f, :gender %>
     </div>
 
     <div class="row row-tight">
       <div class="col-md-6">
-        <%= submit "Sign up" %>
+        <div class="form-group">
+        <%= submit "Sign up", [class: "btn btn-primary btn-block"] %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <p class="text-center">
+          Already signed up? <br />
+          <span><%= link "Login here", to: Routes.session_path(@conn, :new) %></span>
+        </p>
+      </div>
+      <div class="footer">
+        We store your data in our database and use cookies
       </div>
     </div>
-    <div class="col-md-6">
-      <p class="text-center">
-        Already signed up? <br />
-        <span><%= link "Login here", to: Routes.session_path(@conn, :new) %></span>
-      </p>
-    </div>
+
   <fieldset>
 <% end %>

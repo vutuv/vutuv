@@ -34,6 +34,11 @@
           <li><a href="#">About</a></li>
           <li><a href="#">Data privacy</a></li>
           <li><a href="#">Imprint</a></li>
+          <%= if @current_user do %>
+          <li><a href="<%= Routes.user_path(@conn, :show, @current_user) %>">My Profile</a></li>
+          <li><%= link "Logout", to: Routes.session_path(@conn, :delete, current_session(@conn)), method: :delete %></li>
+          <% else %>
+          <% end %>
         </ul>
       </div>
     </footer>

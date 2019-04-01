@@ -70,8 +70,23 @@ defmodule Vutuv.Accounts do
         description: "email when registering vutuv"
       })
 
+    profile_attrs = %{
+      first_name: attrs["first_name"],
+      last_name: attrs["last_name"],
+      gender: attrs["gender"]
+    }
+
     user_with_email = Ecto.Changeset.put_assoc(user, :email_addresses, [email])
-    Repo.insert(user_with_email)
+
+    case Repo.insert(user_with_email) do
+      {:ok, new_user} ->
+        user_with_profile = Ecto.build_assoc(new_user, :profile, profile_attrs)
+        Repo.insert(user_with_profile)
+        {:ok, new_user}
+
+      {:error, changeset} ->
+        {:error, changeset}
+    end
   end
 
   @doc """
