@@ -28,7 +28,6 @@ defmodule Vutuv.Biographies.Profile do
           updated_at: DateTime.t()
         }
 
-  @timestamps_opts [type: :naive_datetime, usec: false]
   schema "profiles" do
     belongs_to :user, User
     field :first_name, :string

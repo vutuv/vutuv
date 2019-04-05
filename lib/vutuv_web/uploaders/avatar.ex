@@ -30,12 +30,6 @@ defmodule Vutuv.Avatar do
     "#{Application.get_env(:vutuv, :default_dir)}default_#{version}.png"
   end
 
-  defp validate_file(nil), do: nil
-
-  defp validate_file(path) do
-    if File.exists?(path), do: path, else: nil
-  end
-
   def validate({file, _}) do
     file_extension = file.file_name |> Path.extname() |> String.downcase()
     Enum.member?(@extension_whitelist, file_extension)
