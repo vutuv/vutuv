@@ -25,7 +25,7 @@ defmodule VutuvWeb.EmailTest do
   test "sends reset password request email", %{email: email, key: key} do
     sent_email = Email.reset_request(email, key)
     assert sent_email.subject =~ "Reset your password"
-    assert sent_email.text_body =~ "password at http://www.example.com/password_resets/edit?key="
+    assert sent_email.text_body =~ "password at #{Application.get_env(:vutuv, :email_reset_url)}="
     assert_delivered_email(Email.reset_request(email, key))
   end
 

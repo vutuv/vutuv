@@ -21,6 +21,7 @@ defmodule VutuvWeb.Router do
     get "/password_resets/edit", PasswordResetController, :edit
     put "/password_resets/update", PasswordResetController, :update
     resources "/email_addresses", EmailAddressController
+    resources "/profile", ProfileController, except: [:new]
   end
 
   if Mix.env() == :dev do

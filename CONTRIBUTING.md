@@ -110,3 +110,13 @@ on master and resolve any conflicts.
     git checkout <your-topic-branch>
     git rebase master
     ```
+
+## Configure your SMTP setup
+
+The system uses the [Bamboo](https://github.com/thoughtbot/bamboo) email
+library by [thoughtbot](https://thoughtbot.com/) to send emails via SMTP.
+
+### Development
+
+In the development environment emails are not sent to an actual SMTP
+server but displayed in the browser via [Bamboo.EmailPreviewPlug](https://hexdocs.pm/bamboo/Bamboo.EmailPreviewPlug.html). To see which emails have been sent, visit [http://localhost:4000/sent_emails](http://localhost:4000/sent_emails)

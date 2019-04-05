@@ -22,3 +22,10 @@ config :argon2_elixir, t_cost: 1, m_cost: 8
 
 # Mailer test configuration
 config :vutuv, VutuvWeb.Mailer, adapter: Bamboo.TestAdapter
+
+# Arc test configuration
+config :arc, storage: Arc.Storage.Local
+
+config :vutuv,
+  storage_dir: "uploads/test/",
+  default_dir: "assets/static/images/avatars/test/"

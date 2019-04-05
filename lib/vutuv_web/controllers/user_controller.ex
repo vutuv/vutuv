@@ -4,7 +4,7 @@ defmodule VutuvWeb.UserController do
   import VutuvWeb.Authorize
 
   alias Phauxth.Log
-  alias Vutuv.{Accounts, Accounts.User}
+  alias Vutuv.{Accounts, Accounts.User, Biographies}
   alias VutuvWeb.{Auth.Token, Email}
 
   @dialyzer {:nowarn_function, new: 2}
@@ -49,8 +49,14 @@ defmodule VutuvWeb.UserController do
     user = if id == to_string(user.id), do: user, else: Accounts.get_user(id)
 
     email_addresses = Accounts.list_email_address_user(id)
+    profile = Biographies.get_profile_user(id)
 
-    render(conn, "show.html", user: user, email_addresses: email_addresses, id: id)
+    render(conn, "show.html",
+      user: user,
+      email_addresses: email_addresses,
+      id: id,
+      profile: profile
+    )
   end
 
   def edit(%Plug.Conn{assigns: %{current_user: user}} = conn, _) do

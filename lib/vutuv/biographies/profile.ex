@@ -1,5 +1,6 @@
 defmodule Vutuv.Biographies.Profile do
   use Ecto.Schema
+  use Arc.Ecto.Schema
   import Ecto.Changeset
 
   alias Vutuv.Accounts.User
@@ -38,7 +39,7 @@ defmodule Vutuv.Biographies.Profile do
     field :birthday_month, :integer
     field :birthday_year, :integer
     field :active_slug, :string
-    field :avatar, :string
+    field :avatar, Vutuv.Avatar.Type
     field :headline, :string
     field :honorific_prefix, :string
     field :honorific_suffix, :string
@@ -63,11 +64,11 @@ defmodule Vutuv.Biographies.Profile do
       :birthday_month,
       :birthday_year,
       :locale,
-      :avatar,
       :active_slug,
       :headline,
       :noindex?
     ])
+    |> cast_attachments(attrs, [:avatar])
     |> validate_required([:gender])
     |> validate_first_name_or_last_name(attrs)
     |> validate_length(:first_name, max: 80)

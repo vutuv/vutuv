@@ -40,6 +40,15 @@ defmodule Vutuv.Biographies do
   @spec get_profile(integer) :: Profile.t() | nil
   def get_profile(id), do: Repo.get(Profile, id)
 
+  @spec get_profile_user(integer) :: Profile.t() | nil
+  def get_profile_user(user_id) do
+    query =
+      from p in Profile,
+        where: p.user_id == ^user_id
+
+    Repo.one(query)
+  end
+
   @doc """
   Creates a profile.
 

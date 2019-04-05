@@ -28,7 +28,6 @@
         </ul>
       </div>
       <div class="col-md-6 order-2">
-        <legend>Sign up</legend>
         <div class="login">
           <%= render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create)) %>
         </div>

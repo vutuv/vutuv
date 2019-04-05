@@ -8,7 +8,7 @@ defmodule Vutuv.BiographiesTest do
 
     @valid_attrs %{
       active_slug: "some active_slug",
-      avatar: "some avatar",
+      avatar: %Plug.Upload{path: "test/fixtures/elixir_logo.png", filename: "elixir_logo.png"},
       birthday_day: 42,
       birthday_month: 42,
       birthday_year: 42,
@@ -25,7 +25,7 @@ defmodule Vutuv.BiographiesTest do
     }
     @update_attrs %{
       active_slug: "some updated active_slug",
-      avatar: "some updated avatar",
+      avatar: %Plug.Upload{path: "test/fixtures/cool_photo.png", filename: "cool_photo.png"},
       birthday_day: 43,
       birthday_month: 43,
       birthday_year: 43,
@@ -78,10 +78,15 @@ defmodule Vutuv.BiographiesTest do
     end
 
     test "create_profile/1 with valid data creates a profile" do
-      assert {:ok, %Profile{} = profile} = Biographies.create_profile(@valid_attrs)
+      assert {:ok, profile} = Biographies.create_profile(@valid_attrs)
       assert profile.active_slug == "some active_slug"
-      assert profile.avatar == "some avatar"
-      assert profile.birthday_day == 42
+
+      assert profile.avatar == %{
+               file_name: "elixir_logo.png",
+               updated_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
+             }
+
+      assert(profile.birthday_day == 42)
       assert profile.birthday_month == 42
       assert profile.birthday_year == 42
       assert profile.first_name == "some first_name"
@@ -104,7 +109,12 @@ defmodule Vutuv.BiographiesTest do
       profile = profile_fixture()
       assert {:ok, %Profile{} = profile} = Biographies.update_profile(profile, @update_attrs)
       assert profile.active_slug == "some updated active_slug"
-      assert profile.avatar == "some updated avatar"
+
+      assert profile.avatar == %{
+               file_name: "cool_photo.png",
+               updated_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
+             }
+
       assert profile.birthday_day == 43
       assert profile.birthday_month == 43
       assert profile.birthday_year == 43
@@ -124,12 +134,6 @@ defmodule Vutuv.BiographiesTest do
       profile = profile_fixture()
       assert {:error, %Ecto.Changeset{}} = Biographies.update_profile(profile, @invalid_attrs)
       assert profile == Biographies.get_profile(profile.id)
-    end
-
-    test "delete_profile/1 deletes the profile" do
-      profile = profile_fixture()
-      assert {:ok, %Profile{}} = Biographies.delete_profile(profile)
-      refute Biographies.get_profile(profile.id)
     end
 
     test "change_profile/1 returns a profile changeset" do
