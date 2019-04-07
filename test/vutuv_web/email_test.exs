@@ -2,7 +2,7 @@ defmodule VutuvWeb.EmailTest do
   use ExUnit.Case
   use Bamboo.Test
 
-  import VutuvWeb.AuthCase
+  import VutuvWeb.AuthTestHelpers
   alias VutuvWeb.Email
 
   setup do

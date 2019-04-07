@@ -10,10 +10,10 @@ defmodule Vutuv.Accounts.User do
           password_hash: String.t(),
           confirmed_at: DateTime.t() | nil,
           reset_sent_at: DateTime.t() | nil,
-          posts: %Ecto.Association.NotLoaded{} | [Post.t()],
-          sessions: %Ecto.Association.NotLoaded{} | [Session.t()],
-          email_addresses: %Ecto.Association.NotLoaded{} | [EmailAddress.t()],
-          profile: %Ecto.Association.NotLoaded{} | Profile.t(),
+          posts: [Post.t()] | %Ecto.Association.NotLoaded{},
+          sessions: [Session.t()] | %Ecto.Association.NotLoaded{},
+          email_addresses: [EmailAddress.t()] | %Ecto.Association.NotLoaded{},
+          profile: Profile.t() | %Ecto.Association.NotLoaded{},
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
         }

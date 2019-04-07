@@ -38,6 +38,8 @@ defmodule Vutuv.MixProject do
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:dialyxir, "~> 1.0.0-rc.3", only: :dev, runtime: false},
+      {:ex_machina, "~> 2.3", only: :test},
+      {:faker, "~> 0.12", only: :test},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:phauxth, "~> 2.1.0"},

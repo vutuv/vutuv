@@ -8,7 +8,7 @@ defmodule Vutuv.Accounts.EmailAddress do
           id: integer,
           value: String.t(),
           user_id: integer,
-          user: %Ecto.Association.NotLoaded{} | User.t(),
+          user: User.t() | %Ecto.Association.NotLoaded{},
           is_public: boolean,
           description: String.t(),
           position: integer,

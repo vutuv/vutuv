@@ -16,6 +16,7 @@ following software first ([asdf-vm is a good version manager](https://github.com
 * Elixir > 1.8
 * nodejs > 6.8.0
 * postgresql
+* ImageMagick (for the `convert` executable)
 
 After cloning the repository, run `mix deps.get` and `(cd assets && npm install)`
 to install dependencies.

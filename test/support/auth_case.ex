@@ -1,4 +1,4 @@
-defmodule VutuvWeb.AuthCase do
+defmodule VutuvWeb.AuthTestHelpers do
   use Phoenix.ConnTest
 
   import Ecto.Changeset
