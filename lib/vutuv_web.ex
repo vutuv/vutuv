@@ -1,7 +1,7 @@
 defmodule VutuvWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
-  as controllers, views, channels and so on.
+  as controllers, views and so on.
 
   This can be used in your application as:
 
@@ -50,13 +50,6 @@ defmodule VutuvWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
-    end
-  end
-
-  def channel do
-    quote do
-      use Phoenix.Channel
-      import VutuvWeb.Gettext
     end
   end
 
