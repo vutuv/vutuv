@@ -1,7 +1,7 @@
 defmodule VutuvWeb.SessionControllerTest do
   use VutuvWeb.ConnCase
 
-  import VutuvWeb.AuthCase
+  import VutuvWeb.AuthTestHelpers
 
   @create_attrs %{"email" => "robin@example.com", "password" => "reallyHard2gue$$"}
   @invalid_attrs %{"email" => "robin@example.com", "password" => "cannotGue$$it"}

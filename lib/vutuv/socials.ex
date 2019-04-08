@@ -54,7 +54,7 @@ defmodule Vutuv.Socials do
   def create_post(user, attrs \\ %{}) do
     user
     |> build_assoc(:posts)
-    |> Post.changeset(attrs)
+    |> Post.create_changeset(attrs)
     |> Repo.insert()
   end
 

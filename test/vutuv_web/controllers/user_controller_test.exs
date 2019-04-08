@@ -1,7 +1,7 @@
 defmodule VutuvWeb.UserControllerTest do
   use VutuvWeb.ConnCase
 
-  import VutuvWeb.AuthCase
+  import VutuvWeb.AuthTestHelpers
   alias Vutuv.Accounts
 
   @create_attrs %{email: "bill@example.com", password: "hard2guess"}

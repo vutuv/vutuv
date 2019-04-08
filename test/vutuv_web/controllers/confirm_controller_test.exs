@@ -1,7 +1,7 @@
 defmodule VutuvWeb.ConfirmControllerTest do
   use VutuvWeb.ConnCase
 
-  import VutuvWeb.AuthCase
+  import VutuvWeb.AuthTestHelpers
 
   setup %{conn: conn} do
     conn = conn |> bypass_through(Vutuv.Router, :browser) |> get("/")

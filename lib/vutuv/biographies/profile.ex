@@ -8,7 +8,7 @@ defmodule Vutuv.Biographies.Profile do
   @type t :: %__MODULE__{
           id: integer,
           user_id: integer,
-          user: %Ecto.Association.NotLoaded{} | User.t(),
+          user: User.t() | %Ecto.Association.NotLoaded{},
           first_name: String.t(),
           last_name: String.t(),
           middlename: String.t(),
@@ -29,7 +29,6 @@ defmodule Vutuv.Biographies.Profile do
         }
 
   schema "profiles" do
-    belongs_to :user, User
     field :first_name, :string
     field :last_name, :string
     field :middlename, :string
@@ -45,6 +44,7 @@ defmodule Vutuv.Biographies.Profile do
     field :honorific_suffix, :string
     field :locale, :string
     field :noindex?, :boolean, default: false
+    belongs_to :user, User
 
     timestamps()
   end

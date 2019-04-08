@@ -1,7 +1,7 @@
 defmodule VutuvWeb.PasswordResetControllerTest do
   use VutuvWeb.ConnCase
 
-  import VutuvWeb.AuthCase
+  import VutuvWeb.AuthTestHelpers
 
   @update_attrs %{email: "gladys@example.com", password: "^hEsdg*F899"}
 

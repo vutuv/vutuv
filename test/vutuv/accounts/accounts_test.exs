@@ -1,7 +1,7 @@
 defmodule Vutuv.AccountsTest do
   use Vutuv.DataCase
 
-  import VutuvWeb.AuthCase
+  import VutuvWeb.AuthTestHelpers
 
   alias Vutuv.Accounts
   alias Vutuv.Accounts.{EmailAddress, User}
