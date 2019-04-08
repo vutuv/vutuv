@@ -5,6 +5,7 @@ defmodule Vutuv.Factory do
 
   def user_factory do
     %Vutuv.Accounts.User{
+      email_addresses: build_list(1, :email_address),
       password_hash: Argon2.hash_pwd_salt("hard2gue$$"),
       confirmed_at: DateTime.truncate(DateTime.utc_now(), :second)
     }
@@ -12,7 +13,6 @@ defmodule Vutuv.Factory do
 
   def email_address_factory do
     %Vutuv.Accounts.EmailAddress{
-      user: build(:user),
       value: sequence(:value, &"email-#{&1}@example.com"),
       is_public: true,
       description: Faker.Company.bs(),
@@ -25,7 +25,6 @@ defmodule Vutuv.Factory do
     %Date{year: year, month: month, day: day} = Faker.Date.date_of_birth(18..59)
 
     %Vutuv.Biographies.Profile{
-      user: build(:user),
       first_name: Faker.Name.first_name(),
       last_name: Faker.Name.last_name(),
       middlename: Faker.Name.first_name(),
@@ -34,12 +33,14 @@ defmodule Vutuv.Factory do
       birthday_day: day,
       birthday_month: month,
       birthday_year: year,
-      active_slug: "",
-      avatar: "",
-      headline: "",
-      honorific_prefix: "",
-      honorific_suffix: "",
-      locale: "",
+      active_slug: Faker.Internet.slug(),
+      # FIXME: riverrun - 2019-04-08
+      # add valid avatar entry
+      # avatar: "",
+      headline: Faker.Company.bs(),
+      honorific_prefix: sequence(:honorific_prefix, ["dr", "mr", "ms"]),
+      honorific_suffix: sequence(:honorific_suffix, ["", "PhD"]),
+      locale: sequence(:locale, ["en", "de"]),
       noindex?: true
     }
   end
