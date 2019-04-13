@@ -7,49 +7,70 @@
 
   <%= hidden_input f, :user_id, value: @current_user.id  %>
 
-  <%= label f, :first_name %>
-  <%= text_input f, :first_name %>
-  <%= error_tag f, :first_name %>
+    <div class="form-group">
+      <%= label f, :first_name, class: "sr-only" %>
+      <%= text_input f, :first_name, [class: "form-control", placeholder: "First name"] %>
+      <%= error_tag f, :first_name %>
+    </div>
+    <div class="form-group">
+      <%= label f, :last_name, class: "sr-only" %>
+      <%= text_input f, :last_name, [class: "form-control", placeholder: "Last name"] %>
+      <%= error_tag f, :last_name %>
+    </div>
 
-  <%= label f, :last_name %>
-  <%= text_input f, :last_name %>
-  <%= error_tag f, :last_name %>
+    <div class="form-group">
+      <%= label f, :middlename, class: "sr-only"  %>
+      <%= text_input f, :middlename, [class: "form-control", placeholder: "Middle Name"]  %>
+      <%= error_tag f, :middlename %>
+    </div>
 
-  <%= label f, :middlename %>
-  <%= text_input f, :middlename %>
-  <%= error_tag f, :middlename %>
 
-  <%= label f, :nickname %>
-  <%= text_input f, :nickname %>
-  <%= error_tag f, :nickname %>
+  <div class="form-group">
+    <%= label f, :nickname, class: "sr-only"  %>
+    <%= text_input f, :nickname, [class: "form-control", placeholder: "Nick Name"] %>
+    <%= error_tag f, :nickname %>
+  </div>
 
-  <%= label f, :honorific_prefix %>
-  <%= text_input f, :honorific_prefix %>
-  <%= error_tag f, :honorific_prefix %>
+  <div class="form-group">
+    <%= label f, :honorific_prefix, class: "sr-only" %>
+    <%= text_input f, :honorific_prefix, [class: "form-control", placeholder: "Honorifix Prefix"] %>
+    <%= error_tag f, :honorific_prefix %>
+  </div>
 
-  <%= label f, :honorific_suffix %>
-  <%= text_input f, :honorific_suffix %>
-  <%= error_tag f, :honorific_suffix %>
+  <div class="form-group">
+    <%= label f, :honorific_suffix, class: "sr-only" %>
+    <%= text_input f, :honorific_suffix, [class: "form-control", placeholder: "Honorifix Suffix"] %>
+    <%= error_tag f, :honorific_suffix %>
+  </div>
 
-  <%= label f, :gender %>
-  <%= text_input f, :gender %>
-  <%= error_tag f, :gender %>
+  <div class="form-group">
+    <%= label f, :gender, class: "sr-only" %>
+    <%= select f, :gender, ["Gender": "", "Female": "female", "Male": "male", "Other": "other"], [class: "form-control"] %>
+    <%= error_tag f, :gender %>
+  </div>
 
-  <%= label f, :birthday_day %>
-  <%= number_input f, :birthday_day %>
-  <%= error_tag f, :birthday_day %>
-
-  <%= label f, :birthday_month %>
-  <%= number_input f, :birthday_month %>
-  <%= error_tag f, :birthday_month %>
-
-  <%= label f, :birthday_year %>
-  <%= number_input f, :birthday_year %>
-  <%= error_tag f, :birthday_year %>
-
-  <%= label f, :locale %>
-  <%= text_input f, :locale %>
-  <%= error_tag f, :locale %>
+  <div class="row row-tight">
+    <div class="form-group">
+      <%= label f, :birthday_day %>
+      <%= select f, :birthday_day, 1..31, [class: "form-control"] %>
+      <%= error_tag f, :birthday_day %>
+    </div>
+    <div class="form-group">
+      <%= label f, :birthday_month %>
+      <%= select f, :birthday_month, 1..12, [class: "form-control"] %>
+      <%= error_tag f, :birthday_month %>
+    </div>
+    <div class="form-group">
+      <%= label f, :birthday_year %>
+      <%= select f, :birthday_year, 1900..2200, [class: "form-control"] %>
+      <%= error_tag f, :birthday_year %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= label f, :locale %>
+    <%= text_input f, :locale, [class: "form-control", placeholder: "Locale"] %>
+    <%= error_tag f, :locale %>
+  </div>
 
   <div class="form-group">
     <%= label f, :avatar, class: "control-label" %>
