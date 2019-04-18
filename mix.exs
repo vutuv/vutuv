@@ -21,7 +21,7 @@ defmodule Vutuv.MixProject do
   def application do
     [
       mod: {Vutuv.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :inets]
     ]
   end
 

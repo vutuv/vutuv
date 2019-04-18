@@ -7,6 +7,8 @@ defmodule Vutuv.Accounts do
 
   alias Vutuv.{Accounts.User, Repo, Sessions, Sessions.Session, Accounts.EmailAddress}
 
+  @dialyzer {:nowarn_function, get_gravatar: 2}
+
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 
   @doc """
@@ -80,9 +82,17 @@ defmodule Vutuv.Accounts do
 
     case Repo.insert(user_with_email) do
       {:ok, new_user} ->
-        user_with_profile = Ecto.build_assoc(new_user, :profile, profile_attrs)
-        Repo.insert(user_with_profile)
-        {:ok, new_user}
+        img = get_gravatar(attrs["email"], new_user.id)
+        profile_attrs_update = Map.put(profile_attrs, :avatar, img)
+        user_with_profile = Ecto.build_assoc(new_user, :profile, profile_attrs_update)
+
+        case Repo.insert(user_with_profile) do
+          {:ok, _} ->
+            {:ok, new_user}
+
+          {:error, changeset} ->
+            {:error, changeset}
+        end
 
       {:error, changeset} ->
         {:error, changeset}
@@ -280,6 +290,49 @@ defmodule Vutuv.Accounts do
   @spec change_user(EmailAddress.t()) :: Ecto.Changeset.t()
   def change_email_address(%EmailAddress{} = email_address) do
     EmailAddress.changeset(email_address, %{})
+  end
+
+  defp get_gravatar(primary_email, userid) do
+    hash =
+      primary_email
+      |> String.trim()
+      |> String.downcase()
+      |> :erlang.md5()
+      |> Base.encode16(case: :lower)
+
+    Application.ensure_all_started(:inets)
+    Application.ensure_all_started(:ssl)
+
+    img = 'https://www.gravatar.com/avatar/#{hash}?s=150&d=404'
+
+    if {:ok, {status, header, body}} = :httpc.request(:get, {img, []}, [], []) do
+      case status do
+        {_, 200, 'OK'} ->
+          create_upload(header, body, userid)
+
+        _ ->
+          nil
+      end
+    end
+  end
+
+  defp create_upload(header, body, userid) do
+    content_type = find_content_type(header) |> to_string
+    filextension = String.replace(content_type, "image/", "")
+    filename = "original.#{filextension}"
+    path = "#{Application.get_env(:vutuv, :storage_dir)}" <> "#{userid}/"
+    File.write(path <> filename, body)
+
+    %{
+      file_name: filename,
+      updated_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
+    }
+  end
+
+  defp find_content_type(header) do
+    Enum.reduce(header, fn {k, v}, acc ->
+      if k == 'Content-Type' or k == 'content-type', do: v, else: acc
+    end)
   end
 
   defp check_user_id(userid) do
