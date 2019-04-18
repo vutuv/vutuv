@@ -85,8 +85,14 @@ defmodule Vutuv.Accounts do
         img = get_gravatar(attrs["email"], new_user.id)
         profile_attrs_update = Map.put(profile_attrs, :avatar, img)
         user_with_profile = Ecto.build_assoc(new_user, :profile, profile_attrs_update)
-        Repo.insert(user_with_profile)
-        {:ok, new_user}
+
+        case Repo.insert(user_with_profile) do
+          {:ok, _} ->
+            {:ok, new_user}
+
+          {:error, changeset} ->
+            {:error, changeset}
+        end
 
       {:error, changeset} ->
         {:error, changeset}
@@ -301,25 +307,26 @@ defmodule Vutuv.Accounts do
 
     if {:ok, {status, header, body}} = :httpc.request(:get, {img, []}, [], []) do
       case status do
-        {_, 404, 'Not Found'} ->
-          nil
-
         {_, 200, 'OK'} ->
-          content_type = find_content_type(header) |> to_string
-          filextension = String.replace(content_type, "image/", "")
-          filename = "original.#{filextension}"
-          path = "#{Application.get_env(:vutuv, :storage_dir)}" <> "#{userid}/"
-          File.write(path <> filename, body)
+          create_upload(header, body, userid)
 
-          _upload = %{
-            file_name: filename,
-            updated_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
-          }
-
-        true ->
+        _ ->
           nil
       end
     end
+  end
+
+  defp create_upload(header, body, userid) do
+    content_type = find_content_type(header) |> to_string
+    filextension = String.replace(content_type, "image/", "")
+    filename = "original.#{filextension}"
+    path = "#{Application.get_env(:vutuv, :storage_dir)}" <> "#{userid}/"
+    File.write(path <> filename, body)
+
+    %{
+      file_name: filename,
+      updated_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
+    }
   end
 
   defp find_content_type(header) do
