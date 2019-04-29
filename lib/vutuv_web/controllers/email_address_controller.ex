@@ -3,6 +3,8 @@ defmodule VutuvWeb.EmailAddressController do
 
   alias Vutuv.{Accounts, Accounts.EmailAddress}
 
+  @dialyzer {:nowarn_function, new: 2}
+
   def index(conn, _params) do
     user = conn.assigns.current_user
 
