@@ -1,11 +1,12 @@
 defmodule VutuvWeb.EmailAddressController do
   use VutuvWeb, :controller
 
-  alias Vutuv.Accounts
-  alias Vutuv.Accounts.EmailAddress
+  alias Vutuv.{Accounts, Accounts.EmailAddress}
 
   def index(conn, _params) do
-    email_addresses = Accounts.list_email_addresses()
+    user = conn.assigns.current_user
+
+    email_addresses = Accounts.list_email_addresses(user)
     render(conn, "index.html", email_addresses: email_addresses)
   end
 
@@ -15,7 +16,9 @@ defmodule VutuvWeb.EmailAddressController do
   end
 
   def create(conn, %{"email_address" => email_address_params}) do
-    case Accounts.create_email_address(email_address_params) do
+    user = conn.assigns.current_user
+
+    case Accounts.create_email_address(user, email_address_params) do
       {:ok, email_address} ->
         conn
         |> put_flash(:info, "Email address created successfully.")

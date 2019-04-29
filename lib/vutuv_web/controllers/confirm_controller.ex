@@ -1,22 +1,14 @@
 defmodule VutuvWeb.ConfirmController do
   use VutuvWeb, :controller
 
-  alias Phauxth.Confirm
   alias Vutuv.Accounts
-  alias VutuvWeb.Email
+  alias VutuvWeb.{Auth.Confirm, Email}
 
   def index(conn, params) do
     case Confirm.verify(params) do
-      {:ok, user} ->
-        Accounts.confirm_user(user)
-
-        email_addresses = Accounts.list_email_address_user(user.id)
-
-        for email_address <- email_addresses do
-          # if email_address.position == "1" or email_address.position == 1 do
-          Email.confirm_success(email_address)
-          # end
-        end
+      {:ok, %{current_email: email} = user} ->
+        Accounts.confirm_user_email(user)
+        Email.confirm_success(email)
 
         conn
         |> put_flash(:info, "Your account has been confirmed")

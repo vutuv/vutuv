@@ -18,12 +18,12 @@ defmodule Vutuv.Accounts.EmailAddress do
         }
 
   schema "email_addresses" do
-    belongs_to :user, User
     field :value, :string
     field :description, :string
     field :is_public, :boolean, default: true
     field :position, :integer
     field :verified, :boolean, default: false
+    belongs_to :user, User
 
     timestamps()
   end
