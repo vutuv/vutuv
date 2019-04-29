@@ -18,7 +18,7 @@ defmodule Vutuv.Factory do
       is_public: true,
       description: Faker.Company.bs(),
       position: 1,
-      verified: true
+      verified: false
     }
   end
 

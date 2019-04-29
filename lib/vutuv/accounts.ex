@@ -91,7 +91,7 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
-  Deletes a User.
+  Deletes a user.
   """
   @spec delete_user(User.t()) :: {:ok, User.t()} | changeset_error
   def delete_user(%User{} = user) do
@@ -108,6 +108,9 @@ defmodule Vutuv.Accounts do
 
   @doc """
   Confirms a user's email.
+
+  This function sets the user's confirmed_at value, and the email_address's
+  verified value, to true.
   """
   @spec confirm_user_email(User.t()) :: {:ok, User.t()} | changeset_error
   def confirm_user_email(%User{confirmed_at: nil} = user) do
@@ -149,7 +152,7 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
-  Returns the list of email_addresses.
+  Returns the list of a user's email_addresses.
   """
   @spec list_email_addresses(User.t()) :: [EmailAddress.t()]
   def list_email_addresses(user) do
@@ -163,15 +166,11 @@ defmodule Vutuv.Accounts do
   def get_email_address(id), do: Repo.get(EmailAddress, id)
 
   @doc """
-  Creates a email_address.
+  Creates an email_address.
   """
   @spec create_email_address(User.t(), map) :: {:ok, EmailAddress.t()} | changeset_error
-  def create_email_address(%User{id: user_id} = user, attrs \\ %{}) do
-    email_count =
-      EmailAddress
-      |> where([e], e.user_id == ^user_id)
-      |> Repo.aggregate(:count, :id)
-
+  def create_email_address(%User{} = user, attrs \\ %{}) do
+    email_count = length(user.email_addresses)
     attrs = Map.put(attrs, "position", email_count + 1)
 
     user
@@ -181,7 +180,7 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
-  Updates a email_address.
+  Updates an email_address.
   """
   @spec update_email_address(EmailAddress.t(), map) :: {:ok, EmailAddress.t()} | changeset_error
   def update_email_address(%EmailAddress{} = email_address, attrs) do
@@ -191,7 +190,7 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
-  Deletes a EmailAddress.
+  Deletes an email_address.
   """
   @spec delete_email_address(EmailAddress.t()) :: {:ok, EmailAddress.t()} | changeset_error
   def delete_email_address(%EmailAddress{} = email_address) do
