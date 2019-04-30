@@ -91,11 +91,10 @@
 <%= for email_address <- @email_addresses do %>
   <tr>
       <td><%= email_address %></td>
+      <td><%= link "Edit_email", to: Routes.user_email_address_path(@conn, :edit, @user, email_address) %></td>
   </tr>
 <% end %>
 
-
-<span><%= link "Edit_email", to: Routes.email_address_path(@conn, :edit, @user) %></span><br>
-<span><%= link "New Email address", to: Routes.email_address_path(@conn, :new) %></span>
+<span><%= link "New Email address", to: Routes.user_email_address_path(@conn, :new, @user) %></span>
 
 </div>

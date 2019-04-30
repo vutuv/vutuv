@@ -15,7 +15,7 @@ defmodule Vutuv.Sessions do
   @spec list_sessions(User.t()) :: [Session.t()]
   def list_sessions(%User{} = user) do
     sessions = Repo.preload(user, :sessions).sessions
-    Enum.filter(sessions, &(&1.expires_at > DateTime.utc_now()))
+    Enum.filter(sessions, &(DateTime.compare(&1.expires_at, DateTime.utc_now()) == :gt))
   end
 
   @doc """

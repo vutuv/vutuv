@@ -1,5 +1,5 @@
-<h1>New Email address</h1>
+<h1>New email address</h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.email_address_path(@conn, :create)) %>
+<%= render "form.html", Map.put(assigns, :action, Routes.user_email_address_path(@conn, :create, @current_user)) %>
 
 <span><%= link "Back", to: Routes.user_path(@conn, :show, @current_user) %></span>
