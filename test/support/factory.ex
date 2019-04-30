@@ -6,6 +6,7 @@ defmodule Vutuv.Factory do
   def user_factory do
     %Vutuv.Accounts.User{
       email_addresses: build_list(1, :email_address),
+      profile: build(:profile),
       password_hash: Argon2.hash_pwd_salt("hard2gue$$"),
       confirmed_at: DateTime.truncate(DateTime.utc_now(), :second)
     }
@@ -17,7 +18,7 @@ defmodule Vutuv.Factory do
       is_public: true,
       description: Faker.Company.bs(),
       position: 1,
-      verified: true
+      verified: false
     }
   end
 

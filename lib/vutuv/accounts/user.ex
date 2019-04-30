@@ -7,6 +7,7 @@ defmodule Vutuv.Accounts.User do
 
   @type t :: %__MODULE__{
           id: integer,
+          current_email: String.t(),
           password_hash: String.t(),
           confirmed_at: DateTime.t() | nil,
           reset_sent_at: DateTime.t() | nil,
@@ -19,6 +20,7 @@ defmodule Vutuv.Accounts.User do
         }
 
   schema "users" do
+    field :current_email, :string, virtual: true
     field :password, :string, virtual: true
     field :password_hash, :string
     field :confirmed_at, :utc_datetime
@@ -33,18 +35,14 @@ defmodule Vutuv.Accounts.User do
 
   def changeset(%__MODULE__{} = user, attrs) do
     user
-    |> cast(attrs, [:password])
-    |> validate_required([:password])
-    |> cast_assoc(:email_addresses)
+    |> cast(attrs, [])
   end
 
   def create_changeset(%__MODULE__{} = user, attrs) do
     user
-    |> cast(attrs, [:password])
-    |> validate_required([:password])
-    |> validate_password(:password)
-    |> put_pass_hash
-    |> cast_assoc(:email_addresses)
+    |> password_hash_changeset(attrs)
+    |> cast_assoc(:email_addresses, required: true)
+    |> cast_assoc(:profile, required: true)
   end
 
   def confirm_changeset(%__MODULE__{} = user) do
@@ -55,14 +53,20 @@ defmodule Vutuv.Accounts.User do
     change(user, %{reset_sent_at: reset_sent_at})
   end
 
-  def password_updated_changeset(user) do
-    change(user, %{reset_sent_at: nil})
+  def update_password_changeset(%__MODULE__{} = user, attrs) do
+    user
+    |> password_hash_changeset(attrs)
+    |> change(%{reset_sent_at: nil})
   end
 
-  # In the function below, strong_password? just checks that the password
-  # is at least 8 characters long.
-  # See the documentation for NotQwerty123.PasswordStrength.strong_password?
-  # for a more comprehensive password strength checker.
+  defp password_hash_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:password])
+    |> validate_required([:password])
+    |> validate_password(:password)
+    |> put_pass_hash()
+  end
+
   defp validate_password(changeset, field, options \\ []) do
     validate_change(changeset, field, fn _, password ->
       case strong_password?(password) do
@@ -72,7 +76,6 @@ defmodule Vutuv.Accounts.User do
     end)
   end
 
-  # If you are using Bcrypt or Pbkdf2, change Argon2 to Bcrypt or Pbkdf2
   defp put_pass_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
     change(changeset, Argon2.add_hash(password))
   end

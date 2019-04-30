@@ -18,12 +18,12 @@ defmodule Vutuv.Accounts.EmailAddress do
         }
 
   schema "email_addresses" do
-    belongs_to :user, User
     field :value, :string
     field :description, :string
     field :is_public, :boolean, default: true
     field :position, :integer
     field :verified, :boolean, default: false
+    belongs_to :user, User
 
     timestamps()
   end
@@ -31,7 +31,7 @@ defmodule Vutuv.Accounts.EmailAddress do
   @doc false
   def changeset(email_address, attrs) do
     email_address
-    |> cast(attrs, [:user_id, :value, :description, :is_public, :position, :verified])
+    |> cast(attrs, [:user_id, :value, :description, :is_public, :position])
     |> validate_required([:value])
     |> validate_format(:value, ~r/^[A-Za-z0-9\._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$/)
     |> validate_length(:value, max: 255)

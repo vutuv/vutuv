@@ -13,12 +13,6 @@ defmodule Vutuv.Biographies do
 
   @doc """
   Returns the list of profiles.
-
-  ## Examples
-
-      iex> list_profiles()
-      [%Profile{}, ...]
-
   """
   @spec list_profiles() :: [Profile.t()]
   def list_profiles do
@@ -27,15 +21,6 @@ defmodule Vutuv.Biographies do
 
   @doc """
   Gets a single profile.
-
-  ## Examples
-
-      iex> get_profile(123)
-      %Profile{}
-
-      iex> get_profile(456)
-      nil
-
   """
   @spec get_profile(integer) :: Profile.t() | nil
   def get_profile(id), do: Repo.get(Profile, id)
@@ -51,15 +36,6 @@ defmodule Vutuv.Biographies do
 
   @doc """
   Creates a profile.
-
-  ## Examples
-
-      iex> create_profile(%{field: value})
-      {:ok, %Profile{}}
-
-      iex> create_profile(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
   """
   @spec create_profile(map) :: {:ok, Profile.t()} | changeset_error
   def create_profile(attrs \\ %{}) do
@@ -70,15 +46,6 @@ defmodule Vutuv.Biographies do
 
   @doc """
   Updates a profile.
-
-  ## Examples
-
-      iex> update_profile(profile, %{field: new_value})
-      {:ok, %Profile{}}
-
-      iex> update_profile(profile, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
   """
   @spec update_profile(Profile.t(), map) :: {:ok, Profile.t()} | changeset_error
   def update_profile(%Profile{} = profile, attrs) do
@@ -89,15 +56,6 @@ defmodule Vutuv.Biographies do
 
   @doc """
   Deletes a Profile.
-
-  ## Examples
-
-      iex> delete_profile(profile)
-      {:ok, %Profile{}}
-
-      iex> delete_profile(profile)
-      {:error, %Ecto.Changeset{}}
-
   """
   @spec delete_profile(Profile.t()) :: {:ok, Profile.t()} | changeset_error
   def delete_profile(%Profile{} = profile) do
@@ -106,12 +64,6 @@ defmodule Vutuv.Biographies do
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking profile changes.
-
-  ## Examples
-
-      iex> change_profile(profile)
-      %Ecto.Changeset{source: %Profile{}}
-
   """
   @spec change_profile(Profile.t()) :: Ecto.Changeset.t()
   def change_profile(%Profile{} = profile) do

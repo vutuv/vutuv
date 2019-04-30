@@ -7,7 +7,14 @@ defmodule VutuvWeb.AuthTestHelpers do
   alias VutuvWeb.Auth.Token
 
   def add_user(email) do
-    user_params = %{"email" => email, "password" => "reallyHard2gue$$"}
+    user_params = %{
+      "email" => email,
+      "password" => "reallyHard2gue$$",
+      "gender" => Enum.random(["female", "male"]),
+      "first_name" => Faker.Name.first_name(),
+      "last_name" => Faker.Name.last_name()
+    }
+
     {:ok, user} = Accounts.create_user(user_params)
     user
   end

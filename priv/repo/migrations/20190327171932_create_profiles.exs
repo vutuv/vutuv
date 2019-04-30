@@ -22,5 +22,7 @@ defmodule Vutuv.Repo.Migrations.CreateProfiles do
 
       timestamps()
     end
+
+    create index(:profiles, [:user_id])
   end
 end

@@ -4,8 +4,13 @@ defmodule VutuvWeb.UserControllerTest do
   import VutuvWeb.AuthTestHelpers
   alias Vutuv.Accounts
 
-  @create_attrs %{email: "bill@example.com", password: "hard2guess"}
-  @update_attrs %{email: "william@example.com"}
+  @create_attrs %{
+    "email" => "bill@example.com",
+    "password" => "reallyHard2gue$$",
+    "gender" => "male",
+    "first_name" => "bill",
+    "last_name" => "shakespeare"
+  }
   @invalid_attrs %{email: nil}
 
   setup %{conn: conn} = config do
@@ -70,28 +75,6 @@ defmodule VutuvWeb.UserControllerTest do
     test "does not create user and renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: @invalid_attrs)
       assert html_response(conn, 200) =~ "Sign up"
-    end
-  end
-
-  @tag :skip
-  describe "updates user" do
-    @tag login: "reg@example.com"
-    test "updates chosen user when data is valid", %{conn: conn, user: user} do
-      conn = put(conn, Routes.user_path(conn, :update, user), user: @update_attrs)
-      assert redirected_to(conn) == Routes.user_path(conn, :show, user)
-      updated_user = Accounts.get_user(user.id)
-      assert updated_user.email == "william@example.com"
-      conn = get(conn, Routes.user_path(conn, :show, user))
-      assert html_response(conn, 200) =~ "william@example.com"
-    end
-
-    @tag login: "reg@example.com"
-    test "does not update chosen user and renders errors when data is invalid", %{
-      conn: conn,
-      user: user
-    } do
-      conn = put(conn, Routes.user_path(conn, :update, user), user: @invalid_attrs)
-      assert html_response(conn, 200) =~ "Edit User"
     end
   end
 

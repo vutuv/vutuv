@@ -4,7 +4,14 @@ defmodule Vutuv.SessionsTest do
   alias Vutuv.{Accounts, Sessions, Sessions.Session}
 
   setup do
-    attrs = %{"email" => "fred@example.com", "password" => "reallyHard2gue$$"}
+    attrs = %{
+      "email" => "fred@example.com",
+      "password" => "reallyHard2gue$$",
+      "gender" => "male",
+      "first_name" => "fred",
+      "last_name" => "frederickson"
+    }
+
     {:ok, user} = Accounts.create_user(attrs)
     {:ok, user: user}
   end

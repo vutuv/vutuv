@@ -2,12 +2,12 @@ defmodule Vutuv.Accounts do
   @moduledoc """
   The Accounts context.
   """
+
   import Ecto
   import Ecto.Query, warn: false
 
-  alias Vutuv.{Accounts.User, Repo, Sessions, Sessions.Session, Accounts.EmailAddress}
-
-  @dialyzer {:nowarn_function, get_gravatar: 2}
+  alias Vutuv.{Repo, Sessions, Sessions.Session}
+  alias Vutuv.Accounts.{EmailAddress, User}
 
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 
@@ -16,11 +16,11 @@ defmodule Vutuv.Accounts do
   """
   @spec list_users() :: [User.t()]
   def list_users() do
-    Repo.all(
-      from u in User,
-        join: e in assoc(u, :email_addresses),
-        preload: [email_addresses: e]
-    )
+    User
+    |> join(:left, [u], _ in assoc(u, :email_addresses))
+    |> join(:left, [u], _ in assoc(u, :profile))
+    |> preload([_, e, p], email_addresses: e, profile: p)
+    |> Repo.all()
   end
 
   @doc """
@@ -28,12 +28,12 @@ defmodule Vutuv.Accounts do
   """
   @spec get_user(integer) :: User.t() | nil
   def get_user(id) do
-    Repo.one(
-      from u in User,
-        where: u.id == ^id,
-        join: e in assoc(u, :email_addresses),
-        preload: [email_addresses: e]
-    )
+    User
+    |> where([u], u.id == ^id)
+    |> join(:left, [u], _ in assoc(u, :email_addresses))
+    |> join(:left, [u], _ in assoc(u, :profile))
+    |> preload([_, e, p], email_addresses: e, profile: p)
+    |> Repo.one()
   end
 
   @doc """
@@ -48,12 +48,10 @@ defmodule Vutuv.Accounts do
   end
 
   def get_by(%{"email" => email}) do
-    Repo.one(
-      from u in User,
-        join: e in assoc(u, :email_addresses),
-        where: e.value == ^email,
-        preload: [email_addresses: e]
-    )
+    case Repo.get_by(EmailAddress, %{value: email}) do
+      %EmailAddress{user_id: user_id} -> get_user(user_id)
+      _ -> nil
+    end
   end
 
   def get_by(%{"user_id" => user_id}), do: Repo.get(User, user_id)
@@ -63,40 +61,23 @@ defmodule Vutuv.Accounts do
   """
   @spec create_user(map) :: {:ok, User.t()} | changeset_error
   def create_user(attrs) do
-    user = User.create_changeset(%User{}, attrs)
-
-    email =
-      EmailAddress.changeset(%EmailAddress{}, %{
-        value: attrs["email"],
-        position: 1,
-        description: "email when registering vutuv"
-      })
-
-    profile_attrs = %{
-      first_name: attrs["first_name"],
-      last_name: attrs["last_name"],
-      gender: attrs["gender"]
+    email_attrs = %{
+      "value" => attrs["email"],
+      "position" => 1,
+      "description" => "email when registering vutuv"
     }
 
-    user_with_email = Ecto.Changeset.put_assoc(user, :email_addresses, [email])
+    profile_attrs = %{
+      "gender" => attrs["gender"],
+      "first_name" => attrs["first_name"],
+      "last_name" => attrs["last_name"]
+    }
 
-    case Repo.insert(user_with_email) do
-      {:ok, new_user} ->
-        img = get_gravatar(attrs["email"], new_user.id)
-        profile_attrs_update = Map.put(profile_attrs, :avatar, img)
-        user_with_profile = Ecto.build_assoc(new_user, :profile, profile_attrs_update)
+    attrs = Map.merge(attrs, %{"email_addresses" => [email_attrs], "profile" => profile_attrs})
 
-        case Repo.insert(user_with_profile) do
-          {:ok, _} ->
-            {:ok, new_user}
-
-          {:error, changeset} ->
-            {:error, changeset}
-        end
-
-      {:error, changeset} ->
-        {:error, changeset}
-    end
+    %User{}
+    |> User.create_changeset(attrs)
+    |> Repo.insert()
   end
 
   @doc """
@@ -110,7 +91,7 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
-  Deletes a User.
+  Deletes a user.
   """
   @spec delete_user(User.t()) :: {:ok, User.t()} | changeset_error
   def delete_user(%User{} = user) do
@@ -127,14 +108,21 @@ defmodule Vutuv.Accounts do
 
   @doc """
   Confirms a user's email.
+
+  This function sets the user's confirmed_at value, and the email_address's
+  verified value, to true.
   """
-  @spec confirm_user(User.t()) :: {:ok, User.t()} | changeset_error
-  def confirm_user(%User{} = user) do
+  @spec confirm_user_email(User.t()) :: {:ok, User.t()} | changeset_error
+  def confirm_user_email(%User{confirmed_at: nil} = user) do
     user |> User.confirm_changeset() |> Repo.update()
+    confirm_email(user)
+  end
 
-    email_address = hd(user.email_addresses)
+  def confirm_user_email(user), do: confirm_email(user)
 
-    email_address
+  defp confirm_email(%User{current_email: email, email_addresses: email_addresses}) do
+    email_addresses
+    |> Enum.find(&(&1.value == email))
     |> EmailAddress.verify_changeset()
     |> Repo.update()
   end
@@ -159,82 +147,31 @@ defmodule Vutuv.Accounts do
     Sessions.delete_user_sessions(user)
 
     user
-    |> User.create_changeset(attrs)
-    |> User.password_updated_changeset()
+    |> User.update_password_changeset(attrs)
     |> Repo.update()
   end
 
   @doc """
-  Returns the list of email_addresses.
-
-  ## Examples
-
-      iex> list_email_addresses()
-      [%EmailAddress{}, ...]
-
+  Returns the list of a user's email_addresses.
   """
-  @spec list_email_addresses() :: [EmailAddress.t()]
-  def list_email_addresses do
-    Repo.all(EmailAddress)
+  @spec list_email_addresses(User.t()) :: [EmailAddress.t()]
+  def list_email_addresses(user) do
+    Repo.all(assoc(user, :email_addresses))
   end
 
   @doc """
   Gets a single email_address.
-
-  ## Examples
-
-      iex> get_email_address(123)
-      %EmailAddress{}
-
-      iex> get_email_address(456)
-      nil
-
   """
   @spec get_email_address(integer) :: EmailAddress.t() | nil
   def get_email_address(id), do: Repo.get(EmailAddress, id)
 
-  @spec list_email_address_user(integer) :: [String.t()] | nil
-  def list_email_address_user(user_id) do
-    query =
-      from e in EmailAddress,
-        select: e.value,
-        where: e.user_id == ^user_id
-
-    Repo.all(query)
-  end
-
   @doc """
-  Creates a email_address.
-
-  ## Examples
-
-      iex> create_email_address(%{field: value})
-      {:ok, %EmailAddress{}}
-
-      iex> create_email_address(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
+  Creates an email_address.
   """
-  @spec create_email_address(map) :: {:ok, EmailAddress.t()} | changeset_error
-  def create_email_address(attrs \\ %{}) do
-    user_id = check_user_id(attrs["user_id"])
-
-    last_email =
-      Repo.one(
-        from e in EmailAddress,
-          order_by: [desc: e.position],
-          where: e.user_id == ^user_id,
-          limit: 1
-      )
-
-    user = get_user(user_id) |> Repo.preload(:email_addresses)
-
-    attrs =
-      if last_email == nil do
-        %{attrs | "position" => 1}
-      else
-        %{attrs | "position" => Integer.to_string(last_email.position + 1)}
-      end
+  @spec create_email_address(User.t(), map) :: {:ok, EmailAddress.t()} | changeset_error
+  def create_email_address(%User{} = user, attrs \\ %{}) do
+    email_count = length(user.email_addresses)
+    attrs = Map.put(attrs, "position", email_count + 1)
 
     user
     |> build_assoc(:email_addresses)
@@ -243,16 +180,7 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
-  Updates a email_address.
-
-  ## Examples
-
-      iex> update_email_address(email_address, %{field: new_value})
-      {:ok, %EmailAddress{}}
-
-      iex> update_email_address(email_address, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
+  Updates an email_address.
   """
   @spec update_email_address(EmailAddress.t(), map) :: {:ok, EmailAddress.t()} | changeset_error
   def update_email_address(%EmailAddress{} = email_address, attrs) do
@@ -262,16 +190,7 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
-  Deletes a EmailAddress.
-
-  ## Examples
-
-      iex> delete_email_address(email_address)
-      {:ok, %EmailAddress{}}
-
-      iex> delete_email_address(email_address)
-      {:error, %Ecto.Changeset{}}
-
+  Deletes an email_address.
   """
   @spec delete_email_address(EmailAddress.t()) :: {:ok, EmailAddress.t()} | changeset_error
   def delete_email_address(%EmailAddress{} = email_address) do
@@ -280,66 +199,9 @@ defmodule Vutuv.Accounts do
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking email_address changes.
-
-  ## Examples
-
-      iex> change_email_address(email_address)
-      %Ecto.Changeset{source: %EmailAddress{}}
-
   """
-  @spec change_user(EmailAddress.t()) :: Ecto.Changeset.t()
+  @spec change_email_address(EmailAddress.t()) :: Ecto.Changeset.t()
   def change_email_address(%EmailAddress{} = email_address) do
     EmailAddress.changeset(email_address, %{})
-  end
-
-  defp get_gravatar(primary_email, userid) do
-    hash =
-      primary_email
-      |> String.trim()
-      |> String.downcase()
-      |> :erlang.md5()
-      |> Base.encode16(case: :lower)
-
-    Application.ensure_all_started(:inets)
-    Application.ensure_all_started(:ssl)
-
-    img = 'https://www.gravatar.com/avatar/#{hash}?s=150&d=404'
-
-    if {:ok, {status, header, body}} = :httpc.request(:get, {img, []}, [], []) do
-      case status do
-        {_, 200, 'OK'} ->
-          create_upload(header, body, userid)
-
-        _ ->
-          nil
-      end
-    end
-  end
-
-  defp create_upload(header, body, userid) do
-    content_type = find_content_type(header) |> to_string
-    filextension = String.replace(content_type, "image/", "")
-    filename = "original.#{filextension}"
-    path = "#{Application.get_env(:vutuv, :storage_dir)}" <> "#{userid}/"
-    File.write(path <> filename, body)
-
-    %{
-      file_name: filename,
-      updated_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
-    }
-  end
-
-  defp find_content_type(header) do
-    Enum.reduce(header, fn {k, v}, acc ->
-      if k == 'Content-Type' or k == 'content-type', do: v, else: acc
-    end)
-  end
-
-  defp check_user_id(userid) do
-    if is_binary(userid) do
-      userid |> String.to_integer()
-    else
-      userid
-    end
   end
 end

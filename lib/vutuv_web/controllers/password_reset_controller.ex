@@ -42,12 +42,8 @@ defmodule VutuvWeb.PasswordResetController do
     end
   end
 
-  defp update_password({:ok, user}, conn, _params) do
-    email_addresses = Accounts.list_email_address_user(user.id)
-
-    for email_address <- email_addresses do
-      Email.reset_success(email_address)
-    end
+  defp update_password({:ok, _user}, conn, %{"email" => email_address}) do
+    Email.reset_success(email_address)
 
     conn
     |> delete_session(:phauxth_session_id)
