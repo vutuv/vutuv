@@ -7,9 +7,11 @@
 
   <%= hidden_input f, :user_id, value: @current_user.id  %>
 
-  <%= label f, :value %>
-  <%= text_input f, :value %>
-  <%= error_tag f, :value %>
+  <%= if String.ends_with?(@action, "email_addresses") do %>
+    <%= label f, :value %>
+    <%= text_input f, :value %>
+    <%= error_tag f, :value %>
+  <% end %>
 
   <%= label f, :description %>
   <%= text_input f, :description %>

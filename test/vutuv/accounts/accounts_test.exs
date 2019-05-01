@@ -16,7 +16,7 @@ defmodule Vutuv.AccountsTest do
   @create_email_attrs %{
     "is_public" => true,
     "description" => "backup email",
-    "value" => "abcdef@vutuv.com"
+    "value" => "abcdef@example.com"
   }
 
   describe "read user data" do
@@ -139,17 +139,17 @@ defmodule Vutuv.AccountsTest do
       assert {:ok, %EmailAddress{} = email_address} =
                Accounts.create_email_address(user, @create_email_attrs)
 
-      assert email_address.value == "abcdef@vutuv.com"
+      assert email_address.value == "abcdef@example.com"
       assert email_address.position == 2
     end
 
     test "position of new email_address is last", %{user: user} do
       [email_address] = user.email_addresses
       assert email_address.position == 1
-      email_attrs = Map.merge(@create_email_attrs, %{"value" => "xyz@vutuv.com"})
+      email_attrs = Map.merge(@create_email_attrs, %{"value" => "xyz@example.com"})
       {:ok, email_address} = Accounts.create_email_address(user, email_attrs)
       assert email_address.position == 2
-      email_attrs = Map.merge(@create_email_attrs, %{"value" => "zyx@vutuv.com"})
+      email_attrs = Map.merge(@create_email_attrs, %{"value" => "zyx@example.com"})
       user = Accounts.get_user(user.id)
       {:ok, email_address} = Accounts.create_email_address(user, email_attrs)
       assert email_address.position == 3
@@ -176,9 +176,10 @@ defmodule Vutuv.AccountsTest do
 
     test "update email_address with invalid data returns error changeset", %{user: user} do
       email_address = insert(:email_address, %{user: user})
+      too_long = String.duplicate("too long", 32)
 
       assert {:error, %Ecto.Changeset{}} =
-               Accounts.update_email_address(email_address, %{"value" => nil})
+               Accounts.update_email_address(email_address, %{"description" => too_long})
     end
   end
 

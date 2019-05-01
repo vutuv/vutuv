@@ -3,7 +3,7 @@ defmodule Vutuv.Accounts.User do
 
   import Ecto.Changeset
 
-  alias Vutuv.{Sessions.Session, Socials.Post, Accounts.EmailAddress, Biographies.Profile}
+  alias Vutuv.{Accounts.EmailAddress, Biographies.Profile, Sessions.Session, Socials.Post}
 
   @type t :: %__MODULE__{
           id: integer,

@@ -29,13 +29,26 @@ defmodule Vutuv.Accounts.EmailAddress do
   end
 
   @doc false
-  def changeset(email_address, attrs) do
+  def changeset(%__MODULE__{} = email_address, attrs) do
     email_address
-    |> cast(attrs, [:user_id, :value, :description, :is_public, :position])
+    |> cast(attrs, [:value, :description, :is_public, :position])
     |> validate_required([:value])
     |> validate_format(:value, ~r/^[A-Za-z0-9\._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$/)
     |> validate_length(:value, max: 255)
+    |> validate_length(:description, max: 255)
     |> unique_constraint(:value, downcase: true)
+  end
+
+  def update_changeset(%__MODULE__{} = email_address, attrs) do
+    if Map.has_key?(attrs, "value") do
+      email_address
+      |> change(attrs)
+      |> add_error(:value, "the email_address value cannot be updated")
+    else
+      email_address
+      |> cast(attrs, [:description, :is_public, :position])
+      |> validate_length(:description, max: 255)
+    end
   end
 
   def verify_changeset(%__MODULE__{} = email_address) do

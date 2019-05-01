@@ -1,4 +1,4 @@
-<h1>Listing Email addresses</h1>
+<h1>Listing email addresses</h1>
 
 <table>
   <thead>
@@ -24,9 +24,9 @@
       <td><%= email_address.verified %></td>
 
       <td>
-        <%= link "Show", to: Routes.email_address_path(@conn, :show, email_address) %>
-        <%= link "Edit", to: Routes.email_address_path(@conn, :edit, email_address) %>
-        <%= link "Delete", to: Routes.email_address_path(@conn, :delete, email_address), method: :delete, data: [confirm: "Are you sure?"] %>
+        <%= link "Show", to: Routes.user_email_address_path(@conn, :show, @current_user, email_address) %>
+        <%= link "Edit", to: Routes.user_email_address_path(@conn, :edit, @current_user, email_address) %>
+        <%= link "Delete", to: Routes.user_email_address_path(@conn, :delete, @current_user, email_address), method: :delete, data: [confirm: "Are you sure?"] %>
       </td>
     </tr>
 <% end %>

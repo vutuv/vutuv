@@ -12,6 +12,29 @@ defmodule VutuvWeb.Authorize do
   alias VutuvWeb.Router.Helpers, as: Routes
 
   @doc """
+  Overrides the controller module's action function with an id check - to
+  make sure that the current user can access the resource.
+  """
+  def auth_action_id(
+        %Plug.Conn{
+          params: %{"user_id" => user_id} = params,
+          assigns: %{current_user: %{id: id} = current_user}
+        } = conn,
+        module
+      ) do
+    if user_id == to_string(id) do
+      apply(module, action_name(conn), [conn, params, current_user])
+    else
+      conn
+      |> put_flash(:error, "You are not authorized to view this page")
+      |> redirect(to: Routes.user_path(conn, :show, current_user))
+      |> halt()
+    end
+  end
+
+  def auth_action_id(conn, _), do: need_login(conn)
+
+  @doc """
   Plug to only allow authenticated users to access the resource.
 
   See the user controller for an example.

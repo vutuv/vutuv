@@ -166,6 +166,14 @@ defmodule Vutuv.Accounts do
   def get_email_address(id), do: Repo.get(EmailAddress, id)
 
   @doc """
+  Gets an email_address using the email value.
+  """
+  @spec get_email_address_from_value(String.t()) :: EmailAddress.t() | nil
+  def get_email_address_from_value(email) do
+    Repo.get_by(EmailAddress, %{value: email})
+  end
+
+  @doc """
   Creates an email_address.
   """
   @spec create_email_address(User.t(), map) :: {:ok, EmailAddress.t()} | changeset_error
@@ -185,7 +193,7 @@ defmodule Vutuv.Accounts do
   @spec update_email_address(EmailAddress.t(), map) :: {:ok, EmailAddress.t()} | changeset_error
   def update_email_address(%EmailAddress{} = email_address, attrs) do
     email_address
-    |> EmailAddress.changeset(attrs)
+    |> EmailAddress.update_changeset(attrs)
     |> Repo.update()
   end
 

@@ -1,4 +1,4 @@
-<h1>Show Email address</h1>
+<h1>Show email address</h1>
 
 <ul>
 
@@ -34,5 +34,5 @@
 
 </ul>
 
-<span><%= link "Edit", to: Routes.email_address_path(@conn, :edit, @email_address) %></span>
+<span><%= link "Edit", to: Routes.user_email_address_path(@conn, :edit, @current_user, @email_address) %></span>
 <span><%= link "Back", to: Routes.user_path(@conn, :show, @current_user) %></span>
