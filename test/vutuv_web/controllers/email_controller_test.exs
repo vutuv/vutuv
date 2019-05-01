@@ -23,6 +23,20 @@ defmodule VutuvWeb.EmailAddressControllerTest do
       conn = get(conn, Routes.user_email_address_path(conn, :index, user))
       assert html_response(conn, 200) =~ email_address.value
     end
+
+    test "redirects unauthenticated user", %{user: user} do
+      conn = build_conn()
+      conn = get(conn, Routes.user_email_address_path(conn, :index, user))
+      assert redirected_to(conn) == Routes.session_path(conn, :new)
+      assert get_flash(conn, :error) =~ "need to log in"
+    end
+
+    test "redirects unauthorized user", %{conn: conn, user: user} do
+      other = add_user("raymond@example.com")
+      conn = get(conn, Routes.user_email_address_path(conn, :index, other))
+      assert redirected_to(conn) == Routes.user_path(conn, :show, user)
+      assert get_flash(conn, :error) =~ "not authorized"
+    end
   end
 
   describe "renders forms" do
@@ -39,6 +53,13 @@ defmodule VutuvWeb.EmailAddressControllerTest do
       conn = get(conn, Routes.user_email_address_path(conn, :edit, user, email_address))
       assert html_response(conn, 200) =~ "Edit email address"
     end
+
+    test "redirects unauthenticated user", %{user: user} do
+      conn = build_conn()
+      conn = get(conn, Routes.user_email_address_path(conn, :new, user))
+      assert redirected_to(conn) == Routes.session_path(conn, :new)
+      assert get_flash(conn, :error) =~ "need to log in"
+    end
   end
 
   describe "show email_address" do
@@ -51,13 +72,14 @@ defmodule VutuvWeb.EmailAddressControllerTest do
       assert html_response(conn, 200) =~ "Show email addres"
     end
 
-    test "returns errors when current_user is nil", %{user: user, email_address: email_address} do
+    test "redirects when current_user is nil", %{user: user, email_address: email_address} do
       conn = build_conn()
       conn = get(conn, Routes.user_email_address_path(conn, :show, user, email_address))
       assert redirected_to(conn) == Routes.session_path(conn, :new)
+      assert get_flash(conn, :error) =~ "need to log in"
     end
 
-    test "returns errors when email_address does not belong to current_user", %{
+    test "redirects when email_address does not belong to current_user", %{
       conn: conn,
       user: user,
       email_address: email_address
@@ -65,6 +87,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
       other = add_user("raymond@example.com")
       conn = get(conn, Routes.user_email_address_path(conn, :show, other, email_address))
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
+      assert get_flash(conn, :error) =~ "not authorized"
     end
   end
 
@@ -79,6 +102,8 @@ defmodule VutuvWeb.EmailAddressControllerTest do
 
       assert redirected_to(conn) ==
                Routes.user_email_address_path(conn, :show, user, email_address)
+
+      assert get_flash(conn, :info) =~ "created successfully"
     end
 
     test "does not create email_address when data is invalid", %{
@@ -91,6 +116,19 @@ defmodule VutuvWeb.EmailAddressControllerTest do
         )
 
       assert html_response(conn, 200) =~ "New email address"
+    end
+
+    test "cannot create an email_address for another user", %{conn: conn, user: user} do
+      other = add_user("raymond@example.com")
+
+      conn =
+        post(conn, Routes.user_email_address_path(conn, :create, other),
+          email_address: @create_attrs
+        )
+
+      assert redirected_to(conn) == Routes.user_path(conn, :show, user)
+      assert get_flash(conn, :error) =~ "not authorized"
+      refute Accounts.get_email_address_from_value("abcdef@vutuv.com")
     end
   end
 
@@ -108,6 +146,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
       assert redirected_to(conn) ==
                Routes.user_email_address_path(conn, :show, user, email_address)
 
+      assert get_flash(conn, :info) =~ "updated successfully"
       email_address = Accounts.get_email_address(email_address.id)
       assert email_address.is_public == false
     end
@@ -117,12 +156,32 @@ defmodule VutuvWeb.EmailAddressControllerTest do
       user: user,
       email_address: email_address
     } do
+      too_long = String.duplicate("too long", 32)
+
       conn =
         put(conn, Routes.user_email_address_path(conn, :update, user, email_address),
-          email_address: %{"value" => ""}
+          email_address: %{"description" => too_long}
         )
 
       assert html_response(conn, 200) =~ "Edit email address"
+    end
+
+    test "cannot update an email_address for another user", %{
+      conn: conn,
+      user: user,
+      email_address: email_address
+    } do
+      other = add_user("raymond@example.com")
+
+      conn =
+        put(conn, Routes.user_email_address_path(conn, :update, other, email_address),
+          email_address: %{"is_public" => false}
+        )
+
+      assert redirected_to(conn) == Routes.user_path(conn, :show, user)
+      assert get_flash(conn, :error) =~ "not authorized"
+      email_address = Accounts.get_email_address(email_address.id)
+      assert email_address.is_public == true
     end
   end
 
@@ -130,7 +189,20 @@ defmodule VutuvWeb.EmailAddressControllerTest do
     test "deletes chosen email_address", %{conn: conn, user: user, email_address: email_address} do
       conn = delete(conn, Routes.user_email_address_path(conn, :delete, user, email_address))
       assert redirected_to(conn) == Routes.user_email_address_path(conn, :index, user)
+      assert get_flash(conn, :info) =~ "deleted successfully"
       refute Accounts.get_email_address(email_address.id)
+    end
+
+    test "cannot delete another user's email_address", %{
+      conn: conn,
+      user: user,
+      email_address: email_address
+    } do
+      other = add_user("raymond@example.com")
+      conn = get(conn, Routes.user_email_address_path(conn, :delete, other, email_address))
+      assert redirected_to(conn) == Routes.user_path(conn, :show, user)
+      assert get_flash(conn, :error) =~ "not authorized"
+      assert Accounts.get_email_address(email_address.id)
     end
   end
 end

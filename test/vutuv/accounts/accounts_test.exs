@@ -176,9 +176,10 @@ defmodule Vutuv.AccountsTest do
 
     test "update email_address with invalid data returns error changeset", %{user: user} do
       email_address = insert(:email_address, %{user: user})
+      too_long = String.duplicate("too long", 32)
 
       assert {:error, %Ecto.Changeset{}} =
-               Accounts.update_email_address(email_address, %{"value" => nil})
+               Accounts.update_email_address(email_address, %{"description" => too_long})
     end
   end
 
