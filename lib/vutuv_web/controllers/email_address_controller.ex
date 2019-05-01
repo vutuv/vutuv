@@ -5,7 +5,7 @@ defmodule VutuvWeb.EmailAddressController do
 
   alias Vutuv.{Accounts, Accounts.EmailAddress}
 
-  @dialyzer {:nowarn_function, new: 2}
+  @dialyzer {:nowarn_function, new: 3}
 
   def action(conn, _), do: auth_action_id(conn, __MODULE__)
 

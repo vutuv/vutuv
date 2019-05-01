@@ -193,7 +193,7 @@ defmodule Vutuv.Accounts do
   @spec update_email_address(EmailAddress.t(), map) :: {:ok, EmailAddress.t()} | changeset_error
   def update_email_address(%EmailAddress{} = email_address, attrs) do
     email_address
-    |> EmailAddress.changeset(attrs)
+    |> EmailAddress.update_changeset(attrs)
     |> Repo.update()
   end
 

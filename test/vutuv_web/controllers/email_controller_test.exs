@@ -8,7 +8,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
   @create_attrs %{
     "is_public" => true,
     "description" => "backup email",
-    "value" => "abcdef@vutuv.com"
+    "value" => "abcdef@example.com"
   }
 
   setup %{conn: conn} do
@@ -43,6 +43,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
     test "renders form for new email_addresses", %{conn: conn, user: user} do
       conn = get(conn, Routes.user_email_address_path(conn, :new, user))
       assert html_response(conn, 200) =~ "New email address"
+      assert html_response(conn, 200) =~ "Value"
     end
 
     test "renders form for editing chosen email_address", %{
@@ -52,6 +53,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
     } do
       conn = get(conn, Routes.user_email_address_path(conn, :edit, user, email_address))
       assert html_response(conn, 200) =~ "Edit email address"
+      refute html_response(conn, 200) =~ "Value"
     end
 
     test "redirects unauthenticated user", %{user: user} do
@@ -98,7 +100,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
           email_address: @create_attrs
         )
 
-      email_address = Accounts.get_email_address_from_value("abcdef@vutuv.com")
+      email_address = Accounts.get_email_address_from_value("abcdef@example.com")
 
       assert redirected_to(conn) ==
                Routes.user_email_address_path(conn, :show, user, email_address)
@@ -116,6 +118,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
         )
 
       assert html_response(conn, 200) =~ "New email address"
+      assert html_response(conn, 200) =~ "can&#39;t be blank"
     end
 
     test "cannot create an email_address for another user", %{conn: conn, user: user} do
@@ -128,7 +131,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
 
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
       assert get_flash(conn, :error) =~ "not authorized"
-      refute Accounts.get_email_address_from_value("abcdef@vutuv.com")
+      refute Accounts.get_email_address_from_value("abcdef@example.com")
     end
   end
 
@@ -164,6 +167,18 @@ defmodule VutuvWeb.EmailAddressControllerTest do
         )
 
       assert html_response(conn, 200) =~ "Edit email address"
+      assert html_response(conn, 200) =~ "should be at most 255 character"
+    end
+
+    test "cannot update the email value", %{conn: conn, user: user, email_address: email_address} do
+      conn =
+        put(conn, Routes.user_email_address_path(conn, :update, user, email_address),
+          email_address: %{"value" => "frannypoohs@example.com"}
+        )
+
+      assert html_response(conn, 200) =~ "Edit email address"
+      email_address = Accounts.get_email_address(email_address.id)
+      assert email_address.is_public == true
     end
 
     test "cannot update an email_address for another user", %{
