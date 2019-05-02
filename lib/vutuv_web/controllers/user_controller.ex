@@ -32,7 +32,6 @@ defmodule VutuvWeb.UserController do
     case Accounts.create_user(user_params) do
       {:ok, user} ->
         Log.info(%Log{user: user.id, message: "user created"})
-
         Email.confirm_request(email, key)
 
         conn

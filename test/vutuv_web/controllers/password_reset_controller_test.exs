@@ -3,8 +3,6 @@ defmodule VutuvWeb.PasswordResetControllerTest do
 
   import VutuvWeb.AuthTestHelpers
 
-  @update_attrs %{email: "gladys@example.com", password: "^hEsdg*F899"}
-
   setup %{conn: conn} do
     conn = conn |> bypass_through(VutuvWeb.Router, :browser) |> get("/")
     user = add_reset_user("gladys@example.com")
@@ -29,14 +27,19 @@ defmodule VutuvWeb.PasswordResetControllerTest do
 
   describe "update password reset" do
     test "reset password succeeds for correct key", %{conn: conn, user: user} do
-      valid_attrs = Map.put(@update_attrs, :key, gen_key("gladys@example.com"))
+      valid_attrs = %{key: gen_key("gladys@example.com"), password: "^hEsdg*F899"}
 
       reset_conn =
         put(conn, Routes.password_reset_path(conn, :update), password_reset: valid_attrs)
 
       assert reset_conn.private.phoenix_flash["info"] =~ "password has been reset"
       assert redirected_to(reset_conn) == Routes.session_path(conn, :new)
-      conn = post(conn, Routes.session_path(conn, :create), session: @update_attrs)
+
+      conn =
+        post(conn, Routes.session_path(conn, :create),
+          session: %{email: "gladys@example.com", password: "^hEsdg*F899"}
+        )
+
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
     end
 
@@ -48,7 +51,7 @@ defmodule VutuvWeb.PasswordResetControllerTest do
 
     test "sessions are deleted when user updates password", %{conn: conn, user: user} do
       add_session(conn, user)
-      valid_attrs = Map.put(@update_attrs, :key, gen_key("gladys@example.com"))
+      valid_attrs = %{key: gen_key("gladys@example.com"), password: "^hEsdg*F899"}
 
       reset_conn =
         put(conn, Routes.password_reset_path(conn, :update), password_reset: valid_attrs)
