@@ -13,14 +13,14 @@ defmodule VutuvWeb.PasswordResetControllerTest do
     test "user can create a password reset request", %{conn: conn} do
       valid_attrs = %{email: "gladys@example.com"}
       conn = post(conn, Routes.password_reset_path(conn, :create), password_reset: valid_attrs)
-      assert conn.private.phoenix_flash["info"] =~ "your inbox for instructions"
+      assert get_flash(conn, :info) =~ "your inbox for instructions"
       assert redirected_to(conn) == Routes.user_path(conn, :new)
     end
 
     test "create function fails for no user", %{conn: conn} do
       invalid_attrs = %{email: "prettylady@example.com"}
       conn = post(conn, Routes.password_reset_path(conn, :create), password_reset: invalid_attrs)
-      assert conn.private.phoenix_flash["info"] =~ "your inbox for instructions"
+      assert get_flash(conn, :info) =~ "your inbox for instructions"
       assert redirected_to(conn) == Routes.user_path(conn, :new)
     end
   end
@@ -32,7 +32,7 @@ defmodule VutuvWeb.PasswordResetControllerTest do
       reset_conn =
         put(conn, Routes.password_reset_path(conn, :update), password_reset: valid_attrs)
 
-      assert reset_conn.private.phoenix_flash["info"] =~ "password has been reset"
+      assert get_flash(reset_conn, :info) =~ "password has been reset"
       assert redirected_to(reset_conn) == Routes.session_path(conn, :new)
 
       conn =
@@ -46,7 +46,7 @@ defmodule VutuvWeb.PasswordResetControllerTest do
     test "reset password fails for incorrect key", %{conn: conn} do
       invalid_attrs = %{email: "gladys@example.com", password: "^hEsdg*F899", key: "garbage"}
       conn = put(conn, Routes.password_reset_path(conn, :update), password_reset: invalid_attrs)
-      assert conn.private.phoenix_flash["error"] =~ "Invalid credentials"
+      assert get_flash(conn, :error) =~ "Invalid credentials"
     end
 
     test "sessions are deleted when user updates password", %{conn: conn, user: user} do

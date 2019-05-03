@@ -6,8 +6,13 @@ defmodule VutuvWeb.ConfirmController do
 
   def index(conn, params) do
     case Confirm.verify(params) do
-      {:ok, %{current_email: email} = user} ->
-        Accounts.confirm_user_email(user)
+      {:ok, %{current_email: email, email_addresses: email_addresses} = user} ->
+        unless user.confirmed_at, do: Accounts.confirm_user(user)
+
+        email_addresses
+        |> Enum.find(&(&1.value == email))
+        |> Accounts.confirm_email_address()
+
         Email.confirm_success(email)
 
         conn

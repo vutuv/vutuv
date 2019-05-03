@@ -9,10 +9,14 @@ defmodule VutuvWeb.PasswordResetController do
   end
 
   def create(conn, %{"password_reset" => %{"email" => email}}) do
-    if Accounts.create_password_reset(%{"email" => email}) do
-      key = Token.sign(%{"email" => email})
-      Email.reset_request(email, key)
-    end
+    Accounts.create_password_reset(%{"email" => email})
+
+    key =
+      if Accounts.create_password_reset(%{"email" => email}) do
+        Token.sign(%{"email" => email})
+      end
+
+    Email.reset_request(email, key)
 
     conn
     |> put_flash(:info, "Check your inbox for instructions on how to reset your password")

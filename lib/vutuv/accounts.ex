@@ -107,32 +107,21 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
-  Confirms a user's email.
-
-  This function sets the user's confirmed_at value, and the email_address's
-  verified value, to true.
+  Confirms a user's account, setting the user's confirmed_at value.
   """
-  @spec confirm_user_email(User.t()) :: {:ok, User.t()} | changeset_error
-  def confirm_user_email(%User{confirmed_at: nil} = user) do
+  @spec confirm_user(User.t()) :: {:ok, User.t()} | changeset_error
+  def confirm_user(user) do
     user |> User.confirm_changeset() |> Repo.update()
-    confirm_email(user)
-  end
-
-  def confirm_user_email(user), do: confirm_email(user)
-
-  defp confirm_email(%User{current_email: email, email_addresses: email_addresses}) do
-    email_addresses
-    |> Enum.find(&(&1.value == email))
-    |> EmailAddress.verify_changeset()
-    |> Repo.update()
   end
 
   @doc """
   Makes a password reset request.
   """
   @spec create_password_reset(map) :: {:ok, User.t()} | nil
-  def create_password_reset(attrs) do
-    with %User{} = user <- get_by(attrs) do
+  def create_password_reset(%{"email" => email}) do
+    with %EmailAddress{user_id: user_id, verified: true} <-
+           Repo.get_by(EmailAddress, %{value: email}),
+         %User{} = user <- Repo.get(User, user_id) do
       user
       |> User.password_reset_changeset(DateTime.utc_now() |> DateTime.truncate(:second))
       |> Repo.update()
@@ -152,7 +141,7 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
-  Returns the list of a user's email_addresses.
+  Returns a list of a user's email_addresses.
   """
   @spec list_email_addresses(User.t()) :: [EmailAddress.t()]
   def list_email_addresses(user) do
@@ -195,6 +184,14 @@ defmodule Vutuv.Accounts do
     email_address
     |> EmailAddress.update_changeset(attrs)
     |> Repo.update()
+  end
+
+  @doc """
+  Confirms an email_address, setting the verified value to true.
+  """
+  @spec confirm_email_address(EmailAddress.t()) :: {:ok, EmailAddress.t()} | changeset_error
+  def confirm_email_address(email_address) do
+    email_address |> EmailAddress.verify_changeset() |> Repo.update()
   end
 
   @doc """
