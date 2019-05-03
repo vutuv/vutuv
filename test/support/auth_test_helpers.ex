@@ -22,18 +22,28 @@ defmodule VutuvWeb.AuthTestHelpers do
   def gen_key(email), do: Token.sign(%{"email" => email})
 
   def add_user_confirmed(email) do
-    email
-    |> add_user()
-    |> change(%{confirmed_at: now()})
-    |> Repo.update!()
+    %{email_addresses: [email_address]} =
+      user =
+      email
+      |> add_user()
+      |> change(%{confirmed_at: now()})
+      |> Repo.update!()
+
+    Accounts.confirm_email_address(email_address)
+    user
   end
 
   def add_reset_user(email) do
-    email
-    |> add_user()
-    |> change(%{confirmed_at: now()})
-    |> change(%{reset_sent_at: now()})
-    |> Repo.update!()
+    %{email_addresses: [email_address]} =
+      user =
+      email
+      |> add_user()
+      |> change(%{confirmed_at: now()})
+      |> change(%{reset_sent_at: now()})
+      |> Repo.update!()
+
+    Accounts.confirm_email_address(email_address)
+    user
   end
 
   def add_session(conn, user) do

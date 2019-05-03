@@ -1,19 +1,22 @@
 defmodule VutuvWeb.PasswordResetController do
   use VutuvWeb, :controller
 
-  alias Phauxth.Confirm.PassReset
   alias Vutuv.Accounts
-  alias VutuvWeb.{Auth.Token, Email}
+  alias VutuvWeb.{Auth.PassReset, Auth.Token, Email}
 
   def new(conn, _params) do
     render(conn, "new.html")
   end
 
   def create(conn, %{"password_reset" => %{"email" => email}}) do
-    if Accounts.create_password_reset(%{"email" => email}) do
-      key = Token.sign(%{"email" => email})
-      Email.reset_request(email, key)
-    end
+    Accounts.create_password_reset(%{"email" => email})
+
+    key =
+      if Accounts.create_password_reset(%{"email" => email}) do
+        Token.sign(%{"email" => email})
+      end
+
+    Email.reset_request(email, key)
 
     conn
     |> put_flash(:info, "Check your inbox for instructions on how to reset your password")
@@ -42,8 +45,8 @@ defmodule VutuvWeb.PasswordResetController do
     end
   end
 
-  defp update_password({:ok, _user}, conn, %{"email" => email_address}) do
-    Email.reset_success(email_address)
+  defp update_password({:ok, user}, conn, _params) do
+    Email.reset_success(user.current_email)
 
     conn
     |> delete_session(:phauxth_session_id)
