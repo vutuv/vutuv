@@ -4,6 +4,7 @@ defmodule Vutuv.Biographies.Profile do
   import Ecto.Changeset
 
   alias Vutuv.Accounts.User
+  alias Vutuv.Biographies.PhoneNumber
 
   @type t :: %__MODULE__{
           id: integer,
@@ -24,6 +25,7 @@ defmodule Vutuv.Biographies.Profile do
           honorific_suffix: String.t(),
           locale: String.t(),
           noindex?: boolean,
+          phone_numbers: [PhoneNumber.t()] | %Ecto.Association.NotLoaded{},
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
         }
@@ -45,6 +47,7 @@ defmodule Vutuv.Biographies.Profile do
     field :locale, :string
     field :noindex?, :boolean, default: false
     belongs_to :user, User
+    has_many :phone_numbers, PhoneNumber, on_delete: :delete_all
 
     timestamps()
   end

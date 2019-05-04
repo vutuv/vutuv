@@ -1,62 +1,70 @@
 defmodule Vutuv.BiographiesTest do
   use Vutuv.DataCase
 
+  import Vutuv.Factory
+
   alias Vutuv.Biographies
+  alias Vutuv.Biographies.{Profile, PhoneNumber}
+
+  alias Vutuv.Biographies.PhoneNumber
+
+  @valid_attrs %{
+    active_slug: "some active_slug",
+    avatar: %Plug.Upload{path: "test/fixtures/elixir_logo.png", filename: "elixir_logo.png"},
+    birthday_day: 42,
+    birthday_month: 42,
+    birthday_year: 42,
+    first_name: "some first_name",
+    gender: "some gender",
+    headline: "some headline",
+    honorific_prefix: "some honorific_prefix",
+    honorific_suffix: "some honorific_suffix",
+    last_name: "some last_name",
+    locale: "some locale",
+    middlename: "some middlename",
+    nickname: "some nickname",
+    noindex?: true
+  }
+  @update_attrs %{
+    active_slug: "some updated active_slug",
+    avatar: %Plug.Upload{path: "test/fixtures/cool_photo.png", filename: "cool_photo.png"},
+    birthday_day: 43,
+    birthday_month: 43,
+    birthday_year: 43,
+    first_name: "some updated first_name",
+    gender: "some updated gender",
+    headline: "some updated headline",
+    honorific_prefix: "some updated honorific_prefix",
+    honorific_suffix: "some updated honorific_suffix",
+    last_name: "some updated last_name",
+    locale: "some updated locale",
+    middlename: "some updated middlename",
+    nickname: "some updated nickname",
+    noindex?: false
+  }
+  @invalid_attrs %{
+    active_slug: nil,
+    avatar: nil,
+    birthday_day: nil,
+    birthday_month: nil,
+    birthday_year: nil,
+    first_name: nil,
+    gender: nil,
+    headline: nil,
+    honorific_prefix: nil,
+    honorific_suffix: nil,
+    last_name: nil,
+    locale: nil,
+    middlename: nil,
+    nickname: nil,
+    noindex?: nil
+  }
+  @valid_phone_attrs %{type: "some type", value: "+9123450292"}
+  @update_phone_attrs %{type: "some updated type", value: "02122229999"}
+  @invalid_phone_attrs %{type: nil, value: "abcde"}
 
   describe "profiles" do
     alias Vutuv.Biographies.Profile
-
-    @valid_attrs %{
-      active_slug: "some active_slug",
-      avatar: %Plug.Upload{path: "test/fixtures/elixir_logo.png", filename: "elixir_logo.png"},
-      birthday_day: 42,
-      birthday_month: 42,
-      birthday_year: 42,
-      first_name: "some first_name",
-      gender: "some gender",
-      headline: "some headline",
-      honorific_prefix: "some honorific_prefix",
-      honorific_suffix: "some honorific_suffix",
-      last_name: "some last_name",
-      locale: "some locale",
-      middlename: "some middlename",
-      nickname: "some nickname",
-      noindex?: true
-    }
-    @update_attrs %{
-      active_slug: "some updated active_slug",
-      avatar: %Plug.Upload{path: "test/fixtures/cool_photo.png", filename: "cool_photo.png"},
-      birthday_day: 43,
-      birthday_month: 43,
-      birthday_year: 43,
-      first_name: "some updated first_name",
-      gender: "some updated gender",
-      headline: "some updated headline",
-      honorific_prefix: "some updated honorific_prefix",
-      honorific_suffix: "some updated honorific_suffix",
-      last_name: "some updated last_name",
-      locale: "some updated locale",
-      middlename: "some updated middlename",
-      nickname: "some updated nickname",
-      noindex?: false
-    }
-    @invalid_attrs %{
-      active_slug: nil,
-      avatar: nil,
-      birthday_day: nil,
-      birthday_month: nil,
-      birthday_year: nil,
-      first_name: nil,
-      gender: nil,
-      headline: nil,
-      honorific_prefix: nil,
-      honorific_suffix: nil,
-      last_name: nil,
-      locale: nil,
-      middlename: nil,
-      nickname: nil,
-      noindex?: nil
-    }
 
     def profile_fixture(attrs \\ %{}) do
       {:ok, profile} =
@@ -140,5 +148,85 @@ defmodule Vutuv.BiographiesTest do
       profile = profile_fixture()
       assert %Ecto.Changeset{} = Biographies.change_profile(profile)
     end
+  end
+
+  describe "read phone number data" do
+    setup [:create_profile, :create_phone_number]
+
+    @tag :skip
+    test "list_phone_numbers/1 returns all a user's phone numbers", %{
+      phone_number: phone_number,
+      profile: profile
+    } do
+      assert length(Biographies.list_phone_numbers(profile)) == 2
+      assert phone_number in Biographies.list_phone_numbers(profile)
+      insert(:phone_number, %{profile: profile})
+      assert length(Biographies.list_phone_numbers(profile)) == 3
+    end
+
+    test "phone_number returns the phone_number with given id", %{
+      phone_number: phone_number
+    } do
+      assert Biographies.get_phone_number(phone_number.id) == phone_number
+    end
+
+    test "change phone_number/1 returns a phone_number changeset", %{
+      phone_number: phone_number
+    } do
+      assert %Ecto.Changeset{} = Biographies.change_phone_number(phone_number)
+    end
+  end
+
+  describe "write phone_number data" do
+    setup [:create_profile]
+
+    test "create_phone_number/1 with valid data creates a phone_number", %{profile: profile} do
+      assert {:ok, %PhoneNumber{} = phone_number} =
+               Biographies.create_phone_number(profile, @valid_phone_attrs)
+
+      assert phone_number.value == "+9123450292"
+      assert phone_number.type == "some type"
+    end
+
+    test "create_phone_number/1 with invalid data returns error changeset", %{profile: profile} do
+      assert {:error, %Ecto.Changeset{}} =
+               Biographies.create_phone_number(profile, %{"value" => nil})
+    end
+
+    test "update phone_number with valid data updates the phone_number", %{profile: profile} do
+      phone_number = insert(:phone_number, %{profile: profile})
+
+      assert {:ok, %PhoneNumber{} = phone_number} =
+               Biographies.update_phone_number(phone_number, @update_phone_attrs)
+
+      assert phone_number.type == "some updated type"
+      assert phone_number.value == "02122229999"
+    end
+
+    test "update phone_number with invalid data returns error changeset", %{profile: profile} do
+      phone_number = insert(:phone_number, %{profile: profile})
+
+      assert {:error, %Ecto.Changeset{}} =
+               Biographies.update_phone_number(phone_number, @invalid_phone_attrs)
+    end
+  end
+
+  describe "delete phone_number data" do
+    setup [:create_profile, :create_phone_number]
+
+    test "delete_phone_number/1 deletes the phone_number", %{phone_number: phone_number} do
+      assert {:ok, %PhoneNumber{}} = Biographies.delete_phone_number(phone_number)
+      refute Biographies.get_phone_number(phone_number.id)
+    end
+  end
+
+  defp create_profile(_) do
+    {:ok, profile} = Biographies.create_profile(@valid_attrs)
+    {:ok, %{profile: profile}}
+  end
+
+  defp create_phone_number(%{profile: profile}) do
+    {:ok, phone_number} = Biographies.create_phone_number(profile, @valid_phone_attrs)
+    {:ok, %{phone_number: phone_number}}
   end
 end

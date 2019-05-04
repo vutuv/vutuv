@@ -2,7 +2,7 @@ defmodule Vutuv.Biographies do
   @moduledoc """
   The Biographies context.
   """
-
+  import Ecto
   import Ecto.Query, warn: false
 
   alias Vutuv.Repo
@@ -68,5 +68,64 @@ defmodule Vutuv.Biographies do
   @spec change_profile(Profile.t()) :: Ecto.Changeset.t()
   def change_profile(%Profile{} = profile) do
     Profile.changeset(profile, %{})
+  end
+
+  alias Vutuv.Biographies.PhoneNumber
+
+  @doc """
+  Returns the list of phone_numbers.
+
+  ## Examples
+
+      iex> list_phone_numbers()
+      [%PhoneNumber{}, ...]
+
+  """
+  @spec list_phone_numbers(Profile.t()) :: [PhoneNumber.t()]
+  def list_phone_numbers(profile) do
+    Repo.all(assoc(profile, :phone_number))
+  end
+
+  @doc """
+  Gets a single phone_number.
+  """
+  @spec get_phone_number(integer) :: PhoneNumber.t() | nil
+  def get_phone_number(id), do: Repo.get(PhoneNumber, id)
+
+  @doc """
+  Creates a phone_number.
+  """
+  @spec create_phone_number(Profile.t(), map) :: {:ok, PhoneNumber.t()} | changeset_error
+  def create_phone_number(%Profile{} = profile, attrs \\ %{}) do
+    profile
+    |> build_assoc(:phone_numbers)
+    |> PhoneNumber.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a phone_number.
+  """
+  @spec update_phone_number(PhoneNumber.t(), map) :: {:ok, PhoneNumber.t()} | changeset_error
+  def update_phone_number(%PhoneNumber{} = phone_number, attrs) do
+    phone_number
+    |> PhoneNumber.update_changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a PhoneNumber.
+  """
+  @spec delete_phone_number(PhoneNumber.t()) :: {:ok, PhoneNumber.t()} | changeset_error
+  def delete_phone_number(%PhoneNumber{} = phone_number) do
+    Repo.delete(phone_number)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking phone_number changes.
+  """
+  @spec change_phone_number(PhoneNumber.t()) :: Ecto.Changeset.t()
+  def change_phone_number(%PhoneNumber{} = phone_number) do
+    PhoneNumber.changeset(phone_number, %{})
   end
 end
