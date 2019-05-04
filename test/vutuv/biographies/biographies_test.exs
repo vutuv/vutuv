@@ -153,17 +153,6 @@ defmodule Vutuv.BiographiesTest do
   describe "read phone number data" do
     setup [:create_profile, :create_phone_number]
 
-    @tag :skip
-    test "list_phone_numbers/1 returns all a user's phone numbers", %{
-      phone_number: phone_number,
-      profile: profile
-    } do
-      assert length(Biographies.list_phone_numbers(profile)) == 2
-      assert phone_number in Biographies.list_phone_numbers(profile)
-      insert(:phone_number, %{profile: profile})
-      assert length(Biographies.list_phone_numbers(profile)) == 3
-    end
-
     test "phone_number returns the phone_number with given id", %{
       phone_number: phone_number
     } do
