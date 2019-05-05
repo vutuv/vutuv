@@ -55,4 +55,11 @@ defmodule Vutuv.Factory do
       visibility_level: "private"
     }
   end
+
+  def phone_number_factory do
+    %Vutuv.Biographies.PhoneNumber{
+      value: Faker.Phone.EnUs.phone(),
+      type: sequence(:type, ["work", "home", "mobile"])
+    }
+  end
 end
