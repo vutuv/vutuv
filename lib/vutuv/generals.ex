@@ -30,20 +30,17 @@ defmodule Vutuv.Generals do
   """
   @spec create_tag(map) :: {:ok, Tag.t()} | changeset_error
   def create_tag(attrs \\ %{}) do
-    downcase_name =
-      case is_binary(attrs["name"]) do
-        false -> nil
-        true -> String.downcase(attrs["name"])
-      end
+    name = attrs["name"]
 
-    slug_value =
-      case is_binary(attrs["name"]) do
-        false -> nil
-        true -> Slugger.slugify_downcase(attrs["name"])
+    {downcase_name, slug_value} =
+      if is_binary(name) do
+        {String.downcase(name), Slugger.slugify_downcase(name)}
+      else
+        {nil, nil}
       end
 
     attrs = %{
-      "name" => attrs["name"],
+      "name" => name,
       "downcase_name" => downcase_name,
       "description" => attrs["description"],
       "slug" => slug_value,
@@ -57,7 +54,6 @@ defmodule Vutuv.Generals do
 
   @doc """
   Updates a tag.
-  ## Examples
   """
   @spec update_tag(Tag.t(), map) :: {:ok, Tag.t()} | changeset_error
   def update_tag(%Tag{} = tag, attrs) do
