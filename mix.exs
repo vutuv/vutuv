@@ -48,7 +48,8 @@ defmodule Vutuv.MixProject do
       {:bamboo, "~> 1.1"},
       {:plug_cowboy, "~> 2.0"},
       {:arc, "~> 0.11.0"},
-      {:arc_ecto, git: "https://github.com/hendri-tobing/arc_ecto.git"}
+      {:arc_ecto, git: "https://github.com/hendri-tobing/arc_ecto.git"},
+      {:slugger, "~> 0.3"}
     ]
   end
 
