@@ -33,7 +33,10 @@ defmodule Vutuv.Accounts.EmailAddress do
     email_address
     |> cast(attrs, [:value, :description, :is_public, :position])
     |> validate_required([:value])
-    |> validate_format(:value, ~r/^[A-Za-z0-9\._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$/)
+    |> validate_format(
+      :value,
+      ~r/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-\.]+\.[a-zA-Z]{2,}$/
+    )
     |> validate_length(:value, max: 255)
     |> validate_length(:description, max: 255)
     |> unique_constraint(:value, downcase: true)

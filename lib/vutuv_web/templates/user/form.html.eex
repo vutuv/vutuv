@@ -11,7 +11,7 @@
 
     <div class="form-group">
     <%= label f, :email, class: "sr-only" %>
-    <%= text_input f, :email, [class: "form-control", placeholder: "Email"] %>
+    <%= email_input f, :email, [class: "form-control", placeholder: "Email"] %>
     <%= error_tag f, :email %>
     </div>
 

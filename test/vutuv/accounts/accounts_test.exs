@@ -159,6 +159,21 @@ defmodule Vutuv.AccountsTest do
       assert {:error, %Ecto.Changeset{}} = Accounts.create_email_address(user, %{"value" => nil})
     end
 
+    test "create_email_address/1 with invalid email value returns error", %{user: user} do
+      for value <- [
+            "@domainsample.com",
+            "johndoedomainsample.com",
+            "john.doe@domainsample",
+            "john.doe@.net",
+            "john.doe@domainsample.com2012"
+          ] do
+        assert {:error, %Ecto.Changeset{} = changeset} =
+                 Accounts.create_email_address(user, %{"value" => value})
+
+        assert %{value: ["has invalid format"]} = errors_on(changeset)
+      end
+    end
+
     test "cannot set verified to true at creation time", %{user: user} do
       attrs = Map.merge(@create_email_attrs, %{"verified" => true})
       assert {:ok, %EmailAddress{verified: false}} = Accounts.create_email_address(user, attrs)
