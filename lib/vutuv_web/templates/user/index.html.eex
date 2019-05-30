@@ -16,7 +16,7 @@
       <td>
         <%= link "Show", to: Routes.user_path(@conn, :show, user) %>
         <%= link "Edit", to: Routes.user_path(@conn, :edit, user) %>
-        <%= link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"] %>
+        <%= link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete %>
       </td>
     </tr>
 <% end %>
