@@ -2,6 +2,8 @@ defmodule Vutuv.Generals.Tag do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Vutuv.Biographies.Profile
+
   @type t :: %__MODULE__{
           id: integer,
           name: String.t(),
@@ -19,6 +21,8 @@ defmodule Vutuv.Generals.Tag do
     field :description, :string
     field :slug, :string
     field :url, :string
+
+    many_to_many :profiles, Profile, join_through: "profile_tags", on_replace: :delete
 
     timestamps()
   end
