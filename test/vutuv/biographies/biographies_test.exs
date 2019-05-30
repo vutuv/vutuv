@@ -212,7 +212,8 @@ defmodule Vutuv.BiographiesTest do
     alias Vutuv.Biographies.ProfileTag
 
     @valid_tag_attrs %{
-      "description" => "some description",
+      "description" =>
+        "Elixir is a functional, concurrent, general-purpose programming language that runs on the Erlang virtual machine (BEAM).",
       "name" => "Elixir",
       "url" => "https://elixir-lang.org"
     }
