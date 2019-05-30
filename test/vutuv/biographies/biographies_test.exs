@@ -6,8 +6,6 @@ defmodule Vutuv.BiographiesTest do
   alias Vutuv.Biographies
   alias Vutuv.Biographies.{Profile, PhoneNumber}
 
-  alias Vutuv.Biographies.PhoneNumber
-
   @valid_attrs %{
     active_slug: "some active_slug",
     avatar: %Plug.Upload{path: "test/fixtures/elixir_logo.png", filename: "elixir_logo.png"},
@@ -206,6 +204,87 @@ defmodule Vutuv.BiographiesTest do
     test "delete_phone_number/1 deletes the phone_number", %{phone_number: phone_number} do
       assert {:ok, %PhoneNumber{}} = Biographies.delete_phone_number(phone_number)
       refute Biographies.get_phone_number(phone_number.id)
+    end
+  end
+
+  describe "profile_tags" do
+    alias Vutuv.Generals
+    alias Vutuv.Biographies.ProfileTag
+
+    @valid_tag_attrs %{
+      "description" =>
+        "Elixir is a functional, concurrent, general-purpose programming language that runs on the Erlang virtual machine (BEAM).",
+      "name" => "Elixir",
+      "url" => "https://elixir-lang.org"
+    }
+
+    def tag_fixture(attrs \\ %{}) do
+      {:ok, tag} =
+        attrs
+        |> Enum.into(@valid_tag_attrs)
+        |> Generals.create_tag()
+
+      tag
+    end
+
+    def profile_tags_fixtures(attrs1 \\ %{}, attrs2 \\ %{}) do
+      {:ok, profile_tags} = Biographies.add_profile_tags(attrs1, attrs2)
+      profile_tags
+    end
+
+    test "list_profile_tags/1 returns all profile_tags of a profile" do
+      profile = profile_fixture()
+      tag = tag_fixture()
+      _profile_tags = profile_tags_fixtures(profile, tag)
+      complete_profile = Biographies.get_profile_complete(profile.id)
+      assert Biographies.list_profile_tags(profile) == complete_profile.tags
+    end
+
+    test "get_profile_tag(integer)/1 returns single profile_tag of a profile" do
+      profile = profile_fixture()
+      tag = tag_fixture()
+      profile_tags = profile_tags_fixtures(profile, tag)
+      assert Biographies.get_profile_tag(profile.id, tag.id) == profile_tags
+    end
+
+    test "add_profile_tags/1 with profile_id and tag_id" do
+      profile = profile_fixture()
+      tag = tag_fixture()
+
+      assert {:ok, %ProfileTag{} = profile_tag} = Biographies.add_profile_tags(profile.id, tag.id)
+    end
+
+    test "add_profile_tags/1 with profile and tag attrs" do
+      profile = profile_fixture()
+      tag = tag_fixture()
+
+      assert {:ok, %ProfileTag{} = profile_tag} = Biographies.add_profile_tags(profile, tag)
+    end
+
+    test "add_profile_tags/1 with not unique tag returns error changeset" do
+      profile = profile_fixture()
+      tag = tag_fixture()
+
+      Biographies.add_profile_tags(profile, tag)
+      assert {:error, %Ecto.Changeset{}} = Biographies.add_profile_tags(profile, tag)
+    end
+
+    test "remove_profile_tags/2 deletes the tag with profile_id and tag id " do
+      profile = profile_fixture()
+      tag = tag_fixture()
+      _profile_tags = profile_tags_fixtures(profile, tag)
+
+      assert {:ok, %ProfileTag{}} = Biographies.remove_profile_tags(profile.id, tag.id)
+      refute Biographies.get_profile_tag(profile.id, tag.id)
+    end
+
+    test "remove_profile_tags/2 deletes the tag with profile_tags attrs " do
+      profile = profile_fixture()
+      tag = tag_fixture()
+      profile_tags = profile_tags_fixtures(profile, tag)
+
+      assert {:ok, %ProfileTag{}} = Biographies.remove_profile_tags(profile_tags)
+      refute Biographies.get_profile_tag(profile_tags.profile_id, profile_tags.tag_id)
     end
   end
 

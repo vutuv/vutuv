@@ -44,7 +44,6 @@ defmodule Vutuv.GeneralsTest do
       assert tag.url == "http://some-url.com"
     end
 
-    # @tag :skip
     test "create_tag/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Generals.create_tag(@invalid_attrs)
     end

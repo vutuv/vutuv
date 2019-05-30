@@ -5,6 +5,7 @@ defmodule Vutuv.Biographies.Profile do
 
   alias Vutuv.Accounts.User
   alias Vutuv.Biographies.PhoneNumber
+  alias Vutuv.Generals.Tag
 
   @type t :: %__MODULE__{
           id: integer,
@@ -48,6 +49,8 @@ defmodule Vutuv.Biographies.Profile do
     field :noindex?, :boolean, default: false
     belongs_to :user, User
     has_many :phone_numbers, PhoneNumber, on_delete: :delete_all
+
+    many_to_many :tags, Tag, join_through: "profile_tags", on_replace: :delete
 
     timestamps()
   end
