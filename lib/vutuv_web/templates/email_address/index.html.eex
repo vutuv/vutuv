@@ -26,7 +26,7 @@
       <td>
         <%= link "Show", to: Routes.user_email_address_path(@conn, :show, @current_user, email_address) %>
         <%= link "Edit", to: Routes.user_email_address_path(@conn, :edit, @current_user, email_address) %>
-        <%= link "Delete", to: Routes.user_email_address_path(@conn, :delete, @current_user, email_address), method: :delete, data: [confirm: "Are you sure?"] %>
+        <%= link "Delete", to: Routes.user_email_address_path(@conn, :delete, @current_user, email_address), method: :delete %>
       </td>
     </tr>
 <% end %>

@@ -24,7 +24,7 @@ defmodule Vutuv.Generals.Tag do
 
     many_to_many :profiles, Profile, join_through: "profile_tags", on_replace: :delete
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false

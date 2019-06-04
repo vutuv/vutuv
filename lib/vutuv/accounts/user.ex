@@ -30,7 +30,7 @@ defmodule Vutuv.Accounts.User do
     has_many :email_addresses, EmailAddress, on_delete: :delete_all
     has_one :profile, Profile, on_delete: :delete_all
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   def changeset(%__MODULE__{} = user, attrs) do
@@ -45,8 +45,8 @@ defmodule Vutuv.Accounts.User do
     |> cast_assoc(:profile, required: true)
   end
 
-  def confirm_changeset(%__MODULE__{} = user) do
-    change(user, %{confirmed_at: DateTime.utc_now() |> DateTime.truncate(:second)})
+  def confirm_changeset(%__MODULE__{} = user, confirmed_at) do
+    change(user, %{confirmed_at: confirmed_at})
   end
 
   def password_reset_changeset(%__MODULE__{} = user, reset_sent_at) do

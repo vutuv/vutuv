@@ -7,13 +7,11 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= label f, :email, class: "control-label" %>
-    <%= text_input f, :email, class: "form-control" %>
-    <%= error_tag f, :email %>
-  </div>
+  <%= label f, :email %>
+  <%= text_input f, :email %>
+  <%= error_tag f, :email %>
 
-  <div class="form-group">
+  <div>
     <%= submit "Reset password", class: "btn btn-primary" %>
   </div>
 <% end %>

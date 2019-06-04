@@ -55,6 +55,6 @@ defmodule VutuvWeb.AuthTestHelpers do
   end
 
   defp now do
-    DateTime.utc_now() |> DateTime.truncate(:second)
+    DateTime.truncate(DateTime.utc_now(), :second)
   end
 end
