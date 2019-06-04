@@ -26,4 +26,8 @@ for user <- users do
   {:ok, %{email_addresses: [email_address]} = user} = Vutuv.Accounts.create_user(user)
   Vutuv.Accounts.confirm_user(user)
   Vutuv.Accounts.confirm_email_address(email_address)
+
+  Vutuv.Accounts.create_email_address(user, %{
+    "value" => "#{user.profile.first_name}_123@example.com"
+  })
 end

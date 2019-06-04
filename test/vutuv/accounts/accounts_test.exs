@@ -3,7 +3,7 @@ defmodule Vutuv.AccountsTest do
 
   import Vutuv.Factory
 
-  alias Vutuv.{Accounts, Accounts.EmailAddress, Accounts.User}
+  alias Vutuv.{Accounts, Accounts.EmailAddress, Accounts.EmailManager, Accounts.User, Repo}
   alias Vutuv.{Biographies, Biographies.Profile}
 
   @create_user_attrs %{
@@ -204,6 +204,49 @@ defmodule Vutuv.AccountsTest do
     test "delete_email_address/1 deletes the email_address", %{email_address: email_address} do
       assert {:ok, %EmailAddress{}} = Accounts.delete_email_address(email_address)
       refute Accounts.get_email_address(email_address.id)
+    end
+  end
+
+  describe "handle unverified email addresses" do
+    setup [:create_user]
+
+    test "unverified and verification expired email is deleted", %{user: %{id: user_id}} do
+      expired_inserted_at = DateTime.add(DateTime.truncate(DateTime.utc_now(), :second), -2000)
+
+      Repo.insert!(%EmailAddress{
+        inserted_at: expired_inserted_at,
+        value: "froderick@example.com",
+        user_id: user_id
+      })
+
+      assert Accounts.get_email_address_from_value("froderick@example.com")
+      send(EmailManager, :check_expired)
+      Process.sleep(10)
+      refute Accounts.get_email_address_from_value("froderick@example.com")
+    end
+
+    test "unverified and verification not expired email is not deleted", %{user: user} do
+      Accounts.create_email_address(user, %{"value" => "froderick@example.com"})
+      assert Accounts.get_email_address_from_value("froderick@example.com")
+      send(EmailManager, :check_expired)
+      Process.sleep(10)
+      assert Accounts.get_email_address_from_value("froderick@example.com")
+    end
+
+    test "verified email is not deleted", %{user: %{id: user_id}} do
+      expired_inserted_at = DateTime.add(DateTime.truncate(DateTime.utc_now(), :second), -2000)
+
+      Repo.insert!(%EmailAddress{
+        inserted_at: expired_inserted_at,
+        value: "froderick@example.com",
+        user_id: user_id,
+        verified: true
+      })
+
+      assert Accounts.get_email_address_from_value("froderick@example.com")
+      send(EmailManager, :check_expired)
+      Process.sleep(10)
+      assert Accounts.get_email_address_from_value("froderick@example.com")
     end
   end
 

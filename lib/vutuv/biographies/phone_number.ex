@@ -19,7 +19,7 @@ defmodule Vutuv.Biographies.PhoneNumber do
     field :value, :string
     belongs_to :profile, Profile
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false

@@ -111,7 +111,9 @@ defmodule Vutuv.Accounts do
   """
   @spec confirm_user(User.t()) :: {:ok, User.t()} | changeset_error
   def confirm_user(user) do
-    user |> User.confirm_changeset() |> Repo.update()
+    user
+    |> User.confirm_changeset(DateTime.truncate(DateTime.utc_now(), :second))
+    |> Repo.update()
   end
 
   @doc """
@@ -123,7 +125,7 @@ defmodule Vutuv.Accounts do
            Repo.get_by(EmailAddress, %{value: email}),
          %User{} = user <- Repo.get(User, user_id) do
       user
-      |> User.password_reset_changeset(DateTime.utc_now() |> DateTime.truncate(:second))
+      |> User.password_reset_changeset(DateTime.truncate(DateTime.utc_now(), :second))
       |> Repo.update()
     end
   end
@@ -138,6 +140,18 @@ defmodule Vutuv.Accounts do
     user
     |> User.update_password_changeset(attrs)
     |> Repo.update()
+  end
+
+  @doc """
+  Returns a list of unconfirmed email addresses.
+  """
+  @spec unverified_email_addresses(integer) :: [EmailAddress.t()]
+  def unverified_email_addresses(max_age) do
+    inserted_at = DateTime.add(DateTime.utc_now(), -max_age)
+
+    EmailAddress
+    |> where([e], e.verified == false and e.inserted_at < ^inserted_at)
+    |> Repo.all()
   end
 
   @doc """

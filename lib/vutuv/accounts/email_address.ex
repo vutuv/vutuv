@@ -1,5 +1,6 @@
 defmodule Vutuv.Accounts.EmailAddress do
   use Ecto.Schema
+
   import Ecto.Changeset
 
   alias Vutuv.Accounts.User
@@ -25,7 +26,7 @@ defmodule Vutuv.Accounts.EmailAddress do
     field :verified, :boolean, default: false
     belongs_to :user, User
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false
