@@ -3,7 +3,7 @@
 <table>
   <thead>
     <tr>
-      <th>Email</th>
+      <th><%= gettext "Email" %></th>
 
       <th></th>
     </tr>
@@ -14,13 +14,12 @@
       <td><%= user.id %></td>
 
       <td>
-        <%= link "Show", to: Routes.user_path(@conn, :show, user) %>
-        <%= link "Edit", to: Routes.user_path(@conn, :edit, user) %>
-        <%= link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete %>
+        <%= link gettext("Show"), to: Routes.user_path(@conn, :show, user) %>
+        <%= link gettext("Edit"), to: Routes.user_path(@conn, :edit, user) %>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "New User", to: Routes.user_path(@conn, :new) %></span>
+<span><%= link gettext("New User"), to: Routes.user_path(@conn, :new) %></span>

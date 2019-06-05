@@ -1,73 +1,73 @@
 <%= form_for @changeset, @action, [multipart: true], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
-      <p>Something went wrong. Please check the errors below.</p>
+      <p><%= gettext "Something went wrong. Please check the errors below." %></p>
     </div>
   <% end %>
 
   <%= hidden_input f, :user_id, value: @current_user.id  %>
 
-  <%= label f, :first_name %>
+  <%= label f, :first_name, gettext("First name") %>
   <%= text_input f, :first_name %>
   <%= error_tag f, :first_name %>
 
-  <%= label f, :last_name %>
+  <%= label f, :last_name, gettext("Last name") %>
   <%= text_input f, :last_name %>
   <%= error_tag f, :last_name %>
 
-  <%= label f, :middlename  %>
+  <%= label f, :middlename, gettext("Middle name") %>
   <%= text_input f, :middlename  %>
   <%= error_tag f, :middlename %>
 
-  <%= label f, :nickname  %>
+  <%= label f, :nickname, gettext("Nickname")  %>
   <%= text_input f, :nickname %>
   <%= error_tag f, :nickname %>
 
-  <%= label f, :honorific_prefix %>
+  <%= label f, :honorific_prefix, gettext("Honorific prefix") %>
   <%= text_input f, :honorific_prefix %>
   <%= error_tag f, :honorific_prefix %>
 
-  <%= label f, :honorific_suffix %>
+  <%= label f, :honorific_suffix, gettext("Honorific suffix") %>
   <%= text_input f, :honorific_suffix %>
   <%= error_tag f, :honorific_suffix %>
 
-  <%= label f, :gender %>
+  <%= label f, :gender, gettext("Gender") %>
   <%= select f, :gender, ["Gender": "", "Female": "female", "Male": "male", "Other": "other"] %>
   <%= error_tag f, :gender %>
 
-  <%= label f, :birthday_day %>
+  <%= label f, :birthday_day, gettext("Birthday day") %>
   <%= select f, :birthday_day, 1..31 %>
   <%= error_tag f, :birthday_day %>
 
-  <%= label f, :birthday_month %>
+  <%= label f, :birthday_month, gettext("Birthday month") %>
   <%= select f, :birthday_month, 1..12 %>
   <%= error_tag f, :birthday_month %>
 
-  <%= label f, :birthday_year %>
+  <%= label f, :birthday_year, gettext("Birthday year") %>
   <%= select f, :birthday_year, 1900..2200 %>
   <%= error_tag f, :birthday_year %>
 
-  <%= label f, :locale %>
+  <%= label f, :locale, gettext("Locale") %>
   <%= text_input f, :locale %>
   <%= error_tag f, :locale %>
 
-  <%= label f, :avatar %>
+  <%= label f, :avatar, gettext("Avatar") %>
   <%= file_input f, :avatar %>
   <%= error_tag f, :avatar %>
 
-  <%= label f, :active_slug %>
+  <%= label f, :active_slug, gettext("Active slug") %>
   <%= text_input f, :active_slug %>
   <%= error_tag f, :active_slug %>
 
-  <%= label f, :headline %>
+  <%= label f, :headline, gettext("Headline") %>
   <%= text_input f, :headline %>
   <%= error_tag f, :headline %>
 
-  <%= label f, :noindex? %>
+  <%= label f, :noindex?, gettext("No index?") %>
   <%= checkbox f, :noindex? %>
   <%= error_tag f, :noindex? %>
 
   <div>
-    <%= submit "Save" %>
+    <%= submit gettext("Save") %>
   </div>
 <% end %>

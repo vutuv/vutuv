@@ -1,44 +1,43 @@
 <%= form_for @changeset, @action, [], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
-      <p>Please check the errors below.</p>
+      <p><%= gettext "Something went wrong. Please check the errors below." %></p>
     </div>
   <% end %>
 
-  <h2>Sign up</h2>
+  <h2><%= gettext("Sign up") %></h2>
 
-  <%= label f, :email %>
+  <%= label f, :email, gettext("Email") %>
   <%= email_input f, :email %>
   <%= error_tag f, :email %>
 
   <%= if @action == "/users" do %>
-    <%= label f, :password %>
+    <%= label f, :password, gettext("Password") %>
     <%= password_input f, :password %>
     <%= error_tag f, :password %>
   <% end %>
 
-  <%= label f, :first_name %>
+  <%= label f, :first_name, gettext("First name") %>
   <%= text_input f, :first_name %>
   <%= error_tag f, :first_name %>
 
-  <%= label f, :last_name %>
+  <%= label f, :last_name, gettext("Last name") %>
   <%= text_input f, :last_name %>
   <%= error_tag f, :last_name %>
 
-  <%= label f, :gender %>
-  <%= select f, :gender, ["Gender": "", "Female": "female", "Male": "male", "Other": "other"] %>
+  <%= label f, :gender, gettext("Gender") %>
+  <%= select f, :gender, [{gettext("Gender:"), ""}, {gettext("Female:"), "female"}, {gettext("Male:"), "male"}, {gettext("Other:"), "other"}] %>
   <%= error_tag f, :gender %>
 
   <div>
-    <%= submit "Sign up" %>
+    <%= submit gettext("Sign up") %>
   </div>
 
-  <p>
-    Already signed up? <br />
-    <span><%= link "Login here", to: Routes.session_path(@conn, :new) %></span>
+  <p><%= gettext "Already signed up?" %><br />
+    <span><%= link gettext("Login here"), to: Routes.session_path(@conn, :new) %></span>
   </p>
 
   <div>
-    We store your data in our database and use cookies
+    <%= gettext "We store your data in our database and use cookies" %>
   </div>
 <% end %>
