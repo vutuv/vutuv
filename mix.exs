@@ -12,6 +12,7 @@ defmodule Vutuv.MixProject do
       aliases: aliases(),
       deps: deps(),
       dialyzer: [
+        ignore_warnings: "dialyzer.ignore_warnings.exs",
         plt_add_deps: :transitive,
         plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
       ]

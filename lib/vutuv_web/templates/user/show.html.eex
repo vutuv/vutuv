@@ -1,100 +1,97 @@
-<h2>Show User</h2>
-
-<p><%= gettext("User ID: ") %><%= @id %></p>
+<h2><%= gettext "Show user" %></h2>
 
 <div>
-<h3>Profile</h3>
+  <h3><%= gettext "Profile" %></h3>
   <ul>
-  <li>
-    <strong><%= gettext "First name:" %></strong>
-    <%= @profile.first_name %>
-  </li>
+    <li>
+      <strong><%= gettext "First name:" %></strong>
+      <%= @profile.first_name %>
+    </li>
 
-  <li>
-    <strong><%= gettext "Last name:" %></strong>
-    <%= @profile.last_name %>
-  </li>
+    <li>
+      <strong><%= gettext "Last name:" %></strong>
+      <%= @profile.last_name %>
+    </li>
 
-  <li>
-    <strong><%= gettext "Middle name:" %></strong>
-    <%= @profile.middlename %>
-  </li>
+    <li>
+      <strong><%= gettext "Middle name:" %></strong>
+      <%= @profile.middlename %>
+    </li>
 
-  <li>
-    <strong><%= gettext "Nickname:" %></strong>
-    <%= @profile.nickname %>
-  </li>
+    <li>
+      <strong><%= gettext "Nickname:" %></strong>
+      <%= @profile.nickname %>
+    </li>
 
-  <li>
-    <strong><%= gettext "Honorific prefix:" %></strong>
-    <%= @profile.honorific_prefix %>
-  </li>
+    <li>
+      <strong><%= gettext "Honorific prefix:" %></strong>
+      <%= @profile.honorific_prefix %>
+    </li>
 
-  <li>
-    <strong><%= gettext "Honorific suffix:" %></strong>
-    <%= @profile.honorific_suffix %>
-  </li>
+    <li>
+      <strong><%= gettext "Honorific suffix:" %></strong>
+      <%= @profile.honorific_suffix %>
+    </li>
 
-  <li>
-    <strong><%= gettext "Gender:" %></strong>
-    <%= @profile.gender %>
-  </li>
+    <li>
+      <strong><%= gettext "Gender:" %></strong>
+      <%= @profile.gender %>
+    </li>
 
-  <li>
-    <strong><%= gettext "Birthday day:" %></strong>
-    <%= @profile.birthday_day %>
-  </li>
+    <li>
+      <strong><%= gettext "Birthday day:" %></strong>
+      <%= @profile.birthday_day %>
+    </li>
 
-  <li>
-    <strong><%= gettext "Birthday month:" %></strong>
-    <%= @profile.birthday_month %>
-  </li>
+    <li>
+      <strong><%= gettext "Birthday month:" %></strong>
+      <%= @profile.birthday_month %>
+    </li>
 
-  <li>
-    <strong><%= gettext "Birthday year:" %></strong>
-    <%= @profile.birthday_year %>
-  </li>
+    <li>
+      <strong><%= gettext "Birthday year:" %></strong>
+      <%= @profile.birthday_year %>
+    </li>
 
-  <li>
-    <strong><%= gettext "Locale:" %></strong>
-    <%= @profile.locale %>
-  </li>
+    <li>
+      <strong><%= gettext "Locale:" %></strong>
+      <%= @profile.locale %>
+    </li>
 
-  <li>
-    <strong><%= gettext "Avatar:" %></strong>
-    <img src="<%= Vutuv.Avatar.url({@profile.avatar, @profile}) %>"/>
-  </li>
+    <li>
+      <strong><%= gettext "Avatar:" %></strong>
+      <img src="<%= Vutuv.Avatar.url({@profile.avatar, @profile}) %>"/>
+    </li>
 
-  <li>
-    <strong><%= gettext "Active slug:" %></strong>
-    <%= @profile.active_slug %>
-  </li>
+    <li>
+      <strong><%= gettext "Active slug:" %></strong>
+      <%= @profile.active_slug %>
+    </li>
 
-  <li>
-    <strong><%= gettext "Headline:" %></strong>
-    <%= @profile.headline %>
-  </li>
+    <li>
+      <strong><%= gettext "Headline:" %></strong>
+      <%= @profile.headline %>
+    </li>
 
-  <li>
-    <strong><%= gettext "Noindex?:" %></strong>
-    <%= @profile.noindex? %>
-  </li>
+    <li>
+      <strong><%= gettext "Noindex?:" %></strong>
+      <%= @profile.noindex? %>
+    </li>
 
-</ul>
+  </ul>
 
-  <span><%= link gettext("Edit Profile"), to: Routes.profile_path(@conn, :edit, @user) %></span><br>
+  <span><%= link gettext("Edit profile"), to: Routes.user_path(@conn, :edit, @user) %></span><br>
 </div>
 
 <div>
-<h3>Email Address</h3>
+  <h3><%= gettext "Email addresses" %></h3>
 
-<%= for email_address <- @email_addresses do %>
-  <tr>
-      <td><%= email_address %></td>
-      <td><%= link gettext("Edit email"), to: Routes.user_email_address_path(@conn, :edit, @user, email_address) %></td>
-  </tr>
-<% end %>
+  <%= for email_address <- @user.email_addresses do %>
+    <tr>
+      <td><%= email_address.value %></td>
+      <td><%= link gettext("Edit email address"), to: Routes.user_email_address_path(@conn, :edit, @user, email_address) %></td>
+    </tr>
+  <% end %>
 
-<span><%= link gettext("New Email address"), to: Routes.user_email_address_path(@conn, :new, @user) %></span>
-
+  <span><%= link gettext("New email address"), to: Routes.user_email_address_path(@conn, :new, @user) %></span>
 </div>

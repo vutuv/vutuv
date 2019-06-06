@@ -1,3 +1,11 @@
 /* This file is for your main application css. */
 
 @import "./phoenix.css";
+
+header nav ul {
+  display: flex;
+}
+
+header nav li {
+  margin: 0 10px;
+}

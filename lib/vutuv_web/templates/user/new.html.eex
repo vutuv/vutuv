@@ -14,5 +14,15 @@
 </ul>
 
 <div>
-  <%= render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create)) %>
+  <%= render "new_form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create)) %>
+</div>
+
+<div>
+  <p><%= gettext "Already signed up?" %><br />
+  <span><%= link gettext("Login here"), to: Routes.session_path(@conn, :new) %></span>
+  </p>
+
+  <div>
+    <%= gettext "We store your data in our database and use cookies" %>
+  </div>
 </div>

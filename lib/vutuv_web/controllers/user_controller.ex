@@ -4,12 +4,11 @@ defmodule VutuvWeb.UserController do
   import VutuvWeb.Authorize
 
   alias Phauxth.Log
-  alias Vutuv.{Accounts, Accounts.User, Biographies}
+  alias Vutuv.{Accounts, Accounts.User}
   alias VutuvWeb.{Auth.Token, Email}
 
   @dialyzer {:nowarn_function, new: 2}
 
-  plug :user_check when action in [:index, :show]
   plug :id_check when action in [:edit, :update, :delete]
 
   def index(conn, _) do
@@ -44,17 +43,8 @@ defmodule VutuvWeb.UserController do
   end
 
   def show(%Plug.Conn{assigns: %{current_user: user}} = conn, %{"id" => id}) do
-    user = if id == to_string(user.id), do: user, else: Accounts.get_user(id)
-
-    email_addresses = user |> Accounts.list_email_addresses() |> Enum.map(& &1.value)
-    profile = Biographies.get_profile_user(id)
-
-    render(conn, "show.html",
-      user: user,
-      email_addresses: email_addresses,
-      id: id,
-      profile: profile
-    )
+    user = if user && id == to_string(user.id), do: user, else: Accounts.get_user(id)
+    render(conn, "show.html", user: user, profile: user.profile)
   end
 
   def edit(%Plug.Conn{assigns: %{current_user: user}} = conn, _) do
