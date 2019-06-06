@@ -1,0 +1,33 @@
+<%= form_for @changeset, @action, [], fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p><%= gettext "Something went wrong. Please check the errors below." %></p>
+    </div>
+  <% end %>
+
+  <h2><%= gettext("Sign up") %></h2>
+
+  <%= label f, :email, gettext("Email") %>
+  <%= email_input f, :email %>
+  <%= error_tag f, :email %>
+
+  <%= label f, :password, gettext("Password") %>
+  <%= password_input f, :password %>
+  <%= error_tag f, :password %>
+
+  <%= label f, :first_name, gettext("First name") %>
+  <%= text_input f, :first_name %>
+  <%= error_tag f, :first_name %>
+
+  <%= label f, :last_name, gettext("Last name") %>
+  <%= text_input f, :last_name %>
+  <%= error_tag f, :last_name %>
+
+  <%= label f, :gender, gettext("Gender") %>
+  <%= select f, :gender, [{gettext("Gender:"), ""}, {gettext("Female:"), "female"}, {gettext("Male:"), "male"}, {gettext("Other:"), "other"}] %>
+  <%= error_tag f, :gender %>
+
+  <div>
+    <%= submit gettext("Sign up") %>
+  </div>
+<% end %>

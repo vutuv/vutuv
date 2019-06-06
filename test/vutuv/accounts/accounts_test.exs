@@ -196,6 +196,15 @@ defmodule Vutuv.AccountsTest do
       assert {:error, %Ecto.Changeset{}} =
                Accounts.update_email_address(email_address, %{"description" => too_long})
     end
+
+    test "cannot update email_address value", %{user: user} do
+      email_address = insert(:email_address, %{user: user})
+
+      assert {:error, %Ecto.Changeset{} = changeset} =
+               Accounts.update_email_address(email_address, %{"value" => "igor@example.com"})
+
+      assert %{value: ["the email_address value cannot be updated"]} = errors_on(changeset)
+    end
   end
 
   describe "delete email_address data" do

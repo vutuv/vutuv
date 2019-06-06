@@ -3,21 +3,21 @@
 <%= form_for @conn, Routes.session_path(@conn, :create), [as: :session], fn f -> %>
   <%= if f.errors != [] do %>
     <div class="alert alert-danger">
-      <p>Please check the errors below:</p>
+      <p><%= gettext "Something went wrong. Please check the errors below." %></p>
     </div>
   <% end %>
 
-  <%= label f, :email %>
+  <%= label f, :email, gettext("Email") %>
   <%= text_input f, :email %>
   <%= error_tag f, :email %>
 
-  <%= label f, :password %>
+  <%= label f, :password, gettext("Password") %>
   <%= password_input f, :password %>
   <%= error_tag f, :password %>
 
-  <%= link "Forgot password", to: Routes.password_reset_path(@conn, :new) %>
+  <%= link gettext("Forgot password"), to: Routes.password_reset_path(@conn, :new) %>
 
   <div>
-    <%= submit "Login" %>
+    <%= submit gettext("Login") %>
   </div>
 <% end %>

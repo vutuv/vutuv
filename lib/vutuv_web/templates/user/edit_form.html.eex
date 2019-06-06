@@ -1,0 +1,73 @@
+<%= form_for @changeset, @action, [multipart: true], fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p><%= gettext "Something went wrong. Please check the errors below." %></p>
+    </div>
+  <% end %>
+
+  <%= inputs_for f, :profile, fn fp -> %>
+    <%= label fp, :first_name, gettext("First name") %>
+    <%= text_input fp, :first_name %>
+    <%= error_tag fp, :first_name %>
+
+    <%= label fp, :last_name, gettext("Last name") %>
+    <%= text_input fp, :last_name %>
+    <%= error_tag fp, :last_name %>
+
+    <%= label fp, :middlename, gettext("Middle name") %>
+    <%= text_input fp, :middlename  %>
+    <%= error_tag fp, :middlename %>
+
+    <%= label fp, :nickname, gettext("Nickname")  %>
+    <%= text_input fp, :nickname %>
+    <%= error_tag fp, :nickname %>
+
+    <%= label fp, :honorific_prefix, gettext("Honorific prefix") %>
+    <%= text_input fp, :honorific_prefix %>
+    <%= error_tag fp, :honorific_prefix %>
+
+    <%= label fp, :honorific_suffix, gettext("Honorific suffix") %>
+    <%= text_input fp, :honorific_suffix %>
+    <%= error_tag fp, :honorific_suffix %>
+
+    <%= label fp, :gender, gettext("Gender") %>
+    <%= select fp, :gender, ["Gender": "", "Female": "female", "Male": "male", "Other": "other"] %>
+    <%= error_tag fp, :gender %>
+
+    <%= label fp, :birthday_day, gettext("Birthday day") %>
+    <%= select fp, :birthday_day, 1..31 %>
+    <%= error_tag fp, :birthday_day %>
+
+    <%= label fp, :birthday_month, gettext("Birthday month") %>
+    <%= select fp, :birthday_month, 1..12 %>
+    <%= error_tag fp, :birthday_month %>
+
+    <%= label fp, :birthday_year, gettext("Birthday year") %>
+    <%= select fp, :birthday_year, 1900..2200 %>
+    <%= error_tag fp, :birthday_year %>
+
+    <%= label fp, :locale, gettext("Locale") %>
+    <%= text_input fp, :locale %>
+    <%= error_tag fp, :locale %>
+
+    <%= label fp, :avatar, gettext("Avatar") %>
+    <%= file_input fp, :avatar %>
+    <%= error_tag fp, :avatar %>
+
+    <%= label fp, :active_slug, gettext("Active slug") %>
+    <%= text_input fp, :active_slug %>
+    <%= error_tag fp, :active_slug %>
+
+    <%= label fp, :headline, gettext("Headline") %>
+    <%= text_input fp, :headline %>
+    <%= error_tag fp, :headline %>
+
+    <%= label fp, :noindex?, gettext("No index?") %>
+    <%= checkbox fp, :noindex? %>
+    <%= error_tag fp, :noindex? %>
+  <% end %>
+
+  <div>
+    <%= submit gettext("Save") %>
+  </div>
+<% end %>

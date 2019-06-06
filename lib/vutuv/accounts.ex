@@ -86,7 +86,7 @@ defmodule Vutuv.Accounts do
   @spec update_user(User.t(), map) :: {:ok, User.t()} | changeset_error
   def update_user(%User{} = user, attrs) do
     user
-    |> User.changeset(attrs)
+    |> User.update_changeset(attrs)
     |> Repo.update()
   end
 

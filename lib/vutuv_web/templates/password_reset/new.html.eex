@@ -3,17 +3,17 @@
 <%= form_for @conn, Routes.password_reset_path(@conn, :create), [as: :password_reset], fn f -> %>
   <%= if f.errors != [] do %>
     <div class="alert alert-danger">
-      <p>Please check the errors below:</p>
+      <p><%= gettext "Something went wrong. Please check the errors below." %></p>
     </div>
   <% end %>
 
-  <%= label f, :email %>
+  <%= label f, :email, gettext("Email") %>
   <%= text_input f, :email %>
   <%= error_tag f, :email %>
 
   <div>
-    <%= submit "Reset password", class: "btn btn-primary" %>
+    <%= submit gettext("Reset password") %>
   </div>
 <% end %>
 
-<span><%= link "Back", to: Routes.user_path(@conn, :new) %></span>
+<span><%= link gettext("Back"), to: Routes.user_path(@conn, :new) %></span>

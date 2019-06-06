@@ -10,15 +10,15 @@ users = [
     "email" => "jane.doe@example.com",
     "password" => "password",
     "gender" => "female",
-    "first_name" => "jane",
-    "last_name" => "doe"
+    "first_name" => "Jane",
+    "last_name" => "Doe"
   },
   %{
     "email" => "john.smith@example.org",
     "password" => "password",
     "gender" => "male",
-    "first_name" => "john",
-    "last_name" => "smith"
+    "first_name" => "John",
+    "last_name" => "Smith"
   }
 ]
 

@@ -48,10 +48,10 @@ defmodule VutuvWeb.SessionControllerTest do
     end
 
     test "redirects to previously requested resource", %{conn: conn, user: user} do
-      conn = get(conn, Routes.user_path(conn, :show, user))
+      conn = get(conn, Routes.user_path(conn, :edit, user))
       assert redirected_to(conn) == Routes.session_path(conn, :new)
       conn = post(conn, Routes.session_path(conn, :create), session: @create_attrs)
-      assert redirected_to(conn) == Routes.user_path(conn, :show, user)
+      assert redirected_to(conn) == Routes.user_path(conn, :edit, user)
     end
   end
 
@@ -61,7 +61,7 @@ defmodule VutuvWeb.SessionControllerTest do
       session_id = get_session(conn, :phauxth_session_id)
       conn = delete(conn, Routes.session_path(conn, :delete, session_id))
       assert redirected_to(conn) == Routes.user_path(conn, :new)
-      conn = get(conn, Routes.user_path(conn, :index))
+      conn = get(conn, Routes.user_path(conn, :edit, user))
       assert redirected_to(conn) == Routes.session_path(conn, :new)
     end
   end

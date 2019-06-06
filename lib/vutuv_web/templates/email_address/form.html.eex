@@ -1,31 +1,31 @@
 <%= form_for @changeset, @action, [], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
-      <p>Something went wrong. Please check the errors below.</p>
+      <p><%= gettext "Something went wrong. Please check the errors below." %></p>
     </div>
   <% end %>
 
   <%= hidden_input f, :user_id, value: @current_user.id  %>
 
   <%= if String.ends_with?(@action, "email_addresses") do %>
-    <%= label f, :value %>
+    <%= label f, :value, gettext("Value") %>
     <%= text_input f, :value %>
     <%= error_tag f, :value %>
   <% end %>
 
-  <%= label f, :description %>
+  <%= label f, :description, gettext("Description") %>
   <%= text_input f, :description %>
   <%= error_tag f, :description %>
 
-  <%= label f, :is_public %>
+  <%= label f, :is_public, gettext("is public") %>
   <%= checkbox f, :is_public %>
   <%= error_tag f, :is_public %>
 
-  <%= label f, :position %>
+  <%= label f, :position, gettext("Position") %>
   <%= number_input f, :position %>
   <%= error_tag f, :position %>
 
   <div>
-    <%= submit "Save" %>
+    <%= submit gettext("Save") %>
   </div>
 <% end %>

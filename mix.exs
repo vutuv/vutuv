@@ -12,6 +12,7 @@ defmodule Vutuv.MixProject do
       aliases: aliases(),
       deps: deps(),
       dialyzer: [
+        ignore_warnings: "dialyzer.ignore_warnings.exs",
         plt_add_deps: :transitive,
         plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
       ]
@@ -33,6 +34,7 @@ defmodule Vutuv.MixProject do
       {:phoenix, "~> 1.4.1"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},
+      # Care needed when upgrading to 3.1 - tests failing with unknown field errors
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},

@@ -3,12 +3,12 @@
 <table>
   <thead>
     <tr>
-      <th>User</th>
-      <th>Value</th>
-      <th>Description</th>
-      <th> is public</th>
-      <th>Position</th>
-      <th>Verified</th>
+      <th><%= gettext "User" %></th>
+      <th><%= gettext "Value" %></th>
+      <th><%= gettext "Description" %></th>
+      <th><%= gettext "is public" %></th>
+      <th><%= gettext "Position" %></th>
+      <th><%= gettext "Verified" %></th>
 
       <th></th>
     </tr>
@@ -19,14 +19,14 @@
       <td><%= email_address.user_id %></td>
       <td><%= email_address.value %></td>
       <td><%= email_address.description %></td>
-      <td><%= email_address. is_public %></td>
+      <td><%= email_address.is_public %></td>
       <td><%= email_address.position %></td>
       <td><%= email_address.verified %></td>
 
       <td>
-        <%= link "Show", to: Routes.user_email_address_path(@conn, :show, @current_user, email_address) %>
-        <%= link "Edit", to: Routes.user_email_address_path(@conn, :edit, @current_user, email_address) %>
-        <%= link "Delete", to: Routes.user_email_address_path(@conn, :delete, @current_user, email_address), method: :delete %>
+        <%= link gettext("Show"), to: Routes.user_email_address_path(@conn, :show, @current_user, email_address) %>
+        <%= link gettext("Edit"), to: Routes.user_email_address_path(@conn, :edit, @current_user, email_address) %>
+        <%= link gettext("Delete"), to: Routes.user_email_address_path(@conn, :delete, @current_user, email_address), method: :delete %>
       </td>
     </tr>
 <% end %>
