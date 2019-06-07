@@ -12,14 +12,18 @@
       <section class="container">
         <nav role="navigation">
           <ul>
-              <li><%= link gettext("Users"), to: Routes.user_path(@conn, :index) %></li>
-              <%= if @current_user do %>
-                <li><%= link gettext("My profile"), to: Routes.user_path(@conn, :show, @current_user) %></li>
-                <li><%= link gettext("Logout"), to: Routes.session_path(@conn, :delete, current_session(@conn)), method: :delete %></li>
-              <% else %>
-                <li><%= link gettext("New user"), to: Routes.user_path(@conn, :new) %></li>
-                <li><%= link gettext("Login"), to: Routes.session_path(@conn, :new) %></li>
+            <li><%= link gettext("Users"), to: Routes.user_path(@conn, :index) %></li>
+            <%= if @current_user do %>
+              <li><%= link gettext("My profile"), to: Routes.user_path(@conn, :show, @current_user) %></li>
+              <li>
+                <%= form_for @conn, Routes.session_path(@conn, :delete, current_session(@conn)), [method: "delete"], fn _f -> %>
+                <%= submit gettext("Logout"), class: "link" %>
               <% end %>
+              </li>
+            <% else %>
+              <li><%= link gettext("New user"), to: Routes.user_path(@conn, :new) %></li>
+              <li><%= link gettext("Login"), to: Routes.session_path(@conn, :new) %></li>
+            <% end %>
           </ul>
         </nav>
       </section>

@@ -24,10 +24,14 @@
   <%= error_tag f, :last_name %>
 
   <%= label f, :gender, gettext("Gender") %>
-  <%= select f, :gender, [{gettext("Gender:"), ""}, {gettext("Female:"), "female"}, {gettext("Male:"), "male"}, {gettext("Other:"), "other"}] %>
+  <%= select f, :gender, [{gettext("Female"), "female"}, {gettext("Male"), "male"}, {gettext("Other"), "other"}] %>
   <%= error_tag f, :gender %>
 
   <div>
     <%= submit gettext("Sign up") %>
+    <h3>
+      <%= gettext "Already signed up?" %>
+      <span><small><%= link gettext("Login here"), to: Routes.session_path(@conn, :new) %></small></span>
+    </h3>
   </div>
 <% end %>

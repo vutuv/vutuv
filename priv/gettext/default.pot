@@ -16,13 +16,8 @@ msgid "Active slug:"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/new.html.eex:21
+#: lib/vutuv_web/templates/user/new_form.html.eex:33
 msgid "Already signed up?"
-msgstr ""
-
-#, elixir-format
-#: lib/vutuv_web/templates/user/new.html.eex:12
-msgid "Articles"
 msgstr ""
 
 #, elixir-format
@@ -66,11 +61,6 @@ msgid "Connect with business partners"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/new.html.eex:13
-msgid "Connections"
-msgstr ""
-
-#, elixir-format
 #: lib/vutuv_web/templates/email_address/form.html.eex:16
 #: lib/vutuv_web/templates/email_address/index.html.eex:8
 msgid "Description"
@@ -96,17 +86,11 @@ msgid "Email"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/new_form.html.eex:27
-msgid "Female:"
-msgstr ""
-
-#, elixir-format
 #: lib/vutuv_web/templates/user/show.html.eex:7
 msgid "First name:"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/new_form.html.eex:27
 #: lib/vutuv_web/templates/user/show.html.eex:37
 msgid "Gender:"
 msgstr ""
@@ -137,29 +121,19 @@ msgid "Locale:"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:21
+#: lib/vutuv_web/templates/layout/app.html.eex:25
 #: lib/vutuv_web/templates/session/new.html.eex:21
 msgid "Login"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/new.html.eex:22
+#: lib/vutuv_web/templates/user/new_form.html.eex:34
 msgid "Login here"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:18
+#: lib/vutuv_web/templates/layout/app.html.eex:20
 msgid "Logout"
-msgstr ""
-
-#, elixir-format
-#: lib/vutuv_web/templates/user/new_form.html.eex:27
-msgid "Male:"
-msgstr ""
-
-#, elixir-format
-#: lib/vutuv_web/templates/user/new.html.eex:11
-msgid "Members"
 msgstr ""
 
 #, elixir-format
@@ -168,7 +142,7 @@ msgid "My profile"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:20
+#: lib/vutuv_web/templates/layout/app.html.eex:24
 #: lib/vutuv_web/templates/user/index.html.eex:26
 msgid "New user"
 msgstr ""
@@ -181,11 +155,6 @@ msgstr ""
 #, elixir-format
 #: lib/vutuv_web/templates/user/show.html.eex:77
 msgid "Noindex?:"
-msgstr ""
-
-#, elixir-format
-#: lib/vutuv_web/templates/user/new_form.html.eex:27
-msgid "Other:"
 msgstr ""
 
 #, elixir-format
@@ -208,11 +177,6 @@ msgstr ""
 #, elixir-format
 #: lib/vutuv_web/templates/user/new.html.eex:6
 msgid "Stay up to date with your favorite topics and discover more"
-msgstr ""
-
-#, elixir-format
-#: lib/vutuv_web/templates/user/new.html.eex:3
-msgid "The fast, secure &amp; less annoying social network."
 msgstr ""
 
 #, elixir-format
@@ -253,11 +217,6 @@ msgid "Verified:"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/new.html.eex:26
-msgid "We store your data in our database and use cookies"
-msgstr ""
-
-#, elixir-format
 #: lib/vutuv_web/templates/user/edit_form.html.eex:9
 #: lib/vutuv_web/templates/user/new_form.html.eex:18
 msgid "First name"
@@ -289,17 +248,17 @@ msgid "Sign up"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:35
+#: lib/vutuv_web/templates/layout/app.html.eex:39
 msgid "About"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:36
+#: lib/vutuv_web/templates/layout/app.html.eex:40
 msgid "Data privacy"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_address/index.html.eex:29
+#: lib/vutuv_web/templates/email_address/index.html.eex:31
 msgid "Delete"
 msgstr ""
 
@@ -444,4 +403,24 @@ msgstr ""
 #, elixir-format
 #: lib/vutuv_web/templates/user/show.html.eex:1
 msgid "Show user"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/user/new_form.html.eex:27
+msgid "Female"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/user/new_form.html.eex:27
+msgid "Male"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/user/new_form.html.eex:27
+msgid "Other"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/user/new.html.eex:3
+msgid "The fast, secure and less annoying social network."
 msgstr ""

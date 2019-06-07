@@ -1,28 +1,13 @@
 <h1>vutuv</h1>
 <p>/vo.touf/</p>
-<h2><%= gettext "The fast, secure &amp; less annoying social network." %></h2>
+<h2><%= gettext "The fast, secure and less annoying social network." %></h2>
 
 <ul>
   <li><%= gettext "Stay up to date with your favorite topics and discover more" %></li>
   <li><%= gettext "Connect with business partners" %></li>
   <li><%= gettext "Communicate with your peers" %></li>
 </ul>
-<ul>
-  <li><em>19,144</em> <small><%= gettext "Members" %></small></li>
-  <li><em>647,592</em> <small><%= gettext "Articles" %></small></li>
-  <li><em>979,693</em> <small><%= gettext "Connections" %></small></li>
-</ul>
 
 <div>
   <%= render "new_form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create)) %>
-</div>
-
-<div>
-  <p><%= gettext "Already signed up?" %><br />
-  <span><%= link gettext("Login here"), to: Routes.session_path(@conn, :new) %></span>
-  </p>
-
-  <div>
-    <%= gettext "We store your data in our database and use cookies" %>
-  </div>
 </div>

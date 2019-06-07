@@ -2,10 +2,25 @@
 
 @import "./phoenix.css";
 
-header nav ul {
+header nav ul li {
   display: flex;
 }
 
-header nav li {
-  margin: 0 10px;
+header nav ul li {
+  display: inline-block;
+  text-align: center;
+  padding: 0 10px;
+  text-decoration: none;
+  font-size: 1.8rem;
+}
+
+button.link {
+  background: none;
+  color: #0069d9;
+  border: none;
+  padding: 0 !important;
+  font: inherit;
+  letter-spacing: 0;
+  text-transform: none;
+  cursor: pointer;
 }
