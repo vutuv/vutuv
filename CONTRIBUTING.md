@@ -22,6 +22,16 @@ and configure the remotes.
 1. Install [pre-commit](https://pre-commit.com/) and run `pre-commit install`
 in the root directory of the project.
 
+## Styling
+
+User messages should be written in sentence case, not title case.
+
+For example, write "Edit email address", not "Edit Email Address".
+
+See https://uxplanet.org/why-letter-casing-is-important-to-consider-during-design-decisions-50402acd0a4e
+and https://medium.com/@jsaito/making-a-case-for-letter-case-19d09f653c98
+for more information.
+
 ## Tooling
 
 We use the following tools in our development process.
