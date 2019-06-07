@@ -7,9 +7,11 @@ defmodule Vutuv.SessionsTest do
     attrs = %{
       "email" => "fred@example.com",
       "password" => "reallyHard2gue$$",
-      "gender" => "male",
-      "first_name" => "fred",
-      "last_name" => "frederickson"
+      "profile" => %{
+        "gender" => "male",
+        "first_name" => "fred",
+        "last_name" => "frederickson"
+      }
     }
 
     {:ok, user} = Accounts.create_user(attrs)

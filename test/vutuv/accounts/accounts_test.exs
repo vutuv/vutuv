@@ -9,9 +9,11 @@ defmodule Vutuv.AccountsTest do
   @create_user_attrs %{
     "email" => "fred@example.com",
     "password" => "reallyHard2gue$$",
-    "gender" => "male",
-    "first_name" => "fred",
-    "last_name" => "frederickson"
+    "profile" => %{
+      "gender" => "male",
+      "first_name" => "fred",
+      "last_name" => "frederickson"
+    }
   }
   @create_email_attrs %{
     "is_public" => true,
@@ -68,7 +70,9 @@ defmodule Vutuv.AccountsTest do
     end
 
     test "no first name or last name returns profile error" do
-      attrs = Map.merge(@create_user_attrs, %{"first_name" => "", "last_name" => ""})
+      attrs =
+        Map.merge(@create_user_attrs, %{"profile" => %{"first_name" => "", "last_name" => ""}})
+
       assert {:error, changeset} = Accounts.create_user(attrs)
 
       assert %{

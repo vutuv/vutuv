@@ -39,18 +39,8 @@
     </li>
 
     <li>
-      <strong><%= gettext "Birthday day:" %></strong>
-      <%= @profile.birthday_day %>
-    </li>
-
-    <li>
-      <strong><%= gettext "Birthday month:" %></strong>
-      <%= @profile.birthday_month %>
-    </li>
-
-    <li>
-      <strong><%= gettext "Birthday year:" %></strong>
-      <%= @profile.birthday_year %>
+      <strong><%= gettext "Date of birth" %></strong>
+      <%= @profile.birthday %>
     </li>
 
     <li>

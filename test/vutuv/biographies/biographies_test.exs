@@ -9,9 +9,7 @@ defmodule Vutuv.BiographiesTest do
   @valid_attrs %{
     active_slug: "some active_slug",
     avatar: %Plug.Upload{path: "test/fixtures/elixir_logo.png", filename: "elixir_logo.png"},
-    birthday_day: 42,
-    birthday_month: 42,
-    birthday_year: 42,
+    birthday: Date.utc_today(),
     first_name: "some first_name",
     gender: "some gender",
     headline: "some headline",
@@ -26,9 +24,7 @@ defmodule Vutuv.BiographiesTest do
   @update_attrs %{
     active_slug: "some updated active_slug",
     avatar: %Plug.Upload{path: "test/fixtures/cool_photo.png", filename: "cool_photo.png"},
-    birthday_day: 43,
-    birthday_month: 43,
-    birthday_year: 43,
+    birthday: Date.utc_today(),
     first_name: "some updated first_name",
     gender: "some updated gender",
     headline: "some updated headline",
@@ -43,9 +39,6 @@ defmodule Vutuv.BiographiesTest do
   @invalid_attrs %{
     active_slug: nil,
     avatar: nil,
-    birthday_day: nil,
-    birthday_month: nil,
-    birthday_year: nil,
     first_name: nil,
     gender: nil,
     headline: nil,
@@ -92,9 +85,6 @@ defmodule Vutuv.BiographiesTest do
                updated_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
              }
 
-      assert(profile.birthday_day == 42)
-      assert profile.birthday_month == 42
-      assert profile.birthday_year == 42
       assert profile.first_name == "some first_name"
       assert profile.gender == "some gender"
       assert profile.headline == "some headline"
@@ -121,9 +111,6 @@ defmodule Vutuv.BiographiesTest do
                updated_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
              }
 
-      assert profile.birthday_day == 43
-      assert profile.birthday_month == 43
-      assert profile.birthday_year == 43
       assert profile.first_name == "some updated first_name"
       assert profile.gender == "some updated gender"
       assert profile.headline == "some updated headline"

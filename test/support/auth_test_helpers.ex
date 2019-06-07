@@ -10,9 +10,11 @@ defmodule VutuvWeb.AuthTestHelpers do
     user_params = %{
       "email" => email,
       "password" => "reallyHard2gue$$",
-      "gender" => Enum.random(["female", "male"]),
-      "first_name" => Faker.Name.first_name(),
-      "last_name" => Faker.Name.last_name()
+      "profile" => %{
+        "gender" => Enum.random(["female", "male"]),
+        "first_name" => Faker.Name.first_name(),
+        "last_name" => Faker.Name.last_name()
+      }
     }
 
     {:ok, user} = Accounts.create_user(user_params)

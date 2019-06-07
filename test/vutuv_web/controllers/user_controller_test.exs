@@ -7,9 +7,11 @@ defmodule VutuvWeb.UserControllerTest do
   @create_attrs %{
     "email" => "bill@example.com",
     "password" => "reallyHard2gue$$",
-    "gender" => "male",
-    "first_name" => "bill",
-    "last_name" => "shakespeare"
+    "profile" => %{
+      "gender" => "male",
+      "first_name" => "bill",
+      "last_name" => "shakespeare"
+    }
   }
   @invalid_attrs %{email: nil}
 

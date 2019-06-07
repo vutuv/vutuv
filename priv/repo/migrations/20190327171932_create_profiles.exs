@@ -11,9 +11,7 @@ defmodule Vutuv.Repo.Migrations.CreateProfiles do
       add :honorific_prefix, :string
       add :honorific_suffix, :string
       add :gender, :string
-      add :birthday_day, :integer
-      add :birthday_month, :integer
-      add :birthday_year, :integer
+      add :birthday, :date
       add :locale, :string
       add :avatar, :string
       add :active_slug, :string

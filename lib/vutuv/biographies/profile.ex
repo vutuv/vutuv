@@ -16,9 +16,7 @@ defmodule Vutuv.Biographies.Profile do
           middlename: String.t(),
           nickname: String.t(),
           gender: String.t(),
-          birthday_day: integer,
-          birthday_month: integer,
-          birthday_year: integer,
+          birthday: Date.t(),
           active_slug: String.t(),
           avatar: String.t(),
           headline: String.t(),
@@ -37,9 +35,7 @@ defmodule Vutuv.Biographies.Profile do
     field :middlename, :string
     field :nickname, :string
     field :gender, :string
-    field :birthday_day, :integer
-    field :birthday_month, :integer
-    field :birthday_year, :integer
+    field :birthday, :date
     field :active_slug, :string
     field :avatar, Vutuv.Avatar.Type
     field :headline, :string
@@ -66,9 +62,7 @@ defmodule Vutuv.Biographies.Profile do
       :honorific_prefix,
       :honorific_suffix,
       :gender,
-      :birthday_day,
-      :birthday_month,
-      :birthday_year,
+      :birthday,
       :locale,
       :active_slug,
       :headline,
