@@ -8,12 +8,12 @@ defmodule Vutuv.GeneralsTest do
 
     @valid_attrs %{
       "description" => "some description",
-      "name" => "Some Name",
+      "name" => "Some name",
       "url" => "http://some-url.com"
     }
     @update_attrs %{
       "description" => "some updated description",
-      "name" => "Some Updated Name",
+      "name" => "Some updated name",
       "url" => "http://some-updated-url.com"
     }
     @invalid_attrs %{"description" => nil, "name" => nil, "url" => nil}
@@ -40,7 +40,7 @@ defmodule Vutuv.GeneralsTest do
     test "create_tag/1 with valid data creates a tag" do
       assert {:ok, %Tag{} = tag} = Generals.create_tag(@valid_attrs)
       assert tag.description == "some description"
-      assert tag.name == "Some Name"
+      assert tag.name == "Some name"
       assert tag.url == "http://some-url.com"
     end
 
@@ -52,7 +52,7 @@ defmodule Vutuv.GeneralsTest do
       tag = tag_fixture()
       assert {:ok, %Tag{} = tag} = Generals.update_tag(tag, @update_attrs)
       assert tag.description == "some updated description"
-      assert tag.name == "Some Updated Name"
+      assert tag.name == "Some updated name"
       assert tag.url == "http://some-updated-url.com"
     end
 

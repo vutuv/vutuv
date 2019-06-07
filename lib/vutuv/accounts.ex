@@ -67,13 +67,7 @@ defmodule Vutuv.Accounts do
       "description" => "email when registering vutuv"
     }
 
-    profile_attrs = %{
-      "gender" => attrs["gender"],
-      "first_name" => attrs["first_name"],
-      "last_name" => attrs["last_name"]
-    }
-
-    attrs = Map.merge(attrs, %{"email_addresses" => [email_attrs], "profile" => profile_attrs})
+    attrs = Map.merge(attrs, %{"email_addresses" => [email_attrs]})
 
     %User{}
     |> User.create_changeset(attrs)

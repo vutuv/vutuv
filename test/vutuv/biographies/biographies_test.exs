@@ -7,58 +7,24 @@ defmodule Vutuv.BiographiesTest do
   alias Vutuv.Biographies.{Profile, PhoneNumber}
 
   @valid_attrs %{
-    active_slug: "some active_slug",
     avatar: %Plug.Upload{path: "test/fixtures/elixir_logo.png", filename: "elixir_logo.png"},
-    birthday_day: 42,
-    birthday_month: 42,
-    birthday_year: 42,
-    first_name: "some first_name",
-    gender: "some gender",
-    headline: "some headline",
-    honorific_prefix: "some honorific_prefix",
-    honorific_suffix: "some honorific_suffix",
-    last_name: "some last_name",
-    locale: "some locale",
-    middlename: "some middlename",
-    nickname: "some nickname",
-    noindex?: true
+    full_name: "#{Faker.Name.first_name()} #{Faker.Name.last_name()}",
+    gender: Enum.random(["female", "male", "other"]),
+    preferred_name: Faker.Name.first_name(),
+    birthday: ~D[1980-01-15],
+    headline: Faker.Company.bs(),
+    honorific_prefix: "Dr",
+    honorific_suffix: "PhD"
   }
   @update_attrs %{
-    active_slug: "some updated active_slug",
-    avatar: %Plug.Upload{path: "test/fixtures/cool_photo.png", filename: "cool_photo.png"},
-    birthday_day: 43,
-    birthday_month: 43,
-    birthday_year: 43,
-    first_name: "some updated first_name",
-    gender: "some updated gender",
-    headline: "some updated headline",
-    honorific_prefix: "some updated honorific_prefix",
-    honorific_suffix: "some updated honorific_suffix",
-    last_name: "some updated last_name",
-    locale: "some updated locale",
-    middlename: "some updated middlename",
-    nickname: "some updated nickname",
-    noindex?: false
+    headline: Faker.Company.bs(),
+    preferred_name: Faker.Name.first_name()
   }
   @invalid_attrs %{
-    active_slug: nil,
-    avatar: nil,
-    birthday_day: nil,
-    birthday_month: nil,
-    birthday_year: nil,
-    first_name: nil,
-    gender: nil,
-    headline: nil,
-    honorific_prefix: nil,
-    honorific_suffix: nil,
-    last_name: nil,
-    locale: nil,
-    middlename: nil,
-    nickname: nil,
-    noindex?: nil
+    preferred_name: String.duplicate("GardenGnome", 8)
   }
-  @valid_phone_attrs %{type: "some type", value: "+9123450292"}
-  @update_phone_attrs %{type: "some updated type", value: "02122229999"}
+  @valid_phone_attrs %{type: "mobile", value: "+9123450292"}
+  @update_phone_attrs %{type: "work", value: "02122229999"}
   @invalid_phone_attrs %{type: nil, value: "abcde"}
 
   describe "profiles" do
@@ -85,26 +51,17 @@ defmodule Vutuv.BiographiesTest do
 
     test "create_profile/1 with valid data creates a profile" do
       assert {:ok, profile} = Biographies.create_profile(@valid_attrs)
-      assert profile.active_slug == "some active_slug"
 
       assert profile.avatar == %{
                file_name: "elixir_logo.png",
                updated_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
              }
 
-      assert(profile.birthday_day == 42)
-      assert profile.birthday_month == 42
-      assert profile.birthday_year == 42
-      assert profile.first_name == "some first_name"
-      assert profile.gender == "some gender"
-      assert profile.headline == "some headline"
-      assert profile.honorific_prefix == "some honorific_prefix"
-      assert profile.honorific_suffix == "some honorific_suffix"
-      assert profile.last_name == "some last_name"
-      assert profile.locale == "some locale"
-      assert profile.middlename == "some middlename"
-      assert profile.nickname == "some nickname"
-      assert profile.noindex? == true
+      assert profile.full_name
+      assert profile.gender in ["female", "male", "other"]
+      assert profile.preferred_name
+      assert profile.honorific_prefix == "Dr"
+      assert profile.honorific_suffix == "PhD"
     end
 
     test "create_profile/1 with invalid data returns error changeset" do
@@ -113,27 +70,12 @@ defmodule Vutuv.BiographiesTest do
 
     test "update_profile/2 with valid data updates the profile" do
       profile = profile_fixture()
-      assert {:ok, %Profile{} = profile} = Biographies.update_profile(profile, @update_attrs)
-      assert profile.active_slug == "some updated active_slug"
 
-      assert profile.avatar == %{
-               file_name: "cool_photo.png",
-               updated_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
-             }
+      assert {:ok, %Profile{headline: headline, preferred_name: preferred_name}} =
+               Biographies.update_profile(profile, @update_attrs)
 
-      assert profile.birthday_day == 43
-      assert profile.birthday_month == 43
-      assert profile.birthday_year == 43
-      assert profile.first_name == "some updated first_name"
-      assert profile.gender == "some updated gender"
-      assert profile.headline == "some updated headline"
-      assert profile.honorific_prefix == "some updated honorific_prefix"
-      assert profile.honorific_suffix == "some updated honorific_suffix"
-      assert profile.last_name == "some updated last_name"
-      assert profile.locale == "some updated locale"
-      assert profile.middlename == "some updated middlename"
-      assert profile.nickname == "some updated nickname"
-      assert profile.noindex? == false
+      assert headline != profile.headline
+      assert preferred_name != profile.preferred_name
     end
 
     test "update_profile/2 with invalid data returns error changeset" do
@@ -172,7 +114,7 @@ defmodule Vutuv.BiographiesTest do
                Biographies.create_phone_number(profile, @valid_phone_attrs)
 
       assert phone_number.value == "+9123450292"
-      assert phone_number.type == "some type"
+      assert phone_number.type == "mobile"
     end
 
     test "create_phone_number/1 with invalid data returns error changeset", %{profile: profile} do
@@ -186,7 +128,7 @@ defmodule Vutuv.BiographiesTest do
       assert {:ok, %PhoneNumber{} = phone_number} =
                Biographies.update_phone_number(phone_number, @update_phone_attrs)
 
-      assert phone_number.type == "some updated type"
+      assert phone_number.type == "work"
       assert phone_number.value == "02122229999"
     end
 

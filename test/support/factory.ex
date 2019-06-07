@@ -23,23 +23,17 @@ defmodule Vutuv.Factory do
   end
 
   def profile_factory do
-    %Date{year: year, month: month, day: day} = Faker.Date.date_of_birth(18..59)
-
     %Vutuv.Biographies.Profile{
-      first_name: Faker.Name.first_name(),
-      last_name: Faker.Name.last_name(),
-      middlename: Faker.Name.first_name(),
-      nickname: Faker.Name.first_name(),
+      full_name: "#{Faker.Name.first_name()} #{Faker.Name.last_name()}",
+      preferred_name: Faker.Name.first_name(),
       gender: sequence(:gender, ["female", "male"]),
-      birthday_day: day,
-      birthday_month: month,
-      birthday_year: year,
+      birthday: Faker.Date.date_of_birth(18..59),
       active_slug: Faker.Internet.slug(),
       # FIXME: riverrun - 2019-04-08
       # add valid avatar entry
       # avatar: "",
       headline: Faker.Company.bs(),
-      honorific_prefix: sequence(:honorific_prefix, ["dr", "mr", "ms"]),
+      honorific_prefix: sequence(:honorific_prefix, ["Dr", "Mr", "Ms"]),
       honorific_suffix: sequence(:honorific_suffix, ["", "PhD"]),
       locale: sequence(:locale, ["en", "de"]),
       noindex?: true

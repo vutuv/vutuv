@@ -34,7 +34,7 @@ defmodule Vutuv.Generals do
 
     {downcase_name, slug_value} =
       if is_binary(name) do
-        {String.downcase(name), Slugger.slugify_downcase(name)}
+        {String.downcase(name), Slugger.slugify_downcase(name, ?.)}
       else
         {nil, nil}
       end

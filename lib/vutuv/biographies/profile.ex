@@ -11,14 +11,10 @@ defmodule Vutuv.Biographies.Profile do
           id: integer,
           user_id: integer,
           user: User.t() | %Ecto.Association.NotLoaded{},
-          first_name: String.t(),
-          last_name: String.t(),
-          middlename: String.t(),
-          nickname: String.t(),
+          full_name: String.t(),
+          preferred_name: String.t(),
           gender: String.t(),
-          birthday_day: integer,
-          birthday_month: integer,
-          birthday_year: integer,
+          birthday: Date.t(),
           active_slug: String.t(),
           avatar: String.t(),
           headline: String.t(),
@@ -32,14 +28,10 @@ defmodule Vutuv.Biographies.Profile do
         }
 
   schema "profiles" do
-    field :first_name, :string
-    field :last_name, :string
-    field :middlename, :string
-    field :nickname, :string
+    field :full_name, :string
+    field :preferred_name, :string
     field :gender, :string
-    field :birthday_day, :integer
-    field :birthday_month, :integer
-    field :birthday_year, :integer
+    field :birthday, :date
     field :active_slug, :string
     field :avatar, Vutuv.Avatar.Type
     field :headline, :string
@@ -59,45 +51,23 @@ defmodule Vutuv.Biographies.Profile do
   def changeset(profile, attrs) do
     profile
     |> cast(attrs, [
-      :first_name,
-      :last_name,
-      :middlename,
-      :nickname,
+      :full_name,
+      :preferred_name,
       :honorific_prefix,
       :honorific_suffix,
       :gender,
-      :birthday_day,
-      :birthday_month,
-      :birthday_year,
+      :birthday,
       :locale,
       :active_slug,
       :headline,
       :noindex?
     ])
     |> cast_attachments(attrs, [:avatar])
-    |> validate_required([:gender])
-    |> validate_first_name_or_last_name(attrs)
-    |> validate_length(:first_name, max: 80)
-    |> validate_length(:last_name, max: 80)
-    |> validate_length(:middlename, max: 80)
-    |> validate_length(:nickname, max: 80)
+    |> validate_required([:full_name, :gender])
+    |> validate_length(:full_name, max: 80)
+    |> validate_length(:preferred_name, max: 80)
     |> validate_length(:honorific_prefix, max: 80)
     |> validate_length(:honorific_suffix, max: 80)
     |> validate_length(:headline, max: 255)
-  end
-
-  defp validate_first_name_or_last_name(changeset, %{}) do
-    first_name = get_field(changeset, :first_name)
-    last_name = get_field(changeset, :last_name)
-
-    if first_name || last_name do
-      changeset
-    else
-      message = "First name or last name must be present"
-
-      changeset
-      |> add_error(:first_name, message)
-      |> add_error(:last_name, message)
-    end
   end
 end

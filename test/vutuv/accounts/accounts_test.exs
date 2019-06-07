@@ -9,9 +9,10 @@ defmodule Vutuv.AccountsTest do
   @create_user_attrs %{
     "email" => "fred@example.com",
     "password" => "reallyHard2gue$$",
-    "gender" => "male",
-    "first_name" => "fred",
-    "last_name" => "frederickson"
+    "profile" => %{
+      "gender" => "male",
+      "full_name" => "fred frederickson"
+    }
   }
   @create_email_attrs %{
     "is_public" => true,
@@ -35,9 +36,7 @@ defmodule Vutuv.AccountsTest do
     test "get_user returns email_addresses and profile", %{user: user} do
       user = Accounts.get_user(user.id)
       assert [%EmailAddress{value: "fred@example.com", position: 1}] = user.email_addresses
-
-      assert %Profile{gender: "male", first_name: "fred", last_name: "frederickson"} =
-               user.profile
+      assert %Profile{gender: "male", full_name: "fred frederickson"} = user.profile
     end
 
     test "change_user/1 returns a user changeset", %{user: user} do
@@ -67,16 +66,12 @@ defmodule Vutuv.AccountsTest do
       assert %{email_addresses: [%{value: ["has invalid format"]}]} = errors_on(changeset)
     end
 
-    test "no first name or last name returns profile error" do
-      attrs = Map.merge(@create_user_attrs, %{"first_name" => "", "last_name" => ""})
+    test "no full name returns profile error" do
+      attrs = Map.merge(@create_user_attrs, %{"profile" => %{"full_name" => ""}})
       assert {:error, changeset} = Accounts.create_user(attrs)
 
-      assert %{
-               profile: %{
-                 first_name: ["First name or last name must be present"],
-                 last_name: ["First name or last name must be present"]
-               }
-             } = errors_on(changeset)
+      assert %{profile: %{full_name: ["can't be blank"], gender: ["can't be blank"]}} =
+               errors_on(changeset)
     end
 
     test "update password changes the stored hash" do

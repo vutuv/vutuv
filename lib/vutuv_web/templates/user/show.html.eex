@@ -4,23 +4,13 @@
   <h3><%= gettext "Profile" %></h3>
   <ul>
     <li>
-      <strong><%= gettext "First name:" %></strong>
-      <%= @profile.first_name %>
+      <strong><%= gettext "Full name:" %></strong>
+      <%= @profile.full_name %>
     </li>
 
     <li>
-      <strong><%= gettext "Last name:" %></strong>
-      <%= @profile.last_name %>
-    </li>
-
-    <li>
-      <strong><%= gettext "Middle name:" %></strong>
-      <%= @profile.middlename %>
-    </li>
-
-    <li>
-      <strong><%= gettext "Nickname:" %></strong>
-      <%= @profile.nickname %>
+      <strong><%= gettext "Preferred name:" %></strong>
+      <%= @profile.preferred_name %>
     </li>
 
     <li>
@@ -39,18 +29,8 @@
     </li>
 
     <li>
-      <strong><%= gettext "Birthday day:" %></strong>
-      <%= @profile.birthday_day %>
-    </li>
-
-    <li>
-      <strong><%= gettext "Birthday month:" %></strong>
-      <%= @profile.birthday_month %>
-    </li>
-
-    <li>
-      <strong><%= gettext "Birthday year:" %></strong>
-      <%= @profile.birthday_year %>
+      <strong><%= gettext "Date of birth" %></strong>
+      <%= @profile.birthday %>
     </li>
 
     <li>
