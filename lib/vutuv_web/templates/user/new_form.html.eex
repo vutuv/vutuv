@@ -16,13 +16,9 @@
   <%= error_tag f, :password %>
 
   <%= inputs_for f, :profile, fn fp -> %>
-    <%= label fp, :first_name, gettext("First name") %>
-    <%= text_input fp, :first_name %>
-    <%= error_tag fp, :first_name %>
-
-    <%= label fp, :last_name, gettext("Last name") %>
-    <%= text_input fp, :last_name %>
-    <%= error_tag fp, :last_name %>
+    <%= label fp, :full_name, gettext("Full name") %>
+    <%= text_input fp, :full_name %>
+    <%= error_tag fp, :full_name %>
 
     <%= label fp, :gender, gettext("Gender") %>
     <%= select fp, :gender, [{gettext("Female"), "female"}, {gettext("Male"), "male"}, {gettext("Other"), "other"}] %>

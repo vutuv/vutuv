@@ -6,21 +6,13 @@
   <% end %>
 
   <%= inputs_for f, :profile, fn fp -> %>
-    <%= label fp, :first_name, gettext("First name") %>
-    <%= text_input fp, :first_name %>
-    <%= error_tag fp, :first_name %>
+    <%= label fp, :full_name, gettext("Full name") %>
+    <%= text_input fp, :full_name %>
+    <%= error_tag fp, :full_name %>
 
-    <%= label fp, :last_name, gettext("Last name") %>
-    <%= text_input fp, :last_name %>
-    <%= error_tag fp, :last_name %>
-
-    <%= label fp, :middlename, gettext("Middle name") %>
-    <%= text_input fp, :middlename  %>
-    <%= error_tag fp, :middlename %>
-
-    <%= label fp, :nickname, gettext("Nickname")  %>
-    <%= text_input fp, :nickname %>
-    <%= error_tag fp, :nickname %>
+    <%= label fp, :preferred_name, gettext("Preferred name")  %>
+    <%= text_input fp, :preferred_name %>
+    <%= error_tag fp, :preferred_name %>
 
     <%= label fp, :honorific_prefix, gettext("Honorific prefix") %>
     <%= text_input fp, :honorific_prefix %>

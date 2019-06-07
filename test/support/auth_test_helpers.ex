@@ -12,8 +12,7 @@ defmodule VutuvWeb.AuthTestHelpers do
       "password" => "reallyHard2gue$$",
       "profile" => %{
         "gender" => Enum.random(["female", "male"]),
-        "first_name" => Faker.Name.first_name(),
-        "last_name" => Faker.Name.last_name()
+        "full_name" => "#{Faker.Name.first_name()} #{Faker.Name.last_name()}"
       }
     }
 

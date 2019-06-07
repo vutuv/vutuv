@@ -11,8 +11,7 @@ users = [
     "password" => "password",
     "profile" => %{
       "gender" => "female",
-      "first_name" => "Jane",
-      "last_name" => "Doe"
+      "full_name" => "Jane Doe"
     }
   },
   %{
@@ -20,8 +19,7 @@ users = [
     "password" => "password",
     "profile" => %{
       "gender" => "male",
-      "first_name" => "John",
-      "last_name" => "Smith"
+      "full_name" => "John Smith"
     }
   }
 ]
@@ -31,7 +29,9 @@ for user <- users do
   Vutuv.Accounts.confirm_user(user)
   Vutuv.Accounts.confirm_email_address(email_address)
 
+  name = String.replace(user.profile.full_name, " ", ".")
+
   Vutuv.Accounts.create_email_address(user, %{
-    "value" => "#{user.profile.first_name}_123@example.com"
+    "value" => "#{name}_123@example.com"
   })
 end

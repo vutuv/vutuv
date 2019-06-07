@@ -4,23 +4,13 @@
   <h3><%= gettext "Profile" %></h3>
   <ul>
     <li>
-      <strong><%= gettext "First name:" %></strong>
-      <%= @profile.first_name %>
+      <strong><%= gettext "Full name:" %></strong>
+      <%= @profile.full_name %>
     </li>
 
     <li>
-      <strong><%= gettext "Last name:" %></strong>
-      <%= @profile.last_name %>
-    </li>
-
-    <li>
-      <strong><%= gettext "Middle name:" %></strong>
-      <%= @profile.middlename %>
-    </li>
-
-    <li>
-      <strong><%= gettext "Nickname:" %></strong>
-      <%= @profile.nickname %>
+      <strong><%= gettext "Preferred name:" %></strong>
+      <%= @profile.preferred_name %>
     </li>
 
     <li>

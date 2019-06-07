@@ -4,10 +4,8 @@ defmodule Vutuv.Repo.Migrations.CreateProfiles do
   def change do
     create table(:profiles) do
       add :user_id, references(:users, on_delete: :delete_all)
-      add :first_name, :string
-      add :last_name, :string
-      add :middlename, :string
-      add :nickname, :string
+      add :full_name, :string
+      add :preferred_name, :string
       add :honorific_prefix, :string
       add :honorific_suffix, :string
       add :gender, :string

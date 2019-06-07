@@ -9,8 +9,7 @@ defmodule Vutuv.SessionsTest do
       "password" => "reallyHard2gue$$",
       "profile" => %{
         "gender" => "male",
-        "first_name" => "fred",
-        "last_name" => "frederickson"
+        "full_name" => "fred frederickson"
       }
     }
 

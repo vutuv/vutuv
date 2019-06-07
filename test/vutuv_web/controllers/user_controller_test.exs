@@ -9,8 +9,7 @@ defmodule VutuvWeb.UserControllerTest do
     "password" => "reallyHard2gue$$",
     "profile" => %{
       "gender" => "male",
-      "first_name" => "bill",
-      "last_name" => "shakespeare"
+      "full_name" => "bill shakespeare"
     }
   }
   @invalid_attrs %{email: nil}
@@ -69,13 +68,13 @@ defmodule VutuvWeb.UserControllerTest do
     setup [:add_user_session]
 
     test "successful when data is valid", %{conn: conn, user: user} do
-      attrs = %{"profile" => %{"last_name" => "Luxury yacht"}}
+      attrs = %{"profile" => %{"full_name" => "Raymond Luxury Yacht"}}
       conn = put(conn, Routes.user_path(conn, :update, user), user: attrs)
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
       updated_user = Accounts.get_user(user.id)
-      assert updated_user.profile.last_name == "Luxury yacht"
+      assert updated_user.profile.full_name == "Raymond Luxury Yacht"
       conn = get(conn, Routes.user_path(conn, :show, user))
-      assert html_response(conn, 200) =~ "Luxury yacht"
+      assert html_response(conn, 200) =~ "Raymond Luxury Yacht"
     end
 
     test "fails when data is invalid", %{conn: conn, user: user} do
