@@ -1,12 +1,4 @@
-<h1>vutuv</h1>
-<p>/vo.touf/</p>
-<h2><%= gettext "The fast, secure and less annoying social network." %></h2>
-
-<ul>
-  <li><%= gettext "Stay up to date with your favorite topics and discover more" %></li>
-  <li><%= gettext "Connect with business partners" %></li>
-  <li><%= gettext "Communicate with your peers" %></li>
-</ul>
+<h1><%= gettext "Sign up" %></h1>
 
 <div>
   <%= render "new_form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create)) %>

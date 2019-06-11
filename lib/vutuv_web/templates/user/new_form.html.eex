@@ -5,8 +5,6 @@
     </div>
   <% end %>
 
-  <h2><%= gettext("Sign up") %></h2>
-
   <%= label f, :email, gettext("Email") %>
   <%= email_input f, :email %>
   <%= error_tag f, :email %>
