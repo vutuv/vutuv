@@ -9,37 +9,32 @@
   </head>
   <body>
     <header>
-      <section class="container">
-        <nav role="navigation">
-          <ul>
-            <li><%= link gettext("Users"), to: Routes.user_path(@conn, :index) %></li>
-            <%= if @current_user do %>
-              <li><%= link gettext("My profile"), to: Routes.user_path(@conn, :show, @current_user) %></li>
-              <li>
-                <%= form_for @conn, Routes.session_path(@conn, :delete, current_session(@conn)), [method: "delete"], fn _f -> %>
-                <%= submit gettext("Logout"), class: "link" %>
-              <% end %>
-              </li>
-            <% else %>
-              <li><%= link gettext("New user"), to: Routes.user_path(@conn, :new) %></li>
-              <li><%= link gettext("Login"), to: Routes.session_path(@conn, :new) %></li>
-            <% end %>
-          </ul>
-        </nav>
-      </section>
+      <div class="inset">
+        <h1>vutuv</h1>
+      </div>
+      <h2><%= gettext "The fast, secure and less annoying social network." %></h2>
     </header>
-    <main role="main" class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-      <%= render @view_module, @view_template, assigns %>
+    <main role="main">
+      <article class="content">
+        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+        <%= render @view_module, @view_template, assigns %>
+      </article>
     </main>
     <footer>
-      <div class="container">
-        <ul>
-          <li><a href="#"><%= gettext "About" %></a></li>
-          <li><a href="#"><%= gettext "Data privacy" %></a></li>
-        </ul>
-      </div>
+      <ul>
+        <li><a href="#"><%= gettext "About" %></a></li>
+        <li><a href="#"><%= gettext "Data privacy" %></a></li>
+        <%= if @current_user do %>
+          <li>
+            <%= form_for @conn, Routes.session_path(@conn, :delete, current_session(@conn)), [method: "delete"], fn _f -> %>
+              <%= submit gettext("Logout"), class: "link" %>
+            <% end %>
+          </li>
+        <% else %>
+          <li><%= link gettext("Login"), to: Routes.session_path(@conn, :new) %></li>
+        <% end %>
+      </ul>
     </footer>
   </body>
 </html>

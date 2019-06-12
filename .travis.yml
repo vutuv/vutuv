@@ -6,6 +6,9 @@ elixir:
 otp_release:
   - 21.1
 
+addons:
+  postgresql: '10'
+
 script:
   - mix compile --warnings-as-errors
   - mix format --check-formatted
