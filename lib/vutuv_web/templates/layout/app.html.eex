@@ -9,22 +9,20 @@
   </head>
   <body>
     <header>
-      <section class="container">
+      <div class="inset">
         <h1>vutuv</h1>
-        <h2><%= gettext "The fast, secure and less annoying social network." %></h2>
-      </section>
+      </div>
+      <h2><%= gettext "The fast, secure and less annoying social network." %></h2>
     </header>
-    <main>
-      <section class="container">
-        <article class="content">
-          <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-          <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-          <%= render @view_module, @view_template, assigns %>
-        </article>
-      </section>
+    <main role="main">
+      <article class="content">
+        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+        <%= render @view_module, @view_template, assigns %>
+      </article>
     </main>
     <footer>
-      <ul class="container">
+      <ul>
         <li><a href="#"><%= gettext "About" %></a></li>
         <li><a href="#"><%= gettext "Data privacy" %></a></li>
         <%= if @current_user do %>
