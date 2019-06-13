@@ -10,6 +10,11 @@ defmodule VutuvWeb.Router do
     plug Phauxth.Authenticate
   end
 
+  pipeline :api do
+    plug :accepts, ["json"]
+    plug Phauxth.AuthenticateToken
+  end
+
   scope "/", VutuvWeb do
     pipe_through :browser
 
@@ -24,6 +29,16 @@ defmodule VutuvWeb.Router do
     resources "/password_resets", PasswordResetController, only: [:new, :create]
     get "/password_resets/edit", PasswordResetController, :edit
     put "/password_resets/update", PasswordResetController, :update
+  end
+
+  scope "/api/v1", VutuvWeb.Api, as: :api do
+    pipe_through :api
+
+    resources "/users", UserController, except: [:new, :edit] do
+      resources "/email_addresses", EmailAddressController, [:new, :edit]
+    end
+
+    post "/sessions", SessionController, :create
   end
 
   if Mix.env() == :dev do

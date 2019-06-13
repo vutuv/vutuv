@@ -1,7 +1,7 @@
-defmodule VutuvWeb.EmailAddressView do
+defmodule VutuvWeb.Api.EmailAddressView do
   use VutuvWeb, :view
 
-  alias VutuvWeb.EmailAddressView
+  alias VutuvWeb.Api.EmailAddressView
 
   def render("index.json", %{email_addresses: email_addresses}) do
     %{data: render_many(email_addresses, EmailAddressView, "email_address.json")}
