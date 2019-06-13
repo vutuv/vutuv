@@ -55,6 +55,15 @@ defmodule VutuvWeb.AuthTestHelpers do
     |> configure_session(renew: true)
   end
 
+  def add_token_conn(conn, user) do
+    {:ok, %{id: session_id}} = Sessions.create_session(%{user_id: user.id})
+    user_token = Token.sign(%{"session_id" => session_id})
+
+    conn
+    |> put_req_header("accept", "application/json")
+    |> put_req_header("authorization", user_token)
+  end
+
   defp now do
     DateTime.truncate(DateTime.utc_now(), :second)
   end

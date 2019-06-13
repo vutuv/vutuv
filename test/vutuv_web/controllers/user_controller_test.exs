@@ -2,6 +2,7 @@ defmodule VutuvWeb.UserControllerTest do
   use VutuvWeb.ConnCase
 
   import VutuvWeb.AuthTestHelpers
+
   alias Vutuv.Accounts
 
   @create_attrs %{

@@ -1,4 +1,4 @@
-defmodule VutuvWeb.SessionView do
+defmodule VutuvWeb.Api.SessionView do
   use VutuvWeb, :view
 
   def render("info.json", %{info: token}) do

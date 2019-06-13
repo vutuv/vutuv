@@ -1,7 +1,7 @@
-defmodule VutuvWeb.UserView do
+defmodule VutuvWeb.Api.UserView do
   use VutuvWeb, :view
 
-  alias VutuvWeb.UserView
+  alias VutuvWeb.Api.UserView
 
   def render("index.json", %{users: users}) do
     %{data: render_many(users, UserView, "user.json")}
