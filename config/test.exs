@@ -4,7 +4,7 @@ use Mix.Config
 # you can enable the server option below.
 config :vutuv, VutuvWeb.Endpoint,
   http: [port: 4002],
-  server: false
+  server: true
 
 # Print only warnings and errors during test
 config :logger, level: :warn

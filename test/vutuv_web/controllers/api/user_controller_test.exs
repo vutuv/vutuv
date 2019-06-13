@@ -13,7 +13,6 @@ defmodule VutuvWeb.Api.UserControllerTest do
       "full_name" => "bill shakespeare"
     }
   }
-  @invalid_attrs %{email: nil}
 
   describe "read user data" do
     test "lists all entries on index", %{conn: conn} do
@@ -38,7 +37,7 @@ defmodule VutuvWeb.Api.UserControllerTest do
     end
 
     test "does not create user and renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.api_user_path(conn, :create), user: @invalid_attrs)
+      conn = post(conn, Routes.api_user_path(conn, :create), user: %{email: nil})
 
       assert json_response(conn, 422)["errors"]["email_addresses"] == [
                %{"value" => ["can't be blank"]}

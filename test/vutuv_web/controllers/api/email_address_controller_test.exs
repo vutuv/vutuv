@@ -128,5 +128,12 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
       assert response(conn, 204)
       refute Accounts.get_email_address(email_address.id)
     end
+
+    test "cannot delete other user's email_address", %{conn: conn} do
+      %User{email_addresses: [email_address]} = other = add_user("raymond@example.com")
+      conn = delete(conn, Routes.api_user_email_address_path(conn, :delete, other, email_address))
+      assert json_response(conn, 403)["errors"] != %{}
+      assert Accounts.get_email_address(email_address.id)
+    end
   end
 end

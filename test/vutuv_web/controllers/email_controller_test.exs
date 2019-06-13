@@ -208,13 +208,9 @@ defmodule VutuvWeb.EmailAddressControllerTest do
       refute Accounts.get_email_address(email_address.id)
     end
 
-    test "cannot delete another user's email_address", %{
-      conn: conn,
-      user: user,
-      email_address: email_address
-    } do
-      other = add_user("raymond@example.com")
-      conn = get(conn, Routes.user_email_address_path(conn, :delete, other, email_address))
+    test "cannot delete another user's email_address", %{conn: conn, user: user} do
+      %User{email_addresses: [email_address]} = other = add_user("raymond@example.com")
+      conn = delete(conn, Routes.user_email_address_path(conn, :delete, other, email_address))
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
       assert get_flash(conn, :error) =~ "not authorized"
       assert Accounts.get_email_address(email_address.id)

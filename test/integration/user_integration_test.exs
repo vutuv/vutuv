@@ -1,0 +1,90 @@
+defmodule VutuvWeb.UserIntegrationTest do
+  use Vutuv.DataCase
+
+  import VutuvWeb.AuthTestHelpers
+  import VutuvWeb.IntegrationHelper
+
+  alias Vutuv.Accounts
+
+  @create_attrs %{
+    "email" => "bill@example.com",
+    "password" => "reallyHard2gue$$",
+    "profile" => %{
+      "gender" => "male",
+      "full_name" => "bill shakespeare"
+    }
+  }
+
+  setup do
+    user = add_user("ted@mail.com")
+    %{"access_token" => token} = login_user("ted@mail.com")
+    {:ok, %{user: user, token: token}}
+  end
+
+  describe "read user data" do
+    test "list users" do
+      {:ok, response} = Tesla.get(simple_client(), "/users")
+      assert %Tesla.Env{body: %{"data" => data}, status: 200} = response
+      assert length(data) == 1
+    end
+
+    test "show specific user data", %{user: %{id: id}} do
+      {:ok, response} = Tesla.get(simple_client(), "/users/#{id}")
+      assert %Tesla.Env{body: %{"data" => data}, status: 200} = response
+      assert data["id"] == id
+    end
+  end
+
+  describe "write / update user data" do
+    test "create user" do
+      {:ok, response} = Tesla.post(simple_client(), "/users", %{user: @create_attrs})
+      assert %Tesla.Env{body: %{"data" => data}, status: 201} = response
+      assert data["id"]
+      assert Accounts.get_by(%{"email" => @create_attrs["email"]})
+    end
+
+    test "invalid data errors when creating user" do
+      {:ok, response} = Tesla.post(simple_client(), "/users", %{user: %{"email" => nil}})
+      assert %Tesla.Env{body: %{"errors" => errors}, status: 422} = response
+      assert errors["profile"] == ["can't be blank"]
+    end
+
+    test "update user", %{user: user, token: token} do
+      attrs = %{"profile" => %{"full_name" => "Raymond Luxury Yacht"}}
+
+      {:ok, response} =
+        token |> authenticated_client() |> Tesla.put("/users/#{user.id}", %{user: attrs})
+
+      assert %Tesla.Env{body: %{"data" => data}, status: 200} = response
+      assert data["id"] == user.id
+      updated_user = Accounts.get_user(user.id)
+      assert updated_user.profile.full_name == "Raymond Luxury Yacht"
+    end
+
+    test "invalid data errors when updating user", %{user: user, token: token} do
+      attrs = %{"profile" => %{"honorific_prefix" => String.duplicate("Dr", 42)}}
+
+      {:ok, response} =
+        token |> authenticated_client() |> Tesla.put("/users/#{user.id}", %{user: attrs})
+
+      assert %Tesla.Env{body: %{"errors" => errors}, status: 422} = response
+      assert errors["profile"]["honorific_prefix"] == ["should be at most 80 character(s)"]
+    end
+  end
+
+  describe "delete user" do
+    test "delete user", %{user: user, token: token} do
+      {:ok, response} = token |> authenticated_client() |> Tesla.delete("/users/#{user.id}")
+      assert %Tesla.Env{body: "", status: 204} = response
+      refute Accounts.get_user(user.id)
+    end
+
+    test "cannot delete other user", %{token: token} do
+      other = add_user("tony@example.com")
+      {:ok, response} = token |> authenticated_client() |> Tesla.delete("/users/#{other.id}")
+      assert %Tesla.Env{body: %{"errors" => errors}, status: 403} = response
+      assert errors["detail"] =~ "You are not authorized"
+      assert Accounts.get_user(other.id)
+    end
+  end
+end
