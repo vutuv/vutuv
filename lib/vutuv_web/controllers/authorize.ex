@@ -25,10 +25,7 @@ defmodule VutuvWeb.Authorize do
     if user_id == to_string(id) do
       apply(module, action_name(conn), [conn, params, current_user])
     else
-      conn
-      |> put_flash(:error, "You are not authorized to view this page")
-      |> redirect(to: Routes.user_path(conn, :show, current_user))
-      |> halt()
+      unauthorized(conn, current_user)
     end
   end
 
@@ -61,14 +58,17 @@ defmodule VutuvWeb.Authorize do
         %Plug.Conn{params: %{"id" => id}, assigns: %{current_user: current_user}} = conn,
         _opts
       ) do
-    if id == to_string(current_user.id) do
-      conn
-    else
-      conn
-      |> put_flash(:error, "You are not authorized to view this page")
-      |> redirect(to: Routes.user_path(conn, :show, current_user))
-      |> halt()
-    end
+    if id == to_string(current_user.id), do: conn, else: unauthorized(conn, current_user)
+  end
+
+  @doc """
+  Redirects user when user is not authorized to access the resource.
+  """
+  def unauthorized(conn, current_user) do
+    conn
+    |> put_flash(:error, "You are not authorized to view this page")
+    |> redirect(to: Routes.user_path(conn, :show, current_user))
+    |> halt()
   end
 
   defp need_login(conn) do

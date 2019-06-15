@@ -12,7 +12,6 @@ defmodule VutuvWeb.Api.UserView do
   end
 
   def render("user.json", %{user: user}) do
-    # add nested data as well
-    %{id: user.id}
+    %{id: user.id, profile: %{full_name: user.profile.full_name}}
   end
 end

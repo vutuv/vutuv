@@ -35,20 +35,33 @@ defmodule VutuvWeb.EmailAddressController do
     end
   end
 
-  def show(conn, %{"id" => id}, _user) do
-    email_address = Accounts.get_email_address(id)
-    render(conn, "show.html", email_address: email_address)
+  def show(conn, %{"id" => id}, user) do
+    case Accounts.get_user_email_address(user, id) do
+      %EmailAddress{} = email_address -> render(conn, "show.html", email_address: email_address)
+      _ -> unauthorized(conn, user)
+    end
   end
 
-  def edit(conn, %{"id" => id}, _user) do
-    email_address = Accounts.get_email_address(id)
-    changeset = Accounts.change_email_address(email_address)
-    render(conn, "edit.html", email_address: email_address, changeset: changeset)
+  def edit(conn, %{"id" => id}, user) do
+    case Accounts.get_user_email_address(user, id) do
+      %EmailAddress{} = email_address ->
+        changeset = Accounts.change_email_address(email_address)
+        render(conn, "edit.html", email_address: email_address, changeset: changeset)
+
+      _ ->
+        unauthorized(conn, user)
+    end
   end
 
   def update(conn, %{"id" => id, "email_address" => email_address_params}, user) do
-    email_address = Accounts.get_email_address(id)
+    if email_address = Accounts.get_user_email_address(user, id) do
+      do_update(conn, email_address, email_address_params, user)
+    else
+      unauthorized(conn, user)
+    end
+  end
 
+  defp do_update(conn, email_address, email_address_params, user) do
     case Accounts.update_email_address(email_address, email_address_params) do
       {:ok, email_address} ->
         conn
@@ -61,11 +74,16 @@ defmodule VutuvWeb.EmailAddressController do
   end
 
   def delete(conn, %{"id" => id}, user) do
-    email_address = Accounts.get_email_address(id)
-    {:ok, _email_address} = Accounts.delete_email_address(email_address)
+    case Accounts.get_user_email_address(user, id) do
+      %EmailAddress{} = email_address ->
+        {:ok, _email_address} = Accounts.delete_email_address(email_address)
 
-    conn
-    |> put_flash(:info, "Email address deleted successfully.")
-    |> redirect(to: Routes.user_email_address_path(conn, :index, user))
+        conn
+        |> put_flash(:info, "Email address deleted successfully.")
+        |> redirect(to: Routes.user_email_address_path(conn, :index, user))
+
+      _ ->
+        unauthorized(conn, user)
+    end
   end
 end
