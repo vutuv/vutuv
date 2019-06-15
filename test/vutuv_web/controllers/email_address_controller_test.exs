@@ -81,12 +81,11 @@ defmodule VutuvWeb.EmailAddressControllerTest do
       assert get_flash(conn, :error) =~ "need to log in"
     end
 
-    test "redirects when email_address does not belong to current_user", %{
-      conn: conn,
-      user: user,
-      email_address: email_address
-    } do
-      other = add_user("raymond@example.com")
+    test "redirects when email_address does not belong to current_user", %{conn: conn, user: user} do
+      %User{email_addresses: [email_address]} = other = add_user("raymond@example.com")
+      conn = get(conn, Routes.user_email_address_path(conn, :show, user, email_address))
+      assert redirected_to(conn) == Routes.user_path(conn, :show, user)
+      assert get_flash(conn, :error) =~ "not authorized"
       conn = get(conn, Routes.user_email_address_path(conn, :show, other, email_address))
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
       assert get_flash(conn, :error) =~ "not authorized"
@@ -181,15 +180,11 @@ defmodule VutuvWeb.EmailAddressControllerTest do
       assert email_address.is_public == true
     end
 
-    test "cannot update an email_address for another user", %{
-      conn: conn,
-      user: user,
-      email_address: email_address
-    } do
-      other = add_user("raymond@example.com")
+    test "cannot update an email_address for another user", %{conn: conn, user: user} do
+      %User{email_addresses: [email_address]} = add_user("raymond@example.com")
 
       conn =
-        put(conn, Routes.user_email_address_path(conn, :update, other, email_address),
+        put(conn, Routes.user_email_address_path(conn, :update, user, email_address),
           email_address: %{"is_public" => false}
         )
 
@@ -209,8 +204,8 @@ defmodule VutuvWeb.EmailAddressControllerTest do
     end
 
     test "cannot delete another user's email_address", %{conn: conn, user: user} do
-      %User{email_addresses: [email_address]} = other = add_user("raymond@example.com")
-      conn = delete(conn, Routes.user_email_address_path(conn, :delete, other, email_address))
+      %User{email_addresses: [email_address]} = add_user("raymond@example.com")
+      conn = delete(conn, Routes.user_email_address_path(conn, :delete, user, email_address))
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
       assert get_flash(conn, :error) =~ "not authorized"
       assert Accounts.get_email_address(email_address.id)

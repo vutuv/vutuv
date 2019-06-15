@@ -25,7 +25,11 @@ defmodule VutuvWeb.Api.UserControllerTest do
     test "show chosen user's resource", %{conn: conn} do
       user = add_user("reg@example.com")
       conn = get(conn, Routes.api_user_path(conn, :show, user))
-      assert json_response(conn, 200)["data"] == %{"id" => user.id}
+
+      assert json_response(conn, 200)["data"] == %{
+               "id" => user.id,
+               "profile" => %{"full_name" => user.profile.full_name}
+             }
     end
   end
 

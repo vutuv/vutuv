@@ -55,15 +55,15 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
       assert json_response(conn, 401)["errors"]["detail"] =~ "need to login"
     end
 
-    test "returns errors when email_address does not belong to current_user", %{conn: conn} do
-      other = add_user("fred@mail.com")
-      conn = get(conn, Routes.api_user_email_address_path(conn, :show, other, 3))
+    test "returns errors when email_address does not belong to current_user", %{
+      conn: conn,
+      user: user
+    } do
+      %User{email_addresses: [email_address]} = other = add_user("fred@mail.com")
+      conn = get(conn, Routes.api_user_email_address_path(conn, :show, user, email_address))
       assert json_response(conn, 403)["errors"]["detail"] =~ "are not authorized"
-    end
-
-    test "returns nil when id is nonexistent", %{conn: conn, user: user} do
-      conn = get(conn, Routes.api_user_email_address_path(conn, :show, user, 10))
-      assert json_response(conn, 200)["data"] == nil
+      conn = get(conn, Routes.api_user_email_address_path(conn, :show, other, email_address))
+      assert json_response(conn, 403)["errors"]["detail"] =~ "are not authorized"
     end
   end
 
@@ -129,9 +129,9 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
       refute Accounts.get_email_address(email_address.id)
     end
 
-    test "cannot delete other user's email_address", %{conn: conn} do
-      %User{email_addresses: [email_address]} = other = add_user("raymond@example.com")
-      conn = delete(conn, Routes.api_user_email_address_path(conn, :delete, other, email_address))
+    test "cannot delete other user's email_address", %{conn: conn, user: user} do
+      %User{email_addresses: [email_address]} = add_user("raymond@example.com")
+      conn = delete(conn, Routes.api_user_email_address_path(conn, :delete, user, email_address))
       assert json_response(conn, 403)["errors"] != %{}
       assert Accounts.get_email_address(email_address.id)
     end

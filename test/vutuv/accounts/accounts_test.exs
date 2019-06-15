@@ -114,10 +114,18 @@ defmodule Vutuv.AccountsTest do
       assert length(Accounts.list_email_addresses(user)) == 3
     end
 
-    test "get_email_address returns the email_address with given id", %{
+    test "get_user_email_address returns a specific user's email_address", %{
+      user: user,
       email_address: email_address
     } do
-      assert Accounts.get_email_address(email_address.id) == email_address
+      assert Accounts.get_user_email_address(user, email_address.id) == email_address
+    end
+
+    test "get_user_email_address returns returns nil for other user's email_address", %{
+      email_address: email_address
+    } do
+      other = insert(:user)
+      refute Accounts.get_user_email_address(other, email_address.id)
     end
 
     test "change_email_address/1 returns a email_address changeset", %{

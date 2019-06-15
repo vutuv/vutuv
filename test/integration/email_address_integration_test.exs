@@ -103,8 +103,17 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
       refute Accounts.get_email_address(id)
     end
 
-    test "cannot delete other email_address", %{token: token} do
+    test "cannot delete other email_address", %{user: user, token: token} do
       %User{email_addresses: [%{id: id}]} = other = add_user("raymond@example.com")
+
+      {:ok, response} =
+        token
+        |> authenticated_client()
+        |> Tesla.delete("/users/#{user.id}/email_addresses/#{id}")
+
+      assert %Tesla.Env{body: %{"errors" => errors}, status: 403} = response
+      assert errors["detail"] =~ "You are not authorized"
+      assert Accounts.get_email_address(id)
 
       {:ok, response} =
         token

@@ -163,6 +163,16 @@ defmodule Vutuv.Accounts do
   def get_email_address(id), do: Repo.get(EmailAddress, id)
 
   @doc """
+  Gets a user's email_address.
+  """
+  @spec get_user_email_address(User.t(), integer) :: EmailAddress.t() | nil
+  def get_user_email_address(%User{id: user_id}, id) do
+    EmailAddress
+    |> where([e], e.id == ^id and e.user_id == ^user_id)
+    |> Repo.one()
+  end
+
+  @doc """
   Gets an email_address using the email value.
   """
   @spec get_email_address_from_value(String.t()) :: EmailAddress.t() | nil
