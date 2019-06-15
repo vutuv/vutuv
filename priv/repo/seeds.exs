@@ -8,7 +8,7 @@
 users = [
   %{
     "email" => "jane.doe@example.com",
-    "password" => "password",
+    "password" => "reallyHard2gue$$",
     "profile" => %{
       "gender" => "female",
       "full_name" => "Jane Doe"
@@ -16,7 +16,7 @@ users = [
   },
   %{
     "email" => "john.smith@example.org",
-    "password" => "password",
+    "password" => "reallyHard2gue$$",
     "profile" => %{
       "gender" => "male",
       "full_name" => "John Smith"

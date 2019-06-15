@@ -35,7 +35,7 @@ defmodule VutuvWeb.Router do
     pipe_through :api
 
     resources "/users", UserController, except: [:new, :edit] do
-      resources "/email_addresses", EmailAddressController, [:new, :edit]
+      resources "/email_addresses", EmailAddressController, except: [:new, :edit]
     end
 
     post "/sessions", SessionController, :create

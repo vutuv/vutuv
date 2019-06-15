@@ -25,6 +25,8 @@ To create the database and run migrations, run `mix ecto.setup`.
 
 To start the Phoenix endpoint within an iex shell, run `iex -S mix phx.server`.
 
+For information about accessing the Vutuv API, see the [API guide](https://github.com/vutuv/vutuv/blob/master/API_GUIDE.md).
+
 See the [contributing guide](https://github.com/vutuv/vutuv/blob/master/CONTRIBUTING.md)
 for more information about setting up your development environment and opening pull
 requests.
