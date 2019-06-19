@@ -3,6 +3,7 @@ defmodule Vutuv.Accounts.User do
 
   import Ecto.Changeset
 
+  alias NotQwerty123.PasswordStrength
   alias Vutuv.{Accounts.EmailAddress, Biographies.Profile, Sessions.Session, Socials.Post}
 
   @type t :: %__MODULE__{
@@ -74,7 +75,7 @@ defmodule Vutuv.Accounts.User do
 
   defp validate_password(changeset, field, options \\ []) do
     validate_change(changeset, field, fn _, password ->
-      case strong_password?(password) do
+      case PasswordStrength.strong_password?(password) do
         {:ok, _} -> []
         {:error, msg} -> [{field, options[:message] || msg}]
       end
@@ -86,10 +87,4 @@ defmodule Vutuv.Accounts.User do
   end
 
   defp put_pass_hash(changeset), do: changeset
-
-  defp strong_password?(password) when byte_size(password) > 7 do
-    {:ok, password}
-  end
-
-  defp strong_password?(_), do: {:error, "The password is too short"}
 end
