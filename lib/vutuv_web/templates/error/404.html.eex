@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Vutuv social network</title>
+    <link rel="stylesheet" href="/css/app.css">
+  </head>
+  <body>
+    <header>
+      <div class="inset">
+        <h1>vutuv</h1>
+      </div>
+      <h2><%= gettext "The fast, secure and less annoying social network." %></h2>
+    </header>
+    <main role="main">
+      <article class="content">
+        <h3><%= gettext "Sorry, we cannot find the page you were looking for." %></h3>
+      </article>
+    </main>
+  </body>
+</html>

@@ -53,10 +53,6 @@
     <%= file_input fp, :avatar %>
     <%= error_tag fp, :avatar %>
 
-    <%= label fp, :active_slug, gettext("Active slug") %>
-    <%= text_input fp, :active_slug %>
-    <%= error_tag fp, :active_slug %>
-
     <%= label fp, :headline, gettext("Headline") %>
     <%= text_input fp, :headline %>
     <%= error_tag fp, :headline %>

@@ -8,6 +8,7 @@ use Mix.Config
 # with webpack to recompile .js and .css sources.
 config :vutuv, VutuvWeb.Endpoint,
   http: [port: 4000],
+  # to test error pages in development, comment out the `debug_errors` line
   debug_errors: true,
   code_reloader: true,
   check_origin: false,

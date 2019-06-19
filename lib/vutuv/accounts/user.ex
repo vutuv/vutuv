@@ -34,8 +34,7 @@ defmodule Vutuv.Accounts.User do
   end
 
   def changeset(%__MODULE__{} = user, attrs) do
-    user
-    |> cast(attrs, [])
+    cast(user, attrs, [])
   end
 
   def create_changeset(%__MODULE__{} = user, attrs) do

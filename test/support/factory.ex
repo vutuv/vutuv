@@ -28,7 +28,6 @@ defmodule Vutuv.Factory do
       preferred_name: Faker.Name.first_name(),
       gender: sequence(:gender, ["female", "male"]),
       birthday: Faker.Date.date_of_birth(18..59),
-      active_slug: Faker.Internet.slug(),
       # FIXME: riverrun - 2019-04-08
       # add valid avatar entry
       # avatar: "",

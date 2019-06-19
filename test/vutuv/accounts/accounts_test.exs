@@ -60,6 +60,14 @@ defmodule Vutuv.AccountsTest do
       assert %{password: ["can't be blank"]} = errors_on(changeset)
     end
 
+    test "duplicate email cannot be created" do
+      assert {:ok, %User{} = user} = Accounts.create_user(@create_user_attrs)
+      assert [%EmailAddress{value: value, position: 1}] = user.email_addresses
+      assert value == "fred@example.com"
+      assert {:error, %Ecto.Changeset{} = changeset} = Accounts.create_user(@create_user_attrs)
+      assert %{email_addresses: [%{value: ["has already been taken"]}]} = errors_on(changeset)
+    end
+
     test "invalid email returns email_addresses error" do
       attrs = Map.merge(@create_user_attrs, %{"email" => "invalid_email"})
       assert {:error, changeset} = Accounts.create_user(attrs)
