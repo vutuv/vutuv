@@ -47,6 +47,7 @@ defmodule Vutuv.MixProject do
       {:phauxth, "~> 2.2.0"},
       {:argon2_elixir, "~> 2.0"},
       {:not_qwerty123, "~> 2.3"},
+      {:one_time_pass_ecto, "~> 1.0"},
       {:tesla, "~> 1.2.1"},
       {:bamboo, "~> 1.1"},
       {:plug_cowboy, "~> 2.0"},

@@ -1,4 +1,4 @@
-<h2>Reset Password</h2>
+<h2><%= gettext "Reset password" %></h2>
 
 <%= form_for @conn, Routes.password_reset_path(@conn, :update), [as: :password_reset, method: :put], fn f -> %>
   <%= if f.errors != [] do %>
@@ -11,7 +11,7 @@
   <%= password_input f, :password %>
   <%= error_tag f, :password %>
 
-  <%= hidden_input f, :key, value: @key %>
+  <%= hidden_input f, :email, value: @email %>
 
   <div>
     <%= submit gettext("Reset password") %>

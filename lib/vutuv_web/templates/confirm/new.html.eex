@@ -1,0 +1,21 @@
+<h2><%= gettext "Confirm user email address" %></h2>
+
+<p><%= gettext "A code has been sent to your email address. Enter that code here." %></p>
+
+<%= form_for @conn, Routes.confirm_path(@conn, :create), [], fn f -> %>
+  <%= if f.errors != [] do %>
+    <div class="alert alert-danger">
+      <p><%= gettext "Something went wrong. Please check the errors below." %></p>
+    </div>
+  <% end %>
+
+  <%= label f, :code, gettext("Code") %>
+  <%= number_input f, :code, max: "999999" %>
+  <%= error_tag f, :code %>
+
+  <%= hidden_input f, :email, value: @email %>
+
+  <div>
+    <%= submit gettext("Continue") %>
+  </div>
+<% end %>

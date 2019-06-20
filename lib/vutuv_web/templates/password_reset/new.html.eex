@@ -1,4 +1,4 @@
-<h2>Reset Password</h2>
+<h2><%= gettext "Reset password" %></h2>
 
 <%= form_for @conn, Routes.password_reset_path(@conn, :create), [as: :password_reset], fn f -> %>
   <%= if f.errors != [] do %>

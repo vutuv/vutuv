@@ -2,19 +2,18 @@ defmodule VutuvWeb.EmailTest do
   use ExUnit.Case
   use Bamboo.Test
 
-  import VutuvWeb.AuthTestHelpers
-  alias VutuvWeb.Email
+  alias VutuvWeb.{Auth.Otp, Email}
 
   setup do
     email = "deirdre@example.com"
-    {:ok, %{email: email, key: gen_key(email)}}
+    {:ok, %{email: email, code: Otp.create()}}
   end
 
-  test "sends confirmation request email", %{email: email, key: key} do
-    sent_email = Email.confirm_request(email, key)
+  test "sends confirmation request email", %{email: email, code: code} do
+    sent_email = Email.confirm_request(email, code)
     assert sent_email.subject =~ "Confirm your account"
-    assert sent_email.text_body =~ "email here #{Application.get_env(:vutuv, :email_url)}="
-    assert_delivered_email(Email.confirm_request(email, key))
+    assert sent_email.text_body =~ "Enter the following confirmation code"
+    assert_delivered_email(Email.confirm_request(email, code))
   end
 
   test "sends no user found message for password reset attempt" do
@@ -22,11 +21,11 @@ defmodule VutuvWeb.EmailTest do
     assert sent_email.text_body =~ "but no user is associated with the email you provided"
   end
 
-  test "sends reset password request email", %{email: email, key: key} do
-    sent_email = Email.reset_request(email, key)
+  test "sends reset password request email", %{email: email, code: code} do
+    sent_email = Email.reset_request(email, code)
     assert sent_email.subject =~ "Reset your password"
-    assert sent_email.text_body =~ "password at #{Application.get_env(:vutuv, :email_reset_url)}="
-    assert_delivered_email(Email.reset_request(email, key))
+    assert sent_email.text_body =~ "Enter the following password reset code"
+    assert_delivered_email(Email.reset_request(email, code))
   end
 
   test "sends receipt confirmation email", %{email: email} do

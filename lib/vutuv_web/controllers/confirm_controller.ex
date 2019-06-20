@@ -2,11 +2,15 @@ defmodule VutuvWeb.ConfirmController do
   use VutuvWeb, :controller
 
   alias Vutuv.Accounts
-  alias VutuvWeb.{Auth.Confirm, Email}
+  alias VutuvWeb.{Auth.Otp, Email}
 
-  def index(conn, params) do
-    case Confirm.verify(params) do
-      {:ok, %{current_email: email, email_addresses: email_addresses} = user} ->
+  def new(conn, %{"email" => email}) do
+    render(conn, "new.html", email: email)
+  end
+
+  def create(conn, %{"confirm" => %{"email" => email, "code" => code}}) do
+    case Otp.verify(code) do
+      {:ok, %{email_addresses: email_addresses} = user} ->
         unless user.confirmed_at, do: Accounts.confirm_user(user)
 
         email_addresses
@@ -22,7 +26,7 @@ defmodule VutuvWeb.ConfirmController do
       {:error, message} ->
         conn
         |> put_flash(:error, message)
-        |> redirect(to: Routes.session_path(conn, :new))
+        |> render("new.html")
     end
   end
 end

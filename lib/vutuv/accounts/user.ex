@@ -8,7 +8,6 @@ defmodule Vutuv.Accounts.User do
 
   @type t :: %__MODULE__{
           id: integer,
-          current_email: String.t(),
           password_hash: String.t(),
           confirmed_at: DateTime.t() | nil,
           reset_sent_at: DateTime.t() | nil,
@@ -21,7 +20,6 @@ defmodule Vutuv.Accounts.User do
         }
 
   schema "users" do
-    field :current_email, :string, virtual: true
     field :password, :string, virtual: true
     field :password_hash, :string
     field :confirmed_at, :utc_datetime

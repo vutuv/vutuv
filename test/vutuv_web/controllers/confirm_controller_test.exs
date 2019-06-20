@@ -9,21 +9,24 @@ defmodule VutuvWeb.ConfirmControllerTest do
     {:ok, %{conn: conn}}
   end
 
-  test "confirmation succeeds for correct key", %{conn: conn} do
-    conn = get(conn, Routes.confirm_path(conn, :index, key: gen_key("arthur@example.com")))
-    assert get_flash(conn, :info) =~ "account has been confirmed"
-    assert redirected_to(conn) == Routes.session_path(conn, :new)
+  describe "enter code resource" do
+    test "renders form to enter code / totp", %{conn: conn} do
+      conn = get(conn, Routes.confirm_path(conn, :new, email: "arthur@example.com"))
+      assert html_response(conn, 200) =~ "Enter that code here"
+    end
+
+    test "upon signup, new user is redirected to enter code page" do
+    end
+
+    test "after creating an email, user is redirected to enter code page" do
+    end
   end
 
-  test "confirmation fails for incorrect key", %{conn: conn} do
-    conn = get(conn, Routes.confirm_path(conn, :index, key: "garbage"))
-    assert get_flash(conn, :error) =~ "Invalid credentials"
-    assert redirected_to(conn) == Routes.session_path(conn, :new)
-  end
+  describe "confirmation using otp" do
+    test "confirmation succeeds" do
+    end
 
-  test "confirmation fails for incorrect email", %{conn: conn} do
-    conn = get(conn, Routes.confirm_path(conn, :index, key: gen_key("gerald@example.com")))
-    assert get_flash(conn, :error) =~ "Invalid credentials"
-    assert redirected_to(conn) == Routes.session_path(conn, :new)
+    test "confirmation fails" do
+    end
   end
 end

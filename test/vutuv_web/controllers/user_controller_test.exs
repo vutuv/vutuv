@@ -56,7 +56,7 @@ defmodule VutuvWeb.UserControllerTest do
   describe "create user data" do
     test "successful when data is valid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs)
-      assert redirected_to(conn) == Routes.session_path(conn, :new)
+      assert redirected_to(conn) == Routes.confirm_path(conn, :new, email: @create_attrs["email"])
     end
 
     test "fails and renders errors when data is invalid", %{conn: conn} do
