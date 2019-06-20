@@ -99,11 +99,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
           email_address: @create_attrs
         )
 
-      email_address = Accounts.get_email_address_from_value("abcdef@example.com")
-
-      assert redirected_to(conn) ==
-               Routes.user_email_address_path(conn, :show, user, email_address)
-
+      assert redirected_to(conn) == Routes.confirm_path(conn, :new, email: "abcdef@example.com")
       assert get_flash(conn, :info) =~ "created successfully"
     end
 

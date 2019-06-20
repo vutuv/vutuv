@@ -4,8 +4,7 @@ defmodule Vutuv.Repo.Migrations.CreateUsers do
   def change do
     create table(:users) do
       add :password_hash, :string
-      add :confirmed_at, :utc_datetime
-      add :reset_sent_at, :utc_datetime
+      add :confirmed, :boolean, default: false, null: false
 
       timestamps()
     end

@@ -101,27 +101,11 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
-  Confirms a user's account, setting the user's confirmed_at value.
+  Confirms a user's account, setting the user's confirmed value.
   """
   @spec confirm_user(User.t()) :: {:ok, User.t()} | changeset_error
   def confirm_user(user) do
-    user
-    |> User.confirm_changeset(DateTime.truncate(DateTime.utc_now(), :second))
-    |> Repo.update()
-  end
-
-  @doc """
-  Makes a password reset request.
-  """
-  @spec create_password_reset(map) :: {:ok, User.t()} | nil
-  def create_password_reset(%{"email" => email}) do
-    with %EmailAddress{user_id: user_id, verified: true} <-
-           Repo.get_by(EmailAddress, %{value: email}),
-         %User{} = user <- Repo.get(User, user_id) do
-      user
-      |> User.password_reset_changeset(DateTime.truncate(DateTime.utc_now(), :second))
-      |> Repo.update()
-    end
+    user |> User.confirm_changeset(true) |> Repo.update()
   end
 
   @doc """

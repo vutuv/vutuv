@@ -1,5 +1,7 @@
 <h2><%= gettext "Reset password" %></h2>
 
+<p><%= gettext "A code has been sent to your email address. Enter that code below." %></p>
+
 <%= form_for @conn, Routes.password_reset_path(@conn, :create), [as: :password_reset], fn f -> %>
   <%= if f.errors != [] do %>
     <div class="alert alert-danger">
@@ -7,13 +9,13 @@
     </div>
   <% end %>
 
-  <%= label f, :email, gettext("Email") %>
-  <%= text_input f, :email %>
-  <%= error_tag f, :email %>
+  <%= label f, :code, gettext("Code") %>
+  <%= number_input f, :code, max: "999999" %>
+  <%= error_tag f, :code %>
+
+  <%= hidden_input f, :email, value: @email %>
 
   <div>
-    <%= submit gettext("Reset password") %>
+    <%= submit gettext("Continue") %>
   </div>
 <% end %>
-
-<span><%= link gettext("Back"), to: Routes.user_path(@conn, :new) %></span>

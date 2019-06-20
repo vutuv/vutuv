@@ -9,24 +9,20 @@ defmodule VutuvWeb.ConfirmController do
   end
 
   def create(conn, %{"confirm" => %{"email" => email, "code" => code}}) do
-    case Otp.verify(code) do
-      {:ok, %{email_addresses: email_addresses} = user} ->
-        unless user.confirmed_at, do: Accounts.confirm_user(user)
+    if Otp.verify(code) do
+      email_address = Accounts.get_email_address_from_value(email)
+      user = Accounts.get_user(email_address.user_id)
+      unless user.confirmed, do: Accounts.confirm_user(user)
+      Accounts.confirm_email_address(email_address)
+      Email.confirm_success(email)
 
-        email_addresses
-        |> Enum.find(&(&1.value == email))
-        |> Accounts.confirm_email_address()
-
-        Email.confirm_success(email)
-
-        conn
-        |> put_flash(:info, "Your account has been confirmed")
-        |> redirect(to: Routes.session_path(conn, :new))
-
-      {:error, message} ->
-        conn
-        |> put_flash(:error, message)
-        |> render("new.html")
+      conn
+      |> put_flash(:info, "Your account has been confirmed")
+      |> redirect(to: Routes.session_path(conn, :new))
+    else
+      conn
+      |> put_flash(:error, "Invalid code")
+      |> render("new.html", email: email)
     end
   end
 end

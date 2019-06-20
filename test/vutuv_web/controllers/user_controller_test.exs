@@ -13,7 +13,6 @@ defmodule VutuvWeb.UserControllerTest do
       "full_name" => "bill shakespeare"
     }
   }
-  @invalid_attrs %{email: nil}
 
   setup %{conn: conn} do
     conn = conn |> bypass_through(VutuvWeb.Router, [:browser]) |> get("/")
@@ -57,11 +56,13 @@ defmodule VutuvWeb.UserControllerTest do
     test "successful when data is valid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs)
       assert redirected_to(conn) == Routes.confirm_path(conn, :new, email: @create_attrs["email"])
+      assert Accounts.get_by(%{"email" => "bill@example.com"})
     end
 
     test "fails and renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.user_path(conn, :create), user: @invalid_attrs)
-      assert html_response(conn, 200) =~ "Sign up"
+      conn = post(conn, Routes.user_path(conn, :create), user: %{email: "mustard@example.com"})
+      assert html_response(conn, 200) =~ "can&#39;t be blank"
+      refute Accounts.get_by(%{"email" => "mustard@example.com"})
     end
   end
 

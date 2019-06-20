@@ -27,7 +27,7 @@ defmodule VutuvWeb.AuthTestHelpers do
       user =
       email
       |> add_user()
-      |> change(%{confirmed_at: now()})
+      |> change(%{confirmed: true})
       |> Repo.update!()
 
     Accounts.confirm_email_address(email_address)
@@ -39,8 +39,7 @@ defmodule VutuvWeb.AuthTestHelpers do
       user =
       email
       |> add_user()
-      |> change(%{confirmed_at: now()})
-      |> change(%{reset_sent_at: now()})
+      |> change(%{confirmed: true})
       |> Repo.update!()
 
     Accounts.confirm_email_address(email_address)
@@ -62,9 +61,5 @@ defmodule VutuvWeb.AuthTestHelpers do
     conn
     |> put_req_header("accept", "application/json")
     |> put_req_header("authorization", user_token)
-  end
-
-  defp now do
-    DateTime.truncate(DateTime.utc_now(), :second)
   end
 end
