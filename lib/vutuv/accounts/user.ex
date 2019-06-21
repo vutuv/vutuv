@@ -3,14 +3,13 @@ defmodule Vutuv.Accounts.User do
 
   import Ecto.Changeset
 
+  alias NotQwerty123.PasswordStrength
   alias Vutuv.{Accounts.EmailAddress, Biographies.Profile, Sessions.Session, Socials.Post}
 
   @type t :: %__MODULE__{
           id: integer,
-          current_email: String.t(),
           password_hash: String.t(),
-          confirmed_at: DateTime.t() | nil,
-          reset_sent_at: DateTime.t() | nil,
+          confirmed: boolean,
           posts: [Post.t()] | %Ecto.Association.NotLoaded{},
           sessions: [Session.t()] | %Ecto.Association.NotLoaded{},
           email_addresses: [EmailAddress.t()] | %Ecto.Association.NotLoaded{},
@@ -20,11 +19,9 @@ defmodule Vutuv.Accounts.User do
         }
 
   schema "users" do
-    field :current_email, :string, virtual: true
     field :password, :string, virtual: true
     field :password_hash, :string
-    field :confirmed_at, :utc_datetime
-    field :reset_sent_at, :utc_datetime
+    field :confirmed, :boolean, default: false
     has_many :posts, Post, on_delete: :delete_all
     has_many :sessions, Session, on_delete: :delete_all
     has_many :email_addresses, EmailAddress, on_delete: :delete_all
@@ -50,18 +47,12 @@ defmodule Vutuv.Accounts.User do
     |> cast_assoc(:profile)
   end
 
-  def confirm_changeset(%__MODULE__{} = user, confirmed_at) do
-    change(user, %{confirmed_at: confirmed_at})
-  end
-
-  def password_reset_changeset(%__MODULE__{} = user, reset_sent_at) do
-    change(user, %{reset_sent_at: reset_sent_at})
+  def confirm_changeset(%__MODULE__{} = user, confirmed) do
+    change(user, %{confirmed: confirmed})
   end
 
   def update_password_changeset(%__MODULE__{} = user, attrs) do
-    user
-    |> password_hash_changeset(attrs)
-    |> change(%{reset_sent_at: nil})
+    password_hash_changeset(user, attrs)
   end
 
   defp password_hash_changeset(user, attrs) do
@@ -74,7 +65,7 @@ defmodule Vutuv.Accounts.User do
 
   defp validate_password(changeset, field, options \\ []) do
     validate_change(changeset, field, fn _, password ->
-      case strong_password?(password) do
+      case PasswordStrength.strong_password?(password) do
         {:ok, _} -> []
         {:error, msg} -> [{field, options[:message] || msg}]
       end
@@ -86,10 +77,4 @@ defmodule Vutuv.Accounts.User do
   end
 
   defp put_pass_hash(changeset), do: changeset
-
-  defp strong_password?(password) when byte_size(password) > 7 do
-    {:ok, password}
-  end
-
-  defp strong_password?(_), do: {:error, "The password is too short"}
 end

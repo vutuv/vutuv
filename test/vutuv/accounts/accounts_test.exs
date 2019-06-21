@@ -91,7 +91,7 @@ defmodule Vutuv.AccountsTest do
 
     test "update_password with weak password fails" do
       user = insert(:user)
-      attrs = %{password: "pass"}
+      attrs = %{password: "password"}
       assert {:error, %Ecto.Changeset{}} = Accounts.update_password(user, attrs)
     end
   end

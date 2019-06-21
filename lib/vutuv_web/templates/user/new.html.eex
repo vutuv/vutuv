@@ -1,5 +1,3 @@
 <h1><%= gettext "Sign up" %></h1>
 
-<div>
-  <%= render "new_form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create)) %>
-</div>
+<%= render "new_form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create)) %>

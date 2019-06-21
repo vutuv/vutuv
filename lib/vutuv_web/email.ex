@@ -36,10 +36,10 @@ defmodule VutuvWeb.Email do
   @doc """
   An email with a confirmation link in it.
   """
-  def confirm_request(address, key) do
+  def confirm_request(address, code) do
     prep_mail(address)
     |> subject("Confirm your account")
-    |> text_body("Confirm your email here #{Application.get_env(:vutuv, :email_key_url)}=#{key}")
+    |> text_body("Enter the following confirmation code:\n#{code}")
     |> Mailer.deliver_now()
   end
 
@@ -55,10 +55,10 @@ defmodule VutuvWeb.Email do
     |> Mailer.deliver_now()
   end
 
-  def reset_request(address, key) do
+  def reset_request(address, code) do
     prep_mail(address)
     |> subject("Reset your password")
-    |> text_body("Reset your password at #{Application.get_env(:vutuv, :email_reset_url)}=#{key}")
+    |> text_body("Enter the following password reset code:\n#{code}")
     |> Mailer.deliver_now()
   end
 

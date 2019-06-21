@@ -8,7 +8,7 @@ defmodule Vutuv.Factory do
       email_addresses: build_list(1, :email_address),
       profile: build(:profile),
       password_hash: Argon2.hash_pwd_salt("hard2gue$$"),
-      confirmed_at: DateTime.truncate(DateTime.utc_now(), :second)
+      confirmed: true
     }
   end
 

@@ -1,0 +1,19 @@
+<h2><%= gettext "Reset password" %></h2>
+
+<p><%= gettext "Enter your email address." %></p>
+
+<%= form_for @conn, Routes.password_reset_path(@conn, :create_request), [as: :password_reset], fn f -> %>
+  <%= if f.errors != [] do %>
+    <div class="alert alert-danger">
+      <p><%= gettext "Something went wrong. Please check the errors below." %></p>
+    </div>
+  <% end %>
+
+  <%= label f, :email, gettext("Email") %>
+  <%= text_input f, :email %>
+  <%= error_tag f, :email %>
+
+  <div>
+    <%= submit gettext("Continue") %>
+  </div>
+<% end %>

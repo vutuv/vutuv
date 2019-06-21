@@ -1,8 +1,8 @@
-<h2><%= gettext "Reset password" %></h2>
+<h2><%= gettext "Confirm user email address" %></h2>
 
 <p><%= gettext "A code has been sent to your email address. Enter that code below." %></p>
 
-<%= form_for @conn, Routes.password_reset_path(@conn, :create), [as: :password_reset], fn f -> %>
+<%= form_for @conn, Routes.confirm_path(@conn, :create), [as: :confirm], fn f -> %>
   <%= if f.errors != [] do %>
     <div class="alert alert-danger">
       <p><%= gettext "Something went wrong. Please check the errors below." %></p>

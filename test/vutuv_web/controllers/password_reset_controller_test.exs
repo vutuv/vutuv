@@ -9,54 +9,45 @@ defmodule VutuvWeb.PasswordResetControllerTest do
     {:ok, %{conn: conn, user: user}}
   end
 
-  describe "create password reset" do
+  describe "request password reset" do
     test "user can create a password reset request", %{conn: conn} do
-      valid_attrs = %{email: "gladys@example.com"}
-      conn = post(conn, Routes.password_reset_path(conn, :create), password_reset: valid_attrs)
-      assert get_flash(conn, :info) =~ "your inbox for instructions"
-      assert redirected_to(conn) == Routes.user_path(conn, :new)
-    end
+      email = "gladys@example.com"
 
-    test "create function fails for no user", %{conn: conn} do
-      invalid_attrs = %{email: "prettylady@example.com"}
-      conn = post(conn, Routes.password_reset_path(conn, :create), password_reset: invalid_attrs)
-      assert get_flash(conn, :info) =~ "your inbox for instructions"
-      assert redirected_to(conn) == Routes.user_path(conn, :new)
+      conn =
+        post(conn, Routes.password_reset_path(conn, :create_request),
+          password_reset: %{"email" => email}
+        )
+
+      assert redirected_to(conn) == Routes.password_reset_path(conn, :new, email: email)
     end
   end
 
-  describe "update password reset" do
-    test "reset password succeeds for correct key", %{conn: conn, user: user} do
-      valid_attrs = %{key: gen_key("gladys@example.com"), password: "^hEsdg*F899"}
+  describe "enter code resource" do
+    test "renders form to enter code / totp", %{conn: conn} do
+      conn = get(conn, Routes.password_reset_path(conn, :new, email: "gladys@example.com"))
+      assert html_response(conn, 200) =~ "Enter that code below"
+    end
+  end
 
-      reset_conn =
-        put(conn, Routes.password_reset_path(conn, :update), password_reset: valid_attrs)
-
-      assert get_flash(reset_conn, :info) =~ "password has been reset"
-      assert redirected_to(reset_conn) == Routes.session_path(conn, :new)
-
-      conn =
-        post(conn, Routes.session_path(conn, :create),
-          session: %{email: "gladys@example.com", password: "^hEsdg*F899"}
-        )
-
-      assert redirected_to(conn) == Routes.user_path(conn, :show, user)
+  describe "update password" do
+    test "password is updated", %{conn: conn, user: user} do
+      attrs = %{"email" => "gladys@example.com", "password" => "^hEsdg*F899"}
+      conn = put(conn, Routes.password_reset_path(conn, :update, user), password_reset: attrs)
+      assert redirected_to(conn) == Routes.session_path(conn, :new)
     end
 
-    test "reset password fails for incorrect key", %{conn: conn} do
-      invalid_attrs = %{email: "gladys@example.com", password: "^hEsdg*F899", key: "garbage"}
-      conn = put(conn, Routes.password_reset_path(conn, :update), password_reset: invalid_attrs)
-      assert get_flash(conn, :error) =~ "Invalid credentials"
+    test "weak password is not updated", %{conn: conn, user: user} do
+      attrs = %{"email" => "gladys@example.com", "password" => "password"}
+      conn = put(conn, Routes.password_reset_path(conn, :update, user), password_reset: attrs)
+      assert get_flash(conn, :error) =~ "password you have chosen is weak"
     end
 
     test "sessions are deleted when user updates password", %{conn: conn, user: user} do
-      add_session(conn, user)
-      valid_attrs = %{key: gen_key("gladys@example.com"), password: "^hEsdg*F899"}
-
-      reset_conn =
-        put(conn, Routes.password_reset_path(conn, :update), password_reset: valid_attrs)
-
-      refute get_session(reset_conn, :phauxth_session_id)
+      conn = add_session(conn, user)
+      assert get_session(conn, :phauxth_session_id)
+      attrs = %{"email" => "gladys@example.com", "password" => "^hEsdg*F899"}
+      conn = put(conn, Routes.password_reset_path(conn, :update, user), password_reset: attrs)
+      refute get_session(conn, :phauxth_session_id)
     end
   end
 end

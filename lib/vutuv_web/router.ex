@@ -25,10 +25,10 @@ defmodule VutuvWeb.Router do
     end
 
     resources "/sessions", SessionController, only: [:new, :create, :delete]
-    get "/confirm", ConfirmController, :index
-    resources "/password_resets", PasswordResetController, only: [:new, :create]
-    get "/password_resets/edit", PasswordResetController, :edit
-    put "/password_resets/update", PasswordResetController, :update
+    resources "/confirms", ConfirmController, only: [:new, :create]
+    resources "/password_resets", PasswordResetController, only: [:new, :create, :edit, :update]
+    get "/password_resets/new_request", PasswordResetController, :new_request
+    post "/password_resets/create_request", PasswordResetController, :create_request
   end
 
   scope "/api/v1", VutuvWeb.Api, as: :api do

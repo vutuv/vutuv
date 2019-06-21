@@ -23,6 +23,10 @@ config :phauxth,
   crypto_module: Argon2,
   token_module: VutuvWeb.Auth.Token
 
+# For use with OneTimePassEcto
+config :vutuv,
+  otp_secret: "H47G7O5NXYERRSE4YHWZYSV72BBNZL3C"
+
 # Mailer configuration
 config :vutuv, VutuvWeb.Mailer, adapter: Bamboo.LocalAdapter
 

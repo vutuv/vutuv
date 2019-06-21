@@ -5,7 +5,7 @@ defmodule VutuvWeb.UserController do
 
   alias Phauxth.Log
   alias Vutuv.{Accounts, Accounts.User}
-  alias VutuvWeb.{Auth.Token, Email}
+  alias VutuvWeb.{Auth.Otp, Email}
 
   @dialyzer {:nowarn_function, new: 2}
 
@@ -26,16 +26,15 @@ defmodule VutuvWeb.UserController do
   end
 
   def create(conn, %{"user" => %{"email" => email} = user_params}) do
-    key = Token.sign(%{"email" => email})
-
     case Accounts.create_user(user_params) do
       {:ok, user} ->
         Log.info(%Log{user: user.id, message: "user created"})
-        Email.confirm_request(email, key)
+        code = Otp.create()
+        Email.confirm_request(email, code)
 
         conn
         |> put_flash(:info, "User created successfully.")
-        |> redirect(to: Routes.session_path(conn, :new))
+        |> redirect(to: Routes.confirm_path(conn, :new, email: email))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)

@@ -4,7 +4,7 @@ defmodule VutuvWeb.EmailAddressController do
   import VutuvWeb.Authorize
 
   alias Vutuv.{Accounts, Accounts.EmailAddress}
-  alias VutuvWeb.{Auth.Token, Email}
+  alias VutuvWeb.{Auth.Otp, Email}
 
   @dialyzer {:nowarn_function, new: 3}
 
@@ -23,12 +23,12 @@ defmodule VutuvWeb.EmailAddressController do
   def create(conn, %{"email_address" => email_address_params}, user) do
     case Accounts.create_email_address(user, email_address_params) do
       {:ok, email_address} ->
-        key = Token.sign(%{"email" => email_address})
-        Email.confirm_request(email_address.value, key)
+        code = Otp.create()
+        Email.confirm_request(email_address.value, code)
 
         conn
         |> put_flash(:info, "Email address created successfully.")
-        |> redirect(to: Routes.user_email_address_path(conn, :show, user, email_address))
+        |> redirect(to: Routes.confirm_path(conn, :new, email: email_address.value))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
