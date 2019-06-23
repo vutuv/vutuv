@@ -21,7 +21,7 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
   describe "read email_address data" do
     test "list email_addresses", %{user: user, token: token} do
       {:ok, response} =
-        token |> authenticated_client() |> Tesla.get("/users/#{user.id}/email_addresses")
+        token |> authenticated_client() |> Tesla.get("/users/#{user.slug}/email_addresses")
 
       assert %Tesla.Env{body: %{"data" => data}, status: 200} = response
       assert length(data) == 1
@@ -31,7 +31,7 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
       %User{email_addresses: [%{id: id}]} = user
 
       {:ok, response} =
-        token |> authenticated_client() |> Tesla.get("/users/#{user.id}/email_addresses/#{id}")
+        token |> authenticated_client() |> Tesla.get("/users/#{user.slug}/email_addresses/#{id}")
 
       assert %Tesla.Env{body: %{"data" => data}, status: 200} = response
       assert data["id"] == id
@@ -43,7 +43,7 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
       {:ok, response} =
         token
         |> authenticated_client()
-        |> Tesla.post("/users/#{user.id}/email_addresses", %{email_address: @create_attrs})
+        |> Tesla.post("/users/#{user.slug}/email_addresses", %{email_address: @create_attrs})
 
       assert %Tesla.Env{body: %{"data" => data}, status: 201} = response
       assert data["user_id"] == user.id
@@ -54,7 +54,7 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
       {:ok, response} =
         token
         |> authenticated_client()
-        |> Tesla.post("/users/#{user.id}/email_addresses", %{email_address: %{"value" => ""}})
+        |> Tesla.post("/users/#{user.slug}/email_addresses", %{email_address: %{"value" => ""}})
 
       assert %Tesla.Env{body: %{"errors" => errors}, status: 422} = response
       assert errors["value"] == ["can't be blank"]
@@ -66,7 +66,7 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
       {:ok, response} =
         token
         |> authenticated_client()
-        |> Tesla.put("/users/#{user.id}/email_addresses/#{id}", %{
+        |> Tesla.put("/users/#{user.slug}/email_addresses/#{id}", %{
           email_address: %{"is_public" => false}
         })
 
@@ -83,7 +83,7 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
       {:ok, response} =
         token
         |> authenticated_client()
-        |> Tesla.put("/users/#{user.id}/email_addresses/#{id}", %{
+        |> Tesla.put("/users/#{user.slug}/email_addresses/#{id}", %{
           email_address: %{"description" => too_long}
         })
 
@@ -97,7 +97,9 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
       %User{email_addresses: [%{id: id}]} = user
 
       {:ok, response} =
-        token |> authenticated_client() |> Tesla.delete("/users/#{user.id}/email_addresses/#{id}")
+        token
+        |> authenticated_client()
+        |> Tesla.delete("/users/#{user.slug}/email_addresses/#{id}")
 
       assert %Tesla.Env{body: "", status: 204} = response
       refute Accounts.get_email_address(id)
@@ -109,7 +111,7 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
       {:ok, response} =
         token
         |> authenticated_client()
-        |> Tesla.delete("/users/#{user.id}/email_addresses/#{id}")
+        |> Tesla.delete("/users/#{user.slug}/email_addresses/#{id}")
 
       assert %Tesla.Env{body: %{"errors" => errors}, status: 403} = response
       assert errors["detail"] =~ "You are not authorized"
@@ -118,7 +120,7 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
       {:ok, response} =
         token
         |> authenticated_client()
-        |> Tesla.delete("/users/#{other.id}/email_addresses/#{id}")
+        |> Tesla.delete("/users/#{other.slug}/email_addresses/#{id}")
 
       assert %Tesla.Env{body: %{"errors" => errors}, status: 403} = response
       assert errors["detail"] =~ "You are not authorized"

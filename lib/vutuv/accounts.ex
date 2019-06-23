@@ -48,10 +48,17 @@ defmodule Vutuv.Accounts do
   end
 
   def get_by(%{"email" => email}) do
-    case Repo.get_by(EmailAddress, %{value: email}) do
-      %EmailAddress{user_id: user_id} -> get_user(user_id)
-      _ -> nil
-    end
+    with %EmailAddress{user_id: user_id} <- Repo.get_by(EmailAddress, %{value: email}),
+         do: get_user(user_id)
+  end
+
+  def get_by(%{"slug" => slug}) do
+    User
+    |> where([u], u.slug == ^slug)
+    |> join(:left, [u], _ in assoc(u, :email_addresses))
+    |> join(:left, [u], _ in assoc(u, :profile))
+    |> preload([_, e, p, s], email_addresses: e, profile: p)
+    |> Repo.one()
   end
 
   def get_by(%{"user_id" => user_id}), do: Repo.get(User, user_id)
@@ -68,10 +75,21 @@ defmodule Vutuv.Accounts do
     }
 
     attrs = Map.merge(attrs, %{"email_addresses" => [email_attrs]})
+    create_user_insert(attrs)
+  end
 
+  defp create_user_insert(attrs) do
     %User{}
-    |> User.create_changeset(attrs)
+    |> User.create_changeset(process_attrs(attrs))
     |> Repo.insert()
+  end
+
+  defp process_attrs(attrs) do
+    if full_name = attrs["profile"]["full_name"] do
+      Map.put(attrs, "slug", Slugger.slugify(full_name, ?.))
+    else
+      attrs
+    end
   end
 
   @doc """

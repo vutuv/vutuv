@@ -12,24 +12,24 @@ defmodule VutuvWeb.Authorize do
   alias VutuvWeb.Router.Helpers, as: Routes
 
   @doc """
-  Overrides the controller module's action function with an id check - to
+  Overrides the controller module's action function with a slug check - to
   make sure that the current user can access the resource.
   """
-  def auth_action_id(
+  def auth_action_slug(
         %Plug.Conn{
-          params: %{"user_id" => user_id} = params,
-          assigns: %{current_user: %{id: id} = current_user}
+          params: %{"user_slug" => user_slug} = params,
+          assigns: %{current_user: %{slug: slug} = current_user}
         } = conn,
         module
       ) do
-    if user_id == to_string(id) do
+    if user_slug == slug do
       apply(module, action_name(conn), [conn, params, current_user])
     else
       unauthorized(conn, current_user)
     end
   end
 
-  def auth_action_id(conn, _), do: need_login(conn)
+  def auth_action_slug(conn, _), do: need_login(conn)
 
   @doc """
   Plug to only allow unauthenticated users to access the resource.
@@ -46,19 +46,22 @@ defmodule VutuvWeb.Authorize do
   end
 
   @doc """
-  Plug to only allow authenticated users with the correct id to access the resource.
+  Plug to only allow authenticated users with the correct slug to access the resource.
 
   See the user controller for an example.
   """
-  def id_check(%Plug.Conn{assigns: %{current_user: nil}} = conn, _opts) do
+  def slug_check(%Plug.Conn{assigns: %{current_user: nil}} = conn, _opts) do
     need_login(conn)
   end
 
-  def id_check(
-        %Plug.Conn{params: %{"id" => id}, assigns: %{current_user: current_user}} = conn,
+  def slug_check(
+        %Plug.Conn{
+          params: %{"slug" => user_slug},
+          assigns: %{current_user: %{slug: slug} = current_user}
+        } = conn,
         _opts
       ) do
-    if id == to_string(current_user.id), do: conn, else: unauthorized(conn, current_user)
+    if user_slug == slug, do: conn, else: unauthorized(conn, current_user)
   end
 
   @doc """

@@ -24,6 +24,7 @@ defmodule Vutuv.Accounts.EmailAddress do
     field :is_public, :boolean, default: true
     field :position, :integer
     field :verified, :boolean, default: false
+
     belongs_to :user, User
 
     timestamps(type: :utc_datetime)

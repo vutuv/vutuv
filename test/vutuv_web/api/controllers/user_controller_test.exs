@@ -28,7 +28,8 @@ defmodule VutuvWeb.Api.UserControllerTest do
 
       assert json_response(conn, 200)["data"] == %{
                "id" => user.id,
-               "profile" => %{"full_name" => user.profile.full_name}
+               "profile" => %{"full_name" => user.profile.full_name},
+               "slug" => user.slug
              }
     end
   end

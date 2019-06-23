@@ -10,16 +10,16 @@ users = [
     "email" => "jane.doe@example.com",
     "password" => "reallyHard2gue$$",
     "profile" => %{
-      "gender" => "female",
-      "full_name" => "Jane Doe"
+      "full_name" => "Jane Doe",
+      "gender" => "female"
     }
   },
   %{
     "email" => "john.smith@example.org",
     "password" => "reallyHard2gue$$",
     "profile" => %{
-      "gender" => "male",
-      "full_name" => "John Smith"
+      "full_name" => "John Smith",
+      "gender" => "male"
     }
   }
 ]

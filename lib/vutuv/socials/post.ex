@@ -24,6 +24,7 @@ defmodule Vutuv.Socials.Post do
     field :published_at, :utc_datetime
     field :title, :string
     field :visibility_level, :string, default: "private"
+
     belongs_to :user, User
 
     timestamps(type: :utc_datetime)

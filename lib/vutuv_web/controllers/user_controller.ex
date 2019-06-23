@@ -9,7 +9,7 @@ defmodule VutuvWeb.UserController do
 
   @dialyzer {:nowarn_function, new: 2}
 
-  plug :id_check when action in [:edit, :update, :delete]
+  plug :slug_check when action in [:edit, :update, :delete]
 
   def index(conn, _) do
     users = Accounts.list_users()
@@ -41,8 +41,8 @@ defmodule VutuvWeb.UserController do
     end
   end
 
-  def show(%Plug.Conn{assigns: %{current_user: user}} = conn, %{"id" => id}) do
-    user = if user && id == to_string(user.id), do: user, else: Accounts.get_user(id)
+  def show(%Plug.Conn{assigns: %{current_user: user}} = conn, %{"slug" => slug}) do
+    user = if user && slug == user.slug, do: user, else: Accounts.get_by(%{"slug" => slug})
     render(conn, "show.html", user: user, profile: user.profile)
   end
 

@@ -8,7 +8,7 @@ defmodule VutuvWeb.Api.UserController do
 
   action_fallback VutuvWeb.Api.FallbackController
 
-  plug :id_check when action in [:update, :delete]
+  plug :slug_check when action in [:update, :delete]
 
   def index(conn, _) do
     users = Accounts.list_users()
@@ -26,8 +26,8 @@ defmodule VutuvWeb.Api.UserController do
     end
   end
 
-  def show(%Plug.Conn{assigns: %{current_user: user}} = conn, %{"id" => id}) do
-    user = if user && id == to_string(user.id), do: user, else: Accounts.get_user(id)
+  def show(%Plug.Conn{assigns: %{current_user: user}} = conn, %{"slug" => slug}) do
+    user = if user && slug == user.slug, do: user, else: Accounts.get_by(%{"slug" => slug})
     render(conn, "show.json", user: user)
   end
 

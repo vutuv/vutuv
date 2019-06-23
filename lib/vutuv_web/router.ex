@@ -20,21 +20,27 @@ defmodule VutuvWeb.Router do
 
     get "/", UserController, :new
 
-    resources "/users", UserController, except: [:new] do
+    resources "/users", UserController, except: [:new], param: "slug" do
       resources "/email_addresses", EmailAddressController
     end
 
     resources "/sessions", SessionController, only: [:new, :create, :delete]
     resources "/confirms", ConfirmController, only: [:new, :create]
-    resources "/password_resets", PasswordResetController, only: [:new, :create, :edit, :update]
-    get "/password_resets/new_request", PasswordResetController, :new_request
-    post "/password_resets/create_request", PasswordResetController, :create_request
+
+    resources "/password_resets", PasswordResetController,
+      only: [:new, :create, :edit, :update],
+      param: "slug"
+
+    get "/password_resets/new_request", PasswordResetController, :new_request, param: "slug"
+
+    post "/password_resets/create_request", PasswordResetController, :create_request,
+      param: "slug"
   end
 
   scope "/api/v1", VutuvWeb.Api, as: :api do
     pipe_through :api
 
-    resources "/users", UserController, except: [:new, :edit] do
+    resources "/users", UserController, except: [:new, :edit], param: "slug" do
       resources "/email_addresses", EmailAddressController, except: [:new, :edit]
     end
 
