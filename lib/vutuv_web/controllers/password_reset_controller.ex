@@ -35,13 +35,13 @@ defmodule VutuvWeb.PasswordResetController do
     end
   end
 
-  def edit(conn, %{"id" => user_id, "email" => email}) do
-    user = Accounts.get_user(user_id)
+  def edit(conn, %{"slug" => slug, "email" => email}) do
+    user = Accounts.get_by(%{"slug" => slug})
     render(conn, "edit.html", user: user, email: email)
   end
 
-  def update(conn, %{"id" => user_id, "password_reset" => %{"email" => email} = params}) do
-    user = Accounts.get_user(user_id)
+  def update(conn, %{"slug" => slug, "password_reset" => %{"email" => email} = params}) do
+    user = Accounts.get_by(%{"slug" => slug})
 
     case Accounts.update_password(user, params) do
       {:ok, _user} ->

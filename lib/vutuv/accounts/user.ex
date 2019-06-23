@@ -4,34 +4,42 @@ defmodule Vutuv.Accounts.User do
   import Ecto.Changeset
 
   alias NotQwerty123.PasswordStrength
-  alias Vutuv.{Accounts.EmailAddress, Biographies.Profile, Sessions.Session, Socials.Post}
+  alias Vutuv.Accounts.EmailAddress
+  alias Vutuv.{Biographies.Profile, Sessions.Session, Socials.Post}
 
   @type t :: %__MODULE__{
           id: integer,
+          slug: String.t(),
           password_hash: String.t(),
           confirmed: boolean,
+          email_addresses: [EmailAddress.t()] | %Ecto.Association.NotLoaded{},
           posts: [Post.t()] | %Ecto.Association.NotLoaded{},
           sessions: [Session.t()] | %Ecto.Association.NotLoaded{},
-          email_addresses: [EmailAddress.t()] | %Ecto.Association.NotLoaded{},
           profile: Profile.t() | %Ecto.Association.NotLoaded{},
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
         }
 
+  @derive {Phoenix.Param, key: :slug}
+
   schema "users" do
+    field :slug, :string
     field :password, :string, virtual: true
     field :password_hash, :string
     field :confirmed, :boolean, default: false
+
+    has_many :email_addresses, EmailAddress, on_delete: :delete_all
     has_many :posts, Post, on_delete: :delete_all
     has_many :sessions, Session, on_delete: :delete_all
-    has_many :email_addresses, EmailAddress, on_delete: :delete_all
     has_one :profile, Profile, on_replace: :update, on_delete: :delete_all
 
     timestamps(type: :utc_datetime)
   end
 
   def changeset(%__MODULE__{} = user, attrs) do
-    cast(user, attrs, [])
+    user
+    |> cast(attrs, [:slug])
+    |> unique_constraint(:slug)
   end
 
   def create_changeset(%__MODULE__{} = user, attrs) do
@@ -43,7 +51,7 @@ defmodule Vutuv.Accounts.User do
 
   def update_changeset(%__MODULE__{} = user, attrs) do
     user
-    |> cast(attrs, [])
+    |> changeset(attrs)
     |> cast_assoc(:profile)
   end
 
@@ -57,8 +65,9 @@ defmodule Vutuv.Accounts.User do
 
   defp password_hash_changeset(user, attrs) do
     user
-    |> cast(attrs, [:password])
-    |> validate_required([:password])
+    |> cast(attrs, [:slug, :password])
+    |> validate_required([:slug, :password])
+    |> unique_constraint(:slug)
     |> validate_password(:password)
     |> put_pass_hash()
   end

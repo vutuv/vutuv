@@ -12,6 +12,6 @@ defmodule VutuvWeb.Api.UserView do
   end
 
   def render("user.json", %{user: user}) do
-    %{id: user.id, profile: %{full_name: user.profile.full_name}}
+    %{id: user.id, profile: %{full_name: user.profile.full_name}, slug: user.slug}
   end
 end

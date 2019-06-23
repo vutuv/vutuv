@@ -7,6 +7,7 @@ defmodule Vutuv.Factory do
     %Vutuv.Accounts.User{
       email_addresses: build_list(1, :email_address),
       profile: build(:profile),
+      slug: Faker.Internet.slug(),
       password_hash: Argon2.hash_pwd_salt("hard2gue$$"),
       confirmed: true
     }

@@ -8,7 +8,7 @@ defmodule VutuvWeb.EmailAddressController do
 
   @dialyzer {:nowarn_function, new: 3}
 
-  def action(conn, _), do: auth_action_id(conn, __MODULE__)
+  def action(conn, _), do: auth_action_slug(conn, __MODULE__)
 
   def index(conn, _params, user) do
     email_addresses = Accounts.list_email_addresses(user)

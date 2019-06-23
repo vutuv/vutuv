@@ -7,24 +7,24 @@ defmodule VutuvWeb.Api.Authorize do
   import Phoenix.Controller
 
   @doc """
-  Overrides the controller module's action function with an id check - to
+  Overrides the controller module's action function with a slug check - to
   make sure that the current user can access the resource.
   """
-  def auth_action_id(
+  def auth_action_slug(
         %Plug.Conn{
-          params: %{"user_id" => user_id} = params,
-          assigns: %{current_user: %{id: id} = current_user}
+          params: %{"user_slug" => user_slug} = params,
+          assigns: %{current_user: %{slug: slug} = current_user}
         } = conn,
         module
       ) do
-    if user_id == to_string(id) do
+    if user_slug == slug do
       apply(module, action_name(conn), [conn, params, current_user])
     else
       error(conn, :forbidden, 403)
     end
   end
 
-  def auth_action_id(conn, _), do: error(conn, :unauthorized, 401)
+  def auth_action_slug(conn, _), do: error(conn, :unauthorized, 401)
 
   @doc """
   Plug to only allow unauthenticated users to access the resource.
@@ -42,23 +42,20 @@ defmodule VutuvWeb.Api.Authorize do
   end
 
   @doc """
-  Plug to only allow authenticated users with the correct id to access the resource.
+  Plug to only allow authenticated users with the correct slug to access the resource.
 
   See the user controller for an example.
   """
-  def id_check(%Plug.Conn{assigns: %{current_user: nil}} = conn, _opts) do
+  def slug_check(%Plug.Conn{assigns: %{current_user: nil}} = conn, _opts) do
     error(conn, :unauthorized, 401)
   end
 
-  def id_check(
-        %Plug.Conn{params: %{"id" => id}, assigns: %{current_user: current_user}} = conn,
+  def slug_check(
+        %Plug.Conn{params: %{"slug" => user_slug}, assigns: %{current_user: %{slug: slug}}} =
+          conn,
         _opts
       ) do
-    if id == to_string(current_user.id) do
-      conn
-    else
-      error(conn, :forbidden, 403)
-    end
+    if user_slug == slug, do: conn, else: error(conn, :forbidden, 403)
   end
 
   def error(conn, status, code) do

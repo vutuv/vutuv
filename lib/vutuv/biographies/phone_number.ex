@@ -17,6 +17,7 @@ defmodule Vutuv.Biographies.PhoneNumber do
   schema "phone_numbers" do
     field :type, :string
     field :value, :string
+
     belongs_to :profile, Profile
 
     timestamps(type: :utc_datetime)

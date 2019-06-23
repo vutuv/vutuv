@@ -37,6 +37,7 @@ defmodule Vutuv.Biographies.Profile do
     field :honorific_suffix, :string
     field :locale, :string
     field :noindex?, :boolean, default: false
+
     belongs_to :user, User
     has_many :phone_numbers, PhoneNumber, on_delete: :delete_all
 
