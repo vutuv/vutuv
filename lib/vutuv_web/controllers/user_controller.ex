@@ -4,7 +4,7 @@ defmodule VutuvWeb.UserController do
   import VutuvWeb.Authorize
 
   alias Phauxth.Log
-  alias Vutuv.{Accounts, Accounts.User}
+  alias Vutuv.{Accounts, Accounts.User, Biographies.Locale}
   alias VutuvWeb.{Auth.Otp, Email}
 
   @dialyzer {:nowarn_function, new: 2}
@@ -25,10 +25,14 @@ defmodule VutuvWeb.UserController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"user" => %{"email" => email} = user_params}) do
+  def create(conn, %{"user" => user_params}) do
+    locale = conn |> get_req_header("accept-language") |> Locale.parse_al()
+    user_params = add_locale_to_params(user_params, locale)
+
     case Accounts.create_user(user_params) do
       {:ok, user} ->
         Log.info(%Log{user: user.id, message: "user created"})
+        email = user_params["email"]
         code = Otp.create()
         Email.confirm_request(email, code)
 
@@ -71,4 +75,10 @@ defmodule VutuvWeb.UserController do
     |> put_flash(:info, "User deleted successfully.")
     |> redirect(to: Routes.session_path(conn, :new))
   end
+
+  defp add_locale_to_params(%{"profile" => _} = user_params, locale) do
+    put_in(user_params, ["profile", "locale"], locale)
+  end
+
+  defp add_locale_to_params(user_params, _), do: user_params
 end

@@ -61,8 +61,8 @@ body {
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
   grid-template-areas: "header"
-                        "main"
-                        "footer";
+                       "main"
+                       "footer";
 }
 header,
 main {
@@ -109,16 +109,21 @@ footer ul li {
   text-decoration: none;
   padding: 0 1.5rem;
 }
-footer a {
+footer form {
+  margin: 0;
+}
+footer a,
+footer button.link {
   color: #e6e6e6;
 }
-footer a:focus, a:hover {
+footer a:focus, a:hover,
+footer button.link:focus, button.link:hover {
   color: #b8b8b8;
 }
 button.link {
   background: none;
-  color: #0069d9;
   border: none;
+  color: #0069d9;
   padding: 0 !important;
   font: inherit;
   letter-spacing: 0;
@@ -130,7 +135,7 @@ button.link {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr auto;
     grid-template-areas: "header main"
-                          "footer footer";
+                         "footer footer";
   }
   header,
   main {

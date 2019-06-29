@@ -67,5 +67,6 @@ defmodule Vutuv.Biographies.Profile do
     |> validate_length(:honorific_prefix, max: 80)
     |> validate_length(:honorific_suffix, max: 80)
     |> validate_length(:headline, max: 255)
+    |> validate_length(:locale, min: 2, max: 5)
   end
 end
