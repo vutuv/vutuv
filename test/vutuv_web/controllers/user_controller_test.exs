@@ -79,6 +79,16 @@ defmodule VutuvWeb.UserControllerTest do
       assert html_response(conn, 200) =~ "Raymond Luxury Yacht"
     end
 
+    test "updates locale data when locale is supported", %{conn: conn, user: user} do
+      attrs = %{"profile" => %{"locale" => "de_CH"}}
+      conn = put(conn, Routes.user_path(conn, :update, user), user: attrs)
+      assert redirected_to(conn) == Routes.user_path(conn, :show, user)
+      updated_user = Accounts.get_user(user.id)
+      assert updated_user.profile.locale == "de_CH"
+      conn = get(conn, Routes.user_path(conn, :show, user))
+      assert html_response(conn, 200) =~ "de_CH"
+    end
+
     test "fails when data is invalid", %{conn: conn, user: user} do
       attrs = %{"profile" => %{"honorific_prefix" => String.duplicate("Dr", 42)}}
       conn = put(conn, Routes.user_path(conn, :update, user), user: attrs)

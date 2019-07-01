@@ -4,7 +4,7 @@ defmodule Vutuv.Biographies.Profile do
   import Ecto.Changeset
 
   alias Vutuv.Accounts.User
-  alias Vutuv.Biographies.PhoneNumber
+  alias Vutuv.Biographies.{Locale, PhoneNumber}
   alias Vutuv.Generals.Tag
 
   @type t :: %__MODULE__{
@@ -47,7 +47,7 @@ defmodule Vutuv.Biographies.Profile do
   end
 
   @doc false
-  def changeset(profile, attrs) do
+  def changeset(%__MODULE__{} = profile, attrs) do
     profile
     |> cast(attrs, [
       :full_name,
@@ -67,6 +67,17 @@ defmodule Vutuv.Biographies.Profile do
     |> validate_length(:honorific_prefix, max: 80)
     |> validate_length(:honorific_suffix, max: 80)
     |> validate_length(:headline, max: 255)
-    |> validate_length(:locale, min: 2, max: 5)
+    |> validate_length(:locale, min: 2, max: 6)
+    |> put_supported_locale()
   end
+
+  defp put_supported_locale(%Ecto.Changeset{valid?: true, changes: %{locale: locale}} = changeset) do
+    if new_locale = Locale.supported(locale) do
+      change(changeset, %{locale: new_locale})
+    else
+      add_error(changeset, :locale, "Unsupported locale")
+    end
+  end
+
+  defp put_supported_locale(changeset), do: changeset
 end

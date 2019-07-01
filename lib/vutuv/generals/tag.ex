@@ -28,7 +28,7 @@ defmodule Vutuv.Generals.Tag do
   end
 
   @doc false
-  def changeset(tag, attrs) do
+  def changeset(%__MODULE__{} = tag, attrs) do
     tag
     |> cast(attrs, [:name, :downcase_name, :slug, :description, :url])
     |> validate_required([:name])

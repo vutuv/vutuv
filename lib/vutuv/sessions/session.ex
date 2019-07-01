@@ -24,7 +24,7 @@ defmodule Vutuv.Sessions.Session do
   end
 
   @doc false
-  def changeset(session, attrs) do
+  def changeset(%__MODULE__{} = session, attrs) do
     session
     |> set_expires_at(attrs)
     |> cast(attrs, [:user_id])

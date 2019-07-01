@@ -22,7 +22,7 @@ defmodule Vutuv.Biographies.ProfileTag do
   end
 
   @doc false
-  def changeset(profile_tag, attrs) do
+  def changeset(%__MODULE__{} = profile_tag, attrs) do
     profile_tag
     |> cast(attrs, [:profile_id, :tag_id])
     |> validate_required([:profile_id, :tag_id])
