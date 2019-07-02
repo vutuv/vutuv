@@ -5,9 +5,12 @@ defmodule Vutuv.Biographies.Locale do
 
   defstruct locale: "en", quality: 1.0
 
+  @default_locale "en"
+
   @doc """
   Returns a map of supported locales.
   """
+  @spec supported() :: map
   def supported do
     %{
       "en" => "en",
@@ -24,16 +27,20 @@ defmodule Vutuv.Biographies.Locale do
   @doc """
   Returns a supported locale.
   """
+  @spec supported(String.t()) :: String.t() | nil
   def supported(locale) do
-    if locale in Map.values(supported()), do: locale, else: Map.get(supported(), locale)
+    if locale in Map.values(supported()) do
+      locale
+    else
+      Map.get(supported(), String.downcase(locale))
+    end
   end
 
   @doc """
-  Parses an accept-language header entry and creates structs.
+  Parses an accept-language header entry and finds a supported locale.
   """
-  def parse_al([]), do: supported() |> Map.values() |> hd
-
-  def parse_al([pattern]) do
+  @spec parse_al(String.t()) :: String.t()
+  def parse_al(pattern) do
     pattern
     |> String.split(",")
     |> Enum.map(&create_struct(String.split(&1, ";")))
@@ -49,7 +56,7 @@ defmodule Vutuv.Biographies.Locale do
     %__MODULE__{locale: supported(locale), quality: String.to_float(quality)}
   end
 
-  defp find_default([]), do: supported() |> Map.values() |> hd
+  defp find_default([]), do: @default_locale
 
   defp find_default([%__MODULE__{locale: locale} | rest]) do
     if locale in Map.values(supported()) do

@@ -4,7 +4,7 @@ defmodule VutuvWeb.UserController do
   import VutuvWeb.Authorize
 
   alias Phauxth.Log
-  alias Vutuv.{Accounts, Accounts.User, Biographies.Locale}
+  alias Vutuv.{Accounts, Accounts.User}
   alias VutuvWeb.{Auth.Otp, Email}
 
   @dialyzer {:nowarn_function, new: 2}
@@ -26,8 +26,8 @@ defmodule VutuvWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    locale = conn |> get_req_header("accept-language") |> Locale.parse_al()
-    user_params = add_locale_to_params(user_params, locale)
+    user_params =
+      conn |> get_req_header("accept-language") |> add_accept_language_to_params(user_params)
 
     case Accounts.create_user(user_params) do
       {:ok, user} ->
@@ -76,9 +76,10 @@ defmodule VutuvWeb.UserController do
     |> redirect(to: Routes.session_path(conn, :new))
   end
 
-  defp add_locale_to_params(%{"profile" => _} = user_params, locale) do
-    put_in(user_params, ["profile", "locale"], locale)
+  defp add_accept_language_to_params(accept_language, %{"profile" => _} = user_params) do
+    al = if accept_language == [], do: "", else: hd(accept_language)
+    put_in(user_params, ["profile", "accept_language"], al)
   end
 
-  defp add_locale_to_params(user_params, _), do: user_params
+  defp add_accept_language_to_params(_, user_params), do: user_params
 end

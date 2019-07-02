@@ -46,7 +46,7 @@ defmodule Vutuv.Accounts.User do
     user
     |> password_hash_changeset(attrs)
     |> cast_assoc(:email_addresses, required: true)
-    |> cast_assoc(:profile, required: true)
+    |> cast_assoc(:profile, required: true, with: &Profile.create_changeset/2)
   end
 
   def update_changeset(%__MODULE__{} = user, attrs) do
