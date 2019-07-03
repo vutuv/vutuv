@@ -75,31 +75,30 @@ defmodule Vutuv.Accounts do
     }
 
     attrs = Map.merge(attrs, %{"email_addresses" => [email_attrs]})
-    create_user_insert(attrs)
-  end
 
-  defp create_user_insert(attrs) do
     %User{}
-    |> User.create_changeset(process_attrs(attrs))
+    |> User.create_changeset(attrs)
     |> Repo.insert()
+    |> add_unique_slug()
   end
 
-  defp process_attrs(attrs) do
-    if full_name = attrs["profile"]["full_name"] do
-      Map.put(attrs, "slug", Slugger.slugify(full_name, ?.))
-    else
-      attrs
+  defp add_unique_slug({:ok, %{profile: %{full_name: full_name}} = user}) do
+    slug = Slugger.slugify(full_name, ?.)
+
+    with {:error, _} <- update_user(user, %{"slug" => slug}) do
+      prefix = Base.encode64(:crypto.strong_rand_bytes(6))
+      update_user(user, %{"slug" => prefix <> "." <> slug})
     end
   end
+
+  defp add_unique_slug({:error, changeset}), do: {:error, changeset}
 
   @doc """
   Updates a user.
   """
   @spec update_user(User.t(), map) :: {:ok, User.t()} | changeset_error
   def update_user(%User{} = user, attrs) do
-    user
-    |> User.update_changeset(attrs)
-    |> Repo.update()
+    user |> User.update_changeset(attrs) |> Repo.update()
   end
 
   @doc """

@@ -65,9 +65,8 @@ defmodule Vutuv.Accounts.User do
 
   defp password_hash_changeset(user, attrs) do
     user
-    |> cast(attrs, [:slug, :password])
-    |> validate_required([:slug, :password])
-    |> unique_constraint(:slug)
+    |> cast(attrs, [:password])
+    |> validate_required([:password])
     |> validate_password(:password)
     |> put_pass_hash()
   end
