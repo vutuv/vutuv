@@ -58,9 +58,11 @@ body {
   background-color: #4a6a90;
   color: #e6e6e6;
   display: grid;
-  grid-gap: 0;
-  grid-template-rows: auto 1fr auto;
   grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: "header"
+                       "main"
+                       "footer";
 }
 header,
 main {
@@ -68,7 +70,15 @@ main {
   padding: 0 1.5rem;
 }
 header {
+  grid-area: header;
   text-align: center;
+}
+main {
+  grid-area: main;
+  position: relative;
+}
+.v-bg {
+  display: none;
 }
 .inset h1 {
   font-size: 10.8rem;
@@ -84,6 +94,7 @@ header {
   padding: 1.5rem 3.0rem;
 }
 footer {
+  grid-area: footer;
   background-color: #495057;
   color: #e6e6e6;
   text-align: center;
@@ -98,16 +109,21 @@ footer ul li {
   text-decoration: none;
   padding: 0 1.5rem;
 }
-footer a {
+footer form {
+  margin: 0;
+}
+footer a,
+footer button.link {
   color: #e6e6e6;
 }
-footer a:focus, a:hover {
+footer a:focus, a:hover,
+footer button.link:focus, button.link:hover {
   color: #b8b8b8;
 }
 button.link {
   background: none;
-  color: #0069d9;
   border: none;
+  color: #0069d9;
   padding: 0 !important;
   font: inherit;
   letter-spacing: 0;
@@ -116,8 +132,10 @@ button.link {
 }
 @media screen and (min-width: 40.0rem) and (orientation: landscape) {
   body {
-    grid-template-rows: 1fr auto;
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr auto;
+    grid-template-areas: "header main"
+                         "footer footer";
   }
   header,
   main {
@@ -129,7 +147,17 @@ button.link {
     text-align: right;
   }
   footer {
-    grid-column: span 2;
     text-align: left;
+  }
+  .v-bg {
+    grid-column: 2;
+    grid-row: 1;
+    display: block;
+    opacity: 0.2;
+    z-index: -1;
+  }
+  .v-bg svg {
+    margin-left: -35rem;
+    height: 80rem;
   }
 }

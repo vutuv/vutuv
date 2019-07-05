@@ -3,13 +3,14 @@ defmodule Vutuv.BiographiesTest do
 
   import Vutuv.Factory
 
-  alias Vutuv.Biographies
-  alias Vutuv.Biographies.{Profile, PhoneNumber}
+  alias Vutuv.{Biographies, Generals}
+  alias Vutuv.Biographies.{Profile, ProfileTag, PhoneNumber}
 
   @valid_attrs %{
     avatar: %Plug.Upload{path: "test/fixtures/elixir_logo.png", filename: "elixir_logo.png"},
     full_name: "#{Faker.Name.first_name()} #{Faker.Name.last_name()}",
     gender: Enum.random(["female", "male", "other"]),
+    locale: "en_US",
     preferred_name: Faker.Name.first_name(),
     birthday: ~D[1980-01-15],
     headline: Faker.Company.bs(),
@@ -28,8 +29,6 @@ defmodule Vutuv.BiographiesTest do
   @invalid_phone_attrs %{type: nil, value: "abcde"}
 
   describe "profiles" do
-    alias Vutuv.Biographies.Profile
-
     def profile_fixture(attrs \\ %{}) do
       {:ok, profile} =
         attrs
@@ -76,6 +75,26 @@ defmodule Vutuv.BiographiesTest do
 
       assert headline != profile.headline
       assert preferred_name != profile.preferred_name
+    end
+
+    test "can update locale with valid data" do
+      profile = profile_fixture()
+      assert profile.locale == "en_US"
+
+      assert {:ok, %Profile{locale: locale}} =
+               Biographies.update_profile(profile, %{"locale" => "de_CH"})
+
+      assert locale == "de_CH"
+    end
+
+    test "returns error when updating locale with invalid data" do
+      profile = profile_fixture()
+      assert profile.locale == "en_US"
+
+      assert {:error, %Ecto.Changeset{} = changeset} =
+               Biographies.update_profile(profile, %{"locale" => "zh_CN"})
+
+      assert %{locale: ["Unsupported locale"]} = errors_on(changeset)
     end
 
     test "update_profile/2 with invalid data returns error changeset" do
@@ -150,9 +169,6 @@ defmodule Vutuv.BiographiesTest do
   end
 
   describe "profile_tags" do
-    alias Vutuv.Generals
-    alias Vutuv.Biographies.ProfileTag
-
     @valid_tag_attrs %{
       "description" =>
         "Elixir is a functional, concurrent, general-purpose programming language that runs on the Erlang virtual machine (BEAM).",

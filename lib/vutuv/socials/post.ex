@@ -31,14 +31,14 @@ defmodule Vutuv.Socials.Post do
   end
 
   @doc false
-  def changeset(post, attrs) do
+  def changeset(%__MODULE__{} = post, attrs) do
     post
     |> cast(attrs, [:body, :title, :page_info_cache, :visibility_level])
     |> validate_required([:body, :title])
   end
 
   @doc false
-  def create_changeset(post, attrs) do
+  def create_changeset(%__MODULE__{} = post, attrs) do
     post |> set_published_at(attrs) |> changeset(attrs)
   end
 

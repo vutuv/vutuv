@@ -24,7 +24,7 @@ defmodule Vutuv.Biographies.PhoneNumber do
   end
 
   @doc false
-  def changeset(phone_number, attrs) do
+  def changeset(%__MODULE__{} = phone_number, attrs) do
     phone_number
     |> cast(attrs, [:value, :type])
     |> update_change(:value, &String.trim/1)

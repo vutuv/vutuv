@@ -6,10 +6,12 @@ defmodule Vutuv.AccountsTest do
   alias Vutuv.{Accounts, Accounts.EmailAddress, Accounts.EmailManager, Accounts.User, Repo}
   alias Vutuv.{Biographies, Biographies.Profile}
 
+  @accept_language "en-ca,en;q=0.8,en-us;q=0.6,de-de;q=0.4,de;q=0.2"
   @create_user_attrs %{
     "email" => "fred@example.com",
     "password" => "reallyHard2gue$$",
     "profile" => %{
+      "accept_language" => @accept_language,
       "gender" => "male",
       "full_name" => "fred frederickson"
     }
@@ -47,6 +49,9 @@ defmodule Vutuv.AccountsTest do
   describe "write user data" do
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Accounts.create_user(@create_user_attrs)
+      assert user.profile.accept_language == @accept_language
+      assert user.profile.gender == "male"
+      assert user.profile.locale == "en_CA"
       assert [%EmailAddress{value: value, position: 1}] = user.email_addresses
       assert value == "fred@example.com"
     end
@@ -60,13 +65,22 @@ defmodule Vutuv.AccountsTest do
       assert %{password: ["can't be blank"]} = errors_on(changeset)
     end
 
-    test "duplicate email cannot be created" do
+    test "returns error when adding a duplicate email" do
       assert {:ok, %User{} = user} = Accounts.create_user(@create_user_attrs)
       assert [%EmailAddress{value: value, position: 1}] = user.email_addresses
       assert value == "fred@example.com"
-      # These lines are temporarily commented out while working on unique slugs
-      # assert {:error, %Ecto.Changeset{} = changeset} = Accounts.create_user(@create_user_attrs)
-      # assert %{email_addresses: [%{value: ["has already been taken"]}]} = errors_on(changeset)
+      assert {:error, %Ecto.Changeset{} = changeset} = Accounts.create_user(@create_user_attrs)
+      assert %{email_addresses: [%{value: ["has already been taken"]}]} = errors_on(changeset)
+    end
+
+    test "unique slug is created - even when the full_name is not unique" do
+      assert {:ok, %User{} = user} = Accounts.create_user(@create_user_attrs)
+      assert user.slug =~ "fred.frederickson"
+      assert String.length(user.slug) == 17
+      attrs = Map.merge(@create_user_attrs, %{"email" => "fred.bloggs@example.com"})
+      assert {:ok, %User{} = user} = Accounts.create_user(attrs)
+      assert user.slug =~ "fred.frederickson"
+      assert String.length(user.slug) == 26
     end
 
     test "invalid email returns email_addresses error" do
@@ -81,6 +95,20 @@ defmodule Vutuv.AccountsTest do
 
       assert %{profile: %{full_name: ["can't be blank"], gender: ["can't be blank"]}} =
                errors_on(changeset)
+    end
+
+    test "user can update slug" do
+      %{slug: slug} = user = insert(:user)
+      attrs = %{"slug" => String.replace(slug, ".", "-")}
+      {:ok, %{slug: new_slug}} = Accounts.update_user(user, attrs)
+      assert new_slug != slug
+    end
+
+    test "returns error when adding a duplicate slug" do
+      %{slug: slug} = insert(:user)
+      new_user = insert(:user)
+      {:error, %Ecto.Changeset{} = changeset} = Accounts.update_user(new_user, %{"slug" => slug})
+      assert %{slug: ["has already been taken"]} = errors_on(changeset)
     end
 
     test "update password changes the stored hash" do

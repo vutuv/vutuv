@@ -25,10 +25,14 @@ defmodule VutuvWeb.UserController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"user" => %{"email" => email} = user_params}) do
+  def create(conn, %{"user" => user_params}) do
+    user_params =
+      conn |> get_req_header("accept-language") |> add_accept_language_to_params(user_params)
+
     case Accounts.create_user(user_params) do
       {:ok, user} ->
         Log.info(%Log{user: user.id, message: "user created"})
+        email = user_params["email"]
         code = Otp.create()
         Email.confirm_request(email, code)
 
@@ -71,4 +75,11 @@ defmodule VutuvWeb.UserController do
     |> put_flash(:info, "User deleted successfully.")
     |> redirect(to: Routes.session_path(conn, :new))
   end
+
+  defp add_accept_language_to_params(accept_language, %{"profile" => _} = user_params) do
+    al = if accept_language == [], do: "", else: hd(accept_language)
+    put_in(user_params, ["profile", "accept_language"], al)
+  end
+
+  defp add_accept_language_to_params(_, user_params), do: user_params
 end
