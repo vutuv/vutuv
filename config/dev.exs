@@ -76,7 +76,6 @@ config :vutuv, Vutuv.Repo,
   pool_size: 10
 
 config :vutuv,
-  email_key_url: "http://localhost:4000/confirm?key",
-  email_reset_url: "http://localhost:4000/password_resets/edit?key",
+  base_url: "http://localhost:4000",
   storage_dir: "uploads/user/avatars/",
   default_dir: "/images/avatars/"

@@ -17,9 +17,7 @@ defmodule Vutuv.Accounts do
   @spec list_users() :: [User.t()]
   def list_users() do
     User
-    |> join(:left, [u], _ in assoc(u, :email_addresses))
-    |> join(:left, [u], _ in assoc(u, :profile))
-    |> preload([_, e, p], email_addresses: e, profile: p)
+    |> user_query()
     |> Repo.all()
   end
 
@@ -30,9 +28,7 @@ defmodule Vutuv.Accounts do
   def get_user(id) do
     User
     |> where([u], u.id == ^id)
-    |> join(:left, [u], _ in assoc(u, :email_addresses))
-    |> join(:left, [u], _ in assoc(u, :profile))
-    |> preload([_, e, p], email_addresses: e, profile: p)
+    |> user_query()
     |> Repo.one()
   end
 
@@ -55,13 +51,26 @@ defmodule Vutuv.Accounts do
   def get_by(%{"slug" => slug}) do
     User
     |> where([u], u.slug == ^slug)
-    |> join(:left, [u], _ in assoc(u, :email_addresses))
-    |> join(:left, [u], _ in assoc(u, :profile))
-    |> preload([_, e, p, s], email_addresses: e, profile: p)
+    |> user_query()
     |> Repo.one()
   end
 
   def get_by(%{"user_id" => user_id}), do: Repo.get(User, user_id)
+
+  defp user_query(user) do
+    user
+    |> join(:inner, [u], e in assoc(u, :email_addresses))
+    |> join(:inner, [u, e], p in assoc(u, :profile))
+    |> preload([_, e, p], email_addresses: e, profile: p)
+  end
+
+  @doc """
+  Gets user credentials.
+  """
+  @spec get_user_credentials(integer) :: User.t()
+  def get_user_credentials(id) do
+    Repo.get(User, id)
+  end
 
   @doc """
   Creates a user.

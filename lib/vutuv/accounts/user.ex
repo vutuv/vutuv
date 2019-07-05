@@ -11,6 +11,7 @@ defmodule Vutuv.Accounts.User do
           id: integer,
           slug: String.t(),
           password_hash: String.t(),
+          otp_secret: String.t(),
           confirmed: boolean,
           email_addresses: [EmailAddress.t()] | %Ecto.Association.NotLoaded{},
           posts: [Post.t()] | %Ecto.Association.NotLoaded{},
@@ -26,6 +27,7 @@ defmodule Vutuv.Accounts.User do
     field :slug, :string
     field :password, :string, virtual: true
     field :password_hash, :string
+    field :otp_secret, :string
     field :confirmed, :boolean, default: false
 
     has_many :email_addresses, EmailAddress, on_delete: :delete_all
@@ -44,6 +46,7 @@ defmodule Vutuv.Accounts.User do
 
   def create_changeset(%__MODULE__{} = user, attrs) do
     user
+    |> Map.put(:otp_secret, OneTimePassEcto.Base.gen_secret())
     |> password_hash_changeset(attrs)
     |> cast_assoc(:email_addresses, required: true)
     |> cast_assoc(:profile, required: true, with: &Profile.create_changeset/2)

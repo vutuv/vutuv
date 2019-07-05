@@ -6,7 +6,8 @@ defmodule VutuvWeb.EmailTest do
 
   setup do
     email = "deirdre@example.com"
-    {:ok, %{email: email, code: Otp.create()}}
+    secret = OneTimePassEcto.Base.gen_secret()
+    {:ok, %{email: email, code: Otp.create(secret)}}
   end
 
   test "sends confirmation request email", %{email: email, code: code} do

@@ -7,8 +7,8 @@ defmodule VutuvWeb.ConfirmControllerTest do
 
   setup %{conn: conn} do
     conn = conn |> bypass_through(Vutuv.Router, :browser) |> get("/")
-    add_user("arthur@example.com")
-    {:ok, %{conn: conn}}
+    user = add_user("arthur@example.com")
+    {:ok, %{conn: conn, user: user}}
   end
 
   describe "enter code resource" do
@@ -19,8 +19,8 @@ defmodule VutuvWeb.ConfirmControllerTest do
   end
 
   describe "confirmation using otp" do
-    test "confirmation succeeds", %{conn: conn} do
-      code = VutuvWeb.Auth.Otp.create()
+    test "confirmation succeeds", %{conn: conn, user: user} do
+      code = VutuvWeb.Auth.Otp.create(user.otp_secret)
       attrs = %{"email" => "arthur@example.com", "code" => code}
       conn = post(conn, Routes.confirm_path(conn, :create), confirm: attrs)
       assert redirected_to(conn) == Routes.session_path(conn, :new)

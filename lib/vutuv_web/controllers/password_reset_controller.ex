@@ -9,7 +9,8 @@ defmodule VutuvWeb.PasswordResetController do
   end
 
   def create_request(conn, %{"password_reset" => %{"email" => email}}) do
-    code = if Accounts.get_email_address_from_value(email), do: Otp.create()
+    user = Accounts.get_by(%{"email" => email})
+    code = if Accounts.get_email_address_from_value(email), do: Otp.create(user.otp_secret)
     Email.reset_request(email, code)
 
     conn
@@ -22,10 +23,10 @@ defmodule VutuvWeb.PasswordResetController do
   end
 
   def create(conn, %{"password_reset" => %{"email" => email, "code" => code}}) do
+    user = Accounts.get_by(%{"email" => email})
     email_address = Accounts.get_email_address_from_value(email)
 
-    if email_address && Otp.verify(code) do
-      user = Accounts.get_user(email_address.user_id)
+    if email_address && Otp.verify(code, user.otp_secret) do
       Email.confirm_success(email)
       redirect(conn, to: Routes.password_reset_path(conn, :edit, user, email: email))
     else

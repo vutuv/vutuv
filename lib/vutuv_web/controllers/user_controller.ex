@@ -33,7 +33,7 @@ defmodule VutuvWeb.UserController do
       {:ok, user} ->
         Log.info(%Log{user: user.id, message: "user created"})
         email = user_params["email"]
-        code = Otp.create()
+        code = Otp.create(user.otp_secret)
         Email.confirm_request(email, code)
 
         conn

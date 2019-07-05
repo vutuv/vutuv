@@ -5,6 +5,7 @@ defmodule Vutuv.Repo.Migrations.CreateUsers do
     create table(:users) do
       add :slug, :string
       add :password_hash, :string
+      add :otp_secret, :string
       add :confirmed, :boolean, default: false, null: false
 
       timestamps()
