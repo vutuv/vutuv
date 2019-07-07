@@ -13,15 +13,13 @@
   <%= password_input f, :password %>
   <%= error_tag f, :password %>
 
-  <%= inputs_for f, :profile, fn fp -> %>
-    <%= label fp, :full_name, gettext("Full name") %>
-    <%= text_input fp, :full_name %>
-    <%= error_tag fp, :full_name %>
+  <%= label f, :full_name, gettext("Full name") %>
+  <%= text_input f, :full_name %>
+  <%= error_tag f, :full_name %>
 
-    <%= label fp, :gender, gettext("Gender") %>
-    <%= select fp, :gender, [{gettext("Female"), "female"}, {gettext("Male"), "male"}, {gettext("Other"), "other"}] %>
-    <%= error_tag fp, :gender %>
-  <% end %>
+  <%= label f, :gender, gettext("Gender") %>
+  <%= select f, :gender, [{gettext("Female"), "female"}, {gettext("Male"), "male"}, {gettext("Other"), "other"}] %>
+  <%= error_tag f, :gender %>
 
   <div>
     <%= submit gettext("Sign up") %>

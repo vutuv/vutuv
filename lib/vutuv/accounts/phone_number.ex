@@ -1,13 +1,13 @@
-defmodule Vutuv.Biographies.PhoneNumber do
+defmodule Vutuv.Accounts.PhoneNumber do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Vutuv.Biographies.Profile
+  alias Vutuv.Accounts.User
 
   @type t :: %__MODULE__{
           id: integer,
-          profile_id: integer,
-          profile: Profile.t() | %Ecto.Association.NotLoaded{},
+          user_id: integer,
+          user: User.t() | %Ecto.Association.NotLoaded{},
           type: String.t(),
           value: String.t(),
           inserted_at: DateTime.t(),
@@ -18,7 +18,7 @@ defmodule Vutuv.Biographies.PhoneNumber do
     field :type, :string
     field :value, :string
 
-    belongs_to :profile, Profile
+    belongs_to :user, User
 
     timestamps(type: :utc_datetime)
   end

@@ -27,7 +27,7 @@ defmodule VutuvWeb.Api.UserController do
   end
 
   def show(%Plug.Conn{assigns: %{current_user: user}} = conn, %{"slug" => slug}) do
-    user = if user && slug == user.slug, do: user, else: Accounts.get_by(%{"slug" => slug})
+    user = if user && slug == user.slug, do: user, else: Accounts.get_user(%{"slug" => slug})
     render(conn, "show.json", user: user)
   end
 

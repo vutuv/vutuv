@@ -1,4 +1,4 @@
-defmodule Vutuv.Biographies.Locale do
+defmodule Vutuv.Accounts.Locale do
   @moduledoc """
   Module to help find a user's preferred locale.
   """

@@ -39,7 +39,7 @@ To see a certain user's data (in this case, user 2):
 
 The following command creates a user:
 
-`curl -H "Content-Type: application/json" -d '{"user":{"email":"arrr@example.com","password":"reallyHard2gue$$","profile":{"gender":"male","full_name":"Arrr Arrr"}}}' http://localhost:4000/api/v1/users`
+`curl -H "Content-Type: application/json" -d '{"user":{"email":"arrr@example.com","password":"reallyHard2gue$$","gender":"male","full_name":"Arrr Arrr"}}' http://localhost:4000/api/v1/users`
 
 ### Logging in
 
@@ -56,4 +56,4 @@ and update, or delete, user data.
 
 For example, the next command updates the user by adding a preferred_name:
 
-`curl -X PUT -H "Content-Type: application/json" -H token -d '{"user":{"profile":{"preferred_name":"franniepoohs"}}}' http://localhost:4000/api/v1/users/1`
+`curl -X PUT -H "Content-Type: application/json" -H token -d '{"user":{"preferred_name":"franniepoohs"}}' http://localhost:4000/api/v1/users/1`

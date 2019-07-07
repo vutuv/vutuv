@@ -23,8 +23,8 @@ defmodule VutuvWeb.EmailAddressController do
   def create(conn, %{"email_address" => email_address_params}, user) do
     case Accounts.create_email_address(user, email_address_params) do
       {:ok, email_address} ->
-        user = Accounts.get_user(email_address.user_id)
-        code = Otp.create(user.otp_secret)
+        user_credential = Accounts.get_user_credential(%{"user_id" => user.id})
+        code = Otp.create(user_credential.otp_secret)
         Email.confirm_request(email_address.value, code)
 
         conn

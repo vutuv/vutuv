@@ -33,7 +33,8 @@ defmodule VutuvWeb.UserController do
       {:ok, user} ->
         Log.info(%Log{user: user.id, message: "user created"})
         email = user_params["email"]
-        code = Otp.create(user.otp_secret)
+        user_credential = Accounts.get_user_credential(%{"user_id" => user.id})
+        code = Otp.create(user_credential.otp_secret)
         Email.confirm_request(email, code)
 
         conn
@@ -46,8 +47,8 @@ defmodule VutuvWeb.UserController do
   end
 
   def show(%Plug.Conn{assigns: %{current_user: user}} = conn, %{"slug" => slug}) do
-    user = if user && slug == user.slug, do: user, else: Accounts.get_by(%{"slug" => slug})
-    render(conn, "show.html", user: user, profile: user.profile)
+    user = if user && slug == user.slug, do: user, else: Accounts.get_user(%{"slug" => slug})
+    render(conn, "show.html", user: user)
   end
 
   def edit(%Plug.Conn{assigns: %{current_user: user}} = conn, _) do
@@ -76,9 +77,9 @@ defmodule VutuvWeb.UserController do
     |> redirect(to: Routes.session_path(conn, :new))
   end
 
-  defp add_accept_language_to_params(accept_language, %{"profile" => _} = user_params) do
+  defp add_accept_language_to_params(accept_language, %{"user" => _} = user_params) do
     al = if accept_language == [], do: "", else: hd(accept_language)
-    put_in(user_params, ["profile", "accept_language"], al)
+    put_in(user_params, ["user", "accept_language"], al)
   end
 
   defp add_accept_language_to_params(_, user_params), do: user_params

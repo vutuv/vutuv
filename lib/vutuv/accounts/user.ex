@@ -1,22 +1,31 @@
 defmodule Vutuv.Accounts.User do
   use Ecto.Schema
+  use Arc.Ecto.Schema
 
   import Ecto.Changeset
 
-  alias NotQwerty123.PasswordStrength
-  alias Vutuv.Accounts.EmailAddress
-  alias Vutuv.{Biographies.Profile, Sessions.Session, Socials.Post}
+  alias Vutuv.Accounts.{EmailAddress, Locale, PhoneNumber, UserCredential}
+  alias Vutuv.{Sessions.Session, Socials.Post}
 
   @type t :: %__MODULE__{
           id: integer,
           slug: String.t(),
-          password_hash: String.t(),
-          otp_secret: String.t(),
-          confirmed: boolean,
+          full_name: String.t(),
+          preferred_name: String.t(),
+          gender: String.t(),
+          birthday: Date.t(),
+          avatar: String.t(),
+          headline: String.t(),
+          honorific_prefix: String.t(),
+          honorific_suffix: String.t(),
+          locale: String.t(),
+          accept_language: String.t(),
+          noindex?: boolean,
           email_addresses: [EmailAddress.t()] | %Ecto.Association.NotLoaded{},
+          phone_numbers: [PhoneNumber.t()] | %Ecto.Association.NotLoaded{},
           posts: [Post.t()] | %Ecto.Association.NotLoaded{},
           sessions: [Session.t()] | %Ecto.Association.NotLoaded{},
-          profile: Profile.t() | %Ecto.Association.NotLoaded{},
+          user_credential: UserCredential.t() | %Ecto.Association.NotLoaded{},
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
         }
@@ -25,67 +34,74 @@ defmodule Vutuv.Accounts.User do
 
   schema "users" do
     field :slug, :string
-    field :password, :string, virtual: true
-    field :password_hash, :string
-    field :otp_secret, :string
-    field :confirmed, :boolean, default: false
+    field :full_name, :string
+    field :preferred_name, :string
+    field :gender, :string
+    field :birthday, :date
+    field :avatar, Vutuv.Avatar.Type
+    field :headline, :string
+    field :honorific_prefix, :string
+    field :honorific_suffix, :string
+    field :locale, :string
+    field :accept_language, :string
+    field :noindex?, :boolean, default: false
 
     has_many :email_addresses, EmailAddress, on_delete: :delete_all
+    has_many :phone_numbers, PhoneNumber, on_delete: :delete_all
     has_many :posts, Post, on_delete: :delete_all
     has_many :sessions, Session, on_delete: :delete_all
-    has_one :profile, Profile, on_replace: :update, on_delete: :delete_all
+    has_one :user_credential, UserCredential, on_delete: :delete_all
 
     timestamps(type: :utc_datetime)
   end
 
+  @doc false
   def changeset(%__MODULE__{} = user, attrs) do
     user
-    |> cast(attrs, [:slug])
+    |> cast(attrs, [
+      :slug,
+      :full_name,
+      :preferred_name,
+      :honorific_prefix,
+      :honorific_suffix,
+      :gender,
+      :birthday,
+      :locale,
+      :headline,
+      :noindex?
+    ])
     |> unique_constraint(:slug)
+    |> cast_attachments(attrs, [:avatar])
+    |> validate_required([:full_name, :gender])
+    |> validate_length(:full_name, max: 80)
+    |> validate_length(:preferred_name, max: 80)
+    |> validate_length(:honorific_prefix, max: 80)
+    |> validate_length(:honorific_suffix, max: 80)
+    |> validate_length(:headline, max: 255)
+    |> add_locale_data()
   end
 
+  @doc false
   def create_changeset(%__MODULE__{} = user, attrs) do
-    user
-    |> Map.put(:otp_secret, OneTimePassEcto.Base.gen_secret())
-    |> password_hash_changeset(attrs)
-    |> cast_assoc(:email_addresses, required: true)
-    |> cast_assoc(:profile, required: true, with: &Profile.create_changeset/2)
-  end
+    {attrs, al} =
+      case Map.get(attrs, "accept_language") do
+        nil -> {attrs, nil}
+        al -> {Map.put(attrs, "locale", Locale.parse_al(al)), al}
+      end
 
-  def update_changeset(%__MODULE__{} = user, attrs) do
     user
     |> changeset(attrs)
-    |> cast_assoc(:profile)
+    |> change(%{accept_language: al})
+    |> cast_assoc(:email_addresses, required: true)
+    |> cast_assoc(:user_credential, required: true)
   end
 
-  def confirm_changeset(%__MODULE__{} = user, confirmed) do
-    change(user, %{confirmed: confirmed})
+  defp add_locale_data(%Ecto.Changeset{valid?: true, changes: %{locale: locale}} = changeset) do
+    case Locale.supported(locale) do
+      nil -> add_error(changeset, :locale, "Unsupported locale")
+      new_locale -> change(changeset, %{locale: new_locale})
+    end
   end
 
-  def update_password_changeset(%__MODULE__{} = user, attrs) do
-    password_hash_changeset(user, attrs)
-  end
-
-  defp password_hash_changeset(user, attrs) do
-    user
-    |> cast(attrs, [:password])
-    |> validate_required([:password])
-    |> validate_password(:password)
-    |> put_pass_hash()
-  end
-
-  defp validate_password(changeset, field, options \\ []) do
-    validate_change(changeset, field, fn _, password ->
-      case PasswordStrength.strong_password?(password) do
-        {:ok, _} -> []
-        {:error, msg} -> [{field, options[:message] || msg}]
-      end
-    end)
-  end
-
-  defp put_pass_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
-    change(changeset, Argon2.add_hash(password))
-  end
-
-  defp put_pass_hash(changeset), do: changeset
+  defp add_locale_data(changeset), do: changeset
 end

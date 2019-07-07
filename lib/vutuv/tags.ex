@@ -1,6 +1,6 @@
-defmodule Vutuv.Generals do
+defmodule Vutuv.Tags do
   @moduledoc """
-  The Generals context.
+  The Tags context.
   """
 
   import Ecto.Query, warn: false
@@ -9,7 +9,7 @@ defmodule Vutuv.Generals do
 
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 
-  alias Vutuv.Generals.Tag
+  alias Vutuv.Tags.Tag
 
   @doc """
   Returns the list of tags.

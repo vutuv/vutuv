@@ -8,10 +8,8 @@ defmodule VutuvWeb.UserControllerTest do
   @create_attrs %{
     "email" => "bill@example.com",
     "password" => "reallyHard2gue$$",
-    "profile" => %{
-      "gender" => "male",
-      "full_name" => "bill shakespeare"
-    }
+    "gender" => "male",
+    "full_name" => "bill shakespeare"
   }
 
   setup %{conn: conn} do
@@ -28,7 +26,7 @@ defmodule VutuvWeb.UserControllerTest do
     test "show chosen user's page", %{conn: conn} do
       user = add_user("reg@example.com")
       conn = get(conn, Routes.user_path(conn, :show, user))
-      assert html_response(conn, 200) =~ ~r/Show user(.|\n)*Edit email/
+      assert html_response(conn, 200) =~ ~r/User(.|\n)*Edit email/
     end
   end
 
@@ -70,27 +68,27 @@ defmodule VutuvWeb.UserControllerTest do
     setup [:add_user_session]
 
     test "successful when data is valid", %{conn: conn, user: user} do
-      attrs = %{"profile" => %{"full_name" => "Raymond Luxury Yacht"}}
+      attrs = %{"full_name" => "Raymond Luxury Yacht"}
       conn = put(conn, Routes.user_path(conn, :update, user), user: attrs)
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
-      updated_user = Accounts.get_user(user.id)
-      assert updated_user.profile.full_name == "Raymond Luxury Yacht"
+      updated_user = Accounts.get_user(%{"user_id" => user.id})
+      assert updated_user.full_name == "Raymond Luxury Yacht"
       conn = get(conn, Routes.user_path(conn, :show, user))
       assert html_response(conn, 200) =~ "Raymond Luxury Yacht"
     end
 
     test "updates locale data when locale is supported", %{conn: conn, user: user} do
-      attrs = %{"profile" => %{"locale" => "de_CH"}}
+      attrs = %{"locale" => "de_CH"}
       conn = put(conn, Routes.user_path(conn, :update, user), user: attrs)
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
-      updated_user = Accounts.get_user(user.id)
-      assert updated_user.profile.locale == "de_CH"
+      updated_user = Accounts.get_user(%{"user_id" => user.id})
+      assert updated_user.locale == "de_CH"
       conn = get(conn, Routes.user_path(conn, :show, user))
       assert html_response(conn, 200) =~ "de_CH"
     end
 
     test "fails when data is invalid", %{conn: conn, user: user} do
-      attrs = %{"profile" => %{"honorific_prefix" => String.duplicate("Dr", 42)}}
+      attrs = %{"honorific_prefix" => String.duplicate("Dr", 42)}
       conn = put(conn, Routes.user_path(conn, :update, user), user: attrs)
       assert html_response(conn, 200) =~ ~r/Edit user(.|\n)*DrDrDrDrDrDrDrDr/
     end
@@ -102,14 +100,14 @@ defmodule VutuvWeb.UserControllerTest do
     test "deletes chosen user", %{conn: conn, user: user} do
       conn = delete(conn, Routes.user_path(conn, :delete, user))
       assert redirected_to(conn) == Routes.session_path(conn, :new)
-      refute Accounts.get_user(user.id)
+      refute Accounts.get_user(%{"user_id" => user.id})
     end
 
     test "cannot delete other user", %{conn: conn, user: user} do
       other = add_user("tony@example.com")
       conn = delete(conn, Routes.user_path(conn, :delete, other))
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
-      assert Accounts.get_user(other.id)
+      assert Accounts.get_user(%{"user_id" => other.id})
     end
   end
 

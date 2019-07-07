@@ -1,61 +1,60 @@
-<h2><%= gettext "Show user" %></h2>
+<h2><%= gettext "User" %></h2>
 
 <div>
-  <h3><%= gettext "Profile" %></h3>
   <ul>
     <li>
       <strong><%= gettext "Full name:" %></strong>
-      <%= @profile.full_name %>
+      <%= @user.full_name %>
     </li>
 
     <li>
       <strong><%= gettext "Preferred name:" %></strong>
-      <%= @profile.preferred_name %>
+      <%= @user.preferred_name %>
     </li>
 
     <li>
       <strong><%= gettext "Honorific prefix:" %></strong>
-      <%= @profile.honorific_prefix %>
+      <%= @user.honorific_prefix %>
     </li>
 
     <li>
       <strong><%= gettext "Honorific suffix:" %></strong>
-      <%= @profile.honorific_suffix %>
+      <%= @user.honorific_suffix %>
     </li>
 
     <li>
       <strong><%= gettext "Gender:" %></strong>
-      <%= @profile.gender %>
+      <%= @user.gender %>
     </li>
 
     <li>
       <strong><%= gettext "Date of birth" %></strong>
-      <%= @profile.birthday %>
+      <%= @user.birthday %>
     </li>
 
     <li>
       <strong><%= gettext "Locale:" %></strong>
-      <%= @profile.locale %>
+      <%= @user.locale %>
     </li>
 
     <li>
       <strong><%= gettext "Avatar:" %></strong>
-      <img src="<%= Vutuv.Avatar.url({@profile.avatar, @profile}) %>"/>
+      <img src="<%= Vutuv.Avatar.url({@user.avatar, @user}) %>"/>
     </li>
 
     <li>
       <strong><%= gettext "Headline:" %></strong>
-      <%= @profile.headline %>
+      <%= @user.headline %>
     </li>
 
     <li>
       <strong><%= gettext "Noindex?:" %></strong>
-      <%= @profile.noindex? %>
+      <%= @user.noindex? %>
     </li>
 
   </ul>
 
-  <span><%= link gettext("Edit profile"), to: Routes.user_path(@conn, :edit, @user) %></span><br>
+  <span><%= link gettext("Edit user"), to: Routes.user_path(@conn, :edit, @user) %></span><br>
 </div>
 
 <div>

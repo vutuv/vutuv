@@ -1,7 +1,7 @@
-defmodule Vutuv.Biographies.LocaleTest do
+defmodule Vutuv.Accounts.LocaleTest do
   use ExUnit.Case
 
-  alias Vutuv.Biographies.Locale
+  alias Vutuv.Accounts.Locale
 
   test "locale with top quality is selected" do
     al = "en-ca,en;q=0.8,en-us;q=0.6,de-de;q=0.4,de;q=0.2"

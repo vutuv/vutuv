@@ -13,7 +13,7 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
   }
 
   setup do
-    user = add_user("ted@mail.com")
+    user = add_user_confirmed("ted@mail.com")
     %{"access_token" => token} = login_user("ted@mail.com")
     {:ok, %{user: user, token: token}}
   end
@@ -106,7 +106,7 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
     end
 
     test "cannot delete other email_address", %{user: user, token: token} do
-      %User{email_addresses: [%{id: id}]} = other = add_user("raymond@example.com")
+      %User{email_addresses: [%{id: id}]} = other = add_user_confirmed("raymond@example.com")
 
       {:ok, response} =
         token

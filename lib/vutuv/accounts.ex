@@ -7,7 +7,7 @@ defmodule Vutuv.Accounts do
   import Ecto.Query, warn: false
 
   alias Vutuv.{Repo, Sessions, Sessions.Session}
-  alias Vutuv.Accounts.{EmailAddress, User}
+  alias Vutuv.Accounts.{EmailAddress, User, UserCredential}
 
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 
@@ -24,12 +24,35 @@ defmodule Vutuv.Accounts do
   @doc """
   Gets a single user.
   """
-  @spec get_user(integer) :: User.t() | nil
-  def get_user(id) do
+  @spec get_user(map) :: User.t() | nil
+  def get_user(%{"slug" => slug}) do
     User
-    |> where([u], u.id == ^id)
+    |> where([u], u.slug == ^slug)
     |> user_query()
     |> Repo.one()
+  end
+
+  def get_user(%{"user_id" => user_id}) do
+    User
+    |> where([u], u.id == ^user_id)
+    |> user_query()
+    |> Repo.one()
+  end
+
+  def get_user(%{"session_id" => session_id}) do
+    with %Session{user_id: user_id} <- Sessions.get_session(session_id),
+         do: get_user(%{"user_id" => user_id})
+  end
+
+  def get_user(%{"email" => email}) do
+    with %EmailAddress{user_id: user_id} <- Repo.get_by(EmailAddress, %{value: email}),
+         do: get_user(%{"user_id" => user_id})
+  end
+
+  defp user_query(user) do
+    user
+    |> join(:inner, [u], e in assoc(u, :email_addresses))
+    |> preload([_, e], email_addresses: e)
   end
 
   @doc """
@@ -38,38 +61,19 @@ defmodule Vutuv.Accounts do
   This is used by Phauxth to get user information.
   """
   @spec get_by(map) :: User.t() | nil
-  def get_by(%{"session_id" => session_id}) do
-    with %Session{user_id: user_id} <- Sessions.get_session(session_id),
-         do: get_user(user_id)
-  end
-
-  def get_by(%{"email" => email}) do
-    with %EmailAddress{user_id: user_id} <- Repo.get_by(EmailAddress, %{value: email}),
-         do: get_user(user_id)
-  end
-
-  def get_by(%{"slug" => slug}) do
-    User
-    |> where([u], u.slug == ^slug)
-    |> user_query()
-    |> Repo.one()
-  end
-
-  def get_by(%{"user_id" => user_id}), do: Repo.get(User, user_id)
-
-  defp user_query(user) do
-    user
-    |> join(:inner, [u], e in assoc(u, :email_addresses))
-    |> join(:inner, [u, e], p in assoc(u, :profile))
-    |> preload([_, e, p], email_addresses: e, profile: p)
-  end
+  def get_by(attrs), do: get_user(attrs)
 
   @doc """
   Gets user credentials.
   """
-  @spec get_user_credentials(integer) :: User.t()
-  def get_user_credentials(id) do
-    Repo.get(User, id)
+  @spec get_user_credential(map) :: UserCredential.t() | nil
+  def get_user_credential(%{"email" => email}) do
+    with %EmailAddress{user_id: user_id} <- Repo.get_by(EmailAddress, %{value: email}),
+         do: get_user_credential(%{"user_id" => user_id})
+  end
+
+  def get_user_credential(%{"user_id" => user_id}) do
+    Repo.get_by(UserCredential, %{user_id: user_id})
   end
 
   @doc """
@@ -83,7 +87,11 @@ defmodule Vutuv.Accounts do
       "description" => "email when registering vutuv"
     }
 
-    attrs = Map.merge(attrs, %{"email_addresses" => [email_attrs]})
+    attrs =
+      Map.merge(attrs, %{
+        "email_addresses" => [email_attrs],
+        "user_credential" => %{"password" => attrs["password"]}
+      })
 
     %User{}
     |> User.create_changeset(attrs)
@@ -91,7 +99,7 @@ defmodule Vutuv.Accounts do
     |> add_unique_slug()
   end
 
-  defp add_unique_slug({:ok, %{profile: %{full_name: full_name}} = user}) do
+  defp add_unique_slug({:ok, %{full_name: full_name} = user}) do
     slug = Slugger.slugify(full_name, ?.)
 
     with {:error, _} <- update_user(user, %{"slug" => slug}) do
@@ -107,7 +115,7 @@ defmodule Vutuv.Accounts do
   """
   @spec update_user(User.t(), map) :: {:ok, User.t()} | changeset_error
   def update_user(%User{} = user, attrs) do
-    user |> User.update_changeset(attrs) |> Repo.update()
+    user |> User.changeset(attrs) |> Repo.update()
   end
 
   @doc """
@@ -129,20 +137,20 @@ defmodule Vutuv.Accounts do
   @doc """
   Confirms a user's account, setting the user's confirmed value.
   """
-  @spec confirm_user(User.t()) :: {:ok, User.t()} | changeset_error
-  def confirm_user(user) do
-    user |> User.confirm_changeset(true) |> Repo.update()
+  @spec confirm_user(UserCredential.t()) :: {:ok, UserCredential.t()} | changeset_error
+  def confirm_user(user_credential) do
+    user_credential |> UserCredential.confirm_changeset(true) |> Repo.update()
   end
 
   @doc """
   Updates a user's password.
   """
-  @spec update_password(User.t(), map) :: {:ok, User.t()} | changeset_error
-  def update_password(%User{} = user, attrs) do
-    Sessions.delete_user_sessions(user)
+  @spec update_password(UserCredential.t(), map) :: {:ok, UserCredential.t()} | changeset_error
+  def update_password(%UserCredential{user_id: user_id} = user_credential, attrs) do
+    Sessions.delete_user_sessions(get_user(%{"user_id" => user_id}))
 
-    user
-    |> User.update_password_changeset(attrs)
+    user_credential
+    |> UserCredential.update_password_changeset(attrs)
     |> Repo.update()
   end
 

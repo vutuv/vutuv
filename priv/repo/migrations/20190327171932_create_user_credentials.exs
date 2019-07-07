@@ -1,9 +1,12 @@
-defmodule Vutuv.Repo.Migrations.CreateProfiles do
+defmodule Vutuv.Repo.Migrations.CreateUserCredentials do
   use Ecto.Migration
 
   def change do
-    create table(:profiles) do
+    create table(:user_credentials) do
       add :user_id, references(:users, on_delete: :delete_all)
+      add :password_hash, :string
+      add :otp_secret, :string
+      add :confirmed, :boolean, default: false, null: false
       add :full_name, :string
       add :preferred_name, :string
       add :honorific_prefix, :string
@@ -19,6 +22,6 @@ defmodule Vutuv.Repo.Migrations.CreateProfiles do
       timestamps()
     end
 
-    create index(:profiles, [:user_id])
+    create index(:user_credentials, [:user_id])
   end
 end
