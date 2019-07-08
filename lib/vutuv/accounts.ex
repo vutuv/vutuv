@@ -7,7 +7,7 @@ defmodule Vutuv.Accounts do
   import Ecto.Query, warn: false
 
   alias Vutuv.{Repo, Sessions, Sessions.Session}
-  alias Vutuv.Accounts.{EmailAddress, User, UserCredential}
+  alias Vutuv.Accounts.{EmailAddress, PhoneNumber, User, UserCredential}
 
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 
@@ -244,5 +244,56 @@ defmodule Vutuv.Accounts do
   @spec change_email_address(EmailAddress.t()) :: Ecto.Changeset.t()
   def change_email_address(%EmailAddress{} = email_address) do
     EmailAddress.changeset(email_address, %{})
+  end
+
+  @doc """
+  Returns the list of phone_numbers.
+  """
+  @spec list_phone_numbers(User.t()) :: [PhoneNumber.t()]
+  def list_phone_numbers(user) do
+    Repo.all(assoc(user, :phone_number))
+  end
+
+  @doc """
+  Gets a single phone_number.
+  """
+  @spec get_phone_number(integer) :: PhoneNumber.t() | nil
+  def get_phone_number(id), do: Repo.get(PhoneNumber, id)
+
+  @doc """
+  Creates a phone_number.
+  """
+  @spec create_phone_number(User.t(), map) :: {:ok, PhoneNumber.t()} | changeset_error
+  def create_phone_number(%User{} = user, attrs \\ %{}) do
+    user
+    |> build_assoc(:phone_numbers)
+    |> PhoneNumber.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a phone_number.
+  """
+  @spec update_phone_number(PhoneNumber.t(), map) :: {:ok, PhoneNumber.t()} | changeset_error
+  def update_phone_number(%PhoneNumber{} = phone_number, attrs) do
+    phone_number
+    |> PhoneNumber.update_changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a PhoneNumber.
+  """
+  @spec delete_phone_number(PhoneNumber.t()) :: {:ok, PhoneNumber.t()} | changeset_error
+  def delete_phone_number(%PhoneNumber{} = phone_number) do
+    Repo.delete(phone_number)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking phone_number changes.
+  """
+  @spec change_phone_number(PhoneNumber.t()) :: Ecto.Changeset.t()
+  def change_phone_number(%PhoneNumber{} = phone_number) do
+    PhoneNumber.changeset(phone_number, %{})
   end
 end

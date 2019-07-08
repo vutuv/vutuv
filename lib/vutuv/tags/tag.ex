@@ -21,9 +21,6 @@ defmodule Vutuv.Tags.Tag do
     field :slug, :string
     field :url, :string
 
-    # DO WE NEED THIS?
-    # many_to_many :users, User, join_through: "user_tags", on_replace: :delete
-
     timestamps(type: :utc_datetime)
   end
 

@@ -3,10 +3,12 @@ defmodule Vutuv.AccountsTest do
 
   import Vutuv.Factory
 
-  alias Vutuv.{Accounts, Accounts.EmailAddress, Accounts.EmailManager, Accounts.User, Repo}
+  alias Vutuv.{Accounts, Repo}
+  alias Vutuv.Accounts.{EmailAddress, EmailManager, PhoneNumber, User}
 
   @accept_language "en-ca,en;q=0.8,en-us;q=0.6,de-de;q=0.4,de;q=0.2"
   @create_user_attrs %{
+    "avatar" => %Plug.Upload{path: "test/fixtures/elixir_logo.png", filename: "elixir_logo.png"},
     "email" => "fred@example.com",
     "password" => "reallyHard2gue$$",
     "accept_language" => @accept_language,
@@ -18,6 +20,9 @@ defmodule Vutuv.AccountsTest do
     "description" => "backup email",
     "value" => "abcdef@example.com"
   }
+  @valid_phone_attrs %{type: "mobile", value: "+9123450292"}
+  @update_phone_attrs %{type: "work", value: "02122229999"}
+  @invalid_phone_attrs %{type: nil, value: "abcde"}
 
   describe "read user data" do
     setup [:create_user]
@@ -52,9 +57,15 @@ defmodule Vutuv.AccountsTest do
     end
   end
 
-  describe "write user data" do
+  describe "create user data" do
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Accounts.create_user(@create_user_attrs)
+
+      assert user.avatar == %{
+               file_name: "elixir_logo.png",
+               updated_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
+             }
+
       assert user.accept_language == @accept_language
       assert user.gender == "male"
       assert user.locale == "en_CA"
@@ -100,7 +111,9 @@ defmodule Vutuv.AccountsTest do
       assert {:error, changeset} = Accounts.create_user(attrs)
       assert %{full_name: ["can't be blank"]} = errors_on(changeset)
     end
+  end
 
+  describe "update user data" do
     test "user can update slug" do
       %{slug: slug} = user = insert(:user)
       attrs = %{"slug" => String.replace(slug, ".", "-")}
@@ -301,6 +314,64 @@ defmodule Vutuv.AccountsTest do
     end
   end
 
+  describe "read phone number data" do
+    setup [:create_user, :create_phone_number]
+
+    test "phone_number returns the phone_number with given id", %{
+      phone_number: phone_number
+    } do
+      assert Accounts.get_phone_number(phone_number.id) == phone_number
+    end
+
+    test "change phone_number/1 returns a phone_number changeset", %{
+      phone_number: phone_number
+    } do
+      assert %Ecto.Changeset{} = Accounts.change_phone_number(phone_number)
+    end
+  end
+
+  describe "write phone_number data" do
+    setup [:create_user]
+
+    test "create_phone_number/1 with valid data creates a phone_number", %{user: user} do
+      assert {:ok, %PhoneNumber{} = phone_number} =
+               Accounts.create_phone_number(user, @valid_phone_attrs)
+
+      assert phone_number.value == "+9123450292"
+      assert phone_number.type == "mobile"
+    end
+
+    test "create_phone_number/1 with invalid data returns error changeset", %{user: user} do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_phone_number(user, %{"value" => nil})
+    end
+
+    test "update phone_number with valid data updates the phone_number", %{user: user} do
+      phone_number = insert(:phone_number, %{user: user})
+
+      assert {:ok, %PhoneNumber{} = phone_number} =
+               Accounts.update_phone_number(phone_number, @update_phone_attrs)
+
+      assert phone_number.type == "work"
+      assert phone_number.value == "02122229999"
+    end
+
+    test "update phone_number with invalid data returns error changeset", %{user: user} do
+      phone_number = insert(:phone_number, %{user: user})
+
+      assert {:error, %Ecto.Changeset{}} =
+               Accounts.update_phone_number(phone_number, @invalid_phone_attrs)
+    end
+  end
+
+  describe "delete phone_number data" do
+    setup [:create_user, :create_phone_number]
+
+    test "delete_phone_number/1 deletes the phone_number", %{phone_number: phone_number} do
+      assert {:ok, %PhoneNumber{}} = Accounts.delete_phone_number(phone_number)
+      refute Accounts.get_phone_number(phone_number.id)
+    end
+  end
+
   defp create_user(_) do
     {:ok, user} = Accounts.create_user(@create_user_attrs)
     {:ok, %{user: user}}
@@ -309,5 +380,10 @@ defmodule Vutuv.AccountsTest do
   defp create_email_address(%{user: user}) do
     {:ok, email_address} = Accounts.create_email_address(user, @create_email_attrs)
     {:ok, %{email_address: email_address}}
+  end
+
+  defp create_phone_number(%{user: user}) do
+    {:ok, phone_number} = Accounts.create_phone_number(user, @valid_phone_attrs)
+    {:ok, %{phone_number: phone_number}}
   end
 end
