@@ -28,6 +28,11 @@ defmodule VutuvWeb.UserControllerTest do
       conn = get(conn, Routes.user_path(conn, :show, user))
       assert html_response(conn, 200) =~ ~r/User(.|\n)*Edit email/
     end
+
+    test "shows 404 for non-existent user", %{conn: conn} do
+      conn = get(conn, Routes.user_path(conn, :show, "Raymond.Luxury.Yacht"))
+      assert html_response(conn, 200) =~ "we cannot find the page you were looking for"
+    end
   end
 
   describe "renders forms" do

@@ -47,8 +47,16 @@ defmodule VutuvWeb.UserController do
   end
 
   def show(%Plug.Conn{assigns: %{current_user: user}} = conn, %{"slug" => slug}) do
-    user = if user && slug == user.slug, do: user, else: Accounts.get_user(%{"slug" => slug})
-    render(conn, "show.html", user: user)
+    case get_user(user, slug) do
+      nil ->
+        conn
+        |> put_view(VutuvWeb.ErrorView)
+        |> render(:"404")
+
+      user ->
+        email_addresses = Accounts.list_email_addresses(user)
+        render(conn, "show.html", user: user, email_addresses: email_addresses)
+    end
   end
 
   def edit(%Plug.Conn{assigns: %{current_user: user}} = conn, _) do
@@ -83,4 +91,7 @@ defmodule VutuvWeb.UserController do
   end
 
   defp add_accept_language_to_params(_, user_params), do: user_params
+
+  defp get_user(%{slug: slug} = user, slug), do: user
+  defp get_user(_user, slug), do: Accounts.get_user(%{"slug" => slug})
 end

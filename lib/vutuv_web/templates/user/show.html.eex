@@ -60,7 +60,7 @@
 <div>
   <h3><%= gettext "Email addresses" %></h3>
 
-  <%= for email_address <- @user.email_addresses do %>
+  <%= for email_address <- @email_addresses do %>
     <tr>
       <td><%= email_address.value %></td>
       <td><%= link gettext("Edit email address"), to: Routes.user_email_address_path(@conn, :edit, @user, email_address) %></td>

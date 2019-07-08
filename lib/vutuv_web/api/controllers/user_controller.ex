@@ -27,8 +27,16 @@ defmodule VutuvWeb.Api.UserController do
   end
 
   def show(%Plug.Conn{assigns: %{current_user: user}} = conn, %{"slug" => slug}) do
-    user = if user && slug == user.slug, do: user, else: Accounts.get_user(%{"slug" => slug})
-    render(conn, "show.json", user: user)
+    case get_user(user, slug) do
+      nil ->
+        conn
+        |> put_view(VutuvWeb.ErrorView)
+        |> render(:"404")
+
+      user ->
+        email_addresses = Accounts.list_email_addresses(user)
+        render(conn, "show.json", user: user, email_addresses: email_addresses)
+    end
   end
 
   def update(%Plug.Conn{assigns: %{current_user: user}} = conn, %{"user" => user_params}) do
@@ -41,4 +49,7 @@ defmodule VutuvWeb.Api.UserController do
     {:ok, _user} = Accounts.delete_user(user)
     send_resp(conn, :no_content, "")
   end
+
+  defp get_user(%{slug: slug} = user, slug), do: user
+  defp get_user(_user, slug), do: Accounts.get_user(%{"slug" => slug})
 end

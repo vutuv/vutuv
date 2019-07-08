@@ -71,7 +71,13 @@ defmodule VutuvWeb.EmailAddressControllerTest do
       email_address: email_address
     } do
       conn = get(conn, Routes.user_email_address_path(conn, :show, user, email_address))
-      assert html_response(conn, 200) =~ "Show email addres"
+      assert html_response(conn, 200) =~ "Show email address"
+    end
+
+    test "redirects for non-existent email_address", %{conn: conn, user: user} do
+      conn = get(conn, Routes.user_email_address_path(conn, :show, user, -1))
+      assert redirected_to(conn) == Routes.user_path(conn, :show, user)
+      assert get_flash(conn, :error) =~ "not authorized"
     end
 
     test "redirects when current_user is nil", %{user: user, email_address: email_address} do

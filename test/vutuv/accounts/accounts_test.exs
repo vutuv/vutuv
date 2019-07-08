@@ -41,15 +41,7 @@ defmodule Vutuv.AccountsTest do
       assert user_1.id == user.id
       assert user_1.full_name == user.full_name
       assert user_1.gender == user.gender
-      assert Ecto.assoc_loaded?(user_1.email_addresses)
       refute Ecto.assoc_loaded?(user_1.user_credential)
-    end
-
-    test "get_user returns user data and email_addresses", %{user: user} do
-      %User{gender: "male", full_name: "fred frederickson"} =
-        user = Accounts.get_user(%{"user_id" => user.id})
-
-      assert [%EmailAddress{value: "fred@example.com", position: 1}] = user.email_addresses
     end
 
     test "change_user/1 returns a user changeset", %{user: user} do

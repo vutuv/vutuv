@@ -16,9 +16,7 @@ defmodule Vutuv.Accounts do
   """
   @spec list_users() :: [User.t()]
   def list_users() do
-    User
-    |> user_query()
-    |> Repo.all()
+    Repo.all(User)
   end
 
   @doc """
@@ -26,17 +24,11 @@ defmodule Vutuv.Accounts do
   """
   @spec get_user(map) :: User.t() | nil
   def get_user(%{"slug" => slug}) do
-    User
-    |> where([u], u.slug == ^slug)
-    |> user_query()
-    |> Repo.one()
+    Repo.get_by(User, %{slug: slug})
   end
 
   def get_user(%{"user_id" => user_id}) do
-    User
-    |> where([u], u.id == ^user_id)
-    |> user_query()
-    |> Repo.one()
+    Repo.get(User, user_id)
   end
 
   def get_user(%{"session_id" => session_id}) do
@@ -49,12 +41,6 @@ defmodule Vutuv.Accounts do
          do: get_user(%{"user_id" => user_id})
   end
 
-  defp user_query(user) do
-    user
-    |> join(:inner, [u], e in assoc(u, :email_addresses))
-    |> preload([_, e], email_addresses: e)
-  end
-
   @doc """
   Gets a user based on the params.
 
@@ -62,19 +48,6 @@ defmodule Vutuv.Accounts do
   """
   @spec get_by(map) :: User.t() | nil
   def get_by(attrs), do: get_user(attrs)
-
-  @doc """
-  Gets user credentials.
-  """
-  @spec get_user_credential(map) :: UserCredential.t() | nil
-  def get_user_credential(%{"email" => email}) do
-    with %EmailAddress{user_id: user_id} <- Repo.get_by(EmailAddress, %{value: email}),
-         do: get_user_credential(%{"user_id" => user_id})
-  end
-
-  def get_user_credential(%{"user_id" => user_id}) do
-    Repo.get_by(UserCredential, %{user_id: user_id})
-  end
 
   @doc """
   Creates a user.
@@ -155,7 +128,20 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
-  Returns a list of unconfirmed email addresses.
+  Gets user credentials.
+  """
+  @spec get_user_credential(map) :: UserCredential.t() | nil
+  def get_user_credential(%{"email" => email}) do
+    with %EmailAddress{user_id: user_id} <- Repo.get_by(EmailAddress, %{value: email}),
+         do: get_user_credential(%{"user_id" => user_id})
+  end
+
+  def get_user_credential(%{"user_id" => user_id}) do
+    Repo.get_by(UserCredential, %{user_id: user_id})
+  end
+
+  @doc """
+  Returns a list of unverified email addresses.
   """
   @spec unverified_email_addresses(integer) :: [EmailAddress.t()]
   def unverified_email_addresses(max_age) do
@@ -203,7 +189,8 @@ defmodule Vutuv.Accounts do
   """
   @spec create_email_address(User.t(), map) :: {:ok, EmailAddress.t()} | changeset_error
   def create_email_address(%User{} = user, attrs \\ %{}) do
-    email_count = length(user.email_addresses)
+    query = from e in EmailAddress, where: e.user_id == ^user.id
+    email_count = Repo.aggregate(query, :count, :id)
     attrs = Map.put(attrs, "position", email_count + 1)
 
     user
