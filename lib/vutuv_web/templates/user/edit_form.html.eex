@@ -26,7 +26,7 @@
   <%= error_tag f, :gender %>
 
   <%= label f, :birthday, gettext("Date of birth") %>
-  <%= date_select f, :birthday, year: [options: 1900..2020, selected: 1980], month: [
+  <%= date_select f, :birthday, year: [options: 1900..DateTime.utc_now().year, selected: 1980], month: [
     options: [
       {gettext("January"), "1"},
       {gettext("February"), "2"},

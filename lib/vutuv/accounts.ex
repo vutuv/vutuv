@@ -108,7 +108,7 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
-  Confirms a user's account, setting the user's confirmed value.
+  Confirms a user's account, setting the user_credential's confirmed value.
   """
   @spec confirm_user(UserCredential.t()) :: {:ok, UserCredential.t()} | changeset_error
   def confirm_user(user_credential) do
@@ -142,6 +142,9 @@ defmodule Vutuv.Accounts do
 
   @doc """
   Returns a list of unverified email addresses.
+
+  This is used by the EmailManager, which is responsible for handling
+  unverified email addresses.
   """
   @spec unverified_email_addresses(integer) :: [EmailAddress.t()]
   def unverified_email_addresses(max_age) do
@@ -161,27 +164,37 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
-  Gets a single email_address.
+  Returns a list of a user's public email_addresses.
   """
-  @spec get_email_address(integer) :: EmailAddress.t() | nil
-  def get_email_address(id), do: Repo.get(EmailAddress, id)
+  @spec list_email_addresses(User.t(), :public) :: [EmailAddress.t()]
+  def list_email_addresses(user, :public) do
+    user
+    |> assoc(:email_addresses)
+    |> where([e], e.is_public == true)
+    |> Repo.all()
+  end
 
   @doc """
-  Gets a user's email_address.
+  Gets an email_address from the email_address value.
+
+  Only public email_addresses are returned.
   """
-  @spec get_user_email_address(User.t(), integer) :: EmailAddress.t() | nil
-  def get_user_email_address(%User{id: user_id}, id) do
+  @spec get_email_address(map) :: EmailAddress.t() | nil
+  def get_email_address(%{"value" => value}) do
     EmailAddress
-    |> where([e], e.id == ^id and e.user_id == ^user_id)
+    |> where([e], e.value == ^value and e.is_public == true)
     |> Repo.one()
   end
 
   @doc """
-  Gets an email_address using the email value.
+  Gets a specific user's email_address.
   """
-  @spec get_email_address_from_value(String.t()) :: EmailAddress.t() | nil
-  def get_email_address_from_value(email) do
-    Repo.get_by(EmailAddress, %{value: email})
+  @spec get_email_address(User.t(), map) :: EmailAddress.t() | nil
+  def get_email_address(%User{} = user, %{"id" => id}) do
+    user
+    |> assoc(:email_addresses)
+    |> where([e], e.id == ^id)
+    |> Repo.one()
   end
 
   @doc """

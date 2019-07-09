@@ -34,7 +34,7 @@ defmodule VutuvWeb.Api.UserController do
         |> render(:"404")
 
       user ->
-        email_addresses = Accounts.list_email_addresses(user)
+        email_addresses = Accounts.list_email_addresses(user, :public)
         render(conn, "show.json", user: user, email_addresses: email_addresses)
     end
   end

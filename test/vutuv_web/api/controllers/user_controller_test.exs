@@ -36,7 +36,7 @@ defmodule VutuvWeb.Api.UserControllerTest do
     test "creates user when data is valid", %{conn: conn} do
       conn = post(conn, Routes.api_user_path(conn, :create), user: @create_attrs)
       assert json_response(conn, 201)["data"]["id"]
-      assert Accounts.get_by(%{"email" => "bill@example.com"})
+      assert Accounts.get_user(%{"email" => "bill@example.com"})
     end
 
     test "does not create user and renders errors when data is invalid", %{conn: conn} do

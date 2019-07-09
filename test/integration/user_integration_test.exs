@@ -38,7 +38,7 @@ defmodule VutuvWeb.UserIntegrationTest do
       {:ok, response} = Tesla.post(simple_client(), "/users", %{user: @create_attrs})
       assert %Tesla.Env{body: %{"data" => data}, status: 201} = response
       assert data["id"]
-      assert Accounts.get_by(%{"email" => @create_attrs["email"]})
+      assert Accounts.get_user(%{"email" => @create_attrs["email"]})
     end
 
     test "invalid data errors when creating user" do

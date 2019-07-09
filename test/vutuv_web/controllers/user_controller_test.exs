@@ -51,7 +51,7 @@ defmodule VutuvWeb.UserControllerTest do
 
     test "renders form for editing chosen user", %{conn: conn, user: user} do
       conn = get(conn, Routes.user_path(conn, :edit, user))
-      assert html_response(conn, 200) =~ "Edit user"
+      assert html_response(conn, 200) =~ ~r/Edit user(.|\n)*#{DateTime.utc_now().year}/
     end
   end
 
@@ -59,13 +59,13 @@ defmodule VutuvWeb.UserControllerTest do
     test "successful when data is valid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs)
       assert redirected_to(conn) == Routes.confirm_path(conn, :new, email: @create_attrs["email"])
-      assert Accounts.get_by(%{"email" => "bill@example.com"})
+      assert Accounts.get_user(%{"email" => "bill@example.com"})
     end
 
     test "fails and renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: %{email: "mustard@example.com"})
       assert html_response(conn, 200) =~ "can&#39;t be blank"
-      refute Accounts.get_by(%{"email" => "mustard@example.com"})
+      refute Accounts.get_user(%{"email" => "mustard@example.com"})
     end
   end
 

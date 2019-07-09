@@ -75,7 +75,7 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
         )
 
       assert json_response(conn, 201)["data"]["id"]
-      assert Accounts.get_email_address_from_value(@create_attrs["value"])
+      assert Accounts.get_email_address(%{"value" => @create_attrs["value"]})
     end
 
     test "does not create email_address and returns errors when data is invalid", %{
@@ -103,7 +103,7 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
         )
 
       assert json_response(conn, 200)["data"]["id"]
-      assert Accounts.get_email_address_from_value(email_address.value)
+      assert Accounts.get_email_address(user, %{"id" => email_address.id})
     end
 
     test "does not update chosen email_address when data is invalid", %{
@@ -126,14 +126,14 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
     test "deletes chosen email_address", %{conn: conn, user: user, email_address: email_address} do
       conn = delete(conn, Routes.api_user_email_address_path(conn, :delete, user, email_address))
       assert response(conn, 204)
-      refute Accounts.get_email_address(email_address.id)
+      refute Accounts.get_email_address(user, %{"id" => email_address.id})
     end
 
     test "cannot delete other user's email_address", %{conn: conn, user: user} do
-      %User{email_addresses: [email_address]} = add_user("raymond@example.com")
+      %User{email_addresses: [email_address]} = other = add_user("raymond@example.com")
       conn = delete(conn, Routes.api_user_email_address_path(conn, :delete, user, email_address))
       assert json_response(conn, 403)["errors"] != %{}
-      assert Accounts.get_email_address(email_address.id)
+      assert Accounts.get_email_address(other, %{"id" => email_address.id})
     end
   end
 end

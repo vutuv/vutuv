@@ -8,7 +8,6 @@ defmodule Vutuv.AccountsTest do
 
   @accept_language "en-ca,en;q=0.8,en-us;q=0.6,de-de;q=0.4,de;q=0.2"
   @create_user_attrs %{
-    "avatar" => %Plug.Upload{path: "test/fixtures/elixir_logo.png", filename: "elixir_logo.png"},
     "email" => "fred@example.com",
     "password" => "reallyHard2gue$$",
     "accept_language" => @accept_language,
@@ -52,12 +51,6 @@ defmodule Vutuv.AccountsTest do
   describe "create user data" do
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Accounts.create_user(@create_user_attrs)
-
-      assert user.avatar == %{
-               file_name: "elixir_logo.png",
-               updated_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
-             }
-
       assert user.accept_language == @accept_language
       assert user.gender == "male"
       assert user.locale == "en_CA"
@@ -106,6 +99,21 @@ defmodule Vutuv.AccountsTest do
   end
 
   describe "update user data" do
+    test "update_user succeeds with valid data" do
+      {:ok, user} = Accounts.create_user(@create_user_attrs)
+      refute user.avatar
+
+      attrs = %{
+        "avatar" => %Plug.Upload{
+          path: "test/fixtures/elixir_logo.png",
+          filename: "elixir_logo.png"
+        }
+      }
+
+      assert {:ok, user} = Accounts.update_user(user, attrs)
+      assert %{file_name: "elixir_logo.png", updated_at: %NaiveDateTime{}} = user.avatar
+    end
+
     test "user can update slug" do
       %{slug: slug} = user = insert(:user)
       attrs = %{"slug" => String.replace(slug, ".", "-")}
@@ -139,9 +147,10 @@ defmodule Vutuv.AccountsTest do
 
     test "delete_user/1 deletes the user and associated tables", %{user: user} do
       [email_address] = user.email_addresses
+      assert Repo.get(EmailAddress, email_address.id)
       assert {:ok, %User{}} = Accounts.delete_user(user)
       refute Accounts.get_user(%{"user_id" => user.id})
-      refute Accounts.get_email_address(email_address.id)
+      refute Repo.get(EmailAddress, email_address.id)
     end
   end
 
@@ -158,18 +167,30 @@ defmodule Vutuv.AccountsTest do
       assert length(Accounts.list_email_addresses(user)) == 3
     end
 
-    test "get_user_email_address returns a specific user's email_address", %{
+    test "list_email_addresses/2", %{user: user} do
+      attrs = %{
+        "is_public" => false,
+        "description" => "secret email",
+        "value" => "no_i_cant_tell_you@example.com"
+      }
+
+      Accounts.create_email_address(user, attrs)
+      assert length(Accounts.list_email_addresses(user)) == 3
+      assert length(Accounts.list_email_addresses(user, :public)) == 2
+    end
+
+    test "get_email_address returns a specific user's email_address", %{
       user: user,
       email_address: email_address
     } do
-      assert Accounts.get_user_email_address(user, email_address.id) == email_address
+      assert Accounts.get_email_address(user, %{"id" => email_address.id}) == email_address
     end
 
-    test "get_user_email_address returns returns nil for other user's email_address", %{
+    test "get_email_address returns returns nil for other user's email_address", %{
       email_address: email_address
     } do
       other = insert(:user)
-      refute Accounts.get_user_email_address(other, email_address.id)
+      refute Accounts.get_email_address(other, %{"id" => email_address.id})
     end
 
     test "change_email_address/1 returns a email_address changeset", %{
@@ -257,52 +278,55 @@ defmodule Vutuv.AccountsTest do
   describe "delete email_address data" do
     setup [:create_user, :create_email_address]
 
-    test "delete_email_address/1 deletes the email_address", %{email_address: email_address} do
+    test "delete_email_address/1 deletes the email_address", %{
+      email_address: email_address,
+      user: user
+    } do
       assert {:ok, %EmailAddress{}} = Accounts.delete_email_address(email_address)
-      refute Accounts.get_email_address(email_address.id)
+      refute Accounts.get_email_address(user, %{"id" => email_address.id})
     end
   end
 
   describe "handle unverified email addresses" do
     setup [:create_user]
 
-    test "unverified and verification expired email is deleted", %{user: %{id: user_id}} do
+    test "unverified and verification expired email is deleted", %{user: user} do
       expired_inserted_at = DateTime.add(DateTime.truncate(DateTime.utc_now(), :second), -2000)
 
       Repo.insert!(%EmailAddress{
         inserted_at: expired_inserted_at,
         value: "froderick@example.com",
-        user_id: user_id
+        user_id: user.id
       })
 
-      assert Accounts.get_email_address_from_value("froderick@example.com")
+      assert Accounts.get_email_address(%{"value" => "froderick@example.com"})
       send(EmailManager, :check_expired)
       Process.sleep(10)
-      refute Accounts.get_email_address_from_value("froderick@example.com")
+      refute Accounts.get_email_address(%{"value" => "froderick@example.com"})
     end
 
     test "unverified and verification not expired email is not deleted", %{user: user} do
       Accounts.create_email_address(user, %{"value" => "froderick@example.com"})
-      assert Accounts.get_email_address_from_value("froderick@example.com")
+      assert Accounts.get_email_address(%{"value" => "froderick@example.com"})
       send(EmailManager, :check_expired)
       Process.sleep(10)
-      assert Accounts.get_email_address_from_value("froderick@example.com")
+      assert Accounts.get_email_address(%{"value" => "froderick@example.com"})
     end
 
-    test "verified email is not deleted", %{user: %{id: user_id}} do
+    test "verified email is not deleted", %{user: user} do
       expired_inserted_at = DateTime.add(DateTime.truncate(DateTime.utc_now(), :second), -2000)
 
       Repo.insert!(%EmailAddress{
         inserted_at: expired_inserted_at,
         value: "froderick@example.com",
-        user_id: user_id,
+        user_id: user.id,
         verified: true
       })
 
-      assert Accounts.get_email_address_from_value("froderick@example.com")
+      assert Accounts.get_email_address(%{"value" => "froderick@example.com"})
       send(EmailManager, :check_expired)
       Process.sleep(10)
-      assert Accounts.get_email_address_from_value("froderick@example.com")
+      assert Accounts.get_email_address(%{"value" => "froderick@example.com"})
     end
   end
 

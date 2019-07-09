@@ -12,7 +12,7 @@ defmodule VutuvWeb.PasswordResetController do
     user_credential = Accounts.get_user_credential(%{"email" => email})
 
     code =
-      if Accounts.get_email_address_from_value(email) do
+      if Accounts.get_email_address(%{"value" => email}) do
         Otp.create(user_credential.otp_secret)
       end
 
@@ -28,8 +28,8 @@ defmodule VutuvWeb.PasswordResetController do
   end
 
   def create(conn, %{"password_reset" => %{"email" => email, "code" => code}}) do
-    user = Accounts.get_by(%{"email" => email})
-    email_address = Accounts.get_email_address_from_value(email)
+    user = Accounts.get_user(%{"email" => email})
+    email_address = Accounts.get_email_address(%{"value" => email})
     user_credential = Accounts.get_user_credential(%{"user_id" => user.id})
 
     if email_address && Otp.verify(code, user_credential.otp_secret) do

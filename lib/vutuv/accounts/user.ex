@@ -90,8 +90,11 @@ defmodule Vutuv.Accounts.User do
       end
 
     user
-    |> changeset(attrs)
+    |> cast(attrs, [:full_name, :gender, :locale])
+    |> validate_required([:full_name, :gender])
+    |> validate_length(:full_name, max: 80)
     |> change(%{accept_language: al})
+    |> add_locale_data()
     |> cast_assoc(:email_addresses, required: true)
     |> cast_assoc(:user_credential, required: true)
   end
