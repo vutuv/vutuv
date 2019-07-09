@@ -23,10 +23,6 @@ config :phauxth,
   crypto_module: Argon2,
   token_module: VutuvWeb.Auth.Token
 
-# For use with OneTimePassEcto
-config :vutuv,
-  otp_secret: "H47G7O5NXYERRSE4YHWZYSV72BBNZL3C"
-
 # Mailer configuration
 config :vutuv, VutuvWeb.Mailer, adapter: Bamboo.LocalAdapter
 
@@ -37,6 +33,9 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+# Filter password_hash and otp_secret in logs
+config :phoenix, :filter_parameters, ["password_hash", "otp_secret"]
 
 config :arc,
   storage: Arc.Storage.Local

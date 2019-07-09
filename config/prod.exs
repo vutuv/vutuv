@@ -70,4 +70,4 @@ config :logger, level: :info
 # separately.
 import_config "prod.secret.exs"
 
-config :vutuv, email_key_url: "http://www.vutuv.de:4000/confirm?key"
+config :vutuv, base_url: "http://www.vutuv.de:4000"

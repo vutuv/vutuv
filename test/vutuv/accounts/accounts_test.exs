@@ -3,42 +3,44 @@ defmodule Vutuv.AccountsTest do
 
   import Vutuv.Factory
 
-  alias Vutuv.{Accounts, Accounts.EmailAddress, Accounts.EmailManager, Accounts.User, Repo}
-  alias Vutuv.{Biographies, Biographies.Profile}
+  alias Vutuv.{Accounts, Repo}
+  alias Vutuv.Accounts.{EmailAddress, EmailManager, PhoneNumber, User}
 
   @accept_language "en-ca,en;q=0.8,en-us;q=0.6,de-de;q=0.4,de;q=0.2"
   @create_user_attrs %{
     "email" => "fred@example.com",
     "password" => "reallyHard2gue$$",
-    "profile" => %{
-      "accept_language" => @accept_language,
-      "gender" => "male",
-      "full_name" => "fred frederickson"
-    }
+    "accept_language" => @accept_language,
+    "gender" => "male",
+    "full_name" => "fred frederickson"
   }
   @create_email_attrs %{
     "is_public" => true,
     "description" => "backup email",
     "value" => "abcdef@example.com"
   }
+  @valid_phone_attrs %{type: "mobile", value: "+9123450292"}
+  @update_phone_attrs %{type: "work", value: "02122229999"}
+  @invalid_phone_attrs %{type: nil, value: "abcde"}
 
   describe "read user data" do
     setup [:create_user]
 
     test "list_users/1 returns all users", %{user: user} do
-      assert Accounts.list_users() == [user]
+      [user_1] = Accounts.list_users()
+      assert user_1.id == user.id
+      assert user_1.full_name == user.full_name
+      assert length(Accounts.list_users()) == 1
       insert(:user)
       assert length(Accounts.list_users()) == 2
     end
 
     test "get_user returns the user with given id", %{user: user} do
-      assert Accounts.get_user(user.id) == user
-    end
-
-    test "get_user returns email_addresses and profile", %{user: user} do
-      user = Accounts.get_user(user.id)
-      assert [%EmailAddress{value: "fred@example.com", position: 1}] = user.email_addresses
-      assert %Profile{gender: "male", full_name: "fred frederickson"} = user.profile
+      user_1 = Accounts.get_user(%{"slug" => user.slug})
+      assert user_1.id == user.id
+      assert user_1.full_name == user.full_name
+      assert user_1.gender == user.gender
+      refute Ecto.assoc_loaded?(user_1.user_credential)
     end
 
     test "change_user/1 returns a user changeset", %{user: user} do
@@ -46,12 +48,12 @@ defmodule Vutuv.AccountsTest do
     end
   end
 
-  describe "write user data" do
+  describe "create user data" do
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Accounts.create_user(@create_user_attrs)
-      assert user.profile.accept_language == @accept_language
-      assert user.profile.gender == "male"
-      assert user.profile.locale == "en_CA"
+      assert user.accept_language == @accept_language
+      assert user.gender == "male"
+      assert user.locale == "en_CA"
       assert [%EmailAddress{value: value, position: 1}] = user.email_addresses
       assert value == "fred@example.com"
     end
@@ -62,7 +64,7 @@ defmodule Vutuv.AccountsTest do
       assert %{email_addresses: [%{value: ["can't be blank"]}]} = errors_on(changeset)
       invalid_attrs = Map.merge(@create_user_attrs, %{"password" => nil})
       assert {:error, %Ecto.Changeset{} = changeset} = Accounts.create_user(invalid_attrs)
-      assert %{password: ["can't be blank"]} = errors_on(changeset)
+      assert %{user_credential: %{password: ["can't be blank"]}} = errors_on(changeset)
     end
 
     test "returns error when adding a duplicate email" do
@@ -89,12 +91,27 @@ defmodule Vutuv.AccountsTest do
       assert %{email_addresses: [%{value: ["has invalid format"]}]} = errors_on(changeset)
     end
 
-    test "no full name returns profile error" do
-      attrs = Map.merge(@create_user_attrs, %{"profile" => %{"full_name" => ""}})
+    test "no full name returns error" do
+      attrs = Map.merge(@create_user_attrs, %{"full_name" => ""})
       assert {:error, changeset} = Accounts.create_user(attrs)
+      assert %{full_name: ["can't be blank"]} = errors_on(changeset)
+    end
+  end
 
-      assert %{profile: %{full_name: ["can't be blank"], gender: ["can't be blank"]}} =
-               errors_on(changeset)
+  describe "update user data" do
+    test "update_user succeeds with valid data" do
+      {:ok, user} = Accounts.create_user(@create_user_attrs)
+      refute user.avatar
+
+      attrs = %{
+        "avatar" => %Plug.Upload{
+          path: "test/fixtures/elixir_logo.png",
+          filename: "elixir_logo.png"
+        }
+      }
+
+      assert {:ok, user} = Accounts.update_user(user, attrs)
+      assert %{file_name: "elixir_logo.png", updated_at: %NaiveDateTime{}} = user.avatar
     end
 
     test "user can update slug" do
@@ -112,16 +129,16 @@ defmodule Vutuv.AccountsTest do
     end
 
     test "update password changes the stored hash" do
-      %{password_hash: stored_hash} = user = insert(:user)
+      %{user_credential: %{password_hash: stored_hash} = user_credential} = insert(:user)
       attrs = %{password: "CN8W6kpb"}
-      {:ok, %{password_hash: hash}} = Accounts.update_password(user, attrs)
+      {:ok, %{password_hash: hash}} = Accounts.update_password(user_credential, attrs)
       assert hash != stored_hash
     end
 
     test "update_password with weak password fails" do
-      user = insert(:user)
+      %{user_credential: user_credential} = insert(:user)
       attrs = %{password: "password"}
-      assert {:error, %Ecto.Changeset{}} = Accounts.update_password(user, attrs)
+      assert {:error, %Ecto.Changeset{}} = Accounts.update_password(user_credential, attrs)
     end
   end
 
@@ -130,11 +147,10 @@ defmodule Vutuv.AccountsTest do
 
     test "delete_user/1 deletes the user and associated tables", %{user: user} do
       [email_address] = user.email_addresses
-      profile = user.profile
+      assert Repo.get(EmailAddress, email_address.id)
       assert {:ok, %User{}} = Accounts.delete_user(user)
-      refute Accounts.get_user(user.id)
-      refute Accounts.get_email_address(email_address.id)
-      refute Biographies.get_profile(profile.id)
+      refute Accounts.get_user(%{"user_id" => user.id})
+      refute Repo.get(EmailAddress, email_address.id)
     end
   end
 
@@ -151,18 +167,30 @@ defmodule Vutuv.AccountsTest do
       assert length(Accounts.list_email_addresses(user)) == 3
     end
 
-    test "get_user_email_address returns a specific user's email_address", %{
+    test "list_email_addresses/2", %{user: user} do
+      attrs = %{
+        "is_public" => false,
+        "description" => "secret email",
+        "value" => "no_i_cant_tell_you@example.com"
+      }
+
+      Accounts.create_email_address(user, attrs)
+      assert length(Accounts.list_email_addresses(user)) == 3
+      assert length(Accounts.list_email_addresses(user, :public)) == 2
+    end
+
+    test "get_email_address returns a specific user's email_address", %{
       user: user,
       email_address: email_address
     } do
-      assert Accounts.get_user_email_address(user, email_address.id) == email_address
+      assert Accounts.get_email_address(user, %{"id" => email_address.id}) == email_address
     end
 
-    test "get_user_email_address returns returns nil for other user's email_address", %{
+    test "get_email_address returns returns nil for other user's email_address", %{
       email_address: email_address
     } do
       other = insert(:user)
-      refute Accounts.get_user_email_address(other, email_address.id)
+      refute Accounts.get_email_address(other, %{"id" => email_address.id})
     end
 
     test "change_email_address/1 returns a email_address changeset", %{
@@ -190,7 +218,7 @@ defmodule Vutuv.AccountsTest do
       {:ok, email_address} = Accounts.create_email_address(user, email_attrs)
       assert email_address.position == 2
       email_attrs = Map.merge(@create_email_attrs, %{"value" => "zyx@example.com"})
-      user = Accounts.get_user(user.id)
+      user = Accounts.get_user(%{"user_id" => user.id})
       {:ok, email_address} = Accounts.create_email_address(user, email_attrs)
       assert email_address.position == 3
     end
@@ -250,52 +278,113 @@ defmodule Vutuv.AccountsTest do
   describe "delete email_address data" do
     setup [:create_user, :create_email_address]
 
-    test "delete_email_address/1 deletes the email_address", %{email_address: email_address} do
+    test "delete_email_address/1 deletes the email_address", %{
+      email_address: email_address,
+      user: user
+    } do
       assert {:ok, %EmailAddress{}} = Accounts.delete_email_address(email_address)
-      refute Accounts.get_email_address(email_address.id)
+      refute Accounts.get_email_address(user, %{"id" => email_address.id})
     end
   end
 
   describe "handle unverified email addresses" do
     setup [:create_user]
 
-    test "unverified and verification expired email is deleted", %{user: %{id: user_id}} do
+    test "unverified and verification expired email is deleted", %{user: user} do
       expired_inserted_at = DateTime.add(DateTime.truncate(DateTime.utc_now(), :second), -2000)
 
       Repo.insert!(%EmailAddress{
         inserted_at: expired_inserted_at,
         value: "froderick@example.com",
-        user_id: user_id
+        user_id: user.id
       })
 
-      assert Accounts.get_email_address_from_value("froderick@example.com")
+      assert Accounts.get_email_address(%{"value" => "froderick@example.com"})
       send(EmailManager, :check_expired)
       Process.sleep(10)
-      refute Accounts.get_email_address_from_value("froderick@example.com")
+      refute Accounts.get_email_address(%{"value" => "froderick@example.com"})
     end
 
     test "unverified and verification not expired email is not deleted", %{user: user} do
       Accounts.create_email_address(user, %{"value" => "froderick@example.com"})
-      assert Accounts.get_email_address_from_value("froderick@example.com")
+      assert Accounts.get_email_address(%{"value" => "froderick@example.com"})
       send(EmailManager, :check_expired)
       Process.sleep(10)
-      assert Accounts.get_email_address_from_value("froderick@example.com")
+      assert Accounts.get_email_address(%{"value" => "froderick@example.com"})
     end
 
-    test "verified email is not deleted", %{user: %{id: user_id}} do
+    test "verified email is not deleted", %{user: user} do
       expired_inserted_at = DateTime.add(DateTime.truncate(DateTime.utc_now(), :second), -2000)
 
       Repo.insert!(%EmailAddress{
         inserted_at: expired_inserted_at,
         value: "froderick@example.com",
-        user_id: user_id,
+        user_id: user.id,
         verified: true
       })
 
-      assert Accounts.get_email_address_from_value("froderick@example.com")
+      assert Accounts.get_email_address(%{"value" => "froderick@example.com"})
       send(EmailManager, :check_expired)
       Process.sleep(10)
-      assert Accounts.get_email_address_from_value("froderick@example.com")
+      assert Accounts.get_email_address(%{"value" => "froderick@example.com"})
+    end
+  end
+
+  describe "read phone number data" do
+    setup [:create_user, :create_phone_number]
+
+    test "phone_number returns the phone_number with given id", %{
+      phone_number: phone_number
+    } do
+      assert Accounts.get_phone_number(phone_number.id) == phone_number
+    end
+
+    test "change phone_number/1 returns a phone_number changeset", %{
+      phone_number: phone_number
+    } do
+      assert %Ecto.Changeset{} = Accounts.change_phone_number(phone_number)
+    end
+  end
+
+  describe "write phone_number data" do
+    setup [:create_user]
+
+    test "create_phone_number/1 with valid data creates a phone_number", %{user: user} do
+      assert {:ok, %PhoneNumber{} = phone_number} =
+               Accounts.create_phone_number(user, @valid_phone_attrs)
+
+      assert phone_number.value == "+9123450292"
+      assert phone_number.type == "mobile"
+    end
+
+    test "create_phone_number/1 with invalid data returns error changeset", %{user: user} do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_phone_number(user, %{"value" => nil})
+    end
+
+    test "update phone_number with valid data updates the phone_number", %{user: user} do
+      phone_number = insert(:phone_number, %{user: user})
+
+      assert {:ok, %PhoneNumber{} = phone_number} =
+               Accounts.update_phone_number(phone_number, @update_phone_attrs)
+
+      assert phone_number.type == "work"
+      assert phone_number.value == "02122229999"
+    end
+
+    test "update phone_number with invalid data returns error changeset", %{user: user} do
+      phone_number = insert(:phone_number, %{user: user})
+
+      assert {:error, %Ecto.Changeset{}} =
+               Accounts.update_phone_number(phone_number, @invalid_phone_attrs)
+    end
+  end
+
+  describe "delete phone_number data" do
+    setup [:create_user, :create_phone_number]
+
+    test "delete_phone_number/1 deletes the phone_number", %{phone_number: phone_number} do
+      assert {:ok, %PhoneNumber{}} = Accounts.delete_phone_number(phone_number)
+      refute Accounts.get_phone_number(phone_number.id)
     end
   end
 
@@ -307,5 +396,10 @@ defmodule Vutuv.AccountsTest do
   defp create_email_address(%{user: user}) do
     {:ok, email_address} = Accounts.create_email_address(user, @create_email_attrs)
     {:ok, %{email_address: email_address}}
+  end
+
+  defp create_phone_number(%{user: user}) do
+    {:ok, phone_number} = Accounts.create_phone_number(user, @valid_phone_attrs)
+    {:ok, %{phone_number: phone_number}}
   end
 end

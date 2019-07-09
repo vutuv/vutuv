@@ -8,10 +8,8 @@ defmodule VutuvWeb.Api.UserControllerTest do
   @create_attrs %{
     "email" => "bill@example.com",
     "password" => "reallyHard2gue$$",
-    "profile" => %{
-      "gender" => "male",
-      "full_name" => "bill shakespeare"
-    }
+    "gender" => "male",
+    "full_name" => "bill shakespeare"
   }
 
   describe "read user data" do
@@ -28,7 +26,7 @@ defmodule VutuvWeb.Api.UserControllerTest do
 
       assert json_response(conn, 200)["data"] == %{
                "id" => user.id,
-               "profile" => %{"full_name" => user.profile.full_name},
+               "full_name" => user.full_name,
                "slug" => user.slug
              }
     end
@@ -38,7 +36,7 @@ defmodule VutuvWeb.Api.UserControllerTest do
     test "creates user when data is valid", %{conn: conn} do
       conn = post(conn, Routes.api_user_path(conn, :create), user: @create_attrs)
       assert json_response(conn, 201)["data"]["id"]
-      assert Accounts.get_by(%{"email" => "bill@example.com"})
+      assert Accounts.get_user(%{"email" => "bill@example.com"})
     end
 
     test "does not create user and renders errors when data is invalid", %{conn: conn} do
@@ -54,21 +52,21 @@ defmodule VutuvWeb.Api.UserControllerTest do
     setup [:add_user_session]
 
     test "updates chosen user when data is valid", %{conn: conn, user: user} do
-      attrs = %{"profile" => %{"full_name" => "Raymond Luxury Yacht"}}
+      attrs = %{"full_name" => "Raymond Luxury Yacht"}
       conn = put(conn, Routes.api_user_path(conn, :update, user), user: attrs)
       assert json_response(conn, 200)["data"]["id"] == user.id
-      updated_user = Accounts.get_user(user.id)
-      assert updated_user.profile.full_name == "Raymond Luxury Yacht"
+      updated_user = Accounts.get_user(%{"user_id" => user.id})
+      assert updated_user.full_name == "Raymond Luxury Yacht"
     end
 
     test "does not update chosen user and renders errors when data is invalid", %{
       conn: conn,
       user: user
     } do
-      attrs = %{"profile" => %{"honorific_prefix" => String.duplicate("Dr", 42)}}
+      attrs = %{"honorific_prefix" => String.duplicate("Dr", 42)}
       conn = put(conn, Routes.api_user_path(conn, :update, user), user: attrs)
 
-      assert json_response(conn, 422)["errors"]["profile"] == %{
+      assert json_response(conn, 422)["errors"] == %{
                "honorific_prefix" => ["should be at most 80 character(s)"]
              }
     end
@@ -80,14 +78,14 @@ defmodule VutuvWeb.Api.UserControllerTest do
     test "deletes chosen user", %{conn: conn, user: user} do
       conn = delete(conn, Routes.api_user_path(conn, :delete, user))
       assert response(conn, 204)
-      refute Accounts.get_user(user.id)
+      refute Accounts.get_user(%{"user_id" => user.id})
     end
 
     test "cannot delete other user", %{conn: conn} do
       other = add_user("tony@example.com")
       conn = delete(conn, Routes.api_user_path(conn, :delete, other))
       assert json_response(conn, 403)["errors"]["detail"] =~ "not authorized"
-      assert Accounts.get_user(other.id)
+      assert Accounts.get_user(%{"user_id" => other.id})
     end
   end
 

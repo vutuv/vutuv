@@ -5,62 +5,60 @@
     </div>
   <% end %>
 
-  <%= inputs_for f, :profile, fn fp -> %>
-    <%= label fp, :full_name, gettext("Full name") %>
-    <%= text_input fp, :full_name %>
-    <%= error_tag fp, :full_name %>
+  <%= label f, :full_name, gettext("Full name") %>
+  <%= text_input f, :full_name %>
+  <%= error_tag f, :full_name %>
 
-    <%= label fp, :preferred_name, gettext("Preferred name")  %>
-    <%= text_input fp, :preferred_name %>
-    <%= error_tag fp, :preferred_name %>
+  <%= label f, :preferred_name, gettext("Preferred name")  %>
+  <%= text_input f, :preferred_name %>
+  <%= error_tag f, :preferred_name %>
 
-    <%= label fp, :honorific_prefix, gettext("Honorific prefix") %>
-    <%= text_input fp, :honorific_prefix %>
-    <%= error_tag fp, :honorific_prefix %>
+  <%= label f, :honorific_prefix, gettext("Honorific prefix") %>
+  <%= text_input f, :honorific_prefix %>
+  <%= error_tag f, :honorific_prefix %>
 
-    <%= label fp, :honorific_suffix, gettext("Honorific suffix") %>
-    <%= text_input fp, :honorific_suffix %>
-    <%= error_tag fp, :honorific_suffix %>
+  <%= label f, :honorific_suffix, gettext("Honorific suffix") %>
+  <%= text_input f, :honorific_suffix %>
+  <%= error_tag f, :honorific_suffix %>
 
-    <%= label fp, :gender, gettext("Gender") %>
-    <%= select fp, :gender, [{gettext("Female"), "female"}, {gettext("Male"), "male"}, {gettext("Other"), "other"}] %>
-    <%= error_tag fp, :gender %>
+  <%= label f, :gender, gettext("Gender") %>
+  <%= select f, :gender, [{gettext("Female"), "female"}, {gettext("Male"), "male"}, {gettext("Other"), "other"}] %>
+  <%= error_tag f, :gender %>
 
-    <%= label fp, :birthday, gettext("Date of birth") %>
-    <%= date_select fp, :birthday, year: [options: 1900..2020, selected: 1980], month: [
-      options: [
-        {gettext("January"), "1"},
-        {gettext("February"), "2"},
-        {gettext("March"), "3"},
-        {gettext("April"), "4"},
-        {gettext("May"), "5"},
-        {gettext("June"), "6"},
-        {gettext("July"), "7"},
-        {gettext("August"), "8"},
-        {gettext("September"), "9"},
-        {gettext("October"), "10"},
-        {gettext("November"), "11"},
-        {gettext("December"), "12"},
-      ]
-    ] %>
-    <%= error_tag fp, :birthday %>
+  <%= label f, :birthday, gettext("Date of birth") %>
+  <%= date_select f, :birthday, year: [options: 1900..DateTime.utc_now().year, selected: 1980], month: [
+    options: [
+      {gettext("January"), "1"},
+      {gettext("February"), "2"},
+      {gettext("March"), "3"},
+      {gettext("April"), "4"},
+      {gettext("May"), "5"},
+      {gettext("June"), "6"},
+      {gettext("July"), "7"},
+      {gettext("August"), "8"},
+      {gettext("September"), "9"},
+      {gettext("October"), "10"},
+      {gettext("November"), "11"},
+      {gettext("December"), "12"},
+    ]
+  ] %>
+  <%= error_tag f, :birthday %>
 
-    <%= label fp, :locale, gettext("Locale") %>
-    <%= text_input fp, :locale %>
-    <%= error_tag fp, :locale %>
+  <%= label f, :locale, gettext("Locale") %>
+  <%= text_input f, :locale %>
+  <%= error_tag f, :locale %>
 
-    <%= label fp, :avatar, gettext("Avatar") %>
-    <%= file_input fp, :avatar %>
-    <%= error_tag fp, :avatar %>
+  <%= label f, :avatar, gettext("Avatar") %>
+  <%= file_input f, :avatar %>
+  <%= error_tag f, :avatar %>
 
-    <%= label fp, :headline, gettext("Headline") %>
-    <%= text_input fp, :headline %>
-    <%= error_tag fp, :headline %>
+  <%= label f, :headline, gettext("Headline") %>
+  <%= text_input f, :headline %>
+  <%= error_tag f, :headline %>
 
-    <%= label fp, :noindex?, gettext("No index?") %>
-    <%= checkbox fp, :noindex? %>
-    <%= error_tag fp, :noindex? %>
-  <% end %>
+  <%= label f, :noindex?, gettext("No index?") %>
+  <%= checkbox f, :noindex? %>
+  <%= error_tag f, :noindex? %>
 
   <div>
     <%= submit gettext("Save") %>

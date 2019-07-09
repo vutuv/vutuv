@@ -23,7 +23,8 @@ defmodule VutuvWeb.EmailAddressController do
   def create(conn, %{"email_address" => email_address_params}, user) do
     case Accounts.create_email_address(user, email_address_params) do
       {:ok, email_address} ->
-        code = Otp.create()
+        user_credential = Accounts.get_user_credential(%{"user_id" => user.id})
+        code = Otp.create(user_credential.otp_secret)
         Email.confirm_request(email_address.value, code)
 
         conn
@@ -36,14 +37,14 @@ defmodule VutuvWeb.EmailAddressController do
   end
 
   def show(conn, %{"id" => id}, user) do
-    case Accounts.get_user_email_address(user, id) do
+    case Accounts.get_email_address(user, %{"id" => id}) do
       %EmailAddress{} = email_address -> render(conn, "show.html", email_address: email_address)
       _ -> unauthorized(conn, user)
     end
   end
 
   def edit(conn, %{"id" => id}, user) do
-    case Accounts.get_user_email_address(user, id) do
+    case Accounts.get_email_address(user, %{"id" => id}) do
       %EmailAddress{} = email_address ->
         changeset = Accounts.change_email_address(email_address)
         render(conn, "edit.html", email_address: email_address, changeset: changeset)
@@ -54,7 +55,7 @@ defmodule VutuvWeb.EmailAddressController do
   end
 
   def update(conn, %{"id" => id, "email_address" => email_address_params}, user) do
-    if email_address = Accounts.get_user_email_address(user, id) do
+    if email_address = Accounts.get_email_address(user, %{"id" => id}) do
       do_update(conn, email_address, email_address_params, user)
     else
       unauthorized(conn, user)
@@ -74,7 +75,7 @@ defmodule VutuvWeb.EmailAddressController do
   end
 
   def delete(conn, %{"id" => id}, user) do
-    case Accounts.get_user_email_address(user, id) do
+    case Accounts.get_email_address(user, %{"id" => id}) do
       %EmailAddress{} = email_address ->
         {:ok, _email_address} = Accounts.delete_email_address(email_address)
 

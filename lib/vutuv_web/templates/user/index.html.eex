@@ -10,7 +10,7 @@
   <tbody>
     <%= for user <- @users do %>
       <tr>
-        <td><%= user.profile.full_name %></td>
+        <td><%= user.full_name %></td>
 
         <td>
           <%= link gettext("Show"), to: Routes.user_path(@conn, :show, user) %>

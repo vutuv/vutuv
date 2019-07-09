@@ -29,14 +29,14 @@ defmodule VutuvWeb.Api.EmailAddressController do
   end
 
   def show(conn, %{"id" => id}, user) do
-    case Accounts.get_user_email_address(user, id) do
+    case Accounts.get_email_address(user, %{"id" => id}) do
       %EmailAddress{} = email_address -> render(conn, "show.json", email_address: email_address)
       _ -> error(conn, :forbidden, 403)
     end
   end
 
   def update(conn, %{"id" => id, "email_address" => email_address_params}, user) do
-    if email_address = Accounts.get_user_email_address(user, id) do
+    if email_address = Accounts.get_email_address(user, %{"id" => id}) do
       do_update(conn, email_address, email_address_params)
     else
       error(conn, :forbidden, 403)
@@ -51,7 +51,7 @@ defmodule VutuvWeb.Api.EmailAddressController do
   end
 
   def delete(conn, %{"id" => id}, user) do
-    if email_address = Accounts.get_user_email_address(user, id) do
+    if email_address = Accounts.get_email_address(user, %{"id" => id}) do
       do_delete(conn, email_address)
     else
       error(conn, :forbidden, 403)

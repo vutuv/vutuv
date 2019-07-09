@@ -10,10 +10,16 @@ defmodule VutuvWeb.Auth.Login do
 
   @impl true
   def authenticate(%{"password" => password} = params, _, opts) do
-    case Accounts.get_by(params) do
+    case Accounts.get_user_credential(params) do
       nil -> {:error, "no user found"}
       %{confirmed: false} -> {:error, "account unconfirmed"}
-      user -> Argon2.check_pass(user, password, opts)
+      user_credential -> user_credential |> Argon2.check_pass(password, opts) |> get_user_struct()
     end
   end
+
+  defp get_user_struct({:ok, %{user_id: user_id}}) do
+    {:ok, Accounts.get_user(%{"user_id" => user_id})}
+  end
+
+  defp get_user_struct({:error, message}), do: {:error, message}
 end

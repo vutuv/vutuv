@@ -8,10 +8,8 @@ defmodule VutuvWeb.UserControllerTest do
   @create_attrs %{
     "email" => "bill@example.com",
     "password" => "reallyHard2gue$$",
-    "profile" => %{
-      "gender" => "male",
-      "full_name" => "bill shakespeare"
-    }
+    "gender" => "male",
+    "full_name" => "bill shakespeare"
   }
 
   setup %{conn: conn} do
@@ -28,7 +26,12 @@ defmodule VutuvWeb.UserControllerTest do
     test "show chosen user's page", %{conn: conn} do
       user = add_user("reg@example.com")
       conn = get(conn, Routes.user_path(conn, :show, user))
-      assert html_response(conn, 200) =~ ~r/Show user(.|\n)*Edit email/
+      assert html_response(conn, 200) =~ ~r/User(.|\n)*Edit email/
+    end
+
+    test "shows 404 for non-existent user", %{conn: conn} do
+      conn = get(conn, Routes.user_path(conn, :show, "Raymond.Luxury.Yacht"))
+      assert html_response(conn, 200) =~ "we cannot find the page you were looking for"
     end
   end
 
@@ -48,7 +51,7 @@ defmodule VutuvWeb.UserControllerTest do
 
     test "renders form for editing chosen user", %{conn: conn, user: user} do
       conn = get(conn, Routes.user_path(conn, :edit, user))
-      assert html_response(conn, 200) =~ "Edit user"
+      assert html_response(conn, 200) =~ ~r/Edit user(.|\n)*#{DateTime.utc_now().year}/
     end
   end
 
@@ -56,13 +59,13 @@ defmodule VutuvWeb.UserControllerTest do
     test "successful when data is valid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs)
       assert redirected_to(conn) == Routes.confirm_path(conn, :new, email: @create_attrs["email"])
-      assert Accounts.get_by(%{"email" => "bill@example.com"})
+      assert Accounts.get_user(%{"email" => "bill@example.com"})
     end
 
     test "fails and renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: %{email: "mustard@example.com"})
       assert html_response(conn, 200) =~ "can&#39;t be blank"
-      refute Accounts.get_by(%{"email" => "mustard@example.com"})
+      refute Accounts.get_user(%{"email" => "mustard@example.com"})
     end
   end
 
@@ -70,27 +73,27 @@ defmodule VutuvWeb.UserControllerTest do
     setup [:add_user_session]
 
     test "successful when data is valid", %{conn: conn, user: user} do
-      attrs = %{"profile" => %{"full_name" => "Raymond Luxury Yacht"}}
+      attrs = %{"full_name" => "Raymond Luxury Yacht"}
       conn = put(conn, Routes.user_path(conn, :update, user), user: attrs)
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
-      updated_user = Accounts.get_user(user.id)
-      assert updated_user.profile.full_name == "Raymond Luxury Yacht"
+      updated_user = Accounts.get_user(%{"user_id" => user.id})
+      assert updated_user.full_name == "Raymond Luxury Yacht"
       conn = get(conn, Routes.user_path(conn, :show, user))
       assert html_response(conn, 200) =~ "Raymond Luxury Yacht"
     end
 
     test "updates locale data when locale is supported", %{conn: conn, user: user} do
-      attrs = %{"profile" => %{"locale" => "de_CH"}}
+      attrs = %{"locale" => "de_CH"}
       conn = put(conn, Routes.user_path(conn, :update, user), user: attrs)
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
-      updated_user = Accounts.get_user(user.id)
-      assert updated_user.profile.locale == "de_CH"
+      updated_user = Accounts.get_user(%{"user_id" => user.id})
+      assert updated_user.locale == "de_CH"
       conn = get(conn, Routes.user_path(conn, :show, user))
       assert html_response(conn, 200) =~ "de_CH"
     end
 
     test "fails when data is invalid", %{conn: conn, user: user} do
-      attrs = %{"profile" => %{"honorific_prefix" => String.duplicate("Dr", 42)}}
+      attrs = %{"honorific_prefix" => String.duplicate("Dr", 42)}
       conn = put(conn, Routes.user_path(conn, :update, user), user: attrs)
       assert html_response(conn, 200) =~ ~r/Edit user(.|\n)*DrDrDrDrDrDrDrDr/
     end
@@ -102,14 +105,14 @@ defmodule VutuvWeb.UserControllerTest do
     test "deletes chosen user", %{conn: conn, user: user} do
       conn = delete(conn, Routes.user_path(conn, :delete, user))
       assert redirected_to(conn) == Routes.session_path(conn, :new)
-      refute Accounts.get_user(user.id)
+      refute Accounts.get_user(%{"user_id" => user.id})
     end
 
     test "cannot delete other user", %{conn: conn, user: user} do
       other = add_user("tony@example.com")
       conn = delete(conn, Routes.user_path(conn, :delete, other))
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
-      assert Accounts.get_user(other.id)
+      assert Accounts.get_user(%{"user_id" => other.id})
     end
   end
 

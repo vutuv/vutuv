@@ -6,18 +6,14 @@ defmodule VutuvWeb.Auth.Otp do
   @doc """
   Creates a time-based one-time password.
   """
-  def create do
-    OneTimePassEcto.Base.gen_totp(get_secret())
+  def create(secret) do
+    OneTimePassEcto.Base.gen_totp(secret)
   end
 
   @doc """
   Verifies a time-based one-time password.
   """
-  def verify(code) do
-    OneTimePassEcto.Base.check_totp(code, get_secret())
-  end
-
-  defp get_secret do
-    Application.get_env(:vutuv, :otp_secret)
+  def verify(code, secret) do
+    OneTimePassEcto.Base.check_totp(code, secret)
   end
 end

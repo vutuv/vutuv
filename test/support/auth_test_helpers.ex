@@ -1,19 +1,15 @@
 defmodule VutuvWeb.AuthTestHelpers do
   use Phoenix.ConnTest
 
-  import Ecto.Changeset
-
-  alias Vutuv.{Accounts, Repo, Sessions}
+  alias Vutuv.{Accounts, Sessions}
   alias VutuvWeb.Auth.Token
 
   def add_user(email) do
     user_params = %{
       "email" => email,
       "password" => "reallyHard2gue$$",
-      "profile" => %{
-        "gender" => Enum.random(["female", "male"]),
-        "full_name" => "#{Faker.Name.first_name()} #{Faker.Name.last_name()}"
-      }
+      "gender" => Enum.random(["female", "male"]),
+      "full_name" => "#{Faker.Name.first_name()} #{Faker.Name.last_name()}"
     }
 
     {:ok, user} = Accounts.create_user(user_params)
@@ -23,28 +19,17 @@ defmodule VutuvWeb.AuthTestHelpers do
   def gen_key(email), do: Token.sign(%{"email" => email})
 
   def add_user_confirmed(email) do
-    %{email_addresses: [email_address]} =
-      user =
-      email
-      |> add_user()
-      |> change(%{confirmed: true})
-      |> Repo.update!()
+    %{email_addresses: [email_address]} = user = add_user(email)
+
+    %{"user_id" => user.id}
+    |> Accounts.get_user_credential()
+    |> Accounts.confirm_user()
 
     Accounts.confirm_email_address(email_address)
     user
   end
 
-  def add_reset_user(email) do
-    %{email_addresses: [email_address]} =
-      user =
-      email
-      |> add_user()
-      |> change(%{confirmed: true})
-      |> Repo.update!()
-
-    Accounts.confirm_email_address(email_address)
-    user
-  end
+  def add_reset_user(email), do: add_user_confirmed(email)
 
   def add_session(conn, user) do
     {:ok, %{id: session_id}} = Sessions.create_session(%{user_id: user.id})

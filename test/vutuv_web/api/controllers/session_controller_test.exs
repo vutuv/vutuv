@@ -7,7 +7,7 @@ defmodule VutuvWeb.Api.SessionControllerTest do
   @invalid_attrs %{"email" => "robin@example.com", "password" => "cannotGue$$it"}
 
   setup %{conn: conn} do
-    user = add_user("robin@example.com")
+    user = add_user_confirmed("robin@example.com")
     {:ok, %{conn: conn, user: user}}
   end
 

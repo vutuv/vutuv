@@ -3,9 +3,8 @@ defmodule VutuvWeb.Api.SessionController do
 
   import VutuvWeb.Api.Authorize
 
-  alias Phauxth.Login
   alias Vutuv.Sessions
-  alias VutuvWeb.Auth.Token
+  alias VutuvWeb.Auth.{Login, Token}
 
   plug :guest_check when action in [:create]
 

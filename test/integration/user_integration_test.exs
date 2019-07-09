@@ -9,14 +9,12 @@ defmodule VutuvWeb.UserIntegrationTest do
   @create_attrs %{
     "email" => "bill@example.com",
     "password" => "reallyHard2gue$$",
-    "profile" => %{
-      "gender" => "male",
-      "full_name" => "bill shakespeare"
-    }
+    "gender" => "male",
+    "full_name" => "bill shakespeare"
   }
 
   setup do
-    user = add_user("ted@mail.com")
+    user = add_user_confirmed("ted@mail.com")
     %{"access_token" => token} = login_user("ted@mail.com")
     {:ok, %{user: user, token: token}}
   end
@@ -28,10 +26,10 @@ defmodule VutuvWeb.UserIntegrationTest do
       assert length(data) == 1
     end
 
-    test "show specific user data", %{user: %{slug: slug, profile: profile}} do
+    test "show specific user data", %{user: %{slug: slug} = user} do
       {:ok, response} = Tesla.get(simple_client(), "/users/#{slug}")
       assert %Tesla.Env{body: %{"data" => data}, status: 200} = response
-      assert data["profile"]["full_name"] == profile.full_name
+      assert data["full_name"] == user.full_name
     end
   end
 
@@ -40,35 +38,35 @@ defmodule VutuvWeb.UserIntegrationTest do
       {:ok, response} = Tesla.post(simple_client(), "/users", %{user: @create_attrs})
       assert %Tesla.Env{body: %{"data" => data}, status: 201} = response
       assert data["id"]
-      assert Accounts.get_by(%{"email" => @create_attrs["email"]})
+      assert Accounts.get_user(%{"email" => @create_attrs["email"]})
     end
 
     test "invalid data errors when creating user" do
       {:ok, response} = Tesla.post(simple_client(), "/users", %{user: %{"email" => nil}})
       assert %Tesla.Env{body: %{"errors" => errors}, status: 422} = response
-      assert errors["profile"] == ["can't be blank"]
+      assert errors["full_name"] == ["can't be blank"]
     end
 
     test "update user", %{user: user, token: token} do
-      attrs = %{"profile" => %{"full_name" => "Raymond Luxury Yacht"}}
+      attrs = %{"full_name" => "Raymond Luxury Yacht"}
 
       {:ok, response} =
         token |> authenticated_client() |> Tesla.put("/users/#{user.slug}", %{user: attrs})
 
       assert %Tesla.Env{body: %{"data" => data}, status: 200} = response
       assert data["id"] == user.id
-      updated_user = Accounts.get_user(user.id)
-      assert updated_user.profile.full_name == "Raymond Luxury Yacht"
+      updated_user = Accounts.get_user(%{"user_id" => user.id})
+      assert updated_user.full_name == "Raymond Luxury Yacht"
     end
 
     test "invalid data errors when updating user", %{user: user, token: token} do
-      attrs = %{"profile" => %{"honorific_prefix" => String.duplicate("Dr", 42)}}
+      attrs = %{"honorific_prefix" => String.duplicate("Dr", 42)}
 
       {:ok, response} =
         token |> authenticated_client() |> Tesla.put("/users/#{user.slug}", %{user: attrs})
 
       assert %Tesla.Env{body: %{"errors" => errors}, status: 422} = response
-      assert errors["profile"]["honorific_prefix"] == ["should be at most 80 character(s)"]
+      assert errors["honorific_prefix"] == ["should be at most 80 character(s)"]
     end
   end
 
@@ -76,15 +74,15 @@ defmodule VutuvWeb.UserIntegrationTest do
     test "delete user", %{user: user, token: token} do
       {:ok, response} = token |> authenticated_client() |> Tesla.delete("/users/#{user.slug}")
       assert %Tesla.Env{body: "", status: 204} = response
-      refute Accounts.get_user(user.id)
+      refute Accounts.get_user(%{"user_id" => user.id})
     end
 
     test "cannot delete other user", %{token: token} do
-      other = add_user("tony@example.com")
+      other = add_user_confirmed("tony@example.com")
       {:ok, response} = token |> authenticated_client() |> Tesla.delete("/users/#{other.slug}")
       assert %Tesla.Env{body: %{"errors" => errors}, status: 403} = response
       assert errors["detail"] =~ "You are not authorized"
-      assert Accounts.get_user(other.id)
+      assert Accounts.get_user(%{"user_id" => other.id})
     end
   end
 end

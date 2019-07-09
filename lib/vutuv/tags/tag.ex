@@ -1,8 +1,7 @@
-defmodule Vutuv.Generals.Tag do
+defmodule Vutuv.Tags.Tag do
   use Ecto.Schema
-  import Ecto.Changeset
 
-  alias Vutuv.Biographies.Profile
+  import Ecto.Changeset
 
   @type t :: %__MODULE__{
           id: integer,
@@ -22,8 +21,6 @@ defmodule Vutuv.Generals.Tag do
     field :slug, :string
     field :url, :string
 
-    many_to_many :profiles, Profile, join_through: "profile_tags", on_replace: :delete
-
     timestamps(type: :utc_datetime)
   end
 
@@ -35,21 +32,5 @@ defmodule Vutuv.Generals.Tag do
     |> validate_length(:name, max: 255)
     |> unique_constraint(:downcase_name)
     |> unique_constraint(:slug)
-  end
-
-  @doc false
-  def update_changeset(%__MODULE__{} = tag, attrs) do
-    if Map.has_key?(attrs, "name") do
-      tag
-      |> change(attrs)
-      |> add_error(:value, "the tag name cannot be updated")
-    else
-      tag
-      |> cast(attrs, [:name, :downcase_name, :slug, :description, :url])
-      |> validate_required([:name])
-      |> validate_length(:name, max: 255)
-      |> unique_constraint(:downcase_name)
-      |> unique_constraint(:slug)
-    end
   end
 end
