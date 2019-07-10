@@ -53,19 +53,33 @@
     </li>
 
   </ul>
+</div>
 
+<%= if @current_user && @current_user.id == @user.id do %>
   <span><%= link gettext("Edit user"), to: Routes.user_path(@conn, :edit, @user) %></span><br>
-</div>
 
-<div>
-  <h3><%= gettext "Email addresses" %></h3>
+  <div>
+    <h3><%= gettext "Email addresses" %></h3>
 
-  <%= for email_address <- @email_addresses do %>
-    <tr>
-      <td><%= email_address.value %></td>
-      <td><%= link gettext("Edit email address"), to: Routes.user_email_address_path(@conn, :edit, @user, email_address) %></td>
-    </tr>
+    <%= for email_address <- @email_addresses do %>
+      <tr>
+        <td><%= email_address.value %></td>
+        <td><%= link gettext("Edit email address"), to: Routes.user_email_address_path(@conn, :edit, @user, email_address) %></td>
+      </tr>
+    <% end %>
+
+    <span><%= link gettext("New email address"), to: Routes.user_email_address_path(@conn, :new, @user) %></span>
+  </div>
+<% else %>
+  <%= unless public_email_addresses(@email_addresses) == [] do %>
+    <div>
+      <h3><%= gettext "Email addresses" %></h3>
+
+      <%= for email_address <- public_email_addresses(@email_addresses) do %>
+        <tr>
+          <td><%= email_address.value %></td>
+        </tr>
+      <% end %>
+    </div>
   <% end %>
-
-  <span><%= link gettext("New email address"), to: Routes.user_email_address_path(@conn, :new, @user) %></span>
-</div>
+<% end %>
