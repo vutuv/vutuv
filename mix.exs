@@ -41,19 +41,20 @@ defmodule Vutuv.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:dialyxir, "~> 1.0.0-rc.3", only: :dev, runtime: false},
       {:ex_machina, "~> 2.3", only: :test},
-      {:faker, "~> 0.12", only: :test},
-      {:gettext, "~> 0.11"},
+      {:faker, "~> 0.12.0", only: :test},
+      {:gettext, "~> 0.17.0"},
       {:jason, "~> 1.0"},
       {:phauxth, "~> 2.2.0"},
       {:argon2_elixir, "~> 2.0"},
       {:not_qwerty123, "~> 2.3"},
       {:one_time_pass_ecto, "~> 1.0"},
       {:tesla, "~> 1.2.1"},
+      {:hackney, "~> 1.14.0"},
       {:bamboo, "~> 1.1"},
       {:plug_cowboy, "~> 2.0"},
       {:arc, "~> 0.11.0"},
       {:arc_ecto, git: "https://github.com/hendri-tobing/arc_ecto.git"},
-      {:slugger, "~> 0.3"}
+      {:slugger, "~> 0.3.0"}
     ]
   end
 

@@ -34,11 +34,16 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Use Hackney HTTP client
+config :tesla, adapter: Tesla.Adapter.Hackney
+
+# Set default gravatar download module
+config :vutuv, :gravatar_downloader, Vutuv.Downloads.GravatarClient
+
 # Filter password_hash and otp_secret in logs
 config :phoenix, :filter_parameters, ["password_hash", "otp_secret"]
 
-config :arc,
-  storage: Arc.Storage.Local
+config :arc, storage: Arc.Storage.Local
 
 # Char used as separator between words
 config :slugger, separator_char: ?-

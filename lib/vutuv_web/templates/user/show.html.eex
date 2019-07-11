@@ -1,4 +1,4 @@
-<h2><%= gettext "User" %></h2>
+<h2>User profile</h2>
 
 <div>
   <ul>
@@ -38,11 +38,6 @@
     </li>
 
     <li>
-      <strong><%= gettext "Avatar:" %></strong>
-      <img src="<%= Vutuv.Avatar.url({@user.avatar, @user}) %>"/>
-    </li>
-
-    <li>
       <strong><%= gettext "Headline:" %></strong>
       <%= @user.headline %>
     </li>
@@ -77,7 +72,7 @@
 
       <%= for email_address <- public_email_addresses(@email_addresses) do %>
         <tr>
-          <td><%= email_address.value %></td>
+          <td><%= email_address.value %></td> <br>
         </tr>
       <% end %>
     </div>

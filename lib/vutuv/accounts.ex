@@ -6,7 +6,7 @@ defmodule Vutuv.Accounts do
   import Ecto
   import Ecto.Query, warn: false
 
-  alias Vutuv.{Repo, Sessions, Sessions.Session}
+  alias Vutuv.{Downloads.GravatarWorker, Repo, Sessions, Sessions.Session}
   alias Vutuv.Accounts.{EmailAddress, PhoneNumber, User, UserCredential}
 
   @type changeset_error :: {:error, Ecto.Changeset.t()}
@@ -66,13 +66,14 @@ defmodule Vutuv.Accounts do
         "user_credential" => %{"password" => attrs["password"]}
       })
 
-    %User{}
-    |> User.create_changeset(attrs)
-    |> Repo.insert()
-    |> add_unique_slug()
+    with {:ok, user} <- %User{} |> User.create_changeset(attrs) |> Repo.insert(),
+         {:ok, user} <- add_unique_slug(user) do
+      GravatarWorker.fetch_gravatar({email_attrs["value"], user.id})
+      {:ok, user}
+    end
   end
 
-  defp add_unique_slug({:ok, %{full_name: full_name} = user}) do
+  defp add_unique_slug(%{full_name: full_name} = user) do
     slug = Slugger.slugify(full_name, ?.)
 
     with {:error, _} <- update_user(user, %{"slug" => slug}) do
@@ -80,8 +81,6 @@ defmodule Vutuv.Accounts do
       update_user(user, %{"slug" => prefix <> "." <> slug})
     end
   end
-
-  defp add_unique_slug({:error, changeset}), do: {:error, changeset}
 
   @doc """
   Updates a user.
