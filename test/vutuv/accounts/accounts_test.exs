@@ -101,17 +101,10 @@ defmodule Vutuv.AccountsTest do
   describe "update user data" do
     test "update_user succeeds with valid data" do
       {:ok, user} = Accounts.create_user(@create_user_attrs)
-      refute user.avatar
-
-      attrs = %{
-        "avatar" => %Plug.Upload{
-          path: "test/fixtures/elixir_logo.png",
-          filename: "elixir_logo.png"
-        }
-      }
-
+      refute user.preferred_name
+      attrs = %{"preferred_name" => "Eddie-baby"}
       assert {:ok, user} = Accounts.update_user(user, attrs)
-      assert %{file_name: "elixir_logo.png", updated_at: %NaiveDateTime{}} = user.avatar
+      assert user.preferred_name =~ "Eddie-baby"
     end
 
     test "user can update slug" do

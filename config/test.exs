@@ -23,6 +23,9 @@ config :argon2_elixir, t_cost: 1, m_cost: 8
 # Mailer test configuration
 config :vutuv, VutuvWeb.Mailer, adapter: Bamboo.TestAdapter
 
+# Set gravatar download module for test environment
+config :vutuv, :gravatar_downloader, Vutuv.Downloads.GravatarMockClient
+
 # Arc test configuration
 config :arc, storage: Arc.Storage.Local
 

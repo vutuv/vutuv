@@ -9,7 +9,7 @@ defmodule Vutuv.Factory do
     %Vutuv.Accounts.User{
       email_addresses: build_list(1, :email_address),
       user_credential: build(:user_credential),
-      slug: Slugger.slugify(full_name, ?.),
+      slug: Slugger.slugify_downcase(full_name, ?.),
       full_name: full_name,
       preferred_name: Faker.Name.first_name(),
       gender: sequence(:gender, ["female", "male"]),

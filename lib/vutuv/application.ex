@@ -7,6 +7,8 @@ defmodule Vutuv.Application do
     children = [
       Vutuv.Repo,
       Vutuv.Accounts.EmailManager,
+      {Task.Supervisor, name: Vutuv.Downloads.TaskSupervisor},
+      Vutuv.Downloads.GravatarWorker,
       VutuvWeb.Endpoint
     ]
 
