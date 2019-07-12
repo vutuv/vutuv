@@ -5,7 +5,6 @@ defmodule VutuvWeb.UserController do
 
   alias Phauxth.Log
   alias Vutuv.{Accounts, Accounts.User}
-  alias VutuvWeb.{Auth.Otp, Email}
 
   @dialyzer {:nowarn_function, new: 2}
 
@@ -33,10 +32,6 @@ defmodule VutuvWeb.UserController do
       {:ok, user} ->
         Log.info(%Log{user: user.id, message: "user created"})
         email = user_params["email"]
-        # maybe move these lines to confirm/new
-        user_credential = Accounts.get_user_credential(%{"user_id" => user.id})
-        code = Otp.create(user_credential.otp_secret)
-        Email.confirm_request(email, code)
 
         conn
         |> put_flash(:info, "User created successfully.")

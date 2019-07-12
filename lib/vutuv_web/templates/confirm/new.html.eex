@@ -19,3 +19,5 @@
     <%= submit gettext("Continue") %>
   </div>
 <% end %>
+
+<%= link gettext("Resend code"), to: Routes.confirm_path(@conn, :new) %>

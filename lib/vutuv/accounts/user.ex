@@ -5,7 +5,7 @@ defmodule Vutuv.Accounts.User do
   import Ecto.Changeset
 
   alias Vutuv.Accounts.{EmailAddress, Locale, PhoneNumber, UserCredential}
-  alias Vutuv.{Sessions.Session, Socials.Post}
+  alias Vutuv.{Sessions.Session, Socials.Post, Tags.Tag}
 
   @type t :: %__MODULE__{
           id: integer,
@@ -52,6 +52,8 @@ defmodule Vutuv.Accounts.User do
     has_many :sessions, Session, on_delete: :delete_all
     has_one :user_credential, UserCredential, on_delete: :delete_all
 
+    many_to_many :tags, Tag, join_through: "user_tags", on_replace: :delete
+
     timestamps(type: :utc_datetime)
   end
 
@@ -97,6 +99,15 @@ defmodule Vutuv.Accounts.User do
     |> add_locale_data()
     |> cast_assoc(:email_addresses, required: true)
     |> cast_assoc(:user_credential, required: true)
+  end
+
+  @doc """
+  Changeset for adding and updating user_tags.
+  """
+  def user_tag_changeset(%__MODULE__{} = user, tags) do
+    user
+    |> cast(%{}, [:full_name, :gender])
+    |> put_assoc(:tags, tags)
   end
 
   defp add_locale_data(%Ecto.Changeset{valid?: true, changes: %{locale: locale}} = changeset) do
