@@ -9,7 +9,7 @@
 
     <li>
       <strong><%= gettext "Preferred name:" %></strong>
-      <%= @user.preferred_name %>
+      <%= @user.preferred_name || gettext "None" %>
     </li>
 
     <li>

@@ -74,7 +74,7 @@ defmodule Vutuv.Accounts do
   end
 
   defp add_unique_slug(%{full_name: full_name} = user) do
-    slug = Slugger.slugify(full_name, ?.)
+    slug = Slugger.slugify_downcase(full_name, ?.)
 
     with {:error, _} <- update_user(user, %{"slug" => slug}) do
       prefix = Base.encode64(:crypto.strong_rand_bytes(6))

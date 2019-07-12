@@ -141,7 +141,7 @@ button.link {
 }
 @media screen and (min-width: 40.0rem) and (orientation: landscape) {
   body {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr auto;
     grid-template-areas: "header main"
                          "footer footer";

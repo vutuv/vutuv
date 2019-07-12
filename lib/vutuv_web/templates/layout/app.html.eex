@@ -22,7 +22,7 @@
     <header>
       <%= if assigns[:user] do %>
         <div class="profile-header">
-          <img src="<%= Vutuv.Avatar.url({@user.avatar, @user}) %>"/>
+          <img src="<%= Vutuv.Avatar.url({@user.avatar, @user}, :medium) %>"/>
           <h2><%= @user.full_name %></h2>
         </div>
       <% end %>

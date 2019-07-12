@@ -31,9 +31,8 @@ defmodule Vutuv.Downloads.GravatarClient do
 
     case File.mkdir_p(storage_dir) do
       :ok ->
-        file_extension = String.replace(content_type, "image/", "")
-        filename = "original.#{file_extension}"
-        path = Path.join(storage_dir, filename)
+        filename = "original.#{String.replace(content_type, "image/", "")}"
+        path = Path.join(System.tmp_dir(), filename)
         File.write(path, body)
 
         {:ok,
