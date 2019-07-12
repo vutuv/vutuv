@@ -6,7 +6,7 @@ defmodule Vutuv.Accounts do
   import Ecto
   import Ecto.Query, warn: false
 
-  alias Vutuv.{Downloads.GravatarWorker, Repo, Sessions, Sessions.Session}
+  alias Vutuv.{Downloads.GravatarWorker, Repo, Sessions, Sessions.Session, Tags.Tag}
   alias Vutuv.Accounts.{EmailAddress, PhoneNumber, User, UserCredential}
 
   @type changeset_error :: {:error, Ecto.Changeset.t()}
@@ -137,6 +137,15 @@ defmodule Vutuv.Accounts do
 
   def get_user_credential(%{"user_id" => user_id}) do
     Repo.get_by(UserCredential, %{user_id: user_id})
+  end
+
+  @doc """
+  Updates the association between a user and already existing tags.
+  """
+  @spec update_user_tags(User.t(), list) :: {:ok, User.t()} | changeset_error
+  def update_user_tags(%User{} = user, tag_ids) do
+    tags = Tag |> where([t], t.id in ^tag_ids) |> Repo.all()
+    user |> Repo.preload([:tags]) |> User.user_tag_changeset(tags) |> Repo.update()
   end
 
   @doc """

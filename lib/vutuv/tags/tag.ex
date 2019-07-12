@@ -3,6 +3,8 @@ defmodule Vutuv.Tags.Tag do
 
   import Ecto.Changeset
 
+  alias Vutuv.Accounts.User
+
   @type t :: %__MODULE__{
           id: integer,
           name: String.t(),
@@ -20,6 +22,8 @@ defmodule Vutuv.Tags.Tag do
     field :description, :string
     field :slug, :string
     field :url, :string
+
+    many_to_many :users, User, join_through: "user_tags", on_replace: :delete
 
     timestamps(type: :utc_datetime)
   end

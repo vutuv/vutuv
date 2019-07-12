@@ -1,25 +1,27 @@
 defmodule Vutuv.TagsTest do
   use Vutuv.DataCase
 
-  alias Vutuv.{Tags, Tags.Tag}
+  import Vutuv.Factory
+
+  alias Vutuv.{Accounts, Tags, Tags.Tag, Repo}
+
+  @create_tag_attrs %{
+    "description" => "JavaScript expertise",
+    "name" => "JavaScript",
+    "url" => "http://some-url.com"
+  }
+  @update_tag_attrs %{
+    "description" => "Logic programming will save the world",
+    "name" => "Prolog",
+    "url" => "http://some-updated-url.com"
+  }
+  @invalid_attrs %{"description" => nil, "name" => nil, "url" => nil}
 
   describe "tags" do
-    @valid_attrs %{
-      "description" => "some description",
-      "name" => "Some name",
-      "url" => "http://some-url.com"
-    }
-    @update_attrs %{
-      "description" => "some updated description",
-      "name" => "Some updated name",
-      "url" => "http://some-updated-url.com"
-    }
-    @invalid_attrs %{"description" => nil, "name" => nil, "url" => nil}
-
     def tag_fixture(attrs \\ %{}) do
       {:ok, tag} =
         attrs
-        |> Enum.into(@valid_attrs)
+        |> Enum.into(@create_tag_attrs)
         |> Tags.create_tag()
 
       tag
@@ -36,9 +38,9 @@ defmodule Vutuv.TagsTest do
     end
 
     test "create_tag/1 with valid data creates a tag" do
-      assert {:ok, %Tag{} = tag} = Tags.create_tag(@valid_attrs)
-      assert tag.description == "some description"
-      assert tag.name == "Some name"
+      assert {:ok, %Tag{} = tag} = Tags.create_tag(@create_tag_attrs)
+      assert tag.description =~ "JavaScript expertise"
+      assert tag.name == "JavaScript"
       assert tag.url == "http://some-url.com"
     end
 
@@ -48,9 +50,9 @@ defmodule Vutuv.TagsTest do
 
     test "update_tag/2 with valid data updates the tag" do
       tag = tag_fixture()
-      assert {:ok, %Tag{} = tag} = Tags.update_tag(tag, @update_attrs)
-      assert tag.description == "some updated description"
-      assert tag.name == "Some updated name"
+      assert {:ok, %Tag{} = tag} = Tags.update_tag(tag, @update_tag_attrs)
+      assert tag.description =~ "Logic programming"
+      assert tag.name == "Prolog"
       assert tag.url == "http://some-updated-url.com"
     end
 
@@ -69,6 +71,17 @@ defmodule Vutuv.TagsTest do
     test "change_tag/1 returns a tag changeset" do
       tag = tag_fixture()
       assert %Ecto.Changeset{} = Tags.change_tag(tag)
+    end
+  end
+
+  describe "user tags" do
+    test "association can be created between a user and tags" do
+      user = insert(:user)
+      {:ok, %Tag{} = tag} = Tags.create_tag(@create_tag_attrs)
+      {:ok, user} = Accounts.update_user_tags(user, [tag.id])
+      assert [%Tag{} = ^tag] = user.tags
+      %Tag{users: [user_1]} = Tags.get_tag(tag.id) |> Repo.preload([:users])
+      assert user.id == user_1.id
     end
   end
 end
