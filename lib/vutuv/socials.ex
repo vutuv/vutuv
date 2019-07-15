@@ -11,7 +11,7 @@ defmodule Vutuv.Socials do
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 
   @doc """
-  Returns the list of posts.
+  Returns a list of posts.
   """
   @spec list_posts() :: [Post.t()]
   def list_posts do
@@ -27,10 +27,28 @@ defmodule Vutuv.Socials do
   end
 
   @doc """
-  Gets a single post.
+  Returns a list of a user's visible posts.
   """
-  @spec get_post(integer) :: Post.t() | nil
-  def get_post(id), do: Repo.get(Post, id)
+  @spec list_posts(User.t(), :public) :: [Post.t()]
+  # FIXME: riverrun - 2019-07-17
+  # add check based on user followers - after followers have been added to users
+  def list_posts(user, :public) do
+    user
+    |> assoc(:posts)
+    |> where([p], p.visibility_level == "public")
+    |> Repo.all()
+  end
+
+  @doc """
+  Gets a specific user's post.
+  """
+  @spec get_post(User.t(), map) :: Post.t() | nil
+  def get_post(%User{} = user, %{"id" => id}) do
+    user
+    |> assoc(:posts)
+    |> where([p], p.id == ^id)
+    |> Repo.one()
+  end
 
   @doc """
   Creates a post.

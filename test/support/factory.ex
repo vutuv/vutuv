@@ -25,6 +25,13 @@ defmodule Vutuv.Factory do
     }
   end
 
+  def user_credential_factory do
+    %Vutuv.Accounts.UserCredential{
+      password_hash: Argon2.hash_pwd_salt("hard2gue$$"),
+      confirmed: true
+    }
+  end
+
   def email_address_factory do
     %Vutuv.Accounts.EmailAddress{
       value: sequence(:value, &"email-#{&1}@example.com"),
@@ -35,20 +42,12 @@ defmodule Vutuv.Factory do
     }
   end
 
-  def user_credential_factory do
-    %Vutuv.Accounts.UserCredential{
-      password_hash: Argon2.hash_pwd_salt("hard2gue$$"),
-      confirmed: true
-    }
-  end
-
   def post_factory do
     %Vutuv.Socials.Post{
       user: build(:user),
-      body: Faker.Company.bs(),
-      page_info_cache: "",
       title: Faker.Company.name(),
-      visibility_level: "private"
+      body: Faker.Lorem.Shakespeare.romeo_and_juliet(),
+      published_at: DateTime.truncate(DateTime.utc_now(), :second)
     }
   end
 
@@ -57,5 +56,9 @@ defmodule Vutuv.Factory do
       value: Faker.Phone.EnUs.phone(),
       type: sequence(:type, ["work", "home", "mobile"])
     }
+  end
+
+  def tag_factory do
+    %Vutuv.Tags.Tag{}
   end
 end

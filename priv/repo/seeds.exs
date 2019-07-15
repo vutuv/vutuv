@@ -26,10 +26,15 @@ for user <- users do
 
   Vutuv.Accounts.confirm_user(user_credential)
   Vutuv.Accounts.confirm_email_address(email_address)
-
   name = String.replace(user.full_name, " ", ".")
 
   Vutuv.Accounts.create_email_address(user, %{
     "value" => "#{name}_123@example.com"
+  })
+
+  Vutuv.Socials.create_post(user, %{
+    body: String.duplicate("Blablabla ", 25),
+    title: "Something to do with #{user.full_name}",
+    visibility_level: "public"
   })
 end

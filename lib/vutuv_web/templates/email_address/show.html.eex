@@ -1,11 +1,6 @@
-<h1>Show email address</h1>
+<h1><%= gettext "Email address" %></h1>
 
 <ul>
-
-  <li>
-    <strong><%= gettext "User:" %></strong>
-    <%= @email_address.user_id %>
-  </li>
 
   <li>
     <strong><%= gettext "Value:" %></strong>

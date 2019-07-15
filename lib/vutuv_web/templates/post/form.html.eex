@@ -1,0 +1,29 @@
+<%= form_for @changeset, @action, [], fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p><%= gettext "Something went wrong. Please check the errors below." %></p>
+    </div>
+  <% end %>
+
+  <%= hidden_input f, :user_id, value: @current_user.id  %>
+
+  <%= label f, :title, gettext("Title") %>
+  <%= text_input f, :title %>
+  <%= error_tag f, :title %>
+
+  <%= label f, :body, gettext("Body") %>
+  <%= textarea f, :body %>
+  <%= error_tag f, :body %>
+
+  <%= label f, :visibility_level, gettext("Visibility") %>
+  <%= select f, :visibility_level, [
+    {gettext("Private"), "private"},
+    {gettext("Public"), "public"},
+    {gettext("Just for followers"), "followers"}
+  ] %>
+  <%= error_tag f, :visibility_level %>
+
+  <div>
+    <%= submit gettext("Save") %>
+  </div>
+<% end %>

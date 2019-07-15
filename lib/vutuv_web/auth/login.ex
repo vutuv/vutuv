@@ -18,7 +18,7 @@ defmodule VutuvWeb.Auth.Login do
   end
 
   defp get_user_struct({:ok, %{user_id: user_id}}) do
-    {:ok, Accounts.get_user(%{"user_id" => user_id})}
+    {:ok, Accounts.get_user(%{"id" => user_id})}
   end
 
   defp get_user_struct({:error, message}), do: {:error, message}

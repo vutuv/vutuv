@@ -42,6 +42,7 @@ defmodule VutuvWeb do
       import VutuvWeb.ErrorHelpers
       import VutuvWeb.Gettext
       alias VutuvWeb.Router.Helpers, as: Routes
+      alias VutuvWeb.ViewUtils
     end
   end
 

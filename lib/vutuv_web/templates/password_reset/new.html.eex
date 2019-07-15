@@ -1,4 +1,4 @@
-<h2><%= gettext "Reset password" %></h2>
+<h1><%= gettext "Reset password" %></h1>
 
 <p><%= gettext "A code has been sent to your email address. Enter that code below." %></p>
 

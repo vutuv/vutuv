@@ -99,6 +99,7 @@ main {
   justify-content: center;
 }
 .profile-header img {
+  border-radius: 50%;
   width: 100px;
   margin-right: 2rem;
 }
@@ -141,7 +142,7 @@ button.link {
 }
 @media screen and (min-width: 40.0rem) and (orientation: landscape) {
   body {
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: auto 1fr;
     grid-template-rows: 1fr auto;
     grid-template-areas: "header main"
                          "footer footer";
@@ -151,9 +152,6 @@ button.link {
     margin: 0 auto;
     min-width: 80%;
     align-self: center;
-  }
-  header {
-    text-align: right;
   }
   footer {
     text-align: left;

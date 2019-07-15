@@ -1,9 +1,8 @@
-<h1>Listing email addresses</h1>
+<h1><%= @current_user.full_name %> <%= gettext "email addresses" %></h1>
 
 <table>
   <thead>
     <tr>
-      <th><%= gettext "User" %></th>
       <th><%= gettext "Value" %></th>
       <th><%= gettext "Description" %></th>
       <th><%= gettext "is public" %></th>
@@ -16,7 +15,6 @@
   <tbody>
 <%= for email_address <- @email_addresses do %>
     <tr>
-      <td><%= email_address.user_id %></td>
       <td><%= email_address.value %></td>
       <td><%= email_address.description %></td>
       <td><%= email_address.is_public %></td>

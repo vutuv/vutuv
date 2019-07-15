@@ -20,7 +20,7 @@ defmodule VutuvWeb.UserControllerTest do
   describe "read user data" do
     test "lists all entries on index", %{conn: conn} do
       conn = get(conn, Routes.user_path(conn, :index))
-      assert html_response(conn, 200) =~ "Listing users"
+      assert html_response(conn, 200) =~ "Users"
     end
 
     test "show current user's page", %{conn: conn} do
@@ -84,7 +84,7 @@ defmodule VutuvWeb.UserControllerTest do
       attrs = %{"full_name" => "Raymond Luxury Yacht"}
       conn = put(conn, Routes.user_path(conn, :update, user), user: attrs)
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
-      updated_user = Accounts.get_user(%{"user_id" => user.id})
+      updated_user = Accounts.get_user(%{"id" => user.id})
       assert updated_user.full_name == "Raymond Luxury Yacht"
       conn = get(conn, Routes.user_path(conn, :show, user))
       assert html_response(conn, 200) =~ "Raymond Luxury Yacht"
@@ -94,7 +94,7 @@ defmodule VutuvWeb.UserControllerTest do
       attrs = %{"locale" => "de_CH"}
       conn = put(conn, Routes.user_path(conn, :update, user), user: attrs)
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
-      updated_user = Accounts.get_user(%{"user_id" => user.id})
+      updated_user = Accounts.get_user(%{"id" => user.id})
       assert updated_user.locale == "de_CH"
       conn = get(conn, Routes.user_path(conn, :show, user))
       assert html_response(conn, 200) =~ "de_CH"
@@ -113,14 +113,14 @@ defmodule VutuvWeb.UserControllerTest do
     test "deletes chosen user", %{conn: conn, user: user} do
       conn = delete(conn, Routes.user_path(conn, :delete, user))
       assert redirected_to(conn) == Routes.session_path(conn, :new)
-      refute Accounts.get_user(%{"user_id" => user.id})
+      refute Accounts.get_user(%{"id" => user.id})
     end
 
     test "cannot delete other user", %{conn: conn, user: user} do
       other = add_user("tony@example.com")
       conn = delete(conn, Routes.user_path(conn, :delete, other))
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
-      assert Accounts.get_user(%{"user_id" => other.id})
+      assert Accounts.get_user(%{"id" => other.id})
     end
   end
 

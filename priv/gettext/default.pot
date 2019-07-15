@@ -18,25 +18,30 @@ msgstr ""
 #, elixir-format
 #: lib/vutuv_web/templates/email_address/edit.html.eex:5
 #: lib/vutuv_web/templates/email_address/new.html.eex:5
-#: lib/vutuv_web/templates/email_address/show.html.eex:38
+#: lib/vutuv_web/templates/email_address/show.html.eex:33
+#: lib/vutuv_web/templates/post/edit.html.eex:5
+#: lib/vutuv_web/templates/post/new.html.eex:5
+#: lib/vutuv_web/templates/post/show.html.eex:10
 #: lib/vutuv_web/templates/user/edit.html.eex:5
 msgid "Back"
 msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/email_address/form.html.eex:16
-#: lib/vutuv_web/templates/email_address/index.html.eex:8
+#: lib/vutuv_web/templates/email_address/index.html.eex:7
 msgid "Description"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_address/show.html.eex:16
+#: lib/vutuv_web/templates/email_address/show.html.eex:11
 msgid "Description:"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_address/index.html.eex:28
-#: lib/vutuv_web/templates/email_address/show.html.eex:37
+#: lib/vutuv_web/templates/email_address/index.html.eex:26
+#: lib/vutuv_web/templates/email_address/show.html.eex:32
+#: lib/vutuv_web/templates/post/index.html.eex:26
+#: lib/vutuv_web/templates/post/show.html.eex:9
 #: lib/vutuv_web/templates/user/index.html.eex:18
 msgid "Edit"
 msgstr ""
@@ -75,6 +80,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/layout/app.html.eex:52
+#: lib/vutuv_web/templates/session/new.html.eex:1
 #: lib/vutuv_web/templates/session/new.html.eex:21
 msgid "Login"
 msgstr ""
@@ -101,50 +107,44 @@ msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/email_address/form.html.eex:24
-#: lib/vutuv_web/templates/email_address/index.html.eex:10
+#: lib/vutuv_web/templates/email_address/index.html.eex:9
 msgid "Position"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_address/show.html.eex:26
+#: lib/vutuv_web/templates/email_address/show.html.eex:21
 msgid "Position:"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_address/index.html.eex:27
+#: lib/vutuv_web/templates/email_address/index.html.eex:25
 #: lib/vutuv_web/templates/user/index.html.eex:16
 msgid "Show"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_address/index.html.eex:6
 #: lib/vutuv_web/templates/user/index.html.eex:6
 msgid "User"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_address/show.html.eex:6
-msgid "User:"
-msgstr ""
-
-#, elixir-format
 #: lib/vutuv_web/templates/email_address/form.html.eex:11
-#: lib/vutuv_web/templates/email_address/index.html.eex:7
+#: lib/vutuv_web/templates/email_address/index.html.eex:6
 msgid "Value"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_address/show.html.eex:11
+#: lib/vutuv_web/templates/email_address/show.html.eex:6
 msgid "Value:"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_address/index.html.eex:11
+#: lib/vutuv_web/templates/email_address/index.html.eex:10
 msgid "Verified"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_address/show.html.eex:31
+#: lib/vutuv_web/templates/email_address/show.html.eex:26
 msgid "Verified:"
 msgstr ""
 
@@ -178,7 +178,8 @@ msgid "Data privacy"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_address/index.html.eex:31
+#: lib/vutuv_web/templates/email_address/index.html.eex:29
+#: lib/vutuv_web/templates/post/index.html.eex:29
 msgid "Delete"
 msgstr ""
 
@@ -196,6 +197,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/email_address/form.html.eex:29
+#: lib/vutuv_web/templates/post/form.html.eex:19
 #: lib/vutuv_web/templates/user/edit_form.html.eex:64
 msgid "Save"
 msgstr ""
@@ -206,6 +208,7 @@ msgstr ""
 #: lib/vutuv_web/templates/password_reset/edit.html.eex:8
 #: lib/vutuv_web/templates/password_reset/new.html.eex:8
 #: lib/vutuv_web/templates/password_reset/new_request.html.eex:8
+#: lib/vutuv_web/templates/post/form.html.eex:4
 #: lib/vutuv_web/templates/session/new.html.eex:6
 #: lib/vutuv_web/templates/user/edit_form.html.eex:4
 #: lib/vutuv_web/templates/user/new_form.html.eex:4
@@ -214,7 +217,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/email_address/form.html.eex:20
-#: lib/vutuv_web/templates/email_address/index.html.eex:9
+#: lib/vutuv_web/templates/email_address/index.html.eex:8
 msgid "is public"
 msgstr ""
 
@@ -249,11 +252,12 @@ msgid "Locale"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_address/show.html.eex:21
+#: lib/vutuv_web/templates/email_address/show.html.eex:16
 msgid "is public:"
 msgstr ""
 
 #, elixir-format
+#: lib/vutuv_web/templates/email_address/edit.html.eex:1
 #: lib/vutuv_web/templates/user/show.html.eex:62
 msgid "Edit email address"
 msgstr ""
@@ -276,6 +280,7 @@ msgid "Listing users"
 msgstr ""
 
 #, elixir-format
+#: lib/vutuv_web/templates/email_address/new.html.eex:1
 #: lib/vutuv_web/templates/user/show.html.eex:66
 msgid "New email address"
 msgstr ""
@@ -306,11 +311,13 @@ msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/user/edit_form.html.eex:34
+#: lib/vutuv_web/view_utils.ex:18
 msgid "April"
 msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/user/edit_form.html.eex:38
+#: lib/vutuv_web/view_utils.ex:22
 msgid "August"
 msgstr ""
 
@@ -322,11 +329,13 @@ msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/user/edit_form.html.eex:42
+#: lib/vutuv_web/view_utils.ex:26
 msgid "December"
 msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/user/edit_form.html.eex:32
+#: lib/vutuv_web/view_utils.ex:16
 msgid "February"
 msgstr ""
 
@@ -343,36 +352,43 @@ msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/user/edit_form.html.eex:31
+#: lib/vutuv_web/view_utils.ex:15
 msgid "January"
 msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/user/edit_form.html.eex:37
+#: lib/vutuv_web/view_utils.ex:21
 msgid "July"
 msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/user/edit_form.html.eex:36
+#: lib/vutuv_web/view_utils.ex:20
 msgid "June"
 msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/user/edit_form.html.eex:33
+#: lib/vutuv_web/view_utils.ex:17
 msgid "March"
 msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/user/edit_form.html.eex:35
+#: lib/vutuv_web/view_utils.ex:19
 msgid "May"
 msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/user/edit_form.html.eex:41
+#: lib/vutuv_web/view_utils.ex:25
 msgid "November"
 msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/user/edit_form.html.eex:40
+#: lib/vutuv_web/view_utils.ex:24
 msgid "October"
 msgstr ""
 
@@ -388,6 +404,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/user/edit_form.html.eex:39
+#: lib/vutuv_web/view_utils.ex:23
 msgid "September"
 msgstr ""
 
@@ -443,4 +460,66 @@ msgstr ""
 #, elixir-format
 #: lib/vutuv_web/templates/confirm/new.html.eex:23
 msgid "Resend code"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/post/form.html.eex:14
+#: lib/vutuv_web/templates/post/index.html.eex:10
+msgid "Body"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/post/edit.html.eex:1
+msgid "Edit post"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/email_address/show.html.eex:1
+msgid "Email address"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/post/new.html.eex:1
+msgid "New post"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/post/index.html.eex:11
+msgid "Published"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/post/index.html.eex:24
+msgid "Read"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/post/form.html.eex:10
+#: lib/vutuv_web/templates/post/index.html.eex:9
+msgid "Title"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/user/show.html.eex:1
+msgid "User profile"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/email_address/index.html.eex:1
+msgid "email addresses"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/post/index.html.eex:4
+msgid "has no posts yet"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/post/index.html.eex:1
+msgid "posts"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/post/show.html.eex:3
+msgid "By"
 msgstr ""

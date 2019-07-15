@@ -1,4 +1,4 @@
-<h1>Edit email address</h1>
+<h1><%= gettext "Edit email address" %></h1>
 
 <%= render "form.html", Map.put(assigns, :action, Routes.user_email_address_path(@conn, :update, @current_user, @email_address)) %>
 
