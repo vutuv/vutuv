@@ -22,6 +22,7 @@ defmodule VutuvWeb.Router do
 
     resources "/users", UserController, except: [:new], param: "slug" do
       resources "/email_addresses", EmailAddressController
+      resources "/posts", PostController
     end
 
     resources "/sessions", SessionController, only: [:new, :create, :delete]

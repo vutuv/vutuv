@@ -1,4 +1,4 @@
-<h2><%= gettext "Confirm user email address" %></h2>
+<h1><%= gettext "Confirm user email address" %></h1>
 
 <p><%= gettext "A code has been sent to your email address. Enter that code below." %></p>
 
@@ -20,4 +20,4 @@
   </div>
 <% end %>
 
-<%= link gettext("Resend code"), to: Routes.confirm_path(@conn, :new) %>
+<%= link gettext("Resend code"), to: Routes.confirm_path(@conn, :new, email: @email) %>

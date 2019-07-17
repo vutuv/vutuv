@@ -4,7 +4,7 @@ defmodule VutuvWeb.UserController do
   import VutuvWeb.Authorize
 
   alias Phauxth.Log
-  alias Vutuv.{Accounts, Accounts.User}
+  alias Vutuv.{Accounts, Accounts.User, Socials}
 
   @dialyzer {:nowarn_function, new: 2}
 
@@ -42,8 +42,14 @@ defmodule VutuvWeb.UserController do
     end
   end
 
-  def show(%Plug.Conn{assigns: %{current_user: user}} = conn, %{"slug" => slug}) do
-    case get_user(user, slug) do
+  def show(%Plug.Conn{assigns: %{current_user: %{slug: slug} = user}} = conn, %{"slug" => slug}) do
+    email_addresses = Accounts.list_email_addresses(user)
+    posts = Socials.list_posts(user)
+    render(conn, "show.html", user: user, email_addresses: email_addresses, posts: posts)
+  end
+
+  def show(%Plug.Conn{assigns: %{current_user: _user}} = conn, %{"slug" => slug}) do
+    case Accounts.get_user(%{"slug" => slug}) do
       nil ->
         conn
         |> put_view(VutuvWeb.ErrorView)
@@ -51,7 +57,8 @@ defmodule VutuvWeb.UserController do
 
       user ->
         email_addresses = Accounts.list_email_addresses(user, :public)
-        render(conn, "show.html", user: user, email_addresses: email_addresses)
+        posts = Socials.list_posts(user, :public)
+        render(conn, "show.html", user: user, email_addresses: email_addresses, posts: posts)
     end
   end
 
@@ -87,7 +94,4 @@ defmodule VutuvWeb.UserController do
   end
 
   defp add_accept_language_to_params(_, user_params), do: user_params
-
-  defp get_user(%{slug: slug} = user, slug), do: user
-  defp get_user(_user, slug), do: Accounts.get_user(%{"slug" => slug})
 end

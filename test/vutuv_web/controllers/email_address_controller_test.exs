@@ -43,7 +43,6 @@ defmodule VutuvWeb.EmailAddressControllerTest do
     test "renders form for new email_addresses", %{conn: conn, user: user} do
       conn = get(conn, Routes.user_email_address_path(conn, :new, user))
       assert html_response(conn, 200) =~ "New email address"
-      assert html_response(conn, 200) =~ "Value"
     end
 
     test "renders form for editing chosen email_address", %{
@@ -71,7 +70,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
       email_address: email_address
     } do
       conn = get(conn, Routes.user_email_address_path(conn, :show, user, email_address))
-      assert html_response(conn, 200) =~ "Show email address"
+      assert html_response(conn, 200) =~ email_address.value
     end
 
     test "redirects for non-existent email_address", %{conn: conn, user: user} do

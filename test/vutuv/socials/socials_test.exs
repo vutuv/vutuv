@@ -4,14 +4,14 @@ defmodule Vutuv.SocialsTest do
   import Vutuv.Factory
   import VutuvWeb.AuthTestHelpers
 
-  alias Vutuv.{Socials, Socials.Post}
+  alias Vutuv.{Accounts, Socials, Socials.Post}
 
-  @valid_attrs %{
+  @create_post_attrs %{
     body: Faker.Company.bs(),
     title: Faker.Company.name(),
     visibility_level: "private"
   }
-  @update_attrs %{
+  @update_post_attrs %{
     body: Faker.Company.bs(),
     title: Faker.Company.name(),
     visibility_level: "public"
@@ -29,9 +29,10 @@ defmodule Vutuv.SocialsTest do
       assert length(Socials.list_posts(user)) == 2
     end
 
-    test "get_post/1 returns the post with given id" do
+    test "get_post/2 returns a user's post with given id" do
       %Post{id: post_id, title: title, body: body, user_id: user_id} = insert(:post)
-      post = Socials.get_post(post_id)
+      user = Accounts.get_user(%{"id" => user_id})
+      post = Socials.get_post(user, %{"id" => post_id})
       assert post.title == title
       assert post.body == body
       assert post.user_id == user_id
@@ -41,20 +42,20 @@ defmodule Vutuv.SocialsTest do
   describe "create / update posts" do
     test "create_post/2 with valid data creates a post" do
       user = add_user("froderick@mail.com")
-      assert {:ok, %Post{} = post} = Socials.create_post(user, @valid_attrs)
-      assert post.body == @valid_attrs[:body]
+      assert {:ok, %Post{} = post} = Socials.create_post(user, @create_post_attrs)
+      assert post.body == @create_post_attrs[:body]
       assert post.published_at == DateTime.truncate(DateTime.utc_now(), :second)
-      assert post.title == @valid_attrs[:title]
+      assert post.title == @create_post_attrs[:title]
       assert post.visibility_level == "private"
     end
 
     test "create_post/2 with just required attrs" do
-      attrs = %{body: "some body", title: "some title"}
+      attrs = %{body: Faker.Lorem.Shakespeare.romeo_and_juliet(), title: Faker.Company.name()}
       user = add_user("froderick@mail.com")
       assert {:ok, %Post{} = post} = Socials.create_post(user, attrs)
-      assert post.body == "some body"
+      assert post.body == attrs[:body]
       assert post.published_at == DateTime.truncate(DateTime.utc_now(), :second)
-      assert post.title == "some title"
+      assert post.title == attrs[:title]
       assert post.visibility_level == "private"
     end
 
@@ -65,9 +66,9 @@ defmodule Vutuv.SocialsTest do
 
     test "update_post/2 with valid data updates the post" do
       post = insert(:post)
-      assert {:ok, %Post{} = post} = Socials.update_post(post, @update_attrs)
-      assert post.body == @update_attrs[:body]
-      assert post.title == @update_attrs[:title]
+      assert {:ok, %Post{} = post} = Socials.update_post(post, @update_post_attrs)
+      assert post.body == @update_post_attrs[:body]
+      assert post.title == @update_post_attrs[:title]
       assert post.visibility_level == "public"
     end
 
@@ -76,7 +77,7 @@ defmodule Vutuv.SocialsTest do
       post = insert(:post, %{published_at: published_at})
 
       assert {:ok, %Post{published_at: published_at} = post} =
-               Socials.update_post(post, @update_attrs)
+               Socials.update_post(post, @update_post_attrs)
 
       assert post.published_at == published_at
     end
@@ -91,7 +92,8 @@ defmodule Vutuv.SocialsTest do
     test "delete_post/1 deletes the post" do
       post = insert(:post)
       assert {:ok, %Post{}} = Socials.delete_post(post)
-      refute Socials.get_post(post.id)
+      user = Accounts.get_user(%{"id" => post.user_id})
+      refute Socials.get_post(user, %{"id" => post.id})
     end
   end
 

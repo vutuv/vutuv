@@ -35,7 +35,7 @@ defmodule Vutuv.AccountsTest do
       assert length(Accounts.list_users()) == 2
     end
 
-    test "get_user returns the user with given id", %{user: user} do
+    test "get_user returns the user with given slug", %{user: user} do
       user_1 = Accounts.get_user(%{"slug" => user.slug})
       assert user_1.id == user.id
       assert user_1.full_name == user.full_name
@@ -142,7 +142,7 @@ defmodule Vutuv.AccountsTest do
       [email_address] = user.email_addresses
       assert Repo.get(EmailAddress, email_address.id)
       assert {:ok, %User{}} = Accounts.delete_user(user)
-      refute Accounts.get_user(%{"user_id" => user.id})
+      refute Accounts.get_user(%{"id" => user.id})
       refute Repo.get(EmailAddress, email_address.id)
     end
   end
@@ -211,7 +211,7 @@ defmodule Vutuv.AccountsTest do
       {:ok, email_address} = Accounts.create_email_address(user, email_attrs)
       assert email_address.position == 2
       email_attrs = Map.merge(@create_email_attrs, %{"value" => "zyx@example.com"})
-      user = Accounts.get_user(%{"user_id" => user.id})
+      user = Accounts.get_user(%{"id" => user.id})
       {:ok, email_address} = Accounts.create_email_address(user, email_attrs)
       assert email_address.position == 3
     end

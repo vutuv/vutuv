@@ -27,18 +27,18 @@ defmodule Vutuv.Accounts do
     Repo.get_by(User, %{slug: slug})
   end
 
-  def get_user(%{"user_id" => user_id}) do
+  def get_user(%{"id" => user_id}) do
     Repo.get(User, user_id)
   end
 
   def get_user(%{"session_id" => session_id}) do
     with %Session{user_id: user_id} <- Sessions.get_session(session_id),
-         do: get_user(%{"user_id" => user_id})
+         do: get_user(%{"id" => user_id})
   end
 
   def get_user(%{"email" => email}) do
     with %EmailAddress{user_id: user_id} <- Repo.get_by(EmailAddress, %{value: email}),
-         do: get_user(%{"user_id" => user_id})
+         do: get_user(%{"id" => user_id})
   end
 
   @doc """
@@ -119,7 +119,7 @@ defmodule Vutuv.Accounts do
   """
   @spec update_password(UserCredential.t(), map) :: {:ok, UserCredential.t()} | changeset_error
   def update_password(%UserCredential{user_id: user_id} = user_credential, attrs) do
-    Sessions.delete_user_sessions(get_user(%{"user_id" => user_id}))
+    Sessions.delete_user_sessions(get_user(%{"id" => user_id}))
 
     user_credential
     |> UserCredential.update_password_changeset(attrs)

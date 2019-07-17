@@ -1,4 +1,4 @@
-<h2>User profile</h2>
+<h1><%= @user.preferred_name || @user.full_name %> <%= gettext "profile" %></h1>
 
 <div>
   <ul>
@@ -33,18 +33,13 @@
     </li>
 
     <li>
-      <strong><%= gettext "Locale:" %></strong>
-      <%= @user.locale %>
-    </li>
-
-    <li>
       <strong><%= gettext "Headline:" %></strong>
       <%= @user.headline %>
     </li>
 
     <li>
-      <strong><%= gettext "Noindex?:" %></strong>
-      <%= @user.noindex? %>
+      <strong><%= gettext "Locale:" %></strong>
+      <%= @user.locale %>
     </li>
 
   </ul>
@@ -66,15 +61,26 @@
     <span><%= link gettext("New email address"), to: Routes.user_email_address_path(@conn, :new, @user) %></span>
   </div>
 <% else %>
-  <%= unless public_email_addresses(@email_addresses) == [] do %>
+  <%= unless @email_addresses == [] do %>
     <div>
       <h3><%= gettext "Email addresses" %></h3>
 
-      <%= for email_address <- public_email_addresses(@email_addresses) do %>
+      <%= for email_address <- @email_addresses do %>
         <tr>
           <td><%= email_address.value %></td> <br>
         </tr>
       <% end %>
     </div>
   <% end %>
+<% end %>
+<%= unless @posts == [] do %>
+  <div>
+    <h3><%= gettext "Posts" %></h3>
+
+    <%= for post <- @posts do %>
+      <tr>
+        <td><%= post.title %></td> <br>
+      </tr>
+    <% end %>
+  </div>
 <% end %>

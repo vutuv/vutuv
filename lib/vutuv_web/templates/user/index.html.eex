@@ -1,4 +1,4 @@
-<h1><%= gettext "Listing users" %></h1>
+<h1><%= gettext "Users" %></h1>
 
 <table>
   <thead>

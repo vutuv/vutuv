@@ -6,12 +6,12 @@ defmodule Vutuv.Socials do
   import Ecto
   import Ecto.Query, warn: false
 
-  alias Vutuv.{Accounts.User, Repo, Socials.Post}
+  alias Vutuv.{Accounts.User, Repo, Socials.Post, Tags.Tag}
 
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 
   @doc """
-  Returns the list of posts.
+  Returns a list of posts.
   """
   @spec list_posts() :: [Post.t()]
   def list_posts do
@@ -27,10 +27,28 @@ defmodule Vutuv.Socials do
   end
 
   @doc """
-  Gets a single post.
+  Returns a list of a user's visible posts.
   """
-  @spec get_post(integer) :: Post.t() | nil
-  def get_post(id), do: Repo.get(Post, id)
+  @spec list_posts(User.t(), :public) :: [Post.t()]
+  # FIXME: riverrun - 2019-07-17
+  # add check based on user followers - after followers have been added to users
+  def list_posts(user, :public) do
+    user
+    |> assoc(:posts)
+    |> where([p], p.visibility_level == "public")
+    |> Repo.all()
+  end
+
+  @doc """
+  Gets a specific user's post.
+  """
+  @spec get_post(User.t(), map) :: Post.t() | nil
+  def get_post(%User{} = user, %{"id" => id}) do
+    user
+    |> assoc(:posts)
+    |> where([p], p.id == ^id)
+    |> Repo.one()
+  end
 
   @doc """
   Creates a post.
@@ -67,5 +85,14 @@ defmodule Vutuv.Socials do
   @spec change_post(Post.t()) :: Ecto.Changeset.t()
   def change_post(%Post{} = post) do
     Post.changeset(post, %{})
+  end
+
+  @doc """
+  Updates the association between a post and already existing tags.
+  """
+  @spec update_post_tags(Post.t(), list) :: {:ok, Post.t()} | changeset_error
+  def update_post_tags(%Post{} = post, tag_ids) do
+    tags = Tag |> where([t], t.id in ^tag_ids) |> Repo.all()
+    post |> Repo.preload([:tags]) |> Post.post_tag_changeset(tags) |> Repo.update()
   end
 end
