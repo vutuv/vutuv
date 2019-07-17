@@ -6,7 +6,7 @@ defmodule Vutuv.Socials do
   import Ecto
   import Ecto.Query, warn: false
 
-  alias Vutuv.{Accounts.User, Repo, Socials.Post}
+  alias Vutuv.{Accounts.User, Repo, Socials.Post, Tags.Tag}
 
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 
@@ -85,5 +85,14 @@ defmodule Vutuv.Socials do
   @spec change_post(Post.t()) :: Ecto.Changeset.t()
   def change_post(%Post{} = post) do
     Post.changeset(post, %{})
+  end
+
+  @doc """
+  Updates the association between a post and already existing tags.
+  """
+  @spec update_post_tags(Post.t(), list) :: {:ok, Post.t()} | changeset_error
+  def update_post_tags(%Post{} = post, tag_ids) do
+    tags = Tag |> where([t], t.id in ^tag_ids) |> Repo.all()
+    post |> Repo.preload([:tags]) |> Post.post_tag_changeset(tags) |> Repo.update()
   end
 end

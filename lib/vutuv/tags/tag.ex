@@ -3,7 +3,7 @@ defmodule Vutuv.Tags.Tag do
 
   import Ecto.Changeset
 
-  alias Vutuv.Accounts.User
+  alias Vutuv.{Accounts.User, Socials.Post}
 
   @type t :: %__MODULE__{
           id: integer,
@@ -12,6 +12,8 @@ defmodule Vutuv.Tags.Tag do
           description: String.t(),
           slug: String.t(),
           url: String.t(),
+          posts: [Post.t()] | %Ecto.Association.NotLoaded{},
+          users: [User.t()] | %Ecto.Association.NotLoaded{},
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
         }
@@ -23,6 +25,7 @@ defmodule Vutuv.Tags.Tag do
     field :slug, :string
     field :url, :string
 
+    many_to_many :posts, Post, join_through: "post_tags", on_replace: :delete
     many_to_many :users, User, join_through: "user_tags", on_replace: :delete
 
     timestamps(type: :utc_datetime)

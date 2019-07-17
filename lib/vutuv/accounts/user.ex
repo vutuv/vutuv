@@ -25,6 +25,7 @@ defmodule Vutuv.Accounts.User do
           phone_numbers: [PhoneNumber.t()] | %Ecto.Association.NotLoaded{},
           posts: [Post.t()] | %Ecto.Association.NotLoaded{},
           sessions: [Session.t()] | %Ecto.Association.NotLoaded{},
+          tags: [Tag.t()] | %Ecto.Association.NotLoaded{},
           user_credential: UserCredential.t() | %Ecto.Association.NotLoaded{},
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
