@@ -21,9 +21,9 @@
   <%= select f, :gender, [{gettext("Female"), "female"}, {gettext("Male"), "male"}, {gettext("Other"), "other"}] %>
   <%= error_tag f, :gender %>
 
-  <%= label f, :noindex?, gettext("Prevent search engines from indexing your profile") %>
-  <%= checkbox f, :noindex? %>
-  <%= error_tag f, :noindex? %>
+  <%= label f, :noindex, gettext("Prevent search engines from indexing your profile") %>
+  <%= checkbox f, :noindex %>
+  <%= error_tag f, :noindex %>
 
   <div>
     <%= submit gettext("Sign up") %>

@@ -10,9 +10,9 @@ defmodule VutuvWeb.UserController do
 
   plug :slug_check when action in [:edit, :update, :delete]
 
-  def index(conn, _) do
-    users = Accounts.list_users()
-    render(conn, "index.html", users: users)
+  def index(conn, params) do
+    page = Accounts.list_users(params)
+    render(conn, "index.html", users: page.entries, page: page)
   end
 
   def new(%Plug.Conn{assigns: %{current_user: %User{} = user}} = conn, _) do

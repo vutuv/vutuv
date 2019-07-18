@@ -21,7 +21,7 @@ defmodule Vutuv.Factory do
       honorific_prefix: sequence(:honorific_prefix, ["Dr", "Mr", "Ms"]),
       honorific_suffix: sequence(:honorific_suffix, ["", "PhD"]),
       locale: sequence(:locale, ["en", "de"]),
-      noindex?: true
+      noindex: false
     }
   end
 

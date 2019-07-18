@@ -1,6 +1,7 @@
 defmodule VutuvWeb.UserControllerTest do
   use VutuvWeb.ConnCase
 
+  import Vutuv.Factory
   import VutuvWeb.AuthTestHelpers
 
   alias Vutuv.Accounts
@@ -19,8 +20,14 @@ defmodule VutuvWeb.UserControllerTest do
 
   describe "read user data" do
     test "lists all entries on index", %{conn: conn} do
+      users = insert_list(12, :user)
+      first_page_user = Enum.at(users, 5)
+      second_page_user = Enum.at(users, -1)
       conn = get(conn, Routes.user_path(conn, :index))
-      assert html_response(conn, 200) =~ "Users"
+      response = html_response(conn, 200)
+      assert response =~ "Users"
+      assert response =~ first_page_user.slug
+      refute response =~ second_page_user.slug
     end
 
     test "show current user's page", %{conn: conn} do

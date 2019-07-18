@@ -20,7 +20,7 @@ defmodule Vutuv.Accounts.User do
           honorific_suffix: String.t(),
           locale: String.t(),
           accept_language: String.t(),
-          noindex?: boolean,
+          noindex: boolean,
           email_addresses: [EmailAddress.t()] | %Ecto.Association.NotLoaded{},
           phone_numbers: [PhoneNumber.t()] | %Ecto.Association.NotLoaded{},
           posts: [Post.t()] | %Ecto.Association.NotLoaded{},
@@ -45,7 +45,7 @@ defmodule Vutuv.Accounts.User do
     field :honorific_suffix, :string
     field :locale, :string
     field :accept_language, :string
-    field :noindex?, :boolean, default: false
+    field :noindex, :boolean, default: false
 
     has_many :email_addresses, EmailAddress, on_delete: :delete_all
     has_many :phone_numbers, PhoneNumber, on_delete: :delete_all
@@ -71,7 +71,7 @@ defmodule Vutuv.Accounts.User do
       :birthday,
       :locale,
       :headline,
-      :noindex?
+      :noindex
     ])
     |> unique_constraint(:slug)
     |> cast_attachments(attrs, [:avatar])
@@ -93,7 +93,7 @@ defmodule Vutuv.Accounts.User do
       end
 
     user
-    |> cast(attrs, [:full_name, :gender, :locale])
+    |> cast(attrs, [:full_name, :gender, :locale, :noindex])
     |> validate_required([:full_name, :gender])
     |> validate_length(:full_name, max: 80)
     |> change(%{accept_language: al})
