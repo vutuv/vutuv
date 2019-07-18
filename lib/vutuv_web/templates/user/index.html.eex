@@ -13,7 +13,11 @@
         <td><%= user.full_name %></td>
 
         <td>
-          <%= link gettext("Show"), to: Routes.user_path(@conn, :show, user) %>
+          <%= if user.noindex do %>
+            <%= link gettext("Show"), rel: "nofollow", to: Routes.user_path(@conn, :show, user) %>
+          <% else %>
+            <%= link gettext("Show"), to: Routes.user_path(@conn, :show, user) %>
+          <% end %>
           <%= if @current_user && @current_user.id == user.id do %>
             <%= link gettext("Edit"), to: Routes.user_path(@conn, :edit, user) %>
           <% end %>
@@ -22,5 +26,20 @@
     <% end %>
   </tbody>
 </table>
+
+<div>
+  <span>
+    <%= link gettext("Previous"),
+        class: "button",
+        disabled: @page.page_number < 2,
+        to: Routes.user_path(@conn, :index, page: @page.page_number - 1) %>
+  </span>
+  <span>
+    <%= link gettext("Next"),
+        class: "button",
+        disabled: @page.page_number >= @page.total_pages,
+        to: Routes.user_path(@conn, :index, page: @page.page_number + 1) %>
+  </span>
+</div>
 
 <span><%= link gettext("New user"), to: Routes.user_path(@conn, :new) %></span>

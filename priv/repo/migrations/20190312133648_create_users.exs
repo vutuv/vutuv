@@ -14,7 +14,7 @@ defmodule Vutuv.Repo.Migrations.CreateUsers do
       add :accept_language, :string
       add :avatar, :string
       add :headline, :string
-      add :noindex?, :boolean, default: false, null: false
+      add :noindex, :boolean, default: false, null: false
 
       timestamps()
     end

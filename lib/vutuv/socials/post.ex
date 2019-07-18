@@ -38,7 +38,7 @@ defmodule Vutuv.Socials.Post do
     post
     |> cast(attrs, [:body, :title, :page_info_cache, :visibility_level])
     |> validate_required([:body, :title])
-    |> validate_length(:body, max: 255)
+    |> validate_length(:body, max: 150_000)
     |> validate_length(:title, max: 255)
     |> unique_constraint(:title)
   end

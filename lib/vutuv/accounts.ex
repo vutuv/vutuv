@@ -12,11 +12,19 @@ defmodule Vutuv.Accounts do
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 
   @doc """
-  Returns the list of users.
+  Returns a list of all users.
   """
   @spec list_users() :: [User.t()]
   def list_users() do
-    Repo.all(User)
+    User |> user_query() |> Repo.all()
+  end
+
+  @doc """
+  Returns a list of all users in a paginated struct.
+  """
+  @spec list_users(map) :: Scrivener.Page.t()
+  def list_users(attrs) do
+    User |> user_query() |> Repo.paginate(attrs)
   end
 
   @doc """
@@ -24,11 +32,11 @@ defmodule Vutuv.Accounts do
   """
   @spec get_user(map) :: User.t() | nil
   def get_user(%{"slug" => slug}) do
-    Repo.get_by(User, %{slug: slug})
+    User |> where([u], u.slug == ^slug) |> user_query() |> Repo.one()
   end
 
   def get_user(%{"id" => user_id}) do
-    Repo.get(User, user_id)
+    User |> where([u], u.id == ^user_id) |> user_query() |> Repo.one()
   end
 
   def get_user(%{"session_id" => session_id}) do
@@ -41,8 +49,14 @@ defmodule Vutuv.Accounts do
          do: get_user(%{"id" => user_id})
   end
 
+  defp user_query(user) do
+    user
+    |> join(:left, [u], _ in assoc(u, :tags))
+    |> preload([_, t], tags: t)
+  end
+
   @doc """
-  Gets a user based on the params.
+  Gets a user based on the attrs.
 
   This is used by Phauxth to get user information.
   """

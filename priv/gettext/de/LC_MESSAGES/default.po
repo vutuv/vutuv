@@ -43,7 +43,7 @@ msgstr "Beschreibung"
 #: lib/vutuv_web/templates/email_address/show.html.eex:32
 #: lib/vutuv_web/templates/post/index.html.eex:26
 #: lib/vutuv_web/templates/post/show.html.eex:9
-#: lib/vutuv_web/templates/user/index.html.eex:18
+#: lib/vutuv_web/templates/user/index.html.eex:22
 msgid "Edit"
 msgstr "Ändern"
 
@@ -80,7 +80,7 @@ msgid "Locale:"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:53
+#: lib/vutuv_web/templates/layout/app.html.eex:48
 #: lib/vutuv_web/templates/session/new.html.eex:1
 #: lib/vutuv_web/templates/session/new.html.eex:21
 msgid "Login"
@@ -92,12 +92,12 @@ msgid "Login here"
 msgstr "Einloggen hier"
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:49
+#: lib/vutuv_web/templates/layout/app.html.eex:44
 msgid "Logout"
 msgstr "Ausloggen"
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/index.html.eex:26
+#: lib/vutuv_web/templates/user/index.html.eex:45
 msgid "New user"
 msgstr "Neue User"
 
@@ -114,7 +114,8 @@ msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/email_address/index.html.eex:25
-#: lib/vutuv_web/templates/user/index.html.eex:16
+#: lib/vutuv_web/templates/user/index.html.eex:17
+#: lib/vutuv_web/templates/user/index.html.eex:19
 msgid "Show"
 msgstr "Anzeigen"
 
@@ -164,12 +165,12 @@ msgid "Sign up"
 msgstr "Anmelden"
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:43
+#: lib/vutuv_web/templates/layout/app.html.eex:38
 msgid "About"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:44
+#: lib/vutuv_web/templates/layout/app.html.eex:39
 msgid "Data privacy"
 msgstr ""
 
@@ -291,7 +292,7 @@ msgstr "Sonstiges"
 
 #, elixir-format
 #: lib/vutuv_web/templates/error/404.html.eex:15
-#: lib/vutuv_web/templates/layout/app.html.eex:32
+#: lib/vutuv_web/templates/layout/app.html.eex:27
 msgid "The fast, secure and less annoying social network."
 msgstr ""
 
@@ -510,7 +511,7 @@ msgstr ""
 msgid "Just for followers"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/vutuv_web/templates/user/show.html.eex:78
 msgid "Posts"
 msgstr ""
@@ -531,8 +532,8 @@ msgstr ""
 msgid "Public"
 msgstr ""
 
-#, elixir-format, fuzzy
-#: lib/vutuv_web/templates/layout/app.html.eex:45
+#, elixir-format
+#: lib/vutuv_web/templates/layout/app.html.eex:40
 #: lib/vutuv_web/templates/user/index.html.eex:1
 msgid "Users"
 msgstr "User"
@@ -545,4 +546,14 @@ msgstr ""
 #, elixir-format
 #: lib/vutuv_web/templates/user/show.html.eex:1
 msgid "profile"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/user/index.html.eex:38
+msgid "Next"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/user/index.html.eex:32
+msgid "Previous"
 msgstr ""

@@ -77,14 +77,8 @@ main {
   grid-area: main;
   position: relative;
 }
-.v-bg {
-  display: none;
-}
-.inset h1 {
-  font-size: 10.8rem;
-  line-height: 1.2;
-  color: #6e87a6;
-  text-shadow: -1px -1px 1px #000, 1px 1px 1px #ccc;
+.logo svg {
+  width: 16rem;
 }
 .content {
   background: linear-gradient(180deg, #ffffff, #f2f2f2);
@@ -97,6 +91,7 @@ main {
   display: flex;
   align-items: end;
   justify-content: center;
+  margin-bottom: 2rem;
 }
 .profile-header img {
   border-radius: 50%;
@@ -155,16 +150,5 @@ button.link {
   }
   footer {
     text-align: left;
-  }
-  .v-bg {
-    grid-column: 2;
-    grid-row: 1;
-    display: block;
-    opacity: 0.2;
-    z-index: -1;
-  }
-  .v-bg svg {
-    margin-left: -35rem;
-    height: 80rem;
   }
 }

@@ -23,15 +23,15 @@ defmodule VutuvWeb.PostControllerTest do
 
   describe "read posts" do
     test "lists all of a user's posts", %{conn: conn, user: user} do
-      post = insert(:post, %{user: user})
+      _post = insert(:post, %{user: user})
       conn = get(conn, Routes.user_post_path(conn, :index, user))
-      assert html_response(conn, 200) =~ post.title
+      assert html_response(conn, 200) =~ dirty_escape(user.full_name)
     end
 
     test "shows a specific post", %{conn: conn, user: user} do
       post = insert(:post, %{user: user})
       conn = get(conn, Routes.user_post_path(conn, :show, user, post))
-      assert html_response(conn, 200) =~ post.title
+      assert html_response(conn, 200) =~ dirty_escape(post.title)
     end
   end
 
@@ -75,12 +75,12 @@ defmodule VutuvWeb.PostControllerTest do
 
     test "does not update post when data is invalid", %{conn: conn, user: user} do
       post = insert(:post, %{user: user})
-      too_long = String.duplicate("too long", 32)
+      too_long = String.duplicate("toooo long", 15_000) <> "a"
 
       conn =
         put(conn, Routes.user_post_path(conn, :update, user, post), post: %{"body" => too_long})
 
-      assert html_response(conn, 200) =~ "should be at most 255 character"
+      assert html_response(conn, 200) =~ "should be at most 150000 character"
     end
   end
 
@@ -108,5 +108,10 @@ defmodule VutuvWeb.PostControllerTest do
   defp add_user_session(%{conn: conn, user: user}) do
     conn = conn |> add_session(user) |> send_resp(:ok, "/")
     {:ok, %{conn: conn, user: user}}
+  end
+
+  # helper function for checking safe html response
+  defp dirty_escape(input) do
+    String.replace(input, "'", "&#39;")
   end
 end

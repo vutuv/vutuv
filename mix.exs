@@ -37,6 +37,7 @@ defmodule Vutuv.MixProject do
       # Care needed when upgrading to 3.1 - tests failing with unknown field errors
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
+      {:scrivener_ecto, "~> 2.2"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:dialyxir, "~> 1.0.0-rc.3", only: :dev, runtime: false},

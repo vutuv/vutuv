@@ -26,13 +26,22 @@ defmodule Vutuv.AccountsTest do
   describe "read user data" do
     setup [:create_user]
 
-    test "list_users/1 returns all users", %{user: user} do
+    test "list_users/0 returns all users", %{user: user} do
       [user_1] = Accounts.list_users()
       assert user_1.id == user.id
       assert user_1.full_name == user.full_name
       assert length(Accounts.list_users()) == 1
       insert(:user)
       assert length(Accounts.list_users()) == 2
+    end
+
+    test "list_users/1 returns the users in a paginated struct", %{user: user} do
+      %Scrivener.Page{entries: [user_1]} = Accounts.list_users(%{})
+      assert user_1.id == user.id
+      assert user_1.full_name == user.full_name
+      assert %Scrivener.Page{total_entries: 1} = Accounts.list_users(%{})
+      insert(:user)
+      assert %Scrivener.Page{total_entries: 2} = Accounts.list_users(%{})
     end
 
     test "get_user returns the user with given slug", %{user: user} do
@@ -56,6 +65,17 @@ defmodule Vutuv.AccountsTest do
       assert user.locale == "en_CA"
       assert [%EmailAddress{value: value, position: 1}] = user.email_addresses
       assert value == "fred@example.com"
+    end
+
+    test "noindex is correctly set in create_user/1" do
+      assert {:ok, %User{} = user} = Accounts.create_user(@create_user_attrs)
+      assert user.noindex == false
+
+      attrs =
+        Map.merge(@create_user_attrs, %{"email" => "froderick@example.com", "noindex" => true})
+
+      assert {:ok, %User{} = user} = Accounts.create_user(attrs)
+      assert user.noindex == true
     end
 
     test "create_user/1 with invalid data returns error changeset" do

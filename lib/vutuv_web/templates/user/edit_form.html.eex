@@ -56,9 +56,9 @@
   <%= text_input f, :headline %>
   <%= error_tag f, :headline %>
 
-  <%= label f, :noindex?, gettext("Prevent search engines from indexing your profile") %>
-  <%= checkbox f, :noindex?, value: @user.noindex? %>
-  <%= error_tag f, :noindex? %>
+  <%= label f, :noindex, gettext("Prevent search engines from indexing your profile") %>
+  <%= checkbox f, :noindex, value: @user.noindex %>
+  <%= error_tag f, :noindex %>
 
   <div>
     <%= submit gettext("Save") %>
