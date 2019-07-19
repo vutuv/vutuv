@@ -23,7 +23,7 @@ defmodule Vutuv.Socials do
   """
   @spec list_posts(User.t()) :: [Post.t()]
   def list_posts(user) do
-    Repo.all(assoc(user, :posts))
+    user |> assoc(:posts) |> post_query() |> Repo.all()
   end
 
   @doc """
@@ -36,6 +36,7 @@ defmodule Vutuv.Socials do
     user
     |> assoc(:posts)
     |> where([p], p.visibility_level == "public")
+    |> post_query()
     |> Repo.all()
   end
 
@@ -47,7 +48,14 @@ defmodule Vutuv.Socials do
     user
     |> assoc(:posts)
     |> where([p], p.id == ^id)
+    |> post_query()
     |> Repo.one()
+  end
+
+  defp post_query(post) do
+    post
+    |> join(:left, [p], _ in assoc(p, :tags))
+    |> preload([_, t], tags: t)
   end
 
   @doc """
@@ -88,10 +96,10 @@ defmodule Vutuv.Socials do
   end
 
   @doc """
-  Updates the association between a post and already existing tags.
+  Adds an association between a post and existing tags.
   """
-  @spec update_post_tags(Post.t(), list) :: {:ok, Post.t()} | changeset_error
-  def update_post_tags(%Post{} = post, tag_ids) do
+  @spec add_post_tags(Post.t(), list) :: {:ok, Post.t()} | changeset_error
+  def add_post_tags(%Post{} = post, tag_ids) do
     tags = Tag |> where([t], t.id in ^tag_ids) |> Repo.all()
     post |> Repo.preload([:tags]) |> Post.post_tag_changeset(tags) |> Repo.update()
   end

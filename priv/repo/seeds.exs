@@ -5,6 +5,20 @@
 # It is also run when you use `mix ecto.setup` or `mix ecto.reset`
 #
 
+{:ok, js_tag} =
+  Vutuv.Tags.create_tag(%{
+    "description" => "JavaScript expertise",
+    "name" => "JavaScript",
+    "url" => "http://some-url.com"
+  })
+
+{:ok, prolog_tag} =
+  Vutuv.Tags.create_tag(%{
+    "description" => "Logic programming will save the world",
+    "name" => "Prolog",
+    "url" => "http://some-other-url.com"
+  })
+
 users = [
   %{
     "email" => "jane.doe@example.com",
@@ -24,7 +38,34 @@ users = [
     "password" => "reallyHard2gue$$",
     "full_name" => "Shanie Beatty",
     "gender" => "female"
-  },
+  }
+]
+
+for user <- users do
+  {:ok, %{email_addresses: [email_address], user_credential: user_credential} = user} =
+    Vutuv.Accounts.create_user(user)
+
+  Vutuv.Accounts.confirm_user(user_credential)
+  Vutuv.Accounts.confirm_email_address(email_address)
+  name = String.replace(user.full_name, " ", ".")
+
+  Vutuv.Accounts.create_email_address(user, %{
+    "value" => "#{name}_123@example.com"
+  })
+
+  Vutuv.Accounts.add_user_tags(user, [js_tag.id])
+
+  {:ok, post} =
+    Vutuv.Socials.create_post(user, %{
+      body: String.duplicate("Blablabla ", 25),
+      title: "Something to do with #{user.full_name}",
+      visibility_level: "public"
+    })
+
+  Vutuv.Socials.add_post_tags(post, [js_tag.id])
+end
+
+other_users = [
   %{
     "email" => "german.keeling@example.com",
     "password" => "reallyHard2gue$$",
@@ -176,21 +217,10 @@ users = [
   }
 ]
 
-for user <- users do
+for user <- other_users do
   {:ok, %{email_addresses: [email_address], user_credential: user_credential} = user} =
     Vutuv.Accounts.create_user(user)
 
   Vutuv.Accounts.confirm_user(user_credential)
   Vutuv.Accounts.confirm_email_address(email_address)
-  name = String.replace(user.full_name, " ", ".")
-
-  Vutuv.Accounts.create_email_address(user, %{
-    "value" => "#{name}_123@example.com"
-  })
-
-  Vutuv.Socials.create_post(user, %{
-    body: String.duplicate("Blablabla ", 25),
-    title: "Something to do with #{user.full_name}",
-    visibility_level: "public"
-  })
 end

@@ -55,6 +55,16 @@ defmodule Vutuv.Accounts.User do
 
     many_to_many :tags, Tag, join_through: "user_tags", on_replace: :delete
 
+    many_to_many :followers, __MODULE__,
+      join_through: "user_connections",
+      on_replace: :delete,
+      join_keys: [follower_id: :id, leader_id: :id]
+
+    many_to_many :leaders, __MODULE__,
+      join_through: "user_connections",
+      on_replace: :delete,
+      join_keys: [leader_id: :id, follower_id: :id]
+
     timestamps(type: :utc_datetime)
   end
 
@@ -109,6 +119,12 @@ defmodule Vutuv.Accounts.User do
     user
     |> cast(%{}, [:full_name, :gender])
     |> put_assoc(:tags, tags)
+  end
+
+  def leader_changeset(%__MODULE__{} = user, leaders) do
+    user
+    |> cast(%{}, [:full_name, :gender])
+    |> put_assoc(:leaders, leaders)
   end
 
   defp add_locale_data(%Ecto.Changeset{valid?: true, changes: %{locale: locale}} = changeset) do

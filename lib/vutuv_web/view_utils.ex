@@ -5,6 +5,16 @@ defmodule VutuvWeb.ViewUtils do
 
   import VutuvWeb.Gettext
 
+  @doc """
+  Arranges tags in a comma-separated list.
+  """
+  def stringify_tags(tags) do
+    Enum.map_join(tags, ", ", & &1.name)
+  end
+
+  @doc """
+  Formats the date.
+  """
   def beautify_date(%DateTime{year: year, month: month, day: day}) do
     "#{day} #{to_word(month)}, #{year}"
   end
