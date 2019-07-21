@@ -33,14 +33,14 @@ defmodule VutuvWeb.UserControllerTest do
     test "show current user's page", %{conn: conn} do
       {:ok, %{conn: conn, user: user}} = add_user_session(%{conn: conn})
       conn = get(conn, Routes.user_path(conn, :show, user))
-      assert html_response(conn, 200) =~ ~r/Date of birth(.|\n)*Edit email/
+      assert html_response(conn, 200) =~ ~r/Followers(.|\n)*Email addresses/
     end
 
     test "show other user's page - no edit links", %{conn: conn} do
       user = add_user("reg@example.com")
       conn = get(conn, Routes.user_path(conn, :show, user))
       response = html_response(conn, 200)
-      assert response =~ ~r/Preferred name(.|\n)*Date of birth/
+      assert response =~ ~r/Followers(.|\n)*Email addresses/
       refute response =~ "Edit email"
     end
 
@@ -103,7 +103,7 @@ defmodule VutuvWeb.UserControllerTest do
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
       updated_user = Accounts.get_user(%{"id" => user.id})
       assert updated_user.locale == "de_CH"
-      conn = get(conn, Routes.user_path(conn, :show, user))
+      conn = get(conn, Routes.user_path(conn, :edit, user))
       assert html_response(conn, 200) =~ "de_CH"
     end
 

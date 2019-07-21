@@ -9,12 +9,6 @@
   </head>
   <body>
     <header>
-      <%= if assigns[:user] do %>
-        <div class="profile-header">
-          <img src="<%= Vutuv.Avatar.url({@user.avatar, @user}, :medium) %>"/>
-          <h2><%= @user.full_name %></h2>
-        </div>
-      <% end %>
       <div class="logo">
         <svg viewBox="0 0 596 154">
           <path fill="#e6e6e6" d="M0 34 l44 114 h28 l44 -114 h-32 l-24 72 l-24 -72 z
@@ -24,7 +18,15 @@
              M432 34 l44 114 h28 l44 -114 h-32 l-24 72 l-24 -72 z" />
         </svg>
       </div>
-      <h2><%= gettext "The fast, secure and less annoying social network." %></h2>
+      <%= if @conn.request_path in ["/"] do %>
+        <h2><%= gettext "The fast, secure and less annoying social network." %></h2>
+      <% end %>
+      <%= if assigns[:user] do %>
+        <div class="profile-header">
+          <img src="<%= Vutuv.Avatar.url({@user.avatar, @user}, :medium) %>"/>
+          <h2><%= @user.full_name %></h2>
+        </div>
+      <% end %>
     </header>
     <main role="main">
       <article class="content">

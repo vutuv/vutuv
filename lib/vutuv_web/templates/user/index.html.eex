@@ -1,31 +1,6 @@
 <h1><%= gettext "Users" %></h1>
 
-<table>
-  <thead>
-    <tr>
-      <th><%= gettext "User" %></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= for user <- @users do %>
-      <tr>
-        <td><%= user.full_name %></td>
-
-        <td>
-          <%= if user.noindex do %>
-            <%= link gettext("Show"), rel: "nofollow", to: Routes.user_path(@conn, :show, user) %>
-          <% else %>
-            <%= link gettext("Show"), to: Routes.user_path(@conn, :show, user) %>
-          <% end %>
-          <%= if @current_user && @current_user.id == user.id do %>
-            <%= link gettext("Edit"), to: Routes.user_path(@conn, :edit, user) %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render "_users_table.html", conn: @conn, current_user: @current_user, users: @users %>
 
 <div>
   <span>

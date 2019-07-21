@@ -3,7 +3,8 @@
 <h3><%= gettext "By" %> <%= @user.full_name %></h3>
 <h4><%= ViewUtils.beautify_date(@post.published_at) %></h4>
 
-<p><strong><%= gettext "Tags:" %></strong> <%= ViewUtils.stringify_tags(@post.tags) %></p>
+<h4><%= gettext "Tags" %></h4>
+<p><%= ViewUtils.stringify_list(@user.tags) %></p>
 
 <p><%= @post.body %></p>
 

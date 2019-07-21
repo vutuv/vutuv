@@ -6,10 +6,13 @@ defmodule VutuvWeb.ViewUtils do
   import VutuvWeb.Gettext
 
   @doc """
-  Arranges tags in a comma-separated list.
+  Arranges items in a comma-separated list.
   """
-  def stringify_tags(tags) do
-    Enum.map_join(tags, ", ", & &1.name)
+  def stringify_list(items) do
+    Enum.map_join(items, ", ", fn
+      %{name: name} -> name
+      %{full_name: full_name} -> full_name
+    end)
   end
 
   @doc """

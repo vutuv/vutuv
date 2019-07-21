@@ -172,18 +172,11 @@ defmodule Vutuv.AccountsTest do
       {:ok, %User{id: user_id} = user} = Accounts.create_user(@create_user_attrs)
       new_user_attrs = Map.merge(@create_user_attrs, %{"email" => "froderick@example.com"})
       {:ok, %User{id: new_user_id}} = Accounts.create_user(new_user_attrs)
-      assert {:ok, %User{}} = Accounts.add_leader(user, [new_user_id])
-
-      assert user =
-               Accounts.get_user(%{"id" => user_id}) |> Vutuv.Repo.preload([:followers, :leaders])
-
+      assert {:ok, %User{}} = Accounts.add_leaders(user, [new_user_id])
+      assert user = Accounts.get_user(%{"id" => user_id})
       assert user.followers == []
       assert [%User{id: ^new_user_id}] = user.leaders
-
-      assert user =
-               Accounts.get_user(%{"id" => new_user_id})
-               |> Vutuv.Repo.preload([:followers, :leaders])
-
+      assert user = Accounts.get_user(%{"id" => new_user_id})
       assert [%User{id: ^user_id}] = user.followers
       assert user.leaders == []
     end

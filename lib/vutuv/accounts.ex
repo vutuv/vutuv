@@ -52,7 +52,9 @@ defmodule Vutuv.Accounts do
   defp user_query(user) do
     user
     |> join(:left, [u], _ in assoc(u, :tags))
-    |> preload([_, t], tags: t)
+    |> join(:left, [u], _ in assoc(u, :followers))
+    |> join(:left, [u], _ in assoc(u, :leaders))
+    |> preload([_, t, f, l], tags: t, followers: f, leaders: l)
   end
 
   @doc """
@@ -169,8 +171,8 @@ defmodule Vutuv.Accounts do
   user's leaders. In addition, the user will be added to the followers
   list of the leaders.
   """
-  @spec add_leader(User.t(), list) :: {:ok, User.t()} | changeset_error
-  def add_leader(%User{} = user, leader_ids) do
+  @spec add_leaders(User.t(), list) :: {:ok, User.t()} | changeset_error
+  def add_leaders(%User{} = user, leader_ids) do
     leaders = User |> where([l], l.id in ^leader_ids) |> Repo.all()
 
     user
