@@ -16,15 +16,15 @@ defmodule Vutuv.Accounts do
   """
   @spec list_users() :: [User.t()]
   def list_users() do
-    User |> user_query() |> Repo.all()
+    Repo.all(User)
   end
 
   @doc """
   Returns a list of all users in a paginated struct.
   """
-  @spec list_users(map) :: Scrivener.Page.t()
-  def list_users(attrs) do
-    User |> user_query() |> Repo.paginate(attrs)
+  @spec paginate_users(map) :: Scrivener.Page.t()
+  def paginate_users(attrs) do
+    Repo.paginate(User, attrs)
   end
 
   @doc """
@@ -32,11 +32,11 @@ defmodule Vutuv.Accounts do
   """
   @spec get_user(map) :: User.t() | nil
   def get_user(%{"slug" => slug}) do
-    User |> where([u], u.slug == ^slug) |> user_query() |> Repo.one()
+    Repo.get_by(User, %{slug: slug})
   end
 
   def get_user(%{"id" => user_id}) do
-    User |> where([u], u.id == ^user_id) |> user_query() |> Repo.one()
+    Repo.get(User, user_id)
   end
 
   def get_user(%{"session_id" => session_id}) do
@@ -47,14 +47,6 @@ defmodule Vutuv.Accounts do
   def get_user(%{"email" => email}) do
     with %EmailAddress{user_id: user_id} <- Repo.get_by(EmailAddress, %{value: email}),
          do: get_user(%{"id" => user_id})
-  end
-
-  defp user_query(user) do
-    user
-    |> join(:left, [u], _ in assoc(u, :tags))
-    |> join(:left, [u], _ in assoc(u, :followers))
-    |> join(:left, [u], _ in assoc(u, :leaders))
-    |> preload([_, t, f, l], tags: t, followers: f, leaders: l)
   end
 
   @doc """
@@ -143,6 +135,14 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
+  Preloads a user(s) associations.
+  """
+  @spec user_associated_data(User.t(), list) :: User.t()
+  def user_associated_data(%User{} = user, associations) do
+    Repo.preload(user, associations)
+  end
+
+  @doc """
   Gets user credentials.
   """
   @spec get_user_credential(map) :: UserCredential.t() | nil
@@ -162,6 +162,22 @@ defmodule Vutuv.Accounts do
   def add_user_tags(%User{} = user, tag_ids) do
     tags = Tag |> where([t], t.id in ^tag_ids) |> Repo.all()
     user |> Repo.preload([:tags]) |> User.user_tag_changeset(tags) |> Repo.update()
+  end
+
+  @doc """
+  Lists a user's followers and leaders.
+  """
+  @spec list_user_connections(User.t(), integer, :followers | :leaders) :: [User.t()]
+  def list_user_connections(user, amount, connection) do
+    user |> assoc(connection) |> limit(^amount) |> Repo.all()
+  end
+
+  @doc """
+  Returns a user's followers and leaders in a paginated struct.
+  """
+  @spec paginate_user_connections(User.t(), map, :followers | :leaders) :: Scrivener.Page.t()
+  def paginate_user_connections(user, attrs, connection) do
+    user |> assoc(connection) |> Repo.paginate(attrs)
   end
 
   @doc """

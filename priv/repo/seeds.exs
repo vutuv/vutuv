@@ -53,7 +53,7 @@ for user <- users do
     "value" => "#{name}_123@example.com"
   })
 
-  Vutuv.Accounts.add_user_tags(user, [js_tag.id])
+  Vutuv.Accounts.add_user_tags(user, [js_tag.id, prolog_tag.id])
 
   {:ok, post} =
     Vutuv.Socials.create_post(user, %{
@@ -63,6 +63,17 @@ for user <- users do
     })
 
   Vutuv.Socials.add_post_tags(post, [js_tag.id])
+end
+
+created_users = Vutuv.Accounts.list_users()
+
+for user <- created_users do
+  other_user_ids =
+    Enum.flat_map(created_users, fn u ->
+      if u.id == user.id, do: [], else: [u.id]
+    end)
+
+  Vutuv.Accounts.add_leaders(user, other_user_ids)
 end
 
 other_users = [
@@ -223,4 +234,6 @@ for user <- other_users do
 
   Vutuv.Accounts.confirm_user(user_credential)
   Vutuv.Accounts.confirm_email_address(email_address)
+  leader_ids = Enum.map(users, &Vutuv.Accounts.get_user(&1).id)
+  Vutuv.Accounts.add_leaders(user, leader_ids)
 end

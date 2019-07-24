@@ -96,6 +96,14 @@ defmodule Vutuv.Socials do
   end
 
   @doc """
+  Preloads a post(s) associations.
+  """
+  @spec post_associated_data(Post.t(), list) :: Post.t()
+  def post_associated_data(%Post{} = post, associations) do
+    Repo.preload(post, associations)
+  end
+
+  @doc """
   Adds an association between a post and existing tags.
   """
   @spec add_post_tags(Post.t(), list) :: {:ok, Post.t()} | changeset_error

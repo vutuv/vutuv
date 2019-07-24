@@ -73,6 +73,9 @@ header {
   grid-area: header;
   text-align: center;
 }
+header * + * {
+  margin-top: 1.5rem;
+}
 main {
   grid-area: main;
   position: relative;
@@ -90,9 +93,9 @@ main {
 .profile-header {
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
 }
-.profile-header * {
+.profile-header *,
+.profile-thumb * {
   margin-top: auto;
   margin-bottom: auto;
 }
@@ -104,10 +107,6 @@ main {
 .profile-thumb {
   display: flex;
   justify-content: flex-start;
-}
-.profile-thumb * {
-  margin-top: auto;
-  margin-bottom: auto;
 }
 .profile-thumb img {
   border-radius: 50%;
@@ -129,9 +128,6 @@ footer ul li {
   font-size: 1.8rem;
   text-decoration: none;
   padding: 0 1.5rem;
-}
-footer form {
-  margin: 0;
 }
 footer a,
 footer button.link {

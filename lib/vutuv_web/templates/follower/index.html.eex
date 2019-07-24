@@ -1,0 +1,20 @@
+<h1><%= gettext "Followers" %></h1>
+
+<%= render VutuvWeb.UserView, "_users_table.html", conn: @conn, current_user: @current_user, users: @followers %>
+
+<div>
+  <span>
+    <%= link gettext("Previous"),
+        class: "button",
+        disabled: @page.page_number < 2,
+        to: Routes.user_follower_path(@conn, :index, @user, page: @page.page_number - 1) %>
+  </span>
+  <span>
+    <%= link gettext("Next"),
+        class: "button",
+        disabled: @page.page_number >= @page.total_pages,
+        to: Routes.user_follower_path(@conn, :index, @user, page: @page.page_number + 1) %>
+  </span>
+</div>
+
+<span><%= link gettext("User profile"), to: Routes.user_path(@conn, :show, @user) %></span>

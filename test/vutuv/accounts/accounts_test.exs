@@ -35,13 +35,13 @@ defmodule Vutuv.AccountsTest do
       assert length(Accounts.list_users()) == 2
     end
 
-    test "list_users/1 returns the users in a paginated struct", %{user: user} do
-      %Scrivener.Page{entries: [user_1]} = Accounts.list_users(%{})
+    test "paginate_users/1 returns the users in a paginated struct", %{user: user} do
+      %Scrivener.Page{entries: [user_1]} = Accounts.paginate_users(%{})
       assert user_1.id == user.id
       assert user_1.full_name == user.full_name
-      assert %Scrivener.Page{total_entries: 1} = Accounts.list_users(%{})
+      assert %Scrivener.Page{total_entries: 1} = Accounts.paginate_users(%{})
       insert(:user)
-      assert %Scrivener.Page{total_entries: 2} = Accounts.list_users(%{})
+      assert %Scrivener.Page{total_entries: 2} = Accounts.paginate_users(%{})
     end
 
     test "get_user returns the user with given slug", %{user: user} do
@@ -173,10 +173,20 @@ defmodule Vutuv.AccountsTest do
       new_user_attrs = Map.merge(@create_user_attrs, %{"email" => "froderick@example.com"})
       {:ok, %User{id: new_user_id}} = Accounts.create_user(new_user_attrs)
       assert {:ok, %User{}} = Accounts.add_leaders(user, [new_user_id])
-      assert user = Accounts.get_user(%{"id" => user_id})
+
+      assert user =
+               %{"id" => user_id}
+               |> Accounts.get_user()
+               |> Accounts.user_associated_data([:followers, :leaders])
+
       assert user.followers == []
       assert [%User{id: ^new_user_id}] = user.leaders
-      assert user = Accounts.get_user(%{"id" => new_user_id})
+
+      assert user =
+               %{"id" => new_user_id}
+               |> Accounts.get_user()
+               |> Accounts.user_associated_data([:followers, :leaders])
+
       assert [%User{id: ^user_id}] = user.followers
       assert user.leaders == []
     end

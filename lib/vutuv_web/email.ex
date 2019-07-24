@@ -2,32 +2,18 @@ defmodule VutuvWeb.Email do
   @moduledoc """
   A module for sending emails to the user.
 
-  This module provides functions to be used with the Phauxth authentication
-  library when confirming users or handling password resets. It uses
-  Bamboo, with the LocalAdapter, which is a good development tool.
-  For tests, it uses a test adapter, which is configured in the
-  config/test.exs file.
+  This module uses Bamboo to send emails to users.
 
-  For production, you will need to setup a different email adapter.
+  ## Bamboo adapters
 
-  ## Bamboo with a different adapter
+  For production, Bamboo provides adapters for Mailgun, Mailjet, Mandrill,
+  Sendgrid, SMTP, SparkPost, PostageApp, Postmark and Sendcloud. Currently,
+  no adapter is configured for use in production.
 
-  Bamboo has adapters for Mailgun, Mailjet, Mandrill, Sendgrid, SMTP,
-  SparkPost, PostageApp, Postmark and Sendcloud.
+  For development, Bamboo's local adapter is used, and sent emails can be viewed
+  at [http://localhost:4000/sent_emails](http://localhost:4000/sent_emails).
 
-  There is also a LocalAdapter, which is great for local development.
-
-  See [Bamboo](https://github.com/thoughtbot/bamboo) for more information.
-
-  ## Other email library
-
-  If you do not want to use Bamboo, follow the instructions below:
-
-  1. Edit this file, using the email library of your choice
-  2. Remove the lib/vutuv/mailer.ex file
-  3. Remove the Bamboo entries in the config/config.exs and config/test.exs files
-  4. Remove bamboo from the deps section in the mix.exs file
-
+  For tests, Bamboo's test adapter is used.
   """
 
   import Bamboo.Email
