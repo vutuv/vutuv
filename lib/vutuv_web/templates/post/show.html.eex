@@ -3,6 +3,9 @@
 <h3><%= gettext "By" %> <%= @user.full_name %></h3>
 <h4><%= ViewUtils.beautify_date(@post.published_at) %></h4>
 
+<h4><%= gettext "Tags" %></h4>
+<p><%= ViewUtils.stringify_list(@post.tags) %></p>
+
 <p><%= @post.body %></p>
 
 <%= if assigns[:current_user] do %>

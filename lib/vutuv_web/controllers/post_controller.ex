@@ -48,6 +48,7 @@ defmodule VutuvWeb.PostController do
         |> render(:"404")
 
       post ->
+        post = Socials.post_associated_data(post, [:tags])
         render(conn, "show.html", post: post, user: user)
     end
   end

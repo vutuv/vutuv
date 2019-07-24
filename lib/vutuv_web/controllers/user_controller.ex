@@ -4,14 +4,14 @@ defmodule VutuvWeb.UserController do
   import VutuvWeb.Authorize
 
   alias Phauxth.Log
-  alias Vutuv.{Accounts, Accounts.User, Socials}
+  alias Vutuv.{Accounts, Accounts.User}
 
   @dialyzer {:nowarn_function, new: 2}
 
   plug :slug_check when action in [:edit, :update, :delete]
 
   def index(conn, params) do
-    page = Accounts.list_users(params)
+    page = Accounts.paginate_users(params)
     render(conn, "index.html", users: page.entries, page: page)
   end
 
@@ -43,9 +43,10 @@ defmodule VutuvWeb.UserController do
   end
 
   def show(%Plug.Conn{assigns: %{current_user: %{slug: slug} = user}} = conn, %{"slug" => slug}) do
-    email_addresses = Accounts.list_email_addresses(user)
-    posts = Socials.list_posts(user)
-    render(conn, "show.html", user: user, email_addresses: email_addresses, posts: posts)
+    user = Accounts.user_associated_data(user, [:email_addresses, :posts, :tags])
+    followers = Accounts.list_user_connections(user, 4, :followers)
+    leaders = Accounts.list_user_connections(user, 4, :leaders)
+    render(conn, "show.html", user: user, followers: followers, leaders: leaders)
   end
 
   def show(%Plug.Conn{assigns: %{current_user: _user}} = conn, %{"slug" => slug}) do
@@ -56,9 +57,10 @@ defmodule VutuvWeb.UserController do
         |> render(:"404")
 
       user ->
-        email_addresses = Accounts.list_email_addresses(user, :public)
-        posts = Socials.list_posts(user, :public)
-        render(conn, "show.html", user: user, email_addresses: email_addresses, posts: posts)
+        user = Accounts.user_associated_data(user, [:email_addresses, :posts, :tags])
+        followers = Accounts.list_user_connections(user, 4, :followers)
+        leaders = Accounts.list_user_connections(user, 4, :leaders)
+        render(conn, "show.html", user: user, followers: followers, leaders: leaders)
     end
   end
 

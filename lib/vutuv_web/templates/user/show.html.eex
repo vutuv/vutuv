@@ -1,86 +1,45 @@
 <h1><%= @user.preferred_name || @user.full_name %> <%= gettext "profile" %></h1>
+<h2><%= @user.headline %></h2>
 
-<div>
-  <ul>
-    <li>
-      <strong><%= gettext "Full name:" %></strong>
-      <%= @user.full_name %>
-    </li>
+<h2><%= gettext "Tags" %></h2>
+<p><%= ViewUtils.stringify_list(@user.tags) %></p>
 
-    <li>
-      <strong><%= gettext "Preferred name:" %></strong>
-      <%= @user.preferred_name || gettext "None" %>
-    </li>
+<h2><%= gettext "Followers" %></h2>
+<%= if @followers == [] do %>
+  <p><%= gettext "No followers yet" %></p>
+<% else %>
+  <%= render "_users_table.html", conn: @conn, current_user: @current_user, users: Enum.slice(@followers, 0, 3) %>
+<% end %>
 
-    <li>
-      <strong><%= gettext "Honorific prefix:" %></strong>
-      <%= @user.honorific_prefix %>
-    </li>
+<%= if length(@followers) > 3 do %>
+  <span><%= link gettext("All followers"), to: Routes.user_follower_path(@conn, :index, @user) %></span><br>
+<% end %>
 
-    <li>
-      <strong><%= gettext "Honorific suffix:" %></strong>
-      <%= @user.honorific_suffix %>
-    </li>
+<h2><%= gettext "Following" %></h2>
+<%= if @leaders == [] do %>
+  <p><%= gettext "Not following any user yet" %></p>
+<% else %>
+  <%= render "_users_table.html", conn: @conn, current_user: @current_user, users: Enum.slice(@leaders, 0, 3) %>
+<% end %>
 
-    <li>
-      <strong><%= gettext "Gender:" %></strong>
-      <%= @user.gender %>
-    </li>
-
-    <li>
-      <strong><%= gettext "Date of birth" %></strong>
-      <%= @user.birthday %>
-    </li>
-
-    <li>
-      <strong><%= gettext "Headline:" %></strong>
-      <%= @user.headline %>
-    </li>
-
-    <li>
-      <strong><%= gettext "Locale:" %></strong>
-      <%= @user.locale %>
-    </li>
-
-  </ul>
-</div>
+<%= if length(@leaders) > 3 do %>
+  <span><%= link gettext("All following"), to: Routes.user_leader_path(@conn, :index, @user) %></span><br>
+<% end %>
 
 <%= if @current_user && @current_user.id == @user.id do %>
   <span><%= link gettext("Edit user"), to: Routes.user_path(@conn, :edit, @user) %></span><br>
-
-  <div>
-    <h3><%= gettext "Email addresses" %></h3>
-
-    <%= for email_address <- @email_addresses do %>
-      <tr>
-        <td><%= email_address.value %></td>
-        <td><%= link gettext("Edit email address"), to: Routes.user_email_address_path(@conn, :edit, @user, email_address) %></td>
-      </tr>
-    <% end %>
-
-    <span><%= link gettext("New email address"), to: Routes.user_email_address_path(@conn, :new, @user) %></span>
-  </div>
-<% else %>
-  <%= unless @email_addresses == [] do %>
-    <div>
-      <h3><%= gettext "Email addresses" %></h3>
-
-      <%= for email_address <- @email_addresses do %>
-        <tr>
-          <td><%= email_address.value %></td> <br>
-        </tr>
-      <% end %>
-    </div>
-  <% end %>
 <% end %>
-<%= unless @posts == [] do %>
-  <div>
-    <h3><%= gettext "Posts" %></h3>
 
-    <%= for post <- @posts do %>
-      <tr>
-        <td><%= post.title %></td> <br>
-      </tr>
-    <% end %>
-  </div>
+<h2><%= gettext "Email addresses" %></h2>
+<%= if @user.email_addresses == [] do %>
+  <p><%= gettext "No emails" %></p>
+<% else %>
+  <%= render VutuvWeb.EmailAddressView, "_email_addresses_table.html", conn: @conn, current_user: @current_user, user: @user %>
+<% end %>
+
+<h2><%= gettext "Posts" %></h2>
+<%= if @user.posts == [] do %>
+  <p><%= gettext "No posts" %></p>
+<% else %>
+  <%= render VutuvWeb.PostView, "_posts_table.html", conn: @conn, current_user: @current_user, user: @user %>
 <% end %>

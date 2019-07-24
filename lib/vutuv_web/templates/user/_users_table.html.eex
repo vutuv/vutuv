@@ -1,0 +1,31 @@
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for user <- @users do %>
+      <tr>
+        <td>
+          <div class="profile-thumb">
+            <img src="<%= Vutuv.Avatar.url({user.avatar, user}, :thumb) %>"/>
+            <h3><%= user.full_name %></h3>
+          </div>
+        </td>
+
+        <td>
+          <%= if user.noindex do %>
+            <%= link gettext("View profile"), rel: "nofollow", to: Routes.user_path(@conn, :show, user) %>
+          <% else %>
+            <%= link gettext("View profile"), to: Routes.user_path(@conn, :show, user) %>
+          <% end %>
+          <%= if @current_user && @current_user.id == user.id do %>
+            <%= link gettext("Edit"), to: Routes.user_path(@conn, :edit, user) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

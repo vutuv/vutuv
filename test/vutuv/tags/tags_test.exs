@@ -78,7 +78,7 @@ defmodule Vutuv.TagsTest do
     test "association can be created between a user and tags" do
       user = insert(:user)
       {:ok, %Tag{} = tag} = Tags.create_tag(@create_tag_attrs)
-      {:ok, user} = Accounts.update_user_tags(user, [tag.id])
+      {:ok, user} = Accounts.add_user_tags(user, [tag.id])
       assert [%Tag{} = ^tag] = user.tags
       %Tag{users: [user_1]} = Tags.get_tag(tag.id) |> Repo.preload(:users)
       assert user.id == user_1.id
@@ -89,7 +89,7 @@ defmodule Vutuv.TagsTest do
     test "association can be created between a post and tags" do
       post = insert(:post)
       {:ok, %Tag{} = tag} = Tags.create_tag(@create_tag_attrs)
-      {:ok, post} = Socials.update_post_tags(post, [tag.id])
+      {:ok, post} = Socials.add_post_tags(post, [tag.id])
       assert [%Tag{} = ^tag] = post.tags
       %Tag{posts: [post_1]} = Tags.get_tag(tag.id) |> Repo.preload(:posts)
       assert post.id == post_1.id
