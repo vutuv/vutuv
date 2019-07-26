@@ -1,9 +1,9 @@
 defmodule VutuvWeb.PostController do
   use VutuvWeb, :controller
 
-  import VutuvWeb.Authorize
+  import VutuvWeb.AuthorizeConn
 
-  alias Vutuv.{Accounts, Socials, Socials.Post}
+  alias Vutuv.{Accounts.User, Socials, Socials.Post, Socials.Authorize}
 
   @dialyzer {:nowarn_function, new: 3}
 
@@ -15,41 +15,37 @@ defmodule VutuvWeb.PostController do
     end
   end
 
-  def index(conn, %{"user_slug" => user_slug}, user) do
-    user = get_user(user, user_slug)
-    posts = Socials.list_posts(user)
+  def index(conn, params, current_user) do
+    {user, posts} = Authorize.list_user_posts(params, current_user)
     render(conn, "index.html", posts: posts, user: user)
   end
 
-  def new(conn, _params, _user) do
+  def new(conn, _params, _current_user) do
     changeset = Socials.change_post(%Post{})
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"post" => post_params}, user) do
-    case Socials.create_post(user, post_params) do
+  def create(conn, %{"post" => post_params}, current_user) do
+    case Socials.create_post(current_user, post_params) do
       {:ok, _post} ->
         conn
         |> put_flash(:info, "Post created successfully.")
-        |> redirect(to: Routes.user_post_path(conn, :index, user))
+        |> redirect(to: Routes.user_post_path(conn, :index, current_user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
   end
 
-  def show(conn, %{"id" => id, "user_slug" => user_slug}, user) do
-    user = get_user(user, user_slug)
+  def show(conn, params, current_user) do
+    case Authorize.get_user_post(params, current_user) do
+      {%User{} = user, %Post{} = post} ->
+        render(conn, "show.html", post: post, user: user)
 
-    case Socials.get_post(user, %{"id" => id}) do
-      nil ->
+      _ ->
         conn
         |> put_view(VutuvWeb.ErrorView)
         |> render(:"404")
-
-      post ->
-        post = Socials.post_associated_data(post, [:tags])
-        render(conn, "show.html", post: post, user: user)
     end
   end
 
@@ -97,7 +93,4 @@ defmodule VutuvWeb.PostController do
         unauthorized(conn, user)
     end
   end
-
-  defp get_user(%{slug: slug} = user, slug), do: user
-  defp get_user(_user, slug), do: Accounts.get_user(%{"slug" => slug})
 end

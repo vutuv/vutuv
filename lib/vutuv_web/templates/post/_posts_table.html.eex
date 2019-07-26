@@ -6,7 +6,7 @@
     </tr>
   </thead>
   <tbody>
-    <%= for post <- @user.posts do %>
+    <%= for post <- @posts do %>
       <tr>
         <td><%= post.title %></td>
         <%= if @current_user && @current_user.id == @user.id do %>

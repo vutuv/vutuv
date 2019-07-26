@@ -41,6 +41,7 @@ defmodule Vutuv.Socials.Post do
     |> validate_length(:body, max: 150_000)
     |> validate_length(:title, max: 255)
     |> unique_constraint(:title)
+    |> validate_inclusion(:visibility_level, ["private", "public", "followers"])
   end
 
   @doc false

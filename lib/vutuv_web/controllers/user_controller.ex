@@ -1,30 +1,36 @@
 defmodule VutuvWeb.UserController do
   use VutuvWeb, :controller
 
-  import VutuvWeb.Authorize
+  import VutuvWeb.AuthorizeConn
 
   alias Phauxth.Log
-  alias Vutuv.{Accounts, Accounts.User}
+  alias Vutuv.{Accounts, Accounts.User, Socials.Authorize}
 
-  @dialyzer {:nowarn_function, new: 2}
+  @dialyzer {:nowarn_function, new: 3}
 
-  plug :slug_check when action in [:edit, :update, :delete]
+  def action(conn, _) do
+    if action_name(conn) in [:index, :new, :create, :show] do
+      apply(__MODULE__, action_name(conn), [conn, conn.params, conn.assigns.current_user])
+    else
+      auth_action_slug(conn, __MODULE__)
+    end
+  end
 
-  def index(conn, params) do
+  def index(conn, params, _current_user) do
     page = Accounts.paginate_users(params)
     render(conn, "index.html", users: page.entries, page: page)
   end
 
-  def new(%Plug.Conn{assigns: %{current_user: %User{} = user}} = conn, _) do
+  def new(conn, _, %User{} = user) do
     redirect(conn, to: Routes.user_path(conn, :show, user))
   end
 
-  def new(conn, _) do
+  def new(conn, _, _current_user) do
     changeset = Accounts.change_user(%User{})
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"user" => user_params}) do
+  def create(conn, %{"user" => user_params}, _current_user) do
     user_params =
       conn |> get_req_header("accept-language") |> add_accept_language_to_params(user_params)
 
@@ -42,34 +48,28 @@ defmodule VutuvWeb.UserController do
     end
   end
 
-  def show(%Plug.Conn{assigns: %{current_user: %{slug: slug} = user}} = conn, %{"slug" => slug}) do
-    user = Accounts.user_associated_data(user, [:email_addresses, :posts, :tags])
-    followers = Accounts.list_user_connections(user, 4, :followers)
-    leaders = Accounts.list_user_connections(user, 4, :leaders)
-    render(conn, "show.html", user: user, followers: followers, leaders: leaders)
-  end
+  def show(conn, %{"slug" => slug}, current_user) do
+    case Authorize.list_user_posts(%{"user_slug" => slug}, current_user) do
+      {%User{} = user, posts} ->
+        user = Accounts.with_associated_data(user, [:email_addresses, :tags])
+        followers = Accounts.list_user_connections(user, :followers, 4)
+        leaders = Accounts.list_user_connections(user, :leaders, 4)
 
-  def show(%Plug.Conn{assigns: %{current_user: _user}} = conn, %{"slug" => slug}) do
-    case Accounts.get_user(%{"slug" => slug}) do
-      nil ->
+        render(conn, "show.html", user: user, followers: followers, leaders: leaders, posts: posts)
+
+      _ ->
         conn
         |> put_view(VutuvWeb.ErrorView)
         |> render(:"404")
-
-      user ->
-        user = Accounts.user_associated_data(user, [:email_addresses, :posts, :tags])
-        followers = Accounts.list_user_connections(user, 4, :followers)
-        leaders = Accounts.list_user_connections(user, 4, :leaders)
-        render(conn, "show.html", user: user, followers: followers, leaders: leaders)
     end
   end
 
-  def edit(%Plug.Conn{assigns: %{current_user: user}} = conn, _) do
+  def edit(conn, _, user) do
     changeset = Accounts.change_user(user)
     render(conn, "edit.html", user: user, changeset: changeset)
   end
 
-  def update(%Plug.Conn{assigns: %{current_user: user}} = conn, %{"user" => user_params}) do
+  def update(conn, %{"user" => user_params}, user) do
     case Accounts.update_user(user, user_params) do
       {:ok, user} ->
         conn
@@ -81,7 +81,7 @@ defmodule VutuvWeb.UserController do
     end
   end
 
-  def delete(%Plug.Conn{assigns: %{current_user: user}} = conn, _) do
+  def delete(conn, _, user) do
     {:ok, _user} = Accounts.delete_user(user)
 
     conn

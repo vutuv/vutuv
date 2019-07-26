@@ -1,7 +1,7 @@
 defmodule VutuvWeb.EmailAddressController do
   use VutuvWeb, :controller
 
-  import VutuvWeb.Authorize
+  import VutuvWeb.AuthorizeConn
 
   alias Vutuv.{Accounts, Accounts.EmailAddress}
   alias VutuvWeb.{Auth.Otp, Email}

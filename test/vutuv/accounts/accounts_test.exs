@@ -177,7 +177,7 @@ defmodule Vutuv.AccountsTest do
       assert user =
                %{"id" => user_id}
                |> Accounts.get_user()
-               |> Accounts.user_associated_data([:followers, :leaders])
+               |> Accounts.with_associated_data([:followers, :leaders])
 
       assert user.followers == []
       assert [%User{id: ^new_user_id}] = user.leaders
@@ -185,7 +185,7 @@ defmodule Vutuv.AccountsTest do
       assert user =
                %{"id" => new_user_id}
                |> Accounts.get_user()
-               |> Accounts.user_associated_data([:followers, :leaders])
+               |> Accounts.with_associated_data([:followers, :leaders])
 
       assert [%User{id: ^user_id}] = user.followers
       assert user.leaders == []
