@@ -38,8 +38,8 @@
 <% end %>
 
 <h2><%= gettext "Posts" %></h2>
-<%= if @user.posts == [] do %>
+<%= if @posts == [] do %>
   <p><%= gettext "No posts" %></p>
 <% else %>
-  <%= render VutuvWeb.PostView, "_posts_table.html", conn: @conn, current_user: @current_user, user: @user %>
+  <%= render VutuvWeb.PostView, "_posts_table.html", conn: @conn, current_user: @current_user, user: @user, posts: @posts %>
 <% end %>

@@ -4,7 +4,7 @@ defmodule VutuvWeb.PostControllerTest do
   import Vutuv.Factory
   import VutuvWeb.AuthTestHelpers
 
-  alias Vutuv.Socials
+  alias Vutuv.{Accounts, Socials}
 
   @create_post_attrs %{
     body: Faker.Company.bs(),
@@ -22,14 +22,60 @@ defmodule VutuvWeb.PostControllerTest do
   end
 
   describe "read posts" do
-    test "lists all of a user's posts", %{conn: conn, user: user} do
-      _post = insert(:post, %{user: user})
+    test "lists a user's public posts", %{conn: conn, user: user} do
+      post_1 = insert(:post, %{user: user})
+      post_2 = insert(:post, %{user: user, visibility_level: "public"})
       conn = get(conn, Routes.user_post_path(conn, :index, user))
-      assert html_response(conn, 200) =~ dirty_escape(user.full_name)
+      response = html_response(conn, 200)
+      refute response =~ dirty_escape(post_1.title)
+      assert response =~ dirty_escape(post_2.title)
     end
 
-    test "shows a specific post", %{conn: conn, user: user} do
+    test "lists all a user's visible posts - including for followers", %{conn: conn, user: user} do
+      post_1 = insert(:post, %{user: user, visibility_level: "public"})
+      post_2 = insert(:post, %{user: user, visibility_level: "followers"})
+      other = add_user("froderick@example.com")
+      {:ok, _user} = Accounts.add_leaders(other, [user.id])
+      conn = conn |> add_session(other) |> send_resp(:ok, "/")
+      conn = get(conn, Routes.user_post_path(conn, :index, user))
+      response = html_response(conn, 200)
+      assert response =~ dirty_escape(post_1.title)
+      assert response =~ dirty_escape(post_2.title)
+    end
+
+    test "lists private posts for current_user", %{conn: conn, user: user} do
       post = insert(:post, %{user: user})
+      assert post.visibility_level == "private"
+      new_conn = get(conn, Routes.user_post_path(conn, :index, user))
+      refute html_response(new_conn, 200) =~ dirty_escape(post.title)
+      conn = conn |> add_session(user) |> send_resp(:ok, "/")
+      conn = get(conn, Routes.user_post_path(conn, :index, user))
+      assert html_response(conn, 200) =~ dirty_escape(post.title)
+    end
+
+    test "shows a specific public post", %{conn: conn, user: user} do
+      post = insert(:post, %{user: user, visibility_level: "public"})
+      conn = get(conn, Routes.user_post_path(conn, :show, user, post))
+      assert html_response(conn, 200) =~ dirty_escape(post.title)
+    end
+
+    test "shows a visible post - including for followers", %{conn: conn, user: user} do
+      post = insert(:post, %{user: user, visibility_level: "followers"})
+      new_conn = get(conn, Routes.user_post_path(conn, :show, user, post))
+      refute html_response(new_conn, 200) =~ dirty_escape(post.title)
+      other = add_user("froderick@example.com")
+      {:ok, _user} = Accounts.add_leaders(other, [user.id])
+      conn = conn |> add_session(other) |> send_resp(:ok, "/")
+      conn = get(conn, Routes.user_post_path(conn, :show, user, post))
+      assert html_response(conn, 200) =~ dirty_escape(post.title)
+    end
+
+    test "shows a private post for current_user", %{conn: conn, user: user} do
+      post = insert(:post, %{user: user})
+      assert post.visibility_level == "private"
+      new_conn = get(conn, Routes.user_post_path(conn, :show, user, post))
+      refute html_response(new_conn, 200) =~ dirty_escape(post.title)
+      conn = conn |> add_session(user) |> send_resp(:ok, "/")
       conn = get(conn, Routes.user_post_path(conn, :show, user, post))
       assert html_response(conn, 200) =~ dirty_escape(post.title)
     end

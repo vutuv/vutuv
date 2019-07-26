@@ -22,20 +22,18 @@ defmodule Vutuv.Socials do
   Returns a list of posts for the user.
   """
   @spec list_posts(User.t()) :: [Post.t()]
-  def list_posts(user) do
+  def list_posts(%User{} = user) do
     user |> assoc(:posts) |> post_query() |> Repo.all()
   end
 
   @doc """
-  Returns a list of a user's visible posts.
+  Returns a list of user posts filtered based on the posts' visibility_level.
   """
-  @spec list_posts(User.t(), :public) :: [Post.t()]
-  # FIXME: riverrun - 2019-07-17
-  # add check based on user followers - after followers have been added to users
-  def list_posts(user, :public) do
+  @spec list_posts(User.t(), list) :: [Post.t()]
+  def list_posts(%User{} = user, visibility_level) do
     user
     |> assoc(:posts)
-    |> where([p], p.visibility_level == "public")
+    |> where([p], p.visibility_level in ^visibility_level)
     |> post_query()
     |> Repo.all()
   end
@@ -48,6 +46,18 @@ defmodule Vutuv.Socials do
     user
     |> assoc(:posts)
     |> where([p], p.id == ^id)
+    |> post_query()
+    |> Repo.one()
+  end
+
+  @doc """
+  Gets a user's post filtered based on the post's visibility_level.
+  """
+  @spec get_post(User.t(), map, list) :: Post.t() | nil
+  def get_post(%User{} = user, %{"id" => id}, visibility_level) do
+    user
+    |> assoc(:posts)
+    |> where([p], p.id == ^id and p.visibility_level in ^visibility_level)
     |> post_query()
     |> Repo.one()
   end
@@ -93,14 +103,6 @@ defmodule Vutuv.Socials do
   @spec change_post(Post.t()) :: Ecto.Changeset.t()
   def change_post(%Post{} = post) do
     Post.changeset(post, %{})
-  end
-
-  @doc """
-  Preloads a post(s) associations.
-  """
-  @spec post_associated_data(Post.t(), list) :: Post.t()
-  def post_associated_data(%Post{} = post, associations) do
-    Repo.preload(post, associations)
   end
 
   @doc """

@@ -22,11 +22,16 @@ defmodule Vutuv.SocialsTest do
     setup [:add_posts]
 
     test "list_posts/0 returns all posts" do
-      assert length(Socials.list_posts()) == 3
+      assert length(Socials.list_posts()) == 5
     end
 
     test "list_posts/1 returns all of a user's posts", %{user: user} do
-      assert length(Socials.list_posts(user)) == 2
+      assert length(Socials.list_posts(user)) == 4
+    end
+
+    test "list_posts/2 returns a user's posts depending on the visibility_level", %{user: user} do
+      assert length(Socials.list_posts(user, ["public", "followers"])) == 3
+      assert length(Socials.list_posts(user, ["public"])) == 2
     end
 
     test "get_post/2 returns a user's post with given id" do
@@ -64,6 +69,13 @@ defmodule Vutuv.SocialsTest do
       assert {:error, %Ecto.Changeset{}} = Socials.create_post(user, @invalid_attrs)
     end
 
+    test "create_post/2 with invalid visibility_level returns error changeset" do
+      attrs = Map.merge(@create_post_attrs, %{visibility_level: "anyone really"})
+      user = add_user("froderick@mail.com")
+      assert {:error, %Ecto.Changeset{} = changeset} = Socials.create_post(user, attrs)
+      assert %{visibility_level: ["is invalid"]} = errors_on(changeset)
+    end
+
     test "update_post/2 with valid data updates the post" do
       post = insert(:post)
       assert {:ok, %Post{} = post} = Socials.update_post(post, @update_post_attrs)
@@ -99,7 +111,9 @@ defmodule Vutuv.SocialsTest do
 
   defp add_posts(_) do
     user = add_user("froderick@mail.com")
-    _posts = insert_list(2, :post, %{user: user})
+    _posts = insert_list(2, :post, %{user: user, visibility_level: "public"})
+    _post = insert(:post, %{user: user, visibility_level: "followers"})
+    _post = insert(:post, %{user: user})
     _post = insert(:post)
     {:ok, %{user: user}}
   end

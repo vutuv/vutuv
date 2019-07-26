@@ -137,8 +137,8 @@ defmodule Vutuv.Accounts do
   @doc """
   Preloads a user(s) associations.
   """
-  @spec user_associated_data(User.t(), list) :: User.t()
-  def user_associated_data(%User{} = user, associations) do
+  @spec with_associated_data(User.t(), list) :: User.t()
+  def with_associated_data(%User{} = user, associations) do
     Repo.preload(user, associations)
   end
 
@@ -165,10 +165,18 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
-  Lists a user's followers and leaders.
+  Returns a list of a user's followers or leaders.
+
+  To add a limit to the number of results, set the limit (2nd argument)
+  to a positive integer. Setting the limit to nil will return all the
+  user's followers or leaders.
   """
-  @spec list_user_connections(User.t(), integer, :followers | :leaders) :: [User.t()]
-  def list_user_connections(user, amount, connection) do
+  @spec list_user_connections(User.t(), :followers | :leaders, integer | nil) :: [User.t()]
+  def list_user_connections(%User{} = user, connection, nil) do
+    user |> assoc(connection) |> Repo.all()
+  end
+
+  def list_user_connections(%User{} = user, connection, amount) do
     user |> assoc(connection) |> limit(^amount) |> Repo.all()
   end
 
@@ -176,7 +184,7 @@ defmodule Vutuv.Accounts do
   Returns a user's followers and leaders in a paginated struct.
   """
   @spec paginate_user_connections(User.t(), map, :followers | :leaders) :: Scrivener.Page.t()
-  def paginate_user_connections(user, attrs, connection) do
+  def paginate_user_connections(%User{} = user, attrs, connection) do
     user |> assoc(connection) |> Repo.paginate(attrs)
   end
 
