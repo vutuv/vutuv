@@ -3,7 +3,7 @@ defmodule VutuvWeb.PostController do
 
   import VutuvWeb.AuthorizeConn
 
-  alias Vutuv.{Accounts.User, Socials, Socials.Post, Socials.Authorize}
+  alias Vutuv.{Accounts, Accounts.User, Socials, Socials.Post}
 
   @dialyzer {:nowarn_function, new: 3}
 
@@ -15,8 +15,14 @@ defmodule VutuvWeb.PostController do
     end
   end
 
-  def index(conn, params, current_user) do
-    {user, posts} = Authorize.list_user_posts(params, current_user)
+  def index(conn, %{"user_slug" => slug}, %User{slug: slug} = current_user) do
+    posts = Socials.list_posts(current_user)
+    render(conn, "index.html", posts: posts, user: current_user)
+  end
+
+  def index(conn, %{"user_slug" => slug}, current_user) do
+    user = Accounts.get_user!(%{"slug" => slug})
+    posts = Socials.list_posts(user, current_user)
     render(conn, "index.html", posts: posts, user: user)
   end
 
@@ -37,60 +43,43 @@ defmodule VutuvWeb.PostController do
     end
   end
 
-  def show(conn, params, current_user) do
-    case Authorize.get_user_post(params, current_user) do
-      {%User{} = user, %Post{} = post} ->
-        render(conn, "show.html", post: post, user: user)
-
-      _ ->
-        conn
-        |> put_view(VutuvWeb.ErrorView)
-        |> render(:"404")
-    end
+  def show(conn, %{"id" => id, "user_slug" => slug}, %User{slug: slug} = current_user) do
+    post = Socials.get_post!(current_user, %{"id" => id})
+    render(conn, "show.html", post: post, user: current_user)
   end
 
-  def edit(conn, %{"id" => id}, user) do
-    case Socials.get_post(user, %{"id" => id}) do
-      %Post{} = post ->
-        changeset = Socials.change_post(post)
-        render(conn, "edit.html", post: post, changeset: changeset)
-
-      _ ->
-        unauthorized(conn, user)
-    end
+  def show(conn, %{"id" => id, "user_slug" => slug}, current_user) do
+    user = Accounts.get_user!(%{"slug" => slug})
+    post = Socials.get_post!(user, %{"id" => id}, current_user)
+    render(conn, "show.html", post: post, user: user)
   end
 
-  def update(conn, %{"id" => id, "post" => post_params}, user) do
-    if post = Socials.get_post(user, %{"id" => id}) do
-      do_update(conn, post, post_params, user)
-    else
-      unauthorized(conn, user)
-    end
+  def edit(conn, %{"id" => id}, current_user) do
+    post = Socials.get_post!(current_user, %{"id" => id})
+    changeset = Socials.change_post(post)
+    render(conn, "edit.html", post: post, changeset: changeset)
   end
 
-  defp do_update(conn, post, post_params, user) do
+  def update(conn, %{"id" => id, "post" => post_params}, current_user) do
+    post = Socials.get_post!(current_user, %{"id" => id})
+
     case Socials.update_post(post, post_params) do
       {:ok, post} ->
         conn
         |> put_flash(:info, "Post updated successfully.")
-        |> redirect(to: Routes.user_post_path(conn, :show, user, post))
+        |> redirect(to: Routes.user_post_path(conn, :show, current_user, post))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", post: post, changeset: changeset)
     end
   end
 
-  def delete(conn, %{"id" => id}, user) do
-    case Socials.get_post(user, %{"id" => id}) do
-      %Post{} = post ->
-        {:ok, _post} = Socials.delete_post(post)
+  def delete(conn, %{"id" => id}, current_user) do
+    post = Socials.get_post!(current_user, %{"id" => id})
+    {:ok, _post} = Socials.delete_post(post)
 
-        conn
-        |> put_flash(:info, "Post deleted successfully.")
-        |> redirect(to: Routes.user_post_path(conn, :index, user))
-
-      _ ->
-        unauthorized(conn, user)
-    end
+    conn
+    |> put_flash(:info, "Post deleted successfully.")
+    |> redirect(to: Routes.user_post_path(conn, :index, current_user))
   end
 end

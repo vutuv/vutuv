@@ -28,25 +28,33 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
-  Gets a single user.
+  Gets a single user. Raises error if no user found.
   """
-  @spec get_user(map) :: User.t() | nil
-  def get_user(%{"slug" => slug}) do
-    Repo.get_by(User, %{slug: slug})
+  @spec get_user!(map) :: User.t() | no_return
+  def get_user!(%{"slug" => slug}) do
+    Repo.get_by!(User, %{slug: slug})
   end
 
-  def get_user(%{"id" => user_id}) do
-    Repo.get(User, user_id)
+  def get_user!(%{"id" => user_id}) do
+    Repo.get!(User, user_id)
   end
 
-  def get_user(%{"session_id" => session_id}) do
-    with %Session{user_id: user_id} <- Sessions.get_session(session_id),
-         do: get_user(%{"id" => user_id})
+  def get_user!(%{"session_id" => session_id}) do
+    %Session{user_id: user_id} = Sessions.get_session!(session_id)
+    get_user!(%{"id" => user_id})
   end
 
-  def get_user(%{"email" => email}) do
-    with %EmailAddress{user_id: user_id} <- Repo.get_by(EmailAddress, %{value: email}),
-         do: get_user(%{"id" => user_id})
+  def get_user!(%{"email" => email}) do
+    %EmailAddress{user_id: user_id} = Repo.get_by!(EmailAddress, %{value: email})
+    get_user!(%{"id" => user_id})
+  end
+
+  @doc """
+  Gets a single user. Returns nil if no user found.
+  """
+  @spec get_user(integer) :: User.t() | nil
+  def get_user(id) do
+    Repo.get(User, id)
   end
 
   @doc """
@@ -55,7 +63,10 @@ defmodule Vutuv.Accounts do
   This is used by Phauxth to get user information.
   """
   @spec get_by(map) :: User.t() | nil
-  def get_by(attrs), do: get_user(attrs)
+  def get_by(%{"session_id" => session_id}) do
+    with %Session{user_id: user_id} <- Sessions.get_session!(session_id),
+         do: Repo.get(User, user_id)
+  end
 
   @doc """
   Creates a user.
@@ -127,7 +138,7 @@ defmodule Vutuv.Accounts do
   """
   @spec update_password(UserCredential.t(), map) :: {:ok, UserCredential.t()} | changeset_error
   def update_password(%UserCredential{user_id: user_id} = user_credential, attrs) do
-    Sessions.delete_user_sessions(get_user(%{"id" => user_id}))
+    Sessions.delete_user_sessions(get_user!(%{"id" => user_id}))
 
     user_credential
     |> UserCredential.update_password_changeset(attrs)
@@ -143,7 +154,20 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
-  Gets user credentials.
+  Gets user credentials. Raises error if no user_credential found.
+  """
+  @spec get_user_credential!(map) :: UserCredential.t() | no_return
+  def get_user_credential!(%{"email" => email}) do
+    %EmailAddress{user_id: user_id} = Repo.get_by!(EmailAddress, %{value: email})
+    get_user_credential!(%{"user_id" => user_id})
+  end
+
+  def get_user_credential!(%{"user_id" => user_id}) do
+    Repo.get_by!(UserCredential, %{user_id: user_id})
+  end
+
+  @doc """
+  Gets user credentials. Returns nil if no user_credential found.
   """
   @spec get_user_credential(map) :: UserCredential.t() | nil
   def get_user_credential(%{"email" => email}) do
@@ -162,22 +186,6 @@ defmodule Vutuv.Accounts do
   def add_user_tags(%User{} = user, tag_ids) do
     tags = Tag |> where([t], t.id in ^tag_ids) |> Repo.all()
     user |> Repo.preload([:tags]) |> User.user_tag_changeset(tags) |> Repo.update()
-  end
-
-  @doc """
-  Returns a list of a user's followers or leaders.
-
-  To add a limit to the number of results, set the limit (2nd argument)
-  to a positive integer. Setting the limit to nil will return all the
-  user's followers or leaders.
-  """
-  @spec list_user_connections(User.t(), :followers | :leaders, integer | nil) :: [User.t()]
-  def list_user_connections(%User{} = user, connection, nil) do
-    user |> assoc(connection) |> Repo.all()
-  end
-
-  def list_user_connections(%User{} = user, connection, amount) do
-    user |> assoc(connection) |> limit(^amount) |> Repo.all()
   end
 
   @doc """
@@ -242,24 +250,19 @@ defmodule Vutuv.Accounts do
   @doc """
   Gets an email_address from the email_address value.
 
-  Only public email_addresses are returned.
+  Only public email_addresses are returned. Raises error if no email_address found.
   """
-  @spec get_email_address(map) :: EmailAddress.t() | nil
-  def get_email_address(%{"value" => value}) do
-    EmailAddress
-    |> where([e], e.value == ^value and e.is_public == true)
-    |> Repo.one()
+  @spec get_email_address!(map) :: EmailAddress.t() | no_return
+  def get_email_address!(%{"value" => value}) do
+    Repo.get_by!(EmailAddress, value: value, is_public: true)
   end
 
   @doc """
-  Gets a specific user's email_address.
+  Gets a specific user's email_address. Raises error if no email_address found.
   """
-  @spec get_email_address(User.t(), map) :: EmailAddress.t() | nil
-  def get_email_address(%User{} = user, %{"id" => id}) do
-    user
-    |> assoc(:email_addresses)
-    |> where([e], e.id == ^id)
-    |> Repo.one()
+  @spec get_email_address!(User.t(), map) :: EmailAddress.t() | no_return
+  def get_email_address!(%User{} = user, %{"id" => id}) do
+    Repo.get_by!(EmailAddress, id: id, user_id: user.id)
   end
 
   @doc """
@@ -320,10 +323,10 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
-  Gets a single phone_number.
+  Gets a single phone_number. Raises error if no phone_number found.
   """
-  @spec get_phone_number(integer) :: PhoneNumber.t() | nil
-  def get_phone_number(id), do: Repo.get(PhoneNumber, id)
+  @spec get_phone_number!(integer) :: PhoneNumber.t() | no_return
+  def get_phone_number!(id), do: Repo.get!(PhoneNumber, id)
 
   @doc """
   Creates a phone_number.

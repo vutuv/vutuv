@@ -59,10 +59,13 @@ defmodule VutuvWeb.PostControllerTest do
       assert html_response(conn, 200) =~ dirty_escape(post.title)
     end
 
-    test "shows a visible post - including for followers", %{conn: conn, user: user} do
+    test "shows a post visible to followers", %{conn: conn, user: user} do
       post = insert(:post, %{user: user, visibility_level: "followers"})
-      new_conn = get(conn, Routes.user_post_path(conn, :show, user, post))
-      refute html_response(new_conn, 200) =~ dirty_escape(post.title)
+
+      assert_error_sent 404, fn ->
+        get(conn, Routes.user_post_path(conn, :show, user, post))
+      end
+
       other = add_user("froderick@example.com")
       {:ok, _user} = Accounts.add_leaders(other, [user.id])
       conn = conn |> add_session(other) |> send_resp(:ok, "/")
@@ -73,8 +76,11 @@ defmodule VutuvWeb.PostControllerTest do
     test "shows a private post for current_user", %{conn: conn, user: user} do
       post = insert(:post, %{user: user})
       assert post.visibility_level == "private"
-      new_conn = get(conn, Routes.user_post_path(conn, :show, user, post))
-      refute html_response(new_conn, 200) =~ dirty_escape(post.title)
+
+      assert_error_sent 404, fn ->
+        get(conn, Routes.user_post_path(conn, :show, user, post))
+      end
+
       conn = conn |> add_session(user) |> send_resp(:ok, "/")
       conn = get(conn, Routes.user_post_path(conn, :show, user, post))
       assert html_response(conn, 200) =~ dirty_escape(post.title)
@@ -115,7 +121,7 @@ defmodule VutuvWeb.PostControllerTest do
       conn = put(conn, Routes.user_post_path(conn, :update, user, post), post: @update_post_attrs)
       assert redirected_to(conn) == Routes.user_post_path(conn, :show, user, post)
       assert get_flash(conn, :info) =~ "updated successfully"
-      post = Socials.get_post(user, %{"id" => post.id})
+      post = Socials.get_post!(user, %{"id" => post.id})
       assert post.visibility_level == "public"
     end
 
@@ -138,16 +144,18 @@ defmodule VutuvWeb.PostControllerTest do
       conn = delete(conn, Routes.user_post_path(conn, :delete, user, post))
       assert redirected_to(conn) == Routes.user_post_path(conn, :index, user)
       assert get_flash(conn, :info) =~ "deleted successfully"
-      refute Socials.get_post(user, %{"id" => post.id})
+      assert_raise Ecto.NoResultsError, fn -> Socials.get_post!(user, %{"id" => post.id}) end
     end
 
     test "cannot delete another user's post", %{conn: conn, user: user} do
       other = add_user("raymond@example.com")
       post = insert(:post, %{user: other})
-      conn = delete(conn, Routes.user_post_path(conn, :delete, user, post))
-      assert redirected_to(conn) == Routes.user_path(conn, :show, user)
-      assert get_flash(conn, :error) =~ "not authorized"
-      assert Socials.get_post(other, %{"id" => post.id})
+
+      assert_error_sent 404, fn ->
+        delete(conn, Routes.user_post_path(conn, :delete, user, post))
+      end
+
+      assert Socials.get_post!(other, %{"id" => post.id})
     end
   end
 

@@ -19,7 +19,7 @@ defmodule Vutuv.Socials do
   end
 
   @doc """
-  Returns a list of posts for the user.
+  Returns a list of posts for a user.
   """
   @spec list_posts(User.t()) :: [Post.t()]
   def list_posts(%User{} = user) do
@@ -29,8 +29,10 @@ defmodule Vutuv.Socials do
   @doc """
   Returns a list of user posts filtered based on the posts' visibility_level.
   """
-  @spec list_posts(User.t(), list) :: [Post.t()]
-  def list_posts(%User{} = user, visibility_level) do
+  @spec list_posts(User.t(), User.t() | nil) :: [Post.t()]
+  def list_posts(%User{} = user, current_user) do
+    visibility_level = get_visibility_level(user, current_user)
+
     user
     |> assoc(:posts)
     |> where([p], p.visibility_level in ^visibility_level)
@@ -39,33 +41,48 @@ defmodule Vutuv.Socials do
   end
 
   @doc """
-  Gets a specific user's post.
+  Gets a specific user's post. Raises error if no post found.
   """
-  @spec get_post(User.t(), map) :: Post.t() | nil
-  def get_post(%User{} = user, %{"id" => id}) do
+  @spec get_post!(User.t(), map) :: Post.t() | no_return
+  def get_post!(%User{} = user, %{"id" => id}) do
     user
     |> assoc(:posts)
     |> where([p], p.id == ^id)
     |> post_query()
-    |> Repo.one()
+    |> Repo.one!()
   end
 
   @doc """
   Gets a user's post filtered based on the post's visibility_level.
+  Raises error if no post found.
   """
-  @spec get_post(User.t(), map, list) :: Post.t() | nil
-  def get_post(%User{} = user, %{"id" => id}, visibility_level) do
+  @spec get_post!(User.t(), map, User.t() | nil) :: Post.t() | no_return
+  def get_post!(%User{} = user, %{"id" => id}, current_user) do
+    visibility_level = get_visibility_level(user, current_user)
+
     user
     |> assoc(:posts)
     |> where([p], p.id == ^id and p.visibility_level in ^visibility_level)
     |> post_query()
-    |> Repo.one()
+    |> Repo.one!()
   end
 
   defp post_query(post) do
     post
     |> join(:left, [p], _ in assoc(p, :tags))
     |> preload([_, t], tags: t)
+  end
+
+  defp get_visibility_level(_user, nil), do: ["public"]
+
+  defp get_visibility_level(user, current_user) do
+    followers = Repo.preload(user, :followers).followers
+
+    if current_user.id in Enum.map(followers, & &1.id) do
+      ["public", "followers"]
+    else
+      ["public"]
+    end
   end
 
   @doc """

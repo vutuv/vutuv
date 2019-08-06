@@ -5,24 +5,24 @@
 <p><%= ViewUtils.stringify_list(@user.tags) %></p>
 
 <h2><%= gettext "Followers" %></h2>
-<%= if @followers == [] do %>
+<%= if @user.followers == [] do %>
   <p><%= gettext "No followers yet" %></p>
 <% else %>
-  <%= render "_users_table.html", conn: @conn, current_user: @current_user, users: Enum.slice(@followers, 0, 3) %>
+  <%= render "_users_table.html", conn: @conn, current_user: @current_user, users: Enum.slice(@user.followers, 0, 3) %>
 <% end %>
 
-<%= if length(@followers) > 3 do %>
+<%= if length(@user.followers) > 3 do %>
   <span><%= link gettext("All followers"), to: Routes.user_follower_path(@conn, :index, @user) %></span><br>
 <% end %>
 
 <h2><%= gettext "Following" %></h2>
-<%= if @leaders == [] do %>
+<%= if @user.leaders == [] do %>
   <p><%= gettext "Not following any user yet" %></p>
 <% else %>
-  <%= render "_users_table.html", conn: @conn, current_user: @current_user, users: Enum.slice(@leaders, 0, 3) %>
+  <%= render "_users_table.html", conn: @conn, current_user: @current_user, users: Enum.slice(@user.leaders, 0, 3) %>
 <% end %>
 
-<%= if length(@leaders) > 3 do %>
+<%= if length(@user.leaders) > 3 do %>
   <span><%= link gettext("All following"), to: Routes.user_leader_path(@conn, :index, @user) %></span><br>
 <% end %>
 

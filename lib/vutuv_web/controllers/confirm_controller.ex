@@ -5,17 +5,17 @@ defmodule VutuvWeb.ConfirmController do
   alias VutuvWeb.{Auth.Otp, Email}
 
   def new(conn, %{"email" => email}) do
-    user_credential = Accounts.get_user_credential(%{"email" => email})
+    user_credential = Accounts.get_user_credential!(%{"email" => email})
     code = Otp.create(user_credential.otp_secret)
     Email.confirm_request(email, code)
     render(conn, "new.html", email: email)
   end
 
   def create(conn, %{"confirm" => %{"email" => email, "code" => code}}) do
-    user_credential = Accounts.get_user_credential(%{"email" => email})
+    user_credential = Accounts.get_user_credential!(%{"email" => email})
 
     if Otp.verify(code, user_credential.otp_secret) do
-      email_address = Accounts.get_email_address(%{"value" => email})
+      email_address = Accounts.get_email_address!(%{"value" => email})
       unless user_credential.confirmed, do: Accounts.confirm_user(user_credential)
       Accounts.confirm_email_address(email_address)
       Email.confirm_success(email)

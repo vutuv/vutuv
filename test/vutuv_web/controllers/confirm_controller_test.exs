@@ -20,12 +20,12 @@ defmodule VutuvWeb.ConfirmControllerTest do
 
   describe "confirmation using otp" do
     test "confirmation succeeds", %{conn: conn, user: user} do
-      user_credential = Accounts.get_user_credential(%{"user_id" => user.id})
+      user_credential = Accounts.get_user_credential!(%{"user_id" => user.id})
       code = VutuvWeb.Auth.Otp.create(user_credential.otp_secret)
       attrs = %{"email" => "arthur@example.com", "code" => code}
       conn = post(conn, Routes.confirm_path(conn, :create), confirm: attrs)
       assert redirected_to(conn) == Routes.session_path(conn, :new)
-      user_credential = Accounts.get_user_credential(%{"email" => "arthur@example.com"})
+      user_credential = Accounts.get_user_credential!(%{"email" => "arthur@example.com"})
       assert user_credential.confirmed
     end
 
@@ -34,7 +34,7 @@ defmodule VutuvWeb.ConfirmControllerTest do
       attrs = %{"email" => "arthur@example.com", "code" => code}
       conn = post(conn, Routes.confirm_path(conn, :create), confirm: attrs)
       assert html_response(conn, 200) =~ "Enter that code below"
-      user_credential = Accounts.get_user_credential(%{"email" => "arthur@example.com"})
+      user_credential = Accounts.get_user_credential!(%{"email" => "arthur@example.com"})
       refute user_credential.confirmed
     end
   end

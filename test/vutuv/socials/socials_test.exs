@@ -30,14 +30,16 @@ defmodule Vutuv.SocialsTest do
     end
 
     test "list_posts/2 returns a user's posts depending on the visibility_level", %{user: user} do
-      assert length(Socials.list_posts(user, ["public", "followers"])) == 3
-      assert length(Socials.list_posts(user, ["public"])) == 2
+      other = add_user("igor@example.com")
+      Accounts.add_leaders(other, [user.id])
+      assert length(Socials.list_posts(user, other)) == 3
+      assert length(Socials.list_posts(user, nil)) == 2
     end
 
-    test "get_post/2 returns a user's post with given id" do
+    test "get_post!/2 returns a user's post with given id" do
       %Post{id: post_id, title: title, body: body, user_id: user_id} = insert(:post)
-      user = Accounts.get_user(%{"id" => user_id})
-      post = Socials.get_post(user, %{"id" => post_id})
+      user = Accounts.get_user!(%{"id" => user_id})
+      post = Socials.get_post!(user, %{"id" => post_id})
       assert post.title == title
       assert post.body == body
       assert post.user_id == user_id
@@ -104,8 +106,8 @@ defmodule Vutuv.SocialsTest do
     test "delete_post/1 deletes the post" do
       post = insert(:post)
       assert {:ok, %Post{}} = Socials.delete_post(post)
-      user = Accounts.get_user(%{"id" => post.user_id})
-      refute Socials.get_post(user, %{"id" => post.id})
+      user = Accounts.get_user!(%{"id" => post.user_id})
+      assert_raise Ecto.NoResultsError, fn -> Socials.get_post!(user, %{"id" => post.id}) end
     end
   end
 

@@ -20,10 +20,10 @@ defmodule Vutuv.Tags do
   end
 
   @doc """
-  Gets a single tag.
+  Gets a single tag. Raises error if no tag found.
   """
-  @spec get_tag(integer) :: Tag.t() | nil
-  def get_tag(id), do: Repo.get(Tag, id)
+  @spec get_tag!(integer) :: Tag.t() | no_return
+  def get_tag!(id), do: Repo.get!(Tag, id)
 
   @doc """
   Creates a tag.

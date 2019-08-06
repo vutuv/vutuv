@@ -38,7 +38,7 @@ defmodule VutuvWeb.UserIntegrationTest do
       {:ok, response} = Tesla.post(simple_client(), "/users", %{user: @create_attrs})
       assert %Tesla.Env{body: %{"data" => data}, status: 201} = response
       assert data["id"]
-      assert Accounts.get_user(%{"email" => @create_attrs["email"]})
+      assert Accounts.get_user!(%{"email" => @create_attrs["email"]})
     end
 
     test "invalid data errors when creating user" do
@@ -55,7 +55,7 @@ defmodule VutuvWeb.UserIntegrationTest do
 
       assert %Tesla.Env{body: %{"data" => data}, status: 200} = response
       assert data["id"] == user.id
-      updated_user = Accounts.get_user(%{"id" => user.id})
+      updated_user = Accounts.get_user!(%{"id" => user.id})
       assert updated_user.full_name == "Raymond Luxury Yacht"
     end
 
@@ -74,7 +74,7 @@ defmodule VutuvWeb.UserIntegrationTest do
     test "delete user", %{user: user, token: token} do
       {:ok, response} = token |> authenticated_client() |> Tesla.delete("/users/#{user.slug}")
       assert %Tesla.Env{body: "", status: 204} = response
-      refute Accounts.get_user(%{"id" => user.id})
+      assert_raise Ecto.NoResultsError, fn -> Accounts.get_user!(%{"id" => user.id}) end
     end
 
     test "cannot delete other user", %{token: token} do
@@ -82,7 +82,7 @@ defmodule VutuvWeb.UserIntegrationTest do
       {:ok, response} = token |> authenticated_client() |> Tesla.delete("/users/#{other.slug}")
       assert %Tesla.Env{body: %{"errors" => errors}, status: 403} = response
       assert errors["detail"] =~ "You are not authorized"
-      assert Accounts.get_user(%{"id" => other.id})
+      assert Accounts.get_user!(%{"id" => other.id})
     end
   end
 end

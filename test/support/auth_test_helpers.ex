@@ -22,7 +22,7 @@ defmodule VutuvWeb.AuthTestHelpers do
     %{email_addresses: [email_address]} = user = add_user(email)
 
     %{"user_id" => user.id}
-    |> Accounts.get_user_credential()
+    |> Accounts.get_user_credential!()
     |> Accounts.confirm_user()
 
     Accounts.confirm_email_address(email_address)

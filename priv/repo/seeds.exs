@@ -234,6 +234,6 @@ for user <- other_users do
 
   Vutuv.Accounts.confirm_user(user_credential)
   Vutuv.Accounts.confirm_email_address(email_address)
-  leader_ids = Enum.map(users, &Vutuv.Accounts.get_user(&1).id)
+  leader_ids = Enum.map(users, &Vutuv.Accounts.get_user!(&1).id)
   Vutuv.Accounts.add_leaders(user, leader_ids)
 end
