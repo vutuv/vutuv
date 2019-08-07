@@ -293,8 +293,8 @@ defmodule Vutuv.Accounts do
   @doc """
   Confirms an email_address, setting the verified value to true.
   """
-  @spec confirm_email_address(EmailAddress.t()) :: {:ok, EmailAddress.t()} | changeset_error
-  def confirm_email_address(email_address) do
+  @spec verify_email_address(EmailAddress.t()) :: {:ok, EmailAddress.t()} | changeset_error
+  def verify_email_address(email_address) do
     email_address |> EmailAddress.verify_changeset() |> Repo.update()
   end
 

@@ -28,7 +28,8 @@ defmodule VutuvWeb.Router do
     end
 
     resources "/sessions", SessionController, only: [:new, :create, :delete]
-    resources "/confirms", ConfirmController, only: [:new, :create]
+    resources "/verifications", VerificationController, only: [:new, :create]
+    post "/verifications/send_code", VerificationController, :send_code
 
     resources "/password_resets", PasswordResetController,
       only: [:new, :create, :edit, :update],
@@ -40,7 +41,7 @@ defmodule VutuvWeb.Router do
       param: "slug"
   end
 
-  scope "/api/v1", VutuvWeb.Api, as: :api do
+  scope "/api/v2", VutuvWeb.Api, as: :api do
     pipe_through :api
 
     resources "/users", UserController, except: [:new, :edit], param: "slug" do

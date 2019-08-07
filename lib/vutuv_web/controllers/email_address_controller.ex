@@ -25,11 +25,11 @@ defmodule VutuvWeb.EmailAddressController do
       {:ok, email_address} ->
         user_credential = Accounts.get_user_credential!(%{"user_id" => user.id})
         code = Otp.create(user_credential.otp_secret)
-        Email.confirm_request(email_address.value, code)
+        Email.verify_request(email_address.value, code)
 
         conn
         |> put_flash(:info, "Email address created successfully.")
-        |> redirect(to: Routes.confirm_path(conn, :new, email: email_address.value))
+        |> redirect(to: Routes.verification_path(conn, :new, email: email_address.value))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)

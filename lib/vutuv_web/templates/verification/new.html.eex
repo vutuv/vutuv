@@ -1,8 +1,8 @@
-<h1><%= gettext "Confirm user email address" %></h1>
+<h1><%= gettext "Verify user email address" %></h1>
 
 <p><%= gettext "A code has been sent to your email address. Enter that code below." %></p>
 
-<%= form_for @conn, Routes.confirm_path(@conn, :create), [as: :confirm], fn f -> %>
+<%= form_for @conn, Routes.verification_path(@conn, :create), [as: :verify], fn f -> %>
   <%= if f.errors != [] do %>
     <div class="alert alert-danger">
       <p><%= gettext "Something went wrong. Please check the errors below." %></p>
@@ -20,4 +20,6 @@
   </div>
 <% end %>
 
-<%= link gettext("Resend code"), to: Routes.confirm_path(@conn, :new, email: @email) %>
+<%= form_for @conn, Routes.verification_path(@conn, :send_code, email: @email), [method: "post"], fn _f -> %>
+  <%= submit gettext("Resend code"), class: "link" %>
+<% end %>

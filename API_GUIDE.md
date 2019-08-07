@@ -5,7 +5,7 @@ This guide provides a brief overview of the Vutuv API.
 ## Routes
 
 Below is a list of api routes. The base url for each route, in development, is
-"http://localhost:4000/api/v1".
+"http://localhost:4000/api/v2".
 
 | Route | Action | Method | Authorization |
 | :---- | :----- | :----- | :---------- |
@@ -29,23 +29,23 @@ With all of the examples below, add `-v` for verbose information.
 
 To list users:
 
-`curl http://localhost:4000/api/v1/users`
+`curl http://localhost:4000/api/v2/users`
 
 To see a certain user's data (in this case, user 2):
 
-`curl http://localhost:4000/api/v1/users/2`
+`curl http://localhost:4000/api/v2/users/2`
 
 ### Create user data
 
 The following command creates a user:
 
-`curl -H "Content-Type: application/json" -d '{"user":{"email":"arrr@example.com","password":"reallyHard2gue$$","gender":"male","full_name":"Arrr Arrr"}}' http://localhost:4000/api/v1/users`
+`curl -H "Content-Type: application/json" -d '{"user":{"email":"arrr@example.com","password":"reallyHard2gue$$","gender":"male","full_name":"Arrr Arrr"}}' http://localhost:4000/api/v2/users`
 
 ### Logging in
 
 The following command logs in a user and returns {"access_token":_token_}:
 
-`curl -H "Content-Type: application/json" -d '{"email":"jane.doe@example.com","password":"reallyHard2gue$$"}' http://localhost:4000/api/v1/sessions`
+`curl -H "Content-Type: application/json" -d '{"email":"jane.doe@example.com","password":"reallyHard2gue$$"}' http://localhost:4000/api/v2/sessions`
 
 ### Using the token to access other data
 
@@ -56,4 +56,4 @@ and update, or delete, user data.
 
 For example, the next command updates the user by adding a preferred_name:
 
-`curl -X PUT -H "Content-Type: application/json" -H token -d '{"user":{"preferred_name":"franniepoohs"}}' http://localhost:4000/api/v1/users/1`
+`curl -X PUT -H "Content-Type: application/json" -H token -d '{"user":{"preferred_name":"franniepoohs"}}' http://localhost:4000/api/v2/users/1`

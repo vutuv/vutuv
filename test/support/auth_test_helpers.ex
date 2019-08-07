@@ -25,7 +25,7 @@ defmodule VutuvWeb.AuthTestHelpers do
     |> Accounts.get_user_credential!()
     |> Accounts.confirm_user()
 
-    Accounts.confirm_email_address(email_address)
+    Accounts.verify_email_address(email_address)
     user
   end
 

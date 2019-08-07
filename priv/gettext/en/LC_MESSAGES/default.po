@@ -168,7 +168,6 @@ msgid "Save"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/confirm/new.html.eex:8
 #: lib/vutuv_web/templates/email_address/form.html.eex:4
 #: lib/vutuv_web/templates/password_reset/edit.html.eex:8
 #: lib/vutuv_web/templates/password_reset/new.html.eex:8
@@ -177,6 +176,7 @@ msgstr ""
 #: lib/vutuv_web/templates/session/new.html.eex:6
 #: lib/vutuv_web/templates/user/edit_form.html.eex:4
 #: lib/vutuv_web/templates/user/new_form.html.eex:4
+#: lib/vutuv_web/templates/verification/new.html.eex:8
 msgid "Something went wrong. Please check the errors below."
 msgstr ""
 
@@ -356,26 +356,21 @@ msgid "Sorry, we cannot find the page you were looking for."
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/confirm/new.html.eex:3
 #: lib/vutuv_web/templates/password_reset/new.html.eex:3
+#: lib/vutuv_web/templates/verification/new.html.eex:3
 msgid "A code has been sent to your email address. Enter that code below."
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/confirm/new.html.eex:12
 #: lib/vutuv_web/templates/password_reset/new.html.eex:12
+#: lib/vutuv_web/templates/verification/new.html.eex:12
 msgid "Code"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/confirm/new.html.eex:1
-msgid "Confirm user email address"
-msgstr ""
-
-#, elixir-format
-#: lib/vutuv_web/templates/confirm/new.html.eex:19
 #: lib/vutuv_web/templates/password_reset/new.html.eex:19
 #: lib/vutuv_web/templates/password_reset/new_request.html.eex:17
+#: lib/vutuv_web/templates/verification/new.html.eex:19
 msgid "Continue"
 msgstr ""
 
@@ -395,7 +390,7 @@ msgid "Update password"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/confirm/new.html.eex:23
+#: lib/vutuv_web/templates/verification/new.html.eex:24
 msgid "Resend code"
 msgstr ""
 
@@ -545,7 +540,7 @@ msgstr ""
 msgid "No followers yet"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/vutuv_web/templates/user/show.html.eex:42
 msgid "No posts"
 msgstr ""
@@ -571,4 +566,9 @@ msgstr ""
 #: lib/vutuv_web/templates/user/_users_table.html.eex:20
 #: lib/vutuv_web/templates/user/_users_table.html.eex:22
 msgid "View profile"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/vutuv_web/templates/verification/new.html.eex:1
+msgid "Verify user email address"
 msgstr ""

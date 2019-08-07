@@ -20,12 +20,12 @@ defmodule VutuvWeb.Email do
   alias VutuvWeb.Mailer
 
   @doc """
-  An email with a confirmation link in it.
+  An email with a verification link in it.
   """
-  def confirm_request(address, code) do
+  def verify_request(address, code) do
     prep_mail(address)
-    |> subject("Confirm your account")
-    |> text_body("Enter the following confirmation code:\n#{code}")
+    |> subject("Verify your email")
+    |> text_body("Enter the following verification code:\n#{code}")
     |> Mailer.deliver_now()
   end
 
@@ -49,12 +49,12 @@ defmodule VutuvWeb.Email do
   end
 
   @doc """
-  An email acknowledging that the account has been successfully confirmed.
+  An email acknowledging that the email has been successfully verified.
   """
-  def confirm_success(address) do
+  def verify_success(address) do
     prep_mail(address)
-    |> subject("Confirmed account")
-    |> text_body("Your account has been confirmed.")
+    |> subject("Verified email")
+    |> text_body("Your email has been verified.")
     |> Mailer.deliver_now()
   end
 

@@ -10,11 +10,11 @@ defmodule VutuvWeb.EmailTest do
     {:ok, %{email: email, code: Otp.create(secret)}}
   end
 
-  test "sends confirmation request email", %{email: email, code: code} do
-    sent_email = Email.confirm_request(email, code)
-    assert sent_email.subject =~ "Confirm your account"
-    assert sent_email.text_body =~ "Enter the following confirmation code"
-    assert_delivered_email(Email.confirm_request(email, code))
+  test "sends verification request email", %{email: email, code: code} do
+    sent_email = Email.verify_request(email, code)
+    assert sent_email.subject =~ "Verify your email"
+    assert sent_email.text_body =~ "Enter the following verification code"
+    assert_delivered_email(Email.verify_request(email, code))
   end
 
   test "sends no user found message for password reset attempt" do
@@ -29,10 +29,10 @@ defmodule VutuvWeb.EmailTest do
     assert_delivered_email(Email.reset_request(email, code))
   end
 
-  test "sends receipt confirmation email", %{email: email} do
-    sent_email = Email.confirm_success(email)
-    assert sent_email.text_body =~ "account has been confirmed"
-    assert_delivered_email(Email.confirm_success(email))
+  test "sends receipt verification email", %{email: email} do
+    sent_email = Email.verify_success(email)
+    assert sent_email.text_body =~ "email has been verified"
+    assert_delivered_email(Email.verify_success(email))
   end
 
   test "sends password reset email", %{email: email} do
