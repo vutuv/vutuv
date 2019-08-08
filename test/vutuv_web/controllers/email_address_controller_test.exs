@@ -135,10 +135,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
 
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
       assert get_flash(conn, :error) =~ "not authorized"
-
-      assert_raise Ecto.NoResultsError, fn ->
-        Accounts.get_email_address!(%{"value" => "abcdef@example.com"})
-      end
+      refute Accounts.get_email_address(%{"value" => "abcdef@example.com"})
     end
   end
 

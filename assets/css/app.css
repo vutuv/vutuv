@@ -84,6 +84,7 @@ main {
   width: 16rem;
 }
 .content {
+  margin: 2.0rem 0;
   background: linear-gradient(180deg, #ffffff, #f2f2f2);
   color: #495057;
   border-radius: 1.0rem;

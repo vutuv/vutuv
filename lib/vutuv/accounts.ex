@@ -39,11 +39,6 @@ defmodule Vutuv.Accounts do
     Repo.get!(User, user_id)
   end
 
-  def get_user!(%{"session_id" => session_id}) do
-    %Session{user_id: user_id} = Sessions.get_session!(session_id)
-    get_user!(%{"id" => user_id})
-  end
-
   def get_user!(%{"email" => email}) do
     %EmailAddress{user_id: user_id} = Repo.get_by!(EmailAddress, %{value: email})
     get_user!(%{"id" => user_id})
@@ -64,7 +59,7 @@ defmodule Vutuv.Accounts do
   """
   @spec get_by(map) :: User.t() | nil
   def get_by(%{"session_id" => session_id}) do
-    with %Session{user_id: user_id} <- Sessions.get_session!(session_id),
+    with %Session{user_id: user_id} <- Sessions.get_session(session_id),
          do: Repo.get(User, user_id)
   end
 
@@ -250,11 +245,11 @@ defmodule Vutuv.Accounts do
   @doc """
   Gets an email_address from the email_address value.
 
-  Only public email_addresses are returned. Raises error if no email_address found.
+  Only public email_addresses are returned. Returns nil if no email_address found.
   """
-  @spec get_email_address!(map) :: EmailAddress.t() | no_return
-  def get_email_address!(%{"value" => value}) do
-    Repo.get_by!(EmailAddress, value: value, is_public: true)
+  @spec get_email_address(map) :: EmailAddress.t() | nil
+  def get_email_address(%{"value" => value}) do
+    Repo.get_by(EmailAddress, value: value, is_public: true)
   end
 
   @doc """
@@ -291,7 +286,7 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
-  Confirms an email_address, setting the verified value to true.
+  Verifies an email_address, setting the verified value to true.
   """
   @spec verify_email_address(EmailAddress.t()) :: {:ok, EmailAddress.t()} | changeset_error
   def verify_email_address(email_address) do

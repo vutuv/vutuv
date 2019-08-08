@@ -28,7 +28,7 @@ defmodule Vutuv.SessionsTest do
 
     test "get returns the session with given id", %{user: user} do
       session = fixture(:session, %{user_id: user.id})
-      assert Sessions.get_session!(session.id) == session
+      assert Sessions.get_session(session.id) == session
     end
 
     test "change_session/1 returns a session changeset", %{user: user} do
@@ -62,7 +62,7 @@ defmodule Vutuv.SessionsTest do
     test "delete_session/1 deletes the session", %{user: user} do
       session = fixture(:session, %{user_id: user.id})
       assert {:ok, %Session{}} = Sessions.delete_session(session)
-      assert_raise Ecto.NoResultsError, fn -> Sessions.get_session!(session.id) end
+      refute Sessions.get_session(session.id)
     end
 
     test "delete_user_sessions/1 deletes all of a user's sessions", %{user: user} do

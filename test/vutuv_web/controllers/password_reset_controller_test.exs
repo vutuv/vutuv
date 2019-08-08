@@ -30,15 +30,15 @@ defmodule VutuvWeb.PasswordResetControllerTest do
   end
 
   describe "update password" do
-    test "password is updated", %{conn: conn, user: user} do
+    test "password is updated", %{conn: conn} do
       attrs = %{"email" => "gladys@example.com", "password" => "^hEsdg*F899"}
-      conn = put(conn, Routes.password_reset_path(conn, :update, user), password_reset: attrs)
+      conn = put(conn, Routes.password_reset_path(conn, :update), password_reset: attrs)
       assert redirected_to(conn) == Routes.session_path(conn, :new)
     end
 
-    test "weak password is not updated", %{conn: conn, user: user} do
+    test "weak password is not updated", %{conn: conn} do
       attrs = %{"email" => "gladys@example.com", "password" => "password"}
-      conn = put(conn, Routes.password_reset_path(conn, :update, user), password_reset: attrs)
+      conn = put(conn, Routes.password_reset_path(conn, :update), password_reset: attrs)
       assert get_flash(conn, :error) =~ "password you have chosen is weak"
     end
 
@@ -46,7 +46,7 @@ defmodule VutuvWeb.PasswordResetControllerTest do
       conn = add_session(conn, user)
       assert get_session(conn, :phauxth_session_id)
       attrs = %{"email" => "gladys@example.com", "password" => "^hEsdg*F899"}
-      conn = put(conn, Routes.password_reset_path(conn, :update, user), password_reset: attrs)
+      conn = put(conn, Routes.password_reset_path(conn, :update), password_reset: attrs)
       refute get_session(conn, :phauxth_session_id)
     end
   end

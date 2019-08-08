@@ -19,12 +19,12 @@ defmodule Vutuv.Sessions do
   end
 
   @doc """
-  Gets a single valid session. Raises error if no session found.
+  Gets a single valid session. Returns nil if no session found.
   """
-  @spec get_session!(integer) :: Session.t() | no_return
-  def get_session!(id) do
+  @spec get_session(integer) :: Session.t() | nil
+  def get_session(id) do
     now = DateTime.utc_now()
-    Repo.get!(from(s in Session, where: s.expires_at > ^now), id)
+    Repo.get(from(s in Session, where: s.expires_at > ^now), id)
   end
 
   @doc """

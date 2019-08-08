@@ -18,14 +18,15 @@
              M432 34 l44 114 h28 l44 -114 h-32 l-24 72 l-24 -72 z" />
         </svg>
       </div>
-      <%= if @conn.request_path in ["/"] do %>
-        <h2><%= gettext "The fast, secure and less annoying social network." %></h2>
-      <% end %>
       <%= if assigns[:user] do %>
         <div class="profile-header">
           <img src="<%= Vutuv.Avatar.url({@user.avatar, @user}, :medium) %>"/>
           <h2><%= @user.full_name %></h2>
+          <p><%= @user.headline %></p>
         </div>
+      <% else %>
+        <h2><%= gettext "The fast, secure and less annoying social network." %></h2>
+        <h3><%= gettext "Over 20000 members worldwide." %></h3>
       <% end %>
     </header>
     <main role="main">

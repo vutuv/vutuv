@@ -43,3 +43,5 @@
 <% else %>
   <%= render VutuvWeb.PostView, "_posts_table.html", conn: @conn, current_user: @current_user, user: @user, posts: @posts %>
 <% end %>
+
+<span><%= link gettext("Download vcard"), to: Routes.api_user_vcard_path(@conn, :vcard, @user) %></span><br>

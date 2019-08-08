@@ -343,21 +343,18 @@ defmodule Vutuv.AccountsTest do
         user_id: user.id
       })
 
-      assert Accounts.get_email_address!(%{"value" => "froderick@example.com"})
+      assert Accounts.get_email_address(%{"value" => "froderick@example.com"})
       send(EmailManager, :check_expired)
       Process.sleep(10)
-
-      assert_raise Ecto.NoResultsError, fn ->
-        Accounts.get_email_address!(%{"value" => "froderick@example.com"})
-      end
+      refute Accounts.get_email_address(%{"value" => "froderick@example.com"})
     end
 
     test "unverified and verification not expired email is not deleted", %{user: user} do
       Accounts.create_email_address(user, %{"value" => "froderick@example.com"})
-      assert Accounts.get_email_address!(%{"value" => "froderick@example.com"})
+      assert Accounts.get_email_address(%{"value" => "froderick@example.com"})
       send(EmailManager, :check_expired)
       Process.sleep(10)
-      assert Accounts.get_email_address!(%{"value" => "froderick@example.com"})
+      assert Accounts.get_email_address(%{"value" => "froderick@example.com"})
     end
 
     test "verified email is not deleted", %{user: user} do
@@ -370,10 +367,10 @@ defmodule Vutuv.AccountsTest do
         verified: true
       })
 
-      assert Accounts.get_email_address!(%{"value" => "froderick@example.com"})
+      assert Accounts.get_email_address(%{"value" => "froderick@example.com"})
       send(EmailManager, :check_expired)
       Process.sleep(10)
-      assert Accounts.get_email_address!(%{"value" => "froderick@example.com"})
+      assert Accounts.get_email_address(%{"value" => "froderick@example.com"})
     end
   end
 

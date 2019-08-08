@@ -28,7 +28,7 @@ defmodule VutuvWeb.SessionController do
   end
 
   def delete(%Plug.Conn{assigns: %{current_user: %{id: user_id}}} = conn, %{"id" => session_id}) do
-    case session_id |> Sessions.get_session!() |> Sessions.delete_session() do
+    case session_id |> Sessions.get_session() |> Sessions.delete_session() do
       {:ok, %{user_id: ^user_id}} ->
         conn
         |> delete_session(:phauxth_session_id)

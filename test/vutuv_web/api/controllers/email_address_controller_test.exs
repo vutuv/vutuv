@@ -78,7 +78,7 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
         )
 
       assert json_response(conn, 201)["data"]["id"]
-      assert Accounts.get_email_address!(%{"value" => @create_attrs["value"]})
+      assert Accounts.get_email_address(%{"value" => @create_attrs["value"]})
     end
 
     test "does not create email_address and returns errors when data is invalid", %{

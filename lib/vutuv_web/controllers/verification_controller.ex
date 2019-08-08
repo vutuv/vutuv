@@ -9,10 +9,10 @@ defmodule VutuvWeb.VerificationController do
   end
 
   def create(conn, %{"verify" => %{"email" => email, "code" => code}}) do
-    user_credential = Accounts.get_user_credential!(%{"email" => email})
+    user_credential = Accounts.get_user_credential(%{"email" => email})
 
     if Otp.verify(code, user_credential.otp_secret) do
-      email_address = Accounts.get_email_address!(%{"value" => email})
+      email_address = Accounts.get_email_address(%{"value" => email})
       unless user_credential.confirmed, do: Accounts.confirm_user(user_credential)
       Accounts.verify_email_address(email_address)
       Email.verify_success(email)
