@@ -36,7 +36,7 @@ defmodule VutuvWeb.Api.UserControllerTest do
     test "creates user when data is valid", %{conn: conn} do
       conn = post(conn, Routes.api_user_path(conn, :create), user: @create_attrs)
       assert json_response(conn, 201)["data"]["id"]
-      assert Accounts.get_user(%{"email" => "bill@example.com"})
+      assert Accounts.get_user!(%{"email" => "bill@example.com"})
     end
 
     test "does not create user and renders errors when data is invalid", %{conn: conn} do
@@ -55,7 +55,7 @@ defmodule VutuvWeb.Api.UserControllerTest do
       attrs = %{"full_name" => "Raymond Luxury Yacht"}
       conn = put(conn, Routes.api_user_path(conn, :update, user), user: attrs)
       assert json_response(conn, 200)["data"]["id"] == user.id
-      updated_user = Accounts.get_user(%{"id" => user.id})
+      updated_user = Accounts.get_user!(%{"id" => user.id})
       assert updated_user.full_name == "Raymond Luxury Yacht"
     end
 
@@ -78,14 +78,14 @@ defmodule VutuvWeb.Api.UserControllerTest do
     test "deletes chosen user", %{conn: conn, user: user} do
       conn = delete(conn, Routes.api_user_path(conn, :delete, user))
       assert response(conn, 204)
-      refute Accounts.get_user(%{"id" => user.id})
+      assert_raise Ecto.NoResultsError, fn -> Accounts.get_user!(%{"id" => user.id}) end
     end
 
     test "cannot delete other user", %{conn: conn} do
       other = add_user("tony@example.com")
       conn = delete(conn, Routes.api_user_path(conn, :delete, other))
       assert json_response(conn, 403)["errors"]["detail"] =~ "not authorized"
-      assert Accounts.get_user(%{"id" => other.id})
+      assert Accounts.get_user!(%{"id" => other.id})
     end
   end
 

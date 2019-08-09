@@ -1,4 +1,4 @@
-defmodule VutuvWeb.Api.Authorize do
+defmodule VutuvWeb.Api.AuthorizeConn do
   @moduledoc """
   Functions to help with authorization.
   """
@@ -7,17 +7,13 @@ defmodule VutuvWeb.Api.Authorize do
   import Phoenix.Controller
 
   @doc """
-  Overrides the controller module's action function with a slug check - to
-  make sure that the current user can access the resource.
+  Overrides the controller module's action function with a current_user check.
   """
   def auth_action_slug(
-        %Plug.Conn{
-          params: %{"user_slug" => user_slug} = params,
-          assigns: %{current_user: %{slug: slug} = current_user}
-        } = conn,
+        %Plug.Conn{params: params, assigns: %{current_user: %{slug: slug} = current_user}} = conn,
         module
       ) do
-    if user_slug == slug do
+    if slug in [params["user_slug"], params["slug"]] do
       apply(module, action_name(conn), [conn, params, current_user])
     else
       error(conn, :forbidden, 403)

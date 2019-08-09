@@ -2,7 +2,7 @@
 
 <p><%= gettext "Create a new password." %></p>
 
-<%= form_for @conn, Routes.password_reset_path(@conn, :update, @user), [as: :password_reset, method: :put], fn f -> %>
+<%= form_for @conn, Routes.password_reset_path(@conn, :update), [as: :password_reset, method: :put], fn f -> %>
   <%= if f.errors != [] do %>
     <div class="alert alert-danger">
       <p><%= gettext "Something went wrong. Please check the errors below." %></p>

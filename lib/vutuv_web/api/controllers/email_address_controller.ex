@@ -1,7 +1,7 @@
 defmodule VutuvWeb.Api.EmailAddressController do
   use VutuvWeb, :controller
 
-  import VutuvWeb.Api.Authorize
+  import VutuvWeb.Api.AuthorizeConn
 
   alias Vutuv.Accounts
   alias Vutuv.Accounts.EmailAddress
@@ -29,21 +29,13 @@ defmodule VutuvWeb.Api.EmailAddressController do
   end
 
   def show(conn, %{"id" => id}, user) do
-    case Accounts.get_email_address(user, %{"id" => id}) do
-      %EmailAddress{} = email_address -> render(conn, "show.json", email_address: email_address)
-      _ -> error(conn, :forbidden, 403)
-    end
+    email_address = Accounts.get_email_address!(user, %{"id" => id})
+    render(conn, "show.json", email_address: email_address)
   end
 
   def update(conn, %{"id" => id, "email_address" => email_address_params}, user) do
-    if email_address = Accounts.get_email_address(user, %{"id" => id}) do
-      do_update(conn, email_address, email_address_params)
-    else
-      error(conn, :forbidden, 403)
-    end
-  end
+    email_address = Accounts.get_email_address!(user, %{"id" => id})
 
-  defp do_update(conn, email_address, email_address_params) do
     with {:ok, %EmailAddress{} = email_address} <-
            Accounts.update_email_address(email_address, email_address_params) do
       render(conn, "show.json", email_address: email_address)
@@ -51,14 +43,8 @@ defmodule VutuvWeb.Api.EmailAddressController do
   end
 
   def delete(conn, %{"id" => id}, user) do
-    if email_address = Accounts.get_email_address(user, %{"id" => id}) do
-      do_delete(conn, email_address)
-    else
-      error(conn, :forbidden, 403)
-    end
-  end
+    email_address = Accounts.get_email_address!(user, %{"id" => id})
 
-  defp do_delete(conn, email_address) do
     with {:ok, %EmailAddress{}} <- Accounts.delete_email_address(email_address) do
       send_resp(conn, :no_content, "")
     end

@@ -46,7 +46,7 @@ for user <- users do
     Vutuv.Accounts.create_user(user)
 
   Vutuv.Accounts.confirm_user(user_credential)
-  Vutuv.Accounts.confirm_email_address(email_address)
+  Vutuv.Accounts.verify_email_address(email_address)
   name = String.replace(user.full_name, " ", ".")
 
   Vutuv.Accounts.create_email_address(user, %{
@@ -233,7 +233,7 @@ for user <- other_users do
     Vutuv.Accounts.create_user(user)
 
   Vutuv.Accounts.confirm_user(user_credential)
-  Vutuv.Accounts.confirm_email_address(email_address)
-  leader_ids = Enum.map(users, &Vutuv.Accounts.get_user(&1).id)
+  Vutuv.Accounts.verify_email_address(email_address)
+  leader_ids = Enum.map(users, &Vutuv.Accounts.get_user!(&1).id)
   Vutuv.Accounts.add_leaders(user, leader_ids)
 end

@@ -19,7 +19,7 @@ defmodule Vutuv.Sessions do
   end
 
   @doc """
-  Gets a single valid session.
+  Gets a single valid session. Returns nil if no session found.
   """
   @spec get_session(integer) :: Session.t() | nil
   def get_session(id) do

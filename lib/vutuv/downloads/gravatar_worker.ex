@@ -63,7 +63,7 @@ defmodule Vutuv.Downloads.GravatarWorker do
   end
 
   defp add_gravatar_to_user(%{user_id: user_id, data: changes}) do
-    if user = Accounts.get_user(%{"id" => user_id}) do
+    if user = Accounts.get_user(user_id) do
       Accounts.update_user(user, %{"avatar" => changes})
     end
   end

@@ -23,13 +23,13 @@ defmodule VutuvWeb.EmailAddressController do
   def create(conn, %{"email_address" => email_address_params}, user) do
     case Accounts.create_email_address(user, email_address_params) do
       {:ok, email_address} ->
-        user_credential = Accounts.get_user_credential(%{"user_id" => user.id})
+        user_credential = Accounts.get_user_credential!(%{"user_id" => user.id})
         code = Otp.create(user_credential.otp_secret)
-        Email.confirm_request(email_address.value, code)
+        Email.verify_request(email_address.value, code)
 
         conn
         |> put_flash(:info, "Email address created successfully.")
-        |> redirect(to: Routes.confirm_path(conn, :new, email: email_address.value))
+        |> redirect(to: Routes.verification_path(conn, :new, email: email_address.value))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -37,32 +37,19 @@ defmodule VutuvWeb.EmailAddressController do
   end
 
   def show(conn, %{"id" => id}, user) do
-    case Accounts.get_email_address(user, %{"id" => id}) do
-      %EmailAddress{} = email_address -> render(conn, "show.html", email_address: email_address)
-      _ -> unauthorized(conn, user)
-    end
+    email_address = Accounts.get_email_address!(user, %{"id" => id})
+    render(conn, "show.html", email_address: email_address)
   end
 
   def edit(conn, %{"id" => id}, user) do
-    case Accounts.get_email_address(user, %{"id" => id}) do
-      %EmailAddress{} = email_address ->
-        changeset = Accounts.change_email_address(email_address)
-        render(conn, "edit.html", email_address: email_address, changeset: changeset)
-
-      _ ->
-        unauthorized(conn, user)
-    end
+    email_address = Accounts.get_email_address!(user, %{"id" => id})
+    changeset = Accounts.change_email_address(email_address)
+    render(conn, "edit.html", email_address: email_address, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "email_address" => email_address_params}, user) do
-    if email_address = Accounts.get_email_address(user, %{"id" => id}) do
-      do_update(conn, email_address, email_address_params, user)
-    else
-      unauthorized(conn, user)
-    end
-  end
+    email_address = Accounts.get_email_address!(user, %{"id" => id})
 
-  defp do_update(conn, email_address, email_address_params, user) do
     case Accounts.update_email_address(email_address, email_address_params) do
       {:ok, email_address} ->
         conn
@@ -75,16 +62,11 @@ defmodule VutuvWeb.EmailAddressController do
   end
 
   def delete(conn, %{"id" => id}, user) do
-    case Accounts.get_email_address(user, %{"id" => id}) do
-      %EmailAddress{} = email_address ->
-        {:ok, _email_address} = Accounts.delete_email_address(email_address)
+    email_address = Accounts.get_email_address!(user, %{"id" => id})
+    {:ok, _email_address} = Accounts.delete_email_address(email_address)
 
-        conn
-        |> put_flash(:info, "Email address deleted successfully.")
-        |> redirect(to: Routes.user_email_address_path(conn, :index, user))
-
-      _ ->
-        unauthorized(conn, user)
-    end
+    conn
+    |> put_flash(:info, "Email address deleted successfully.")
+    |> redirect(to: Routes.user_email_address_path(conn, :index, user))
   end
 end

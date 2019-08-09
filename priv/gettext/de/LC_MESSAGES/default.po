@@ -12,7 +12,7 @@ msgstr ""
 "Plural-Forms: nplurals=2\n"
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/new_form.html.eex:31
+#: lib/vutuv_web/templates/user/new.html.eex:33
 msgid "Already signed up?"
 msgstr "Schon ...?"
 
@@ -23,7 +23,7 @@ msgstr "Schon ...?"
 #: lib/vutuv_web/templates/post/edit.html.eex:5
 #: lib/vutuv_web/templates/post/new.html.eex:5
 #: lib/vutuv_web/templates/post/show.html.eex:13
-#: lib/vutuv_web/templates/user/edit.html.eex:5
+#: lib/vutuv_web/templates/user/edit.html.eex:70
 msgid "Back"
 msgstr "Zurück"
 
@@ -50,24 +50,24 @@ msgstr "Ändern"
 #, elixir-format
 #: lib/vutuv_web/templates/password_reset/new_request.html.eex:12
 #: lib/vutuv_web/templates/session/new.html.eex:10
-#: lib/vutuv_web/templates/user/new_form.html.eex:8
+#: lib/vutuv_web/templates/user/new.html.eex:10
 msgid "Email"
 msgstr "E-Mail"
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:50
+#: lib/vutuv_web/templates/layout/app.html.eex:51
 #: lib/vutuv_web/templates/session/new.html.eex:1
 #: lib/vutuv_web/templates/session/new.html.eex:21
 msgid "Login"
 msgstr "Einloggen"
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/new_form.html.eex:32
+#: lib/vutuv_web/templates/user/new.html.eex:34
 msgid "Login here"
 msgstr "Einloggen hier"
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:46
+#: lib/vutuv_web/templates/layout/app.html.eex:47
 msgid "Logout"
 msgstr "Ausloggen"
 
@@ -114,31 +114,31 @@ msgid "Verified:"
 msgstr "Verifiziert:"
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:24
-#: lib/vutuv_web/templates/user/new_form.html.eex:20
+#: lib/vutuv_web/templates/user/edit.html.eex:26
+#: lib/vutuv_web/templates/user/new.html.eex:22
 msgid "Gender"
 msgstr "Geschlecht"
 
 #, elixir-format
 #: lib/vutuv_web/templates/password_reset/edit.html.eex:12
 #: lib/vutuv_web/templates/session/new.html.eex:14
-#: lib/vutuv_web/templates/user/new_form.html.eex:12
+#: lib/vutuv_web/templates/user/new.html.eex:14
 msgid "Password"
 msgstr "Passwort"
 
 #, elixir-format
 #: lib/vutuv_web/templates/user/new.html.eex:1
-#: lib/vutuv_web/templates/user/new_form.html.eex:29
+#: lib/vutuv_web/templates/user/new.html.eex:31
 msgid "Sign up"
 msgstr "Anmelden"
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:40
+#: lib/vutuv_web/templates/layout/app.html.eex:41
 msgid "About"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:41
+#: lib/vutuv_web/templates/layout/app.html.eex:42
 msgid "Data privacy"
 msgstr ""
 
@@ -163,20 +163,20 @@ msgstr ""
 #, elixir-format
 #: lib/vutuv_web/templates/email_address/form.html.eex:29
 #: lib/vutuv_web/templates/post/form.html.eex:27
-#: lib/vutuv_web/templates/user/edit_form.html.eex:64
+#: lib/vutuv_web/templates/user/edit.html.eex:66
 msgid "Save"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/confirm/new.html.eex:8
 #: lib/vutuv_web/templates/email_address/form.html.eex:4
 #: lib/vutuv_web/templates/password_reset/edit.html.eex:8
 #: lib/vutuv_web/templates/password_reset/new.html.eex:8
 #: lib/vutuv_web/templates/password_reset/new_request.html.eex:8
 #: lib/vutuv_web/templates/post/form.html.eex:4
 #: lib/vutuv_web/templates/session/new.html.eex:6
-#: lib/vutuv_web/templates/user/edit_form.html.eex:4
-#: lib/vutuv_web/templates/user/new_form.html.eex:4
+#: lib/vutuv_web/templates/user/edit.html.eex:6
+#: lib/vutuv_web/templates/user/new.html.eex:6
+#: lib/vutuv_web/templates/verification/new.html.eex:8
 msgid "Something went wrong. Please check the errors below."
 msgstr ""
 
@@ -187,27 +187,27 @@ msgid "is public"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:55
+#: lib/vutuv_web/templates/user/edit.html.eex:57
 msgid "Headline"
 msgstr "Headline:"
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:16
+#: lib/vutuv_web/templates/user/edit.html.eex:18
 msgid "Honorific prefix"
 msgstr "Ehrentitel"
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:20
+#: lib/vutuv_web/templates/user/edit.html.eex:22
 msgid "Honorific suffix"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:51
+#: lib/vutuv_web/templates/user/edit.html.eex:53
 msgid "Avatar"
 msgstr "Avatar:"
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:47
+#: lib/vutuv_web/templates/user/edit.html.eex:49
 msgid "Locale"
 msgstr ""
 
@@ -239,114 +239,102 @@ msgid "New email address"
 msgstr "Neue E-Mail Adresse"
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:25
-#: lib/vutuv_web/templates/user/new_form.html.eex:21
+#: lib/vutuv_web/templates/user/edit.html.eex:27
+#: lib/vutuv_web/templates/user/new.html.eex:23
 msgid "Female"
 msgstr "Frau"
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:25
-#: lib/vutuv_web/templates/user/new_form.html.eex:21
+#: lib/vutuv_web/templates/user/edit.html.eex:27
+#: lib/vutuv_web/templates/user/new.html.eex:23
 msgid "Male"
 msgstr "Mann"
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:25
-#: lib/vutuv_web/templates/user/new_form.html.eex:21
+#: lib/vutuv_web/templates/user/edit.html.eex:27
+#: lib/vutuv_web/templates/user/new.html.eex:23
 msgid "Other"
 msgstr "Sonstiges"
 
 #, elixir-format
 #: lib/vutuv_web/templates/error/404.html.eex:15
-#: lib/vutuv_web/templates/layout/app.html.eex:22
+#: lib/vutuv_web/templates/layout/app.html.eex:28
 msgid "The fast, secure and less annoying social network."
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:34
-#: lib/vutuv_web/view_utils.ex:31
+#: lib/vutuv_web/templates/user/edit.html.eex:36 lib/vutuv_web/view_utils.ex:31
 msgid "April"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:38
-#: lib/vutuv_web/view_utils.ex:35
+#: lib/vutuv_web/templates/user/edit.html.eex:40 lib/vutuv_web/view_utils.ex:35
 msgid "August"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:28
+#: lib/vutuv_web/templates/user/edit.html.eex:30
 msgid "Date of birth"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:42
-#: lib/vutuv_web/view_utils.ex:39
+#: lib/vutuv_web/templates/user/edit.html.eex:44 lib/vutuv_web/view_utils.ex:39
 msgid "December"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:32
-#: lib/vutuv_web/view_utils.ex:29
+#: lib/vutuv_web/templates/user/edit.html.eex:34 lib/vutuv_web/view_utils.ex:29
 msgid "February"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:8
-#: lib/vutuv_web/templates/user/new_form.html.eex:16
+#: lib/vutuv_web/templates/user/edit.html.eex:10
+#: lib/vutuv_web/templates/user/new.html.eex:18
 msgid "Full name"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:31
-#: lib/vutuv_web/view_utils.ex:28
+#: lib/vutuv_web/templates/user/edit.html.eex:33 lib/vutuv_web/view_utils.ex:28
 msgid "January"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:37
-#: lib/vutuv_web/view_utils.ex:34
+#: lib/vutuv_web/templates/user/edit.html.eex:39 lib/vutuv_web/view_utils.ex:34
 msgid "July"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:36
-#: lib/vutuv_web/view_utils.ex:33
+#: lib/vutuv_web/templates/user/edit.html.eex:38 lib/vutuv_web/view_utils.ex:33
 msgid "June"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:33
-#: lib/vutuv_web/view_utils.ex:30
+#: lib/vutuv_web/templates/user/edit.html.eex:35 lib/vutuv_web/view_utils.ex:30
 msgid "March"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:35
-#: lib/vutuv_web/view_utils.ex:32
+#: lib/vutuv_web/templates/user/edit.html.eex:37 lib/vutuv_web/view_utils.ex:32
 msgid "May"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:41
-#: lib/vutuv_web/view_utils.ex:38
+#: lib/vutuv_web/templates/user/edit.html.eex:43 lib/vutuv_web/view_utils.ex:38
 msgid "November"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:40
-#: lib/vutuv_web/view_utils.ex:37
+#: lib/vutuv_web/templates/user/edit.html.eex:42 lib/vutuv_web/view_utils.ex:37
 msgid "October"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:12
+#: lib/vutuv_web/templates/user/edit.html.eex:14
 msgid "Preferred name"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:39
-#: lib/vutuv_web/view_utils.ex:36
+#: lib/vutuv_web/templates/user/edit.html.eex:41 lib/vutuv_web/view_utils.ex:36
 msgid "September"
 msgstr ""
 
@@ -356,26 +344,21 @@ msgid "Sorry, we cannot find the page you were looking for."
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/confirm/new.html.eex:3
 #: lib/vutuv_web/templates/password_reset/new.html.eex:3
+#: lib/vutuv_web/templates/verification/new.html.eex:3
 msgid "A code has been sent to your email address. Enter that code below."
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/confirm/new.html.eex:12
 #: lib/vutuv_web/templates/password_reset/new.html.eex:12
+#: lib/vutuv_web/templates/verification/new.html.eex:12
 msgid "Code"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/confirm/new.html.eex:1
-msgid "Confirm user email address"
-msgstr ""
-
-#, elixir-format
-#: lib/vutuv_web/templates/confirm/new.html.eex:19
 #: lib/vutuv_web/templates/password_reset/new.html.eex:19
 #: lib/vutuv_web/templates/password_reset/new_request.html.eex:17
+#: lib/vutuv_web/templates/verification/new.html.eex:19
 msgid "Continue"
 msgstr ""
 
@@ -395,7 +378,7 @@ msgid "Update password"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/confirm/new.html.eex:23
+#: lib/vutuv_web/templates/verification/new.html.eex:24
 msgid "Resend code"
 msgstr ""
 
@@ -468,8 +451,8 @@ msgid "Posts"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/edit_form.html.eex:59
-#: lib/vutuv_web/templates/user/new_form.html.eex:24
+#: lib/vutuv_web/templates/user/edit.html.eex:61
+#: lib/vutuv_web/templates/user/new.html.eex:26
 msgid "Prevent search engines from indexing your profile"
 msgstr ""
 
@@ -484,7 +467,7 @@ msgid "Public"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:42
+#: lib/vutuv_web/templates/layout/app.html.eex:43
 #: lib/vutuv_web/templates/user/index.html.eex:1
 msgid "Users"
 msgstr "User"
@@ -545,7 +528,7 @@ msgstr ""
 msgid "No followers yet"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/vutuv_web/templates/user/show.html.eex:42
 msgid "No posts"
 msgstr ""
@@ -571,4 +554,19 @@ msgstr ""
 #: lib/vutuv_web/templates/user/_users_table.html.eex:20
 #: lib/vutuv_web/templates/user/_users_table.html.eex:22
 msgid "View profile"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/verification/new.html.eex:1
+msgid "Verify user email address"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/user/show.html.eex:47
+msgid "Download vcard"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/layout/app.html.eex:29
+msgid "Over 20000 members worldwide."
 msgstr ""

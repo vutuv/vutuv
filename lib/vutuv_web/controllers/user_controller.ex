@@ -4,7 +4,8 @@ defmodule VutuvWeb.UserController do
   import VutuvWeb.AuthorizeConn
 
   alias Phauxth.Log
-  alias Vutuv.{Accounts, Accounts.User, Socials.Authorize}
+  alias Vutuv.{Accounts, Accounts.User, Socials}
+  alias VutuvWeb.{Auth.Otp, Email}
 
   @dialyzer {:nowarn_function, new: 3}
 
@@ -38,30 +39,32 @@ defmodule VutuvWeb.UserController do
       {:ok, user} ->
         Log.info(%Log{user: user.id, message: "user created"})
         email = user_params["email"]
+        user_credential = Accounts.get_user_credential(%{"email" => email})
+        code = Otp.create(user_credential.otp_secret)
+        Email.verify_request(email, code)
 
         conn
         |> put_flash(:info, "User created successfully.")
-        |> redirect(to: Routes.confirm_path(conn, :new, email: email))
+        |> redirect(to: Routes.verification_path(conn, :new, email: email))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
   end
 
+  def show(conn, %{"slug" => slug}, %{"slug" => slug} = current_user) do
+    user =
+      Accounts.with_associated_data(current_user, [:email_addresses, :tags, :followers, :leaders])
+
+    posts = Socials.list_posts(current_user)
+    render(conn, "show.html", user: user, posts: posts)
+  end
+
   def show(conn, %{"slug" => slug}, current_user) do
-    case Authorize.list_user_posts(%{"user_slug" => slug}, current_user) do
-      {%User{} = user, posts} ->
-        user = Accounts.with_associated_data(user, [:email_addresses, :tags])
-        followers = Accounts.list_user_connections(user, :followers, 4)
-        leaders = Accounts.list_user_connections(user, :leaders, 4)
-
-        render(conn, "show.html", user: user, followers: followers, leaders: leaders, posts: posts)
-
-      _ ->
-        conn
-        |> put_view(VutuvWeb.ErrorView)
-        |> render(:"404")
-    end
+    user = Accounts.get_user!(%{"slug" => slug})
+    user = Accounts.with_associated_data(user, [:email_addresses, :tags, :followers, :leaders])
+    posts = Socials.list_posts(user, current_user)
+    render(conn, "show.html", user: user, posts: posts)
   end
 
   def edit(conn, _, user) do

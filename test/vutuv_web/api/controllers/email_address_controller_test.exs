@@ -60,8 +60,11 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
       user: user
     } do
       %User{email_addresses: [email_address]} = other = add_user("fred@mail.com")
-      conn = get(conn, Routes.api_user_email_address_path(conn, :show, user, email_address))
-      assert json_response(conn, 403)["errors"]["detail"] =~ "are not authorized"
+
+      assert_error_sent 404, fn ->
+        get(conn, Routes.api_user_email_address_path(conn, :show, user, email_address))
+      end
+
       conn = get(conn, Routes.api_user_email_address_path(conn, :show, other, email_address))
       assert json_response(conn, 403)["errors"]["detail"] =~ "are not authorized"
     end
@@ -103,7 +106,7 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
         )
 
       assert json_response(conn, 200)["data"]["id"]
-      assert Accounts.get_email_address(user, %{"id" => email_address.id})
+      assert Accounts.get_email_address!(user, %{"id" => email_address.id})
     end
 
     test "does not update chosen email_address when data is invalid", %{
@@ -126,14 +129,20 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
     test "deletes chosen email_address", %{conn: conn, user: user, email_address: email_address} do
       conn = delete(conn, Routes.api_user_email_address_path(conn, :delete, user, email_address))
       assert response(conn, 204)
-      refute Accounts.get_email_address(user, %{"id" => email_address.id})
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Accounts.get_email_address!(user, %{"id" => email_address.id})
+      end
     end
 
     test "cannot delete other user's email_address", %{conn: conn, user: user} do
       %User{email_addresses: [email_address]} = other = add_user("raymond@example.com")
-      conn = delete(conn, Routes.api_user_email_address_path(conn, :delete, user, email_address))
-      assert json_response(conn, 403)["errors"] != %{}
-      assert Accounts.get_email_address(other, %{"id" => email_address.id})
+
+      assert_error_sent 404, fn ->
+        delete(conn, Routes.api_user_email_address_path(conn, :delete, user, email_address))
+      end
+
+      assert Accounts.get_email_address!(other, %{"id" => email_address.id})
     end
   end
 end

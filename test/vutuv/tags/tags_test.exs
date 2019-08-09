@@ -32,9 +32,9 @@ defmodule Vutuv.TagsTest do
       assert Tags.list_tags() == [tag]
     end
 
-    test "get_tag/1 returns the tag with given id" do
+    test "get_tag!/1 returns the tag with given id" do
       tag = tag_fixture()
-      assert Tags.get_tag(tag.id) == tag
+      assert Tags.get_tag!(tag.id) == tag
     end
 
     test "create_tag/1 with valid data creates a tag" do
@@ -59,13 +59,13 @@ defmodule Vutuv.TagsTest do
     test "update_tag/2 with invalid data returns error changeset" do
       tag = tag_fixture()
       assert {:error, %Ecto.Changeset{}} = Tags.update_tag(tag, @invalid_attrs)
-      assert tag == Tags.get_tag(tag.id)
+      assert tag == Tags.get_tag!(tag.id)
     end
 
     test "delete_tag/1 deletes the tag" do
       tag = tag_fixture()
       assert {:ok, %Tag{}} = Tags.delete_tag(tag)
-      refute Tags.get_tag(tag.id)
+      assert_raise Ecto.NoResultsError, fn -> Tags.get_tag!(tag.id) end
     end
 
     test "change_tag/1 returns a tag changeset" do
@@ -80,7 +80,7 @@ defmodule Vutuv.TagsTest do
       {:ok, %Tag{} = tag} = Tags.create_tag(@create_tag_attrs)
       {:ok, user} = Accounts.add_user_tags(user, [tag.id])
       assert [%Tag{} = ^tag] = user.tags
-      %Tag{users: [user_1]} = Tags.get_tag(tag.id) |> Repo.preload(:users)
+      %Tag{users: [user_1]} = Tags.get_tag!(tag.id) |> Repo.preload(:users)
       assert user.id == user_1.id
     end
   end
@@ -91,7 +91,7 @@ defmodule Vutuv.TagsTest do
       {:ok, %Tag{} = tag} = Tags.create_tag(@create_tag_attrs)
       {:ok, post} = Socials.add_post_tags(post, [tag.id])
       assert [%Tag{} = ^tag] = post.tags
-      %Tag{posts: [post_1]} = Tags.get_tag(tag.id) |> Repo.preload(:posts)
+      %Tag{posts: [post_1]} = Tags.get_tag!(tag.id) |> Repo.preload(:posts)
       assert post.id == post_1.id
     end
   end

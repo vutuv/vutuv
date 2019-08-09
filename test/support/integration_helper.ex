@@ -3,7 +3,7 @@ defmodule VutuvWeb.IntegrationHelper do
   A helper for use with integration tests.
   """
 
-  @base_url "http://localhost:4002/api/v1"
+  @base_url "http://localhost:4002/api/v2"
 
   @doc """
   Logs in the user.

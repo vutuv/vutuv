@@ -44,8 +44,8 @@ defmodule Vutuv.AccountsTest do
       assert %Scrivener.Page{total_entries: 2} = Accounts.paginate_users(%{})
     end
 
-    test "get_user returns the user with given slug", %{user: user} do
-      user_1 = Accounts.get_user(%{"slug" => user.slug})
+    test "get_user! returns the user with given slug", %{user: user} do
+      user_1 = Accounts.get_user!(%{"slug" => user.slug})
       assert user_1.id == user.id
       assert user_1.full_name == user.full_name
       assert user_1.gender == user.gender
@@ -162,7 +162,7 @@ defmodule Vutuv.AccountsTest do
       [email_address] = user.email_addresses
       assert Repo.get(EmailAddress, email_address.id)
       assert {:ok, %User{}} = Accounts.delete_user(user)
-      refute Accounts.get_user(%{"id" => user.id})
+      assert_raise Ecto.NoResultsError, fn -> Accounts.get_user!(%{"id" => user.id}) end
       refute Repo.get(EmailAddress, email_address.id)
     end
   end
@@ -176,7 +176,7 @@ defmodule Vutuv.AccountsTest do
 
       assert user =
                %{"id" => user_id}
-               |> Accounts.get_user()
+               |> Accounts.get_user!()
                |> Accounts.with_associated_data([:followers, :leaders])
 
       assert user.followers == []
@@ -184,7 +184,7 @@ defmodule Vutuv.AccountsTest do
 
       assert user =
                %{"id" => new_user_id}
-               |> Accounts.get_user()
+               |> Accounts.get_user!()
                |> Accounts.with_associated_data([:followers, :leaders])
 
       assert [%User{id: ^user_id}] = user.followers
@@ -217,18 +217,21 @@ defmodule Vutuv.AccountsTest do
       assert length(Accounts.list_email_addresses(user, :public)) == 2
     end
 
-    test "get_email_address returns a specific user's email_address", %{
+    test "get_email_address! returns a specific user's email_address", %{
       user: user,
       email_address: email_address
     } do
-      assert Accounts.get_email_address(user, %{"id" => email_address.id}) == email_address
+      assert Accounts.get_email_address!(user, %{"id" => email_address.id}) == email_address
     end
 
-    test "get_email_address returns returns nil for other user's email_address", %{
+    test "get_email_address! returns returns nil for other user's email_address", %{
       email_address: email_address
     } do
       other = insert(:user)
-      refute Accounts.get_email_address(other, %{"id" => email_address.id})
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Accounts.get_email_address!(other, %{"id" => email_address.id})
+      end
     end
 
     test "change_email_address/1 returns a email_address changeset", %{
@@ -256,7 +259,7 @@ defmodule Vutuv.AccountsTest do
       {:ok, email_address} = Accounts.create_email_address(user, email_attrs)
       assert email_address.position == 2
       email_attrs = Map.merge(@create_email_attrs, %{"value" => "zyx@example.com"})
-      user = Accounts.get_user(%{"id" => user.id})
+      user = Accounts.get_user!(%{"id" => user.id})
       {:ok, email_address} = Accounts.create_email_address(user, email_attrs)
       assert email_address.position == 3
     end
@@ -321,7 +324,10 @@ defmodule Vutuv.AccountsTest do
       user: user
     } do
       assert {:ok, %EmailAddress{}} = Accounts.delete_email_address(email_address)
-      refute Accounts.get_email_address(user, %{"id" => email_address.id})
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Accounts.get_email_address!(user, %{"id" => email_address.id})
+      end
     end
   end
 
@@ -374,7 +380,7 @@ defmodule Vutuv.AccountsTest do
     test "phone_number returns the phone_number with given id", %{
       phone_number: phone_number
     } do
-      assert Accounts.get_phone_number(phone_number.id) == phone_number
+      assert Accounts.get_phone_number!(phone_number.id) == phone_number
     end
 
     test "change phone_number/1 returns a phone_number changeset", %{
@@ -422,7 +428,7 @@ defmodule Vutuv.AccountsTest do
 
     test "delete_phone_number/1 deletes the phone_number", %{phone_number: phone_number} do
       assert {:ok, %PhoneNumber{}} = Accounts.delete_phone_number(phone_number)
-      refute Accounts.get_phone_number(phone_number.id)
+      assert_raise Ecto.NoResultsError, fn -> Accounts.get_phone_number!(phone_number.id) end
     end
   end
 
