@@ -1,7 +1,7 @@
 defmodule VutuvWeb.SessionController do
   use VutuvWeb, :controller
 
-  import VutuvWeb.AuthorizeConn
+  import VutuvWeb.Authorize
 
   alias Vutuv.Sessions
   alias VutuvWeb.Auth.Login

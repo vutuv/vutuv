@@ -1,11 +1,11 @@
 defmodule VutuvWeb.UserController do
   use VutuvWeb, :controller
 
-  import VutuvWeb.AuthorizeConn
+  import VutuvWeb.Authorize
 
   alias Phauxth.Log
   alias Vutuv.{Accounts, Accounts.User, Socials}
-  alias VutuvWeb.{Auth.Otp, Email}
+  alias VutuvWeb.EmailAddressController
 
   @dialyzer {:nowarn_function, new: 3}
 
@@ -38,17 +38,14 @@ defmodule VutuvWeb.UserController do
     case Accounts.create_user(user_params) do
       {:ok, user} ->
         Log.info(%Log{user: user.id, message: "user created"})
-        email = user_params["email"]
-        user_credential = Accounts.get_user_credential(%{"email" => email})
-        code = Otp.create(user_credential.otp_secret)
-        Email.verify_request(email, code)
-
-        conn
-        |> put_flash(:info, "User created successfully.")
-        |> redirect(to: Routes.verification_path(conn, :new, email: email))
+        EmailAddressController.verify_email(conn, user_params, "confirm your account", true)
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        if Accounts.duplicate_email_error?(changeset) do
+          EmailAddressController.verify_email(conn, user_params, "confirm your account", false)
+        else
+          render(conn, "new.html", changeset: changeset)
+        end
     end
   end
 

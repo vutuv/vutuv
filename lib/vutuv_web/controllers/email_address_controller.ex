@@ -1,7 +1,7 @@
 defmodule VutuvWeb.EmailAddressController do
   use VutuvWeb, :controller
 
-  import VutuvWeb.AuthorizeConn
+  import VutuvWeb.Authorize
 
   alias Vutuv.{Accounts, Accounts.EmailAddress}
   alias VutuvWeb.{Auth.Otp, Email}
@@ -23,17 +23,35 @@ defmodule VutuvWeb.EmailAddressController do
   def create(conn, %{"email_address" => email_address_params}, user) do
     case Accounts.create_email_address(user, email_address_params) do
       {:ok, email_address} ->
-        user_credential = Accounts.get_user_credential!(%{"user_id" => user.id})
-        code = Otp.create(user_credential.otp_secret)
-        Email.verify_request(email_address.value, code)
-
-        conn
-        |> put_flash(:info, "Email address created successfully.")
-        |> redirect(to: Routes.verification_path(conn, :new, email: email_address.value))
+        verify_email(conn, %{"email" => email_address.value}, "verify this email address", true)
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        if Accounts.duplicate_email_error?(changeset) do
+          verify_email(
+            conn,
+            %{"email" => email_address_params["value"]},
+            "verify this email address",
+            false
+          )
+        else
+          render(conn, "new.html", changeset: changeset)
+        end
     end
+  end
+
+  def verify_email(conn, %{"email" => email}, msg, unique_email) do
+    code =
+      if unique_email do
+        user_credential = Accounts.get_user_credential(%{"email" => email})
+        Otp.create(user_credential.otp_secret)
+      end
+
+    Email.verify_request(email, code)
+    message = "We have sent you an email. Please follow the instructions to #{msg}."
+
+    conn
+    |> put_flash(:info, message)
+    |> redirect(to: Routes.verification_path(conn, :new, email: email))
   end
 
   def show(conn, %{"id" => id}, user) do

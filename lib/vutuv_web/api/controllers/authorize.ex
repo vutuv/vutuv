@@ -1,4 +1,4 @@
-defmodule VutuvWeb.Api.AuthorizeConn do
+defmodule VutuvWeb.Api.Authorize do
   @moduledoc """
   Functions to help with authorization.
   """

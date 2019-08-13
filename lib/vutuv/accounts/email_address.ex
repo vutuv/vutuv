@@ -41,7 +41,7 @@ defmodule Vutuv.Accounts.EmailAddress do
     )
     |> validate_length(:value, max: 255)
     |> validate_length(:description, max: 255)
-    |> unique_constraint(:value, downcase: true)
+    |> unique_constraint(:value, downcase: true, message: "duplicate")
   end
 
   def update_changeset(%__MODULE__{} = email_address, attrs) do

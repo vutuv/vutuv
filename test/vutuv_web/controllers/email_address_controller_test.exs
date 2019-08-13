@@ -109,7 +109,17 @@ defmodule VutuvWeb.EmailAddressControllerTest do
       assert redirected_to(conn) ==
                Routes.verification_path(conn, :new, email: "abcdef@example.com")
 
-      assert get_flash(conn, :info) =~ "created successfully"
+      assert get_flash(conn, :info) =~ "verify this email address"
+    end
+
+    test "does not return an error when the email has been taken", %{conn: conn, user: user} do
+      attrs = Map.merge(@create_attrs, %{"value" => "igor@example.com"})
+      conn = post(conn, Routes.user_email_address_path(conn, :create, user), email_address: attrs)
+
+      assert redirected_to(conn) ==
+               Routes.verification_path(conn, :new, email: "igor@example.com")
+
+      assert get_flash(conn, :info) =~ "verify this email address"
     end
 
     test "does not create email_address when data is invalid", %{
