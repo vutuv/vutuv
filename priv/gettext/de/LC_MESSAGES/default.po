@@ -17,6 +17,9 @@ msgid "Already signed up?"
 msgstr "Schon ...?"
 
 #, elixir-format
+#: lib/vutuv_web/templates/address/edit.html.eex:5
+#: lib/vutuv_web/templates/address/new.html.eex:5
+#: lib/vutuv_web/templates/address/show.html.eex:54
 #: lib/vutuv_web/templates/email_address/edit.html.eex:5
 #: lib/vutuv_web/templates/email_address/new.html.eex:5
 #: lib/vutuv_web/templates/email_address/show.html.eex:33
@@ -28,17 +31,22 @@ msgid "Back"
 msgstr "Zurück"
 
 #, elixir-format
+#: lib/vutuv_web/templates/address/form.html.eex:8
+#: lib/vutuv_web/templates/address/index.html.eex:9
 #: lib/vutuv_web/templates/email_address/form.html.eex:16
 #: lib/vutuv_web/templates/email_address/index.html.eex:7
 msgid "Description"
 msgstr "Beschreibung"
 
 #, elixir-format
+#: lib/vutuv_web/templates/address/show.html.eex:6
 #: lib/vutuv_web/templates/email_address/show.html.eex:11
 msgid "Description:"
 msgstr "Beschreibung"
 
 #, elixir-format
+#: lib/vutuv_web/templates/address/index.html.eex:28
+#: lib/vutuv_web/templates/address/show.html.eex:53
 #: lib/vutuv_web/templates/email_address/index.html.eex:26
 #: lib/vutuv_web/templates/email_address/show.html.eex:32
 #: lib/vutuv_web/templates/post/index.html.eex:26
@@ -88,6 +96,7 @@ msgid "Position:"
 msgstr ""
 
 #, elixir-format
+#: lib/vutuv_web/templates/address/index.html.eex:26
 #: lib/vutuv_web/templates/email_address/index.html.eex:25
 msgid "Show"
 msgstr "Anzeigen"
@@ -143,6 +152,7 @@ msgid "Data privacy"
 msgstr ""
 
 #, elixir-format
+#: lib/vutuv_web/templates/address/index.html.eex:31
 #: lib/vutuv_web/templates/email_address/index.html.eex:29
 #: lib/vutuv_web/templates/post/index.html.eex:29
 msgid "Delete"
@@ -161,6 +171,7 @@ msgid "Reset password"
 msgstr ""
 
 #, elixir-format
+#: lib/vutuv_web/templates/address/form.html.eex:45
 #: lib/vutuv_web/templates/email_address/form.html.eex:29
 #: lib/vutuv_web/templates/post/form.html.eex:27
 #: lib/vutuv_web/templates/user/edit.html.eex:66
@@ -168,6 +179,7 @@ msgid "Save"
 msgstr ""
 
 #, elixir-format
+#: lib/vutuv_web/templates/address/form.html.eex:4
 #: lib/vutuv_web/templates/email_address/form.html.eex:4
 #: lib/vutuv_web/templates/password_reset/edit.html.eex:8
 #: lib/vutuv_web/templates/password_reset/new.html.eex:8
@@ -569,4 +581,218 @@ msgstr ""
 #, elixir-format
 #: lib/vutuv_web/templates/layout/app.html.eex:29
 msgid "Over 20000 members worldwide."
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/vutuv_web/controllers/verification_controller.ex:38
+msgid "A code has been sent to your email address. Enter that code here."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/address/show.html.eex:1
+msgid "Address"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/address_controller.ex:37
+msgid "Address created successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/address_controller.ex:81
+msgid "Address deleted successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/address_controller.ex:68
+msgid "Address updated successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/password_reset_controller.ex:20
+msgid "Check your inbox for instructions on how to reset your password"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/address/form.html.eex:32
+#: lib/vutuv_web/templates/address/index.html.eex:10
+msgid "City"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/address/show.html.eex:36
+msgid "City:"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/address/form.html.eex:40
+#: lib/vutuv_web/templates/address/index.html.eex:12
+msgid "Country"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/address/show.html.eex:46
+msgid "Country:"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/vutuv_web/controllers/email_address_controller.ex:89
+msgid "Email address deleted successfully."
+msgstr "Neue E-Mail Adresse"
+
+#, elixir-format, fuzzy
+#: lib/vutuv_web/controllers/email_address_controller.ex:76
+msgid "Email address updated successfully."
+msgstr "Neue E-Mail Adresse"
+
+#, elixir-format
+#: lib/vutuv_web/controllers/password_reset_controller.ex:37
+#: lib/vutuv_web/controllers/verification_controller.ex:25
+msgid "Invalid code"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/password_reset_controller.ex:62
+msgid "Invalid input"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/address/form.html.eex:12
+msgid "Line 1"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/address/show.html.eex:11
+msgid "Line 1:"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/address/form.html.eex:16
+msgid "Line 2"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/address/show.html.eex:16
+msgid "Line 2:"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/address/form.html.eex:20
+msgid "Line 3"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/address/show.html.eex:21
+msgid "Line 3:"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/address/form.html.eex:24
+msgid "Line 4"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/address/show.html.eex:26
+msgid "Line 4:"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/post_controller.ex:38
+msgid "Post created successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/post_controller.ex:82
+msgid "Post deleted successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/post_controller.ex:69
+msgid "Post updated successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/address/form.html.eex:36
+#: lib/vutuv_web/templates/address/index.html.eex:11
+msgid "State"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/address/show.html.eex:41
+msgid "State:"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/session_controller.ex:40
+msgid "Unauthorized"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/user_controller.ex:89
+msgid "User deleted successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/session_controller.ex:20
+msgid "User successfully logged in."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/session_controller.ex:35
+msgid "User successfully logged out."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/user_controller.ex:76
+msgid "User updated successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/email_address_controller.ex:54
+msgid "We have sent you an email. Please follow the instructions to %{msg}."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/authorize.ex:50
+msgid "You are not authorized to view this page"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/authorize.ex:58
+msgid "You need to log in to view this page"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/authorize.ex:40
+msgid "You need to log out to view this page"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/verification_controller.ex:21
+msgid "Your email has been verified."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/password_reset_controller.ex:55
+msgid "Your password has been reset"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/address/form.html.eex:28
+msgid "Zip code"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/address/show.html.eex:31
+msgid "Zip code:"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/vutuv_web/templates/address/index.html.eex:1
+msgid "addresses"
+msgstr "Neue E-Mail Adresse"
+
+#, elixir-format
+#: lib/vutuv_web/templates/address/index.html.eex:4
+msgid "has no addresses yet"
 msgstr ""

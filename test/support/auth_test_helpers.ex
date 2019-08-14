@@ -1,7 +1,7 @@
 defmodule VutuvWeb.AuthTestHelpers do
   use Phoenix.ConnTest
 
-  alias Vutuv.{Accounts, Sessions}
+  alias Vutuv.{Accounts, Devices, Sessions}
   alias VutuvWeb.Auth.Token
 
   def add_user(email) do
@@ -25,7 +25,7 @@ defmodule VutuvWeb.AuthTestHelpers do
     |> Accounts.get_user_credential!()
     |> Accounts.confirm_user()
 
-    Accounts.verify_email_address(email_address)
+    Devices.verify_email_address(email_address)
     user
   end
 

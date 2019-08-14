@@ -39,7 +39,7 @@ defmodule Vutuv.SocialsTest do
     test "get_post!/2 returns a user's post with given id" do
       %Post{id: post_id, title: title, body: body, user_id: user_id} = insert(:post)
       user = Accounts.get_user!(%{"id" => user_id})
-      post = Socials.get_post!(user, %{"id" => post_id})
+      post = Socials.get_post!(user, post_id)
       assert post.title == title
       assert post.body == body
       assert post.user_id == user_id
@@ -107,7 +107,7 @@ defmodule Vutuv.SocialsTest do
       post = insert(:post)
       assert {:ok, %Post{}} = Socials.delete_post(post)
       user = Accounts.get_user!(%{"id" => post.user_id})
-      assert_raise Ecto.NoResultsError, fn -> Socials.get_post!(user, %{"id" => post.id}) end
+      assert_raise Ecto.NoResultsError, fn -> Socials.get_post!(user, post.id) end
     end
   end
 

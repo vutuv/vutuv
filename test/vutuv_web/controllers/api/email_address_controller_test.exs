@@ -3,7 +3,7 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
 
   import VutuvWeb.AuthTestHelpers
 
-  alias Vutuv.{Accounts, Accounts.User}
+  alias Vutuv.{Accounts.User, Devices}
 
   @create_attrs %{
     "is_public" => true,
@@ -78,7 +78,7 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
         )
 
       assert json_response(conn, 201)["data"]["id"]
-      assert Accounts.get_email_address(%{"value" => @create_attrs["value"]})
+      assert Devices.get_email_address(%{"value" => @create_attrs["value"]})
     end
 
     test "does not create email_address and returns errors when data is invalid", %{
@@ -106,7 +106,7 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
         )
 
       assert json_response(conn, 200)["data"]["id"]
-      assert Accounts.get_email_address!(user, %{"id" => email_address.id})
+      assert Devices.get_email_address!(user, email_address.id)
     end
 
     test "does not update chosen email_address when data is invalid", %{
@@ -131,7 +131,7 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
       assert response(conn, 204)
 
       assert_raise Ecto.NoResultsError, fn ->
-        Accounts.get_email_address!(user, %{"id" => email_address.id})
+        Devices.get_email_address!(user, email_address.id)
       end
     end
 
@@ -142,7 +142,7 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
         delete(conn, Routes.api_user_email_address_path(conn, :delete, user, email_address))
       end
 
-      assert Accounts.get_email_address!(other, %{"id" => email_address.id})
+      assert Devices.get_email_address!(other, email_address.id)
     end
   end
 end

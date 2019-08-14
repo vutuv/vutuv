@@ -1,0 +1,47 @@
+<%= form_for @changeset, @action, [], fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p><%= gettext "Something went wrong. Please check the errors below." %></p>
+    </div>
+  <% end %>
+
+  <%= label f, :description, gettext("Description") %>
+  <%= text_input f, :description %>
+  <%= error_tag f, :description %>
+
+  <%= label f, :line_1, gettext("Line 1") %>
+  <%= text_input f, :line_1 %>
+  <%= error_tag f, :line_1 %>
+
+  <%= label f, :line_2, gettext("Line 2") %>
+  <%= text_input f, :line_2 %>
+  <%= error_tag f, :line_2 %>
+
+  <%= label f, :line_3, gettext("Line 3") %>
+  <%= text_input f, :line_3 %>
+  <%= error_tag f, :line_3 %>
+
+  <%= label f, :line_4, gettext("Line 4") %>
+  <%= text_input f, :line_4 %>
+  <%= error_tag f, :line_4 %>
+
+  <%= label f, :zip_code, gettext("Zip code") %>
+  <%= text_input f, :zip_code %>
+  <%= error_tag f, :zip_code %>
+
+  <%= label f, :city, gettext("City") %>
+  <%= text_input f, :city %>
+  <%= error_tag f, :city %>
+
+  <%= label f, :state, gettext("State") %>
+  <%= text_input f, :state %>
+  <%= error_tag f, :state %>
+
+  <%= label f, :country, gettext("Country") %>
+  <%= text_input f, :country %>
+  <%= error_tag f, :country %>
+
+  <div>
+    <%= submit gettext("Save") %>
+  </div>
+<% end %>

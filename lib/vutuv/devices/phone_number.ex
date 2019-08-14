@@ -1,4 +1,4 @@
-defmodule Vutuv.Accounts.PhoneNumber do
+defmodule Vutuv.Devices.PhoneNumber do
   use Ecto.Schema
   import Ecto.Changeset
 

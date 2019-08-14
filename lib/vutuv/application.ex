@@ -6,7 +6,7 @@ defmodule Vutuv.Application do
   def start(_type, _args) do
     children = [
       Vutuv.Repo,
-      Vutuv.Accounts.EmailManager,
+      Vutuv.Devices.EmailManager,
       {Task.Supervisor, name: Vutuv.Downloads.TaskSupervisor},
       Vutuv.Downloads.GravatarWorker,
       VutuvWeb.Endpoint

@@ -43,8 +43,8 @@ defmodule Vutuv.Socials do
   @doc """
   Gets a specific user's post. Raises error if no post found.
   """
-  @spec get_post!(User.t(), map) :: Post.t() | no_return
-  def get_post!(%User{} = user, %{"id" => id}) do
+  @spec get_post!(User.t(), integer) :: Post.t() | no_return
+  def get_post!(%User{} = user, id) do
     user
     |> assoc(:posts)
     |> where([p], p.id == ^id)
@@ -56,8 +56,8 @@ defmodule Vutuv.Socials do
   Gets a user's post filtered based on the post's visibility_level.
   Raises error if no post found.
   """
-  @spec get_post!(User.t(), map, User.t() | nil) :: Post.t() | no_return
-  def get_post!(%User{} = user, %{"id" => id}, current_user) do
+  @spec get_post!(User.t(), integer, User.t() | nil) :: Post.t() | no_return
+  def get_post!(%User{} = user, id, current_user) do
     visibility_level = get_visibility_level(user, current_user)
 
     user

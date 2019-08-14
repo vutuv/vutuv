@@ -4,7 +4,7 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
   import VutuvWeb.AuthTestHelpers
   import VutuvWeb.IntegrationHelper
 
-  alias Vutuv.{Accounts, Accounts.User}
+  alias Vutuv.{Accounts.User, Devices}
 
   @create_attrs %{
     "is_public" => true,
@@ -72,7 +72,7 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
 
       assert %Tesla.Env{body: %{"data" => data}, status: 200} = response
       assert data["user_id"] == user.id
-      email_address = Accounts.get_email_address!(user, %{"id" => id})
+      email_address = Devices.get_email_address!(user, id)
       assert email_address.is_public == false
     end
 
@@ -102,7 +102,7 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
         |> Tesla.delete("/users/#{user.slug}/email_addresses/#{id}")
 
       assert %Tesla.Env{body: "", status: 204} = response
-      assert_raise Ecto.NoResultsError, fn -> Accounts.get_email_address!(user, %{"id" => id}) end
+      assert_raise Ecto.NoResultsError, fn -> Devices.get_email_address!(user, id) end
     end
 
     test "cannot delete other email_address", %{user: user, token: token} do
@@ -114,7 +114,7 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
         |> Tesla.delete("/users/#{user.slug}/email_addresses/#{id}")
 
       assert %Tesla.Env{body: "Not Found", status: 404} = response
-      assert Accounts.get_email_address!(other, %{"id" => id})
+      assert Devices.get_email_address!(other, id)
 
       {:ok, response} =
         token
@@ -123,7 +123,7 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
 
       assert %Tesla.Env{body: %{"errors" => errors}, status: 403} = response
       assert errors["detail"] =~ "You are not authorized"
-      assert Accounts.get_email_address!(other, %{"id" => id})
+      assert Devices.get_email_address!(other, id)
     end
   end
 end

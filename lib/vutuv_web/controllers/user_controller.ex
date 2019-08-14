@@ -4,7 +4,7 @@ defmodule VutuvWeb.UserController do
   import VutuvWeb.Authorize
 
   alias Phauxth.Log
-  alias Vutuv.{Accounts, Accounts.User, Socials}
+  alias Vutuv.{Accounts, Accounts.User, Devices, Socials}
   alias VutuvWeb.EmailAddressController
 
   @dialyzer {:nowarn_function, new: 3}
@@ -41,7 +41,7 @@ defmodule VutuvWeb.UserController do
         EmailAddressController.verify_email(conn, user_params, "confirm your account", true)
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        if Accounts.duplicate_email_error?(changeset) do
+        if Devices.duplicate_email_error?(changeset) do
           EmailAddressController.verify_email(conn, user_params, "confirm your account", false)
         else
           render(conn, "new.html", changeset: changeset)
@@ -73,7 +73,7 @@ defmodule VutuvWeb.UserController do
     case Accounts.update_user(user, user_params) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "User updated successfully.")
+        |> put_flash(:info, gettext("User updated successfully."))
         |> redirect(to: Routes.user_path(conn, :show, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -86,7 +86,7 @@ defmodule VutuvWeb.UserController do
 
     conn
     |> delete_session(:phauxth_session_id)
-    |> put_flash(:info, "User deleted successfully.")
+    |> put_flash(:info, gettext("User deleted successfully."))
     |> redirect(to: Routes.session_path(conn, :new))
   end
 

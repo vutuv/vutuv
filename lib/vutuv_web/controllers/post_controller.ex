@@ -33,10 +33,10 @@ defmodule VutuvWeb.PostController do
 
   def create(conn, %{"post" => post_params}, current_user) do
     case Socials.create_post(current_user, post_params) do
-      {:ok, _post} ->
+      {:ok, post} ->
         conn
-        |> put_flash(:info, "Post created successfully.")
-        |> redirect(to: Routes.user_post_path(conn, :index, current_user))
+        |> put_flash(:info, gettext("Post created successfully."))
+        |> redirect(to: Routes.user_post_path(conn, :show, current_user, post))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -44,29 +44,29 @@ defmodule VutuvWeb.PostController do
   end
 
   def show(conn, %{"id" => id, "user_slug" => slug}, %User{slug: slug} = current_user) do
-    post = Socials.get_post!(current_user, %{"id" => id})
+    post = Socials.get_post!(current_user, id)
     render(conn, "show.html", post: post, user: current_user)
   end
 
   def show(conn, %{"id" => id, "user_slug" => slug}, current_user) do
     user = Accounts.get_user!(%{"slug" => slug})
-    post = Socials.get_post!(user, %{"id" => id}, current_user)
+    post = Socials.get_post!(user, id, current_user)
     render(conn, "show.html", post: post, user: user)
   end
 
   def edit(conn, %{"id" => id}, current_user) do
-    post = Socials.get_post!(current_user, %{"id" => id})
+    post = Socials.get_post!(current_user, id)
     changeset = Socials.change_post(post)
     render(conn, "edit.html", post: post, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "post" => post_params}, current_user) do
-    post = Socials.get_post!(current_user, %{"id" => id})
+    post = Socials.get_post!(current_user, id)
 
     case Socials.update_post(post, post_params) do
       {:ok, post} ->
         conn
-        |> put_flash(:info, "Post updated successfully.")
+        |> put_flash(:info, gettext("Post updated successfully."))
         |> redirect(to: Routes.user_post_path(conn, :show, current_user, post))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -75,11 +75,11 @@ defmodule VutuvWeb.PostController do
   end
 
   def delete(conn, %{"id" => id}, current_user) do
-    post = Socials.get_post!(current_user, %{"id" => id})
+    post = Socials.get_post!(current_user, id)
     {:ok, _post} = Socials.delete_post(post)
 
     conn
-    |> put_flash(:info, "Post deleted successfully.")
+    |> put_flash(:info, gettext("Post deleted successfully."))
     |> redirect(to: Routes.user_post_path(conn, :index, current_user))
   end
 end

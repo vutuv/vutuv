@@ -3,7 +3,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
 
   import VutuvWeb.AuthTestHelpers
 
-  alias Vutuv.{Accounts, Accounts.User}
+  alias Vutuv.{Accounts.User, Devices}
 
   @create_attrs %{
     "is_public" => true,
@@ -145,7 +145,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
 
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
       assert get_flash(conn, :error) =~ "not authorized"
-      refute Accounts.get_email_address(%{"value" => "abcdef@example.com"})
+      refute Devices.get_email_address(%{"value" => "abcdef@example.com"})
     end
   end
 
@@ -164,7 +164,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
                Routes.user_email_address_path(conn, :show, user, email_address)
 
       assert get_flash(conn, :info) =~ "updated successfully"
-      email_address = Accounts.get_email_address!(user, %{"id" => email_address.id})
+      email_address = Devices.get_email_address!(user, email_address.id)
       assert email_address.is_public == false
     end
 
@@ -191,7 +191,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
         )
 
       assert html_response(conn, 200) =~ "Edit email address"
-      email_address = Accounts.get_email_address!(user, %{"id" => email_address.id})
+      email_address = Devices.get_email_address!(user, email_address.id)
       assert email_address.is_public == true
     end
 
@@ -204,7 +204,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
         )
       end
 
-      email_address = Accounts.get_email_address!(other, %{"id" => email_address.id})
+      email_address = Devices.get_email_address!(other, email_address.id)
       assert email_address.is_public == true
     end
   end
@@ -216,7 +216,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
       assert get_flash(conn, :info) =~ "deleted successfully"
 
       assert_raise Ecto.NoResultsError, fn ->
-        Accounts.get_email_address!(user, %{"id" => email_address.id})
+        Devices.get_email_address!(user, email_address.id)
       end
     end
 
@@ -227,7 +227,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
         delete(conn, Routes.user_email_address_path(conn, :delete, user, email_address))
       end
 
-      assert Accounts.get_email_address!(other, %{"id" => email_address.id})
+      assert Devices.get_email_address!(other, email_address.id)
     end
   end
 end

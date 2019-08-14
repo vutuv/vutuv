@@ -1,4 +1,4 @@
-defmodule Vutuv.Accounts.EmailAddress do
+defmodule Vutuv.Devices.EmailAddress do
   use Ecto.Schema
 
   import Ecto.Changeset

@@ -6,8 +6,16 @@ defmodule Vutuv.Accounts do
   import Ecto
   import Ecto.Query, warn: false
 
-  alias Vutuv.{Downloads.GravatarWorker, Repo, Sessions, Sessions.Session, Tags.Tag}
-  alias Vutuv.Accounts.{EmailAddress, PhoneNumber, User, UserCredential}
+  alias Vutuv.{
+    Devices.EmailAddress,
+    Downloads.GravatarWorker,
+    Repo,
+    Sessions,
+    Sessions.Session,
+    Tags.Tag
+  }
+
+  alias Vutuv.Accounts.{User, UserCredential}
 
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 
@@ -208,165 +216,60 @@ defmodule Vutuv.Accounts do
     |> Repo.update()
   end
 
+  alias Vutuv.Accounts.Address
+
   @doc """
-  Returns a list of unverified email addresses.
-
-  This is used by the EmailManager, which is responsible for handling
-  unverified email addresses.
+  Returns the list of addresses.
   """
-  @spec unverified_email_addresses(integer) :: [EmailAddress.t()]
-  def unverified_email_addresses(max_age) do
-    inserted_at = DateTime.add(DateTime.utc_now(), -max_age)
-
-    EmailAddress
-    |> where([e], e.verified == false and e.inserted_at < ^inserted_at)
-    |> Repo.all()
+  @spec list_addresses(User.t()) :: [Address.t()]
+  def list_addresses(%User{} = user) do
+    Repo.all(assoc(user, :addresses))
   end
 
   @doc """
-  Returns a list of a user's email_addresses.
+  Gets a single address.
+
+  Raises `Ecto.NoResultsError` if the Address does not exist.
   """
-  @spec list_email_addresses(User.t()) :: [EmailAddress.t()]
-  def list_email_addresses(user) do
-    Repo.all(assoc(user, :email_addresses))
+  @spec get_address!(User.t(), integer) :: Address.t() | no_return
+  def get_address!(%User{} = user, id) do
+    Repo.get_by!(Address, id: id, user_id: user.id)
   end
 
   @doc """
-  Returns a list of a user's public email_addresses.
+  Creates a address.
   """
-  @spec list_email_addresses(User.t(), :public) :: [EmailAddress.t()]
-  def list_email_addresses(user, :public) do
+  @spec create_address(User.t(), map) :: {:ok, Address.t()} | changeset_error
+  def create_address(%User{} = user, attrs \\ %{}) do
     user
-    |> assoc(:email_addresses)
-    |> where([e], e.is_public == true)
-    |> Repo.all()
-  end
-
-  @doc """
-  Gets an email_address from the email_address value.
-
-  Only public email_addresses are returned. Returns nil if no email_address found.
-  """
-  @spec get_email_address(map) :: EmailAddress.t() | nil
-  def get_email_address(%{"value" => value}) do
-    Repo.get_by(EmailAddress, value: value, is_public: true)
-  end
-
-  @doc """
-  Gets a specific user's email_address. Raises error if no email_address found.
-  """
-  @spec get_email_address!(User.t(), map) :: EmailAddress.t() | no_return
-  def get_email_address!(%User{} = user, %{"id" => id}) do
-    Repo.get_by!(EmailAddress, id: id, user_id: user.id)
-  end
-
-  @doc """
-  Creates an email_address.
-  """
-  @spec create_email_address(User.t(), map) :: {:ok, EmailAddress.t()} | changeset_error
-  def create_email_address(%User{} = user, attrs \\ %{}) do
-    query = from e in EmailAddress, where: e.user_id == ^user.id
-    email_count = Repo.aggregate(query, :count, :id)
-    attrs = Map.put(attrs, "position", email_count + 1)
-
-    user
-    |> build_assoc(:email_addresses)
-    |> EmailAddress.changeset(attrs)
+    |> build_assoc(:addresses)
+    |> Address.changeset(attrs)
     |> Repo.insert()
   end
 
   @doc """
-  Updates an email_address.
+  Updates a address.
   """
-  @spec update_email_address(EmailAddress.t(), map) :: {:ok, EmailAddress.t()} | changeset_error
-  def update_email_address(%EmailAddress{} = email_address, attrs) do
-    email_address
-    |> EmailAddress.update_changeset(attrs)
+  @spec update_address(Address.t(), map) :: {:ok, Address.t()} | changeset_error
+  def update_address(%Address{} = address, attrs) do
+    address
+    |> Address.changeset(attrs)
     |> Repo.update()
   end
 
   @doc """
-  Verifies an email_address, setting the verified value to true.
+  Deletes a Address.
   """
-  @spec verify_email_address(EmailAddress.t()) :: {:ok, EmailAddress.t()} | changeset_error
-  def verify_email_address(email_address) do
-    email_address |> EmailAddress.verify_changeset() |> Repo.update()
+  @spec delete_address(Address.t()) :: {:ok, Address.t()} | changeset_error
+  def delete_address(%Address{} = address) do
+    Repo.delete(address)
   end
 
   @doc """
-  Deletes an email_address.
+  Returns an `%Ecto.Changeset{}` for tracking address changes.
   """
-  @spec delete_email_address(EmailAddress.t()) :: {:ok, EmailAddress.t()} | changeset_error
-  def delete_email_address(%EmailAddress{} = email_address) do
-    Repo.delete(email_address)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking email_address changes.
-  """
-  @spec change_email_address(EmailAddress.t()) :: Ecto.Changeset.t()
-  def change_email_address(%EmailAddress{} = email_address) do
-    EmailAddress.changeset(email_address, %{})
-  end
-
-  def duplicate_email_error?(%Ecto.Changeset{changes: %{email_addresses: [email_address]}}) do
-    Enum.any?(email_address.errors, fn {_, {msg, _}} -> msg == "duplicate" end)
-  end
-
-  def duplicate_email_error?(%Ecto.Changeset{errors: errors}) do
-    Enum.any?(errors, fn {_, {msg, _}} -> msg == "duplicate" end)
-  end
-
-  def duplicate_email_error?(_), do: false
-
-  @doc """
-  Returns the list of phone_numbers.
-  """
-  @spec list_phone_numbers(User.t()) :: [PhoneNumber.t()]
-  def list_phone_numbers(user) do
-    Repo.all(assoc(user, :phone_number))
-  end
-
-  @doc """
-  Gets a single phone_number. Raises error if no phone_number found.
-  """
-  @spec get_phone_number!(integer) :: PhoneNumber.t() | no_return
-  def get_phone_number!(id), do: Repo.get!(PhoneNumber, id)
-
-  @doc """
-  Creates a phone_number.
-  """
-  @spec create_phone_number(User.t(), map) :: {:ok, PhoneNumber.t()} | changeset_error
-  def create_phone_number(%User{} = user, attrs \\ %{}) do
-    user
-    |> build_assoc(:phone_numbers)
-    |> PhoneNumber.changeset(attrs)
-    |> Repo.insert()
-  end
-
-  @doc """
-  Updates a phone_number.
-  """
-  @spec update_phone_number(PhoneNumber.t(), map) :: {:ok, PhoneNumber.t()} | changeset_error
-  def update_phone_number(%PhoneNumber{} = phone_number, attrs) do
-    phone_number
-    |> PhoneNumber.update_changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
-  Deletes a PhoneNumber.
-  """
-  @spec delete_phone_number(PhoneNumber.t()) :: {:ok, PhoneNumber.t()} | changeset_error
-  def delete_phone_number(%PhoneNumber{} = phone_number) do
-    Repo.delete(phone_number)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking phone_number changes.
-  """
-  @spec change_phone_number(PhoneNumber.t()) :: Ecto.Changeset.t()
-  def change_phone_number(%PhoneNumber{} = phone_number) do
-    PhoneNumber.changeset(phone_number, %{})
+  @spec change_address(Address.t()) :: Ecto.Changeset.t()
+  def change_address(%Address{} = address) do
+    Address.changeset(address, %{})
   end
 end

@@ -4,7 +4,8 @@ defmodule Vutuv.Accounts.User do
 
   import Ecto.Changeset
 
-  alias Vutuv.Accounts.{EmailAddress, Locale, PhoneNumber, UserCredential}
+  alias Vutuv.Accounts.{Address, Locale, UserCredential}
+  alias Vutuv.Devices.{EmailAddress, PhoneNumber}
   alias Vutuv.{Sessions.Session, Socials.Post, Tags.Tag}
 
   @type t :: %__MODULE__{
@@ -21,6 +22,7 @@ defmodule Vutuv.Accounts.User do
           locale: String.t(),
           accept_language: String.t(),
           noindex: boolean,
+          addresses: [Address.t()] | %Ecto.Association.NotLoaded{},
           email_addresses: [EmailAddress.t()] | %Ecto.Association.NotLoaded{},
           phone_numbers: [PhoneNumber.t()] | %Ecto.Association.NotLoaded{},
           posts: [Post.t()] | %Ecto.Association.NotLoaded{},
@@ -47,6 +49,7 @@ defmodule Vutuv.Accounts.User do
     field :accept_language, :string
     field :noindex, :boolean, default: false
 
+    has_many :addresses, Address, on_delete: :delete_all
     has_many :email_addresses, EmailAddress, on_delete: :delete_all
     has_many :phone_numbers, PhoneNumber, on_delete: :delete_all
     has_many :posts, Post, on_delete: :delete_all

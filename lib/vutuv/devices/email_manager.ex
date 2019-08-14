@@ -1,4 +1,4 @@
-defmodule Vutuv.Accounts.EmailManager do
+defmodule Vutuv.Devices.EmailManager do
   @moduledoc """
   Email address manager.
 
@@ -11,7 +11,7 @@ defmodule Vutuv.Accounts.EmailManager do
 
   use GenServer
 
-  alias Vutuv.Accounts
+  alias Vutuv.Devices
 
   @check_frequency 60 * 60_000
   @max_age 1200 + 300
@@ -27,11 +27,11 @@ defmodule Vutuv.Accounts.EmailManager do
 
   def handle_info(:check_expired, state) do
     Process.send_after(self(), :check_expired, @check_frequency)
-    Enum.each(Accounts.unverified_email_addresses(@max_age), &handle_unconfirmed(&1))
+    Enum.each(Devices.unverified_email_addresses(@max_age), &handle_unconfirmed(&1))
     {:noreply, state}
   end
 
   defp handle_unconfirmed(email_address) do
-    {:ok, _email_address} = Accounts.delete_email_address(email_address)
+    {:ok, _email_address} = Devices.delete_email_address(email_address)
   end
 end

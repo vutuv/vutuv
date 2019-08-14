@@ -32,8 +32,21 @@ defmodule Vutuv.Factory do
     }
   end
 
+  def address_factory do
+    %Vutuv.Accounts.Address{
+      user: build(:user),
+      description: Faker.Company.bs(),
+      line_1: Faker.Address.building_number(),
+      line_2: Faker.Address.street_name(),
+      city: Faker.Address.city(),
+      state: Faker.Address.state(),
+      country: Faker.Address.country(),
+      zip_code: Faker.Address.postcode()
+    }
+  end
+
   def email_address_factory do
-    %Vutuv.Accounts.EmailAddress{
+    %Vutuv.Devices.EmailAddress{
       value: sequence(:value, &"email-#{&1}@example.com"),
       is_public: true,
       description: Faker.Company.bs(),
@@ -52,7 +65,7 @@ defmodule Vutuv.Factory do
   end
 
   def phone_number_factory do
-    %Vutuv.Accounts.PhoneNumber{
+    %Vutuv.Devices.PhoneNumber{
       value: Faker.Phone.EnUs.phone(),
       type: sequence(:type, ["work", "home", "mobile"])
     }

@@ -1,0 +1,55 @@
+<h1><%= gettext "Address" %></h1>
+
+<ul>
+
+  <li>
+    <strong><%= gettext "Description:" %></strong>
+    <%= @address.description %>
+  </li>
+
+  <li>
+    <strong><%= gettext "Line 1:" %></strong>
+    <%= @address.line_1 %>
+  </li>
+
+  <li>
+    <strong><%= gettext "Line 2:" %></strong>
+    <%= @address.line_2 %>
+  </li>
+
+  <li>
+    <strong><%= gettext "Line 3:" %></strong>
+    <%= @address.line_3 %>
+  </li>
+
+  <li>
+    <strong><%= gettext "Line 4:" %></strong>
+    <%= @address.line_4 %>
+  </li>
+
+  <li>
+    <strong><%= gettext "Zip code:" %></strong>
+    <%= @address.zip_code %>
+  </li>
+
+  <li>
+    <strong><%= gettext "City:" %></strong>
+    <%= @address.city %>
+  </li>
+
+  <li>
+    <strong><%= gettext "State:" %></strong>
+    <%= @address.state %>
+  </li>
+
+  <li>
+    <strong><%= gettext "Country:" %></strong>
+    <%= @address.country %>
+  </li>
+
+</ul>
+
+<%= if assigns[:current_user] do %>
+<span><%= link gettext("Edit"), to: Routes.user_address_path(@conn, :edit, @current_user, @address) %></span>
+<span><%= link gettext("Back"), to: Routes.user_address_path(@conn, :index, @current_user) %></span>
+<% end %>

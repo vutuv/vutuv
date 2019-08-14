@@ -1,0 +1,40 @@
+<h1><%= @user.full_name %> <%= gettext "addresses" %></h1>
+
+<%= if @addresses == [] do %>
+<h3><%= @user.full_name %> <%= gettext "has no addresses yet" %></h3>
+<% else %>
+<table>
+  <thead>
+    <tr>
+      <th><%= gettext "Description" %></th>
+      <th><%= gettext "City" %></th>
+      <th><%= gettext "State" %></th>
+      <th><%= gettext "Country" %></th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for address <- @addresses do %>
+    <tr>
+      <td><%= address.description %></td>
+      <td><%= address.city %></td>
+      <td><%= address.state %></td>
+      <td><%= address.country %></td>
+
+      <td>
+        <%= link gettext("Show"), to: Routes.user_address_path(@conn, :show, @user, address) %>
+        <%= if @current_user && @current_user.id == @user.id do %>
+          <%= link gettext("Edit"), to: Routes.user_address_path(@conn, :edit, @current_user, address) %>
+          <li>
+            <%= form_for @conn, Routes.user_address_path(@conn, :delete, @current_user, address), [method: "delete"], fn _f -> %>
+            <%= submit gettext("Delete"), class: "link" %>
+          <% end %>
+          </li>
+        <% end %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+<% end %>
