@@ -1,7 +1,7 @@
 defmodule VutuvWeb.Api.UserController do
   use VutuvWeb, :controller
 
-  import VutuvWeb.Api.AuthorizeConn
+  import VutuvWeb.Api.Authorize
 
   alias Phauxth.Log
   alias Vutuv.{Accounts, Socials}

@@ -51,7 +51,7 @@ defmodule Vutuv.MixProject do
       {:one_time_pass_ecto, "~> 1.0"},
       {:tesla, "~> 1.2.1"},
       {:hackney, "~> 1.14.0"},
-      {:bamboo, "~> 1.1"},
+      {:bamboo, "~> 1.3"},
       {:plug_cowboy, "~> 2.0"},
       {:arc, "~> 0.11.0"},
       {:arc_ecto, git: "https://github.com/hendri-tobing/arc_ecto.git"},

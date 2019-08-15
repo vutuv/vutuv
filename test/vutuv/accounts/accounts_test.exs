@@ -92,7 +92,8 @@ defmodule Vutuv.AccountsTest do
       assert [%EmailAddress{value: value, position: 1}] = user.email_addresses
       assert value == "fred@example.com"
       assert {:error, %Ecto.Changeset{} = changeset} = Accounts.create_user(@create_user_attrs)
-      assert %{email_addresses: [%{value: ["has already been taken"]}]} = errors_on(changeset)
+      assert %{email_addresses: [%{value: ["duplicate"]}]} = errors_on(changeset)
+      assert Accounts.duplicate_email_error?(changeset)
     end
 
     test "unique slug is created - even when the full_name is not unique" do

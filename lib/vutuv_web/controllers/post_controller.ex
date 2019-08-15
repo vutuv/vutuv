@@ -1,7 +1,7 @@
 defmodule VutuvWeb.PostController do
   use VutuvWeb, :controller
 
-  import VutuvWeb.AuthorizeConn
+  import VutuvWeb.Authorize
 
   alias Vutuv.{Accounts, Accounts.User, Socials, Socials.Post}
 

@@ -309,6 +309,16 @@ defmodule Vutuv.Accounts do
     EmailAddress.changeset(email_address, %{})
   end
 
+  def duplicate_email_error?(%Ecto.Changeset{changes: %{email_addresses: [email_address]}}) do
+    Enum.any?(email_address.errors, fn {_, {msg, _}} -> msg == "duplicate" end)
+  end
+
+  def duplicate_email_error?(%Ecto.Changeset{errors: errors}) do
+    Enum.any?(errors, fn {_, {msg, _}} -> msg == "duplicate" end)
+  end
+
+  def duplicate_email_error?(_), do: false
+
   @doc """
   Returns the list of phone_numbers.
   """

@@ -81,6 +81,16 @@ defmodule VutuvWeb.UserControllerTest do
       assert Accounts.get_user!(%{"email" => "bill@example.com"})
     end
 
+    test "does not return an error when the email has been taken", %{conn: conn} do
+      Accounts.create_user(@create_attrs)
+      conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs)
+
+      assert redirected_to(conn) ==
+               Routes.verification_path(conn, :new, email: @create_attrs["email"])
+
+      assert get_flash(conn, :info) =~ "confirm your account"
+    end
+
     test "fails and renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: %{email: "mustard@example.com"})
       assert html_response(conn, 200) =~ "can&#39;t be blank"
