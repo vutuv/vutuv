@@ -4,7 +4,7 @@ defmodule VutuvWeb.AddressControllerTest do
   import Vutuv.Factory
   import VutuvWeb.AuthTestHelpers
 
-  alias Vutuv.Accounts
+  alias Vutuv.UserProfiles
 
   @create_attrs %{
     city: "London",
@@ -78,7 +78,7 @@ defmodule VutuvWeb.AddressControllerTest do
 
       assert redirected_to(conn) == Routes.user_address_path(conn, :show, user, address)
       assert get_flash(conn, :info) =~ "updated successfully"
-      address = Accounts.get_address!(user, address.id)
+      address = UserProfiles.get_address!(user, address.id)
       assert address.line_1 =~ "212b Baker St"
     end
 
@@ -102,7 +102,7 @@ defmodule VutuvWeb.AddressControllerTest do
       conn = delete(conn, Routes.user_address_path(conn, :delete, user, address))
       assert redirected_to(conn) == Routes.user_address_path(conn, :index, user)
       assert get_flash(conn, :info) =~ "deleted successfully"
-      assert_raise Ecto.NoResultsError, fn -> Accounts.get_address!(user, address.id) end
+      assert_raise Ecto.NoResultsError, fn -> UserProfiles.get_address!(user, address.id) end
     end
 
     test "cannot delete another user's address", %{conn: conn, user: user} do
@@ -113,7 +113,7 @@ defmodule VutuvWeb.AddressControllerTest do
         delete(conn, Routes.user_address_path(conn, :delete, user, address))
       end
 
-      assert Accounts.get_address!(other, address.id)
+      assert UserProfiles.get_address!(other, address.id)
     end
   end
 

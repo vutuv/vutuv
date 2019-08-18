@@ -1,7 +1,7 @@
 defmodule Vutuv.SessionsTest do
   use Vutuv.DataCase
 
-  alias Vutuv.{Accounts, Sessions, Sessions.Session}
+  alias Vutuv.{UserProfiles, Sessions, Sessions.Session}
 
   setup do
     attrs = %{
@@ -11,7 +11,7 @@ defmodule Vutuv.SessionsTest do
       "full_name" => "fred frederickson"
     }
 
-    {:ok, user} = Accounts.create_user(attrs)
+    {:ok, user} = UserProfiles.create_user(attrs)
     {:ok, user: user}
   end
 

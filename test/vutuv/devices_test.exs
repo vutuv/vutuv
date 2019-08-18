@@ -3,7 +3,7 @@ defmodule Vutuv.DevicesTest do
 
   import Vutuv.Factory
 
-  alias Vutuv.{Accounts, Devices, Repo}
+  alias Vutuv.{UserProfiles, Devices, Repo}
   alias Vutuv.Devices.{EmailAddress, EmailManager, PhoneNumber}
 
   @create_email_attrs %{
@@ -82,7 +82,7 @@ defmodule Vutuv.DevicesTest do
       {:ok, email_address} = Devices.create_email_address(user, email_attrs)
       assert email_address.position == 2
       email_attrs = Map.merge(@create_email_attrs, %{"value" => "zyx@example.com"})
-      user = Accounts.get_user!(%{"id" => user.id})
+      user = UserProfiles.get_user!(%{"id" => user.id})
       {:ok, email_address} = Devices.create_email_address(user, email_attrs)
       assert email_address.position == 3
     end

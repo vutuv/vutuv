@@ -43,29 +43,29 @@ users = [
 
 for user <- users do
   {:ok, %{email_addresses: [email_address], user_credential: user_credential} = user} =
-    Vutuv.Accounts.create_user(user)
+    Vutuv.UserProfiles.create_user(user)
 
-  Vutuv.Accounts.confirm_user(user_credential)
-  Vutuv.Accounts.verify_email_address(email_address)
+  Vutuv.UserProfiles.confirm_user(user_credential)
+  Vutuv.UserProfiles.verify_email_address(email_address)
   name = String.replace(user.full_name, " ", ".")
 
-  Vutuv.Accounts.create_email_address(user, %{
+  Vutuv.UserProfiles.create_email_address(user, %{
     "value" => "#{name}_123@example.com"
   })
 
-  Vutuv.Accounts.add_user_tags(user, [js_tag.id, prolog_tag.id])
+  Vutuv.UserProfiles.add_user_tags(user, [js_tag.id, prolog_tag.id])
 
   {:ok, post} =
-    Vutuv.Socials.create_post(user, %{
+    Vutuv.Publications.create_post(user, %{
       body: String.duplicate("Blablabla ", 25),
       title: "Something to do with #{user.full_name}",
       visibility_level: "public"
     })
 
-  Vutuv.Socials.add_post_tags(post, [js_tag.id])
+  Vutuv.Publications.add_post_tags(post, [js_tag.id])
 end
 
-created_users = Vutuv.Accounts.list_users()
+created_users = Vutuv.UserProfiles.list_users()
 
 for user <- created_users do
   other_user_ids =
@@ -73,7 +73,7 @@ for user <- created_users do
       if u.id == user.id, do: [], else: [u.id]
     end)
 
-  Vutuv.Accounts.add_leaders(user, other_user_ids)
+  Vutuv.UserProfiles.add_leaders(user, other_user_ids)
 end
 
 other_users = [
@@ -230,10 +230,10 @@ other_users = [
 
 for user <- other_users do
   {:ok, %{email_addresses: [email_address], user_credential: user_credential} = user} =
-    Vutuv.Accounts.create_user(user)
+    Vutuv.UserProfiles.create_user(user)
 
-  Vutuv.Accounts.confirm_user(user_credential)
-  Vutuv.Accounts.verify_email_address(email_address)
-  leader_ids = Enum.map(users, &Vutuv.Accounts.get_user!(&1).id)
-  Vutuv.Accounts.add_leaders(user, leader_ids)
+  Vutuv.UserProfiles.confirm_user(user_credential)
+  Vutuv.UserProfiles.verify_email_address(email_address)
+  leader_ids = Enum.map(users, &Vutuv.UserProfiles.get_user!(&1).id)
+  Vutuv.UserProfiles.add_leaders(user, leader_ids)
 end

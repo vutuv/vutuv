@@ -1,12 +1,12 @@
-defmodule Vutuv.Socials do
+defmodule Vutuv.Publications do
   @moduledoc """
-  The Socials context.
+  The Publications context.
   """
 
   import Ecto
   import Ecto.Query, warn: false
 
-  alias Vutuv.{Accounts.User, Repo, Socials.Post, Tags.Tag}
+  alias Vutuv.{UserProfiles.User, Repo, Publications.Post, Tags.Tag}
 
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 

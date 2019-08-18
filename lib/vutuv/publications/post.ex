@@ -1,9 +1,9 @@
-defmodule Vutuv.Socials.Post do
+defmodule Vutuv.Publications.Post do
   use Ecto.Schema
 
   import Ecto.Changeset
 
-  alias Vutuv.{Accounts.User, Tags.Tag}
+  alias Vutuv.{UserProfiles.User, Tags.Tag}
 
   @type t :: %__MODULE__{
           id: integer,

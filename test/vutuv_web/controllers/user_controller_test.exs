@@ -4,7 +4,7 @@ defmodule VutuvWeb.UserControllerTest do
   import Vutuv.Factory
   import VutuvWeb.AuthTestHelpers
 
-  alias Vutuv.Accounts
+  alias Vutuv.UserProfiles
 
   @create_attrs %{
     "email" => "bill@example.com",
@@ -78,11 +78,11 @@ defmodule VutuvWeb.UserControllerTest do
       assert redirected_to(conn) ==
                Routes.verification_path(conn, :new, email: @create_attrs["email"])
 
-      assert Accounts.get_user!(%{"email" => "bill@example.com"})
+      assert UserProfiles.get_user!(%{"email" => "bill@example.com"})
     end
 
     test "does not return an error when the email has been taken", %{conn: conn} do
-      Accounts.create_user(@create_attrs)
+      UserProfiles.create_user(@create_attrs)
       conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs)
 
       assert redirected_to(conn) ==
@@ -96,7 +96,7 @@ defmodule VutuvWeb.UserControllerTest do
       assert html_response(conn, 200) =~ "can&#39;t be blank"
 
       assert_raise Ecto.NoResultsError, fn ->
-        Accounts.get_user!(%{"email" => "mustard@example.com"})
+        UserProfiles.get_user!(%{"email" => "mustard@example.com"})
       end
     end
   end
@@ -108,7 +108,7 @@ defmodule VutuvWeb.UserControllerTest do
       attrs = %{"full_name" => "Raymond Luxury Yacht"}
       conn = put(conn, Routes.user_path(conn, :update, user), user: attrs)
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
-      updated_user = Accounts.get_user!(%{"id" => user.id})
+      updated_user = UserProfiles.get_user!(%{"id" => user.id})
       assert updated_user.full_name == "Raymond Luxury Yacht"
       conn = get(conn, Routes.user_path(conn, :show, user))
       assert html_response(conn, 200) =~ "Raymond Luxury Yacht"
@@ -118,7 +118,7 @@ defmodule VutuvWeb.UserControllerTest do
       attrs = %{"locale" => "de_CH"}
       conn = put(conn, Routes.user_path(conn, :update, user), user: attrs)
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
-      updated_user = Accounts.get_user!(%{"id" => user.id})
+      updated_user = UserProfiles.get_user!(%{"id" => user.id})
       assert updated_user.locale == "de_CH"
       conn = get(conn, Routes.user_path(conn, :edit, user))
       assert html_response(conn, 200) =~ "de_CH"
@@ -137,14 +137,14 @@ defmodule VutuvWeb.UserControllerTest do
     test "deletes chosen user", %{conn: conn, user: user} do
       conn = delete(conn, Routes.user_path(conn, :delete, user))
       assert redirected_to(conn) == Routes.session_path(conn, :new)
-      assert_raise Ecto.NoResultsError, fn -> Accounts.get_user!(%{"id" => user.id}) end
+      assert_raise Ecto.NoResultsError, fn -> UserProfiles.get_user!(%{"id" => user.id}) end
     end
 
     test "cannot delete other user", %{conn: conn, user: user} do
       other = add_user("tony@example.com")
       conn = delete(conn, Routes.user_path(conn, :delete, other))
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
-      assert Accounts.get_user!(%{"id" => other.id})
+      assert UserProfiles.get_user!(%{"id" => other.id})
     end
   end
 

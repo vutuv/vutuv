@@ -3,7 +3,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
 
   import VutuvWeb.AuthTestHelpers
 
-  alias Vutuv.{Accounts.User, Devices}
+  alias Vutuv.{UserProfiles.User, Devices}
 
   @create_attrs %{
     "is_public" => true,

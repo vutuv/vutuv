@@ -5,7 +5,7 @@ defmodule Vutuv.Sessions do
 
   import Ecto.Query, warn: false
 
-  alias Vutuv.{Accounts.User, Repo, Sessions.Session}
+  alias Vutuv.{UserProfiles.User, Repo, Sessions.Session}
 
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 

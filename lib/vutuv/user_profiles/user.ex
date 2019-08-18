@@ -1,12 +1,12 @@
-defmodule Vutuv.Accounts.User do
+defmodule Vutuv.UserProfiles.User do
   use Ecto.Schema
   use Arc.Ecto.Schema
 
   import Ecto.Changeset
 
-  alias Vutuv.Accounts.{Address, Locale, UserCredential}
+  alias Vutuv.UserProfiles.{Address, Locale}
   alias Vutuv.Devices.{EmailAddress, PhoneNumber}
-  alias Vutuv.{Sessions.Session, Socials.Post, Tags.Tag}
+  alias Vutuv.{Accounts.UserCredential, Sessions.Session, Publications.Post, Tags.Tag}
 
   @type t :: %__MODULE__{
           id: integer,

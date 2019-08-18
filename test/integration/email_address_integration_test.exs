@@ -4,7 +4,7 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
   import VutuvWeb.AuthTestHelpers
   import VutuvWeb.IntegrationHelper
 
-  alias Vutuv.{Accounts.User, Devices}
+  alias Vutuv.{UserProfiles.User, Devices}
 
   @create_attrs %{
     "is_public" => true,

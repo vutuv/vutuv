@@ -5,7 +5,7 @@ defmodule Vutuv.Downloads.GravatarWorker do
 
   use GenServer
 
-  alias Vutuv.{Accounts, Downloads.TaskSupervisor}
+  alias Vutuv.{UserProfiles, Downloads.TaskSupervisor}
 
   @downloader Application.get_env(:vutuv, :gravatar_downloader)
 
@@ -63,8 +63,8 @@ defmodule Vutuv.Downloads.GravatarWorker do
   end
 
   defp add_gravatar_to_user(%{user_id: user_id, data: changes}) do
-    if user = Accounts.get_user(user_id) do
-      Accounts.update_user(user, %{"avatar" => changes})
+    if user = UserProfiles.get_user(user_id) do
+      UserProfiles.update_user(user, %{"avatar" => changes})
     end
   end
 end

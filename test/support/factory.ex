@@ -6,7 +6,7 @@ defmodule Vutuv.Factory do
   def user_factory do
     full_name = "#{Faker.Name.first_name()} #{Faker.Name.last_name()}"
 
-    %Vutuv.Accounts.User{
+    %Vutuv.UserProfiles.User{
       email_addresses: build_list(1, :email_address),
       user_credential: build(:user_credential),
       slug: Slugger.slugify_downcase(full_name, ?.),
@@ -33,7 +33,7 @@ defmodule Vutuv.Factory do
   end
 
   def address_factory do
-    %Vutuv.Accounts.Address{
+    %Vutuv.UserProfiles.Address{
       user: build(:user),
       description: Faker.Company.bs(),
       line_1: Faker.Address.building_number(),
@@ -56,7 +56,7 @@ defmodule Vutuv.Factory do
   end
 
   def post_factory do
-    %Vutuv.Socials.Post{
+    %Vutuv.Publications.Post{
       user: build(:user),
       title: Faker.Company.name(),
       body: Faker.Lorem.Shakespeare.romeo_and_juliet(),

@@ -1,13 +1,13 @@
 defmodule VutuvWeb.Api.VcardController do
   use VutuvWeb, :controller
 
-  alias Vutuv.Accounts
+  alias Vutuv.UserProfiles
 
   def vcard(conn, %{"user_slug" => user_slug}) do
     user =
       %{"slug" => user_slug}
-      |> Accounts.get_user!()
-      |> Accounts.with_associated_data([:email_addresses, :phone_numbers])
+      |> UserProfiles.get_user!()
+      |> UserProfiles.with_associated_data([:email_addresses, :phone_numbers])
 
     conn
     |> update_headers(user_slug)

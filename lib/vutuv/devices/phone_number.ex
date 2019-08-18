@@ -2,7 +2,7 @@ defmodule Vutuv.Devices.PhoneNumber do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Vutuv.Accounts.User
+  alias Vutuv.UserProfiles.User
 
   @type t :: %__MODULE__{
           id: integer,

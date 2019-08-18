@@ -6,7 +6,7 @@ defmodule Vutuv.Devices do
   import Ecto
   import Ecto.Query, warn: false
 
-  alias Vutuv.{Accounts.User, Repo}
+  alias Vutuv.{UserProfiles.User, Repo}
   alias Vutuv.Devices.{EmailAddress, PhoneNumber}
 
   @type changeset_error :: {:error, Ecto.Changeset.t()}

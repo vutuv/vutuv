@@ -1,7 +1,7 @@
 defmodule VutuvWeb.AuthTestHelpers do
   use Phoenix.ConnTest
 
-  alias Vutuv.{Accounts, Devices, Sessions}
+  alias Vutuv.{Accounts, Devices, Sessions, UserProfiles}
   alias VutuvWeb.Auth.Token
 
   def add_user(email) do
@@ -12,7 +12,7 @@ defmodule VutuvWeb.AuthTestHelpers do
       "full_name" => "#{Faker.Name.first_name()} #{Faker.Name.last_name()}"
     }
 
-    {:ok, user} = Accounts.create_user(user_params)
+    {:ok, user} = UserProfiles.create_user(user_params)
     user
   end
 
