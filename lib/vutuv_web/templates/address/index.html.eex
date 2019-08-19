@@ -24,7 +24,7 @@
 
       <td>
         <%= link gettext("Show"), to: Routes.user_address_path(@conn, :show, @user, address) %>
-        <%= if @current_user && @current_user.id == @user.id do %>
+        <%= if assigns[:current_user] && @current_user.id == @user.id do %>
           <%= link gettext("Edit"), to: Routes.user_address_path(@conn, :edit, @current_user, address) %>
           <li>
             <%= form_for @conn, Routes.user_address_path(@conn, :delete, @current_user, address), [method: "delete"], fn _f -> %>
@@ -37,4 +37,8 @@
 <% end %>
   </tbody>
 </table>
+<% end %>
+
+<%= if assigns[:current_user] && @current_user.id == @user.id do %>
+<span><%= link gettext("New address"), to: Routes.user_address_path(@conn, :new, @current_user) %></span>
 <% end %>

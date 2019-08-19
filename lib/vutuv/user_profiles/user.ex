@@ -6,7 +6,14 @@ defmodule Vutuv.UserProfiles.User do
 
   alias Vutuv.UserProfiles.{Address, Locale}
   alias Vutuv.Devices.{EmailAddress, PhoneNumber}
-  alias Vutuv.{Accounts.UserCredential, Sessions.Session, Publications.Post, Tags.Tag}
+
+  alias Vutuv.{
+    Accounts.UserCredential,
+    Publications.Post,
+    Sessions.Session,
+    SocialNetworks.SocialMediaAccount,
+    Tags.Tag
+  }
 
   @type t :: %__MODULE__{
           id: integer,
@@ -27,6 +34,7 @@ defmodule Vutuv.UserProfiles.User do
           phone_numbers: [PhoneNumber.t()] | %Ecto.Association.NotLoaded{},
           posts: [Post.t()] | %Ecto.Association.NotLoaded{},
           sessions: [Session.t()] | %Ecto.Association.NotLoaded{},
+          social_media_accounts: [SocialMediaAccount.t()] | %Ecto.Association.NotLoaded{},
           tags: [Tag.t()] | %Ecto.Association.NotLoaded{},
           user_credential: UserCredential.t() | %Ecto.Association.NotLoaded{},
           inserted_at: DateTime.t(),
@@ -54,6 +62,7 @@ defmodule Vutuv.UserProfiles.User do
     has_many :phone_numbers, PhoneNumber, on_delete: :delete_all
     has_many :posts, Post, on_delete: :delete_all
     has_many :sessions, Session, on_delete: :delete_all
+    has_many :social_media_accounts, SocialMediaAccount, on_delete: :delete_all
     has_one :user_credential, UserCredential, on_delete: :delete_all
 
     many_to_many :tags, Tag, join_through: "user_tags", on_replace: :delete

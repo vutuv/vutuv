@@ -1,7 +1,7 @@
 <%%= form_for @changeset, @action, [], fn f -> %>
   <%%= if @changeset.action do %>
     <div class="alert alert-danger">
-      <p><%= gettext "Something went wrong. Please check the errors below." %></p>
+      <p><%%= gettext "Something went wrong. Please check the errors below." %></p>
     </div>
   <%% end %>
 <%= for {label, input, error} <- inputs, input do %>

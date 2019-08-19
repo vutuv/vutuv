@@ -197,21 +197,21 @@ defmodule Vutuv.UserProfilesTest do
 
   describe "addresses" do
     test "list_addresses/1 returns all addresses" do
-      address = insert(:address)
-      [address_1] = UserProfiles.list_addresses(address.user)
-      assert address.description == address_1.description
-      assert address.city == address_1.city
-      assert address.state == address_1.state
-      assert address.country == address_1.country
+      %Address{user: user} = address = insert(:address)
+      [address_1] = UserProfiles.list_addresses(user)
+      assert address_1.description == address.description
+      assert address_1.city == address.city
+      assert address_1.state == address.state
+      assert address_1.country == address.country
     end
 
     test "get_address!/2 returns the address with given id" do
-      address = insert(:address)
-      address_1 = UserProfiles.get_address!(address.user, address.id)
-      assert address.description == address_1.description
-      assert address.city == address_1.city
-      assert address.state == address_1.state
-      assert address.country == address_1.country
+      %Address{id: id, user: user} = address = insert(:address)
+      address_1 = UserProfiles.get_address!(user, id)
+      assert address_1.description == address.description
+      assert address_1.city == address.city
+      assert address_1.state == address.state
+      assert address_1.country == address.country
     end
 
     test "create_address/2 with valid data creates a address" do
@@ -244,20 +244,20 @@ defmodule Vutuv.UserProfilesTest do
     end
 
     test "update_address/2 with invalid data returns error changeset" do
-      address = insert(:address)
+      %Address{id: id, user: user} = address = insert(:address)
       assert address.description
       invalid_attrs = %{description: nil}
       assert {:error, %Ecto.Changeset{}} = UserProfiles.update_address(address, invalid_attrs)
-      address = UserProfiles.get_address!(address.user, address.id)
+      address = UserProfiles.get_address!(user, id)
       assert address.description
     end
 
     test "delete_address/1 deletes the address" do
-      address = insert(:address)
+      %Address{id: id, user: user} = address = insert(:address)
       assert {:ok, %Address{}} = UserProfiles.delete_address(address)
 
       assert_raise Ecto.NoResultsError, fn ->
-        UserProfiles.get_address!(address.user, address.id)
+        UserProfiles.get_address!(user, id)
       end
     end
 

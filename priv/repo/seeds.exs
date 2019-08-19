@@ -45,11 +45,11 @@ for user <- users do
   {:ok, %{email_addresses: [email_address], user_credential: user_credential} = user} =
     Vutuv.UserProfiles.create_user(user)
 
-  Vutuv.UserProfiles.confirm_user(user_credential)
-  Vutuv.UserProfiles.verify_email_address(email_address)
+  Vutuv.Accounts.confirm_user(user_credential)
+  Vutuv.Devices.verify_email_address(email_address)
   name = String.replace(user.full_name, " ", ".")
 
-  Vutuv.UserProfiles.create_email_address(user, %{
+  Vutuv.Devices.create_email_address(user, %{
     "value" => "#{name}_123@example.com"
   })
 
@@ -232,8 +232,8 @@ for user <- other_users do
   {:ok, %{email_addresses: [email_address], user_credential: user_credential} = user} =
     Vutuv.UserProfiles.create_user(user)
 
-  Vutuv.UserProfiles.confirm_user(user_credential)
-  Vutuv.UserProfiles.verify_email_address(email_address)
+  Vutuv.Accounts.confirm_user(user_credential)
+  Vutuv.Devices.verify_email_address(email_address)
   leader_ids = Enum.map(users, &Vutuv.UserProfiles.get_user!(&1).id)
   Vutuv.UserProfiles.add_leaders(user, leader_ids)
 end

@@ -13,7 +13,8 @@ defmodule Vutuv.UserProfiles do
     Sessions,
     Sessions.Session,
     Tags.Tag,
-    UserProfiles.User
+    UserProfiles.User,
+    UserProfiles.Address
   }
 
   @type changeset_error :: {:error, Ecto.Changeset.t()}
@@ -168,8 +169,6 @@ defmodule Vutuv.UserProfiles do
     |> User.leader_changeset(leaders)
     |> Repo.update()
   end
-
-  alias Vutuv.UserProfiles.Address
 
   @doc """
   Returns the list of addresses.

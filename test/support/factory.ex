@@ -71,6 +71,14 @@ defmodule Vutuv.Factory do
     }
   end
 
+  def social_media_account_factory do
+    %Vutuv.SocialNetworks.SocialMediaAccount{
+      user: build(:user),
+      provider: "Facebook",
+      value: Faker.Name.title()
+    }
+  end
+
   def tag_factory do
     %Vutuv.Tags.Tag{}
   end

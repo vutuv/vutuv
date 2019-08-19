@@ -26,6 +26,7 @@ defmodule VutuvWeb.Router do
       resources "/followers", FollowerController, only: [:index]
       resources "/leaders", LeaderController, only: [:index]
       resources "/posts", PostController
+      resources "/social_media_accounts", SocialMediaAccountController
     end
 
     resources "/sessions", SessionController, only: [:new, :create, :delete]

@@ -1,0 +1,40 @@
+<h1><%= gettext "Social media accounts" %></h1>
+
+<%= if @social_media_accounts == [] do %>
+<h3><%= @user.full_name %> <%= gettext "has no social media accounts yet" %></h3>
+<% else %>
+<table>
+  <thead>
+    <tr>
+      <th><%= gettext "Provider" %></th>
+      <th><%= gettext "Value" %></th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for social_media_account <- @social_media_accounts do %>
+    <tr>
+      <td><%= social_media_account.provider %></td>
+      <td><%= social_media_account.value %></td>
+
+      <td>
+        <%= link gettext("Show"), to: Routes.user_social_media_account_path(@conn, :show, @user, social_media_account) %>
+        <%= if assigns[:current_user] && @current_user.id == @user.id do %>
+          <%= link gettext("Edit"), to: Routes.user_social_media_account_path(@conn, :edit, @current_user, social_media_account) %>
+          <li>
+            <%= form_for @conn, Routes.user_social_media_account_path(@conn, :delete, @current_user, social_media_account), [method: "delete"], fn _f -> %>
+            <%= submit gettext("Delete"), class: "link" %>
+          <% end %>
+          </li>
+        <% end %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+<% end %>
+
+<%= if assigns[:current_user] && @current_user.id == @user.id do %>
+<span><%= link gettext("New social media account"), to: Routes.user_social_media_account_path(@conn, :new, @current_user) %></span>
+<% end %>

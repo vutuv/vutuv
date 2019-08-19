@@ -26,6 +26,9 @@ msgstr "Schon ...?"
 #: lib/vutuv_web/templates/post/edit.html.eex:5
 #: lib/vutuv_web/templates/post/new.html.eex:5
 #: lib/vutuv_web/templates/post/show.html.eex:13
+#: lib/vutuv_web/templates/social_media_account/edit.html.eex:5
+#: lib/vutuv_web/templates/social_media_account/new.html.eex:5
+#: lib/vutuv_web/templates/social_media_account/show.html.eex:19
 #: lib/vutuv_web/templates/user/edit.html.eex:70
 msgid "Back"
 msgstr "Zurück"
@@ -51,6 +54,8 @@ msgstr "Beschreibung"
 #: lib/vutuv_web/templates/email_address/show.html.eex:32
 #: lib/vutuv_web/templates/post/index.html.eex:26
 #: lib/vutuv_web/templates/post/show.html.eex:12
+#: lib/vutuv_web/templates/social_media_account/index.html.eex:24
+#: lib/vutuv_web/templates/social_media_account/show.html.eex:18
 #: lib/vutuv_web/templates/user/_users_table.html.eex:25
 msgid "Edit"
 msgstr "Ändern"
@@ -98,12 +103,15 @@ msgstr ""
 #, elixir-format
 #: lib/vutuv_web/templates/address/index.html.eex:26
 #: lib/vutuv_web/templates/email_address/index.html.eex:25
+#: lib/vutuv_web/templates/social_media_account/index.html.eex:22
 msgid "Show"
 msgstr "Anzeigen"
 
 #, elixir-format
 #: lib/vutuv_web/templates/email_address/form.html.eex:11
 #: lib/vutuv_web/templates/email_address/index.html.eex:6
+#: lib/vutuv_web/templates/social_media_account/index.html.eex:10
+#: lib/vutuv_web/templates/social_media_account/show.html.eex:11
 msgid "Value"
 msgstr "Wert"
 
@@ -155,6 +163,7 @@ msgstr ""
 #: lib/vutuv_web/templates/address/index.html.eex:31
 #: lib/vutuv_web/templates/email_address/index.html.eex:29
 #: lib/vutuv_web/templates/post/index.html.eex:29
+#: lib/vutuv_web/templates/social_media_account/index.html.eex:27
 msgid "Delete"
 msgstr ""
 
@@ -174,6 +183,7 @@ msgstr ""
 #: lib/vutuv_web/templates/address/form.html.eex:45
 #: lib/vutuv_web/templates/email_address/form.html.eex:29
 #: lib/vutuv_web/templates/post/form.html.eex:27
+#: lib/vutuv_web/templates/social_media_account/form.html.eex:17
 #: lib/vutuv_web/templates/user/edit.html.eex:66
 msgid "Save"
 msgstr ""
@@ -186,6 +196,7 @@ msgstr ""
 #: lib/vutuv_web/templates/password_reset/new_request.html.eex:8
 #: lib/vutuv_web/templates/post/form.html.eex:4
 #: lib/vutuv_web/templates/session/new.html.eex:6
+#: lib/vutuv_web/templates/social_media_account/form.html.eex:4
 #: lib/vutuv_web/templates/user/edit.html.eex:6
 #: lib/vutuv_web/templates/user/new.html.eex:6
 #: lib/vutuv_web/templates/verification/new.html.eex:8
@@ -583,7 +594,7 @@ msgstr ""
 msgid "Over 20000 members worldwide."
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/vutuv_web/controllers/verification_controller.ex:38
 msgid "A code has been sent to your email address. Enter that code here."
 msgstr ""
@@ -594,17 +605,17 @@ msgid "Address"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/controllers/address_controller.ex:37
+#: lib/vutuv_web/controllers/address_controller.ex:39
 msgid "Address created successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/controllers/address_controller.ex:81
+#: lib/vutuv_web/controllers/address_controller.ex:83
 msgid "Address deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/controllers/address_controller.ex:68
+#: lib/vutuv_web/controllers/address_controller.ex:70
 msgid "Address updated successfully."
 msgstr ""
 
@@ -635,12 +646,12 @@ msgstr ""
 msgid "Country:"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/vutuv_web/controllers/email_address_controller.ex:89
 msgid "Email address deleted successfully."
 msgstr "Neue E-Mail Adresse"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/vutuv_web/controllers/email_address_controller.ex:76
 msgid "Email address updated successfully."
 msgstr "Neue E-Mail Adresse"
@@ -728,7 +739,7 @@ msgid "Unauthorized"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/controllers/user_controller.ex:89
+#: lib/vutuv_web/controllers/user_controller.ex:97
 msgid "User deleted successfully."
 msgstr ""
 
@@ -743,7 +754,7 @@ msgid "User successfully logged out."
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/controllers/user_controller.ex:76
+#: lib/vutuv_web/controllers/user_controller.ex:84
 msgid "User updated successfully."
 msgstr ""
 
@@ -787,7 +798,7 @@ msgstr ""
 msgid "Zip code:"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/vutuv_web/templates/address/index.html.eex:1
 msgid "addresses"
 msgstr "Neue E-Mail Adresse"
@@ -795,4 +806,101 @@ msgstr "Neue E-Mail Adresse"
 #, elixir-format
 #: lib/vutuv_web/templates/address/index.html.eex:4
 msgid "has no addresses yet"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/vutuv_web/templates/address/edit.html.eex:1
+msgid "Edit address"
+msgstr "Ändern E-Mail"
+
+#, elixir-format
+#: lib/vutuv_web/templates/social_media_account/edit.html.eex:1
+msgid "Edit social media account"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/social_media_account/form.html.eex:9
+msgid "Facebook"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/social_media_account/form.html.eex:9
+msgid "GitHub"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/social_media_account/form.html.eex:9
+msgid "Instagram"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/social_media_account/form.html.eex:9
+msgid "LinkedIn"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/vutuv_web/templates/address/index.html.eex:43
+msgid "New address"
+msgstr "Neue E-Mail Adresse"
+
+#, elixir-format
+#: lib/vutuv_web/templates/social_media_account/index.html.eex:39
+#: lib/vutuv_web/templates/social_media_account/new.html.eex:1
+msgid "New social media account"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/social_media_account/index.html.eex:9
+#: lib/vutuv_web/templates/social_media_account/show.html.eex:6
+msgid "Provider"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/social_media_account/show.html.eex:1
+msgid "Show social media account"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/social_media_account/form.html.eex:9
+msgid "Snapchat"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/social_media_account_controller.ex:39
+msgid "Social media account created successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/social_media_account_controller.ex:98
+msgid "Social media account deleted successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/social_media_account_controller.ex:80
+msgid "Social media account updated successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/social_media_account/index.html.eex:1
+msgid "Social media accounts"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/social_media_account/form.html.eex:9
+msgid "Twitter"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/social_media_account/form.html.eex:9
+msgid "XING"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/social_media_account/form.html.eex:9
+msgid "Youtube"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/social_media_account/index.html.eex:4
+msgid "has no social media accounts yet"
 msgstr ""

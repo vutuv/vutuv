@@ -15,7 +15,7 @@
 <% end %>
       <td>
         <%%= link gettext("Show"), to: Routes.<%= schema.route_helper %>_path(@conn, :show, <%= schema.singular %>) %>
-        <%%= if @current_user && @current_user.id == @user.id do %>
+        <%%= if assigns[:current_user] && @current_user.id == @user.id do %>
           <%%= link gettext("Edit"), to: Routes.<%= schema.route_helper %>_path(@conn, :edit, <%= schema.singular %>) %>
           <li>
             <%%= form_for @conn, Routes.<%= schema.route_helper %>_path(@conn, :delete, <%= schema.singular %>), [method: "delete"], fn _f -> %>
@@ -29,4 +29,6 @@
   </tbody>
 </table>
 
+<%%= if assigns[:current_user] && @current_user.id == @user.id do %>
 <span><%%= link gettext("New <%= schema.human_singular %>"), to: Routes.<%= schema.route_helper %>_path(@conn, :new) %></span>
+<%% end %>

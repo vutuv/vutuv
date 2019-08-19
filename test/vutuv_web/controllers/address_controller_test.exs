@@ -73,13 +73,13 @@ defmodule VutuvWeb.AddressControllerTest do
 
       conn =
         put(conn, Routes.user_address_path(conn, :update, user, address),
-          address: %{"line_1" => "212b Baker St"}
+          address: %{"line_1" => "212B"}
         )
 
       assert redirected_to(conn) == Routes.user_address_path(conn, :show, user, address)
       assert get_flash(conn, :info) =~ "updated successfully"
       address = UserProfiles.get_address!(user, address.id)
-      assert address.line_1 =~ "212b Baker St"
+      assert address.line_1 =~ "212B"
     end
 
     test "does not update address when data is invalid", %{conn: conn, user: user} do

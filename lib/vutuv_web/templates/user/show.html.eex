@@ -37,6 +37,13 @@
   <%= render VutuvWeb.EmailAddressView, "_email_addresses_table.html", conn: @conn, current_user: @current_user, user: @user %>
 <% end %>
 
+<h2><%= gettext "Social media accounts" %></h2>
+<%= if @user.social_media_accounts == [] do %>
+  <p><%= gettext "No social media accounts" %></p>
+<% else %>
+  <%= render VutuvWeb.SocialMediaAccountView, "_social_media_accounts_table.html", conn: @conn, current_user: @current_user, user: @user %>
+<% end %>
+
 <h2><%= gettext "Posts" %></h2>
 <%= if @posts == [] do %>
   <p><%= gettext "No posts" %></p>
