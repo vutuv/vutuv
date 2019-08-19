@@ -15,7 +15,10 @@ defmodule VutuvWeb.PasswordResetController do
     end
 
     conn
-    |> put_flash(:info, "Check your inbox for instructions on how to reset your password")
+    |> put_flash(
+      :info,
+      gettext("Check your inbox for instructions on how to reset your password")
+    )
     |> redirect(to: Routes.password_reset_path(conn, :new, email: email))
   end
 
@@ -31,7 +34,7 @@ defmodule VutuvWeb.PasswordResetController do
       redirect(conn, to: Routes.password_reset_path(conn, :edit, email: email))
     else
       conn
-      |> put_flash(:error, "Invalid code")
+      |> put_flash(:error, gettext("Invalid code"))
       |> render("new.html", email: email)
     end
   end
@@ -49,14 +52,14 @@ defmodule VutuvWeb.PasswordResetController do
 
         conn
         |> delete_session(:phauxth_session_id)
-        |> put_flash(:info, "Your password has been reset")
+        |> put_flash(:info, gettext("Your password has been reset"))
         |> redirect(to: Routes.session_path(conn, :new))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         message = with p <- changeset.errors[:password], do: elem(p, 0)
 
         conn
-        |> put_flash(:error, message || "Invalid input")
+        |> put_flash(:error, message || gettext("Invalid input"))
         |> render("edit.html", email: email)
     end
   end

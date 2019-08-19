@@ -1,0 +1,34 @@
+<h1><%%= gettext "<%= schema.human_plural %>" %></h1>
+
+<table>
+  <thead>
+    <tr>
+<%= for {k, _} <- schema.attrs do %>      <th><%= Phoenix.Naming.humanize(Atom.to_string(k)) %></th>
+<% end %>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%%= for <%= schema.singular %> <- @<%= schema.plural %> do %>
+    <tr>
+<%= for {k, _} <- schema.attrs do %>      <td><%%= <%= schema.singular %>.<%= k %> %></td>
+<% end %>
+      <td>
+        <%%= link gettext("Show"), to: Routes.<%= schema.route_helper %>_path(@conn, :show, <%= schema.singular %>) %>
+        <%%= if assigns[:current_user] && @current_user.id == @user.id do %>
+          <%%= link gettext("Edit"), to: Routes.<%= schema.route_helper %>_path(@conn, :edit, <%= schema.singular %>) %>
+          <li>
+            <%%= form_for @conn, Routes.<%= schema.route_helper %>_path(@conn, :delete, <%= schema.singular %>), [method: "delete"], fn _f -> %>
+            <%%= submit gettext("Delete"), class: "link" %>
+          <%% end %>
+          </li>
+        <%% end %>
+      </td>
+    </tr>
+<%% end %>
+  </tbody>
+</table>
+
+<%%= if assigns[:current_user] && @current_user.id == @user.id do %>
+<span><%%= link gettext("New <%= schema.human_singular %>"), to: Routes.<%= schema.route_helper %>_path(@conn, :new) %></span>
+<%% end %>

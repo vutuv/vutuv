@@ -1,0 +1,15 @@
+<h1><%%= gettext "Show <%= schema.human_singular %>" %></h1>
+
+<ul>
+<%= for {k, _} <- schema.attrs do %>
+  <li>
+    <strong><%= Phoenix.Naming.humanize(Atom.to_string(k)) %>:</strong>
+    <%%= @<%= schema.singular %>.<%= k %> %>
+  </li>
+<% end %>
+</ul>
+
+<%%= if assigns[:current_user] do %>
+<span><%%= link gettext("Edit"), to: Routes.<%= schema.route_helper %>_path(@conn, :edit, @<%= schema.singular %>) %></span>
+<span><%%= link gettext("Back"), to: Routes.<%= schema.route_helper %>_path(@conn, :index) %></span>
+<%% end %>

@@ -19,7 +19,7 @@ config :vutuv, VutuvWeb.Endpoint,
 
 # Phauxth authentication configuration
 config :phauxth,
-  user_context: Vutuv.Accounts,
+  user_context: Vutuv.UserProfiles,
   crypto_module: Argon2,
   token_module: VutuvWeb.Auth.Token
 

@@ -3,7 +3,7 @@ defmodule Vutuv.Sessions.Session do
 
   import Ecto.Changeset
 
-  alias Vutuv.Accounts.User
+  alias Vutuv.UserProfiles.User
 
   @max_age 86_400
 

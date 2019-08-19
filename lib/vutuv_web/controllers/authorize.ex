@@ -8,6 +8,7 @@ defmodule VutuvWeb.Authorize do
 
   import Plug.Conn
   import Phoenix.Controller
+  import VutuvWeb.Gettext
 
   alias VutuvWeb.Router.Helpers, as: Routes
 
@@ -36,7 +37,7 @@ defmodule VutuvWeb.Authorize do
 
   def guest_check(%Plug.Conn{assigns: %{current_user: user}} = conn, _opts) do
     conn
-    |> put_flash(:error, "You need to log out to view this page")
+    |> put_flash(:error, gettext("You need to log out to view this page"))
     |> redirect(to: Routes.user_path(conn, :show, user))
     |> halt()
   end
@@ -46,7 +47,7 @@ defmodule VutuvWeb.Authorize do
   """
   def unauthorized(conn, current_user) do
     conn
-    |> put_flash(:error, "You are not authorized to view this page")
+    |> put_flash(:error, gettext("You are not authorized to view this page"))
     |> redirect(to: Routes.user_path(conn, :show, current_user))
     |> halt()
   end
@@ -54,7 +55,7 @@ defmodule VutuvWeb.Authorize do
   defp need_login(conn) do
     conn
     |> put_session(:request_path, current_path(conn))
-    |> put_flash(:error, "You need to log in to view this page")
+    |> put_flash(:error, gettext("You need to log in to view this page"))
     |> redirect(to: Routes.session_path(conn, :new))
     |> halt()
   end

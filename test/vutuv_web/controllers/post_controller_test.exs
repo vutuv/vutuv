@@ -4,14 +4,14 @@ defmodule VutuvWeb.PostControllerTest do
   import Vutuv.Factory
   import VutuvWeb.AuthTestHelpers
 
-  alias Vutuv.{Accounts, Socials}
+  alias Vutuv.{UserProfiles, Publications}
 
-  @create_post_attrs %{
+  @create_attrs %{
     body: Faker.Company.bs(),
     title: Faker.Company.name(),
     visibility_level: "private"
   }
-  @update_post_attrs %{
+  @update_attrs %{
     visibility_level: "public"
   }
 
@@ -35,7 +35,7 @@ defmodule VutuvWeb.PostControllerTest do
       post_1 = insert(:post, %{user: user, visibility_level: "public"})
       post_2 = insert(:post, %{user: user, visibility_level: "followers"})
       other = add_user("froderick@example.com")
-      {:ok, _user} = Accounts.add_leaders(other, [user.id])
+      {:ok, _user} = UserProfiles.add_leaders(other, [user.id])
       conn = conn |> add_session(other) |> send_resp(:ok, "/")
       conn = get(conn, Routes.user_post_path(conn, :index, user))
       response = html_response(conn, 200)
@@ -67,7 +67,7 @@ defmodule VutuvWeb.PostControllerTest do
       end
 
       other = add_user("froderick@example.com")
-      {:ok, _user} = Accounts.add_leaders(other, [user.id])
+      {:ok, _user} = UserProfiles.add_leaders(other, [user.id])
       conn = conn |> add_session(other) |> send_resp(:ok, "/")
       conn = get(conn, Routes.user_post_path(conn, :show, user, post))
       assert html_response(conn, 200) =~ dirty_escape(post.title)
@@ -106,8 +106,9 @@ defmodule VutuvWeb.PostControllerTest do
     setup [:add_user_session]
 
     test "can create post with valid data", %{conn: conn, user: user} do
-      conn = post(conn, Routes.user_post_path(conn, :create, user), post: @create_post_attrs)
-      assert redirected_to(conn) == Routes.user_post_path(conn, :index, user)
+      conn = post(conn, Routes.user_post_path(conn, :create, user), post: @create_attrs)
+      assert %{id: id} = redirected_params(conn)
+      assert redirected_to(conn) == Routes.user_post_path(conn, :show, user, id)
       assert get_flash(conn, :info) =~ "created successfully"
     end
 
@@ -118,10 +119,10 @@ defmodule VutuvWeb.PostControllerTest do
 
     test "can update post with valid data", %{conn: conn, user: user} do
       post = insert(:post, %{user: user})
-      conn = put(conn, Routes.user_post_path(conn, :update, user, post), post: @update_post_attrs)
+      conn = put(conn, Routes.user_post_path(conn, :update, user, post), post: @update_attrs)
       assert redirected_to(conn) == Routes.user_post_path(conn, :show, user, post)
       assert get_flash(conn, :info) =~ "updated successfully"
-      post = Socials.get_post!(user, %{"id" => post.id})
+      post = Publications.get_post!(user, post.id)
       assert post.visibility_level == "public"
     end
 
@@ -144,7 +145,7 @@ defmodule VutuvWeb.PostControllerTest do
       conn = delete(conn, Routes.user_post_path(conn, :delete, user, post))
       assert redirected_to(conn) == Routes.user_post_path(conn, :index, user)
       assert get_flash(conn, :info) =~ "deleted successfully"
-      assert_raise Ecto.NoResultsError, fn -> Socials.get_post!(user, %{"id" => post.id}) end
+      assert_raise Ecto.NoResultsError, fn -> Publications.get_post!(user, post.id) end
     end
 
     test "cannot delete another user's post", %{conn: conn, user: user} do
@@ -155,7 +156,7 @@ defmodule VutuvWeb.PostControllerTest do
         delete(conn, Routes.user_post_path(conn, :delete, user, post))
       end
 
-      assert Socials.get_post!(other, %{"id" => post.id})
+      assert Publications.get_post!(other, post.id)
     end
   end
 

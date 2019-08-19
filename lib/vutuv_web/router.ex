@@ -21,10 +21,12 @@ defmodule VutuvWeb.Router do
     get "/", UserController, :new
 
     resources "/users", UserController, except: [:new], param: "slug" do
+      resources "/addresses", AddressController
       resources "/email_addresses", EmailAddressController
       resources "/followers", FollowerController, only: [:index]
       resources "/leaders", LeaderController, only: [:index]
       resources "/posts", PostController
+      resources "/social_media_accounts", SocialMediaAccountController
     end
 
     resources "/sessions", SessionController, only: [:new, :create, :delete]

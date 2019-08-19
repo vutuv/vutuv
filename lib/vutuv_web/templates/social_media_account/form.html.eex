@@ -1,0 +1,19 @@
+<%= form_for @changeset, @action, [], fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p><%= gettext "Something went wrong. Please check the errors below." %></p>
+    </div>
+  <% end %>
+
+  <%= label f, :provider %>
+  <%= select f, :provider, [{gettext("Facebook"), "Facebook"}, {gettext("Twitter"), "Twitter"}, {gettext("Instagram"), "Instagram"}, {gettext("Youtube"), "Youtube"}, {gettext("Snapchat"), "Snapchat"}, {gettext("LinkedIn"), "LinkedIn"}, {gettext("XING"), "XING"}, {gettext("GitHub"), "GitHub"}] %>
+  <%= error_tag f, :provider %>
+
+  <%= label f, :value %>
+  <%= text_input f, :value %>
+  <%= error_tag f, :value %>
+
+  <div>
+    <%= submit gettext("Save") %>
+  </div>
+<% end %>

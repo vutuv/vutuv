@@ -1,0 +1,5 @@
+<h1><%= gettext "Edit social media account" %></h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.user_social_media_account_path(@conn, :update, @current_user, @social_media_account)) %>
+
+<span><%= link gettext("Back"), to: Routes.user_social_media_account_path(@conn, :index, @current_user) %></span>

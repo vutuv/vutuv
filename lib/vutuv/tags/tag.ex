@@ -3,7 +3,7 @@ defmodule Vutuv.Tags.Tag do
 
   import Ecto.Changeset
 
-  alias Vutuv.{Accounts.User, Socials.Post}
+  alias Vutuv.{UserProfiles.User, Publications.Post}
 
   @type t :: %__MODULE__{
           id: integer,
