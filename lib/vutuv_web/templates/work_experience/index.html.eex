@@ -1,0 +1,44 @@
+<h1><%= gettext "Work experiences" %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Organization</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Slug</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for work_experience <- @work_experiences do %>
+    <tr>
+      <td><%= work_experience.organization %></td>
+      <td><%= work_experience.title %></td>
+      <td><%= work_experience.description %></td>
+      <td><%= work_experience.start_date %></td>
+      <td><%= work_experience.end_date %></td>
+      <td><%= work_experience.slug %></td>
+
+      <td>
+        <%= link gettext("Show"), to: Routes.user_work_experience_path(@conn, :show, @user, work_experience) %>
+        <%= if assigns[:current_user] && @current_user.id == @user.id do %>
+          <%= link gettext("Edit"), to: Routes.user_work_experience_path(@conn, :edit, @current_user, work_experience) %>
+          <li>
+            <%= form_for @conn, Routes.user_work_experience_path(@conn, :delete, @current_user, work_experience), [method: "delete"], fn _f -> %>
+            <%= submit gettext("Delete"), class: "link" %>
+          <% end %>
+          </li>
+        <% end %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= if assigns[:current_user] && @current_user.id == @user.id do %>
+<span><%= link gettext("New Work experience"), to: Routes.user_work_experience_path(@conn, :new, @current_user) %></span>
+<% end %>

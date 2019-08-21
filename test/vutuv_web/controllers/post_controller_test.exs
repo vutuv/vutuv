@@ -105,7 +105,7 @@ defmodule VutuvWeb.PostControllerTest do
   describe "write posts" do
     setup [:add_user_session]
 
-    test "can create post with valid data", %{conn: conn, user: user} do
+    test "create post with valid data", %{conn: conn, user: user} do
       conn = post(conn, Routes.user_post_path(conn, :create, user), post: @create_attrs)
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.user_post_path(conn, :show, user, id)
@@ -117,7 +117,7 @@ defmodule VutuvWeb.PostControllerTest do
       assert html_response(conn, 200) =~ "can&#39;t be blank"
     end
 
-    test "can update post with valid data", %{conn: conn, user: user} do
+    test "update post with valid data", %{conn: conn, user: user} do
       post = insert(:post, %{user: user})
       conn = put(conn, Routes.user_post_path(conn, :update, user, post), post: @update_attrs)
       assert redirected_to(conn) == Routes.user_post_path(conn, :show, user, post)

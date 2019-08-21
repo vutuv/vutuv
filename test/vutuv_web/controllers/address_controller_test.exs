@@ -56,7 +56,7 @@ defmodule VutuvWeb.AddressControllerTest do
   describe "write addresses" do
     setup [:add_user_session]
 
-    test "can create address with valid data", %{conn: conn, user: user} do
+    test "create address with valid data", %{conn: conn, user: user} do
       conn = post(conn, Routes.user_address_path(conn, :create, user), address: @create_attrs)
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.user_address_path(conn, :show, user, id)
@@ -68,7 +68,7 @@ defmodule VutuvWeb.AddressControllerTest do
       assert html_response(conn, 200) =~ "can&#39;t be blank"
     end
 
-    test "can update address with valid data", %{conn: conn, user: user} do
+    test "update address with valid data", %{conn: conn, user: user} do
       address = insert(:address, %{user: user})
 
       conn =

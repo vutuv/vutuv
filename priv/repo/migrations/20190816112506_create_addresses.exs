@@ -3,6 +3,7 @@ defmodule Vutuv.Repo.Migrations.CreateAddresses do
 
   def change do
     create table(:addresses) do
+      add :user_id, references(:users, on_delete: :delete_all)
       add :description, :string
       add :line_1, :string
       add :line_2, :string
@@ -12,7 +13,6 @@ defmodule Vutuv.Repo.Migrations.CreateAddresses do
       add :city, :string
       add :state, :string
       add :country, :string
-      add :user_id, references(:users, on_delete: :nothing)
 
       timestamps()
     end

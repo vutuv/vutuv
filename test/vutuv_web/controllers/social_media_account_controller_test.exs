@@ -52,7 +52,7 @@ defmodule VutuvWeb.SocialMediaAccountControllerTest do
   describe "write social media accounts" do
     setup [:add_user_session]
 
-    test "can create social media account with valid data", %{conn: conn, user: user} do
+    test "create social media account with valid data", %{conn: conn, user: user} do
       conn =
         post(conn, Routes.user_social_media_account_path(conn, :create, user),
           social_media_account: @create_attrs
@@ -72,7 +72,7 @@ defmodule VutuvWeb.SocialMediaAccountControllerTest do
       assert html_response(conn, 200) =~ "can&#39;t be blank"
     end
 
-    test "can update social media account with valid data", %{conn: conn, user: user} do
+    test "update social media account with valid data", %{conn: conn, user: user} do
       social_media_account = insert(:social_media_account, %{user: user})
 
       conn =
