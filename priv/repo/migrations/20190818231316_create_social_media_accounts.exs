@@ -3,9 +3,9 @@ defmodule Vutuv.Repo.Migrations.CreateSocialMediaAccounts do
 
   def change do
     create table(:social_media_accounts) do
+      add :user_id, references(:users, on_delete: :delete_all)
       add :provider, :string
       add :value, :string
-      add :user_id, references(:users, on_delete: :nothing)
 
       timestamps()
     end

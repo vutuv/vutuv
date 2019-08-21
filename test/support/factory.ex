@@ -82,4 +82,15 @@ defmodule Vutuv.Factory do
   def tag_factory do
     %Vutuv.Tags.Tag{}
   end
+
+  def work_experience_factory do
+    %Vutuv.Biographies.WorkExperience{
+      user: build(:user),
+      description: Faker.Company.bs(),
+      title: Faker.Name.title(),
+      organization: Faker.Company.name(),
+      start_date: Faker.Date.between(~D[2010-12-01], ~D[2015-12-01]),
+      end_date: Faker.Date.between(~D[2016-12-01], ~D[2019-12-01])
+    }
+  end
 end

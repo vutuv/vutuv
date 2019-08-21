@@ -140,7 +140,7 @@ defmodule Vutuv.UserProfilesTest do
       assert user.preferred_name =~ "Eddie-baby"
     end
 
-    test "user can update slug" do
+    test "user update slug" do
       %{slug: slug} = user = insert(:user)
       attrs = %{"slug" => String.replace(slug, ".", "-")}
       {:ok, %{slug: new_slug}} = UserProfiles.update_user(user, attrs)

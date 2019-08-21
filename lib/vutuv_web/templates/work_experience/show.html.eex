@@ -1,0 +1,40 @@
+<h1><%= gettext "Show work experience" %></h1>
+
+<ul>
+
+  <li>
+    <strong>Organization:</strong>
+    <%= @work_experience.organization %>
+  </li>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @work_experience.title %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @work_experience.description %>
+  </li>
+
+  <li>
+    <strong>Start date:</strong>
+    <%= @work_experience.start_date %>
+  </li>
+
+  <li>
+    <strong>End date:</strong>
+    <%= @work_experience.end_date %>
+  </li>
+
+  <li>
+    <strong>Slug:</strong>
+    <%= @work_experience.slug %>
+  </li>
+
+</ul>
+
+<%= if assigns[:current_user] do %>
+<span><%= link gettext("Edit"), to: Routes.user_work_experience_path(@conn, :edit, @current_user, @work_experience) %></span>
+<span><%= link gettext("Back"), to: Routes.user_work_experience_path(@conn, :index, @current_user) %></span>
+<% end %>

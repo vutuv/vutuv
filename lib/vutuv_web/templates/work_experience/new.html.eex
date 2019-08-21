@@ -1,0 +1,5 @@
+<h1><%= gettext "New work experience" %></h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.user_work_experience_path(@conn, :create, @current_user)) %>
+
+<span><%= link gettext("Back"), to: Routes.user_work_experience_path(@conn, :index, @current_user) %></span>

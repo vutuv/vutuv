@@ -10,7 +10,7 @@ defmodule VutuvWeb.PasswordResetControllerTest do
   end
 
   describe "request password reset" do
-    test "user can create a password reset request", %{conn: conn} do
+    test "user create a password reset request", %{conn: conn} do
       email = "gladys@example.com"
 
       conn =
