@@ -11,9 +11,7 @@ defmodule Vutuv.Repo.Migrations.CreateUserConnections do
     create index(:user_connections, [:follower_id])
 
     create(
-      unique_index(:user_connections, [:leader_id, :follower_id],
-        name: :leader_id_follower_id_unique_index
-      )
+      unique_index(:user_connections, [:leader_id, :follower_id], name: :leader_id_follower_id)
     )
   end
 end

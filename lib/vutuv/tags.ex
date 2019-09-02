@@ -6,10 +6,10 @@ defmodule Vutuv.Tags do
   import Ecto.Query, warn: false
 
   alias Vutuv.Repo
+  alias Vutuv.Tags.{Tag, UserTag, UserTagEndorsement}
+  alias Vutuv.UserProfiles.User
 
   @type changeset_error :: {:error, Ecto.Changeset.t()}
-
-  alias Vutuv.Tags.Tag
 
   @doc """
   Returns the list of tags.
@@ -76,5 +76,39 @@ defmodule Vutuv.Tags do
   @spec change_tag(Tag.t()) :: Ecto.Changeset.t()
   def change_tag(%Tag{} = tag) do
     Tag.changeset(tag, %{})
+  end
+
+  @doc """
+  Returns number of endorsements for a user tag.
+  """
+  @spec user_tag_endorsements_count(Tag.t(), User.t()) :: integer
+  def user_tag_endorsements_count(%Tag{id: tag_id}, %User{id: user_id}) do
+    case Repo.get_by(UserTag, tag_id: tag_id, user_id: user_id) do
+      %UserTag{} = user_tag ->
+        query = from e in UserTagEndorsement, where: e.user_tag_id == ^user_tag.id
+        Repo.aggregate(query, :count, :id)
+
+      _ ->
+        0
+    end
+  end
+
+  @doc """
+  Creates a user_tag_endorsement.
+  """
+  @spec create_user_tag_endorsement(map) :: {:ok, UserTagEndorsement.t()} | changeset_error
+  def create_user_tag_endorsement(attrs \\ %{}) do
+    %UserTagEndorsement{}
+    |> UserTagEndorsement.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Deletes a UserTagEndorsement.
+  """
+  @spec delete_user_tag_endorsement(UserTagEndorsement.t()) ::
+          {:ok, UserTagEndorsement.t()} | changeset_error
+  def delete_user_tag_endorsement(%UserTagEndorsement{} = user_tag_endorsement) do
+    Repo.delete(user_tag_endorsement)
   end
 end

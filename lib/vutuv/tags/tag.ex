@@ -3,7 +3,7 @@ defmodule Vutuv.Tags.Tag do
 
   import Ecto.Changeset
 
-  alias Vutuv.{UserProfiles.User, Publications.Post}
+  alias Vutuv.{Publications.Post, Tags.UserTag, UserProfiles.User}
 
   @type t :: %__MODULE__{
           id: integer,
@@ -26,7 +26,7 @@ defmodule Vutuv.Tags.Tag do
     field :url, :string
 
     many_to_many :posts, Post, join_through: "post_tags", on_replace: :delete
-    many_to_many :users, User, join_through: "user_tags", on_replace: :delete
+    many_to_many :users, User, join_through: UserTag, on_replace: :delete
 
     timestamps(type: :utc_datetime)
   end

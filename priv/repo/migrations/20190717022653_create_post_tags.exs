@@ -10,6 +10,6 @@ defmodule Vutuv.Repo.Migrations.CreatePostTags do
     create index(:post_tags, [:post_id])
     create index(:post_tags, [:tag_id])
 
-    create(unique_index(:post_tags, [:post_id, :tag_id], name: :post_id_tag_id_unique_index))
+    create unique_index(:post_tags, [:post_id, :tag_id], name: :post_id_tag_id)
   end
 end

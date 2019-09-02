@@ -13,7 +13,8 @@ defmodule Vutuv.UserProfiles.User do
     Publications.Post,
     Sessions.Session,
     SocialNetworks.SocialMediaAccount,
-    Tags.Tag
+    Tags.Tag,
+    Tags.UserTag
   }
 
   @type t :: %__MODULE__{
@@ -68,7 +69,7 @@ defmodule Vutuv.UserProfiles.User do
     has_many :work_experiences, WorkExperience, on_delete: :delete_all
     has_one :user_credential, UserCredential, on_delete: :delete_all
 
-    many_to_many :tags, Tag, join_through: "user_tags", on_replace: :delete
+    many_to_many :tags, Tag, join_through: UserTag, on_replace: :delete
 
     many_to_many :followers, __MODULE__,
       join_through: "user_connections",
@@ -132,13 +133,13 @@ defmodule Vutuv.UserProfiles.User do
   """
   def user_tag_changeset(%__MODULE__{} = user, tags) do
     user
-    |> cast(%{}, [:full_name, :gender])
+    |> cast(%{}, [])
     |> put_assoc(:tags, tags)
   end
 
   def leader_changeset(%__MODULE__{} = user, leaders) do
     user
-    |> cast(%{}, [:full_name, :gender])
+    |> cast(%{}, [])
     |> put_assoc(:leaders, leaders)
   end
 

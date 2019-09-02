@@ -80,7 +80,13 @@ defmodule Vutuv.Factory do
   end
 
   def tag_factory do
-    %Vutuv.Tags.Tag{}
+    tag_name = Enum.random(["JavaScript", "Prolog", "Painting"])
+
+    %Vutuv.Tags.Tag{
+      description: "#{tag_name} expertise",
+      name: "#{tag_name}",
+      url: "http://some-url.com"
+    }
   end
 
   def work_experience_factory do
