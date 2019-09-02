@@ -3,7 +3,7 @@ defmodule Vutuv.TagsTest do
 
   import Vutuv.Factory
 
-  alias Vutuv.{UserProfiles, Publications, Tags, Tags.Tag, Repo}
+  alias Vutuv.{UserProfiles, Publications, Repo, Tags, Tags.Tag, Tags.UserTagEndorsement}
 
   @create_tag_attrs %{
     "description" => "JavaScript expertise",
@@ -18,22 +18,13 @@ defmodule Vutuv.TagsTest do
   @invalid_attrs %{"description" => nil, "name" => nil, "url" => nil}
 
   describe "tags" do
-    def tag_fixture(attrs \\ %{}) do
-      {:ok, tag} =
-        attrs
-        |> Enum.into(@create_tag_attrs)
-        |> Tags.create_tag()
-
-      tag
-    end
-
     test "list_tags/0 returns all tags" do
-      tag = tag_fixture()
+      tag = insert(:tag)
       assert Tags.list_tags() == [tag]
     end
 
     test "get_tag!/1 returns the tag with given id" do
-      tag = tag_fixture()
+      tag = insert(:tag)
       assert Tags.get_tag!(tag.id) == tag
     end
 
@@ -49,7 +40,7 @@ defmodule Vutuv.TagsTest do
     end
 
     test "update_tag/2 with valid data updates the tag" do
-      tag = tag_fixture()
+      tag = insert(:tag)
       assert {:ok, %Tag{} = tag} = Tags.update_tag(tag, @update_tag_attrs)
       assert tag.description =~ "Logic programming"
       assert tag.name == "Prolog"
@@ -57,19 +48,19 @@ defmodule Vutuv.TagsTest do
     end
 
     test "update_tag/2 with invalid data returns error changeset" do
-      tag = tag_fixture()
+      tag = insert(:tag)
       assert {:error, %Ecto.Changeset{}} = Tags.update_tag(tag, @invalid_attrs)
       assert tag == Tags.get_tag!(tag.id)
     end
 
     test "delete_tag/1 deletes the tag" do
-      tag = tag_fixture()
+      tag = insert(:tag)
       assert {:ok, %Tag{}} = Tags.delete_tag(tag)
       assert_raise Ecto.NoResultsError, fn -> Tags.get_tag!(tag.id) end
     end
 
     test "change_tag/1 returns a tag changeset" do
-      tag = tag_fixture()
+      tag = insert(:tag)
       assert %Ecto.Changeset{} = Tags.change_tag(tag)
     end
   end
@@ -94,5 +85,67 @@ defmodule Vutuv.TagsTest do
       %Tag{posts: [post_1]} = Tags.get_tag!(tag.id) |> Repo.preload(:posts)
       assert post.id == post_1.id
     end
+  end
+
+  describe "user_tag_endorsements" do
+    setup [:create_user_tag]
+
+    test "create_user_tag_endorsement/1 with valid data creates a user_tag_endorsement", %{
+      user_tag: user_tag
+    } do
+      user = insert(:user)
+      attrs = %{user_tag_id: user_tag.id, user_id: user.id}
+
+      assert {:ok, %UserTagEndorsement{} = user_tag_endorsement} =
+               Tags.create_user_tag_endorsement(attrs)
+    end
+
+    test "same user cannot endorse tag more than once", %{user_tag: user_tag} do
+      user = insert(:user)
+      attrs = %{user_tag_id: user_tag.id, user_id: user.id}
+
+      assert {:ok, %UserTagEndorsement{} = user_tag_endorsement} =
+               Tags.create_user_tag_endorsement(attrs)
+
+      assert {:error, %Ecto.Changeset{} = changeset} = Tags.create_user_tag_endorsement(attrs)
+      assert %{user_id: ["has already been taken"]} = errors_on(changeset)
+    end
+
+    test "count user_tag_endorsements" do
+      tag = insert(:tag)
+      user = insert(:user)
+      {:ok, %{tags: [tag]}} = UserProfiles.add_user_tags(user, [tag.id])
+      user_tag = Repo.get_by(Vutuv.Tags.UserTag, tag_id: tag.id, user_id: user.id)
+      endorser = insert(:user)
+      assert Tags.user_tag_endorsements_count(tag, user) == 0
+      attrs = %{user_tag_id: user_tag.id, user_id: endorser.id}
+
+      assert {:ok, %UserTagEndorsement{} = user_tag_endorsement} =
+               Tags.create_user_tag_endorsement(attrs)
+
+      assert Tags.user_tag_endorsements_count(tag, user) == 1
+    end
+
+    test "delete_user_tag_endorsement/1 deletes the user_tag_endorsement", %{user_tag: user_tag} do
+      user = insert(:user)
+      attrs = %{user_tag_id: user_tag.id, user_id: user.id}
+
+      {:ok, %UserTagEndorsement{} = user_tag_endorsement} =
+        Tags.create_user_tag_endorsement(attrs)
+
+      assert {:ok, %UserTagEndorsement{}} = Tags.delete_user_tag_endorsement(user_tag_endorsement)
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Repo.get!(UserTagEndorsement, user_tag_endorsement.id)
+      end
+    end
+  end
+
+  defp create_user_tag(_) do
+    tag = insert(:tag)
+    user = insert(:user)
+    {:ok, %{tags: [tag]}} = UserProfiles.add_user_tags(user, [tag.id])
+    user_tag = Repo.get_by(Vutuv.Tags.UserTag, tag_id: tag.id, user_id: user.id)
+    {:ok, %{user_tag: user_tag}}
   end
 end
