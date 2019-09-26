@@ -2,7 +2,7 @@
 <h2><%= @user.headline %></h2>
 
 <h2><%= gettext "Tags" %></h2>
-<p><%= ViewUtils.stringify_list(@user.tags) %></p>
+<p><%= ViewUtils.stringify_list(@user.user_tags) %></p>
 
 <h2><%= gettext "Followers" %></h2>
 <%= if @user.followers == [] do %>

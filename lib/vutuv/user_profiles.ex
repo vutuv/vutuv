@@ -12,7 +12,6 @@ defmodule Vutuv.UserProfiles do
     Repo,
     Sessions,
     Sessions.Session,
-    Tags.Tag,
     UserProfiles.User,
     UserProfiles.Address
   }
@@ -137,15 +136,6 @@ defmodule Vutuv.UserProfiles do
   end
 
   @doc """
-  Adds an association between a user and existing tags.
-  """
-  @spec add_user_tags(User.t(), list) :: {:ok, User.t()} | changeset_error
-  def add_user_tags(%User{} = user, tag_ids) do
-    tags = Tag |> where([t], t.id in ^tag_ids) |> Repo.all()
-    user |> Repo.preload([:tags]) |> User.user_tag_changeset(tags) |> Repo.update()
-  end
-
-  @doc """
   Returns a user's followers and leaders in a paginated struct.
   """
   @spec paginate_user_connections(User.t(), map, :followers | :leaders) :: Scrivener.Page.t()
@@ -154,7 +144,7 @@ defmodule Vutuv.UserProfiles do
   end
 
   @doc """
-  Adds leaders / followees to a user.
+  Adds leaders to a user.
 
   If successful, the users in the leader_ids list will be added to the
   user's leaders. In addition, the user will be added to the followers

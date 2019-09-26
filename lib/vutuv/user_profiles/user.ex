@@ -40,6 +40,7 @@ defmodule Vutuv.UserProfiles.User do
           work_experiences: [WorkExperience.t()] | %Ecto.Association.NotLoaded{},
           tags: [Tag.t()] | %Ecto.Association.NotLoaded{},
           user_credential: UserCredential.t() | %Ecto.Association.NotLoaded{},
+          user_tags: [UserTag.t()] | %Ecto.Association.NotLoaded{},
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
         }
@@ -66,6 +67,7 @@ defmodule Vutuv.UserProfiles.User do
     has_many :posts, Post, on_delete: :delete_all
     has_many :sessions, Session, on_delete: :delete_all
     has_many :social_media_accounts, SocialMediaAccount, on_delete: :delete_all
+    has_many :user_tags, UserTag, on_delete: :delete_all
     has_many :work_experiences, WorkExperience, on_delete: :delete_all
     has_one :user_credential, UserCredential, on_delete: :delete_all
 

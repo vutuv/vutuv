@@ -27,6 +27,12 @@ defmodule VutuvWeb.Router do
       resources "/leaders", LeaderController, only: [:index]
       resources "/posts", PostController
       resources "/social_media_accounts", SocialMediaAccountController
+      resources "/tags", UserTagController, only: [:new, :create, :delete], as: :tag
+
+      resources "/user_tag_endorsements", UserTagEndorsementController,
+        only: [:create, :delete],
+        as: :tag_endorsement
+
       resources "/work_experiences", WorkExperienceController
     end
 

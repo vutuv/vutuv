@@ -5,21 +5,19 @@
 # It is also run when you use `mix ecto.setup` or `mix ecto.reset`
 #
 
-{:ok, js_tag} =
-  Vutuv.Tags.create_tag(%{
-    "description" => "JavaScript expertise",
-    "name" => "JavaScript",
-    "url" => "http://some-url.com"
-  })
+js_tag_attrs = %{
+  "description" => "JavaScript expertise",
+  "name" => "JavaScript",
+  "url" => "http://some-url.com"
+}
 
-{:ok, prolog_tag} =
-  Vutuv.Tags.create_tag(%{
-    "description" => "Logic programming will save the world",
-    "name" => "Prolog",
-    "url" => "http://some-other-url.com"
-  })
+prolog_tag_attrs = %{
+  "description" => "Logic programming will save the world",
+  "name" => "Prolog",
+  "url" => "http://some-other-url.com"
+}
 
-users = [
+users_attrs = [
   %{
     "email" => "jane.doe@example.com",
     "password" => "reallyHard2gue$$",
@@ -41,7 +39,7 @@ users = [
   }
 ]
 
-for user <- users do
+for user <- users_attrs do
   {:ok, %{email_addresses: [email_address], user_credential: user_credential} = user} =
     Vutuv.UserProfiles.create_user(user)
 
@@ -53,7 +51,8 @@ for user <- users do
     "value" => "#{name}_123@example.com"
   })
 
-  Vutuv.UserProfiles.add_user_tags(user, [js_tag.id, prolog_tag.id])
+  Vutuv.Tags.create_user_tag(user, js_tag_attrs)
+  Vutuv.Tags.create_user_tag(user, prolog_tag_attrs)
 
   {:ok, post} =
     Vutuv.Publications.create_post(user, %{
@@ -62,6 +61,7 @@ for user <- users do
       visibility_level: "public"
     })
 
+  {:ok, js_tag} = Vutuv.Tags.create_or_get_tag(js_tag_attrs)
   Vutuv.Publications.add_post_tags(post, [js_tag.id])
 end
 
@@ -76,7 +76,7 @@ for user <- created_users do
   Vutuv.UserProfiles.add_leaders(user, other_user_ids)
 end
 
-other_users = [
+other_users_attrs = [
   %{
     "email" => "german.keeling@example.com",
     "password" => "reallyHard2gue$$",
@@ -228,12 +228,12 @@ other_users = [
   }
 ]
 
-for user <- other_users do
+for user <- other_users_attrs do
   {:ok, %{email_addresses: [email_address], user_credential: user_credential} = user} =
     Vutuv.UserProfiles.create_user(user)
 
   Vutuv.Accounts.confirm_user(user_credential)
   Vutuv.Devices.verify_email_address(email_address)
-  leader_ids = Enum.map(users, &Vutuv.UserProfiles.get_user!(&1).id)
+  leader_ids = Enum.map(users_attrs, &Vutuv.UserProfiles.get_user!(&1).id)
   Vutuv.UserProfiles.add_leaders(user, leader_ids)
 end
