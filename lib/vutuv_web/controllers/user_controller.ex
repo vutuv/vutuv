@@ -92,7 +92,7 @@ defmodule VutuvWeb.UserController do
       :email_addresses,
       :social_media_accounts,
       :followers,
-      :leaders,
+      :followees,
       :user_tags
     ])
   end

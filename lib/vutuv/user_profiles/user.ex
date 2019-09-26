@@ -76,12 +76,12 @@ defmodule Vutuv.UserProfiles.User do
     many_to_many :followers, __MODULE__,
       join_through: "user_connections",
       on_replace: :delete,
-      join_keys: [follower_id: :id, leader_id: :id]
+      join_keys: [follower_id: :id, followee_id: :id]
 
-    many_to_many :leaders, __MODULE__,
+    many_to_many :followees, __MODULE__,
       join_through: "user_connections",
       on_replace: :delete,
-      join_keys: [leader_id: :id, follower_id: :id]
+      join_keys: [followee_id: :id, follower_id: :id]
 
     timestamps(type: :utc_datetime)
   end
@@ -139,10 +139,10 @@ defmodule Vutuv.UserProfiles.User do
     |> put_assoc(:tags, tags)
   end
 
-  def leader_changeset(%__MODULE__{} = user, leaders) do
+  def followee_changeset(%__MODULE__{} = user, followees) do
     user
     |> cast(%{}, [])
-    |> put_assoc(:leaders, leaders)
+    |> put_assoc(:followees, followees)
   end
 
   defp add_locale_data(%Ecto.Changeset{valid?: true, changes: %{locale: locale}} = changeset) do

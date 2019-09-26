@@ -73,7 +73,7 @@ for user <- created_users do
       if u.id == user.id, do: [], else: [u.id]
     end)
 
-  Vutuv.UserProfiles.add_leaders(user, other_user_ids)
+  Vutuv.UserProfiles.add_followees(user, other_user_ids)
 end
 
 other_users_attrs = [
@@ -234,6 +234,6 @@ for user <- other_users_attrs do
 
   Vutuv.Accounts.confirm_user(user_credential)
   Vutuv.Devices.verify_email_address(email_address)
-  leader_ids = Enum.map(users_attrs, &Vutuv.UserProfiles.get_user!(&1).id)
-  Vutuv.UserProfiles.add_leaders(user, leader_ids)
+  followee_ids = Enum.map(users_attrs, &Vutuv.UserProfiles.get_user!(&1).id)
+  Vutuv.UserProfiles.add_followees(user, followee_ids)
 end
