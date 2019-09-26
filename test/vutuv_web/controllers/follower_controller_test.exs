@@ -1,8 +1,6 @@
 defmodule VutuvWeb.FollowerControllerTest do
   use VutuvWeb.ConnCase
 
-  import Vutuv.Factory
-
   alias Vutuv.UserProfiles
 
   test "lists all of a user's followers", %{conn: conn} do

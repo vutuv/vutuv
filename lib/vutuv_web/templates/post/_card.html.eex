@@ -1,0 +1,26 @@
+<div class="card">
+  <h2><%= gettext "Posts" %></h2>
+
+  <%= if @posts == [] do %>
+    <p><%= gettext "No posts" %></p>
+  <% else %>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for post <- @posts do %>
+          <tr>
+            <td><%= post.title %></td>
+            <%= if assigns[:current_user] && @current_user.id == @user.id do %>
+              <td><%= link gettext("Edit post"), to: Routes.user_post_path(@conn, :edit, @user, post) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>

@@ -1,8 +1,6 @@
 defmodule VutuvWeb.EmailAddressControllerTest do
   use VutuvWeb.ConnCase
 
-  import VutuvWeb.AuthTestHelpers
-
   alias Vutuv.{UserProfiles.User, Devices}
 
   @create_attrs %{

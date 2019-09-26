@@ -1,9 +1,6 @@
 defmodule VutuvWeb.PostControllerTest do
   use VutuvWeb.ConnCase
 
-  import Vutuv.Factory
-  import VutuvWeb.AuthTestHelpers
-
   alias Vutuv.{UserProfiles, Publications}
 
   @create_attrs %{
@@ -27,8 +24,8 @@ defmodule VutuvWeb.PostControllerTest do
       post_2 = insert(:post, %{user: user, visibility_level: "public"})
       conn = get(conn, Routes.user_post_path(conn, :index, user))
       response = html_response(conn, 200)
-      refute response =~ dirty_escape(post_1.title)
-      assert response =~ dirty_escape(post_2.title)
+      refute response =~ escape_html(post_1.title)
+      assert response =~ escape_html(post_2.title)
     end
 
     test "lists all a user's visible posts - including for followers", %{conn: conn, user: user} do
@@ -39,24 +36,24 @@ defmodule VutuvWeb.PostControllerTest do
       conn = conn |> add_session(other) |> send_resp(:ok, "/")
       conn = get(conn, Routes.user_post_path(conn, :index, user))
       response = html_response(conn, 200)
-      assert response =~ dirty_escape(post_1.title)
-      assert response =~ dirty_escape(post_2.title)
+      assert response =~ escape_html(post_1.title)
+      assert response =~ escape_html(post_2.title)
     end
 
     test "lists private posts for current_user", %{conn: conn, user: user} do
       post = insert(:post, %{user: user})
       assert post.visibility_level == "private"
       new_conn = get(conn, Routes.user_post_path(conn, :index, user))
-      refute html_response(new_conn, 200) =~ dirty_escape(post.title)
+      refute html_response(new_conn, 200) =~ escape_html(post.title)
       conn = conn |> add_session(user) |> send_resp(:ok, "/")
       conn = get(conn, Routes.user_post_path(conn, :index, user))
-      assert html_response(conn, 200) =~ dirty_escape(post.title)
+      assert html_response(conn, 200) =~ escape_html(post.title)
     end
 
     test "shows a specific public post", %{conn: conn, user: user} do
       post = insert(:post, %{user: user, visibility_level: "public"})
       conn = get(conn, Routes.user_post_path(conn, :show, user, post))
-      assert html_response(conn, 200) =~ dirty_escape(post.title)
+      assert html_response(conn, 200) =~ escape_html(post.title)
     end
 
     test "shows a post visible to followers", %{conn: conn, user: user} do
@@ -70,7 +67,7 @@ defmodule VutuvWeb.PostControllerTest do
       {:ok, _user} = UserProfiles.add_followees(other, [user.id])
       conn = conn |> add_session(other) |> send_resp(:ok, "/")
       conn = get(conn, Routes.user_post_path(conn, :show, user, post))
-      assert html_response(conn, 200) =~ dirty_escape(post.title)
+      assert html_response(conn, 200) =~ escape_html(post.title)
     end
 
     test "shows a private post for current_user", %{conn: conn, user: user} do
@@ -83,7 +80,7 @@ defmodule VutuvWeb.PostControllerTest do
 
       conn = conn |> add_session(user) |> send_resp(:ok, "/")
       conn = get(conn, Routes.user_post_path(conn, :show, user, post))
-      assert html_response(conn, 200) =~ dirty_escape(post.title)
+      assert html_response(conn, 200) =~ escape_html(post.title)
     end
   end
 
@@ -163,10 +160,5 @@ defmodule VutuvWeb.PostControllerTest do
   defp add_user_session(%{conn: conn, user: user}) do
     conn = conn |> add_session(user) |> send_resp(:ok, "/")
     {:ok, %{conn: conn, user: user}}
-  end
-
-  # helper function for checking safe html response
-  defp dirty_escape(input) do
-    String.replace(input, "'", "&#39;")
   end
 end

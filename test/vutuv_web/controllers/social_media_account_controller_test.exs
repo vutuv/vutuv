@@ -1,9 +1,6 @@
 defmodule VutuvWeb.SocialMediaAccountControllerTest do
   use VutuvWeb.ConnCase
 
-  import Vutuv.Factory
-  import VutuvWeb.AuthTestHelpers
-
   alias Vutuv.SocialNetworks
 
   @create_attrs %{provider: "Facebook", value: "arrr"}

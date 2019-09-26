@@ -1,8 +1,6 @@
 defmodule VutuvWeb.PasswordResetControllerTest do
   use VutuvWeb.ConnCase
 
-  import VutuvWeb.AuthTestHelpers
-
   setup %{conn: conn} do
     conn = conn |> bypass_through(VutuvWeb.Router, :browser) |> get("/")
     user = add_reset_user("gladys@example.com")

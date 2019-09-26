@@ -106,4 +106,8 @@ defmodule Vutuv.Factory do
       end_date: Faker.Date.between(~D[2016-12-01], ~D[2019-12-01])
     }
   end
+
+  def escape_html(input) do
+    String.replace(input, "'", "&#39;")
+  end
 end

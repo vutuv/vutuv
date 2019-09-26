@@ -1,9 +1,6 @@
 defmodule VutuvWeb.AddressControllerTest do
   use VutuvWeb.ConnCase
 
-  import Vutuv.Factory
-  import VutuvWeb.AuthTestHelpers
-
   alias Vutuv.UserProfiles
 
   @create_attrs %{

@@ -1,54 +1,11 @@
 <h1><%= @user.preferred_name || @user.full_name %> <%= gettext "profile" %></h1>
 <h2><%= @user.headline %></h2>
 
-<h2><%= gettext "Tags" %></h2>
-<p><%= ViewUtils.stringify_list(@user.user_tags) %></p>
-
-<h2><%= gettext "Followers" %></h2>
-<%= if @user.followers == [] do %>
-  <p><%= gettext "No followers yet" %></p>
-<% else %>
-  <%= render "_users_table.html", conn: @conn, current_user: @current_user, users: Enum.slice(@user.followers, 0, 3) %>
-<% end %>
-
-<%= if length(@user.followers) > 3 do %>
-  <span><%= link gettext("All followers"), to: Routes.user_follower_path(@conn, :index, @user) %></span><br>
-<% end %>
-
-<h2><%= gettext "Following" %></h2>
-<%= if @user.followees == [] do %>
-  <p><%= gettext "Not following any user yet" %></p>
-<% else %>
-  <%= render "_users_table.html", conn: @conn, current_user: @current_user, users: Enum.slice(@user.followees, 0, 3) %>
-<% end %>
-
-<%= if length(@user.followees) > 3 do %>
-  <span><%= link gettext("All following"), to: Routes.user_followee_path(@conn, :index, @user) %></span><br>
-<% end %>
-
-<%= if @current_user && @current_user.id == @user.id do %>
-  <span><%= link gettext("Edit user"), to: Routes.user_path(@conn, :edit, @user) %></span><br>
-<% end %>
-
-<h2><%= gettext "Email addresses" %></h2>
-<%= if @user.email_addresses == [] do %>
-  <p><%= gettext "No emails" %></p>
-<% else %>
-  <%= render VutuvWeb.EmailAddressView, "_email_addresses_table.html", conn: @conn, current_user: @current_user, user: @user %>
-<% end %>
-
-<h2><%= gettext "Social media accounts" %></h2>
-<%= if @user.social_media_accounts == [] do %>
-  <p><%= gettext "No social media accounts" %></p>
-<% else %>
-  <%= render VutuvWeb.SocialMediaAccountView, "_social_media_accounts_table.html", conn: @conn, current_user: @current_user, user: @user %>
-<% end %>
-
-<h2><%= gettext "Posts" %></h2>
-<%= if @posts == [] do %>
-  <p><%= gettext "No posts" %></p>
-<% else %>
-  <%= render VutuvWeb.PostView, "_posts_table.html", conn: @conn, current_user: @current_user, user: @user, posts: @posts %>
-<% end %>
+<%= render VutuvWeb.UserTagView, "_card.html", conn: @conn, current_user: @current_user, user_tags: @user.user_tags %>
+<%= render VutuvWeb.FollowerView, "_card.html", conn: @conn, current_user: @current_user, followers: Enum.slice(@user.followers, 0, 3), user: @user %>
+<%= render VutuvWeb.FolloweeView, "_card.html", conn: @conn, current_user: @current_user, followees: Enum.slice(@user.followees, 0, 3), user: @user %>
+<%= render VutuvWeb.EmailAddressView, "_card.html", conn: @conn, current_user: @current_user, user: @user %>
+<%= render VutuvWeb.SocialMediaAccountView, "_card.html", conn: @conn, current_user: @current_user, user: @user %>
+<%= render VutuvWeb.PostView, "_card.html", conn: @conn, current_user: @current_user, user: @user, posts: @posts %>
 
 <span><%= link gettext("Download vcard"), to: Routes.api_user_vcard_path(@conn, :vcard, @user) %></span><br>

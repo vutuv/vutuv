@@ -1,8 +1,6 @@
 defmodule VutuvWeb.VerificationControllerTest do
   use VutuvWeb.ConnCase
 
-  import VutuvWeb.AuthTestHelpers
-
   alias Vutuv.Accounts
 
   setup %{conn: conn} do
