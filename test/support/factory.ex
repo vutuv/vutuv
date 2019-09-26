@@ -89,6 +89,13 @@ defmodule Vutuv.Factory do
     }
   end
 
+  def user_tag_factory do
+    %Vutuv.Tags.UserTag{
+      tag: build(:tag),
+      user: build(:user)
+    }
+  end
+
   def work_experience_factory do
     %Vutuv.Biographies.WorkExperience{
       user: build(:user),

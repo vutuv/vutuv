@@ -3,6 +3,7 @@ defmodule Vutuv.Tags do
   The Tags context.
   """
 
+  import Ecto
   import Ecto.Query, warn: false
 
   alias Vutuv.Repo
@@ -26,10 +27,10 @@ defmodule Vutuv.Tags do
   def get_tag!(id), do: Repo.get!(Tag, id)
 
   @doc """
-  Creates a tag.
+  Creates a tag or gets an existing tag.
   """
-  @spec create_tag(map) :: {:ok, Tag.t()} | changeset_error
-  def create_tag(attrs \\ %{}) do
+  @spec create_or_get_tag(map) :: {:ok, Tag.t()} | changeset_error
+  def create_or_get_tag(attrs) do
     name = attrs["name"]
 
     {downcase_name, slug_value} =
@@ -39,17 +40,14 @@ defmodule Vutuv.Tags do
         {nil, nil}
       end
 
-    attrs = %{
-      "name" => name,
-      "downcase_name" => downcase_name,
-      "description" => attrs["description"],
-      "slug" => slug_value,
-      "url" => attrs["url"]
-    }
+    attrs = Map.merge(attrs, %{"downcase_name" => downcase_name, "slug" => slug_value})
 
     %Tag{}
     |> Tag.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(
+      on_conflict: [set: [downcase_name: downcase_name]],
+      conflict_target: :downcase_name
+    )
   end
 
   @doc """
@@ -79,25 +77,74 @@ defmodule Vutuv.Tags do
   end
 
   @doc """
-  Returns number of endorsements for a user tag.
+  Returns the list of user_tags.
   """
-  @spec user_tag_endorsements_count(Tag.t(), User.t()) :: integer
-  def user_tag_endorsements_count(%Tag{id: tag_id}, %User{id: user_id}) do
-    case Repo.get_by(UserTag, tag_id: tag_id, user_id: user_id) do
-      %UserTag{} = user_tag ->
-        query = from e in UserTagEndorsement, where: e.user_tag_id == ^user_tag.id
-        Repo.aggregate(query, :count, :id)
+  @spec list_user_tags(User.t()) :: [UserTag.t()]
+  def list_user_tags(%User{} = user) do
+    assoc(user, :user_tags)
+    |> Repo.all()
+    |> Repo.preload(:tag)
+  end
 
-      _ ->
-        0
+  @doc """
+  Gets a single user_tag. Raises error if no user_tag found.
+  """
+  @spec get_user_tag!(User.t(), integer) :: UserTag.t() | no_return
+  def get_user_tag!(%User{} = user, id) do
+    UserTag
+    |> Repo.get_by!(id: id, user_id: user.id)
+    |> Repo.preload(:tag)
+  end
+
+  @doc """
+  Creates a user_tag.
+  """
+  @spec create_user_tag(User.t(), map) :: {:ok, UserTag.t()} | changeset_error
+  def create_user_tag(user, attrs) do
+    with {:ok, %Tag{id: tag_id}} <- create_or_get_tag(attrs) do
+      user
+      |> build_assoc(:user_tags)
+      |> UserTag.changeset(%{tag_id: tag_id})
+      |> Repo.insert()
     end
+  end
+
+  @doc """
+  Deletes a user_tag.
+  """
+  @spec delete_user_tag(UserTag.t()) :: {:ok, UserTag.t()} | changeset_error
+  def delete_user_tag(%UserTag{} = user_tag) do
+    Repo.delete(user_tag)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking user_tag changes.
+  """
+  @spec change_tag(UserTag.t()) :: Ecto.Changeset.t()
+  def change_user_tag(%UserTag{} = user_tag) do
+    UserTag.changeset(user_tag, %{})
+  end
+
+  @doc """
+  Gets a single user_tag_endorsement. Raises error if no user_tag_endorsement found.
+  """
+  @spec get_user_tag_endorsement!(User.t(), integer) :: UserTagEndorsement.t() | no_return
+  def get_user_tag_endorsement!(%User{} = user, id) do
+    Repo.get_by!(UserTagEndorsement, id: id, user_id: user.id)
+  end
+
+  @spec user_tag_endorsements_count(UserTag.t()) :: integer
+  def user_tag_endorsements_count(%UserTag{id: user_tag_id}) do
+    query = from e in UserTagEndorsement, where: e.user_tag_id == ^user_tag_id
+    Repo.aggregate(query, :count, :id)
   end
 
   @doc """
   Creates a user_tag_endorsement.
   """
-  @spec create_user_tag_endorsement(map) :: {:ok, UserTagEndorsement.t()} | changeset_error
-  def create_user_tag_endorsement(attrs \\ %{}) do
+  def create_user_tag_endorsement(%User{} = user, attrs) do
+    attrs = Map.put(attrs, "user_id", user.id)
+
     %UserTagEndorsement{}
     |> UserTagEndorsement.changeset(attrs)
     |> Repo.insert()

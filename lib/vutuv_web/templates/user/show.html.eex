@@ -2,7 +2,7 @@
 <h2><%= @user.headline %></h2>
 
 <h2><%= gettext "Tags" %></h2>
-<p><%= ViewUtils.stringify_list(@user.tags) %></p>
+<p><%= ViewUtils.stringify_list(@user.user_tags) %></p>
 
 <h2><%= gettext "Followers" %></h2>
 <%= if @user.followers == [] do %>
@@ -16,14 +16,14 @@
 <% end %>
 
 <h2><%= gettext "Following" %></h2>
-<%= if @user.leaders == [] do %>
+<%= if @user.followees == [] do %>
   <p><%= gettext "Not following any user yet" %></p>
 <% else %>
-  <%= render "_users_table.html", conn: @conn, current_user: @current_user, users: Enum.slice(@user.leaders, 0, 3) %>
+  <%= render "_users_table.html", conn: @conn, current_user: @current_user, users: Enum.slice(@user.followees, 0, 3) %>
 <% end %>
 
-<%= if length(@user.leaders) > 3 do %>
-  <span><%= link gettext("All following"), to: Routes.user_leader_path(@conn, :index, @user) %></span><br>
+<%= if length(@user.followees) > 3 do %>
+  <span><%= link gettext("All following"), to: Routes.user_followee_path(@conn, :index, @user) %></span><br>
 <% end %>
 
 <%= if @current_user && @current_user.id == @user.id do %>

@@ -12,7 +12,6 @@ defmodule Vutuv.UserProfiles do
     Repo,
     Sessions,
     Sessions.Session,
-    Tags.Tag,
     UserProfiles.User,
     UserProfiles.Address
   }
@@ -137,36 +136,27 @@ defmodule Vutuv.UserProfiles do
   end
 
   @doc """
-  Adds an association between a user and existing tags.
+  Returns a user's followers and followees in a paginated struct.
   """
-  @spec add_user_tags(User.t(), list) :: {:ok, User.t()} | changeset_error
-  def add_user_tags(%User{} = user, tag_ids) do
-    tags = Tag |> where([t], t.id in ^tag_ids) |> Repo.all()
-    user |> Repo.preload([:tags]) |> User.user_tag_changeset(tags) |> Repo.update()
-  end
-
-  @doc """
-  Returns a user's followers and leaders in a paginated struct.
-  """
-  @spec paginate_user_connections(User.t(), map, :followers | :leaders) :: Scrivener.Page.t()
+  @spec paginate_user_connections(User.t(), map, :followers | :followees) :: Scrivener.Page.t()
   def paginate_user_connections(%User{} = user, attrs, connection) do
     user |> assoc(connection) |> Repo.paginate(attrs)
   end
 
   @doc """
-  Adds leaders / followees to a user.
+  Adds followees to a user.
 
-  If successful, the users in the leader_ids list will be added to the
-  user's leaders. In addition, the user will be added to the followers
-  list of the leaders.
+  If successful, the users in the followee_ids list will be added to the
+  user's followees. In addition, the user will be added to the followers
+  list of the followees.
   """
-  @spec add_leaders(User.t(), list) :: {:ok, User.t()} | changeset_error
-  def add_leaders(%User{} = user, leader_ids) do
-    leaders = User |> where([l], l.id in ^leader_ids) |> Repo.all()
+  @spec add_followees(User.t(), list) :: {:ok, User.t()} | changeset_error
+  def add_followees(%User{} = user, followee_ids) do
+    followees = User |> where([l], l.id in ^followee_ids) |> Repo.all()
 
     user
-    |> Repo.preload([:leaders])
-    |> User.leader_changeset(leaders)
+    |> Repo.preload([:followees])
+    |> User.followee_changeset(followees)
     |> Repo.update()
   end
 

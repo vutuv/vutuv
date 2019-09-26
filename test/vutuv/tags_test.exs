@@ -3,7 +3,7 @@ defmodule Vutuv.TagsTest do
 
   import Vutuv.Factory
 
-  alias Vutuv.{UserProfiles, Publications, Repo, Tags, Tags.Tag, Tags.UserTagEndorsement}
+  alias Vutuv.{Publications, Repo, Tags, Tags.Tag, Tags.UserTag, Tags.UserTagEndorsement}
 
   @create_tag_attrs %{
     "description" => "JavaScript expertise",
@@ -28,15 +28,18 @@ defmodule Vutuv.TagsTest do
       assert Tags.get_tag!(tag.id) == tag
     end
 
-    test "create_tag/1 with valid data creates a tag" do
-      assert {:ok, %Tag{} = tag} = Tags.create_tag(@create_tag_attrs)
+    test "create_or_get_tag/1 creates a tag or gets an existing tag" do
+      assert {:ok, %Tag{} = tag} = Tags.create_or_get_tag(@create_tag_attrs)
       assert tag.description =~ "JavaScript expertise"
       assert tag.name == "JavaScript"
       assert tag.url == "http://some-url.com"
+      assert {:ok, %Tag{} = tag_1} = Tags.create_or_get_tag(@create_tag_attrs)
+      assert tag.id == tag_1.id
+      assert tag_1.name == "JavaScript"
     end
 
-    test "create_tag/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Tags.create_tag(@invalid_attrs)
+    test "create_or_get_tag/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Tags.create_or_get_tag(@invalid_attrs)
     end
 
     test "update_tag/2 with valid data updates the tag" do
@@ -66,20 +69,38 @@ defmodule Vutuv.TagsTest do
   end
 
   describe "user tags" do
-    test "association can be created between a user and tags" do
+    test "list_user_tags returns a user's user_tags" do
+      %UserTag{id: id, user: user} = insert(:user_tag)
+      [user_tag_1] = Tags.list_user_tags(user)
+      assert user_tag_1.id == id
+      assert user_tag_1.user_id == user.id
+    end
+
+    test "get_user_tag! returns user_tag and tag" do
+      %UserTag{id: id, user: user} = insert(:user_tag)
+      user_tag_1 = Tags.get_user_tag!(user, id)
+      assert user_tag_1.id == id
+      assert user_tag_1.user_id == user.id
+      assert user_tag_1.tag.name
+    end
+
+    test "create_user_tag creates a user_tag" do
       user = insert(:user)
-      {:ok, %Tag{} = tag} = Tags.create_tag(@create_tag_attrs)
-      {:ok, user} = UserProfiles.add_user_tags(user, [tag.id])
-      assert [%Tag{} = ^tag] = user.tags
-      %Tag{users: [user_1]} = Tags.get_tag!(tag.id) |> Repo.preload(:users)
-      assert user.id == user_1.id
+      {:ok, user_tag} = Tags.create_user_tag(user, @create_tag_attrs)
+      assert user_tag.user_id == user.id
+    end
+
+    test "delete_user_tag deletes own user's user_tag" do
+      %UserTag{id: id, user: user} = user_tag = insert(:user_tag)
+      {:ok, _user_tag} = Tags.delete_user_tag(user_tag)
+      assert_raise Ecto.NoResultsError, fn -> Tags.get_user_tag!(user, id) end
     end
   end
 
   describe "post tags" do
     test "association can be created between a post and tags" do
       post = insert(:post)
-      {:ok, %Tag{} = tag} = Tags.create_tag(@create_tag_attrs)
+      {:ok, %Tag{} = tag} = Tags.create_or_get_tag(@create_tag_attrs)
       {:ok, post} = Publications.add_post_tags(post, [tag.id])
       assert [%Tag{} = ^tag] = post.tags
       %Tag{posts: [post_1]} = Tags.get_tag!(tag.id) |> Repo.preload(:posts)
@@ -90,48 +111,48 @@ defmodule Vutuv.TagsTest do
   describe "user_tag_endorsements" do
     setup [:create_user_tag]
 
-    test "create_user_tag_endorsement/1 with valid data creates a user_tag_endorsement", %{
+    test "create_user_tag_endorsement/2 with valid data creates a user_tag_endorsement", %{
       user_tag: user_tag
     } do
       user = insert(:user)
-      attrs = %{user_tag_id: user_tag.id, user_id: user.id}
+      attrs = %{"user_tag_id" => user_tag.id}
 
       assert {:ok, %UserTagEndorsement{} = user_tag_endorsement} =
-               Tags.create_user_tag_endorsement(attrs)
+               Tags.create_user_tag_endorsement(user, attrs)
     end
 
     test "same user cannot endorse tag more than once", %{user_tag: user_tag} do
       user = insert(:user)
-      attrs = %{user_tag_id: user_tag.id, user_id: user.id}
+      attrs = %{"user_tag_id" => user_tag.id}
 
       assert {:ok, %UserTagEndorsement{} = user_tag_endorsement} =
-               Tags.create_user_tag_endorsement(attrs)
+               Tags.create_user_tag_endorsement(user, attrs)
 
-      assert {:error, %Ecto.Changeset{} = changeset} = Tags.create_user_tag_endorsement(attrs)
+      assert {:error, %Ecto.Changeset{} = changeset} =
+               Tags.create_user_tag_endorsement(user, attrs)
+
       assert %{user_id: ["has already been taken"]} = errors_on(changeset)
     end
 
     test "count user_tag_endorsements" do
-      tag = insert(:tag)
       user = insert(:user)
-      {:ok, %{tags: [tag]}} = UserProfiles.add_user_tags(user, [tag.id])
-      user_tag = Repo.get_by(Vutuv.Tags.UserTag, tag_id: tag.id, user_id: user.id)
+      {:ok, user_tag} = Tags.create_user_tag(user, @create_tag_attrs)
       endorser = insert(:user)
-      assert Tags.user_tag_endorsements_count(tag, user) == 0
-      attrs = %{user_tag_id: user_tag.id, user_id: endorser.id}
+      assert Tags.user_tag_endorsements_count(user_tag) == 0
+      attrs = %{"user_tag_id" => user_tag.id, "user_id" => endorser.id}
 
       assert {:ok, %UserTagEndorsement{} = user_tag_endorsement} =
-               Tags.create_user_tag_endorsement(attrs)
+               Tags.create_user_tag_endorsement(user, attrs)
 
-      assert Tags.user_tag_endorsements_count(tag, user) == 1
+      assert Tags.user_tag_endorsements_count(user_tag) == 1
     end
 
     test "delete_user_tag_endorsement/1 deletes the user_tag_endorsement", %{user_tag: user_tag} do
       user = insert(:user)
-      attrs = %{user_tag_id: user_tag.id, user_id: user.id}
+      attrs = %{"user_tag_id" => user_tag.id, "user_id" => user.id}
 
       {:ok, %UserTagEndorsement{} = user_tag_endorsement} =
-        Tags.create_user_tag_endorsement(attrs)
+        Tags.create_user_tag_endorsement(user, attrs)
 
       assert {:ok, %UserTagEndorsement{}} = Tags.delete_user_tag_endorsement(user_tag_endorsement)
 
@@ -142,10 +163,8 @@ defmodule Vutuv.TagsTest do
   end
 
   defp create_user_tag(_) do
-    tag = insert(:tag)
     user = insert(:user)
-    {:ok, %{tags: [tag]}} = UserProfiles.add_user_tags(user, [tag.id])
-    user_tag = Repo.get_by(Vutuv.Tags.UserTag, tag_id: tag.id, user_id: user.id)
+    {:ok, user_tag} = Tags.create_user_tag(user, @create_tag_attrs)
     {:ok, %{user_tag: user_tag}}
   end
 end

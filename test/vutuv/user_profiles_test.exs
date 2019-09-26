@@ -171,27 +171,27 @@ defmodule Vutuv.UserProfilesTest do
   end
 
   describe "user connections" do
-    test "adds leaders / followers" do
+    test "adds followees / followers" do
       {:ok, %User{id: user_id} = user} = UserProfiles.create_user(@create_user_attrs)
       new_user_attrs = Map.merge(@create_user_attrs, %{"email" => "froderick@example.com"})
       {:ok, %User{id: new_user_id}} = UserProfiles.create_user(new_user_attrs)
-      assert {:ok, %User{}} = UserProfiles.add_leaders(user, [new_user_id])
+      assert {:ok, %User{}} = UserProfiles.add_followees(user, [new_user_id])
 
       assert user =
                %{"id" => user_id}
                |> UserProfiles.get_user!()
-               |> UserProfiles.with_associated_data([:followers, :leaders])
+               |> UserProfiles.with_associated_data([:followers, :followees])
 
       assert user.followers == []
-      assert [%User{id: ^new_user_id}] = user.leaders
+      assert [%User{id: ^new_user_id}] = user.followees
 
       assert user =
                %{"id" => new_user_id}
                |> UserProfiles.get_user!()
-               |> UserProfiles.with_associated_data([:followers, :leaders])
+               |> UserProfiles.with_associated_data([:followers, :followees])
 
       assert [%User{id: ^user_id}] = user.followers
-      assert user.leaders == []
+      assert user.followees == []
     end
   end
 

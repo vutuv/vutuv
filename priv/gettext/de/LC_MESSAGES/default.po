@@ -30,6 +30,9 @@ msgstr "Schon ...?"
 #: lib/vutuv_web/templates/social_media_account/new.html.eex:5
 #: lib/vutuv_web/templates/social_media_account/show.html.eex:19
 #: lib/vutuv_web/templates/user/edit.html.eex:70
+#: lib/vutuv_web/templates/work_experience/edit.html.eex:5
+#: lib/vutuv_web/templates/work_experience/new.html.eex:5
+#: lib/vutuv_web/templates/work_experience/show.html.eex:39
 msgid "Back"
 msgstr "Zurück"
 
@@ -57,6 +60,8 @@ msgstr "Beschreibung"
 #: lib/vutuv_web/templates/social_media_account/index.html.eex:24
 #: lib/vutuv_web/templates/social_media_account/show.html.eex:18
 #: lib/vutuv_web/templates/user/_users_table.html.eex:25
+#: lib/vutuv_web/templates/work_experience/index.html.eex:29
+#: lib/vutuv_web/templates/work_experience/show.html.eex:38
 msgid "Edit"
 msgstr "Ändern"
 
@@ -104,6 +109,7 @@ msgstr ""
 #: lib/vutuv_web/templates/address/index.html.eex:26
 #: lib/vutuv_web/templates/email_address/index.html.eex:25
 #: lib/vutuv_web/templates/social_media_account/index.html.eex:22
+#: lib/vutuv_web/templates/work_experience/index.html.eex:27
 msgid "Show"
 msgstr "Anzeigen"
 
@@ -164,6 +170,7 @@ msgstr ""
 #: lib/vutuv_web/templates/email_address/index.html.eex:29
 #: lib/vutuv_web/templates/post/index.html.eex:29
 #: lib/vutuv_web/templates/social_media_account/index.html.eex:27
+#: lib/vutuv_web/templates/work_experience/index.html.eex:32
 msgid "Delete"
 msgstr ""
 
@@ -185,6 +192,7 @@ msgstr ""
 #: lib/vutuv_web/templates/post/form.html.eex:27
 #: lib/vutuv_web/templates/social_media_account/form.html.eex:17
 #: lib/vutuv_web/templates/user/edit.html.eex:66
+#: lib/vutuv_web/templates/work_experience/form.html.eex:33
 msgid "Save"
 msgstr ""
 
@@ -199,7 +207,9 @@ msgstr ""
 #: lib/vutuv_web/templates/social_media_account/form.html.eex:4
 #: lib/vutuv_web/templates/user/edit.html.eex:6
 #: lib/vutuv_web/templates/user/new.html.eex:6
+#: lib/vutuv_web/templates/user_tag/new.html.eex:6
 #: lib/vutuv_web/templates/verification/new.html.eex:8
+#: lib/vutuv_web/templates/work_experience/form.html.eex:4
 msgid "Something went wrong. Please check the errors below."
 msgstr ""
 
@@ -469,7 +479,7 @@ msgid "Just for followers"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/show.html.eex:40
+#: lib/vutuv_web/templates/user/show.html.eex:47
 msgid "Posts"
 msgstr ""
 
@@ -506,15 +516,15 @@ msgid "profile"
 msgstr ""
 
 #, elixir-format
+#: lib/vutuv_web/templates/followee/index.html.eex:13
 #: lib/vutuv_web/templates/follower/index.html.eex:13
-#: lib/vutuv_web/templates/leader/index.html.eex:13
 #: lib/vutuv_web/templates/user/index.html.eex:13
 msgid "Next"
 msgstr ""
 
 #, elixir-format
+#: lib/vutuv_web/templates/followee/index.html.eex:7
 #: lib/vutuv_web/templates/follower/index.html.eex:7
-#: lib/vutuv_web/templates/leader/index.html.eex:7
 #: lib/vutuv_web/templates/user/index.html.eex:7
 msgid "Previous"
 msgstr ""
@@ -536,7 +546,7 @@ msgid "Followers"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/leader/index.html.eex:1
+#: lib/vutuv_web/templates/followee/index.html.eex:1
 #: lib/vutuv_web/templates/user/show.html.eex:18
 msgid "Following"
 msgstr ""
@@ -552,7 +562,7 @@ msgid "No followers yet"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/show.html.eex:42
+#: lib/vutuv_web/templates/user/show.html.eex:49
 msgid "No posts"
 msgstr ""
 
@@ -568,8 +578,8 @@ msgid "Tags"
 msgstr ""
 
 #, elixir-format
+#: lib/vutuv_web/templates/followee/index.html.eex:20
 #: lib/vutuv_web/templates/follower/index.html.eex:20
-#: lib/vutuv_web/templates/leader/index.html.eex:20
 msgid "User profile"
 msgstr ""
 
@@ -585,7 +595,7 @@ msgid "Verify user email address"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/show.html.eex:47
+#: lib/vutuv_web/templates/user/show.html.eex:54
 msgid "Download vcard"
 msgstr ""
 
@@ -739,7 +749,7 @@ msgid "Unauthorized"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/controllers/user_controller.ex:97
+#: lib/vutuv_web/controllers/user_controller.ex:86
 msgid "User deleted successfully."
 msgstr ""
 
@@ -754,7 +764,7 @@ msgid "User successfully logged out."
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/controllers/user_controller.ex:84
+#: lib/vutuv_web/controllers/user_controller.ex:73
 msgid "User updated successfully."
 msgstr ""
 
@@ -808,12 +818,14 @@ msgstr "Neue E-Mail Adresse"
 msgid "has no addresses yet"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/vutuv_web/templates/address/edit.html.eex:1
 msgid "Edit address"
 msgstr "Ändern E-Mail"
 
 #, elixir-format
+#:
+#: lib/vutuv_web/templates/social_media_account/_social_media_accounts_table.html.eex:16
 #: lib/vutuv_web/templates/social_media_account/edit.html.eex:1
 msgid "Edit social media account"
 msgstr ""
@@ -838,7 +850,7 @@ msgstr ""
 msgid "LinkedIn"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/vutuv_web/templates/address/index.html.eex:43
 msgid "New address"
 msgstr "Neue E-Mail Adresse"
@@ -882,6 +894,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/social_media_account/index.html.eex:1
+#: lib/vutuv_web/templates/user/show.html.eex:40
 msgid "Social media accounts"
 msgstr ""
 
@@ -903,4 +916,89 @@ msgstr ""
 #, elixir-format
 #: lib/vutuv_web/templates/social_media_account/index.html.eex:4
 msgid "has no social media accounts yet"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/user_tag/new.html.eex:15
+msgid "Create tag"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/work_experience/edit.html.eex:1
+msgid "Edit work experience"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/user_tag/new.html.eex:10
+msgid "Name"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/work_experience/index.html.eex:43
+msgid "New Work experience"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/vutuv_web/templates/user_tag/new.html.eex:1
+msgid "New user tag"
+msgstr "Neue User"
+
+#, elixir-format
+#: lib/vutuv_web/templates/work_experience/new.html.eex:1
+msgid "New work experience"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/vutuv_web/templates/user/show.html.eex:42
+msgid "No social media accounts"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/work_experience/show.html.eex:1
+msgid "Show work experience"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/user_tag_endorsement_controller.ex:19
+msgid "Unable to endorse user tag."
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/vutuv_web/controllers/user_tag_controller.ex:21
+msgid "User tag created successfully."
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/vutuv_web/controllers/user_tag_controller.ex:34
+msgid "User tag deleted successfully."
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/vutuv_web/controllers/user_tag_endorsement_controller.ex:14
+msgid "User tag endorsed successfully."
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/vutuv_web/controllers/user_tag_endorsement_controller.ex:29
+msgid "User tag endorsement deleted successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/work_experience_controller.ex:38
+msgid "Work experience created successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/work_experience_controller.ex:86
+msgid "Work experience deleted successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/work_experience_controller.ex:71
+msgid "Work experience updated successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/work_experience/index.html.eex:1
+msgid "Work experiences"
 msgstr ""

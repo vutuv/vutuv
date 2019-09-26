@@ -31,7 +31,7 @@ defmodule Vutuv.PublicationsTest do
 
     test "list_posts/2 returns a user's posts depending on the visibility_level", %{user: user} do
       other = add_user("igor@example.com")
-      UserProfiles.add_leaders(other, [user.id])
+      UserProfiles.add_followees(other, [user.id])
       assert length(Publications.list_posts(user, other)) == 3
       assert length(Publications.list_posts(user, nil)) == 2
     end

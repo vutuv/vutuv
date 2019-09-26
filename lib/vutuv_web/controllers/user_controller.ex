@@ -91,9 +91,9 @@ defmodule VutuvWeb.UserController do
     UserProfiles.with_associated_data(user, [
       :email_addresses,
       :social_media_accounts,
-      :tags,
       :followers,
-      :leaders
+      :followees,
+      :user_tags
     ])
   end
 
