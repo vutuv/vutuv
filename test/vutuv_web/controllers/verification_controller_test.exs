@@ -14,6 +14,20 @@ defmodule VutuvWeb.VerificationControllerTest do
       conn = get(conn, Routes.verification_path(conn, :new, email: "arthur@example.com"))
       assert html_response(conn, 200) =~ "Enter that code below"
     end
+
+    test "returns 404 if email has not been registered", %{conn: conn} do
+      assert_error_sent 404, fn ->
+        get(conn, Routes.verification_path(conn, :new, email: "froderick@example.com"))
+      end
+    end
+
+    test "returns 404 if email has already been verified", %{conn: conn} do
+      add_user_confirmed("froderick@example.com")
+
+      assert_error_sent 404, fn ->
+        get(conn, Routes.verification_path(conn, :new, email: "froderick@example.com"))
+      end
+    end
   end
 
   describe "confirmation using otp" do

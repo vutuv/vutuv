@@ -5,6 +5,7 @@ defmodule VutuvWeb.VerificationController do
   alias VutuvWeb.{Auth.Otp, Email}
 
   def new(conn, %{"email" => email}) do
+    Devices.get_unverified_email_address!(%{"value" => email})
     render(conn, "new.html", email: email)
   end
 
