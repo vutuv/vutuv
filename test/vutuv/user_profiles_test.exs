@@ -7,6 +7,7 @@ defmodule Vutuv.UserProfilesTest do
     UserProfiles,
     UserProfiles.User,
     UserProfiles.Address,
+    UserConnections,
     Devices,
     Devices.EmailAddress,
     Repo
@@ -175,12 +176,12 @@ defmodule Vutuv.UserProfilesTest do
       {:ok, %User{id: user_id} = user} = UserProfiles.create_user(@create_user_attrs)
       new_user_attrs = Map.merge(@create_user_attrs, %{"email" => "froderick@example.com"})
       {:ok, %User{id: new_user_id}} = UserProfiles.create_user(new_user_attrs)
-      assert {:ok, %User{}} = UserProfiles.add_followees(user, [new_user_id])
+      assert {:ok, %User{}} = UserConnections.add_followees(user, [new_user_id])
 
       assert user =
                %{"id" => user_id}
                |> UserProfiles.get_user!()
-               |> UserProfiles.with_associated_data([:followers, :followees])
+               |> UserProfiles.user_with_assocs([:followers, :followees])
 
       assert user.followers == []
       assert [%User{id: ^new_user_id}] = user.followees
@@ -188,7 +189,7 @@ defmodule Vutuv.UserProfilesTest do
       assert user =
                %{"id" => new_user_id}
                |> UserProfiles.get_user!()
-               |> UserProfiles.with_associated_data([:followers, :followees])
+               |> UserProfiles.user_with_assocs([:followers, :followees])
 
       assert [%User{id: ^user_id}] = user.followers
       assert user.followees == []

@@ -1,12 +1,14 @@
-<div class="card">
+<section class="card">
   <h2><%= gettext "Tags" %></h2>
 
   <ul class="tags">
     <%= for user_tag <- @user_tags do %>
       <li>
+        <button>
           <%= user_tag.tag.name %>
-          <%= Vutuv.Tags.user_tag_endorsements_count(user_tag) %>
+          <%= Enum.count(user_tag.user_tag_endorsements) %>
+        </button>
       </li>
     <% end %>
   </ul>
-</div>
+</section>

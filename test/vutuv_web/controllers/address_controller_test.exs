@@ -25,13 +25,13 @@ defmodule VutuvWeb.AddressControllerTest do
     test "lists a user's addresses", %{conn: conn, user: user} do
       address = insert(:address, %{user: user})
       conn = get(conn, Routes.user_address_path(conn, :index, user))
-      assert html_response(conn, 200) =~ address.country
+      assert html_response(conn, 200) =~ escape_html(address.country)
     end
 
     test "shows a specific public address", %{conn: conn, user: user} do
       address = insert(:address, %{user: user})
       conn = get(conn, Routes.user_address_path(conn, :show, user, address))
-      assert html_response(conn, 200) =~ address.country
+      assert html_response(conn, 200) =~ escape_html(address.country)
     end
   end
 

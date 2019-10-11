@@ -29,8 +29,11 @@ defmodule VutuvWeb.UserControllerTest do
 
     test "show current user's page", %{conn: conn} do
       {:ok, %{conn: conn, user: user}} = add_user_session(%{conn: conn})
+      user = add_user_assocs(user)
       conn = get(conn, Routes.user_path(conn, :show, user))
-      assert html_response(conn, 200) =~ ~r/Followers(.|\n)*Email addresses/
+      response = html_response(conn, 200)
+      assert response =~ "Followers"
+      assert response =~ "Email addresses"
     end
 
     test "show other user's page - no edit links", %{conn: conn} do

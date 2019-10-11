@@ -126,6 +126,17 @@ defmodule Vutuv.Tags do
   end
 
   @doc """
+  Returns a user_tag together with the tag and user_tag_endorsements.
+  """
+  @spec user_tag_with_endorsements() :: Ecto.Query.t()
+  def user_tag_with_endorsements do
+    from ut in UserTag,
+      join: t in assoc(ut, :tag),
+      join: e in assoc(ut, :user_tag_endorsements),
+      preload: [:tag, :user_tag_endorsements]
+  end
+
+  @doc """
   Gets a single user_tag_endorsement. Raises error if no user_tag_endorsement found.
   """
   @spec get_user_tag_endorsement!(User.t(), integer) :: UserTagEndorsement.t() | no_return

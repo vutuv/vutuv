@@ -1,4 +1,4 @@
-<div class="card">
+<section class="card">
   <h2><%= gettext "Posts" %></h2>
 
   <%= if @posts == [] do %>
@@ -23,4 +23,4 @@
       </tbody>
     </table>
   <% end %>
-</div>
+</section>

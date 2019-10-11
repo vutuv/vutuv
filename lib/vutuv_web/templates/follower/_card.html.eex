@@ -1,11 +1,11 @@
-<div class="card">
+<section class="card">
   <h2><%= gettext "Followers" %></h2>
 
   <%= if @followers == [] do %>
     <p><%= gettext "No followers yet" %></p>
   <% else %>
-    <%= render VutuvWeb.UserView, "_users_table.html", conn: @conn, current_user: @current_user, users: @followers %>
+    <%= render VutuvWeb.UserView, "_users_table.html", conn: @conn, current_user: @current_user, user: @user, users: @followers %>
   <% end %>
 
   <span><%= link gettext("All followers"), to: Routes.user_follower_path(@conn, :index, @user) %></span><br>
-</div>
+</section>

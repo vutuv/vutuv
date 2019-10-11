@@ -49,14 +49,14 @@ defmodule VutuvWeb.UserController do
     end
   end
 
-  def show(conn, %{"slug" => slug}, %{"slug" => slug} = current_user) do
-    user = get_user_with_associations(current_user)
+  def show(conn, %{"slug" => slug}, %{slug: slug} = current_user) do
+    user = UserProfiles.get_user_overview(current_user)
     posts = Publications.list_posts(current_user)
     render(conn, "show.html", user: user, posts: posts)
   end
 
   def show(conn, %{"slug" => slug}, current_user) do
-    user = %{"slug" => slug} |> UserProfiles.get_user!() |> get_user_with_associations()
+    user = %{"slug" => slug} |> UserProfiles.get_user!() |> UserProfiles.get_user_overview()
     posts = Publications.list_posts(user, current_user)
     render(conn, "show.html", user: user, posts: posts)
   end
@@ -85,16 +85,6 @@ defmodule VutuvWeb.UserController do
     |> delete_session(:phauxth_session_id)
     |> put_flash(:info, gettext("User deleted successfully."))
     |> redirect(to: Routes.session_path(conn, :new))
-  end
-
-  defp get_user_with_associations(user) do
-    UserProfiles.with_associated_data(user, [
-      :email_addresses,
-      :social_media_accounts,
-      :followers,
-      :followees,
-      :user_tags
-    ])
   end
 
   defp add_accept_language_to_params(accept_language, %{"user" => _} = user_params) do
