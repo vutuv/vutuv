@@ -1,0 +1,14 @@
+<section class="card">
+  <h2><%= gettext "Tags" %></h2>
+
+  <ul class="tags">
+    <%= for user_tag <- @user_tags do %>
+      <li>
+        <button>
+          <%= user_tag.tag.name %>
+          <%= Enum.count(user_tag.user_tag_endorsements) %>
+        </button>
+      </li>
+    <% end %>
+  </ul>
+</section>

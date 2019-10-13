@@ -79,6 +79,8 @@ header * + * {
 main {
   grid-area: main;
   position: relative;
+  display: grid;
+  grid-gap: 1.0rem;
 }
 .logo svg {
   width: 16rem;
@@ -90,6 +92,9 @@ main {
   border-radius: 1.0rem;
   box-shadow: 0 0 1.0rem #404040;
   padding: 1.5rem 3.0rem;
+}
+.card {
+  background-color: #e8e8e8;
 }
 .profile-header {
   display: flex;
@@ -113,6 +118,12 @@ main {
   border-radius: 50%;
   width: 50px;
   margin-right: 1.5rem;
+}
+.tags {
+  list-style: none;
+}
+.tags li {
+  display: inline-block;
 }
 footer {
   grid-area: footer;
@@ -160,6 +171,7 @@ button.link {
     margin: 0 auto;
     min-width: 80%;
     align-self: center;
+    grid-template-columns: repeat(2, 1fr);
   }
   footer {
     text-align: left;

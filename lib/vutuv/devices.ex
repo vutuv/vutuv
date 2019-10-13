@@ -17,13 +17,21 @@ defmodule Vutuv.Devices do
   This is used by the EmailManager, which is responsible for handling
   unverified email addresses.
   """
-  @spec unverified_email_addresses(integer) :: [EmailAddress.t()]
-  def unverified_email_addresses(max_age) do
+  @spec list_unverified_email_addresses(integer) :: [EmailAddress.t()]
+  def list_unverified_email_addresses(max_age) do
     inserted_at = DateTime.add(DateTime.utc_now(), -max_age)
 
     EmailAddress
     |> where([e], e.verified == false and e.inserted_at < ^inserted_at)
     |> Repo.all()
+  end
+
+  @doc """
+  Gets an unverified email address. Raises error if not found.
+  """
+  @spec get_unverified_email_address!(map) :: EmailAddress.t() | no_return
+  def get_unverified_email_address!(%{"value" => value}) do
+    Repo.get_by!(EmailAddress, value: value, verified: false)
   end
 
   @doc """

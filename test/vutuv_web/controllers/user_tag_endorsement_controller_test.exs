@@ -1,9 +1,6 @@
 defmodule VutuvWeb.UserTagEndorsementControllerTest do
   use VutuvWeb.ConnCase
 
-  import Vutuv.Factory
-  import VutuvWeb.AuthTestHelpers
-
   alias Vutuv.Tags
 
   setup %{conn: conn} do

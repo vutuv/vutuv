@@ -27,7 +27,7 @@ defmodule Vutuv.Devices.EmailManager do
 
   def handle_info(:check_expired, state) do
     Process.send_after(self(), :check_expired, @check_frequency)
-    Enum.each(Devices.unverified_email_addresses(@max_age), &handle_unconfirmed(&1))
+    Enum.each(Devices.list_unverified_email_addresses(@max_age), &handle_unconfirmed(&1))
     {:noreply, state}
   end
 

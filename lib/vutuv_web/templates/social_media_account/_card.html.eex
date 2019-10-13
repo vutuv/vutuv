@@ -1,0 +1,29 @@
+<section class="card">
+  <h2><%= gettext "Social media accounts" %></h2>
+
+  <%= if @user.social_media_accounts == [] do %>
+    <p><%= gettext "No social media accounts" %></p>
+  <% else %>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for account <- @user.social_media_accounts do %>
+          <tr>
+            <td><%= account.provider %></td>
+            <%= {account_url, account_display_value} = Vutuv.SocialNetworks.social_media_link(account) %>
+            <td><%= link account_display_value, to: account_url %></td>
+            <%= if assigns[:current_user] && @current_user.id == @user.id do %>
+              <td><%= link gettext("Edit social media account"), to: Routes.user_social_media_account_path(@conn, :edit, @user, account) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</section>

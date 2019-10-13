@@ -19,6 +19,8 @@ defmodule VutuvWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
+      import Vutuv.Factory
+      import VutuvWeb.AuthTestHelpers
       alias VutuvWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing

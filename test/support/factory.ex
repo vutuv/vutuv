@@ -3,10 +3,12 @@ defmodule Vutuv.Factory do
 
   use ExMachina.Ecto, repo: Vutuv.Repo
 
+  alias Vutuv.{UserProfiles, UserProfiles.User}
+
   def user_factory do
     full_name = "#{Faker.Name.first_name()} #{Faker.Name.last_name()}"
 
-    %Vutuv.UserProfiles.User{
+    %User{
       email_addresses: build_list(1, :email_address),
       user_credential: build(:user_credential),
       slug: Slugger.slugify_downcase(full_name, ?.),
@@ -14,9 +16,6 @@ defmodule Vutuv.Factory do
       preferred_name: Faker.Name.first_name(),
       gender: sequence(:gender, ["female", "male"]),
       birthday: Faker.Date.date_of_birth(18..59),
-      # FIXME: riverrun - 2019-04-08
-      # add valid avatar entry
-      # avatar: "",
       headline: Faker.Company.bs(),
       honorific_prefix: sequence(:honorific_prefix, ["Dr", "Mr", "Ms"]),
       honorific_suffix: sequence(:honorific_suffix, ["", "PhD"]),
@@ -105,5 +104,25 @@ defmodule Vutuv.Factory do
       start_date: Faker.Date.between(~D[2010-12-01], ~D[2015-12-01]),
       end_date: Faker.Date.between(~D[2016-12-01], ~D[2019-12-01])
     }
+  end
+
+  def add_user_assocs(%User{} = user) do
+    user_tag = insert(:user_tag, %{user: user})
+    other_users = insert_list(6, :user)
+    followee_ids = Enum.map(other_users, & &1.id)
+    Vutuv.UserConnections.add_followees(user, followee_ids)
+    Vutuv.UserConnections.add_followees(hd(other_users), [user.id])
+
+    for other <- other_users do
+      Vutuv.Tags.create_user_tag_endorsement(other, %{"user_tag_id" => user_tag.id})
+    end
+
+    %{"id" => user.id}
+    |> UserProfiles.get_user!()
+    |> UserProfiles.get_user_overview()
+  end
+
+  def escape_html(input) do
+    String.replace(input, "'", "&#39;")
   end
 end

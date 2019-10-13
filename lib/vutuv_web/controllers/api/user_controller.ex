@@ -34,7 +34,7 @@ defmodule VutuvWeb.Api.UserController do
 
   def show(conn, %{"slug" => slug}, %{"slug" => slug} = current_user) do
     user =
-      UserProfiles.with_associated_data(current_user, [
+      UserProfiles.user_with_assocs(current_user, [
         :email_addresses,
         :tags,
         :followers,
@@ -48,8 +48,7 @@ defmodule VutuvWeb.Api.UserController do
   def show(conn, %{"slug" => slug}, current_user) do
     user = UserProfiles.get_user!(%{"slug" => slug})
 
-    user =
-      UserProfiles.with_associated_data(user, [:email_addresses, :tags, :followers, :followees])
+    user = UserProfiles.user_with_assocs(user, [:email_addresses, :tags, :followers, :followees])
 
     posts = Publications.list_posts(user, current_user)
     render(conn, "show.json", user: user, posts: posts)

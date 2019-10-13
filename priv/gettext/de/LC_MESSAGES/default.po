@@ -250,19 +250,18 @@ msgid "is public:"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_address/_email_addresses_table.html.eex:13
+#: lib/vutuv_web/templates/email_address/_card.html.eex:19
 #: lib/vutuv_web/templates/email_address/edit.html.eex:1
 msgid "Edit email address"
 msgstr "Ändern E-Mail"
 
 #, elixir-format
 #: lib/vutuv_web/templates/user/edit.html.eex:1
-#: lib/vutuv_web/templates/user/show.html.eex:30
 msgid "Edit user"
 msgstr "Ändern"
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/show.html.eex:33
+#: lib/vutuv_web/templates/email_address/_card.html.eex:2
 msgid "Email addresses"
 msgstr "Neue E-Mail Adresse"
 
@@ -422,7 +421,7 @@ msgid "Body"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/post/_posts_table.html.eex:13
+#: lib/vutuv_web/templates/post/_card.html.eex:19
 #: lib/vutuv_web/templates/post/edit.html.eex:1
 msgid "Edit post"
 msgstr "Ändern"
@@ -479,7 +478,7 @@ msgid "Just for followers"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/show.html.eex:47
+#: lib/vutuv_web/templates/post/_card.html.eex:2
 msgid "Posts"
 msgstr ""
 
@@ -511,11 +510,6 @@ msgid "Visibility"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/show.html.eex:1
-msgid "profile"
-msgstr ""
-
-#, elixir-format
 #: lib/vutuv_web/templates/followee/index.html.eex:13
 #: lib/vutuv_web/templates/follower/index.html.eex:13
 #: lib/vutuv_web/templates/user/index.html.eex:13
@@ -530,50 +524,50 @@ msgid "Previous"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/show.html.eex:15
+#: lib/vutuv_web/templates/follower/_card.html.eex:10
 msgid "All followers"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/show.html.eex:26
+#: lib/vutuv_web/templates/followee/_card.html.eex:10
 msgid "All following"
 msgstr ""
 
 #, elixir-format
+#: lib/vutuv_web/templates/follower/_card.html.eex:2
 #: lib/vutuv_web/templates/follower/index.html.eex:1
-#: lib/vutuv_web/templates/user/show.html.eex:7
 msgid "Followers"
 msgstr ""
 
 #, elixir-format
+#: lib/vutuv_web/templates/followee/_card.html.eex:2
 #: lib/vutuv_web/templates/followee/index.html.eex:1
-#: lib/vutuv_web/templates/user/show.html.eex:18
 msgid "Following"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/show.html.eex:35
+#: lib/vutuv_web/templates/email_address/_card.html.eex:5
 msgid "No emails"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/show.html.eex:9
+#: lib/vutuv_web/templates/follower/_card.html.eex:5
 msgid "No followers yet"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/show.html.eex:49
+#: lib/vutuv_web/templates/post/_card.html.eex:5
 msgid "No posts"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/show.html.eex:20
+#: lib/vutuv_web/templates/followee/_card.html.eex:5
 msgid "Not following any user yet"
 msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/post/show.html.eex:6
-#: lib/vutuv_web/templates/user/show.html.eex:4
+#: lib/vutuv_web/templates/user_tag/_card.html.eex:2
 msgid "Tags"
 msgstr ""
 
@@ -595,7 +589,7 @@ msgid "Verify user email address"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/show.html.eex:54
+#: lib/vutuv_web/templates/user/show.html.eex:13
 msgid "Download vcard"
 msgstr ""
 
@@ -605,7 +599,7 @@ msgid "Over 20000 members worldwide."
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/controllers/verification_controller.ex:38
+#: lib/vutuv_web/controllers/verification_controller.ex:39
 msgid "A code has been sent to your email address. Enter that code here."
 msgstr ""
 
@@ -668,7 +662,7 @@ msgstr "Neue E-Mail Adresse"
 
 #, elixir-format
 #: lib/vutuv_web/controllers/password_reset_controller.ex:37
-#: lib/vutuv_web/controllers/verification_controller.ex:25
+#: lib/vutuv_web/controllers/verification_controller.ex:26
 msgid "Invalid code"
 msgstr ""
 
@@ -789,7 +783,7 @@ msgid "You need to log out to view this page"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/controllers/verification_controller.ex:21
+#: lib/vutuv_web/controllers/verification_controller.ex:22
 msgid "Your email has been verified."
 msgstr ""
 
@@ -824,8 +818,7 @@ msgid "Edit address"
 msgstr "Ändern E-Mail"
 
 #, elixir-format
-#:
-#: lib/vutuv_web/templates/social_media_account/_social_media_accounts_table.html.eex:16
+#: lib/vutuv_web/templates/social_media_account/_card.html.eex:22
 #: lib/vutuv_web/templates/social_media_account/edit.html.eex:1
 msgid "Edit social media account"
 msgstr ""
@@ -893,8 +886,8 @@ msgid "Social media account updated successfully."
 msgstr ""
 
 #, elixir-format
+#: lib/vutuv_web/templates/social_media_account/_card.html.eex:2
 #: lib/vutuv_web/templates/social_media_account/index.html.eex:1
-#: lib/vutuv_web/templates/user/show.html.eex:40
 msgid "Social media accounts"
 msgstr ""
 
@@ -938,7 +931,7 @@ msgstr ""
 msgid "New Work experience"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/vutuv_web/templates/user_tag/new.html.eex:1
 msgid "New user tag"
 msgstr "Neue User"
@@ -948,8 +941,8 @@ msgstr "Neue User"
 msgid "New work experience"
 msgstr ""
 
-#, elixir-format, fuzzy
-#: lib/vutuv_web/templates/user/show.html.eex:42
+#, elixir-format
+#: lib/vutuv_web/templates/social_media_account/_card.html.eex:5
 msgid "No social media accounts"
 msgstr ""
 
@@ -963,22 +956,22 @@ msgstr ""
 msgid "Unable to endorse user tag."
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/vutuv_web/controllers/user_tag_controller.ex:21
 msgid "User tag created successfully."
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/vutuv_web/controllers/user_tag_controller.ex:34
 msgid "User tag deleted successfully."
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/vutuv_web/controllers/user_tag_endorsement_controller.ex:14
 msgid "User tag endorsed successfully."
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/vutuv_web/controllers/user_tag_endorsement_controller.ex:29
 msgid "User tag endorsement deleted successfully."
 msgstr ""
@@ -1002,3 +995,10 @@ msgstr ""
 #: lib/vutuv_web/templates/work_experience/index.html.eex:1
 msgid "Work experiences"
 msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/user/show.html.eex:4
+msgid "1 follower"
+msgid_plural "%{count} followers"
+msgstr[0] ""
+msgstr[1] ""

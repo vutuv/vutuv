@@ -34,6 +34,15 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
+  Returns a boolean value stating if the the user is confirmed.
+  """
+  @spec user_confirmed?(integer) :: boolean
+  def user_confirmed?(id) do
+    with user_credential <- get_user_credential(%{"user_id" => id}),
+         do: user_credential.confirmed
+  end
+
+  @doc """
   Confirms a user's account, setting the user_credential's confirmed value.
   """
   @spec confirm_user(UserCredential.t()) :: {:ok, UserCredential.t()} | changeset_error

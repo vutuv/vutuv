@@ -65,6 +65,7 @@ for user <- users_attrs do
   Vutuv.Publications.add_post_tags(post, [js_tag.id])
 end
 
+user_tags = Vutuv.Repo.all(Vutuv.Tags.UserTag)
 created_users = Vutuv.UserProfiles.list_users()
 
 for user <- created_users do
@@ -73,7 +74,7 @@ for user <- created_users do
       if u.id == user.id, do: [], else: [u.id]
     end)
 
-  Vutuv.UserProfiles.add_followees(user, other_user_ids)
+  Vutuv.UserConnections.add_followees(user, other_user_ids)
 end
 
 other_users_attrs = [
@@ -235,5 +236,9 @@ for user <- other_users_attrs do
   Vutuv.Accounts.confirm_user(user_credential)
   Vutuv.Devices.verify_email_address(email_address)
   followee_ids = Enum.map(users_attrs, &Vutuv.UserProfiles.get_user!(&1).id)
-  Vutuv.UserProfiles.add_followees(user, followee_ids)
+  Vutuv.UserConnections.add_followees(user, followee_ids)
+
+  for user_tag <- user_tags do
+    Vutuv.Tags.create_user_tag_endorsement(user, %{"user_tag_id" => user_tag.id})
+  end
 end

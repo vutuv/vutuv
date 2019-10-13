@@ -14,7 +14,8 @@ defmodule Vutuv.UserProfiles.User do
     Sessions.Session,
     SocialNetworks.SocialMediaAccount,
     Tags.Tag,
-    Tags.UserTag
+    Tags.UserTag,
+    UserConnections.UserConnection
   }
 
   @type t :: %__MODULE__{
@@ -73,15 +74,15 @@ defmodule Vutuv.UserProfiles.User do
 
     many_to_many :tags, Tag, join_through: UserTag, on_replace: :delete
 
-    many_to_many :followers, __MODULE__,
-      join_through: "user_connections",
-      on_replace: :delete,
-      join_keys: [follower_id: :id, followee_id: :id]
-
     many_to_many :followees, __MODULE__,
-      join_through: "user_connections",
+      join_through: UserConnection,
       on_replace: :delete,
       join_keys: [followee_id: :id, follower_id: :id]
+
+    many_to_many :followers, __MODULE__,
+      join_through: UserConnection,
+      on_replace: :delete,
+      join_keys: [follower_id: :id, followee_id: :id]
 
     timestamps(type: :utc_datetime)
   end

@@ -7,7 +7,7 @@ defmodule VutuvWeb.Api.VcardController do
     user =
       %{"slug" => user_slug}
       |> UserProfiles.get_user!()
-      |> UserProfiles.with_associated_data([:email_addresses, :phone_numbers])
+      |> UserProfiles.user_with_assocs([:email_addresses, :phone_numbers])
 
     conn
     |> update_headers(user_slug)

@@ -1,9 +1,6 @@
 defmodule VutuvWeb.WorkExperienceControllerTest do
   use VutuvWeb.ConnCase
 
-  import Vutuv.Factory
-  import VutuvWeb.AuthTestHelpers
-
   alias Vutuv.Biographies
 
   @create_attrs %{
