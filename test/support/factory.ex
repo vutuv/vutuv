@@ -3,7 +3,7 @@ defmodule Vutuv.Factory do
 
   use ExMachina.Ecto, repo: Vutuv.Repo
 
-  alias Vutuv.{UserProfiles, UserProfiles.User}
+  alias Vutuv.{UserConnections, UserProfiles, UserProfiles.User}
 
   def user_factory do
     full_name = "#{Faker.Name.first_name()} #{Faker.Name.last_name()}"
@@ -88,6 +88,13 @@ defmodule Vutuv.Factory do
     }
   end
 
+  def post_tag_factory do
+    %Vutuv.Tags.PostTag{
+      post: build(:post),
+      tag: build(:tag)
+    }
+  end
+
   def user_tag_factory do
     %Vutuv.Tags.UserTag{
       tag: build(:tag),
@@ -110,8 +117,16 @@ defmodule Vutuv.Factory do
     user_tag = insert(:user_tag, %{user: user})
     other_users = insert_list(6, :user)
     followee_ids = Enum.map(other_users, & &1.id)
-    Vutuv.UserConnections.add_followees(user, followee_ids)
-    Vutuv.UserConnections.add_followees(hd(other_users), [user.id])
+
+    Enum.each(
+      followee_ids,
+      &UserConnections.create_user_connection(%{"followee_id" => &1, "follower_id" => user.id})
+    )
+
+    Enum.each(
+      Enum.take(followee_ids, 4),
+      &UserConnections.create_user_connection(%{"followee_id" => user.id, "follower_id" => &1})
+    )
 
     for other <- other_users do
       Vutuv.Tags.create_user_tag_endorsement(other, %{"user_tag_id" => user_tag.id})

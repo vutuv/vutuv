@@ -7,7 +7,8 @@ defmodule Vutuv.Tags do
   import Ecto.Query, warn: false
 
   alias Vutuv.Repo
-  alias Vutuv.Tags.{Tag, UserTag, UserTagEndorsement}
+  alias Vutuv.Tags.{PostTag, Tag, UserTag, UserTagEndorsement}
+  alias Vutuv.Publications.Post
   alias Vutuv.UserProfiles.User
 
   @type changeset_error :: {:error, Ecto.Changeset.t()}
@@ -77,6 +78,29 @@ defmodule Vutuv.Tags do
   end
 
   @doc """
+  Gets a single post_tag. Raises error if no post_tag found.
+  """
+  @spec get_post_tag!(Post.t(), integer) :: PostTag.t() | no_return
+  def get_post_tag!(%Post{} = post, id) do
+    PostTag
+    |> Repo.get_by!(id: id, post_id: post.id)
+    |> Repo.preload(:tag)
+  end
+
+  @doc """
+  Creates a post_tag.
+  """
+  @spec create_post_tag(Post.t(), map) :: {:ok, PostTag.t()} | changeset_error
+  def create_post_tag(%Post{} = post, attrs) do
+    with {:ok, %Tag{id: tag_id}} <- create_or_get_tag(attrs) do
+      post
+      |> build_assoc(:post_tags)
+      |> PostTag.changeset(%{tag_id: tag_id})
+      |> Repo.insert()
+    end
+  end
+
+  @doc """
   Returns the list of user_tags.
   """
   @spec list_user_tags(User.t()) :: [UserTag.t()]
@@ -100,7 +124,7 @@ defmodule Vutuv.Tags do
   Creates a user_tag.
   """
   @spec create_user_tag(User.t(), map) :: {:ok, UserTag.t()} | changeset_error
-  def create_user_tag(user, attrs) do
+  def create_user_tag(%User{} = user, attrs) do
     with {:ok, %Tag{id: tag_id}} <- create_or_get_tag(attrs) do
       user
       |> build_assoc(:user_tags)
@@ -123,17 +147,6 @@ defmodule Vutuv.Tags do
   @spec change_tag(UserTag.t()) :: Ecto.Changeset.t()
   def change_user_tag(%UserTag{} = user_tag) do
     UserTag.changeset(user_tag, %{})
-  end
-
-  @doc """
-  Returns a user_tag together with the tag and user_tag_endorsements.
-  """
-  @spec user_tag_with_endorsements() :: Ecto.Query.t()
-  def user_tag_with_endorsements do
-    from ut in UserTag,
-      join: t in assoc(ut, :tag),
-      join: e in assoc(ut, :user_tag_endorsements),
-      preload: [:tag, :user_tag_endorsements]
   end
 
   @doc """

@@ -3,7 +3,7 @@ defmodule Vutuv.Publications.Post do
 
   import Ecto.Changeset
 
-  alias Vutuv.{UserProfiles.User, Tags.Tag}
+  alias Vutuv.{UserProfiles.User, Tags.PostTag}
 
   @type t :: %__MODULE__{
           id: integer,
@@ -14,7 +14,7 @@ defmodule Vutuv.Publications.Post do
           visibility_level: String.t(),
           user_id: integer,
           user: User.t() | %Ecto.Association.NotLoaded{},
-          tags: [Tag.t()] | %Ecto.Association.NotLoaded{},
+          post_tags: [PostTag.t()] | %Ecto.Association.NotLoaded{},
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
         }
@@ -28,7 +28,7 @@ defmodule Vutuv.Publications.Post do
 
     belongs_to :user, User
 
-    many_to_many :tags, Tag, join_through: "post_tags", on_replace: :delete
+    has_many :post_tags, PostTag, on_delete: :delete_all
 
     timestamps(type: :utc_datetime)
   end
@@ -52,14 +52,5 @@ defmodule Vutuv.Publications.Post do
   defp set_published_at(%__MODULE__{} = post, attrs) do
     published_at = attrs[:published_at] || DateTime.truncate(DateTime.utc_now(), :second)
     %__MODULE__{post | published_at: published_at}
-  end
-
-  @doc """
-  Changeset for adding and updating post_tags.
-  """
-  def post_tag_changeset(%__MODULE__{} = post, tags) do
-    post
-    |> cast(%{}, [:body, :title])
-    |> put_assoc(:tags, tags)
   end
 end

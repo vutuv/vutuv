@@ -19,11 +19,7 @@
         </svg>
       </div>
       <%= if assigns[:user] do %>
-        <div class="profile-header">
-          <img src="<%= Vutuv.Avatar.url({@user.avatar, @user}, :medium) %>"/>
-          <h2><%= @user.full_name %></h2>
-          <p><%= @user.headline %></p>
-        </div>
+        <%= render VutuvWeb.UserView, "_profile_header.html", assigns %>
       <% else %>
         <h2><%= gettext "The fast, secure and less annoying social network." %></h2>
         <h3><%= gettext "Over 20000 members worldwide." %></h3>

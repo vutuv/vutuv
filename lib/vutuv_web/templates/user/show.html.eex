@@ -1,11 +1,6 @@
-<h1><%= @user.full_name %></h1>
-<!-- add verified badge -->
-<h2><%= @user.headline %></h2>
-<h4><%= ngettext "1 follower", "%{count} followers", Enum.count(@user.followers) %></h4>
-
 <%= render VutuvWeb.UserTagView, "_card.html", conn: @conn, current_user: @current_user, user_tags: @user.user_tags %>
-<%= render VutuvWeb.FollowerView, "_card.html", conn: @conn, current_user: @current_user, followers: Enum.take(@user.followers, 3), user: @user %>
-<%= render VutuvWeb.FolloweeView, "_card.html", conn: @conn, current_user: @current_user, followees: Enum.take(@user.followees, 3), user: @user %>
+<%= render VutuvWeb.FolloweeView, "_card.html", conn: @conn, current_user: @current_user, followees: Enum.map(@user.followees, & &1.followee), user: @user %>
+<%= render VutuvWeb.FollowerView, "_card.html", conn: @conn, current_user: @current_user, followers: Enum.map(@user.followers, & &1.follower), user: @user %>
 <%= render VutuvWeb.EmailAddressView, "_card.html", conn: @conn, current_user: @current_user, user: @user %>
 <%= render VutuvWeb.SocialMediaAccountView, "_card.html", conn: @conn, current_user: @current_user, user: @user %>
 <%= render VutuvWeb.PostView, "_card.html", conn: @conn, current_user: @current_user, user: @user, posts: @posts %>

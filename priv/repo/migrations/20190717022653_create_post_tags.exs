@@ -2,13 +2,12 @@ defmodule Vutuv.Repo.Migrations.CreatePostTags do
   use Ecto.Migration
 
   def change do
-    create table(:post_tags, primary_key: false) do
-      add :post_id, references(:posts, on_delete: :delete_all), primary_key: true
-      add :tag_id, references(:tags, on_delete: :delete_all), primary_key: true
-    end
+    create table(:post_tags) do
+      add :post_id, references(:posts, on_delete: :delete_all)
+      add :tag_id, references(:tags, on_delete: :delete_all)
 
-    create index(:post_tags, [:post_id])
-    create index(:post_tags, [:tag_id])
+      timestamps()
+    end
 
     create unique_index(:post_tags, [:post_id, :tag_id], name: :post_id_tag_id)
   end

@@ -32,7 +32,12 @@ defmodule VutuvWeb.PostControllerTest do
       post_1 = insert(:post, %{user: user, visibility_level: "public"})
       post_2 = insert(:post, %{user: user, visibility_level: "followers"})
       other = add_user("froderick@example.com")
-      {:ok, _user} = UserConnections.add_followees(other, [user.id])
+
+      UserConnections.create_user_connection(%{
+        "followee_id" => user.id,
+        "follower_id" => other.id
+      })
+
       conn = conn |> add_session(other) |> send_resp(:ok, "/")
       conn = get(conn, Routes.user_post_path(conn, :index, user))
       response = html_response(conn, 200)
@@ -64,7 +69,12 @@ defmodule VutuvWeb.PostControllerTest do
       end
 
       other = add_user("froderick@example.com")
-      {:ok, _user} = UserConnections.add_followees(other, [user.id])
+
+      UserConnections.create_user_connection(%{
+        "followee_id" => user.id,
+        "follower_id" => other.id
+      })
+
       conn = conn |> add_session(other) |> send_resp(:ok, "/")
       conn = get(conn, Routes.user_post_path(conn, :show, user, post))
       assert html_response(conn, 200) =~ escape_html(post.title)
