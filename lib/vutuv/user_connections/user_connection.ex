@@ -25,6 +25,15 @@ defmodule Vutuv.UserConnections.UserConnection do
     user_connection
     |> cast(attrs, [:followee_id, :follower_id])
     |> validate_required([:followee_id, :follower_id])
+    |> validate_not_following_self()
     |> unique_constraint(:followee_id, name: :followee_id_follower_id)
   end
+
+  defp validate_not_following_self(
+         %{changes: %{followee_id: same, follower_id: same}} = changeset
+       ) do
+    add_error(changeset, :follower_id, "cannot follow yourself")
+  end
+
+  defp validate_not_following_self(changeset), do: changeset
 end

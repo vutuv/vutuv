@@ -55,6 +55,18 @@ defmodule Vutuv.UserConnectionsTest do
         })
       end
     end
+
+    test "user cannot follow self" do
+      user = insert(:user)
+
+      assert {:error, %Ecto.Changeset{} = changeset} =
+               UserConnections.create_user_connection(%{
+                 "followee_id" => user.id,
+                 "follower_id" => user.id
+               })
+
+      assert %{follower_id: ["cannot follow yourself"]} = errors_on(changeset)
+    end
   end
 
   describe "deletes user connections" do

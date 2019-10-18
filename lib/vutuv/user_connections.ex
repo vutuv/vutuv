@@ -11,7 +11,7 @@ defmodule Vutuv.UserConnections do
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 
   @doc """
-  Returns a user's followers and followees in a paginated struct.
+  Returns a user's followers or followees in a paginated struct.
   """
   @spec paginate_user_connections(User.t(), map, :followees | :followers) :: Scrivener.Page.t()
   def paginate_user_connections(%User{} = user, attrs, :followees) do

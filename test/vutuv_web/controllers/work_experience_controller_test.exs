@@ -33,7 +33,7 @@ defmodule VutuvWeb.WorkExperienceControllerTest do
   end
 
   describe "renders forms" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "new work_experience form", %{conn: conn, user: user} do
       conn = get(conn, Routes.user_work_experience_path(conn, :new, user))
@@ -48,7 +48,7 @@ defmodule VutuvWeb.WorkExperienceControllerTest do
   end
 
   describe "write work_experience" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "create work_experience with valid data", %{conn: conn, user: user} do
       conn =
@@ -97,7 +97,7 @@ defmodule VutuvWeb.WorkExperienceControllerTest do
   end
 
   describe "delete work_experience" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "can delete chosen work_experience", %{conn: conn, user: user} do
       work = insert(:work_experience, %{user: user})
@@ -120,10 +120,5 @@ defmodule VutuvWeb.WorkExperienceControllerTest do
 
       assert Biographies.get_work_experience!(other, work.id)
     end
-  end
-
-  defp add_user_session(%{conn: conn, user: user}) do
-    conn = conn |> add_session(user) |> send_resp(:ok, "/")
-    {:ok, %{conn: conn, user: user}}
   end
 end

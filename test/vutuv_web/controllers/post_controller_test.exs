@@ -95,7 +95,7 @@ defmodule VutuvWeb.PostControllerTest do
   end
 
   describe "renders forms" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "new post form", %{conn: conn, user: user} do
       conn = get(conn, Routes.user_post_path(conn, :new, user))
@@ -110,7 +110,7 @@ defmodule VutuvWeb.PostControllerTest do
   end
 
   describe "write posts" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "create post with valid data", %{conn: conn, user: user} do
       conn = post(conn, Routes.user_post_path(conn, :create, user), post: @create_attrs)
@@ -145,7 +145,7 @@ defmodule VutuvWeb.PostControllerTest do
   end
 
   describe "delete post" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "can delete chosen post", %{conn: conn, user: user} do
       post = insert(:post, %{user: user})
@@ -165,10 +165,5 @@ defmodule VutuvWeb.PostControllerTest do
 
       assert Publications.get_post!(other, post.id)
     end
-  end
-
-  defp add_user_session(%{conn: conn, user: user}) do
-    conn = conn |> add_session(user) |> send_resp(:ok, "/")
-    {:ok, %{conn: conn, user: user}}
   end
 end
