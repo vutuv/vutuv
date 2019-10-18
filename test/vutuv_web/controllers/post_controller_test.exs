@@ -32,7 +32,12 @@ defmodule VutuvWeb.PostControllerTest do
       post_1 = insert(:post, %{user: user, visibility_level: "public"})
       post_2 = insert(:post, %{user: user, visibility_level: "followers"})
       other = add_user("froderick@example.com")
-      {:ok, _user} = UserConnections.add_followees(other, [user.id])
+
+      UserConnections.create_user_connection(%{
+        "followee_id" => user.id,
+        "follower_id" => other.id
+      })
+
       conn = conn |> add_session(other) |> send_resp(:ok, "/")
       conn = get(conn, Routes.user_post_path(conn, :index, user))
       response = html_response(conn, 200)
@@ -64,7 +69,12 @@ defmodule VutuvWeb.PostControllerTest do
       end
 
       other = add_user("froderick@example.com")
-      {:ok, _user} = UserConnections.add_followees(other, [user.id])
+
+      UserConnections.create_user_connection(%{
+        "followee_id" => user.id,
+        "follower_id" => other.id
+      })
+
       conn = conn |> add_session(other) |> send_resp(:ok, "/")
       conn = get(conn, Routes.user_post_path(conn, :show, user, post))
       assert html_response(conn, 200) =~ escape_html(post.title)
@@ -85,7 +95,7 @@ defmodule VutuvWeb.PostControllerTest do
   end
 
   describe "renders forms" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "new post form", %{conn: conn, user: user} do
       conn = get(conn, Routes.user_post_path(conn, :new, user))
@@ -100,7 +110,7 @@ defmodule VutuvWeb.PostControllerTest do
   end
 
   describe "write posts" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "create post with valid data", %{conn: conn, user: user} do
       conn = post(conn, Routes.user_post_path(conn, :create, user), post: @create_attrs)
@@ -135,7 +145,7 @@ defmodule VutuvWeb.PostControllerTest do
   end
 
   describe "delete post" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "can delete chosen post", %{conn: conn, user: user} do
       post = insert(:post, %{user: user})
@@ -155,10 +165,5 @@ defmodule VutuvWeb.PostControllerTest do
 
       assert Publications.get_post!(other, post.id)
     end
-  end
-
-  defp add_user_session(%{conn: conn, user: user}) do
-    conn = conn |> add_session(user) |> send_resp(:ok, "/")
-    {:ok, %{conn: conn, user: user}}
   end
 end

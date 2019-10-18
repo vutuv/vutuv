@@ -10,7 +10,7 @@ defmodule VutuvWeb.UserTagEndorsementControllerTest do
   end
 
   describe "write user_tag_endorsements" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "create user_tag_endorsement with valid data", %{conn: conn, user: user} do
       user_tag = insert(:user_tag)
@@ -27,7 +27,7 @@ defmodule VutuvWeb.UserTagEndorsementControllerTest do
   end
 
   describe "delete user_tag_endorsement" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "can delete chosen user_tag_endorsement", %{conn: conn, user: user} do
       user_tag = insert(:user_tag)
@@ -42,10 +42,5 @@ defmodule VutuvWeb.UserTagEndorsementControllerTest do
       assert get_flash(conn, :info) =~ "deleted successfully"
       assert_raise Ecto.NoResultsError, fn -> Tags.get_user_tag!(user, user_tag.id) end
     end
-  end
-
-  defp add_user_session(%{conn: conn, user: user}) do
-    conn = conn |> add_session(user) |> send_resp(:ok, "/")
-    {:ok, %{conn: conn, user: user}}
   end
 end

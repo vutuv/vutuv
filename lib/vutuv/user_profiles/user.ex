@@ -13,7 +13,6 @@ defmodule Vutuv.UserProfiles.User do
     Publications.Post,
     Sessions.Session,
     SocialNetworks.SocialMediaAccount,
-    Tags.Tag,
     Tags.UserTag,
     UserConnections.UserConnection
   }
@@ -34,14 +33,15 @@ defmodule Vutuv.UserProfiles.User do
           noindex: boolean,
           addresses: [Address.t()] | %Ecto.Association.NotLoaded{},
           email_addresses: [EmailAddress.t()] | %Ecto.Association.NotLoaded{},
+          followees: [UserConnection.t()] | %Ecto.Association.NotLoaded{},
+          followers: [UserConnection.t()] | %Ecto.Association.NotLoaded{},
           phone_numbers: [PhoneNumber.t()] | %Ecto.Association.NotLoaded{},
           posts: [Post.t()] | %Ecto.Association.NotLoaded{},
           sessions: [Session.t()] | %Ecto.Association.NotLoaded{},
           social_media_accounts: [SocialMediaAccount.t()] | %Ecto.Association.NotLoaded{},
-          work_experiences: [WorkExperience.t()] | %Ecto.Association.NotLoaded{},
-          tags: [Tag.t()] | %Ecto.Association.NotLoaded{},
-          user_credential: UserCredential.t() | %Ecto.Association.NotLoaded{},
           user_tags: [UserTag.t()] | %Ecto.Association.NotLoaded{},
+          work_experiences: [WorkExperience.t()] | %Ecto.Association.NotLoaded{},
+          user_credential: UserCredential.t() | %Ecto.Association.NotLoaded{},
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
         }
@@ -72,17 +72,8 @@ defmodule Vutuv.UserProfiles.User do
     has_many :work_experiences, WorkExperience, on_delete: :delete_all
     has_one :user_credential, UserCredential, on_delete: :delete_all
 
-    many_to_many :tags, Tag, join_through: UserTag, on_replace: :delete
-
-    many_to_many :followees, __MODULE__,
-      join_through: UserConnection,
-      on_replace: :delete,
-      join_keys: [followee_id: :id, follower_id: :id]
-
-    many_to_many :followers, __MODULE__,
-      join_through: UserConnection,
-      on_replace: :delete,
-      join_keys: [follower_id: :id, followee_id: :id]
+    has_many :followees, UserConnection, foreign_key: :follower_id, on_delete: :delete_all
+    has_many :followers, UserConnection, foreign_key: :followee_id, on_delete: :delete_all
 
     timestamps(type: :utc_datetime)
   end
@@ -129,21 +120,6 @@ defmodule Vutuv.UserProfiles.User do
     |> add_locale_data()
     |> cast_assoc(:email_addresses, required: true)
     |> cast_assoc(:user_credential, required: true)
-  end
-
-  @doc """
-  Changeset for adding and updating user_tags.
-  """
-  def user_tag_changeset(%__MODULE__{} = user, tags) do
-    user
-    |> cast(%{}, [])
-    |> put_assoc(:tags, tags)
-  end
-
-  def followee_changeset(%__MODULE__{} = user, followees) do
-    user
-    |> cast(%{}, [])
-    |> put_assoc(:followees, followees)
   end
 
   defp add_locale_data(%Ecto.Changeset{valid?: true, changes: %{locale: locale}} = changeset) do

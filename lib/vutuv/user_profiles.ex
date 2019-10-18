@@ -12,7 +12,7 @@ defmodule Vutuv.UserProfiles do
     Repo,
     Sessions,
     Sessions.Session,
-    Tags,
+    UserConnections,
     UserProfiles.User,
     UserProfiles.Address
   }
@@ -132,15 +132,13 @@ defmodule Vutuv.UserProfiles do
   Returns an overview of all the user data, including associations.
   """
   @spec get_user_overview(User.t()) :: User.t()
-  # FIXME: riverrun - 2019-10-07
-  # change to get latest 3 followees and 3 followers
   def get_user_overview(%User{} = user) do
     Repo.preload(user, [
       :email_addresses,
       :social_media_accounts,
-      :followees,
-      :followers,
-      user_tags: Tags.user_tag_with_endorsements()
+      followees: {UserConnections.latest_followees(3), :followee},
+      followers: {UserConnections.latest_followers(3), :follower},
+      user_tags: [:tag, :user_tag_endorsements]
     ])
   end
 

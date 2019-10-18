@@ -3,7 +3,8 @@ defmodule Vutuv.TagsTest do
 
   import Vutuv.Factory
 
-  alias Vutuv.{Publications, Repo, Tags, Tags.Tag, Tags.UserTag, Tags.UserTagEndorsement}
+  alias Vutuv.{Repo, Tags}
+  alias Vutuv.Tags.{PostTag, Tag, UserTag, UserTagEndorsement}
 
   @create_tag_attrs %{
     "description" => "JavaScript expertise",
@@ -98,13 +99,18 @@ defmodule Vutuv.TagsTest do
   end
 
   describe "post tags" do
-    test "association can be created between a post and tags" do
+    test "get_post_tag! returns post_tag and tag" do
+      %PostTag{id: id, post: post} = insert(:post_tag)
+      post_tag_1 = Tags.get_post_tag!(post, id)
+      assert post_tag_1.id == id
+      assert post_tag_1.post_id == post.id
+      assert post_tag_1.tag.name
+    end
+
+    test "create_post_tag creates a post_tag" do
       post = insert(:post)
-      {:ok, %Tag{} = tag} = Tags.create_or_get_tag(@create_tag_attrs)
-      {:ok, post} = Publications.add_post_tags(post, [tag.id])
-      assert [%Tag{} = ^tag] = post.tags
-      %Tag{posts: [post_1]} = Tags.get_tag!(tag.id) |> Repo.preload(:posts)
-      assert post.id == post_1.id
+      {:ok, post_tag} = Tags.create_post_tag(post, @create_tag_attrs)
+      assert post_tag.post_id == post.id
     end
   end
 

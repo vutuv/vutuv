@@ -29,7 +29,7 @@ defmodule VutuvWeb.SocialMediaAccountControllerTest do
   end
 
   describe "renders forms" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "new social media account form", %{conn: conn, user: user} do
       conn = get(conn, Routes.user_social_media_account_path(conn, :new, user))
@@ -47,7 +47,7 @@ defmodule VutuvWeb.SocialMediaAccountControllerTest do
   end
 
   describe "write social media accounts" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "create social media account with valid data", %{conn: conn, user: user} do
       conn =
@@ -105,7 +105,7 @@ defmodule VutuvWeb.SocialMediaAccountControllerTest do
   end
 
   describe "delete social media account" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "can delete chosen social media account", %{conn: conn, user: user} do
       social_media_account = insert(:social_media_account, %{user: user})
@@ -137,10 +137,5 @@ defmodule VutuvWeb.SocialMediaAccountControllerTest do
 
       assert SocialNetworks.get_social_media_account!(other, social_media_account.id)
     end
-  end
-
-  defp add_user_session(%{conn: conn, user: user}) do
-    conn = conn |> add_session(user) |> send_resp(:ok, "/")
-    {:ok, %{conn: conn, user: user}}
   end
 end

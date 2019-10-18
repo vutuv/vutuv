@@ -61,8 +61,7 @@ for user <- users_attrs do
       visibility_level: "public"
     })
 
-  {:ok, js_tag} = Vutuv.Tags.create_or_get_tag(js_tag_attrs)
-  Vutuv.Publications.add_post_tags(post, [js_tag.id])
+  Vutuv.Tags.create_post_tag(post, js_tag_attrs)
 end
 
 user_tags = Vutuv.Repo.all(Vutuv.Tags.UserTag)
@@ -74,7 +73,10 @@ for user <- created_users do
       if u.id == user.id, do: [], else: [u.id]
     end)
 
-  Vutuv.UserConnections.add_followees(user, other_user_ids)
+  Enum.each(
+    other_user_ids,
+    &UserConnections.create_user_connection(%{"followee_id" => user.id, "follower_id" => &1.id})
+  )
 end
 
 other_users_attrs = [
@@ -229,14 +231,19 @@ other_users_attrs = [
   }
 ]
 
+followee_ids = Enum.map(users_attrs, &Vutuv.UserProfiles.get_user!(&1).id)
+
 for user <- other_users_attrs do
   {:ok, %{email_addresses: [email_address], user_credential: user_credential} = user} =
     Vutuv.UserProfiles.create_user(user)
 
   Vutuv.Accounts.confirm_user(user_credential)
   Vutuv.Devices.verify_email_address(email_address)
-  followee_ids = Enum.map(users_attrs, &Vutuv.UserProfiles.get_user!(&1).id)
-  Vutuv.UserConnections.add_followees(user, followee_ids)
+
+  Enum.each(
+    followee_ids,
+    &UserConnections.create_user_connection(%{"followee_id" => &1.id, "follower_id" => user.id})
+  )
 
   for user_tag <- user_tags do
     Vutuv.Tags.create_user_tag_endorsement(user, %{"user_tag_id" => user_tag.id})

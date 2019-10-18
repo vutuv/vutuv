@@ -1,6 +1,6 @@
 <h1><%= gettext "Followers" %></h1>
 
-<%= render VutuvWeb.UserView, "_users_table.html", conn: @conn, current_user: @current_user, users: @followers %>
+<%= render VutuvWeb.UserView, "_users_table.html", conn: @conn, current_user: @current_user, users: Enum.map(@followers, & &1.follower) %>
 
 <div>
   <span>

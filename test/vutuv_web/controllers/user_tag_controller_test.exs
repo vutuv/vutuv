@@ -10,7 +10,7 @@ defmodule VutuvWeb.UserTagControllerTest do
   end
 
   describe "renders forms" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "new user_tag form", %{conn: conn, user: user} do
       conn = get(conn, Routes.user_tag_path(conn, :new, user))
@@ -19,7 +19,7 @@ defmodule VutuvWeb.UserTagControllerTest do
   end
 
   describe "write user_tags" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "create user_tag with valid data", %{conn: conn, user: user} do
       create_attrs = %{"name" => "C++"}
@@ -35,7 +35,7 @@ defmodule VutuvWeb.UserTagControllerTest do
   end
 
   describe "delete user_tag" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "can delete chosen user_tag", %{conn: conn, user: user} do
       user_tag = insert(:user_tag, %{user: user})
@@ -55,10 +55,5 @@ defmodule VutuvWeb.UserTagControllerTest do
 
       assert Tags.get_user_tag!(other, user_tag.id)
     end
-  end
-
-  defp add_user_session(%{conn: conn, user: user}) do
-    conn = conn |> add_session(user) |> send_resp(:ok, "/")
-    {:ok, %{conn: conn, user: user}}
   end
 end

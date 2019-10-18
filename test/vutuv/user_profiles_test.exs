@@ -7,7 +7,6 @@ defmodule Vutuv.UserProfilesTest do
     UserProfiles,
     UserProfiles.User,
     UserProfiles.Address,
-    UserConnections,
     Devices,
     Devices.EmailAddress,
     Repo
@@ -64,6 +63,26 @@ defmodule Vutuv.UserProfilesTest do
 
     test "change_user/1 returns a user changeset", %{user: user} do
       assert %Ecto.Changeset{} = UserProfiles.change_user(user)
+    end
+
+    test "get_user_overview returns user with associations", %{user: user} do
+      user = add_user_assocs(user)
+      assert [email_address] = user.email_addresses
+      assert length(user.followees) == 3
+      assert length(user.followers) == 3
+
+      for user <- user.followees do
+        assert Ecto.assoc_loaded?(user.followee)
+        refute Ecto.assoc_loaded?(user.follower)
+      end
+
+      for user <- user.followers do
+        refute Ecto.assoc_loaded?(user.followee)
+        assert Ecto.assoc_loaded?(user.follower)
+      end
+
+      assert [user_tag] = user.user_tags
+      assert length(user_tag.user_tag_endorsements) == 6
     end
   end
 
@@ -168,31 +187,6 @@ defmodule Vutuv.UserProfilesTest do
       assert {:ok, %User{}} = UserProfiles.delete_user(user)
       assert_raise Ecto.NoResultsError, fn -> UserProfiles.get_user!(%{"id" => user.id}) end
       refute Repo.get(EmailAddress, email_address.id)
-    end
-  end
-
-  describe "user connections" do
-    test "adds followees / followers" do
-      {:ok, %User{id: user_id} = user} = UserProfiles.create_user(@create_user_attrs)
-      new_user_attrs = Map.merge(@create_user_attrs, %{"email" => "froderick@example.com"})
-      {:ok, %User{id: new_user_id}} = UserProfiles.create_user(new_user_attrs)
-      assert {:ok, %User{}} = UserConnections.add_followees(user, [new_user_id])
-
-      assert user =
-               %{"id" => user_id}
-               |> UserProfiles.get_user!()
-               |> UserProfiles.user_with_assocs([:followers, :followees])
-
-      assert user.followers == []
-      assert [%User{id: ^new_user_id}] = user.followees
-
-      assert user =
-               %{"id" => new_user_id}
-               |> UserProfiles.get_user!()
-               |> UserProfiles.user_with_assocs([:followers, :followees])
-
-      assert [%User{id: ^user_id}] = user.followers
-      assert user.followees == []
     end
   end
 

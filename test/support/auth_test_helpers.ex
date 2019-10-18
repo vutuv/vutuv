@@ -47,4 +47,9 @@ defmodule VutuvWeb.AuthTestHelpers do
     |> put_req_header("accept", "application/json")
     |> put_req_header("authorization", user_token)
   end
+
+  def add_session_to_conn(%{conn: conn, user: user}) do
+    conn = conn |> add_session(user) |> send_resp(:ok, "/")
+    {:ok, %{conn: conn, user: user}}
+  end
 end

@@ -19,21 +19,25 @@ defmodule VutuvWeb.UserControllerTest do
     test "lists all entries on index", %{conn: conn} do
       users = insert_list(12, :user)
       first_page_user = Enum.at(users, 5)
-      second_page_user = Enum.at(users, -1)
+      second_page_user = Enum.at(UserProfiles.list_users(), -1)
       conn = get(conn, Routes.user_path(conn, :index))
       response = html_response(conn, 200)
       assert response =~ "Users"
+      assert response =~ "Previous"
+      assert response =~ "Next"
       assert response =~ first_page_user.slug
       refute response =~ second_page_user.slug
     end
 
     test "show current user's page", %{conn: conn} do
-      {:ok, %{conn: conn, user: user}} = add_user_session(%{conn: conn})
+      user = insert(:user)
+      {:ok, %{conn: conn, user: user}} = add_session_to_conn(%{conn: conn, user: user})
       user = add_user_assocs(user)
       conn = get(conn, Routes.user_path(conn, :show, user))
       response = html_response(conn, 200)
-      assert response =~ "Followers"
+      assert response =~ "4 followers"
       assert response =~ "Email addresses"
+      assert response =~ "View profile"
     end
 
     test "show other user's page - no edit links", %{conn: conn} do
@@ -52,7 +56,7 @@ defmodule VutuvWeb.UserControllerTest do
   end
 
   describe "renders forms" do
-    setup [:add_user_session]
+    setup [:create_user, :add_session_to_conn]
 
     test "renders form for new users" do
       conn = build_conn()
@@ -102,7 +106,7 @@ defmodule VutuvWeb.UserControllerTest do
   end
 
   describe "update user data" do
-    setup [:add_user_session]
+    setup [:create_user, :add_session_to_conn]
 
     test "successful when data is valid", %{conn: conn, user: user} do
       attrs = %{"full_name" => "Raymond Luxury Yacht"}
@@ -132,7 +136,7 @@ defmodule VutuvWeb.UserControllerTest do
   end
 
   describe "delete user" do
-    setup [:add_user_session]
+    setup [:create_user, :add_session_to_conn]
 
     test "deletes chosen user", %{conn: conn, user: user} do
       conn = delete(conn, Routes.user_path(conn, :delete, user))
@@ -148,9 +152,8 @@ defmodule VutuvWeb.UserControllerTest do
     end
   end
 
-  defp add_user_session(%{conn: conn}) do
+  defp create_user(%{conn: conn}) do
     user = add_user("reg@example.com")
-    conn = conn |> add_session(user) |> send_resp(:ok, "/")
     {:ok, %{conn: conn, user: user}}
   end
 end

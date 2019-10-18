@@ -1,0 +1,24 @@
+<div class="profile-header">
+  <img src="<%= Vutuv.Avatar.url({@user.avatar, @user}, :medium) %>"/>
+  <h2><%= @user.full_name %></h2>
+  <!-- add verified badge -->
+</div>
+<div>
+  <p><%= @user.headline %></p>
+
+  <%= if is_list(@user.followers) do %>
+    <h4><%= ngettext "1 follower", "%{count} followers", Vutuv.UserConnections.follower_count(@user) %></h4>
+
+    <%= if assigns[:current_user] && @current_user.id != @user.id do %>
+      <%= if user_connection = Vutuv.UserConnections.get_user_connection(@current_user, @user) do %>
+        <%= form_for @conn, Routes.user_followee_path(@conn, :delete, @user, user_connection.id), [method: "delete"], fn _f -> %>
+          <%= submit gettext("Unfollow"), class: "link" %>
+        <% end %>
+      <% else %>
+        <%= form_for @conn, Routes.user_followee_path(@conn, :create, @user, followee: %{follower_id: @current_user.id, followee_id: @user.id}), [method: "post"], fn _f -> %>
+          <%= submit gettext("Follow"), class: "link" %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

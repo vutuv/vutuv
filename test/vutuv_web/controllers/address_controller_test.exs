@@ -36,7 +36,7 @@ defmodule VutuvWeb.AddressControllerTest do
   end
 
   describe "renders forms" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "new address form", %{conn: conn, user: user} do
       conn = get(conn, Routes.user_address_path(conn, :new, user))
@@ -51,7 +51,7 @@ defmodule VutuvWeb.AddressControllerTest do
   end
 
   describe "write addresses" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "create address with valid data", %{conn: conn, user: user} do
       conn = post(conn, Routes.user_address_path(conn, :create, user), address: @create_attrs)
@@ -92,7 +92,7 @@ defmodule VutuvWeb.AddressControllerTest do
   end
 
   describe "delete address" do
-    setup [:add_user_session]
+    setup [:add_session_to_conn]
 
     test "can delete chosen address", %{conn: conn, user: user} do
       address = insert(:address, %{user: user})
@@ -112,10 +112,5 @@ defmodule VutuvWeb.AddressControllerTest do
 
       assert UserProfiles.get_address!(other, address.id)
     end
-  end
-
-  defp add_user_session(%{conn: conn, user: user}) do
-    conn = conn |> add_session(user) |> send_resp(:ok, "/")
-    {:ok, %{conn: conn, user: user}}
   end
 end

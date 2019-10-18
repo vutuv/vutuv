@@ -79,8 +79,6 @@ header * + * {
 main {
   grid-area: main;
   position: relative;
-  display: grid;
-  grid-gap: 1.0rem;
 }
 .logo svg {
   width: 16rem;
@@ -171,7 +169,6 @@ button.link {
     margin: 0 auto;
     min-width: 80%;
     align-self: center;
-    grid-template-columns: repeat(2, 1fr);
   }
   footer {
     text-align: left;

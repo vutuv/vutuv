@@ -6,7 +6,7 @@ defmodule Vutuv.Publications do
   import Ecto
   import Ecto.Query, warn: false
 
-  alias Vutuv.{UserProfiles.User, Repo, Publications.Post, Tags.Tag}
+  alias Vutuv.{UserProfiles.User, Repo, Publications.Post}
 
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 
@@ -69,8 +69,8 @@ defmodule Vutuv.Publications do
 
   defp post_query(post) do
     post
-    |> join(:left, [p], _ in assoc(p, :tags))
-    |> preload([_, t], tags: t)
+    |> join(:left, [p], _ in assoc(p, :post_tags))
+    |> preload([_, p], post_tags: p)
   end
 
   defp get_visibility_level(_user, nil), do: ["public"]
@@ -78,7 +78,7 @@ defmodule Vutuv.Publications do
   defp get_visibility_level(user, current_user) do
     followers = Repo.preload(user, :followers).followers
 
-    if current_user.id in Enum.map(followers, & &1.id) do
+    if current_user.id in Enum.map(followers, & &1.follower_id) do
       ["public", "followers"]
     else
       ["public"]
@@ -120,14 +120,5 @@ defmodule Vutuv.Publications do
   @spec change_post(Post.t()) :: Ecto.Changeset.t()
   def change_post(%Post{} = post) do
     Post.changeset(post, %{})
-  end
-
-  @doc """
-  Adds an association between a post and existing tags.
-  """
-  @spec add_post_tags(Post.t(), list) :: {:ok, Post.t()} | changeset_error
-  def add_post_tags(%Post{} = post, tag_ids) do
-    tags = Tag |> where([t], t.id in ^tag_ids) |> Repo.all()
-    post |> Repo.preload([:tags]) |> Post.post_tag_changeset(tags) |> Repo.update()
   end
 end

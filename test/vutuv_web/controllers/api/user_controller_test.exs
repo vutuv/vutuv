@@ -1,8 +1,6 @@
 defmodule VutuvWeb.Api.UserControllerTest do
   use VutuvWeb.ConnCase
 
-  import VutuvWeb.AuthTestHelpers
-
   alias Vutuv.UserProfiles
 
   @create_attrs %{
@@ -49,7 +47,7 @@ defmodule VutuvWeb.Api.UserControllerTest do
   end
 
   describe "updates user" do
-    setup [:add_user_session]
+    setup [:create_user_with_token]
 
     test "updates chosen user when data is valid", %{conn: conn, user: user} do
       attrs = %{"full_name" => "Raymond Luxury Yacht"}
@@ -73,7 +71,7 @@ defmodule VutuvWeb.Api.UserControllerTest do
   end
 
   describe "delete user" do
-    setup [:add_user_session]
+    setup [:create_user_with_token]
 
     test "deletes chosen user", %{conn: conn, user: user} do
       conn = delete(conn, Routes.api_user_path(conn, :delete, user))
@@ -89,7 +87,7 @@ defmodule VutuvWeb.Api.UserControllerTest do
     end
   end
 
-  defp add_user_session(%{conn: conn}) do
+  defp create_user_with_token(%{conn: conn}) do
     user = add_user("reg@example.com")
     conn = conn |> add_token_conn(user)
     {:ok, %{conn: conn, user: user}}
