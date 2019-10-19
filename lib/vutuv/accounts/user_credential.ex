@@ -13,6 +13,7 @@ defmodule Vutuv.Accounts.UserCredential do
           password_hash: String.t(),
           otp_secret: String.t(),
           confirmed: boolean,
+          is_admin: boolean,
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
         }
@@ -22,6 +23,7 @@ defmodule Vutuv.Accounts.UserCredential do
     field :password_hash, :string
     field :otp_secret, :string
     field :confirmed, :boolean, default: false
+    field :is_admin, :boolean, default: false
 
     belongs_to :user, User
 
@@ -63,4 +65,8 @@ defmodule Vutuv.Accounts.UserCredential do
   end
 
   defp put_pass_hash(changeset), do: changeset
+
+  def admin_changeset(user_credential, attrs) do
+    cast(user_credential, attrs, [:is_admin])
+  end
 end

@@ -75,7 +75,7 @@ for user <- created_users do
 
   Enum.each(
     other_user_ids,
-    &UserConnections.create_user_connection(%{"followee_id" => user.id, "follower_id" => &1.id})
+    &Vutuv.UserConnections.create_user_connection(%{"followee_id" => user.id, "follower_id" => &1})
   )
 end
 
@@ -242,7 +242,7 @@ for user <- other_users_attrs do
 
   Enum.each(
     followee_ids,
-    &UserConnections.create_user_connection(%{"followee_id" => &1.id, "follower_id" => user.id})
+    &Vutuv.UserConnections.create_user_connection(%{"followee_id" => &1, "follower_id" => user.id})
   )
 
   for user_tag <- user_tags do
