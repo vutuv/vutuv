@@ -71,4 +71,13 @@ defmodule Vutuv.Accounts do
     |> UserCredential.admin_changeset(attrs)
     |> Repo.update()
   end
+
+  @doc """
+  Returns a boolean value stating if the the user has admin rights.
+  """
+  @spec user_is_admin?(integer) :: boolean
+  def user_is_admin?(id) do
+    with user_credential <- get_user_credential(%{"user_id" => id}),
+         do: user_credential.is_admin
+  end
 end

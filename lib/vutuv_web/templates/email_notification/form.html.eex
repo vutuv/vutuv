@@ -1,0 +1,23 @@
+<%= form_for @changeset, @action, [], fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p><%= gettext "Something went wrong. Please check the errors below." %></p>
+    </div>
+  <% end %>
+
+  <%= label f, :subject %>
+  <%= text_input f, :subject %>
+  <%= error_tag f, :subject %>
+
+  <%= label f, :body %>
+  <%= text_input f, :body %>
+  <%= error_tag f, :body %>
+
+  <%= label f, :delivered %>
+  <%= checkbox f, :delivered %>
+  <%= error_tag f, :delivered %>
+
+  <div>
+    <%= submit gettext("Save") %>
+  </div>
+<% end %>

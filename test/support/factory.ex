@@ -54,6 +54,15 @@ defmodule Vutuv.Factory do
     }
   end
 
+  def email_notification_factory do
+    %Vutuv.Notifications.EmailNotification{
+      owner: build(:user),
+      subject: Faker.Company.name(),
+      body: Faker.Lorem.Shakespeare.romeo_and_juliet(),
+      delivered: false
+    }
+  end
+
   def post_factory do
     %Vutuv.Publications.Post{
       user: build(:user),

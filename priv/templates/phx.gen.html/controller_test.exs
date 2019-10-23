@@ -36,7 +36,7 @@ defmodule <%= inspect context.web_module %>.<%= inspect Module.concat(schema.web
     end
   end
 
-  describe "write work_experience" do
+  describe "write <%= schema.plural %>" do
     test "redirects to show when data is valid", %{conn: conn} do
       conn = post(conn, Routes.<%= schema.route_helper %>_path(conn, :create), <%= schema.singular %>: @create_attrs)
 

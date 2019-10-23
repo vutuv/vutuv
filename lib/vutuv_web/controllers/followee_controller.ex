@@ -54,7 +54,7 @@ defmodule VutuvWeb.FolloweeController do
   end
 
   defp current_user_check(%{id: user_id}, %{"follower_id" => follower_id}) do
-    user_id == follower_id
+    to_string(user_id) == follower_id
   end
 
   defp current_user_check(%{id: user_id}, %{follower_id: follower_id}) do

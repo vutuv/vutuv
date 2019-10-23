@@ -21,9 +21,6 @@
           <% else %>
             <%= link gettext("View profile"), to: Routes.user_path(@conn, :show, user) %>
           <% end %>
-          <%= if assigns[:current_user] && @current_user.id == user.id do %>
-            <%= link gettext("Edit"), to: Routes.user_path(@conn, :edit, user) %>
-          <% end %>
         </td>
       </tr>
     <% end %>

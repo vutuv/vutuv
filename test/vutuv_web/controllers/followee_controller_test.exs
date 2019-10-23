@@ -28,7 +28,7 @@ defmodule VutuvWeb.FolloweeControllerTest do
 
     test "creates a followee if follower is current_user", %{conn: conn, user: user} do
       other = insert(:user)
-      create_attrs = %{"followee_id" => other.id, "follower_id" => user.id}
+      create_attrs = %{"followee_id" => other.id, "follower_id" => to_string(user.id)}
       conn = post(conn, Routes.user_followee_path(conn, :create, other), followee: create_attrs)
       assert redirected_to(conn) == Routes.user_path(conn, :show, other)
       assert get_flash(conn, :info) =~ "Following user"

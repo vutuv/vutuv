@@ -10,6 +10,7 @@ defmodule Vutuv.UserProfiles.User do
   alias Vutuv.{
     Accounts.UserCredential,
     Biographies.WorkExperience,
+    Notifications.EmailNotification,
     Publications.Post,
     Sessions.Session,
     SocialNetworks.SocialMediaAccount,
@@ -33,6 +34,7 @@ defmodule Vutuv.UserProfiles.User do
           noindex: boolean,
           addresses: [Address.t()] | %Ecto.Association.NotLoaded{},
           email_addresses: [EmailAddress.t()] | %Ecto.Association.NotLoaded{},
+          email_notifications: [EmailNotification.t()] | %Ecto.Association.NotLoaded{},
           followees: [UserConnection.t()] | %Ecto.Association.NotLoaded{},
           followers: [UserConnection.t()] | %Ecto.Association.NotLoaded{},
           phone_numbers: [PhoneNumber.t()] | %Ecto.Association.NotLoaded{},
@@ -64,6 +66,11 @@ defmodule Vutuv.UserProfiles.User do
 
     has_many :addresses, Address, on_delete: :delete_all
     has_many :email_addresses, EmailAddress, on_delete: :delete_all
+
+    has_many :email_notifications, EmailNotification,
+      foreign_key: :owner_id,
+      on_delete: :delete_all
+
     has_many :phone_numbers, PhoneNumber, on_delete: :delete_all
     has_many :posts, Post, on_delete: :delete_all
     has_many :sessions, Session, on_delete: :delete_all

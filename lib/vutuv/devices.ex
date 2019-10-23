@@ -38,7 +38,7 @@ defmodule Vutuv.Devices do
   Returns a list of a user's email_addresses.
   """
   @spec list_email_addresses(User.t()) :: [EmailAddress.t()]
-  def list_email_addresses(user) do
+  def list_email_addresses(%User{} = user) do
     Repo.all(assoc(user, :email_addresses))
   end
 

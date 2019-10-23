@@ -1,0 +1,25 @@
+<h1><%= gettext "Email notification" %></h1>
+
+<ul>
+
+  <li>
+    <strong>Subject:</strong>
+    <%= @email_notification.subject %>
+  </li>
+
+  <li>
+    <strong>Body:</strong>
+    <%= @email_notification.body %>
+  </li>
+
+  <li>
+    <strong>Delivered:</strong>
+    <%= @email_notification.delivered %>
+  </li>
+
+</ul>
+
+<%= if assigns[:current_user] do %>
+<span><%= link gettext("Edit"), to: Routes.user_email_notification_path(@conn, :edit, @current_user, @email_notification) %></span>
+<span><%= link gettext("Back"), to: Routes.user_email_notification_path(@conn, :index, @current_user) %></span>
+<% end %>
