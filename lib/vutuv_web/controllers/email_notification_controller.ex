@@ -5,6 +5,7 @@ defmodule VutuvWeb.EmailNotificationController do
 
   alias Vutuv.{Accounts, Notifications}
   alias Vutuv.Notifications.EmailNotification
+  alias VutuvWeb.EmailNotifications
 
   @dialyzer {:nowarn_function, new: 3}
 
@@ -16,8 +17,7 @@ defmodule VutuvWeb.EmailNotificationController do
     end
   end
 
-  # change this to need_login?
-  def action(conn, _), do: auth_action_slug(conn, __MODULE__)
+  def action(conn, _), do: need_login(conn)
 
   def index(conn, _params, current_user) do
     email_notifications = Notifications.list_email_notifications(current_user)
@@ -32,8 +32,10 @@ defmodule VutuvWeb.EmailNotificationController do
   def create(conn, %{"email_notification" => email_notification_params}, current_user) do
     case Notifications.create_email_notification(current_user, email_notification_params) do
       {:ok, email_notification} ->
+        msg = send_emails(email_notification, email_notification_params, "created")
+
         conn
-        |> put_flash(:info, gettext("Email notification created successfully."))
+        |> put_flash(:info, gettext("Email notification %{msg} successfully.", msg: msg))
         |> redirect(
           to: Routes.user_email_notification_path(conn, :show, current_user, email_notification)
         )
@@ -59,8 +61,10 @@ defmodule VutuvWeb.EmailNotificationController do
 
     case Notifications.update_email_notification(email_notification, email_notification_params) do
       {:ok, email_notification} ->
+        msg = send_emails(email_notification, email_notification_params, "updated")
+
         conn
-        |> put_flash(:info, gettext("Email notification updated successfully."))
+        |> put_flash(:info, gettext("Email notification %{msg} successfully.", msg: msg))
         |> redirect(
           to: Routes.user_email_notification_path(conn, :show, current_user, email_notification)
         )
@@ -78,4 +82,11 @@ defmodule VutuvWeb.EmailNotificationController do
     |> put_flash(:info, gettext("Email notification deleted successfully."))
     |> redirect(to: Routes.user_email_notification_path(conn, :index, current_user))
   end
+
+  def send_emails(email_notification, %{"send_now" => true}, default) do
+    EmailNotifications.send_emails(email_notification)
+    "#{default} and sent"
+  end
+
+  def send_emails(_, _, default), do: default
 end

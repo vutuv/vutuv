@@ -5,17 +5,17 @@
     </div>
   <% end %>
 
-  <%= label f, :subject %>
+  <%= label f, :subject, gettext("Subject") %>
   <%= text_input f, :subject %>
   <%= error_tag f, :subject %>
 
-  <%= label f, :body %>
+  <%= label f, :body, gettext("Body") %>
   <%= text_input f, :body %>
   <%= error_tag f, :body %>
 
-  <%= label f, :delivered %>
-  <%= checkbox f, :delivered %>
-  <%= error_tag f, :delivered %>
+  <%= label f, :send_now, gettext("Send now") %>
+  <%= checkbox f, :send_now %>
+  <%= error_tag f, :send_now %>
 
   <div>
     <%= submit gettext("Save") %>

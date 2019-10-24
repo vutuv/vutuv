@@ -6,7 +6,7 @@ defmodule VutuvWeb.EmailNotificationControllerTest do
   @create_attrs %{
     "subject" => "Welcome to Vutuv",
     "body" => "This is a blablabla ...",
-    "delivered" => false
+    "send_now" => false
   }
   @invalid_attrs %{"body" => ""}
 

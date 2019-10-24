@@ -44,7 +44,7 @@ defmodule VutuvWeb.UserControllerTest do
       user = add_user("reg@example.com")
       conn = get(conn, Routes.user_path(conn, :show, user))
       response = html_response(conn, 200)
-      assert response =~ ~r/Followers(.|\n)*Email addresses/
+      assert response =~ ~r/Email addresses(.|\n)*Followers/
       refute response =~ "Edit email"
     end
 

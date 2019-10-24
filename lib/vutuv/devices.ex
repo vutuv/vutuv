@@ -12,6 +12,14 @@ defmodule Vutuv.Devices do
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 
   @doc """
+  Returns a list of primary email_addresses.
+  """
+  @spec list_primary_email_addresses() :: [EmailAddress.t()]
+  def list_primary_email_addresses() do
+    EmailAddress |> where([e], e.position == 1) |> Repo.all()
+  end
+
+  @doc """
   Returns a list of unverified email addresses.
 
   This is used by the EmailManager, which is responsible for handling
