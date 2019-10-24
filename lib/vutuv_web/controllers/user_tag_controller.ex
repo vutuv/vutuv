@@ -3,11 +3,28 @@ defmodule VutuvWeb.UserTagController do
 
   import VutuvWeb.Authorize
 
-  alias Vutuv.{Tags, Tags.UserTag}
+  alias Vutuv.{Tags, Tags.UserTag, UserProfiles, UserProfiles.User}
 
   @dialyzer {:nowarn_function, new: 3}
 
-  def action(conn, _), do: auth_action_slug(conn, __MODULE__)
+  def action(conn, _) do
+    if action_name(conn) in [:index] do
+      apply(__MODULE__, action_name(conn), [conn, conn.params, conn.assigns.current_user])
+    else
+      auth_action_slug(conn, __MODULE__)
+    end
+  end
+
+  def index(conn, %{"user_slug" => slug}, %User{slug: slug} = current_user) do
+    user_tags = Tags.list_user_tags(current_user)
+    render(conn, "index.html", user_tags: user_tags, user: current_user)
+  end
+
+  def index(conn, %{"user_slug" => slug}, _current_user) do
+    user = UserProfiles.get_user!(%{"slug" => slug})
+    user_tags = Tags.list_user_tags(user)
+    render(conn, "index.html", user_tags: user_tags, user: user)
+  end
 
   def new(conn, _params, _current_user) do
     changeset = Tags.change_user_tag(%UserTag{})

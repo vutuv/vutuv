@@ -107,7 +107,7 @@ defmodule Vutuv.Tags do
   def list_user_tags(%User{} = user) do
     assoc(user, :user_tags)
     |> Repo.all()
-    |> Repo.preload(:tag)
+    |> Repo.preload([:tag, :user_tag_endorsements])
   end
 
   @doc """

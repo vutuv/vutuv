@@ -28,7 +28,7 @@ defmodule VutuvWeb.Router do
       resources "/followees", FolloweeController, only: [:index, :create, :delete]
       resources "/posts", PostController
       resources "/social_media_accounts", SocialMediaAccountController
-      resources "/tags", UserTagController, only: [:new, :create, :delete], as: :tag
+      resources "/tags", UserTagController, only: [:index, :new, :create, :delete], as: :tag
 
       resources "/user_tag_endorsements", UserTagEndorsementController,
         only: [:create, :delete],

@@ -10,7 +10,7 @@
   <%= error_tag f, :subject %>
 
   <%= label f, :body, gettext("Body") %>
-  <%= text_input f, :body %>
+  <%= textarea f, :body %>
   <%= error_tag f, :body %>
 
   <%= label f, :send_now, gettext("Send now") %>

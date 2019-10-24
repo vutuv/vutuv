@@ -23,6 +23,10 @@
   ] %>
   <%= error_tag f, :visibility_level %>
 
+  <%= inputs_for f, :post_tags, fn fp -> %>
+    <%= text_input fp, :name %>
+  <% end %>
+
   <div>
     <%= submit gettext("Save") %>
   </div>

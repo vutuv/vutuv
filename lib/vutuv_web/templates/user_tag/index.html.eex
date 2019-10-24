@@ -1,0 +1,38 @@
+<h1><%= @user.full_name %> <%= gettext "user_tags" %></h1>
+
+<%= if @user_tags == [] do %>
+<h3><%= @user.full_name %> <%= gettext "has no user tags yet" %></h3>
+<% else %>
+<table>
+  <thead>
+    <tr>
+      <th><%= gettext "Name" %></th>
+      <th><%= gettext "Number of endorsements" %></th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for user_tag <- @user_tags do %>
+    <tr>
+      <td><%= user_tag.tag.name %></td>
+      <td><%= Enum.count(user_tag.user_tag_endorsements) %></td>
+
+      <td>
+        <%= if assigns[:current_user] && @current_user.id == @user.id do %>
+          <li>
+            <%= form_for @conn, Routes.user_tag_path(@conn, :delete, @current_user, user_tag), [method: "delete"], fn _f -> %>
+            <%= submit gettext("Delete"), class: "link" %>
+          <% end %>
+          </li>
+        <% end %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+<% end %>
+
+<%= if assigns[:current_user] && @current_user.id == @user.id do %>
+  <span><%= link gettext("New user tag"), to: Routes.user_tag_path(@conn, :new, @current_user) %></span>
+<% end %>

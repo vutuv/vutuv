@@ -9,6 +9,14 @@ defmodule VutuvWeb.UserTagControllerTest do
     {:ok, %{conn: conn, user: user}}
   end
 
+  describe "read user_tags" do
+    test "list a user's user_tags", %{conn: conn, user: user} do
+      user_tag = insert(:user_tag, %{user: user})
+      conn = get(conn, Routes.user_tag_path(conn, :index, user))
+      assert html_response(conn, 200) =~ user_tag.tag.name
+    end
+  end
+
   describe "renders forms" do
     setup [:add_session_to_conn]
 

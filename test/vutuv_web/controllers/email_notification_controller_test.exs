@@ -95,7 +95,20 @@ defmodule VutuvWeb.EmailNotificationControllerTest do
 
       conn = get(conn, Routes.user_email_notification_path(conn, :show, user, id))
       assert html_response(conn, 200) =~ "Email notification"
-      assert get_flash(conn, :info) =~ "created successfully"
+      assert get_flash(conn, :info) =~ "notification created successfully"
+    end
+
+    test "email is sent when send_now is set to true", %{conn: conn, user: user} do
+      create_attrs = Map.merge(@create_attrs, %{"send_now" => true})
+
+      conn =
+        post(conn, Routes.user_email_notification_path(conn, :create, user),
+          email_notification: create_attrs
+        )
+
+      assert %{id: id} = redirected_params(conn)
+      assert redirected_to(conn) == Routes.user_email_notification_path(conn, :show, user, id)
+      assert get_flash(conn, :info) =~ "notification created and sent successfully"
     end
 
     test "create renders errors when data is invalid", %{conn: conn, user: user} do
