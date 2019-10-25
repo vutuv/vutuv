@@ -91,8 +91,16 @@ main {
   box-shadow: 0 0 1.0rem #404040;
   padding: 1.5rem 3.0rem;
 }
+.user-grid {
+  display: grid;
+  grid-gap: 1.5rem;
+}
 .card {
-  background-color: #e8e8e8;
+  width: 100%;
+  background-color: #f8f8f8;
+  padding: 1.5rem;
+  box-shadow: 0 0 0.5rem #888888;
+  margin: 1.5rem auto;
 }
 .profile-header {
   display: flex;
@@ -128,6 +136,9 @@ footer {
   background-color: #495057;
   color: #e6e6e6;
   text-align: center;
+}
+footer form {
+  margin: 0;
 }
 footer ul {
   max-width: 112.0rem;
@@ -172,5 +183,8 @@ button.link {
   }
   footer {
     text-align: left;
+  }
+  .user-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

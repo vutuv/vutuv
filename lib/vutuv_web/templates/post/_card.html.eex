@@ -23,4 +23,8 @@
       </tbody>
     </table>
   <% end %>
+
+  <%= if assigns[:current_user] && @current_user.id == @user.id do %>
+    <span><%= link gettext("New post"), to: Routes.user_post_path(@conn, :new, @current_user) %></span>
+  <% end %>
 </section>

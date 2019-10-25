@@ -41,4 +41,10 @@ defmodule VutuvWeb.ViewUtils do
       month - 1
     )
   end
+
+  def sort_user_tags(user_tags, limit) do
+    user_tags
+    |> Enum.sort(&(Enum.count(&1.user_tag_endorsements) <= Enum.count(&2.user_tag_endorsements)))
+    |> Enum.take(limit)
+  end
 end

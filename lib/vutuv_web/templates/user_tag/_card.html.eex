@@ -1,5 +1,5 @@
 <section class="card">
-  <h2><%= gettext "Tags" %></h2>
+  <h2><%= gettext "User tags" %></h2>
 
   <ul class="tags">
     <%= for user_tag <- @user_tags do %>
@@ -11,4 +11,6 @@
       </li>
     <% end %>
   </ul>
+
+  <span><%= link gettext("All user tags"), to: Routes.user_tag_path(@conn, :index, @user) %></span>
 </section>

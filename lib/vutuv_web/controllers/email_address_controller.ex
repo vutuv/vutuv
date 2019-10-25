@@ -10,18 +10,18 @@ defmodule VutuvWeb.EmailAddressController do
 
   def action(conn, _), do: auth_action_slug(conn, __MODULE__)
 
-  def index(conn, _params, user) do
-    email_addresses = Devices.list_email_addresses(user)
+  def index(conn, _params, current_user) do
+    email_addresses = Devices.list_email_addresses(current_user)
     render(conn, "index.html", email_addresses: email_addresses)
   end
 
-  def new(conn, _params, _user) do
+  def new(conn, _params, _current_user) do
     changeset = Devices.change_email_address(%EmailAddress{})
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"email_address" => email_address_params}, user) do
-    case Devices.create_email_address(user, email_address_params) do
+  def create(conn, %{"email_address" => email_address_params}, current_user) do
+    case Devices.create_email_address(current_user, email_address_params) do
       {:ok, email_address} ->
         verify_email(conn, %{"email" => email_address.value}, "verify this email address", true)
 
@@ -56,37 +56,37 @@ defmodule VutuvWeb.EmailAddressController do
     |> redirect(to: Routes.verification_path(conn, :new, email: email))
   end
 
-  def show(conn, %{"id" => id}, user) do
-    email_address = Devices.get_email_address!(user, id)
+  def show(conn, %{"id" => id}, current_user) do
+    email_address = Devices.get_email_address!(current_user, id)
     render(conn, "show.html", email_address: email_address)
   end
 
-  def edit(conn, %{"id" => id}, user) do
-    email_address = Devices.get_email_address!(user, id)
+  def edit(conn, %{"id" => id}, current_user) do
+    email_address = Devices.get_email_address!(current_user, id)
     changeset = Devices.change_email_address(email_address)
     render(conn, "edit.html", email_address: email_address, changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "email_address" => email_address_params}, user) do
-    email_address = Devices.get_email_address!(user, id)
+  def update(conn, %{"id" => id, "email_address" => email_address_params}, current_user) do
+    email_address = Devices.get_email_address!(current_user, id)
 
     case Devices.update_email_address(email_address, email_address_params) do
       {:ok, email_address} ->
         conn
         |> put_flash(:info, gettext("Email address updated successfully."))
-        |> redirect(to: Routes.user_email_address_path(conn, :show, user, email_address))
+        |> redirect(to: Routes.user_email_address_path(conn, :show, current_user, email_address))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", email_address: email_address, changeset: changeset)
     end
   end
 
-  def delete(conn, %{"id" => id}, user) do
-    email_address = Devices.get_email_address!(user, id)
+  def delete(conn, %{"id" => id}, current_user) do
+    email_address = Devices.get_email_address!(current_user, id)
     {:ok, _email_address} = Devices.delete_email_address(email_address)
 
     conn
     |> put_flash(:info, gettext("Email address deleted successfully."))
-    |> redirect(to: Routes.user_email_address_path(conn, :index, user))
+    |> redirect(to: Routes.user_email_address_path(conn, :index, current_user))
   end
 end

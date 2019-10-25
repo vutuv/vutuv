@@ -40,5 +40,5 @@
 <% end %>
 
 <%= if assigns[:current_user] && @current_user.id == @user.id do %>
-<span><%= link gettext("New address"), to: Routes.user_address_path(@conn, :new, @current_user) %></span>
+  <span><%= link gettext("New address"), to: Routes.user_address_path(@conn, :new, @current_user) %></span>
 <% end %>

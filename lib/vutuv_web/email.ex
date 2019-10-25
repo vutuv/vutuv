@@ -17,7 +17,19 @@ defmodule VutuvWeb.Email do
   """
 
   import Bamboo.Email
+
   alias VutuvWeb.Mailer
+
+  @doc """
+  A notification email.
+  """
+  def notification(address, subject, body) do
+    address
+    |> base_email()
+    |> subject(subject)
+    |> text_body(body)
+    |> Mailer.deliver_later()
+  end
 
   @doc """
   An email with a verification link in it.

@@ -8,4 +8,4 @@
   <% end %>
 
   <span><%= link gettext("All following"), to: Routes.user_followee_path(@conn, :index, @user) %></span><br>
-<section class="card">
+</section>

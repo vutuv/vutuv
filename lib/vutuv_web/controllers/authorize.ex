@@ -52,7 +52,10 @@ defmodule VutuvWeb.Authorize do
     |> halt()
   end
 
-  defp need_login(conn) do
+  @doc """
+  Redirects user when user is not authenticated - current_user is nil.
+  """
+  def need_login(conn) do
     conn
     |> put_session(:request_path, current_path(conn))
     |> put_flash(:error, gettext("You need to log in to view this page"))

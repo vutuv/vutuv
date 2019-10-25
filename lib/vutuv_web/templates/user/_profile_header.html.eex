@@ -10,7 +10,7 @@
     <h4><%= ngettext "1 follower", "%{count} followers", Vutuv.UserConnections.follower_count(@user) %></h4>
 
     <%= if assigns[:current_user] && @current_user.id != @user.id do %>
-      <%= if user_connection = Vutuv.UserConnections.get_user_connection(@current_user, @user) do %>
+      <%= if user_connection = Vutuv.UserConnections.get_user_connection(@user, @current_user) do %>
         <%= form_for @conn, Routes.user_followee_path(@conn, :delete, @user, user_connection.id), [method: "delete"], fn _f -> %>
           <%= submit gettext("Unfollow"), class: "link" %>
         <% end %>

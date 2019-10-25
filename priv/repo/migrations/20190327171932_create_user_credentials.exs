@@ -7,6 +7,7 @@ defmodule Vutuv.Repo.Migrations.CreateUserCredentials do
       add :password_hash, :string
       add :otp_secret, :string
       add :confirmed, :boolean, default: false, null: false
+      add :is_admin, :boolean, default: false, null: false
 
       timestamps()
     end

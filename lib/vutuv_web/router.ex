@@ -23,11 +23,12 @@ defmodule VutuvWeb.Router do
     resources "/users", UserController, except: [:new], param: "slug" do
       resources "/addresses", AddressController
       resources "/email_addresses", EmailAddressController
+      resources "/email_notifications", EmailNotificationController
       resources "/followers", FollowerController, only: [:index]
       resources "/followees", FolloweeController, only: [:index, :create, :delete]
       resources "/posts", PostController
       resources "/social_media_accounts", SocialMediaAccountController
-      resources "/tags", UserTagController, only: [:new, :create, :delete], as: :tag
+      resources "/tags", UserTagController, only: [:index, :new, :create, :delete], as: :tag
 
       resources "/user_tag_endorsements", UserTagEndorsementController,
         only: [:create, :delete],
