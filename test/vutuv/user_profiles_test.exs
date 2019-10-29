@@ -107,6 +107,20 @@ defmodule Vutuv.UserProfilesTest do
       assert user.noindex == true
     end
 
+    test "subscribe_emails is correctly set in create_user/1" do
+      assert {:ok, %User{} = user} = UserProfiles.create_user(@create_user_attrs)
+      assert user.subscribe_emails == true
+
+      attrs =
+        Map.merge(@create_user_attrs, %{
+          "email" => "froderick@example.com",
+          "subscribe_emails" => false
+        })
+
+      assert {:ok, %User{} = user} = UserProfiles.create_user(attrs)
+      assert user.subscribe_emails == false
+    end
+
     test "create_user/1 with invalid data returns error changeset" do
       invalid_attrs = Map.merge(@create_user_attrs, %{"email" => ""})
       assert {:error, %Ecto.Changeset{} = changeset} = UserProfiles.create_user(invalid_attrs)

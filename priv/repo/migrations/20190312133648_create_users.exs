@@ -15,6 +15,7 @@ defmodule Vutuv.Repo.Migrations.CreateUsers do
       add :avatar, :string
       add :headline, :string
       add :noindex, :boolean, default: false, null: false
+      add :subscribe_emails, :boolean, default: false, null: true
 
       timestamps()
     end
