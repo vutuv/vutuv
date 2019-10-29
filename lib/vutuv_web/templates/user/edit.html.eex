@@ -58,6 +58,10 @@
   <%= text_input f, :headline %>
   <%= error_tag f, :headline %>
 
+  <%= label f, :subscribe_emails, gettext("Subscribe to emails from Vutuv") %>
+  <%= checkbox f, :subscribe_emails, value: true %>
+  <%= error_tag f, :subscribe_emails %>
+
   <%= label f, :noindex, gettext("Prevent search engines from indexing your profile") %>
   <%= checkbox f, :noindex, value: @user.noindex %>
   <%= error_tag f, :noindex %>

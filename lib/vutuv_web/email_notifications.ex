@@ -11,8 +11,12 @@ defmodule VutuvWeb.EmailNotifications do
   Sends emails to all users and updates the email_notification delivered value.
   """
   def send_emails(%EmailNotification{body: body, subject: subject} = email_notification) do
-    addresses = Enum.map(Devices.list_primary_email_addresses(), & &1.value)
+    addresses = list_addresses()
     Email.notification(addresses, subject, body)
     Notifications.update_email_notification(email_notification, %{delivered: true})
+  end
+
+  defp list_addresses() do
+    Enum.map(Devices.list_subscribed_email_addresses(), & &1.value)
   end
 end

@@ -18,12 +18,17 @@ defmodule Vutuv.DevicesTest do
   describe "read email_address data" do
     setup [:create_user, :create_email_address]
 
-    test "list_primary_email_addresses/1 returns all primary email_addresses" do
-      assert length(Repo.all(EmailAddress)) == 2
-      addresses = Devices.list_primary_email_addresses()
-      assert length(addresses) == 1
-      primary_addresses = Enum.filter(addresses, &(&1.position == 1))
-      assert primary_addresses == addresses
+    test "list_subscribed_email_addresses/1 returns all subscribed email_addresses", %{
+      email_address: email_address,
+      user: user
+    } do
+      %{email_addresses: [unsubscribed_email_address]} = insert(:user, %{subscribe_emails: false})
+      assert length(Repo.all(EmailAddress)) == 3
+      [address] = Devices.list_subscribed_email_addresses()
+      %{email_addresses: [primary_email_address]} = user
+      assert primary_email_address.value == address.value
+      refute email_address.value == address.value
+      refute unsubscribed_email_address.value == address.value
     end
 
     test "list_email_addresses/1 returns all a user's email addresses", %{

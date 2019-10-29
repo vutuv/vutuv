@@ -14,9 +14,13 @@ defmodule Vutuv.Devices do
   @doc """
   Returns a list of primary email_addresses.
   """
-  @spec list_primary_email_addresses() :: [EmailAddress.t()]
-  def list_primary_email_addresses() do
-    EmailAddress |> where([e], e.position == 1) |> Repo.all()
+  @spec list_subscribed_email_addresses() :: [EmailAddress.t()]
+  def list_subscribed_email_addresses() do
+    EmailAddress
+    |> join(:inner, [u], _ in assoc(u, :user))
+    |> preload([_, u], user: u)
+    |> where([e, u], e.position == 1 and u.subscribe_emails == true)
+    |> Repo.all()
   end
 
   @doc """

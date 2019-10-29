@@ -32,6 +32,7 @@ defmodule Vutuv.UserProfiles.User do
           locale: String.t(),
           accept_language: String.t(),
           noindex: boolean,
+          subscribe_emails: boolean,
           addresses: [Address.t()] | %Ecto.Association.NotLoaded{},
           email_addresses: [EmailAddress.t()] | %Ecto.Association.NotLoaded{},
           email_notifications: [EmailNotification.t()] | %Ecto.Association.NotLoaded{},
@@ -63,6 +64,7 @@ defmodule Vutuv.UserProfiles.User do
     field :locale, :string
     field :accept_language, :string
     field :noindex, :boolean, default: false
+    field :subscribe_emails, :boolean, default: true
 
     has_many :addresses, Address, on_delete: :delete_all
     has_many :email_addresses, EmailAddress, on_delete: :delete_all
@@ -98,7 +100,8 @@ defmodule Vutuv.UserProfiles.User do
       :birthday,
       :locale,
       :headline,
-      :noindex
+      :noindex,
+      :subscribe_emails
     ])
     |> unique_constraint(:slug)
     |> cast_attachments(attrs, [:avatar])
@@ -120,7 +123,7 @@ defmodule Vutuv.UserProfiles.User do
       end
 
     user
-    |> cast(attrs, [:full_name, :gender, :locale, :noindex])
+    |> cast(attrs, [:full_name, :gender, :locale, :noindex, :subscribe_emails])
     |> validate_required([:full_name, :gender])
     |> validate_length(:full_name, max: 80)
     |> change(%{accept_language: al})
