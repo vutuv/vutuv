@@ -11,6 +11,8 @@ defmodule Vutuv.Accounts.UserCredential do
           user_id: integer,
           user: User.t() | %Ecto.Association.NotLoaded{},
           password_hash: String.t(),
+          password_reset_sent_at: DateTime.t(),
+          password_resettable: boolean,
           otp_secret: String.t(),
           confirmed: boolean,
           is_admin: boolean,
@@ -21,6 +23,8 @@ defmodule Vutuv.Accounts.UserCredential do
   schema "user_credentials" do
     field :password, :string, virtual: true
     field :password_hash, :string
+    field :password_reset_sent_at, :utc_datetime
+    field :password_resettable, :boolean, default: false
     field :otp_secret, :string
     field :confirmed, :boolean, default: false
     field :is_admin, :boolean, default: false
@@ -65,6 +69,10 @@ defmodule Vutuv.Accounts.UserCredential do
   end
 
   defp put_pass_hash(changeset), do: changeset
+
+  def password_reset_changeset(%__MODULE__{} = user_credential, attrs) do
+    cast(user_credential, attrs, [:password_reset_sent_at, :password_resettable])
+  end
 
   def admin_changeset(user_credential, attrs) do
     cast(user_credential, attrs, [:is_admin])
