@@ -41,11 +41,12 @@ defmodule VutuvWeb.Router do
     resources "/verifications", VerificationController, only: [:new, :create]
     post "/verifications/send_code", VerificationController, :send_code
 
-    resources "/password_resets", PasswordResetController, only: [:new, :create], param: "slug"
+    resources "/password_resets", PasswordResetController,
+      only: [:new, :create, :edit, :update],
+      singleton: true
+
     get "/password_resets/new_request", PasswordResetController, :new_request
     post "/password_resets/create_request", PasswordResetController, :create_request
-    get "/password_resets/edit", PasswordResetController, :edit
-    put "/password_resets/update", PasswordResetController, :update
   end
 
   scope "/api/v2", VutuvWeb.Api, as: :api do

@@ -63,6 +63,26 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
+  Sets a user's password_reset_status.
+  """
+  @spec set_password_reset_status(UserCredential.t(), map) ::
+          {:ok, UserCredential.t()} | changeset_error
+  def set_password_reset_status(%UserCredential{} = user_credential, attrs) do
+    user_credential
+    |> UserCredential.password_reset_changeset(attrs)
+    |> Repo.update()
+  end
+
+  def can_reset_password?(%UserCredential{
+        password_reset_sent_at: sent_at,
+        password_resettable: true
+      }) do
+    DateTime.compare(DateTime.add(sent_at, 600), DateTime.utc_now()) != :lt
+  end
+
+  def can_reset_password?(_), do: false
+
+  @doc """
   Sets the `is_admin` value.
   """
   @spec set_admin(UserCredential.t(), map) :: {:ok, UserCredential.t()} | changeset_error
