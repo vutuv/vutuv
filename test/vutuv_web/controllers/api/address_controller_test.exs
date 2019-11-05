@@ -103,11 +103,6 @@ defmodule VutuvWeb.Api.AddressControllerTest do
     end
   end
 
-  defp add_token_to_conn(%{conn: conn, user: user}) do
-    conn = conn |> add_token_conn(user)
-    {:ok, %{conn: conn, user: user}}
-  end
-
   defp single_response(address) do
     %{
       "id" => address.id,

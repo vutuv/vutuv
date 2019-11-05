@@ -24,8 +24,8 @@ defmodule VutuvWeb.Router do
       resources "/addresses", AddressController
       resources "/email_addresses", EmailAddressController
       resources "/email_notifications", EmailNotificationController
-      resources "/followers", FollowerController, only: [:index]
       resources "/followees", FolloweeController, only: [:index, :create, :delete]
+      resources "/followers", FollowerController, only: [:index]
       resources "/posts", PostController
       resources "/social_media_accounts", SocialMediaAccountController
       resources "/tags", UserTagController, only: [:index, :new, :create, :delete], as: :tag
@@ -55,6 +55,9 @@ defmodule VutuvWeb.Router do
     resources "/users", UserController, except: [:new, :edit], param: "slug" do
       resources "/addresses", AddressController, except: [:new, :edit]
       resources "/email_addresses", EmailAddressController, except: [:new, :edit]
+      resources "/followees", FolloweeController, only: [:index, :create, :delete]
+      resources "/followers", FollowerController, only: [:index]
+      resources "/posts", PostController, except: [:new, :edit]
       get "/vcard", VcardController, :vcard
     end
 

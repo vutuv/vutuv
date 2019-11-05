@@ -52,4 +52,9 @@ defmodule VutuvWeb.AuthTestHelpers do
     conn = conn |> add_session(user) |> send_resp(:ok, "/")
     {:ok, %{conn: conn, user: user}}
   end
+
+  def add_token_to_conn(%{conn: conn, user: user}) do
+    conn = conn |> add_token_conn(user)
+    {:ok, %{conn: conn, user: user}}
+  end
 end
