@@ -8,13 +8,7 @@ defmodule VutuvWeb.SocialMediaAccountController do
 
   @dialyzer {:nowarn_function, new: 3}
 
-  def action(conn, _) do
-    if action_name(conn) in [:index, :show] do
-      apply(__MODULE__, action_name(conn), [conn, conn.params, conn.assigns.current_user])
-    else
-      auth_action_slug(conn, __MODULE__)
-    end
-  end
+  def action(conn, _), do: auth_action_slug(conn, __MODULE__, [:index, :show])
 
   def index(conn, %{"user_slug" => slug}, %User{slug: slug} = current_user) do
     social_media_accounts = SocialNetworks.list_social_media_accounts(current_user)

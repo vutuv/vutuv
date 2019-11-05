@@ -12,6 +12,14 @@ defmodule VutuvWeb.Api.EmailAddressView do
   end
 
   def render("email_address.json", %{email_address: email_address}) do
-    %{id: email_address.id, value: email_address.value, user_id: email_address.user_id}
+    %{
+      id: email_address.id,
+      description: email_address.description,
+      is_public: email_address.is_public,
+      position: email_address.position,
+      user_id: email_address.user_id,
+      value: email_address.value,
+      verified: email_address.verified
+    }
   end
 end

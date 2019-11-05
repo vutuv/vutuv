@@ -53,6 +53,7 @@ defmodule VutuvWeb.Router do
     pipe_through :api
 
     resources "/users", UserController, except: [:new, :edit], param: "slug" do
+      resources "/addresses", AddressController, except: [:new, :edit]
       resources "/email_addresses", EmailAddressController, except: [:new, :edit]
       get "/vcard", VcardController, :vcard
     end

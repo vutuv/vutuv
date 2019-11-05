@@ -20,14 +20,8 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
   describe "index" do
     test "lists all entries on index", %{conn: conn, user: user, email_address: email_address} do
       conn = get(conn, Routes.api_user_email_address_path(conn, :index, user))
-
-      assert json_response(conn, 200)["data"] == [
-               %{
-                 "id" => email_address.id,
-                 "user_id" => email_address.user_id,
-                 "value" => email_address.value
-               }
-             ]
+      assert [new_email_address] = json_response(conn, 200)["data"]
+      assert new_email_address == single_response(email_address)
     end
   end
 
@@ -38,12 +32,7 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
       email_address: email_address
     } do
       conn = get(conn, Routes.api_user_email_address_path(conn, :show, user, email_address))
-
-      assert json_response(conn, 200)["data"] == %{
-               "id" => email_address.id,
-               "user_id" => email_address.user_id,
-               "value" => email_address.value
-             }
+      assert json_response(conn, 200)["data"] == single_response(email_address)
     end
 
     test "returns errors when current_user is nil", %{user: user, email_address: email_address} do
@@ -144,5 +133,17 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
 
       assert Devices.get_email_address!(other, email_address.id)
     end
+  end
+
+  defp single_response(email_address) do
+    %{
+      "id" => email_address.id,
+      "description" => email_address.description,
+      "is_public" => email_address.is_public,
+      "position" => email_address.position,
+      "user_id" => email_address.user_id,
+      "verified" => email_address.verified,
+      "value" => email_address.value
+    }
   end
 end

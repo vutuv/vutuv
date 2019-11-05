@@ -23,6 +23,20 @@ defmodule VutuvWeb.Api.Authorize do
   def auth_action_slug(conn, _), do: error(conn, :unauthorized, 401)
 
   @doc """
+  Similar to auth_action_slug/2, but does not check actions that are in the
+  `except` list.
+  """
+  def auth_action_slug(conn, module, except) do
+    action = action_name(conn)
+
+    if action in except do
+      apply(module, action, [conn, conn.params, conn.assigns.current_user])
+    else
+      auth_action_slug(conn, module)
+    end
+  end
+
+  @doc """
   Plug to only allow unauthenticated users to access the resource.
 
   See the session controller for an example.
