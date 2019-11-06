@@ -60,6 +60,11 @@ defmodule VutuvWeb.Router do
       resources "/posts", PostController, except: [:new, :edit]
       resources "/social_media_accounts", SocialMediaAccountController, except: [:new, :edit]
       resources "/tags", UserTagController, only: [:index, :create, :delete], as: :tag
+
+      resources "/user_tag_endorsements", UserTagEndorsementController,
+        only: [:create, :delete],
+        as: :tag_endorsement
+
       get "/vcard", VcardController, :vcard
     end
 
