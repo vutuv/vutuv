@@ -1,4 +1,4 @@
-defmodule VutuvWeb.SocialMediaAccountControllerTest do
+defmodule VutuvWeb.Api.SocialMediaAccountControllerTest do
   use VutuvWeb.ConnCase
 
   alias Vutuv.SocialNetworks
@@ -6,7 +6,6 @@ defmodule VutuvWeb.SocialMediaAccountControllerTest do
   @create_attrs %{provider: "Facebook", value: "arrr"}
 
   setup %{conn: conn} do
-    conn = conn |> bypass_through(VutuvWeb.Router, [:browser]) |> get("/")
     user = add_user("igor@example.com")
     {:ok, %{conn: conn, user: user}}
   end
@@ -14,59 +13,46 @@ defmodule VutuvWeb.SocialMediaAccountControllerTest do
   describe "read social media accounts" do
     test "lists a user's social media accounts", %{conn: conn, user: user} do
       social_media_account = insert(:social_media_account, %{user: user})
-      conn = get(conn, Routes.user_social_media_account_path(conn, :index, user))
-      assert html_response(conn, 200) =~ social_media_account.provider
+      conn = get(conn, Routes.api_user_social_media_account_path(conn, :index, user))
+      assert [new_social_media_account] = json_response(conn, 200)["data"]
+      assert new_social_media_account == single_response(social_media_account)
     end
 
     test "shows a specific public social media account", %{conn: conn, user: user} do
       social_media_account = insert(:social_media_account, %{user: user})
 
       conn =
-        get(conn, Routes.user_social_media_account_path(conn, :show, user, social_media_account))
+        get(
+          conn,
+          Routes.api_user_social_media_account_path(conn, :show, user, social_media_account)
+        )
 
-      assert html_response(conn, 200) =~ social_media_account.provider
-    end
-  end
-
-  describe "renders forms" do
-    setup [:add_session_to_conn]
-
-    test "new social media account form", %{conn: conn, user: user} do
-      conn = get(conn, Routes.user_social_media_account_path(conn, :new, user))
-      assert html_response(conn, 200) =~ "New social media account"
-    end
-
-    test "edit social media account form", %{conn: conn, user: user} do
-      social_media_account = insert(:social_media_account, %{user: user})
-
-      conn =
-        get(conn, Routes.user_social_media_account_path(conn, :edit, user, social_media_account))
-
-      assert html_response(conn, 200) =~ "Edit social media account"
+      assert json_response(conn, 200)["data"] == single_response(social_media_account)
     end
   end
 
   describe "write social media accounts" do
-    setup [:add_session_to_conn]
+    setup [:add_token_to_conn]
 
     test "create social media account with valid data", %{conn: conn, user: user} do
       conn =
-        post(conn, Routes.user_social_media_account_path(conn, :create, user),
+        post(conn, Routes.api_user_social_media_account_path(conn, :create, user),
           social_media_account: @create_attrs
         )
 
-      assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.user_social_media_account_path(conn, :show, user, id)
-      assert get_flash(conn, :info) =~ "created successfully"
+      assert json_response(conn, 201)["data"]["id"]
+      [new_social_media_account] = SocialNetworks.list_social_media_accounts(user)
+      assert new_social_media_account.provider == @create_attrs[:provider]
+      assert new_social_media_account.value == @create_attrs[:value]
     end
 
     test "does not create social media account when data is invalid", %{conn: conn, user: user} do
       conn =
-        post(conn, Routes.user_social_media_account_path(conn, :create, user),
+        post(conn, Routes.api_user_social_media_account_path(conn, :create, user),
           social_media_account: %{"provider" => ""}
         )
 
-      assert html_response(conn, 200) =~ "can&#39;t be blank"
+      assert json_response(conn, 422)["errors"]["provider"] == ["can't be blank"]
     end
 
     test "update social media account with valid data", %{conn: conn, user: user} do
@@ -75,14 +61,11 @@ defmodule VutuvWeb.SocialMediaAccountControllerTest do
       conn =
         put(
           conn,
-          Routes.user_social_media_account_path(conn, :update, user, social_media_account),
+          Routes.api_user_social_media_account_path(conn, :update, user, social_media_account),
           social_media_account: %{"provider" => "Twitter"}
         )
 
-      assert redirected_to(conn) ==
-               Routes.user_social_media_account_path(conn, :show, user, social_media_account)
-
-      assert get_flash(conn, :info) =~ "updated successfully"
+      assert json_response(conn, 200)["data"]["id"]
 
       social_media_account =
         SocialNetworks.get_social_media_account!(user, social_media_account.id)
@@ -96,16 +79,16 @@ defmodule VutuvWeb.SocialMediaAccountControllerTest do
       conn =
         put(
           conn,
-          Routes.user_social_media_account_path(conn, :update, user, social_media_account),
+          Routes.api_user_social_media_account_path(conn, :update, user, social_media_account),
           social_media_account: %{"provider" => nil}
         )
 
-      assert html_response(conn, 200) =~ "can&#39;t be blank"
+      assert json_response(conn, 422)["errors"]["provider"] == ["can't be blank"]
     end
   end
 
   describe "delete social media account" do
-    setup [:add_session_to_conn]
+    setup [:add_token_to_conn]
 
     test "can delete chosen social media account", %{conn: conn, user: user} do
       social_media_account = insert(:social_media_account, %{user: user})
@@ -113,11 +96,10 @@ defmodule VutuvWeb.SocialMediaAccountControllerTest do
       conn =
         delete(
           conn,
-          Routes.user_social_media_account_path(conn, :delete, user, social_media_account)
+          Routes.api_user_social_media_account_path(conn, :delete, user, social_media_account)
         )
 
-      assert redirected_to(conn) == Routes.user_social_media_account_path(conn, :index, user)
-      assert get_flash(conn, :info) =~ "deleted successfully"
+      assert response(conn, 204)
 
       assert_raise Ecto.NoResultsError, fn ->
         SocialNetworks.get_social_media_account!(user, social_media_account.id)
@@ -131,11 +113,20 @@ defmodule VutuvWeb.SocialMediaAccountControllerTest do
       assert_error_sent 404, fn ->
         delete(
           conn,
-          Routes.user_social_media_account_path(conn, :delete, user, social_media_account)
+          Routes.api_user_social_media_account_path(conn, :delete, user, social_media_account)
         )
       end
 
       assert SocialNetworks.get_social_media_account!(other, social_media_account.id)
     end
+  end
+
+  defp single_response(social_media_account) do
+    %{
+      "id" => social_media_account.id,
+      "user_id" => social_media_account.user_id,
+      "provider" => social_media_account.provider,
+      "value" => social_media_account.value
+    }
   end
 end

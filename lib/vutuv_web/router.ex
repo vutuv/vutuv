@@ -58,6 +58,7 @@ defmodule VutuvWeb.Router do
       resources "/followees", FolloweeController, only: [:index, :create, :delete]
       resources "/followers", FollowerController, only: [:index]
       resources "/posts", PostController, except: [:new, :edit]
+      resources "/social_media_accounts", SocialMediaAccountController, except: [:new, :edit]
       get "/vcard", VcardController, :vcard
     end
 
