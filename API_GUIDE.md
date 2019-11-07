@@ -4,22 +4,19 @@ This guide provides a brief overview of the Vutuv API.
 
 ## Routes
 
-Below is a list of api routes. The base url for each route, in development, is
-"http://localhost:4000/api/v2".
+Run `mix phx.routes` to get the list of routes. All the routes that start with `api/v2`
+are the API routes.
 
-| Route | Action | Method | Authorization |
-| :---- | :----- | :----- | :---------- |
-| "/users" | List users | GET | None |
-| "/users/:id" | Show user data | GET | None |
-| "/users" | Create user | POST | None |
-| "/users/:id" | Update user data | PUT | Token |
-| "/users/:id" | Delete user data | DELETE | Token |
-| "/sessions" | Create session | POST | Email address and password |
-| "/users/:user_id/email_addresses" | List email addresses | GET | Token |
-| "/users/:user_id/email_addresses/:id" | Show email address data | GET | Token |
-| "/users/:user_id/email_addresses" | Create email address | POST | Token |
-| "/users/:user_id/email_addresses/:id" | Update email address data | PUT | Token |
-| "/users/:user_id/email_addresses/:id" | Delete email address data | DELETE | Token |
+In development, the base url for all these routes is "http://localhost:4000/".
+
+## Authorization
+
+To access protected resources, you will get a token, by logging in, and use this token
+when accessing the resource. See the examples section below for examples of how you
+can do this with cURL.
+
+In general, you can view resources without being logged in, but if you want to create,
+update or delete resources, then you need to be authenticated.
 
 ## Examples with cURL
 

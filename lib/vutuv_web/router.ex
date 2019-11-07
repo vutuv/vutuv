@@ -66,9 +66,19 @@ defmodule VutuvWeb.Router do
         as: :tag_endorsement
 
       get "/vcard", VcardController, :vcard
+      resources "/work_experiences", WorkExperienceController, except: [:new, :edit]
     end
 
     post "/sessions", SessionController, :create
+    post "/verifications", VerificationController, :create
+    post "/verifications/send_code", VerificationController, :send_code
+
+    resources "/password_resets", PasswordResetController,
+      only: [:create, :update],
+      singleton: true
+
+    get "/password_resets/new_request", PasswordResetController, :new_request
+    post "/password_resets/create_request", PasswordResetController, :create_request
   end
 
   if Mix.env() == :dev do

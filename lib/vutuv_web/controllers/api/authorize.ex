@@ -69,7 +69,8 @@ defmodule VutuvWeb.Api.Authorize do
   end
 
   def error(conn, status, code) do
-    put_status(conn, status)
+    conn
+    |> put_status(status)
     |> put_view(VutuvWeb.AuthView)
     |> render("#{code}.json", [])
     |> halt()
