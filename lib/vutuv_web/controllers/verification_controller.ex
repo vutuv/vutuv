@@ -1,7 +1,7 @@
 defmodule VutuvWeb.VerificationController do
   use VutuvWeb, :controller
 
-  alias Vutuv.{Accounts, Devices}
+  alias Vutuv.{Accounts, Devices, UserProfiles}
   alias VutuvWeb.{Auth.Otp, Email}
 
   def new(conn, %{"email" => email}) do
@@ -16,7 +16,8 @@ defmodule VutuvWeb.VerificationController do
       email_address = Devices.get_email_address(%{"value" => email})
       unless user_credential.confirmed, do: Accounts.confirm_user(user_credential)
       Devices.verify_email_address(email_address)
-      Email.verify_success(email)
+      user = UserProfiles.get_user(user_credential.user_id)
+      Email.verify_success(email, user.locale)
 
       conn
       |> put_flash(:info, gettext("Your email has been verified"))
@@ -31,7 +32,8 @@ defmodule VutuvWeb.VerificationController do
   def send_code(conn, %{"email" => email}) do
     user_credential = Accounts.get_user_credential(%{"email" => email})
     code = Otp.create(user_credential.otp_secret)
-    Email.verify_request(email, code)
+    user = UserProfiles.get_user(user_credential.user_id)
+    Email.verify_request(email, code, user.locale)
 
     conn
     |> put_flash(
