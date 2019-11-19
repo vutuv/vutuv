@@ -7,13 +7,7 @@ defmodule VutuvWeb.UserTagController do
 
   @dialyzer {:nowarn_function, new: 3}
 
-  def action(conn, _) do
-    if action_name(conn) in [:index] do
-      apply(__MODULE__, action_name(conn), [conn, conn.params, conn.assigns.current_user])
-    else
-      auth_action_slug(conn, __MODULE__)
-    end
-  end
+  def action(conn, _), do: auth_action_slug(conn, __MODULE__, [:index])
 
   def index(conn, %{"user_slug" => slug}, %User{slug: slug} = current_user) do
     user_tags = Tags.list_user_tags(current_user)

@@ -1,4 +1,4 @@
-defmodule VutuvWeb.ChangesetView do
+defmodule VutuvWeb.Api.ChangesetView do
   use VutuvWeb, :view
 
   @doc """

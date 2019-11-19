@@ -125,12 +125,16 @@ defmodule Vutuv.Tags do
   """
   @spec create_user_tag(User.t(), map) :: {:ok, UserTag.t()} | changeset_error
   def create_user_tag(%User{} = user, attrs) do
-    with {:ok, %Tag{id: tag_id}} <- create_or_get_tag(attrs) do
-      user
-      |> build_assoc(:user_tags)
-      |> UserTag.changeset(%{tag_id: tag_id})
-      |> Repo.insert()
-    end
+    with {:ok, %Tag{id: tag_id}} <- create_or_get_tag(attrs),
+         {:ok, %UserTag{} = user_tag} <- do_create_user_tag(user, tag_id),
+         do: {:ok, Repo.preload(user_tag, :tag)}
+  end
+
+  defp do_create_user_tag(user, tag_id) do
+    user
+    |> build_assoc(:user_tags)
+    |> UserTag.changeset(%{tag_id: tag_id})
+    |> Repo.insert()
   end
 
   @doc """

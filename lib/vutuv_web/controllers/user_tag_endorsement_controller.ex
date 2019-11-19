@@ -21,8 +21,8 @@ defmodule VutuvWeb.UserTagEndorsementController do
     end
   end
 
-  def delete(conn, %{"id" => endorsement_id}, current_user) do
-    endorsement = Tags.get_user_tag_endorsement!(current_user, endorsement_id)
+  def delete(conn, %{"id" => id}, current_user) do
+    endorsement = Tags.get_user_tag_endorsement!(current_user, id)
     Tags.delete_user_tag_endorsement(endorsement)
 
     conn

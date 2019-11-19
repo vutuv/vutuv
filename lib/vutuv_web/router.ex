@@ -24,8 +24,8 @@ defmodule VutuvWeb.Router do
       resources "/addresses", AddressController
       resources "/email_addresses", EmailAddressController
       resources "/email_notifications", EmailNotificationController
-      resources "/followers", FollowerController, only: [:index]
       resources "/followees", FolloweeController, only: [:index, :create, :delete]
+      resources "/followers", FollowerController, only: [:index]
       resources "/posts", PostController
       resources "/social_media_accounts", SocialMediaAccountController
       resources "/tags", UserTagController, only: [:index, :new, :create, :delete], as: :tag
@@ -53,11 +53,32 @@ defmodule VutuvWeb.Router do
     pipe_through :api
 
     resources "/users", UserController, except: [:new, :edit], param: "slug" do
+      resources "/addresses", AddressController, except: [:new, :edit]
       resources "/email_addresses", EmailAddressController, except: [:new, :edit]
+      resources "/followees", FolloweeController, only: [:index, :create, :delete]
+      resources "/followers", FollowerController, only: [:index]
+      resources "/posts", PostController, except: [:new, :edit]
+      resources "/social_media_accounts", SocialMediaAccountController, except: [:new, :edit]
+      resources "/tags", UserTagController, only: [:index, :create, :delete], as: :tag
+
+      resources "/user_tag_endorsements", UserTagEndorsementController,
+        only: [:create, :delete],
+        as: :tag_endorsement
+
       get "/vcard", VcardController, :vcard
+      resources "/work_experiences", WorkExperienceController, except: [:new, :edit]
     end
 
     post "/sessions", SessionController, :create
+    post "/verifications", VerificationController, :create
+    post "/verifications/send_code", VerificationController, :send_code
+
+    resources "/password_resets", PasswordResetController,
+      only: [:create, :update],
+      singleton: true
+
+    get "/password_resets/new_request", PasswordResetController, :new_request
+    post "/password_resets/create_request", PasswordResetController, :create_request
   end
 
   if Mix.env() == :dev do

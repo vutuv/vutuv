@@ -1,13 +1,8 @@
-defmodule VutuvWeb.VerificationController do
+defmodule VutuvWeb.Api.VerificationController do
   use VutuvWeb, :controller
 
   alias Vutuv.{Accounts, Devices}
   alias VutuvWeb.{Auth.Otp, Email}
-
-  def new(conn, %{"email" => email}) do
-    Devices.get_unverified_email_address!(%{"value" => email})
-    render(conn, "new.html", email: email)
-  end
 
   def create(conn, %{"verify" => %{"email" => email, "code" => code}}) do
     user_credential = Accounts.get_user_credential(%{"email" => email})
@@ -19,12 +14,12 @@ defmodule VutuvWeb.VerificationController do
       Email.verify_success(email)
 
       conn
-      |> put_flash(:info, gettext("Your email has been verified"))
-      |> redirect(to: Routes.session_path(conn, :new))
+      |> put_status(:created)
+      |> render("info.json", info: gettext("Your email has been verified"))
     else
       conn
-      |> put_flash(:error, gettext("Invalid code"))
-      |> render("new.html", email: email)
+      |> put_status(:unauthorized)
+      |> render("error.json", error: gettext("Invalid code"))
     end
   end
 
@@ -34,10 +29,8 @@ defmodule VutuvWeb.VerificationController do
     Email.verify_request(email, code)
 
     conn
-    |> put_flash(
-      :info,
-      gettext("A code has been sent to your email address. Enter that code here.")
+    |> render("info.json",
+      info: gettext("A code has been sent to your email address. Enter that code here.")
     )
-    |> redirect(to: Routes.verification_path(conn, :new, email: email))
   end
 end

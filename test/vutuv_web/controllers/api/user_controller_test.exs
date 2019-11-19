@@ -15,18 +15,15 @@ defmodule VutuvWeb.Api.UserControllerTest do
       user = add_user("reg@example.com")
       conn = conn |> add_token_conn(user)
       conn = get(conn, Routes.api_user_path(conn, :index))
-      assert json_response(conn, 200)
+      assert [new_user] = json_response(conn, 200)["data"]
+      assert new_user == single_response(user)
     end
 
     test "show chosen user's resource", %{conn: conn} do
       user = add_user("reg@example.com")
       conn = get(conn, Routes.api_user_path(conn, :show, user))
 
-      assert json_response(conn, 200)["data"] == %{
-               "id" => user.id,
-               "full_name" => user.full_name,
-               "slug" => user.slug
-             }
+      assert json_response(conn, 200)["data"] == single_response(user)
     end
   end
 
@@ -91,5 +88,23 @@ defmodule VutuvWeb.Api.UserControllerTest do
     user = add_user("reg@example.com")
     conn = conn |> add_token_conn(user)
     {:ok, %{conn: conn, user: user}}
+  end
+
+  defp single_response(user) do
+    %{
+      "full_name" => user.full_name,
+      "id" => user.id,
+      "slug" => user.slug,
+      "avatar" => user.avatar,
+      "birthday" => user.birthday,
+      "gender" => user.gender,
+      "headline" => user.headline,
+      "honorific_prefix" => user.honorific_prefix,
+      "honorific_suffix" => user.honorific_suffix,
+      "locale" => user.locale,
+      "noindex" => user.noindex,
+      "preferred_name" => user.preferred_name,
+      "subscribe_emails" => user.subscribe_emails
+    }
   end
 end

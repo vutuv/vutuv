@@ -10,7 +10,7 @@ defmodule VutuvWeb.Api.FallbackController do
   def call(conn, {:error, %Ecto.Changeset{} = changeset}) do
     conn
     |> put_status(:unprocessable_entity)
-    |> put_view(VutuvWeb.ChangesetView)
+    |> put_view(VutuvWeb.Api.ChangesetView)
     |> render("error.json", changeset: changeset)
   end
 

@@ -9,40 +9,40 @@ defmodule VutuvWeb.Api.EmailAddressController do
 
   def action(conn, _), do: auth_action_slug(conn, __MODULE__)
 
-  def index(conn, _params, user) do
-    email_addresses = Devices.list_email_addresses(user)
-    render(conn, "index.json", email_addresses: email_addresses)
+  def index(conn, _params, current_user) do
+    email_addresses = Devices.list_email_addresses(current_user)
+    render(conn, "index.json", email_addresses: email_addresses, user: current_user)
   end
 
-  def create(conn, %{"email_address" => email_address_params}, user) do
+  def create(conn, %{"email_address" => email_address_params}, current_user) do
     with {:ok, %EmailAddress{} = email_address} <-
-           Devices.create_email_address(user, email_address_params) do
+           Devices.create_email_address(current_user, email_address_params) do
       conn
       |> put_status(:created)
       |> put_resp_header(
         "location",
-        Routes.user_email_address_path(conn, :show, user.id, email_address)
+        Routes.user_email_address_path(conn, :show, current_user, email_address)
       )
-      |> render("show.json", email_address: email_address)
+      |> render("show.json", email_address: email_address, user: current_user)
     end
   end
 
-  def show(conn, %{"id" => id}, user) do
-    email_address = Devices.get_email_address!(user, id)
-    render(conn, "show.json", email_address: email_address)
+  def show(conn, %{"id" => id}, current_user) do
+    email_address = Devices.get_email_address!(current_user, id)
+    render(conn, "show.json", email_address: email_address, user: current_user)
   end
 
-  def update(conn, %{"id" => id, "email_address" => email_address_params}, user) do
-    email_address = Devices.get_email_address!(user, id)
+  def update(conn, %{"id" => id, "email_address" => email_address_params}, current_user) do
+    email_address = Devices.get_email_address!(current_user, id)
 
     with {:ok, %EmailAddress{} = email_address} <-
            Devices.update_email_address(email_address, email_address_params) do
-      render(conn, "show.json", email_address: email_address)
+      render(conn, "show.json", email_address: email_address, user: current_user)
     end
   end
 
-  def delete(conn, %{"id" => id}, user) do
-    email_address = Devices.get_email_address!(user, id)
+  def delete(conn, %{"id" => id}, current_user) do
+    email_address = Devices.get_email_address!(current_user, id)
 
     with {:ok, %EmailAddress{}} <- Devices.delete_email_address(email_address) do
       send_resp(conn, :no_content, "")

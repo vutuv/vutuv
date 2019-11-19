@@ -11,6 +11,18 @@ defmodule Vutuv.UserConnections do
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 
   @doc """
+  Lists a user's followers or followees.
+  """
+  @spec list_user_connections(User.t(), :followees | :followers) :: [UserConnection.t()]
+  def list_user_connections(%User{} = user, :followees) do
+    user |> assoc(:followees) |> preload(:followee) |> Repo.all()
+  end
+
+  def list_user_connections(%User{} = user, :followers) do
+    user |> assoc(:followers) |> preload(:follower) |> Repo.all()
+  end
+
+  @doc """
   Returns a user's followers or followees in a paginated struct.
   """
   @spec paginate_user_connections(User.t(), map, :followees | :followers) :: Scrivener.Page.t()
@@ -23,23 +35,12 @@ defmodule Vutuv.UserConnections do
   end
 
   @doc """
-  Returns the latest `number` followees of a user.
+  Returns the latest `number` of followees / followers of a user.
   """
-  @spec latest_followees(integer) :: Ecto.Query.t()
-  def latest_followees(number) do
+  @spec latest(integer, :followee | :follower) :: Ecto.Query.t()
+  def latest(number, association) do
     from uc in UserConnection,
-      join: f in assoc(uc, :followee),
-      order_by: [desc: :inserted_at],
-      limit: ^number
-  end
-
-  @doc """
-  Returns the latest `number` followers of a user.
-  """
-  @spec latest_followers(integer) :: Ecto.Query.t()
-  def latest_followers(number) do
-    from uc in UserConnection,
-      join: f in assoc(uc, :follower),
+      join: f in assoc(uc, ^association),
       order_by: [desc: :inserted_at],
       limit: ^number
   end
