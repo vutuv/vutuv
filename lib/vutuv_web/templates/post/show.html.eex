@@ -10,5 +10,6 @@
 
 <%= if assigns[:current_user] do %>
 <span><%= link gettext("Edit"), to: Routes.user_post_path(@conn, :edit, @current_user, @post) %></span>
+&nbsp;&nbsp;
 <span><%= link gettext("Back"), to: Routes.user_path(@conn, :show, @current_user) %></span>
 <% end %>

@@ -87,7 +87,8 @@ other_users_attrs = [
     "email" => "german.keeling@example.com",
     "password" => "reallyHard2gue$$",
     "full_name" => "German Keeling",
-    "gender" => "male"
+    "gender" => "male",
+    "locale" => "de"
   },
   %{
     "email" => "vivian.nikolaus@example.com",
@@ -113,7 +114,8 @@ other_users_attrs = [
     "password" => "reallyHard2gue$$",
     "full_name" => "Baby Deckow",
     "gender" => "male",
-    "noindex" => true
+    "noindex" => true,
+    "locale" => "de_DE"
   },
   %{
     "email" => "ewell.reinger@example.com",
@@ -125,7 +127,8 @@ other_users_attrs = [
     "email" => "devonte.okuneva@example.com",
     "password" => "reallyHard2gue$$",
     "full_name" => "Devonte Okuneva",
-    "gender" => "male"
+    "gender" => "male",
+    "locale" => "de"
   },
   %{
     "email" => "deron.gleason@example.com",
@@ -169,7 +172,8 @@ other_users_attrs = [
     "password" => "reallyHard2gue$$",
     "full_name" => "Anthony Tillman",
     "gender" => "male",
-    "noindex" => true
+    "noindex" => true,
+    "locale" => "de_CH"
   },
   %{
     "email" => "hollie.rippin@example.com",
@@ -212,7 +216,8 @@ other_users_attrs = [
     "email" => "magnus.thompson@example.com",
     "password" => "reallyHard2gue$$",
     "full_name" => "Magnus Thompson",
-    "gender" => "male"
+    "gender" => "male",
+    "locale" => "de"
   },
   %{
     "email" => "garnett.zulauf@example.com",

@@ -20,6 +20,9 @@
 </ul>
 
 <%= if assigns[:current_user] do %>
-<span><%= link gettext("Edit"), to: Routes.user_email_notification_path(@conn, :edit, @current_user, @email_notification) %></span>
-<span><%= link gettext("Back"), to: Routes.user_email_notification_path(@conn, :index, @current_user) %></span>
+  <%= if !@email_notification.delivered do %>
+    <span><%= link gettext("Edit"), to: Routes.user_email_notification_path(@conn, :edit, @current_user, @email_notification) %></span>
+    &nbsp;&nbsp;
+  <% end %>
+  <span><%= link gettext("Back"), to: Routes.user_email_notification_path(@conn, :index, @current_user) %></span>
 <% end %>

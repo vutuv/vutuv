@@ -18,23 +18,23 @@ msgstr ""
 #, elixir-format
 #: lib/vutuv_web/templates/address/edit.html.eex:5
 #: lib/vutuv_web/templates/address/new.html.eex:5
-#: lib/vutuv_web/templates/address/show.html.eex:54
+#: lib/vutuv_web/templates/address/show.html.eex:55
 #: lib/vutuv_web/templates/email_address/edit.html.eex:5
 #: lib/vutuv_web/templates/email_address/new.html.eex:5
-#: lib/vutuv_web/templates/email_address/show.html.eex:33
+#: lib/vutuv_web/templates/email_address/show.html.eex:34
 #: lib/vutuv_web/templates/email_notification/edit.html.eex:5
 #: lib/vutuv_web/templates/email_notification/new.html.eex:5
-#: lib/vutuv_web/templates/email_notification/show.html.eex:24
+#: lib/vutuv_web/templates/email_notification/show.html.eex:27
 #: lib/vutuv_web/templates/post/edit.html.eex:5
 #: lib/vutuv_web/templates/post/new.html.eex:5
-#: lib/vutuv_web/templates/post/show.html.eex:13
+#: lib/vutuv_web/templates/post/show.html.eex:14
 #: lib/vutuv_web/templates/social_media_account/edit.html.eex:5
 #: lib/vutuv_web/templates/social_media_account/new.html.eex:5
-#: lib/vutuv_web/templates/social_media_account/show.html.eex:19
+#: lib/vutuv_web/templates/social_media_account/show.html.eex:20
 #: lib/vutuv_web/templates/user/edit.html.eex:74
 #: lib/vutuv_web/templates/work_experience/edit.html.eex:5
 #: lib/vutuv_web/templates/work_experience/new.html.eex:5
-#: lib/vutuv_web/templates/work_experience/show.html.eex:39
+#: lib/vutuv_web/templates/work_experience/show.html.eex:40
 msgid "Back"
 msgstr ""
 
@@ -58,7 +58,7 @@ msgstr ""
 #: lib/vutuv_web/templates/email_address/index.html.eex:26
 #: lib/vutuv_web/templates/email_address/show.html.eex:32
 #: lib/vutuv_web/templates/email_notification/index.html.eex:22
-#: lib/vutuv_web/templates/email_notification/show.html.eex:23
+#: lib/vutuv_web/templates/email_notification/show.html.eex:24
 #: lib/vutuv_web/templates/post/index.html.eex:26
 #: lib/vutuv_web/templates/post/show.html.eex:12
 #: lib/vutuv_web/templates/social_media_account/index.html.eex:24
@@ -195,7 +195,7 @@ msgstr ""
 #, elixir-format
 #: lib/vutuv_web/templates/address/form.html.eex:45
 #: lib/vutuv_web/templates/email_address/form.html.eex:29
-#: lib/vutuv_web/templates/email_notification/form.html.eex:21
+#: lib/vutuv_web/templates/email_notification/form.html.eex:23
 #: lib/vutuv_web/templates/post/form.html.eex:31
 #: lib/vutuv_web/templates/social_media_account/form.html.eex:17
 #: lib/vutuv_web/templates/user/edit.html.eex:70
@@ -423,7 +423,7 @@ msgid "Resend code"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_notification/form.html.eex:12
+#: lib/vutuv_web/templates/email_notification/form.html.eex:14
 #: lib/vutuv_web/templates/post/form.html.eex:14
 #: lib/vutuv_web/templates/post/index.html.eex:10
 msgid "Body"
@@ -661,12 +661,12 @@ msgid "Country:"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/controllers/email_address_controller.ex:85
+#: lib/vutuv_web/controllers/email_address_controller.ex:86
 msgid "Email address deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/controllers/email_address_controller.ex:72
+#: lib/vutuv_web/controllers/email_address_controller.ex:73
 msgid "Email address updated successfully."
 msgstr ""
 
@@ -775,7 +775,7 @@ msgid "User updated successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/controllers/email_address_controller.ex:50
+#: lib/vutuv_web/controllers/email_address_controller.ex:51
 msgid "We have sent you an email. Please follow the instructions to %{msg}."
 msgstr ""
 
@@ -1040,17 +1040,6 @@ msgid "Email notification"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/controllers/email_notification_controller.ex:38
-#: lib/vutuv_web/controllers/email_notification_controller.ex:67
-msgid "Email notification %{msg} successfully."
-msgstr ""
-
-#, elixir-format
-#: lib/vutuv_web/controllers/email_notification_controller.ex:82
-msgid "Email notification deleted successfully."
-msgstr ""
-
-#, elixir-format
 #: lib/vutuv_web/templates/email_notification/index.html.eex:1
 msgid "Email notifications"
 msgstr ""
@@ -1091,12 +1080,12 @@ msgid "Number of endorsements"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_notification/form.html.eex:16
+#: lib/vutuv_web/templates/email_notification/form.html.eex:18
 msgid "Send now"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_notification/form.html.eex:8
+#: lib/vutuv_web/templates/email_notification/form.html.eex:10
 msgid "Subject"
 msgstr ""
 
@@ -1140,4 +1129,25 @@ msgstr ""
 #, elixir-format
 #: lib/vutuv_web/templates/user_tag/index.html.eex:1
 msgid "user_tags"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/email_notification_controller.ex:38
+#: lib/vutuv_web/controllers/email_notification_controller.ex:81
+msgid "Email notification %{msg} successfully"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/email_notification_controller.ex:96
+msgid "Email notification deleted successfully"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/email_notification/form.html.eex:8
+msgid "To write the subject and body in German and English, add \"[de]\" before the German text and \"[en]\" before the English text."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/email_notification_controller.ex:61
+msgid "You cannot edit this email notification as it has already been delivered"
 msgstr ""

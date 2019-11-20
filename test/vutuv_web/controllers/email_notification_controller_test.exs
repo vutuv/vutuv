@@ -6,7 +6,7 @@ defmodule VutuvWeb.EmailNotificationControllerTest do
   @create_attrs %{
     "subject" => "Welcome to Vutuv",
     "body" => "This is a blablabla ...",
-    "send_now" => false
+    "send_now" => "false"
   }
   @invalid_attrs %{"body" => ""}
 
@@ -81,6 +81,16 @@ defmodule VutuvWeb.EmailNotificationControllerTest do
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
       assert get_flash(conn, :error) =~ "not authorized"
     end
+
+    test "redirects if notification has already been delivered", %{conn: conn, user: user} do
+      email_notification = insert(:email_notification, %{delivered: true, owner: user})
+      conn = get(conn, Routes.user_email_notification_path(conn, :edit, user, email_notification))
+
+      assert redirected_to(conn) ==
+               Routes.user_email_notification_path(conn, :show, user, email_notification.id)
+
+      assert get_flash(conn, :error) =~ "cannot edit this email notification"
+    end
   end
 
   describe "write email_notification" do
@@ -99,7 +109,7 @@ defmodule VutuvWeb.EmailNotificationControllerTest do
     end
 
     test "email is sent when send_now is set to true", %{conn: conn, user: user} do
-      create_attrs = Map.merge(@create_attrs, %{"send_now" => true})
+      create_attrs = Map.merge(@create_attrs, %{"send_now" => "true"})
 
       conn =
         post(conn, Routes.user_email_notification_path(conn, :create, user),

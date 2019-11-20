@@ -16,5 +16,6 @@
 
 <%= if assigns[:current_user] do %>
 <span><%= link gettext("Edit"), to: Routes.user_social_media_account_path(@conn, :edit, @current_user, @social_media_account) %></span>
+&nbsp;&nbsp;
 <span><%= link gettext("Back"), to: Routes.user_social_media_account_path(@conn, :index, @current_user) %></span>
 <% end %>

@@ -51,5 +51,6 @@
 
 <%= if assigns[:current_user] do %>
 <span><%= link gettext("Edit"), to: Routes.user_address_path(@conn, :edit, @current_user, @address) %></span>
+&nbsp;&nbsp;
 <span><%= link gettext("Back"), to: Routes.user_address_path(@conn, :index, @current_user) %></span>
 <% end %>

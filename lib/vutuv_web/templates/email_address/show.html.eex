@@ -30,4 +30,5 @@
 </ul>
 
 <span><%= link gettext("Edit"), to: Routes.user_email_address_path(@conn, :edit, @current_user, @email_address) %></span>
+&nbsp;&nbsp;
 <span><%= link gettext("Back"), to: Routes.user_path(@conn, :show, @current_user) %></span>
