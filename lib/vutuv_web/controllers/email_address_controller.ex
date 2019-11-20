@@ -3,7 +3,7 @@ defmodule VutuvWeb.EmailAddressController do
 
   import VutuvWeb.Authorize
 
-  alias Vutuv.{Accounts, Devices, Devices.EmailAddress}
+  alias Vutuv.{Accounts, Devices, Devices.EmailAddress, UserProfiles}
   alias VutuvWeb.{Auth.Otp, Email}
 
   @dialyzer {:nowarn_function, new: 3}
@@ -40,13 +40,10 @@ defmodule VutuvWeb.EmailAddressController do
   end
 
   def verify_email(conn, %{"email" => email}, msg, unique_email) do
-    code =
-      if unique_email do
-        user_credential = Accounts.get_user_credential(%{"email" => email})
-        Otp.create(user_credential.otp_secret)
-      end
-
-    Email.verify_request(email, code)
+    user_credential = Accounts.get_user_credential(%{"email" => email})
+    code = if unique_email, do: Otp.create(user_credential.otp_secret)
+    user = UserProfiles.get_user(user_credential.user_id)
+    Email.verify_request(email, code, user.locale)
 
     conn
     |> put_flash(

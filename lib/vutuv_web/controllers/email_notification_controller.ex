@@ -35,7 +35,7 @@ defmodule VutuvWeb.EmailNotificationController do
         msg = send_emails(email_notification, email_notification_params, "created")
 
         conn
-        |> put_flash(:info, gettext("Email notification %{msg} successfully.", msg: msg))
+        |> put_flash(:info, gettext("Email notification %{msg} successfully", msg: msg))
         |> redirect(
           to: Routes.user_email_notification_path(conn, :show, current_user, email_notification)
         )
@@ -52,8 +52,22 @@ defmodule VutuvWeb.EmailNotificationController do
 
   def edit(conn, %{"id" => id}, current_user) do
     email_notification = Notifications.get_email_notification!(current_user, id)
-    changeset = Notifications.change_email_notification(email_notification)
-    render(conn, "edit.html", email_notification: email_notification, changeset: changeset)
+
+    case email_notification.delivered do
+      true ->
+        conn
+        |> put_flash(
+          :error,
+          gettext("You cannot edit this email notification as it has already been delivered")
+        )
+        |> redirect(
+          to: Routes.user_email_notification_path(conn, :show, current_user, email_notification)
+        )
+
+      _ ->
+        changeset = Notifications.change_email_notification(email_notification)
+        render(conn, "edit.html", email_notification: email_notification, changeset: changeset)
+    end
   end
 
   def update(conn, %{"id" => id, "email_notification" => email_notification_params}, current_user) do
@@ -64,7 +78,7 @@ defmodule VutuvWeb.EmailNotificationController do
         msg = send_emails(email_notification, email_notification_params, "updated")
 
         conn
-        |> put_flash(:info, gettext("Email notification %{msg} successfully.", msg: msg))
+        |> put_flash(:info, gettext("Email notification %{msg} successfully", msg: msg))
         |> redirect(
           to: Routes.user_email_notification_path(conn, :show, current_user, email_notification)
         )
@@ -79,11 +93,11 @@ defmodule VutuvWeb.EmailNotificationController do
     {:ok, _email_notification} = Notifications.delete_email_notification(email_notification)
 
     conn
-    |> put_flash(:info, gettext("Email notification deleted successfully."))
+    |> put_flash(:info, gettext("Email notification deleted successfully"))
     |> redirect(to: Routes.user_email_notification_path(conn, :index, current_user))
   end
 
-  def send_emails(email_notification, %{"send_now" => true}, default) do
+  def send_emails(email_notification, %{"send_now" => "true"}, default) do
     EmailNotifications.send_emails(email_notification)
     "#{default} and sent"
   end

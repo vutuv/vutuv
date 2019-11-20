@@ -17,61 +17,96 @@ defmodule VutuvWeb.Email do
   """
 
   import Bamboo.Email
+  import VutuvWeb.Gettext
 
   alias VutuvWeb.Mailer
 
   @doc """
-  A notification email.
+  Sends a notification email.
   """
-  def notification(address, subject, body) do
+  def send_notification(address, subject, body) do
     address
-    |> base_email()
-    |> subject(subject)
-    |> text_body(body)
+    |> text_email(subject, body)
     |> Mailer.deliver_later()
   end
 
   @doc """
-  An email with a verification link in it.
+  An email containing the verification code.
   """
-  def verify_request(address, code) do
-    address
-    |> base_email()
-    |> subject("Verify your email")
-    |> add_body(:verify_request, code)
+  def verify_request(address, nil, locale) do
+    (locale || "en")
+    |> Gettext.with_locale(fn ->
+      text_email(address, dgettext("mail", "verify email"), dgettext("mail", "email in use"))
+    end)
+    |> Mailer.deliver_later()
+  end
+
+  def verify_request(address, code, locale) do
+    (locale || "en")
+    |> Gettext.with_locale(fn ->
+      text_email(
+        address,
+        dgettext("mail", "verify email"),
+        dgettext("mail", "verification code:\n%{msg}", msg: code)
+      )
+    end)
     |> Mailer.deliver_later()
   end
 
   @doc """
-  An email with a link to reset the password.
+  An email containing the verification code needed to reset the password.
   """
-  def reset_request(address, code) do
-    address
-    |> base_email()
-    |> subject("Reset your password")
-    |> add_body(:reset_request, code)
+  def reset_request(address, nil, locale) do
+    (locale || "en")
+    |> Gettext.with_locale(fn ->
+      text_email(
+        address,
+        dgettext("mail", "reset password"),
+        dgettext("mail", "reset password no user")
+      )
+    end)
+    |> Mailer.deliver_later()
+  end
+
+  def reset_request(address, code, locale) do
+    (locale || "en")
+    |> Gettext.with_locale(fn ->
+      text_email(
+        address,
+        dgettext("mail", "reset password"),
+        dgettext("mail", "reset password code:\n%{msg}", msg: code)
+      )
+    end)
     |> Mailer.deliver_later()
   end
 
   @doc """
   An email acknowledging that the email has been successfully verified.
   """
-  def verify_success(address) do
-    address
-    |> base_email()
-    |> subject("Verified email")
-    |> text_body("Your email has been verified.")
+  def verify_success(address, locale) do
+    (locale || "en")
+    |> Gettext.with_locale(fn ->
+      text_email(
+        address,
+        dgettext("mail", "email verified"),
+        dgettext("mail", "email verified successfully")
+      )
+    end)
     |> Mailer.deliver_later()
   end
 
   @doc """
   An email acknowledging that the password has been successfully reset.
   """
-  def reset_success(address) do
-    address
-    |> base_email()
-    |> subject("Password reset")
-    |> text_body("Your password has been reset.")
+  def reset_success(address, locale) do
+    (locale || "en")
+    |> Gettext.with_locale(fn ->
+      text_email(
+        address,
+        dgettext("mail", "password reset"),
+        dgettext("mail", "password reset successfully")
+      )
+    end)
     |> Mailer.deliver_later()
   end
 
@@ -81,26 +116,10 @@ defmodule VutuvWeb.Email do
     |> from("admin@example.com")
   end
 
-  defp add_body(email, :verify_request, nil) do
-    text_body(
-      email,
-      "Someone tried to use this email address to register an account with Vutuv, but this email address is already in use." <>
-        "If you have forgotten your password, go to the Login page and click on the forgot password link to reset your password."
-    )
-  end
-
-  defp add_body(email, :verify_request, code) do
-    text_body(email, "Enter the following verification code:\n#{code}")
-  end
-
-  defp add_body(email, :reset_request, nil) do
-    text_body(
-      email,
-      "You requested a password reset, but no user is associated with the email you provided."
-    )
-  end
-
-  defp add_body(email, :reset_request, code) do
-    text_body(email, "Enter the following password reset code:\n#{code}")
+  defp text_email(address, subject, body) do
+    address
+    |> base_email()
+    |> subject(subject)
+    |> text_body(body)
   end
 end

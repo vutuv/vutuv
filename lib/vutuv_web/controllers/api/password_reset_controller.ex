@@ -3,7 +3,7 @@ defmodule VutuvWeb.Api.PasswordResetController do
 
   import VutuvWeb.Api.Authorize
 
-  alias Vutuv.Accounts
+  alias Vutuv.{Accounts, UserProfiles}
   alias VutuvWeb.{Auth.Otp, Auth.Token, Email}
 
   plug :check_key when action in [:update]
@@ -11,7 +11,8 @@ defmodule VutuvWeb.Api.PasswordResetController do
   def create_request(conn, %{"password_reset" => %{"email" => email}}) do
     if user_credential = Accounts.get_user_credential(%{"email" => email}) do
       code = Otp.create(user_credential.otp_secret)
-      Email.reset_request(email, code)
+      user = UserProfiles.get_user(user_credential.user_id)
+      Email.reset_request(email, code, user.locale)
 
       Accounts.set_password_reset_status(user_credential, %{
         password_reset_sent_at: DateTime.truncate(DateTime.utc_now(), :second),
@@ -31,7 +32,8 @@ defmodule VutuvWeb.Api.PasswordResetController do
 
     if request_sent?(user_credential) && Otp.verify(code, user_credential.otp_secret) do
       key = Token.sign(%{"email" => email})
-      Email.verify_success(email)
+      user = UserProfiles.get_user(user_credential.user_id)
+      Email.verify_success(email, user.locale)
       Accounts.set_password_reset_status(user_credential, %{password_resettable: true})
 
       conn
@@ -50,7 +52,8 @@ defmodule VutuvWeb.Api.PasswordResetController do
     case Accounts.can_reset_password?(user_credential) &&
            Accounts.update_password(user_credential, params) do
       {:ok, _user_credential} ->
-        Email.reset_success(email)
+        user = UserProfiles.get_user(user_credential.user_id)
+        Email.reset_success(email, user.locale)
 
         Accounts.set_password_reset_status(user_credential, %{
           password_reset_sent_at: nil,

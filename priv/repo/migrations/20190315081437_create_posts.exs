@@ -7,7 +7,7 @@ defmodule Vutuv.Repo.Migrations.CreatePosts do
       add :body, :text
       add :title, :string
       add :page_info_cache, :string
-      add :visibility_level, :string, default: "private"
+      add :visibility_level, :string, default: "private", null: false
       add :published_at, :utc_datetime
 
       timestamps()

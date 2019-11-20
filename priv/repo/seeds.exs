@@ -64,6 +64,9 @@ for user <- users_attrs do
   Vutuv.Tags.create_post_tag(post, js_tag_attrs)
 end
 
+user_cred = Vutuv.Accounts.get_user_credential(%{"email" => "jane.doe@example.com"})
+Vutuv.Accounts.set_admin(user_cred, %{is_admin: true})
+
 user_tags = Vutuv.Repo.all(Vutuv.Tags.UserTag)
 created_users = Vutuv.UserProfiles.list_users()
 
@@ -84,7 +87,8 @@ other_users_attrs = [
     "email" => "german.keeling@example.com",
     "password" => "reallyHard2gue$$",
     "full_name" => "German Keeling",
-    "gender" => "male"
+    "gender" => "male",
+    "locale" => "de"
   },
   %{
     "email" => "vivian.nikolaus@example.com",
@@ -110,7 +114,8 @@ other_users_attrs = [
     "password" => "reallyHard2gue$$",
     "full_name" => "Baby Deckow",
     "gender" => "male",
-    "noindex" => true
+    "noindex" => true,
+    "locale" => "de_DE"
   },
   %{
     "email" => "ewell.reinger@example.com",
@@ -122,7 +127,8 @@ other_users_attrs = [
     "email" => "devonte.okuneva@example.com",
     "password" => "reallyHard2gue$$",
     "full_name" => "Devonte Okuneva",
-    "gender" => "male"
+    "gender" => "male",
+    "locale" => "de"
   },
   %{
     "email" => "deron.gleason@example.com",
@@ -166,7 +172,8 @@ other_users_attrs = [
     "password" => "reallyHard2gue$$",
     "full_name" => "Anthony Tillman",
     "gender" => "male",
-    "noindex" => true
+    "noindex" => true,
+    "locale" => "de_CH"
   },
   %{
     "email" => "hollie.rippin@example.com",
@@ -209,7 +216,8 @@ other_users_attrs = [
     "email" => "magnus.thompson@example.com",
     "password" => "reallyHard2gue$$",
     "full_name" => "Magnus Thompson",
-    "gender" => "male"
+    "gender" => "male",
+    "locale" => "de"
   },
   %{
     "email" => "garnett.zulauf@example.com",

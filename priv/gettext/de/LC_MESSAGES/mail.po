@@ -1,0 +1,62 @@
+## `msgid`s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove `msgid`s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use `mix gettext.extract --merge` or `mix gettext.merge`
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: de\n"
+"Plural-Forms: nplurals=2\n"
+
+#, elixir-format
+#: lib/vutuv_web/email.ex:39
+msgid "email in use"
+msgstr "Nein"
+
+#, elixir-format
+#: lib/vutuv_web/email.ex:92
+msgid "email verified successfully"
+msgstr "E-Mail Adresse wurde verifiziert."
+
+#, elixir-format
+#: lib/vutuv_web/email.ex:107
+msgid "password reset successfully"
+msgstr "Nein"
+
+#, elixir-format
+#: lib/vutuv_web/email.ex:64 lib/vutuv_web/email.ex:76
+msgid "reset password"
+msgstr "Nein"
+
+#, elixir-format
+#: lib/vutuv_web/email.ex:77
+msgid "reset password code:\n%{msg}"
+msgstr "Nein"
+
+#, elixir-format
+#: lib/vutuv_web/email.ex:65
+msgid "reset password no user"
+msgstr "Nein"
+
+#, elixir-format
+#: lib/vutuv_web/email.ex:50
+msgid "verification code:\n%{msg}"
+msgstr "Bitte geben Sie den folgenden Bestätigungscode ein"
+
+#, elixir-format
+#: lib/vutuv_web/email.ex:39 lib/vutuv_web/email.ex:49
+msgid "verify email"
+msgstr "Weitere E-Mail Adresse für einen vutuv Account verifizieren"
+
+#, elixir-format
+#: lib/vutuv_web/email.ex:91
+msgid "email verified"
+msgstr "E-Mail Adresse verifiziert"
+
+#, elixir-format
+#: lib/vutuv_web/email.ex:106
+msgid "password reset"
+msgstr "Nein"

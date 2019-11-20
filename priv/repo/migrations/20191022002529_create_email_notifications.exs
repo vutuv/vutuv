@@ -4,7 +4,7 @@ defmodule Vutuv.Repo.Migrations.CreateEmailNotifications do
   def change do
     create table(:email_notifications) do
       add :subject, :string
-      add :body, :string
+      add :body, :text
       add :delivered, :boolean, default: false, null: false
       add :owner_id, references(:users, on_delete: :delete_all)
 

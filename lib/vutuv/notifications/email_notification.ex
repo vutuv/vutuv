@@ -27,7 +27,7 @@ defmodule Vutuv.Notifications.EmailNotification do
   end
 
   @doc false
-  def changeset(email_notification, attrs) do
+  def changeset(%__MODULE__{} = email_notification, attrs) do
     email_notification
     |> cast(attrs, [:subject, :body, :delivered])
     |> validate_required([:subject, :body, :delivered])

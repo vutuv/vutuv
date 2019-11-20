@@ -45,6 +45,12 @@ defmodule Vutuv.Notifications do
   """
   @spec update_email_notification(EmailNotification.t(), map) ::
           {:ok, EmailNotification.t()} | changeset_error
+  def update_email_notification(%EmailNotification{delivered: true} = email_notification, _) do
+    email_notification
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.add_error(:delivered, "cannot edit as it has already been delivered")
+  end
+
   def update_email_notification(%EmailNotification{} = email_notification, attrs) do
     email_notification
     |> EmailNotification.changeset(attrs)
