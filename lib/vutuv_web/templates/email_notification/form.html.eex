@@ -5,6 +5,8 @@
     </div>
   <% end %>
 
+  <h3><%= gettext "To write the subject and body in German and English, add \"[de]\" before the German text and \"[en]\" before the English text." %></h3>
+
   <%= label f, :subject, gettext("Subject") %>
   <%= text_input f, :subject %>
   <%= error_tag f, :subject %>

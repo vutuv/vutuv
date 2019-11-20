@@ -10,7 +10,7 @@ defmodule Vutuv.Repo.Migrations.CreateUsers do
       add :honorific_suffix, :string
       add :gender, :string
       add :birthday, :date
-      add :locale, :string
+      add :locale, :string, default: "en", null: false
       add :accept_language, :string
       add :avatar, :string
       add :headline, :string

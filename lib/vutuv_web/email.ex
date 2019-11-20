@@ -22,9 +22,9 @@ defmodule VutuvWeb.Email do
   alias VutuvWeb.Mailer
 
   @doc """
-  A notification email.
+  Sends a notification email.
   """
-  def notification(address, subject, body) do
+  def send_notification(address, subject, body) do
     address
     |> text_email(subject, body)
     |> Mailer.deliver_later()

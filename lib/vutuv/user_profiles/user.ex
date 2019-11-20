@@ -61,7 +61,7 @@ defmodule Vutuv.UserProfiles.User do
     field :headline, :string
     field :honorific_prefix, :string
     field :honorific_suffix, :string
-    field :locale, :string
+    field :locale, :string, default: "en"
     field :accept_language, :string
     field :noindex, :boolean, default: false
     field :subscribe_emails, :boolean, default: true

@@ -64,6 +64,9 @@ for user <- users_attrs do
   Vutuv.Tags.create_post_tag(post, js_tag_attrs)
 end
 
+user_cred = Vutuv.Accounts.get_user_credential(%{"email" => "jane.doe@example.com"})
+Vutuv.Accounts.set_admin(user_cred, %{is_admin: true})
+
 user_tags = Vutuv.Repo.all(Vutuv.Tags.UserTag)
 created_users = Vutuv.UserProfiles.list_users()
 
