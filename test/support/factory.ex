@@ -49,7 +49,7 @@ defmodule Vutuv.Factory do
       value: sequence(:value, &"email-#{&1}@example.com"),
       is_public: true,
       description: Faker.Company.bs(),
-      position: 1,
+      is_primary: true,
       verified: false
     }
   end

@@ -23,6 +23,7 @@ defmodule VutuvWeb.Router do
     resources "/users", UserController, except: [:new], param: "slug" do
       resources "/addresses", AddressController
       resources "/email_addresses", EmailAddressController
+      put "/email_addresses/set_primary/:id", EmailAddressController, :set_primary
       resources "/email_notifications", EmailNotificationController
       resources "/followees", FolloweeController, only: [:index, :create, :delete]
       resources "/followers", FollowerController, only: [:index]
@@ -55,6 +56,7 @@ defmodule VutuvWeb.Router do
     resources "/users", UserController, except: [:new, :edit], param: "slug" do
       resources "/addresses", AddressController, except: [:new, :edit]
       resources "/email_addresses", EmailAddressController, except: [:new, :edit]
+      put "/email_addresses/set_primary/:id", EmailAddressController, :set_primary
       resources "/followees", FolloweeController, only: [:index, :create, :delete]
       resources "/followers", FollowerController, only: [:index]
       resources "/posts", PostController, except: [:new, :edit]

@@ -16,7 +16,7 @@ defmodule VutuvWeb.Api.EmailAddressView do
       id: email_address.id,
       description: email_address.description,
       is_public: email_address.is_public,
-      position: email_address.position,
+      is_primary: email_address.is_primary,
       user_id: email_address.user_id,
       value: email_address.value,
       verified: email_address.verified

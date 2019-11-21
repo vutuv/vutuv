@@ -12,7 +12,7 @@ defmodule Vutuv.Devices.EmailAddress do
           user: User.t() | %Ecto.Association.NotLoaded{},
           is_public: boolean,
           description: String.t(),
-          position: integer,
+          is_primary: boolean,
           verified: boolean,
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
@@ -22,7 +22,7 @@ defmodule Vutuv.Devices.EmailAddress do
     field :value, :string
     field :description, :string
     field :is_public, :boolean, default: true
-    field :position, :integer
+    field :is_primary, :boolean, default: false
     field :verified, :boolean, default: false
 
     belongs_to :user, User
@@ -33,7 +33,7 @@ defmodule Vutuv.Devices.EmailAddress do
   @doc false
   def changeset(%__MODULE__{} = email_address, attrs) do
     email_address
-    |> cast(attrs, [:value, :description, :is_public, :position])
+    |> cast(attrs, [:value, :description, :is_public, :is_primary])
     |> validate_required([:value])
     |> validate_format(
       :value,
@@ -44,6 +44,11 @@ defmodule Vutuv.Devices.EmailAddress do
     |> unique_constraint(:value, downcase: true, message: "duplicate")
   end
 
+  def create_changeset(%__MODULE__{} = email_address, attrs) do
+    attrs = Map.delete(attrs, "is_primary")
+    changeset(email_address, attrs)
+  end
+
   def update_changeset(%__MODULE__{} = email_address, attrs) do
     if Map.has_key?(attrs, "value") do
       email_address
@@ -51,12 +56,8 @@ defmodule Vutuv.Devices.EmailAddress do
       |> add_error(:value, "the email_address value cannot be updated")
     else
       email_address
-      |> cast(attrs, [:description, :is_public, :position])
+      |> cast(attrs, [:description, :is_public])
       |> validate_length(:description, max: 255)
     end
-  end
-
-  def verify_changeset(%__MODULE__{} = email_address) do
-    change(email_address, %{verified: true})
   end
 end

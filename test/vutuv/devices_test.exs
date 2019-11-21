@@ -3,7 +3,7 @@ defmodule Vutuv.DevicesTest do
 
   import Vutuv.Factory
 
-  alias Vutuv.{UserProfiles, Devices, Repo}
+  alias Vutuv.{Devices, Repo}
   alias Vutuv.Devices.{EmailAddress, EmailManager, PhoneNumber}
 
   @create_email_attrs %{
@@ -54,8 +54,8 @@ defmodule Vutuv.DevicesTest do
     end
 
     test "get_email_address! returns a specific user's email_address", %{
-      user: user,
-      email_address: email_address
+      email_address: email_address,
+      user: user
     } do
       assert Devices.get_email_address!(user, email_address.id) == email_address
     end
@@ -75,36 +75,36 @@ defmodule Vutuv.DevicesTest do
     } do
       assert %Ecto.Changeset{} = Devices.change_email_address(email_address)
     end
+
+    test "primary email_address can be updated", %{email_address: email_address, user: user} do
+      assert %{email_addresses: [%EmailAddress{} = old_primary]} = user
+      assert old_primary.is_primary == true
+      assert %EmailAddress{is_primary: false} = email_address
+      Devices.set_primary_email(email_address)
+      new_primary = Devices.get_primary_email(user)
+      assert %EmailAddress{is_primary: true} = new_primary
+      assert new_primary.id == email_address.id
+      first_email = Devices.get_email_address!(user, old_primary.id)
+      assert first_email.is_primary == false
+    end
   end
 
   describe "write email_address data" do
     setup [:create_user]
 
-    test "create_email_address/1 with valid data creates a email_address", %{user: user} do
+    test "create_email_address/2 with valid data creates a email_address", %{user: user} do
       assert {:ok, %EmailAddress{} = email_address} =
                Devices.create_email_address(user, @create_email_attrs)
 
       assert email_address.value == "abcdef@example.com"
-      assert email_address.position == 2
+      assert email_address.is_primary == false
     end
 
-    test "position of new email_address is last", %{user: user} do
-      [email_address] = user.email_addresses
-      assert email_address.position == 1
-      email_attrs = Map.merge(@create_email_attrs, %{"value" => "xyz@example.com"})
-      {:ok, email_address} = Devices.create_email_address(user, email_attrs)
-      assert email_address.position == 2
-      email_attrs = Map.merge(@create_email_attrs, %{"value" => "zyx@example.com"})
-      user = UserProfiles.get_user!(%{"id" => user.id})
-      {:ok, email_address} = Devices.create_email_address(user, email_attrs)
-      assert email_address.position == 3
-    end
-
-    test "create_email_address/1 with invalid data returns error changeset", %{user: user} do
+    test "create_email_address/2 with invalid data returns error changeset", %{user: user} do
       assert {:error, %Ecto.Changeset{}} = Devices.create_email_address(user, %{"value" => nil})
     end
 
-    test "create_email_address/1 with invalid email value returns error", %{user: user} do
+    test "create_email_address/2 with invalid email value returns error", %{user: user} do
       for value <- [
             "@domainsample.com",
             "johndoedomainsample.com",
@@ -122,6 +122,11 @@ defmodule Vutuv.DevicesTest do
     test "cannot set verified to true at creation time", %{user: user} do
       attrs = Map.merge(@create_email_attrs, %{"verified" => true})
       assert {:ok, %EmailAddress{verified: false}} = Devices.create_email_address(user, attrs)
+    end
+
+    test "cannot set is_primary to true with create_email_address/2", %{user: user} do
+      attrs = Map.merge(@create_email_attrs, %{"is_primary" => true})
+      assert {:ok, %EmailAddress{is_primary: false}} = Devices.create_email_address(user, attrs)
     end
 
     test "update email_address with valid data updates the email_address", %{user: user} do

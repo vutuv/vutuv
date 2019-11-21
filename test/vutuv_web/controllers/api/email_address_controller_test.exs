@@ -98,6 +98,17 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
       assert Devices.get_email_address!(user, email_address.id)
     end
 
+    test "updates the primary email_address", %{conn: conn, user: user} do
+      email_address = insert(:email_address, %{is_primary: false, user: user})
+
+      conn =
+        put(conn, Routes.api_user_email_address_path(conn, :set_primary, user, email_address))
+
+      assert json_response(conn, 200)["data"]["id"]
+      email_address = Devices.get_email_address!(user, email_address.id)
+      assert email_address.is_primary == true
+    end
+
     test "does not update chosen email_address when data is invalid", %{
       conn: conn,
       user: user,
@@ -140,7 +151,7 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
       "id" => email_address.id,
       "description" => email_address.description,
       "is_public" => email_address.is_public,
-      "position" => email_address.position,
+      "is_primary" => email_address.is_primary,
       "user_id" => email_address.user_id,
       "verified" => email_address.verified,
       "value" => email_address.value

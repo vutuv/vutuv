@@ -32,6 +32,14 @@ defmodule VutuvWeb.Api.EmailAddressController do
     render(conn, "show.json", email_address: email_address, user: current_user)
   end
 
+  def set_primary(conn, %{"id" => id}, current_user) do
+    email_address = Devices.get_email_address!(current_user, id)
+
+    with {:ok, %EmailAddress{} = email_address} <- Devices.set_primary_email(email_address) do
+      render(conn, "show.json", email_address: email_address, user: current_user)
+    end
+  end
+
   def update(conn, %{"id" => id, "email_address" => email_address_params}, current_user) do
     email_address = Devices.get_email_address!(current_user, id)
 
