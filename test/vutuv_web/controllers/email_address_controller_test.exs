@@ -155,7 +155,7 @@ defmodule VutuvWeb.EmailAddressControllerTest do
     } do
       conn =
         put(conn, Routes.user_email_address_path(conn, :update, user, email_address),
-          email_address: %{"is_public" => false}
+          email_address: %{"is_public" => "false"}
         )
 
       assert redirected_to(conn) ==
@@ -164,6 +164,17 @@ defmodule VutuvWeb.EmailAddressControllerTest do
       assert get_flash(conn, :info) =~ "updated successfully"
       email_address = Devices.get_email_address!(user, email_address.id)
       assert email_address.is_public == false
+    end
+
+    test "updates the primary email_address", %{conn: conn, user: user} do
+      email_address = insert(:email_address, %{is_primary: false, user: user})
+
+      conn = put(conn, Routes.user_email_address_path(conn, :set_primary, user, email_address))
+
+      assert redirected_to(conn) == Routes.user_email_address_path(conn, :index, user)
+      assert get_flash(conn, :info) =~ "set as primary email successfully"
+      email_address = Devices.get_email_address!(user, email_address.id)
+      assert email_address.is_primary == true
     end
 
     test "does not update chosen email_address when data is invalid", %{
@@ -178,8 +189,9 @@ defmodule VutuvWeb.EmailAddressControllerTest do
           email_address: %{"description" => too_long}
         )
 
-      assert html_response(conn, 200) =~ "Edit email address"
-      assert html_response(conn, 200) =~ "should be at most 255 character"
+      response = html_response(conn, 200)
+      assert response =~ "Edit email address"
+      assert response =~ "should be at most 255 character"
     end
 
     test "cannot update the email value", %{conn: conn, user: user, email_address: email_address} do

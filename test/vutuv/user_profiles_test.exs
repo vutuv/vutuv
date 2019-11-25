@@ -92,7 +92,7 @@ defmodule Vutuv.UserProfilesTest do
       assert user.accept_language == @accept_language
       assert user.gender == "male"
       assert user.locale == "en_CA"
-      assert [%EmailAddress{value: value, position: 1}] = user.email_addresses
+      assert [%EmailAddress{value: value, is_primary: true}] = user.email_addresses
       assert value == "fred@example.com"
     end
 
@@ -132,7 +132,7 @@ defmodule Vutuv.UserProfilesTest do
 
     test "returns error when adding a duplicate email" do
       assert {:ok, %User{} = user} = UserProfiles.create_user(@create_user_attrs)
-      assert [%EmailAddress{value: value, position: 1}] = user.email_addresses
+      assert [%EmailAddress{value: value, is_primary: true}] = user.email_addresses
       assert value == "fred@example.com"
 
       assert {:error, %Ecto.Changeset{} = changeset} =

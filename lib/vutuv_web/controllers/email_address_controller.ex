@@ -64,6 +64,15 @@ defmodule VutuvWeb.EmailAddressController do
     render(conn, "edit.html", email_address: email_address, changeset: changeset)
   end
 
+  def set_primary(conn, %{"id" => id}, current_user) do
+    email_address = Devices.get_email_address!(current_user, id)
+    Devices.set_primary_email(email_address)
+
+    conn
+    |> put_flash(:info, gettext("Email address set as primary email successfully."))
+    |> redirect(to: Routes.user_email_address_path(conn, :index, current_user))
+  end
+
   def update(conn, %{"id" => id, "email_address" => email_address_params}, current_user) do
     email_address = Devices.get_email_address!(current_user, id)
 

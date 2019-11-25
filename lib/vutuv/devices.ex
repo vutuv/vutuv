@@ -4,6 +4,7 @@ defmodule Vutuv.Devices do
   """
 
   import Ecto
+  import Ecto.Changeset, only: [change: 2]
   import Ecto.Query, warn: false
 
   alias Vutuv.{UserProfiles.User, Repo}
@@ -12,14 +13,17 @@ defmodule Vutuv.Devices do
   @type changeset_error :: {:error, Ecto.Changeset.t()}
 
   @doc """
-  Returns a list of primary email_addresses.
+  Returns a filtered list of primary email_addresses.
+
+  The list of primary email_addresses are limited to those of users who
+  have `subscribe_emails` set to true.
   """
   @spec list_subscribed_email_addresses() :: [EmailAddress.t()]
   def list_subscribed_email_addresses() do
     EmailAddress
     |> join(:inner, [u], _ in assoc(u, :user))
     |> preload([_, u], user: u)
-    |> where([e, u], e.position == 1 and u.subscribe_emails == true)
+    |> where([e, u], e.is_primary == true and u.subscribe_emails == true)
     |> Repo.all()
   end
 
@@ -58,7 +62,7 @@ defmodule Vutuv.Devices do
   Returns a list of a user's public email_addresses.
   """
   @spec list_email_addresses(User.t(), :public) :: [EmailAddress.t()]
-  def list_email_addresses(user, :public) do
+  def list_email_addresses(%User{} = user, :public) do
     user
     |> assoc(:email_addresses)
     |> where([e], e.is_public == true)
@@ -88,13 +92,9 @@ defmodule Vutuv.Devices do
   """
   @spec create_email_address(User.t(), map) :: {:ok, EmailAddress.t()} | changeset_error
   def create_email_address(%User{} = user, attrs \\ %{}) do
-    query = from e in EmailAddress, where: e.user_id == ^user.id
-    email_count = Repo.aggregate(query, :count, :id)
-    attrs = Map.put(attrs, "position", email_count + 1)
-
     user
     |> build_assoc(:email_addresses)
-    |> EmailAddress.changeset(attrs)
+    |> EmailAddress.create_changeset(attrs)
     |> Repo.insert()
   end
 
@@ -113,7 +113,7 @@ defmodule Vutuv.Devices do
   """
   @spec verify_email_address(EmailAddress.t()) :: {:ok, EmailAddress.t()} | changeset_error
   def verify_email_address(email_address) do
-    email_address |> EmailAddress.verify_changeset() |> Repo.update()
+    Repo.update(change(email_address, %{verified: true}))
   end
 
   @doc """
@@ -141,6 +141,38 @@ defmodule Vutuv.Devices do
   end
 
   def duplicate_email_error?(_), do: false
+
+  @doc """
+  Gets a user's current primary email_address.
+  """
+  @spec get_primary_email(User.t()) :: EmailAddress.t() | nil
+  def get_primary_email(%User{} = user) do
+    Repo.get_by(EmailAddress, user_id: user.id, is_primary: true)
+  end
+
+  @doc """
+  Sets the `is_primary` value.
+
+  This is also sets the `is_primary` value of the current primary email_address
+  to false, making sure that there is only one primary email_address per user.
+  """
+  @spec set_primary_email(EmailAddress.t()) :: {:ok, EmailAddress.t()} | changeset_error
+  def set_primary_email(%EmailAddress{is_primary: true} = email_address) do
+    {:ok, email_address}
+  end
+
+  def set_primary_email(%EmailAddress{user_id: user_id} = email_address) do
+    user = Repo.get(User, user_id)
+    current_primary = get_primary_email(user)
+
+    {:ok, result} =
+      Repo.transaction(fn ->
+        Repo.update(change(current_primary, %{is_primary: false}))
+        Repo.update(change(email_address, %{is_primary: true}))
+      end)
+
+    result
+  end
 
   @doc """
   Returns the list of phone_numbers.

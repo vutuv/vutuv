@@ -7,7 +7,7 @@ defmodule Vutuv.Repo.Migrations.CreateEmailAddresses do
       add :value, :string
       add :description, :string
       add :is_public, :boolean, default: true, null: false
-      add :position, :integer
+      add :is_primary, :boolean, default: false, null: false
       add :verified, :boolean, default: false, null: false
 
       timestamps()

@@ -17,13 +17,13 @@
   <%= text_input f, :description %>
   <%= error_tag f, :description %>
 
-  <%= label f, :is_public, gettext("is public") %>
+  <%= label f, :is_public, gettext("Public") %>
   <%= checkbox f, :is_public %>
   <%= error_tag f, :is_public %>
 
-  <%= label f, :position, gettext("Position") %>
-  <%= number_input f, :position %>
-  <%= error_tag f, :position %>
+  <%= label f, :is_primary, gettext("Primary") %>
+  <%= checkbox f, :is_primary %>
+  <%= error_tag f, :is_primary %>
 
   <div>
     <%= submit gettext("Save") %>

@@ -5,8 +5,8 @@
     <tr>
       <th><%= gettext "Value" %></th>
       <th><%= gettext "Description" %></th>
-      <th><%= gettext "is public" %></th>
-      <th><%= gettext "Position" %></th>
+      <th><%= gettext "Public" %></th>
+      <th><%= gettext "Primary" %></th>
       <th><%= gettext "Verified" %></th>
 
       <th></th>
@@ -18,17 +18,15 @@
       <td><%= email_address.value %></td>
       <td><%= email_address.description %></td>
       <td><%= email_address.is_public %></td>
-      <td><%= email_address.position %></td>
+      <td><%= email_address.is_primary %></td>
       <td><%= email_address.verified %></td>
 
       <td>
         <%= link gettext("Show"), to: Routes.user_email_address_path(@conn, :show, @current_user, email_address) %>
         <%= link gettext("Edit"), to: Routes.user_email_address_path(@conn, :edit, @current_user, email_address) %>
-        <li>
-          <%= form_for @conn, Routes.user_email_address_path(@conn, :delete, @current_user, email_address), [method: "delete"], fn _f -> %>
-          <%= submit gettext("Delete"), class: "link" %>
+        <%= form_for @conn, Routes.user_email_address_path(@conn, :set_primary, @current_user, email_address), [method: "put"], fn _f -> %>
+          <%= submit gettext("Set as primary email address"), class: "link" %>
         <% end %>
-        </li>
       </td>
     </tr>
 <% end %>

@@ -78,7 +78,7 @@ defmodule Vutuv.UserProfiles do
   def create_user(attrs) do
     email_attrs = %{
       "value" => attrs["email"],
-      "position" => 1,
+      "is_primary" => true,
       "description" => "email when registering vutuv"
     }
 

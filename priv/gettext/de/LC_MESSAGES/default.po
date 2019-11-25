@@ -99,17 +99,6 @@ msgid "New user"
 msgstr "Neue User"
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_address/form.html.eex:24
-#: lib/vutuv_web/templates/email_address/index.html.eex:9
-msgid "Position"
-msgstr ""
-
-#, elixir-format
-#: lib/vutuv_web/templates/email_address/show.html.eex:21
-msgid "Position:"
-msgstr ""
-
-#, elixir-format
 #: lib/vutuv_web/templates/address/index.html.eex:26
 #: lib/vutuv_web/templates/email_address/index.html.eex:25
 #: lib/vutuv_web/templates/email_notification/index.html.eex:21
@@ -172,7 +161,6 @@ msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/address/index.html.eex:31
-#: lib/vutuv_web/templates/email_address/index.html.eex:29
 #: lib/vutuv_web/templates/email_notification/index.html.eex:25
 #: lib/vutuv_web/templates/post/index.html.eex:29
 #: lib/vutuv_web/templates/social_media_account/index.html.eex:27
@@ -220,12 +208,6 @@ msgstr ""
 #: lib/vutuv_web/templates/verification/new.html.eex:8
 #: lib/vutuv_web/templates/work_experience/form.html.eex:4
 msgid "Something went wrong. Please check the errors below."
-msgstr ""
-
-#, elixir-format
-#: lib/vutuv_web/templates/email_address/form.html.eex:20
-#: lib/vutuv_web/templates/email_address/index.html.eex:8
-msgid "is public"
 msgstr ""
 
 #, elixir-format
@@ -505,6 +487,8 @@ msgid "Private"
 msgstr ""
 
 #, elixir-format
+#: lib/vutuv_web/templates/email_address/form.html.eex:20
+#: lib/vutuv_web/templates/email_address/index.html.eex:8
 #: lib/vutuv_web/templates/post/form.html.eex:21
 msgid "Public"
 msgstr ""
@@ -662,12 +646,12 @@ msgid "Country:"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/controllers/email_address_controller.ex:86
+#: lib/vutuv_web/controllers/email_address_controller.ex:95
 msgid "Email address deleted successfully."
 msgstr "Neue E-Mail Adresse"
 
 #, elixir-format
-#: lib/vutuv_web/controllers/email_address_controller.ex:73
+#: lib/vutuv_web/controllers/email_address_controller.ex:82
 msgid "Email address updated successfully."
 msgstr "Neue E-Mail Adresse"
 
@@ -1132,13 +1116,13 @@ msgstr ""
 msgid "user_tags"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/vutuv_web/controllers/email_notification_controller.ex:38
 #: lib/vutuv_web/controllers/email_notification_controller.ex:81
 msgid "Email notification %{msg} successfully"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/vutuv_web/controllers/email_notification_controller.ex:96
 msgid "Email notification deleted successfully"
 msgstr ""
@@ -1151,4 +1135,25 @@ msgstr ""
 #, elixir-format
 #: lib/vutuv_web/controllers/email_notification_controller.ex:61
 msgid "You cannot edit this email notification as it has already been delivered"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/email_address/form.html.eex:24
+#: lib/vutuv_web/templates/email_address/index.html.eex:9
+msgid "Primary"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/email_address/show.html.eex:21
+msgid "Primary:"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/email_address/index.html.eex:28
+msgid "Set as primary email address"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/email_address_controller.ex:72
+msgid "Email address set as primary email successfully."
 msgstr ""

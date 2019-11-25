@@ -18,8 +18,8 @@
   </li>
 
   <li>
-    <strong><%= gettext "Position:" %></strong>
-    <%= @email_address.position %>
+    <strong><%= gettext "Primary:" %></strong>
+    <%= @email_address.is_primary %>
   </li>
 
   <li>
