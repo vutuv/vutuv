@@ -2,4 +2,4 @@
 
 <%%= render "form.html", Map.put(assigns, :action, Routes.<%= schema.route_helper %>_path(@conn, :update, @<%= schema.singular %>)) %>
 
-<span><%%= link gettext("Back"), to: Routes.<%= schema.route_helper %>_path(@conn, :index) %></span>
+<span><%%= link gettext("All <%= schema.human_plural %>"), to: Routes.<%= schema.route_helper %>_path(@conn, :index) %></span>

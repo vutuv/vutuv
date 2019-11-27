@@ -1,13 +1,17 @@
 <div class="profile-header">
   <img src="<%= Vutuv.Avatar.url({@user.avatar, @user}, :medium) %>"/>
   <h2><%= @user.full_name %></h2>
-  <!-- add verified badge -->
+</div>
+<div>
+  <%= if Vutuv.Accounts.user_confirmed?(@user.id) do %>
+    <h2 class="verified">verified</h2>
+  <% end %>
 </div>
 <div>
   <p><%= @user.headline %></p>
 
   <%= if is_list(@user.followers) do %>
-    <h4><%= ngettext "1 follower", "%{count} followers", Vutuv.UserConnections.follower_count(@user) %></h4>
+    <h3><%= ngettext "1 follower", "%{count} followers", Vutuv.UserConnections.follower_count(@user) %></h3>
 
     <%= if assigns[:current_user] && @current_user.id != @user.id do %>
       <%= if user_connection = Vutuv.UserConnections.get_user_connection(@user, @current_user) do %>

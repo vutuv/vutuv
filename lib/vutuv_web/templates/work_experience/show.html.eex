@@ -1,4 +1,4 @@
-<h1><%= gettext "Show work experience" %></h1>
+<h1><%= gettext "Work experience" %></h1>
 
 <ul>
 
@@ -34,8 +34,19 @@
 
 </ul>
 
-<%= if assigns[:current_user] do %>
-<span><%= link gettext("Edit"), to: Routes.user_work_experience_path(@conn, :edit, @current_user, @work_experience) %></span>
-&nbsp;&nbsp;
-<span><%= link gettext("Back"), to: Routes.user_work_experience_path(@conn, :index, @current_user) %></span>
+<%= if assigns[:current_user] && @current_user.id == @user.id do %>
+  <span><%= link gettext("Edit"), to: Routes.user_work_experience_path(@conn, :edit, @current_user, @work_experience) %></span><br>
 <% end %>
+<span><%= link gettext("All work experiences"), to: Routes.user_work_experience_path(@conn, :index, @user) %></span>
+
+<div class="danger-box">
+  <h2><%= gettext "Delete work experience" %></h2>
+
+  <p><%= gettext "Be careful! This cannot be undone." %></p>
+
+  <%= if assigns[:current_user] && @current_user.id == @user.id do %>
+    <%= form_for @conn, Routes.user_work_experience_path(@conn, :delete, @current_user, @work_experience), [method: "delete"], fn _f -> %>
+      <%= submit gettext("Delete"), class: "btn-danger" %>
+    <% end %>
+  <% end %>
+</div>

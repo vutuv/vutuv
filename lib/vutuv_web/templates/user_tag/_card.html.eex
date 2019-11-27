@@ -4,10 +4,22 @@
   <ul class="tags">
     <%= for user_tag <- @user_tags do %>
       <li>
-        <button>
+        <div class="badge" data-badge="<%= Enum.count(user_tag.user_tag_endorsements) %>">
           <%= user_tag.tag.name %>
-          <%= Enum.count(user_tag.user_tag_endorsements) %>
-        </button>
+        </div>
+      </li>
+      <li>
+        <%= if assigns[:current_user] do %>
+          <%= if user_tag_endorsement = Enum.find(user_tag.user_tag_endorsements, & @current_user.id == &1.user_id) do %>
+            <%= form_for @conn, Routes.user_tag_endorsement_path(@conn, :delete, @current_user, user_tag_endorsement), [method: "delete"], fn _f -> %>
+              <%= submit "", class: "arrow down" %>
+            <% end %>
+          <% else %>
+            <%= form_for @conn, Routes.user_tag_endorsement_path(@conn, :create, @current_user, user_tag_endorsement: %{user_tag_id: user_tag.id}), [method: "post"], fn _f -> %>
+              <%= submit "", class: "arrow up" %>
+            <% end %>
+          <% end %>
+        <% end %>
       </li>
     <% end %>
   </ul>

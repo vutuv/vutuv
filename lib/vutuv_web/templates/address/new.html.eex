@@ -2,4 +2,4 @@
 
 <%= render "form.html", Map.put(assigns, :action, Routes.user_address_path(@conn, :create, @current_user)) %>
 
-<span><%= link gettext("Back"), to: Routes.user_address_path(@conn, :index, @current_user) %></span>
+<span><%= link gettext("All addresses"), to: Routes.user_address_path(@conn, :index, @current_user) %></span>

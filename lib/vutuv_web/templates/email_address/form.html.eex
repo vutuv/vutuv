@@ -21,10 +21,6 @@
   <%= checkbox f, :is_public %>
   <%= error_tag f, :is_public %>
 
-  <%= label f, :is_primary, gettext("Primary") %>
-  <%= checkbox f, :is_primary %>
-  <%= error_tag f, :is_primary %>
-
   <div>
     <%= submit gettext("Save") %>
   </div>

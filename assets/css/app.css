@@ -131,6 +131,76 @@ main {
 .tags li {
   display: inline-block;
 }
+.danger-box {
+  margin-top: 5.0rem;
+  border: 0.5rem solid #dc3545;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  padding-bottom: 0;
+}
+.btn-danger {
+  background-color: #dc3545;
+  border: #dc3545;
+}
+.btn-danger:hover {
+  background-color: #9a2530;
+}
+.arrow {
+  width: 0;
+  height: 0;
+  background-color: transparent;
+  padding: 0.5rem;
+}
+.arrow:hover {
+  background-color: transparent;
+}
+.up {
+  border: solid #1faedb;
+  border-width: 0 0.5rem 0.5rem 0;
+  transform: rotate(-135deg);
+}
+.down {
+  border: solid #dc3545;
+  border-width: 0 0.5rem 0.5rem 0;
+  transform: rotate(45deg);
+}
+.badge {
+  position: relative;
+  padding-left: 2.0rem;
+  padding-right: 4.0rem;
+  background-color: #dcdcdc;
+  border-radius: 5.0rem;
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  height: 3.8rem;
+  line-height: 3.8rem;
+  text-align: center;
+  text-decoration: none;
+}
+.badge::after {
+  content: attr(data-badge);
+  top: 0.8rem;
+  right: 0.2rem;
+  padding: 0.5rem;
+  color: #aaa;
+  border-radius: 50%;
+  height: 2.0rem;
+  position: absolute;
+  display: flex;
+  background: #fff;
+  align-items: center;
+  justify-content: center;
+}
+.verified::before {
+  content: '✔';
+  text-align: center;
+  border: 3px solid #a4b4c7;
+  border-radius: 50%;
+  color: #7cfc00;
+  margin-right: 0.5rem;
+  padding-top: 0.5rem;
+}
 footer {
   grid-area: footer;
   background-color: #495057;

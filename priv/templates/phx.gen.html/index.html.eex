@@ -14,15 +14,7 @@
 <%= for {k, _} <- schema.attrs do %>      <td><%%= <%= schema.singular %>.<%= k %> %></td>
 <% end %>
       <td>
-        <%%= link gettext("Show"), to: Routes.<%= schema.route_helper %>_path(@conn, :show, <%= schema.singular %>) %>
-        <%%= if assigns[:current_user] && @current_user.id == @user.id do %>
-          <%%= link gettext("Edit"), to: Routes.<%= schema.route_helper %>_path(@conn, :edit, <%= schema.singular %>) %>
-          <li>
-            <%%= form_for @conn, Routes.<%= schema.route_helper %>_path(@conn, :delete, <%= schema.singular %>), [method: "delete"], fn _f -> %>
-            <%%= submit gettext("Delete"), class: "link" %>
-          <%% end %>
-          </li>
-        <%% end %>
+        <%%= link gettext("More details"), to: Routes.<%= schema.route_helper %>_path(@conn, :show, <%= schema.singular %>) %>
       </td>
     </tr>
 <%% end %>

@@ -8,16 +8,12 @@
       <thead>
         <tr>
           <th></th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
         <%= for post <- @posts do %>
           <tr>
             <td><%= post.title %></td>
-            <%= if assigns[:current_user] && @current_user.id == @user.id do %>
-              <td><%= link gettext("Edit post"), to: Routes.user_post_path(@conn, :edit, @user, post) %></td>
-            <% end %>
           </tr>
         <% end %>
       </tbody>
@@ -27,4 +23,6 @@
   <%= if assigns[:current_user] && @current_user.id == @user.id do %>
     <span><%= link gettext("New post"), to: Routes.user_post_path(@conn, :new, @current_user) %></span>
   <% end %>
+
+  <span><%= link gettext("All posts"), to: Routes.user_post_path(@conn, :index, @user) %></span><br>
 </section>

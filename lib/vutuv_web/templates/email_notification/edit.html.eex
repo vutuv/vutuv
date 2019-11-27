@@ -2,4 +2,4 @@
 
 <%= render "form.html", Map.put(assigns, :action, Routes.user_email_notification_path(@conn, :update, @current_user, @email_notification)) %>
 
-<span><%= link gettext("Back"), to: Routes.user_email_notification_path(@conn, :index, @current_user) %></span>
+<span><%= link gettext("All email notifications"), to: Routes.user_email_notification_path(@conn, :index, @current_user) %></span>
