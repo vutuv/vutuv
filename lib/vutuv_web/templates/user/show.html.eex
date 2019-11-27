@@ -3,8 +3,21 @@
   <%= render VutuvWeb.EmailAddressView, "_card.html", conn: @conn, current_user: @current_user, user: @user %>
   <%= render VutuvWeb.FolloweeView, "_card.html", conn: @conn, current_user: @current_user, followees: Enum.map(@user.followees, & &1.followee), user: @user %>
   <%= render VutuvWeb.FollowerView, "_card.html", conn: @conn, current_user: @current_user, followers: Enum.map(@user.followers, & &1.follower), user: @user %>
+  <%= render VutuvWeb.WorkExperienceView, "_card.html", conn: @conn, current_user: @current_user, user: @user %>
   <%= render VutuvWeb.SocialMediaAccountView, "_card.html", conn: @conn, current_user: @current_user, user: @user %>
   <%= render VutuvWeb.PostView, "_card.html", conn: @conn, current_user: @current_user, user: @user, posts: @posts %>
+</div>
 
-  <span><%= link gettext("Download vcard"), to: Routes.api_user_vcard_path(@conn, :vcard, @user) %></span><br>
+<span><%= link gettext("Download vcard"), to: Routes.api_user_vcard_path(@conn, :vcard, @user) %></span><br>
+
+<div class="danger-box">
+  <h2><%= gettext "Delete user" %></h2>
+
+  <p><%= gettext "Be careful! This cannot be undone." %></p>
+
+  <%= if assigns[:current_user] && @current_user.id == @user.id do %>
+    <%= form_for @conn, Routes.user_path(@conn, :delete, @current_user), [method: "delete"], fn _f -> %>
+      <%= submit gettext("Delete"), class: "btn-danger" %>
+    <% end %>
+  <% end %>
 </div>

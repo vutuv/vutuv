@@ -18,13 +18,7 @@
       <td><%= email_notification.delivered %></td>
 
       <td>
-        <%= link gettext("Show"), to: Routes.user_email_notification_path(@conn, :show, @current_user, email_notification) %>
-        <%= link gettext("Edit"), to: Routes.user_email_notification_path(@conn, :edit, @current_user, email_notification) %>
-        <li>
-          <%= form_for @conn, Routes.user_email_notification_path(@conn, :delete, @current_user, email_notification), [method: "delete"], fn _f -> %>
-          <%= submit gettext("Delete"), class: "link" %>
-        <% end %>
-        </li>
+        <%= link gettext("More details"), to: Routes.user_email_notification_path(@conn, :show, @current_user, email_notification) %>
       </td>
     </tr>
 <% end %>

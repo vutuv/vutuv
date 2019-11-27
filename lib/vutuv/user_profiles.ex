@@ -136,6 +136,7 @@ defmodule Vutuv.UserProfiles do
     Repo.preload(user, [
       :email_addresses,
       :social_media_accounts,
+      :work_experiences,
       followees: {UserConnections.latest(3, :followee), :followee},
       followers: {UserConnections.latest(3, :follower), :follower},
       user_tags: [:tag, :user_tag_endorsements]

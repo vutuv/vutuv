@@ -8,16 +8,12 @@
       <thead>
         <tr>
           <th></th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
         <%= for email_address <- @user.email_addresses do %>
           <tr>
             <td><%= email_address.value %></td>
-            <%= if assigns[:current_user] && @current_user.id == @user.id do %>
-              <td><%= link gettext("Edit email address"), to: Routes.user_email_address_path(@conn, :edit, @user, email_address) %></td>
-            <% end %>
           </tr>
         <% end %>
       </tbody>

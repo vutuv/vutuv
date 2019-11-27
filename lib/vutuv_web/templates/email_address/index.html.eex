@@ -22,11 +22,7 @@
       <td><%= email_address.verified %></td>
 
       <td>
-        <%= link gettext("Show"), to: Routes.user_email_address_path(@conn, :show, @current_user, email_address) %>
-        <%= link gettext("Edit"), to: Routes.user_email_address_path(@conn, :edit, @current_user, email_address) %>
-        <%= form_for @conn, Routes.user_email_address_path(@conn, :set_primary, @current_user, email_address), [method: "put"], fn _f -> %>
-          <%= submit gettext("Set as primary email address"), class: "link" %>
-        <% end %>
+        <%= link gettext("More details"), to: Routes.user_email_address_path(@conn, :show, @current_user, email_address) %>
       </td>
     </tr>
 <% end %>

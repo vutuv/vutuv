@@ -47,7 +47,7 @@ defmodule VutuvWeb.EmailNotificationController do
 
   def show(conn, %{"id" => id}, current_user) do
     email_notification = Notifications.get_email_notification!(current_user, id)
-    render(conn, "show.html", email_notification: email_notification)
+    render(conn, "show.html", email_notification: email_notification, user: current_user)
   end
 
   def edit(conn, %{"id" => id}, current_user) do

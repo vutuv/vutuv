@@ -1,0 +1,28 @@
+<section class="card">
+  <h2><%= gettext "Work experience" %></h2>
+
+  <%= if @user.work_experiences == [] do %>
+    <p><%= gettext "No work experience" %></p>
+  <% else %>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for work_experience <- @user.work_experiences do %>
+          <tr>
+            <td><%= work_experience.organization %></td>
+            <td><%= work_experience.title %></td>
+            <td><%= work_experience.start_date %>-<%= work_experience.end_date %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+  <span><%= link gettext("All work experiences"), to: Routes.user_work_experience_path(@conn, :index, @user) %></span><br>
+</section>

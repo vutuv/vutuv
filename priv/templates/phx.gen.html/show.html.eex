@@ -11,5 +11,11 @@
 
 <%%= if assigns[:current_user] do %>
 <span><%%= link gettext("Edit"), to: Routes.<%= schema.route_helper %>_path(@conn, :edit, @<%= schema.singular %>) %></span>
-<span><%%= link gettext("Back"), to: Routes.<%= schema.route_helper %>_path(@conn, :index) %></span>
+<span><%%= link gettext("All <%= schema.human_plural %>"), to: Routes.<%= schema.route_helper %>_path(@conn, :index) %></span>
+<%% end %>
+
+<hr>
+
+<%%= form_for @conn, Routes.<%= schema.route_helper %>_path(@conn, :delete, <%= schema.singular %>), [method: "delete"], fn _f -> %>
+  <%%= submit gettext("Delete"), class: "link" %>
 <%% end %>

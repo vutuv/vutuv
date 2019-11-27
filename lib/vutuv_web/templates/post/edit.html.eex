@@ -2,4 +2,4 @@
 
 <%= render "form.html", Map.put(assigns, :action, Routes.user_post_path(@conn, :update, @current_user, @post)) %>
 
-<span><%= link gettext("Back"), to: Routes.user_path(@conn, :show, @current_user) %></span>
+<span><%= link gettext("All posts"), to: Routes.user_post_path(@conn, :index, @current_user) %></span>

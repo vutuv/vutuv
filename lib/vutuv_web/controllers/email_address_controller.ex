@@ -55,7 +55,7 @@ defmodule VutuvWeb.EmailAddressController do
 
   def show(conn, %{"id" => id}, current_user) do
     email_address = Devices.get_email_address!(current_user, id)
-    render(conn, "show.html", email_address: email_address)
+    render(conn, "show.html", email_address: email_address, user: current_user)
   end
 
   def edit(conn, %{"id" => id}, current_user) do
