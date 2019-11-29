@@ -2,7 +2,7 @@
   <h2><%= gettext "Email addresses" %></h2>
 
   <%= if @user.email_addresses == [] do %>
-    <p><%= gettext "No emails" %></p>
+    <p><%= gettext "No public emails" %></p>
   <% else %>
     <table>
       <thead>

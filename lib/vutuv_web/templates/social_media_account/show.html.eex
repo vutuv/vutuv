@@ -18,15 +18,3 @@
   <span><%= link gettext("Edit"), to: Routes.user_social_media_account_path(@conn, :edit, @current_user, @social_media_account) %></span><br>
 <% end %>
 <span><%= link gettext("All social media accounts"), to: Routes.user_social_media_account_path(@conn, :index, @user) %></span>
-
-<div class="danger-box">
-  <h2><%= gettext "Delete email notification" %></h2>
-
-  <p><%= gettext "Be careful! This cannot be undone." %></p>
-
-  <%= if assigns[:current_user] && @current_user.id == @user.id do %>
-    <%= form_for @conn, Routes.user_social_media_account_path(@conn, :delete, @current_user, @social_media_account), [method: "delete"], fn _f -> %>
-      <%= submit gettext("Delete"), class: "btn-danger" %>
-    <% end %>
-  <% end %>
-</div>

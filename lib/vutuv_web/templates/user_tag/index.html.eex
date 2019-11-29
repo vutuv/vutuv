@@ -1,7 +1,7 @@
 <h1><%= @user.full_name %> <%= gettext "user_tags" %></h1>
 
 <%= if @user_tags == [] do %>
-<h3><%= @user.full_name %> <%= gettext "has no user tags yet" %></h3>
+  <h3><%= @user.full_name %> <%= gettext "has no user tags yet" %></h3>
 <% else %>
 <table>
   <thead>
@@ -20,11 +20,9 @@
 
       <td>
         <%= if assigns[:current_user] && @current_user.id == @user.id do %>
-          <li>
-            <%= form_for @conn, Routes.user_tag_path(@conn, :delete, @current_user, user_tag), [method: "delete"], fn _f -> %>
-            <%= submit gettext("Delete"), class: "link" %>
+          <%= form_for @conn, Routes.user_tag_path(@conn, :delete, @current_user, user_tag), [method: "delete"], fn _f -> %>
+            <%= submit gettext("Delete"), class: "btn-danger" %>
           <% end %>
-          </li>
         <% end %>
       </td>
     </tr>

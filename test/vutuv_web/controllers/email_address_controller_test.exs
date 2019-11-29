@@ -220,7 +220,8 @@ defmodule VutuvWeb.EmailAddressControllerTest do
   end
 
   describe "delete email_address" do
-    test "deletes chosen email_address", %{conn: conn, user: user, email_address: email_address} do
+    test "deletes chosen email_address", %{conn: conn, user: user} do
+      email_address = insert(:email_address, %{is_primary: false, user: user})
       conn = delete(conn, Routes.user_email_address_path(conn, :delete, user, email_address))
       assert redirected_to(conn) == Routes.user_email_address_path(conn, :index, user)
       assert get_flash(conn, :info) =~ "deleted successfully"
@@ -228,6 +229,16 @@ defmodule VutuvWeb.EmailAddressControllerTest do
       assert_raise Ecto.NoResultsError, fn ->
         Devices.get_email_address!(user, email_address.id)
       end
+    end
+
+    test "cannot delete primary email_address", %{
+      conn: conn,
+      user: user,
+      email_address: email_address
+    } do
+      conn = delete(conn, Routes.user_email_address_path(conn, :delete, user, email_address))
+      assert html_response(conn, 200) =~ to_string(email_address.id)
+      assert Devices.get_email_address!(user, email_address.id)
     end
 
     test "cannot delete another user's email_address", %{conn: conn, user: user} do

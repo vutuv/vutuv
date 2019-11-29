@@ -170,6 +170,12 @@ defmodule Vutuv.DevicesTest do
         Devices.get_email_address!(user, email_address.id)
       end
     end
+
+    test "cannot delete primary email_address", %{user: user} do
+      assert %{email_addresses: [%EmailAddress{is_primary: true} = email_address]} = user
+      assert {:error, %Ecto.Changeset{} = changeset} = Devices.delete_email_address(email_address)
+      assert %{is_primary: ["cannot delete your primary email address"]} = errors_on(changeset)
+    end
   end
 
   describe "handle unverified email addresses" do

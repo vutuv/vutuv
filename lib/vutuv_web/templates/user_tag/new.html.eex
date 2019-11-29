@@ -1,6 +1,6 @@
 <h1><%= gettext "New user tag" %></h1>
 
-<%= form_for @changeset, Routes.user_path(@conn, :create), [], fn f -> %>
+<%= form_for @changeset, Routes.user_tag_path(@conn, :create, @current_user), [], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p><%= gettext "Something went wrong. Please check the errors below." %></p>

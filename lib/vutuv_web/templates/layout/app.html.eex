@@ -8,30 +8,32 @@
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
   <body>
-    <header>
-      <div class="logo">
-        <svg viewBox="0 0 596 154">
-          <path fill="#e6e6e6" d="M0 34 l44 114 h28 l44 -114 h-32 l-24 72 l-24 -72 z
-             M134 34 v80 c0 20 24 56 88 24 v-104 h-28 v84 c-28 12 -32 -12 -32 -24 v-60 z
-             M244 34 v80 c0 24 24 56 64 24 l-10 -24 c-28 24 -24 -12 -24 -12 v-36 h28 v-32 h-28 v-32 l-30 6 z
-             M330 34 v104 c28 20 80 16 88 -24 v-80 h-28 v60 c0 18 0 32 -32 24 v-84 z
-             M432 34 l44 114 h28 l44 -114 h-32 l-24 72 l-24 -72 z" />
-        </svg>
-      </div>
-      <%= if assigns[:user] do %>
-        <%= render VutuvWeb.UserView, "_profile_header.html", assigns %>
-      <% else %>
-        <h2><%= gettext "The fast, secure and less annoying social network." %></h2>
-        <h3><%= gettext "Over 20000 members worldwide." %></h3>
-      <% end %>
-    </header>
-    <main role="main">
-      <article class="content">
-        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-        <%= render @view_module, @view_template, assigns %>
-      </article>
-    </main>
+    <div class="wrapper">
+      <header>
+        <div class="logo">
+          <svg viewBox="0 0 596 154">
+            <path fill="#e6e6e6" d="M0 34 l44 114 h28 l44 -114 h-32 l-24 72 l-24 -72 z
+               M134 34 v80 c0 20 24 56 88 24 v-104 h-28 v84 c-28 12 -32 -12 -32 -24 v-60 z
+               M244 34 v80 c0 24 24 56 64 24 l-10 -24 c-28 24 -24 -12 -24 -12 v-36 h28 v-32 h-28 v-32 l-30 6 z
+               M330 34 v104 c28 20 80 16 88 -24 v-80 h-28 v60 c0 18 0 32 -32 24 v-84 z
+               M432 34 l44 114 h28 l44 -114 h-32 l-24 72 l-24 -72 z" />
+          </svg>
+        </div>
+        <%= if assigns[:user] do %>
+          <%= render VutuvWeb.UserView, "_profile_header.html", assigns %>
+        <% else %>
+          <h2><%= gettext "The fast, secure and less annoying social network." %></h2>
+          <h3><%= gettext "Over 20000 members worldwide." %></h3>
+        <% end %>
+      </header>
+      <main role="main">
+        <article class="content">
+          <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+          <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+          <%= render @view_module, @view_template, assigns %>
+        </article>
+      </main>
+    </div>
     <footer>
       <ul>
         <li><a href="#"><%= gettext "About" %></a></li>
