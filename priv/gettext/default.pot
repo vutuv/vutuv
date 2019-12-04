@@ -35,6 +35,7 @@ msgstr ""
 #: lib/vutuv_web/templates/email_notification/show.html.eex:24
 #: lib/vutuv_web/templates/post/show.html.eex:12
 #: lib/vutuv_web/templates/social_media_account/show.html.eex:18
+#: lib/vutuv_web/templates/user/show.html.eex:14
 #: lib/vutuv_web/templates/work_experience/show.html.eex:38
 msgid "Edit"
 msgstr ""
@@ -47,7 +48,7 @@ msgid "Email"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:47
+#: lib/vutuv_web/templates/layout/app.html.eex:49
 #: lib/vutuv_web/templates/session/new.html.eex:1
 #: lib/vutuv_web/templates/session/new.html.eex:21
 msgid "Login"
@@ -59,7 +60,7 @@ msgid "Login here"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:43
+#: lib/vutuv_web/templates/layout/app.html.eex:45
 msgid "Logout"
 msgstr ""
 
@@ -111,24 +112,24 @@ msgid "Sign up"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:37
+#: lib/vutuv_web/templates/layout/app.html.eex:39
 msgid "About"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:38
+#: lib/vutuv_web/templates/layout/app.html.eex:40
 msgid "Data privacy"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/address/show.html.eex:64
-#: lib/vutuv_web/templates/email_address/show.html.eex:42
-#: lib/vutuv_web/templates/email_notification/show.html.eex:36
-#: lib/vutuv_web/templates/post/show.html.eex:23
-#: lib/vutuv_web/templates/social_media_account/show.html.eex:29
-#: lib/vutuv_web/templates/user/show.html.eex:20
-#: lib/vutuv_web/templates/user_tag/index.html.eex:25
-#: lib/vutuv_web/templates/work_experience/show.html.eex:49
+#: lib/vutuv_web/templates/address/edit.html.eex:13
+#: lib/vutuv_web/templates/email_address/edit.html.eex:13
+#: lib/vutuv_web/templates/email_notification/edit.html.eex:13
+#: lib/vutuv_web/templates/post/edit.html.eex:13
+#: lib/vutuv_web/templates/social_media_account/edit.html.eex:13
+#: lib/vutuv_web/templates/user/edit.html.eex:82
+#: lib/vutuv_web/templates/user_tag/index.html.eex:24
+#: lib/vutuv_web/templates/work_experience/edit.html.eex:13
 msgid "Delete"
 msgstr ""
 
@@ -243,7 +244,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/templates/error/404.html.eex:15
-#: lib/vutuv_web/templates/layout/app.html.eex:24
+#: lib/vutuv_web/templates/layout/app.html.eex:25
 msgid "The fast, secure and less annoying social network."
 msgstr ""
 
@@ -385,7 +386,6 @@ msgid "Email address"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/post/_card.html.eex:24
 #: lib/vutuv_web/templates/post/new.html.eex:1
 msgid "New post"
 msgstr ""
@@ -455,7 +455,7 @@ msgid "Public"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:39
+#: lib/vutuv_web/templates/layout/app.html.eex:41
 #: lib/vutuv_web/templates/user/index.html.eex:1
 msgid "Users"
 msgstr ""
@@ -502,11 +502,6 @@ msgid "Following"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_address/_card.html.eex:5
-msgid "No emails"
-msgstr ""
-
-#, elixir-format
 #: lib/vutuv_web/templates/follower/_card.html.eex:5
 msgid "No followers yet"
 msgstr ""
@@ -549,7 +544,7 @@ msgid "Download vcard"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/layout/app.html.eex:25
+#: lib/vutuv_web/templates/layout/app.html.eex:26
 msgid "Over 20000 members worldwide."
 msgstr ""
 
@@ -607,7 +602,7 @@ msgid "Country:"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/controllers/email_address_controller.ex:95
+#: lib/vutuv_web/controllers/email_address_controller.ex:96
 msgid "Email address deleted successfully."
 msgstr ""
 
@@ -882,7 +877,7 @@ msgid "New Work experience"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user_tag/index.html.eex:37
+#: lib/vutuv_web/templates/user_tag/index.html.eex:35
 #: lib/vutuv_web/templates/user_tag/new.html.eex:1
 msgid "New user tag"
 msgstr ""
@@ -943,14 +938,14 @@ msgid "Work experiences"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/_profile_header.html.eex:14
+#: lib/vutuv_web/templates/user/_profile_header.html.eex:12
 msgid "1 follower"
 msgid_plural "%{count} followers"
 msgstr[0] ""
 msgstr[1] ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user_tag/_card.html.eex:27
+#: lib/vutuv_web/templates/user_tag/_card.html.eex:31
 msgid "All user tags"
 msgstr ""
 
@@ -985,7 +980,7 @@ msgid "Error when trying to follow user."
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/_profile_header.html.eex:23
+#: lib/vutuv_web/templates/user/_profile_header.html.eex:22
 msgid "Follow"
 msgstr ""
 
@@ -1041,7 +1036,7 @@ msgid "Unauthorized to unfollow user."
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/_profile_header.html.eex:19
+#: lib/vutuv_web/templates/user/_profile_header.html.eex:18
 msgid "Unfollow"
 msgstr ""
 
@@ -1106,6 +1101,7 @@ msgstr ""
 #: lib/vutuv_web/templates/address/edit.html.eex:5
 #: lib/vutuv_web/templates/address/new.html.eex:5
 #: lib/vutuv_web/templates/address/show.html.eex:55
+#: lib/vutuv_web/templates/user/show.html.eex:16
 msgid "All addresses"
 msgstr ""
 
@@ -1124,7 +1120,7 @@ msgid "All email notifications"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/post/_card.html.eex:27
+#: lib/vutuv_web/templates/post/_card.html.eex:23
 #: lib/vutuv_web/templates/post/edit.html.eex:5
 #: lib/vutuv_web/templates/post/new.html.eex:5
 #: lib/vutuv_web/templates/post/show.html.eex:14
@@ -1153,40 +1149,38 @@ msgid "All work experiences"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/address/show.html.eex:60
-#: lib/vutuv_web/templates/email_address/show.html.eex:38
-#: lib/vutuv_web/templates/email_notification/show.html.eex:32
-#: lib/vutuv_web/templates/post/show.html.eex:19
-#: lib/vutuv_web/templates/social_media_account/show.html.eex:25
-#: lib/vutuv_web/templates/user/show.html.eex:16
-#: lib/vutuv_web/templates/work_experience/show.html.eex:45
+#: lib/vutuv_web/templates/address/edit.html.eex:10
+#: lib/vutuv_web/templates/email_address/edit.html.eex:10
+#: lib/vutuv_web/templates/email_notification/edit.html.eex:10
+#: lib/vutuv_web/templates/post/edit.html.eex:10
+#: lib/vutuv_web/templates/social_media_account/edit.html.eex:10
+#: lib/vutuv_web/templates/user/edit.html.eex:79
+#: lib/vutuv_web/templates/work_experience/edit.html.eex:10
 msgid "Be careful! This cannot be undone."
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/address/show.html.eex:58
+#: lib/vutuv_web/templates/address/edit.html.eex:8
 msgid "Delete address"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_address/show.html.eex:36
+#: lib/vutuv_web/templates/email_address/edit.html.eex:8
 msgid "Delete email address"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/email_notification/show.html.eex:30
-#: lib/vutuv_web/templates/post/show.html.eex:17
-#: lib/vutuv_web/templates/social_media_account/show.html.eex:23
+#: lib/vutuv_web/templates/email_notification/edit.html.eex:8
 msgid "Delete email notification"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/user/show.html.eex:14
+#: lib/vutuv_web/templates/user/edit.html.eex:77
 msgid "Delete user"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/templates/work_experience/show.html.eex:43
+#: lib/vutuv_web/templates/work_experience/edit.html.eex:8
 msgid "Delete work experience"
 msgstr ""
 
@@ -1213,4 +1207,24 @@ msgstr ""
 #: lib/vutuv_web/templates/work_experience/_card.html.eex:2
 #: lib/vutuv_web/templates/work_experience/show.html.eex:1
 msgid "Work experience"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/post/edit.html.eex:8
+msgid "Delete post"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/social_media_account/edit.html.eex:8
+msgid "Delete social media account"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/email_address/_card.html.eex:5
+msgid "No public emails"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/templates/user_tag/_card.html.eex:5
+msgid "No user tags"
 msgstr ""

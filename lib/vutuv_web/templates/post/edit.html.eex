@@ -3,3 +3,13 @@
 <%= render "form.html", Map.put(assigns, :action, Routes.user_post_path(@conn, :update, @current_user, @post)) %>
 
 <span><%= link gettext("All posts"), to: Routes.user_post_path(@conn, :index, @current_user) %></span>
+
+<div class="danger-box">
+  <h2><%= gettext "Delete post" %></h2>
+
+  <p><%= gettext "Be careful! This cannot be undone." %></p>
+
+  <%= form_for @conn, Routes.user_post_path(@conn, :delete, @current_user, @post), [method: "delete"], fn _f -> %>
+    <%= submit gettext("Delete"), class: "btn-danger" %>
+  <% end %>
+</div>

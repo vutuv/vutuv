@@ -94,7 +94,7 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
 
   describe "delete email_address" do
     test "delete email_address", %{user: user, token: token} do
-      %User{email_addresses: [%{id: id}]} = user
+      {:ok, %{id: id}} = Devices.create_email_address(user, %{"value" => "abcdef@example.com"})
 
       {:ok, response} =
         token
@@ -103,6 +103,19 @@ defmodule VutuvWeb.EmailAddressIntegrationTest do
 
       assert %Tesla.Env{body: "", status: 204} = response
       assert_raise Ecto.NoResultsError, fn -> Devices.get_email_address!(user, id) end
+    end
+
+    test "cannot delete primary email_address", %{user: user, token: token} do
+      %User{email_addresses: [%{id: id}]} = user
+
+      {:ok, response} =
+        token
+        |> authenticated_client()
+        |> Tesla.delete("/users/#{user.slug}/email_addresses/#{id}")
+
+      assert %Tesla.Env{body: %{"errors" => errors}, status: 422} = response
+      assert errors["is_primary"] == ["cannot delete your primary email address"]
+      assert Devices.get_email_address!(user, id)
     end
 
     test "cannot delete other email_address", %{user: user, token: token} do

@@ -89,10 +89,15 @@ defmodule VutuvWeb.EmailAddressController do
 
   def delete(conn, %{"id" => id}, current_user) do
     email_address = Devices.get_email_address!(current_user, id)
-    {:ok, _email_address} = Devices.delete_email_address(email_address)
 
-    conn
-    |> put_flash(:info, gettext("Email address deleted successfully."))
-    |> redirect(to: Routes.user_email_address_path(conn, :index, current_user))
+    case Devices.delete_email_address(email_address) do
+      {:ok, _email_address} ->
+        conn
+        |> put_flash(:info, gettext("Email address deleted successfully."))
+        |> redirect(to: Routes.user_email_address_path(conn, :index, current_user))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "edit.html", email_address: email_address, changeset: changeset)
+    end
   end
 end

@@ -126,13 +126,28 @@ defmodule VutuvWeb.Api.EmailAddressControllerTest do
   end
 
   describe "delete email_address" do
-    test "deletes chosen email_address", %{conn: conn, user: user, email_address: email_address} do
+    test "deletes chosen email_address", %{conn: conn, user: user} do
+      email_address = insert(:email_address, %{is_primary: false, user: user})
       conn = delete(conn, Routes.api_user_email_address_path(conn, :delete, user, email_address))
       assert response(conn, 204)
 
       assert_raise Ecto.NoResultsError, fn ->
         Devices.get_email_address!(user, email_address.id)
       end
+    end
+
+    test "cannot delete primary email_address", %{
+      conn: conn,
+      user: user,
+      email_address: email_address
+    } do
+      conn = delete(conn, Routes.api_user_email_address_path(conn, :delete, user, email_address))
+
+      assert json_response(conn, 422)["errors"]["is_primary"] == [
+               "cannot delete your primary email address"
+             ]
+
+      assert Devices.get_email_address!(user, email_address.id)
     end
 
     test "cannot delete other user's email_address", %{conn: conn, user: user} do

@@ -3,25 +3,23 @@
   <h2><%= @user.full_name %></h2>
 </div>
 <div>
+  <p><%= @user.headline %></p>
+</div>
+<div class="profile-info">
   <%= if Vutuv.Accounts.user_confirmed?(@user.id) do %>
-    <h2 class="verified">verified</h2>
+    <h3 class="verified">verified</h3>
   <% end %>
+  <h3><%= ngettext "1 follower", "%{count} followers", Vutuv.UserConnections.follower_count(@user) %></h3>
 </div>
 <div>
-  <p><%= @user.headline %></p>
-
-  <%= if is_list(@user.followers) do %>
-    <h3><%= ngettext "1 follower", "%{count} followers", Vutuv.UserConnections.follower_count(@user) %></h3>
-
-    <%= if assigns[:current_user] && @current_user.id != @user.id do %>
-      <%= if user_connection = Vutuv.UserConnections.get_user_connection(@user, @current_user) do %>
-        <%= form_for @conn, Routes.user_followee_path(@conn, :delete, @user, user_connection.id), [method: "delete"], fn _f -> %>
-          <%= submit gettext("Unfollow"), class: "link" %>
-        <% end %>
-      <% else %>
-        <%= form_for @conn, Routes.user_followee_path(@conn, :create, @user, followee: %{follower_id: @current_user.id, followee_id: @user.id}), [method: "post"], fn _f -> %>
-          <%= submit gettext("Follow"), class: "link" %>
-        <% end %>
+  <%= if assigns[:current_user] && @current_user.id != @user.id do %>
+    <%= if user_connection = Vutuv.UserConnections.get_user_connection(@user, @current_user) do %>
+      <%= form_for @conn, Routes.user_followee_path(@conn, :delete, @user, user_connection.id), [method: "delete"], fn _f -> %>
+        <%= submit gettext("Unfollow"), class: "follow link" %>
+      <% end %>
+    <% else %>
+      <%= form_for @conn, Routes.user_followee_path(@conn, :create, @user, followee: %{follower_id: @current_user.id, followee_id: @user.id}), [method: "post"], fn _f -> %>
+        <%= submit gettext("Follow"), class: "follow link" %>
       <% end %>
     <% end %>
   <% end %>

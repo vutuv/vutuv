@@ -3,3 +3,13 @@
 <%= render "form.html", Map.put(assigns, :action, Routes.user_work_experience_path(@conn, :update, @current_user, @work_experience)) %>
 
 <span><%= link gettext("All work experiences"), to: Routes.user_work_experience_path(@conn, :index, @current_user) %></span>
+
+<div class="danger-box">
+  <h2><%= gettext "Delete work experience" %></h2>
+
+  <p><%= gettext "Be careful! This cannot be undone." %></p>
+
+  <%= form_for @conn, Routes.user_work_experience_path(@conn, :delete, @current_user, @work_experience), [method: "delete"], fn _f -> %>
+    <%= submit gettext("Delete"), class: "btn-danger" %>
+  <% end %>
+</div>

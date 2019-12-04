@@ -72,3 +72,13 @@
 <% end %>
 
 <span><%= link gettext("All users"), to: Routes.user_path(@conn, :index) %></span>
+
+<div class="danger-box">
+  <h2><%= gettext "Delete user" %></h2>
+
+  <p><%= gettext "Be careful! This cannot be undone." %></p>
+
+  <%= form_for @conn, Routes.user_path(@conn, :delete, @current_user), [method: "delete"], fn _f -> %>
+    <%= submit gettext("Delete"), class: "btn-danger" %>
+  <% end %>
+</div>

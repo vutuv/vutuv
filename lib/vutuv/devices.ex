@@ -4,7 +4,7 @@ defmodule Vutuv.Devices do
   """
 
   import Ecto
-  import Ecto.Changeset, only: [change: 2]
+  import Ecto.Changeset, only: [add_error: 3, change: 1, change: 2]
   import Ecto.Query, warn: false
 
   alias Vutuv.{UserProfiles.User, Repo}
@@ -120,6 +120,13 @@ defmodule Vutuv.Devices do
   Deletes an email_address.
   """
   @spec delete_email_address(EmailAddress.t()) :: {:ok, EmailAddress.t()} | changeset_error
+  def delete_email_address(%EmailAddress{is_primary: true} = email_address) do
+    {:error,
+     email_address
+     |> change()
+     |> add_error(:is_primary, "cannot delete your primary email address")}
+  end
+
   def delete_email_address(%EmailAddress{} = email_address) do
     Repo.delete(email_address)
   end

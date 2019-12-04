@@ -3,3 +3,13 @@
 <%= render "form.html", Map.put(assigns, :action, Routes.user_social_media_account_path(@conn, :update, @current_user, @social_media_account)) %>
 
 <span><%= link gettext("All social media accounts"), to: Routes.user_social_media_account_path(@conn, :index, @current_user) %></span>
+
+<div class="danger-box">
+  <h2><%= gettext "Delete social media account" %></h2>
+
+  <p><%= gettext "Be careful! This cannot be undone." %></p>
+
+  <%= form_for @conn, Routes.user_social_media_account_path(@conn, :delete, @current_user, @social_media_account), [method: "delete"], fn _f -> %>
+    <%= submit gettext("Delete"), class: "btn-danger" %>
+  <% end %>
+</div>

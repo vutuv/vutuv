@@ -218,24 +218,6 @@ other_users_attrs = [
     "full_name" => "Magnus Thompson",
     "gender" => "male",
     "locale" => "de"
-  },
-  %{
-    "email" => "garnett.zulauf@example.com",
-    "password" => "reallyHard2gue$$",
-    "full_name" => "Garnett Zulauf",
-    "gender" => "male"
-  },
-  %{
-    "email" => "karina.mcclure@example.com",
-    "password" => "reallyHard2gue$$",
-    "full_name" => "Karina McClure",
-    "gender" => "female"
-  },
-  %{
-    "email" => "john.smith@example.com",
-    "password" => "reallyHard2gue$$",
-    "full_name" => "John Smith",
-    "gender" => "male"
   }
 ]
 
@@ -256,4 +238,29 @@ for user <- other_users_attrs do
   for user_tag <- user_tags do
     Vutuv.Tags.create_user_tag_endorsement(user, %{"user_tag_id" => user_tag.id})
   end
+end
+
+unverified_user_attrs = [
+  %{
+    "email" => "garnett.zulauf@example.com",
+    "password" => "reallyHard2gue$$",
+    "full_name" => "Garnett Zulauf",
+    "gender" => "male"
+  },
+  %{
+    "email" => "karina.mcclure@example.com",
+    "password" => "reallyHard2gue$$",
+    "full_name" => "Karina McClure",
+    "gender" => "female"
+  },
+  %{
+    "email" => "john.smith@example.com",
+    "password" => "reallyHard2gue$$",
+    "full_name" => "John Smith",
+    "gender" => "male"
+  }
+]
+
+for user <- unverified_user_attrs do
+  {:ok, _user} = Vutuv.UserProfiles.create_user(user)
 end

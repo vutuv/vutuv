@@ -25,15 +25,3 @@
   <% end %>
 <% end %>
 <span><%= link gettext("All email notifications"), to: Routes.user_email_notification_path(@conn, :index, @user) %></span>
-
-<div class="danger-box">
-  <h2><%= gettext "Delete email notification" %></h2>
-
-  <p><%= gettext "Be careful! This cannot be undone." %></p>
-
-  <%= if assigns[:current_user] && @current_user.id == @user.id do %>
-    <%= form_for @conn, Routes.user_email_notification_path(@conn, :delete, @current_user, @email_notification), [method: "delete"], fn _f -> %>
-      <%= submit gettext("Delete"), class: "btn-danger" %>
-    <% end %>
-  <% end %>
-</div>

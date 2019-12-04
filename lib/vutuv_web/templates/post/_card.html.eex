@@ -20,9 +20,5 @@
     </table>
   <% end %>
 
-  <%= if assigns[:current_user] && @current_user.id == @user.id do %>
-    <span><%= link gettext("New post"), to: Routes.user_post_path(@conn, :new, @current_user) %></span>
-  <% end %>
-
   <span><%= link gettext("All posts"), to: Routes.user_post_path(@conn, :index, @user) %></span><br>
 </section>

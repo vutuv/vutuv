@@ -32,6 +32,6 @@ defmodule Vutuv.Devices.EmailManager do
   end
 
   defp handle_unconfirmed(email_address) do
-    {:ok, _email_address} = Devices.delete_email_address(email_address)
+    Devices.delete_email_address(email_address)
   end
 end
