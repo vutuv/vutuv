@@ -6,6 +6,7 @@ defmodule VutuvWeb.SessionController do
   alias Vutuv.Sessions
   alias VutuvWeb.Auth.Login
 
+  plug VutuvWeb.RateLimiter when action in [:create]
   plug :guest_check when action in [:new, :create]
 
   def new(conn, _) do
@@ -15,6 +16,8 @@ defmodule VutuvWeb.SessionController do
   def create(conn, %{"session" => params}) do
     case Login.verify(params) do
       {:ok, user} ->
+        VutuvWeb.RateLimiter.reset_count(conn)
+
         conn
         |> add_session(user, params)
         |> put_flash(:info, gettext("User successfully logged in."))

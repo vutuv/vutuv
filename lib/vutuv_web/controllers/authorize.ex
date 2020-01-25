@@ -13,7 +13,10 @@ defmodule VutuvWeb.Authorize do
   alias VutuvWeb.Router.Helpers, as: Routes
 
   @doc """
-  Overrides the controller module's action function with a current_user check.
+  Overrides the controller module's action function by adding a current_user check.
+
+  If there is a valid current_user, the action is run as normal, and if there is no
+  current_user, a `forbidden` response is returned.
   """
   def auth_action_slug(
         %Plug.Conn{params: params, assigns: %{current_user: %{slug: slug} = current_user}} = conn,
@@ -51,7 +54,7 @@ defmodule VutuvWeb.Authorize do
 
   def guest_check(%Plug.Conn{assigns: %{current_user: user}} = conn, _opts) do
     conn
-    |> put_flash(:error, gettext("You need to log out to view this page"))
+    |> put_flash(:error, gettext("You need to log out to view this page."))
     |> redirect(to: Routes.user_path(conn, :show, user))
     |> halt()
   end
@@ -61,7 +64,7 @@ defmodule VutuvWeb.Authorize do
   """
   def unauthorized(conn, current_user) do
     conn
-    |> put_flash(:error, gettext("You are not authorized to view this page"))
+    |> put_flash(:error, gettext("You are not authorized to view this page."))
     |> redirect(to: Routes.user_path(conn, :show, current_user))
     |> halt()
   end
@@ -72,7 +75,7 @@ defmodule VutuvWeb.Authorize do
   def need_login(conn) do
     conn
     |> put_session(:request_path, current_path(conn))
-    |> put_flash(:error, gettext("You need to log in to view this page"))
+    |> put_flash(:error, gettext("You need to log in to view this page."))
     |> redirect(to: Routes.session_path(conn, :new))
     |> halt()
   end

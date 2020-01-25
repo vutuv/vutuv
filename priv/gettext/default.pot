@@ -575,11 +575,6 @@ msgid "Address updated successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/controllers/password_reset_controller.ex:26
-msgid "Check your inbox for instructions on how to reset your password"
-msgstr ""
-
-#, elixir-format
 #: lib/vutuv_web/templates/address/form.html.eex:32
 #: lib/vutuv_web/templates/address/index.html.eex:10
 msgid "City"
@@ -614,14 +609,7 @@ msgstr ""
 #, elixir-format
 #: lib/vutuv_web/controllers/api/password_reset_controller.ex:45
 #: lib/vutuv_web/controllers/api/verification_controller.ex:23
-#: lib/vutuv_web/controllers/password_reset_controller.ex:48
-#: lib/vutuv_web/controllers/verification_controller.ex:27
 msgid "Invalid code"
-msgstr ""
-
-#, elixir-format
-#: lib/vutuv_web/controllers/password_reset_controller.ex:87
-msgid "Invalid input"
 msgstr ""
 
 #, elixir-format
@@ -721,24 +709,7 @@ msgid "We have sent you an email. Please follow the instructions to %{msg}."
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/controllers/authorize.ex:64
-#: lib/vutuv_web/controllers/password_reset_controller.ex:97
-msgid "You are not authorized to view this page"
-msgstr ""
-
-#, elixir-format
-#: lib/vutuv_web/controllers/authorize.ex:75
-msgid "You need to log in to view this page"
-msgstr ""
-
-#, elixir-format
-#: lib/vutuv_web/controllers/authorize.ex:54
-msgid "You need to log out to view this page"
-msgstr ""
-
-#, elixir-format
 #: lib/vutuv_web/controllers/api/password_reset_controller.ex:64
-#: lib/vutuv_web/controllers/password_reset_controller.ex:80
 msgid "Your password has been reset"
 msgstr ""
 
@@ -951,6 +922,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/controllers/api/password_reset_controller.ex:26
+#: lib/vutuv_web/controllers/password_reset_controller.ex:26
 msgid "Check your inbox for instructions on how to reset your password."
 msgstr ""
 
@@ -1047,7 +1019,6 @@ msgstr ""
 
 #, elixir-format
 #: lib/vutuv_web/controllers/api/verification_controller.ex:19
-#: lib/vutuv_web/controllers/verification_controller.ex:23
 msgid "Your email has been verified"
 msgstr ""
 
@@ -1062,24 +1033,8 @@ msgid "user_tags"
 msgstr ""
 
 #, elixir-format
-#: lib/vutuv_web/controllers/email_notification_controller.ex:38
-#: lib/vutuv_web/controllers/email_notification_controller.ex:81
-msgid "Email notification %{msg} successfully"
-msgstr ""
-
-#, elixir-format
-#: lib/vutuv_web/controllers/email_notification_controller.ex:96
-msgid "Email notification deleted successfully"
-msgstr ""
-
-#, elixir-format
 #: lib/vutuv_web/templates/email_notification/form.html.eex:8
 msgid "To write the subject and body in German and English, add \"[de]\" before the German text and \"[en]\" before the English text."
-msgstr ""
-
-#, elixir-format
-#: lib/vutuv_web/controllers/email_notification_controller.ex:61
-msgid "You cannot edit this email notification as it has already been delivered"
 msgstr ""
 
 #, elixir-format
@@ -1227,4 +1182,57 @@ msgstr ""
 #, elixir-format
 #: lib/vutuv_web/templates/user_tag/_card.html.eex:5
 msgid "No user tags"
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/email_notification_controller.ex:38
+#: lib/vutuv_web/controllers/email_notification_controller.ex:81
+msgid "Email notification %{msg} successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/email_notification_controller.ex:96
+msgid "Email notification deleted successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/password_reset_controller.ex:48
+#: lib/vutuv_web/controllers/verification_controller.ex:27
+msgid "Invalid code."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/password_reset_controller.ex:87
+msgid "Invalid input."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/authorize.ex:64
+#: lib/vutuv_web/controllers/password_reset_controller.ex:97
+msgid "You are not authorized to view this page."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/email_notification_controller.ex:61
+msgid "You cannot edit this email notification as it has already been delivered."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/authorize.ex:75
+msgid "You need to log in to view this page."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/authorize.ex:54
+msgid "You need to log out to view this page."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/verification_controller.ex:23
+msgid "Your email has been verified."
+msgstr ""
+
+#, elixir-format
+#: lib/vutuv_web/controllers/password_reset_controller.ex:80
+msgid "Your password has been reset."
 msgstr ""
