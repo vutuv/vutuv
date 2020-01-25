@@ -4,6 +4,8 @@ defmodule VutuvWeb.VerificationController do
   alias Vutuv.{Accounts, Devices, UserProfiles}
   alias VutuvWeb.{Auth.Otp, Email}
 
+  plug VutuvWeb.RateLimiter, [type: :verify] when action in [:create]
+
   def new(conn, %{"email" => email}) do
     Devices.get_unverified_email_address!(%{"value" => email})
     render(conn, "new.html", email: email)
@@ -13,6 +15,7 @@ defmodule VutuvWeb.VerificationController do
     user_credential = Accounts.get_user_credential(%{"email" => email})
 
     if Otp.verify(code, user_credential.otp_secret) do
+      VutuvWeb.RateLimiter.reset_count(conn)
       email_address = Devices.get_email_address(%{"value" => email})
       unless user_credential.confirmed, do: Accounts.confirm_user(user_credential)
       Devices.verify_email_address(email_address)

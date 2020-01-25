@@ -31,7 +31,7 @@ defmodule VutuvWeb.Api.SessionControllerTest do
 
   describe "rate limiting for create session" do
     @tag :rate_limiting
-    test "login is blocked after user_name limit (5) is reached", %{conn: conn} do
+    test "login is blocked after user_name limit (5 every 60 seconds) is reached", %{conn: conn} do
       for _ <- 1..5 do
         conn = post(conn, Routes.api_session_path(conn, :create), session: @invalid_attrs)
         assert json_response(conn, 401)["errors"]["detail"] =~ "need to login"

@@ -30,7 +30,12 @@ defmodule VutuvWeb.RateLimiter do
   end
 
   def call(conn, :verify) do
-    conn
+    user_name = user_name(conn, "verify")
+
+    case Hammer.check_rate(user_name, 90 * 1000, 2) do
+      {:allow, _} -> assign(conn, :rate_limit_name, user_name)
+      _ -> render_error(conn)
+    end
   end
 
   @doc """
