@@ -53,6 +53,32 @@ defmodule VutuvWeb.SessionControllerTest do
     end
   end
 
+  describe "rate limiting for create session" do
+    @tag :rate_limiting
+    test "login is blocked after user_name limit (5) is reached", %{conn: conn} do
+      for _ <- 1..5 do
+        conn = post(conn, Routes.session_path(conn, :create), session: @invalid_attrs)
+        assert redirected_to(conn) == Routes.session_path(conn, :new)
+      end
+
+      conn = post(conn, Routes.session_path(conn, :create), session: @invalid_attrs)
+      assert redirected_to(conn) == Routes.user_path(conn, :new)
+      assert get_flash(conn, :error) == "Too many requests. Please try again later."
+    end
+
+    @tag :rate_limiting
+    test "count is reset after successful login", %{conn: conn, user: user} do
+      for _ <- 1..4 do
+        conn = post(conn, Routes.session_path(conn, :create), session: @invalid_attrs)
+        assert redirected_to(conn) == Routes.session_path(conn, :new)
+      end
+
+      conn = post(conn, Routes.session_path(conn, :create), session: @create_attrs)
+      assert redirected_to(conn) == Routes.user_path(conn, :show, user)
+      assert {:allow, 1} = Hammer.check_rate("robin@example.com:/sessions", 60_000, 5)
+    end
+  end
+
   describe "delete session" do
     test "logout succeeds and session is deleted", %{conn: conn, user: user} do
       conn = conn |> add_session(user) |> send_resp(:ok, "/")

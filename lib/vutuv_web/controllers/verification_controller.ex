@@ -20,11 +20,11 @@ defmodule VutuvWeb.VerificationController do
       Email.verify_success(email, user.locale)
 
       conn
-      |> put_flash(:info, gettext("Your email has been verified"))
+      |> put_flash(:info, gettext("Your email has been verified."))
       |> redirect(to: Routes.session_path(conn, :new))
     else
       conn
-      |> put_flash(:error, gettext("Invalid code"))
+      |> put_flash(:error, gettext("Invalid code."))
       |> render("new.html", email: email)
     end
   end

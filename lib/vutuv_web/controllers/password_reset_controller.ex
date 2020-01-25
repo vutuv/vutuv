@@ -23,7 +23,7 @@ defmodule VutuvWeb.PasswordResetController do
     conn
     |> put_flash(
       :info,
-      gettext("Check your inbox for instructions on how to reset your password")
+      gettext("Check your inbox for instructions on how to reset your password.")
     )
     |> redirect(to: Routes.password_reset_path(conn, :new, email: email))
   end
@@ -45,7 +45,7 @@ defmodule VutuvWeb.PasswordResetController do
       |> redirect(to: Routes.password_reset_path(conn, :edit, email: email))
     else
       conn
-      |> put_flash(:error, gettext("Invalid code"))
+      |> put_flash(:error, gettext("Invalid code."))
       |> render("new.html", email: email)
     end
   end
@@ -77,14 +77,14 @@ defmodule VutuvWeb.PasswordResetController do
         conn
         |> clear_session()
         |> configure_session(renew: true)
-        |> put_flash(:info, gettext("Your password has been reset"))
+        |> put_flash(:info, gettext("Your password has been reset."))
         |> redirect(to: Routes.session_path(conn, :new))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         message = with p <- changeset.errors[:password], do: elem(p, 0)
 
         conn
-        |> put_flash(:error, message || gettext("Invalid input"))
+        |> put_flash(:error, message || gettext("Invalid input."))
         |> render("edit.html", email: email)
 
       error when error in [nil, false] ->
@@ -94,7 +94,7 @@ defmodule VutuvWeb.PasswordResetController do
 
   defp unauthorized(conn) do
     conn
-    |> put_flash(:error, gettext("You are not authorized to view this page"))
+    |> put_flash(:error, gettext("You are not authorized to view this page."))
     |> redirect(to: Routes.session_path(conn, :new))
     |> halt()
   end

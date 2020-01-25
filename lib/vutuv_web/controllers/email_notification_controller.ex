@@ -35,7 +35,7 @@ defmodule VutuvWeb.EmailNotificationController do
         msg = send_emails(email_notification, email_notification_params, "created")
 
         conn
-        |> put_flash(:info, gettext("Email notification %{msg} successfully", msg: msg))
+        |> put_flash(:info, gettext("Email notification %{msg} successfully.", msg: msg))
         |> redirect(
           to: Routes.user_email_notification_path(conn, :show, current_user, email_notification)
         )
@@ -58,7 +58,7 @@ defmodule VutuvWeb.EmailNotificationController do
         conn
         |> put_flash(
           :error,
-          gettext("You cannot edit this email notification as it has already been delivered")
+          gettext("You cannot edit this email notification as it has already been delivered.")
         )
         |> redirect(
           to: Routes.user_email_notification_path(conn, :show, current_user, email_notification)
@@ -78,7 +78,7 @@ defmodule VutuvWeb.EmailNotificationController do
         msg = send_emails(email_notification, email_notification_params, "updated")
 
         conn
-        |> put_flash(:info, gettext("Email notification %{msg} successfully", msg: msg))
+        |> put_flash(:info, gettext("Email notification %{msg} successfully.", msg: msg))
         |> redirect(
           to: Routes.user_email_notification_path(conn, :show, current_user, email_notification)
         )
@@ -93,7 +93,7 @@ defmodule VutuvWeb.EmailNotificationController do
     {:ok, _email_notification} = Notifications.delete_email_notification(email_notification)
 
     conn
-    |> put_flash(:info, gettext("Email notification deleted successfully"))
+    |> put_flash(:info, gettext("Email notification deleted successfully."))
     |> redirect(to: Routes.user_email_notification_path(conn, :index, current_user))
   end
 
