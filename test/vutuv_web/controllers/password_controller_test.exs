@@ -1,6 +1,8 @@
 defmodule VutuvWeb.PasswordControllerTest do
   use VutuvWeb.ConnCase
 
+  alias Vutuv.Accounts
+
   @create_attrs %{
     "email" => "dinsdale@example.com",
     "old_password" => "reallyHard2gue$$",
@@ -30,9 +32,12 @@ defmodule VutuvWeb.PasswordControllerTest do
   describe "update password" do
     test "user can update password", %{conn: conn, user: user} do
       conn = conn |> add_session(user) |> send_resp(:ok, "/")
+      user_credential = Accounts.get_user_credential(%{"user_id" => user.id})
       conn = post(conn, Routes.user_password_path(conn, :create, user), password: @create_attrs)
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
       assert get_flash(conn, :info) =~ "password has been updated"
+      user_credential_1 = Accounts.get_user_credential(%{"user_id" => user.id})
+      assert user_credential.password_hash != user_credential_1.password_hash
     end
 
     test "weak password is not updated", %{conn: conn, user: user} do

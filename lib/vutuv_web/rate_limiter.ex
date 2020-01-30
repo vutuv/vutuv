@@ -70,7 +70,7 @@ defmodule VutuvWeb.RateLimiter do
   defp render_error(%Plug.Conn{private: %{:phoenix_format => "json"}} = conn) do
     conn
     |> put_status(:too_many_requests)
-    |> put_view(VutuvWeb.AuthView)
+    |> put_view(VutuvWeb.Api.AuthView)
     |> render("#{429}.json", [])
     |> halt()
   end
