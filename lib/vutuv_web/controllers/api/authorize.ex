@@ -46,7 +46,7 @@ defmodule VutuvWeb.Api.Authorize do
   def guest_check(%Plug.Conn{assigns: %{current_user: _current_user}} = conn, _opts) do
     conn
     |> put_status(:unauthorized)
-    |> put_view(VutuvWeb.AuthView)
+    |> put_view(VutuvWeb.Api.AuthView)
     |> render("logged_in.json", [])
     |> halt()
   end
@@ -71,7 +71,7 @@ defmodule VutuvWeb.Api.Authorize do
   def error(conn, status, code) do
     conn
     |> put_status(status)
-    |> put_view(VutuvWeb.AuthView)
+    |> put_view(VutuvWeb.Api.AuthView)
     |> render("#{code}.json", [])
     |> halt()
   end

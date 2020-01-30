@@ -29,8 +29,8 @@ defmodule VutuvWeb.RateLimiter do
     end
   end
 
-  def call(conn, :verify) do
-    user_name = user_name(conn, "verify")
+  def call(conn, params_id) do
+    user_name = user_name(conn, to_string(params_id))
 
     case Hammer.check_rate(user_name, 90 * 1000, 2) do
       {:allow, _} -> assign(conn, :rate_limit_name, user_name)
@@ -70,7 +70,7 @@ defmodule VutuvWeb.RateLimiter do
   defp render_error(%Plug.Conn{private: %{:phoenix_format => "json"}} = conn) do
     conn
     |> put_status(:too_many_requests)
-    |> put_view(VutuvWeb.AuthView)
+    |> put_view(VutuvWeb.Api.AuthView)
     |> render("#{429}.json", [])
     |> halt()
   end

@@ -23,7 +23,7 @@ defmodule Vutuv.SocialNetworks do
 
   Raises `Ecto.NoResultsError` if the Social media account does not exist.
   """
-  @spec get_social_media_account!(User.t(), integer) :: SocialMediaAccount.t() | no_return
+  @spec get_social_media_account!(User.t(), integer) :: SocialMediaAccount.t()
   def get_social_media_account!(%User{} = user, id) do
     Repo.get_by!(SocialMediaAccount, id: id, user_id: user.id)
   end

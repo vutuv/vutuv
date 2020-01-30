@@ -6,6 +6,7 @@ defmodule VutuvWeb.Api.PasswordResetController do
   alias Vutuv.{Accounts, UserProfiles}
   alias VutuvWeb.{Auth.Otp, Auth.Token, Email}
 
+  plug VutuvWeb.RateLimiter, [type: :password_reset] when action in [:create]
   plug :check_key when action in [:update]
 
   def create_request(conn, %{"password_reset" => %{"email" => email}}) do
@@ -31,6 +32,7 @@ defmodule VutuvWeb.Api.PasswordResetController do
     user_credential = Accounts.get_user_credential(%{"email" => email})
 
     if request_sent?(user_credential) && Otp.verify(code, user_credential.otp_secret) do
+      VutuvWeb.RateLimiter.reset_count(conn)
       key = Token.sign(%{"email" => email})
       user = UserProfiles.get_user(user_credential.user_id)
       Email.verify_success(email, user.locale)
@@ -49,8 +51,15 @@ defmodule VutuvWeb.Api.PasswordResetController do
   def update(conn, %{"password_reset" => %{"email" => email} = params}) do
     user_credential = Accounts.get_user_credential(%{"email" => email})
 
-    case Accounts.can_reset_password?(user_credential) &&
-           Accounts.update_password(user_credential, params) do
+    if Accounts.can_reset_password?(user_credential) do
+      do_update(conn, user_credential, params)
+    else
+      error(conn, :unauthorized, 401)
+    end
+  end
+
+  defp do_update(conn, user_credential, %{"email" => email} = params) do
+    case Accounts.update_password(user_credential, params) do
       {:ok, _user_credential} ->
         user = UserProfiles.get_user(user_credential.user_id)
         Email.reset_success(email, user.locale)
@@ -68,9 +77,6 @@ defmodule VutuvWeb.Api.PasswordResetController do
         |> put_status(:unprocessable_entity)
         |> put_view(VutuvWeb.Api.ChangesetView)
         |> render("error.json", changeset: changeset)
-
-      error when error in [nil, false] ->
-        error(conn, :unauthorized, 401)
     end
   end
 

@@ -43,7 +43,7 @@ defmodule Vutuv.Publications do
   @doc """
   Gets a specific user's post. Raises error if no post found.
   """
-  @spec get_post!(User.t(), integer) :: Post.t() | no_return
+  @spec get_post!(User.t(), integer) :: Post.t()
   def get_post!(%User{} = user, id) do
     user
     |> assoc(:posts)
@@ -56,7 +56,7 @@ defmodule Vutuv.Publications do
   Gets a user's post filtered based on the post's visibility_level.
   Raises error if no post found.
   """
-  @spec get_post!(User.t(), integer, User.t() | nil) :: Post.t() | no_return
+  @spec get_post!(User.t(), integer, User.t() | nil) :: Post.t()
   def get_post!(%User{} = user, id, current_user) do
     visibility_level = get_visibility_level(user, current_user)
 

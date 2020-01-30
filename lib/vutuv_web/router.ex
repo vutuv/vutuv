@@ -27,6 +27,7 @@ defmodule VutuvWeb.Router do
       resources "/email_notifications", EmailNotificationController
       resources "/followees", FolloweeController, only: [:index, :create, :delete]
       resources "/followers", FollowerController, only: [:index]
+      resources "/passwords", PasswordController, only: [:new, :create]
       resources "/posts", PostController
       resources "/social_media_accounts", SocialMediaAccountController
       resources "/tags", UserTagController, only: [:index, :new, :create, :delete], as: :tag
@@ -59,6 +60,7 @@ defmodule VutuvWeb.Router do
       put "/email_addresses/set_primary/:id", EmailAddressController, :set_primary
       resources "/followees", FolloweeController, only: [:index, :create, :delete]
       resources "/followers", FollowerController, only: [:index]
+      resources "/passwords", PasswordController, only: [:create]
       resources "/posts", PostController, except: [:new, :edit]
       resources "/social_media_accounts", SocialMediaAccountController, except: [:new, :edit]
       resources "/tags", UserTagController, only: [:index, :create, :delete], as: :tag

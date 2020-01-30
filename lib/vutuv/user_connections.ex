@@ -48,7 +48,7 @@ defmodule Vutuv.UserConnections do
   @doc """
   Gets a user connection - between followee and follower.
   """
-  @spec get_user_connection!(map | integer) :: UserConnection.t() | no_return
+  @spec get_user_connection!(map | integer) :: UserConnection.t()
   def get_user_connection!(%{"followee_id" => followee_id, "follower_id" => follower_id}) do
     Repo.get_by!(UserConnection, followee_id: followee_id, follower_id: follower_id)
   end

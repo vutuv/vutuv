@@ -4,6 +4,8 @@ defmodule VutuvWeb.PasswordResetController do
   alias Vutuv.{Accounts, UserProfiles}
   alias VutuvWeb.{Auth.Otp, Email}
 
+  plug VutuvWeb.RateLimiter, [type: :password_reset] when action in [:create]
+
   def new_request(conn, _params) do
     render(conn, "new_request.html")
   end
@@ -36,6 +38,7 @@ defmodule VutuvWeb.PasswordResetController do
     user_credential = Accounts.get_user_credential(%{"email" => email})
 
     if request_sent?(user_credential) && Otp.verify(code, user_credential.otp_secret) do
+      VutuvWeb.RateLimiter.reset_count(conn)
       user = UserProfiles.get_user(user_credential.user_id)
       Email.verify_success(email, user.locale)
       Accounts.set_password_reset_status(user_credential, %{password_resettable: true})
@@ -52,9 +55,10 @@ defmodule VutuvWeb.PasswordResetController do
 
   def edit(conn, %{"email" => email}) do
     user_credential = Accounts.get_user_credential(%{"email" => email})
+    changeset = Accounts.change_update_password(user_credential)
 
     if get_session(conn, :password_reset) && Accounts.can_reset_password?(user_credential) do
-      render(conn, "edit.html", email: email)
+      render(conn, "edit.html", email: email, changeset: changeset)
     else
       unauthorized(conn)
     end
@@ -63,8 +67,15 @@ defmodule VutuvWeb.PasswordResetController do
   def update(conn, %{"password_reset" => %{"email" => email} = params}) do
     user_credential = Accounts.get_user_credential(%{"email" => email})
 
-    case Accounts.can_reset_password?(user_credential) &&
-           Accounts.update_password(user_credential, params) do
+    if Accounts.can_reset_password?(user_credential) do
+      do_update(conn, user_credential, params)
+    else
+      unauthorized(conn)
+    end
+  end
+
+  defp do_update(conn, user_credential, %{"email" => email} = params) do
+    case Accounts.update_password(user_credential, params) do
       {:ok, _user_credential} ->
         user = UserProfiles.get_user(user_credential.user_id)
         Email.reset_success(email, user.locale)
@@ -81,14 +92,7 @@ defmodule VutuvWeb.PasswordResetController do
         |> redirect(to: Routes.session_path(conn, :new))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        message = with p <- changeset.errors[:password], do: elem(p, 0)
-
-        conn
-        |> put_flash(:error, message || gettext("Invalid input."))
-        |> render("edit.html", email: email)
-
-      error when error in [nil, false] ->
-        unauthorized(conn)
+        render(conn, "edit.html", email: email, changeset: changeset)
     end
   end
 

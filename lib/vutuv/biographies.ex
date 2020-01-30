@@ -23,7 +23,7 @@ defmodule Vutuv.Biographies do
 
   Raises `Ecto.NoResultsError` if the Work experience does not exist.
   """
-  @spec get_work_experience!(User.t(), integer) :: WorkExperience.t() | no_return
+  @spec get_work_experience!(User.t(), integer) :: WorkExperience.t()
   def get_work_experience!(%User{} = user, id) do
     Repo.get_by!(WorkExperience, id: id, user_id: user.id)
   end

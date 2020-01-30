@@ -38,7 +38,7 @@ defmodule Vutuv.UserProfiles do
   @doc """
   Gets a single user. Raises error if no user found.
   """
-  @spec get_user!(map) :: User.t() | no_return
+  @spec get_user!(map) :: User.t()
   def get_user!(%{"slug" => slug}) do
     Repo.get_by!(User, %{slug: slug})
   end
@@ -164,7 +164,7 @@ defmodule Vutuv.UserProfiles do
 
   Raises `Ecto.NoResultsError` if the Address does not exist.
   """
-  @spec get_address!(User.t(), integer) :: Address.t() | no_return
+  @spec get_address!(User.t(), integer) :: Address.t()
   def get_address!(%User{} = user, id) do
     Repo.get_by!(Address, id: id, user_id: user.id)
   end

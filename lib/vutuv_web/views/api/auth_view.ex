@@ -1,4 +1,4 @@
-defmodule VutuvWeb.AuthView do
+defmodule VutuvWeb.Api.AuthView do
   use VutuvWeb, :view
 
   def render("401.json", _assigns) do

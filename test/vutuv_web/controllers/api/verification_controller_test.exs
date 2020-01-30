@@ -58,7 +58,7 @@ defmodule VutuvWeb.Api.VerificationControllerTest do
       attrs = %{"email" => "maria@example.com", "code" => code}
       conn = post(conn, Routes.api_verification_path(conn, :create), verify: attrs)
       assert json_response(conn, 201)["info"]["detail"] =~ "email has been verified"
-      assert {:allow, 1} = Hammer.check_rate("maria@example.com:/sessions", 90_000, 2)
+      assert {:allow, 1} = Hammer.check_rate("maria@example.com:/verifications", 90_000, 2)
     end
   end
 end

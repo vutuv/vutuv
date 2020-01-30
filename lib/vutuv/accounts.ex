@@ -10,7 +10,7 @@ defmodule Vutuv.Accounts do
   @doc """
   Gets user credentials. Raises error if no user_credential found.
   """
-  @spec get_user_credential!(map) :: UserCredential.t() | no_return
+  @spec get_user_credential!(map) :: UserCredential.t()
   def get_user_credential!(%{"email" => email}) do
     %EmailAddress{user_id: user_id} = Repo.get_by!(EmailAddress, %{value: email})
     get_user_credential!(%{"user_id" => user_id})
@@ -31,6 +31,14 @@ defmodule Vutuv.Accounts do
 
   def get_user_credential(%{"user_id" => user_id}) do
     Repo.get_by(UserCredential, %{user_id: user_id})
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking user changes.
+  """
+  @spec change_update_password(UserCredential.t()) :: Ecto.Changeset.t()
+  def change_update_password(%UserCredential{} = user_credential) do
+    UserCredential.update_password_changeset(user_credential, %{})
   end
 
   @doc """

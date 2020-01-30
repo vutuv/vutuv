@@ -86,6 +86,35 @@ defmodule VutuvWeb.Api.PasswordResetControllerTest do
     end
   end
 
+  describe "rate limiting for the email verification stage" do
+    setup [:update_password_reset_status]
+
+    @tag :rate_limiting
+    test "login is blocked after user_name limit (2 every 90 seconds) is reached", %{conn: conn} do
+      for _ <- 1..2 do
+        attrs = %{"email" => "gladys@example.com", "code" => "123456"}
+        conn = post(conn, Routes.api_password_reset_path(conn, :create), password_reset: attrs)
+        assert json_response(conn, 401)["errors"]["detail"] =~ "Invalid code"
+      end
+
+      attrs = %{"email" => "gladys@example.com", "code" => "123456"}
+      conn = post(conn, Routes.api_password_reset_path(conn, :create), password_reset: attrs)
+      assert json_response(conn, 429)["errors"]["detail"] =~ "Too many requests."
+    end
+
+    @tag :rate_limiting
+    test "count is reset after successful login", %{conn: conn, user: user} do
+      attrs = %{"email" => "gladys@example.com", "code" => "123456"}
+      conn = post(conn, Routes.api_password_reset_path(conn, :create), password_reset: attrs)
+      user_credential = Accounts.get_user_credential!(%{"user_id" => user.id})
+      code = VutuvWeb.Auth.Otp.create(user_credential.otp_secret)
+      attrs = %{"email" => "gladys@example.com", "code" => code}
+      conn = post(conn, Routes.api_password_reset_path(conn, :create), password_reset: attrs)
+      assert json_response(conn, 201)["info"]["detail"] =~ "Code input correctly"
+      assert {:allow, 1} = Hammer.check_rate("gladys@example.com:/password_resets", 90_000, 2)
+    end
+  end
+
   defp get_create_attrs(user, valid) do
     user_credential = Accounts.get_user_credential!(%{"user_id" => user.id})
 

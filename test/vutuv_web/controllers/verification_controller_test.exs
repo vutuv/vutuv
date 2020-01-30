@@ -81,7 +81,7 @@ defmodule VutuvWeb.VerificationControllerTest do
       attrs = %{"email" => "arthur@example.com", "code" => code}
       conn = post(conn, Routes.verification_path(conn, :create), verify: attrs)
       assert redirected_to(conn) == Routes.session_path(conn, :new)
-      assert {:allow, 1} = Hammer.check_rate("arthur@example.com:/sessions", 90_000, 2)
+      assert {:allow, 1} = Hammer.check_rate("arthur@example.com:/verifications", 90_000, 2)
     end
   end
 end
