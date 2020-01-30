@@ -34,6 +34,14 @@ defmodule Vutuv.Accounts do
   end
 
   @doc """
+  Returns an `%Ecto.Changeset{}` for tracking user changes.
+  """
+  @spec change_update_password(UserCredential.t()) :: Ecto.Changeset.t()
+  def change_update_password(%UserCredential{} = user_credential) do
+    UserCredential.update_password_changeset(user_credential, %{})
+  end
+
+  @doc """
   Returns a boolean value stating if the the user is confirmed.
   """
   @spec user_confirmed?(integer) :: boolean

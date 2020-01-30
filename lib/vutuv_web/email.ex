@@ -110,6 +110,21 @@ defmodule VutuvWeb.Email do
     |> Mailer.deliver_later()
   end
 
+  @doc """
+  An email acknowledging that the password has been successfully updated.
+  """
+  def update_password_complete(address, locale) do
+    (locale || "en")
+    |> Gettext.with_locale(fn ->
+      text_email(
+        address,
+        dgettext("mail", "password updated"),
+        dgettext("mail", "password updated successfully")
+      )
+    end)
+    |> Mailer.deliver_later()
+  end
+
   defp base_email(address) do
     new_email()
     |> to(address)

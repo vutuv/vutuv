@@ -53,7 +53,7 @@ defmodule VutuvWeb.PasswordResetControllerTest do
     test "weak password is not updated", %{conn: conn, user_credential: user_credential} do
       attrs = %{"email" => "gladys@example.com", "password" => "password"}
       conn = put(conn, Routes.password_reset_path(conn, :update), password_reset: attrs)
-      assert get_flash(conn, :error) =~ "password you have chosen is weak"
+      assert html_response(conn, 200) =~ "password you have chosen is weak"
       user_credential_1 = Accounts.get_user_credential(%{"email" => "gladys@example.com"})
       assert user_credential.password_hash == user_credential_1.password_hash
     end
@@ -80,6 +80,39 @@ defmodule VutuvWeb.PasswordResetControllerTest do
       assert get_flash(conn, :error) =~ "not authorized to view this page"
       user_credential_1 = Accounts.get_user_credential(%{"email" => "gladys@example.com"})
       assert user_credential.password_hash == user_credential_1.password_hash
+    end
+  end
+
+  describe "rate limiting for email verification stage" do
+    setup [:update_session, :update_password_reset_status]
+
+    @tag :rate_limiting
+    test "login is blocked after user_name limit (2 every 90 seconds) is reached", %{conn: conn} do
+      for _ <- 1..2 do
+        attrs = %{"email" => "gladys@example.com", "code" => "123456"}
+        conn = post(conn, Routes.password_reset_path(conn, :create), password_reset: attrs)
+        assert html_response(conn, 200) =~ "Enter that code below"
+      end
+
+      attrs = %{"email" => "gladys@example.com", "code" => "123456"}
+      conn = post(conn, Routes.password_reset_path(conn, :create), password_reset: attrs)
+      assert redirected_to(conn) == Routes.user_path(conn, :new)
+      assert get_flash(conn, :error) == "Too many requests. Please try again later."
+    end
+
+    @tag :rate_limiting
+    test "count is reset after successful login", %{conn: conn, user: user} do
+      attrs = %{"email" => "gladys@example.com", "code" => "123456"}
+      conn = post(conn, Routes.password_reset_path(conn, :create), password_reset: attrs)
+      user_credential = Accounts.get_user_credential!(%{"user_id" => user.id})
+      code = VutuvWeb.Auth.Otp.create(user_credential.otp_secret)
+      attrs = %{"email" => "gladys@example.com", "code" => code}
+      conn = post(conn, Routes.password_reset_path(conn, :create), password_reset: attrs)
+
+      assert redirected_to(conn) ==
+               Routes.password_reset_path(conn, :edit, email: "gladys@example.com")
+
+      assert {:allow, 1} = Hammer.check_rate("gladys@example.com:/password_resets", 90_000, 2)
     end
   end
 

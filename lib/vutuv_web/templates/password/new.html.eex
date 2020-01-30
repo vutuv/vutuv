@@ -1,0 +1,25 @@
+<h1><%= gettext "Change password" %></h1>
+
+<p><%= gettext "Enter your current password and a new password below." %></p>
+
+<%= form_for @changeset, Routes.user_password_path(@conn, :create, @current_user), [as: :password], fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p><%= gettext "Something went wrong. Please check the errors below." %></p>
+    </div>
+  <% end %>
+
+  <%= label f, :old_password, gettext("Current password") %>
+  <%= password_input f, :old_password %>
+  <%= error_tag f, :old_password %>
+
+  <%= label f, :password, gettext("New password") %>
+  <%= password_input f, :password %>
+  <%= error_tag f, :password %>
+
+  <%= hidden_input f, :email, value: @email %>
+
+  <div>
+    <%= submit gettext("Update password") %>
+  </div>
+<% end %>

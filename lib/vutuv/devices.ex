@@ -172,13 +172,10 @@ defmodule Vutuv.Devices do
     user = Repo.get(User, user_id)
     current_primary = get_primary_email(user)
 
-    {:ok, result} =
-      Repo.transaction(fn ->
-        Repo.update(change(current_primary, %{is_primary: false}))
-        Repo.update(change(email_address, %{is_primary: true}))
-      end)
-
-    result
+    Repo.transaction(fn ->
+      Repo.update!(change(current_primary, %{is_primary: false}))
+      Repo.update!(change(email_address, %{is_primary: true}))
+    end)
   end
 
   @doc """

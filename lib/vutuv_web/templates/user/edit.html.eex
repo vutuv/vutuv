@@ -71,6 +71,8 @@
   </div>
 <% end %>
 
+<span><%= link gettext("Change password"), to: Routes.user_password_path(@conn, :new, @current_user) %></span>
+
 <span><%= link gettext("All users"), to: Routes.user_path(@conn, :index) %></span>
 
 <div class="danger-box">
