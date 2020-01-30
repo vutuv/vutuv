@@ -14,7 +14,7 @@
 
   Raises `Ecto.NoResultsError` if the <%= schema.human_singular %> does not exist.
   """
-  @spec get_<%= schema.singular %>!(integer) :: <%= inspect schema.alias %>.t() | no_return
+  @spec get_<%= schema.singular %>!(integer) :: <%= inspect schema.alias %>.t()
   def get_<%= schema.singular %>!(id), do: Repo.get!(<%= inspect schema.alias %>, id)
 
   @doc """

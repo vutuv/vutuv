@@ -21,7 +21,7 @@ defmodule VutuvWeb.PasswordController do
     %UserCredential{password_hash: hash} =
       user_credential = Accounts.get_user_credential!(%{"user_id" => current_user.id})
 
-    if hash && Argon2.verify_pass(old, hash) do
+    if Argon2.verify_pass(old, hash) do
       VutuvWeb.RateLimiter.reset_count(conn)
       do_create(conn, current_user, user_credential, params)
     else

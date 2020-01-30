@@ -10,7 +10,7 @@ defmodule Vutuv.Accounts do
   @doc """
   Gets user credentials. Raises error if no user_credential found.
   """
-  @spec get_user_credential!(map) :: UserCredential.t() | no_return
+  @spec get_user_credential!(map) :: UserCredential.t()
   def get_user_credential!(%{"email" => email}) do
     %EmailAddress{user_id: user_id} = Repo.get_by!(EmailAddress, %{value: email})
     get_user_credential!(%{"user_id" => user_id})

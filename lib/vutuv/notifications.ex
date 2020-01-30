@@ -25,7 +25,7 @@ defmodule Vutuv.Notifications do
 
   Raises `Ecto.NoResultsError` if the Email notification does not exist.
   """
-  @spec get_email_notification!(User.t(), integer) :: EmailNotification.t() | no_return
+  @spec get_email_notification!(User.t(), integer) :: EmailNotification.t()
   def get_email_notification!(%User{} = user, id) do
     Repo.get_by!(EmailNotification, id: id, owner_id: user.id)
   end

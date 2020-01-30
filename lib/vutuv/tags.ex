@@ -24,7 +24,7 @@ defmodule Vutuv.Tags do
   @doc """
   Gets a single tag. Raises error if no tag found.
   """
-  @spec get_tag!(integer) :: Tag.t() | no_return
+  @spec get_tag!(integer) :: Tag.t()
   def get_tag!(id), do: Repo.get!(Tag, id)
 
   @doc """
@@ -80,7 +80,7 @@ defmodule Vutuv.Tags do
   @doc """
   Gets a single post_tag. Raises error if no post_tag found.
   """
-  @spec get_post_tag!(Post.t(), integer) :: PostTag.t() | no_return
+  @spec get_post_tag!(Post.t(), integer) :: PostTag.t()
   def get_post_tag!(%Post{} = post, id) do
     PostTag
     |> Repo.get_by!(id: id, post_id: post.id)
@@ -113,7 +113,7 @@ defmodule Vutuv.Tags do
   @doc """
   Gets a single user_tag. Raises error if no user_tag found.
   """
-  @spec get_user_tag!(User.t(), integer) :: UserTag.t() | no_return
+  @spec get_user_tag!(User.t(), integer) :: UserTag.t()
   def get_user_tag!(%User{} = user, id) do
     UserTag
     |> Repo.get_by!(id: id, user_id: user.id)
@@ -156,7 +156,7 @@ defmodule Vutuv.Tags do
   @doc """
   Gets a single user_tag_endorsement. Raises error if no user_tag_endorsement found.
   """
-  @spec get_user_tag_endorsement!(User.t(), integer) :: UserTagEndorsement.t() | no_return
+  @spec get_user_tag_endorsement!(User.t(), integer) :: UserTagEndorsement.t()
   def get_user_tag_endorsement!(%User{} = user, id) do
     Repo.get_by!(UserTagEndorsement, id: id, user_id: user.id)
   end

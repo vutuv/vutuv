@@ -45,7 +45,7 @@ defmodule Vutuv.Devices do
   @doc """
   Gets an unverified email address. Raises error if not found.
   """
-  @spec get_unverified_email_address!(map) :: EmailAddress.t() | no_return
+  @spec get_unverified_email_address!(map) :: EmailAddress.t()
   def get_unverified_email_address!(%{"value" => value}) do
     Repo.get_by!(EmailAddress, value: value, verified: false)
   end
@@ -82,7 +82,7 @@ defmodule Vutuv.Devices do
   @doc """
   Gets a specific user's email_address. Raises error if no email_address found.
   """
-  @spec get_email_address!(User.t(), integer) :: EmailAddress.t() | no_return
+  @spec get_email_address!(User.t(), integer) :: EmailAddress.t()
   def get_email_address!(%User{} = user, id) do
     Repo.get_by!(EmailAddress, id: id, user_id: user.id)
   end
@@ -189,7 +189,7 @@ defmodule Vutuv.Devices do
   @doc """
   Gets a single phone_number. Raises error if no phone_number found.
   """
-  @spec get_phone_number!(User.t(), integer) :: PhoneNumber.t() | no_return
+  @spec get_phone_number!(User.t(), integer) :: PhoneNumber.t()
   def get_phone_number!(%User{} = user, id) do
     Repo.get_by!(PhoneNumber, id: id, user_id: user.id)
   end
