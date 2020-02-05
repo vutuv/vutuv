@@ -18,7 +18,7 @@
     <tr>
       <td><%= post.title %></td>
       <td><%= intro(post.body) %></td>
-      <td><%= ViewUtils.beautify_date(post.published_at) %></td>
+      <td><%= ViewHelpers.beautify_date(post.published_at) %></td>
 
       <td>
         <%= link gettext("Read"), to: Routes.user_post_path(@conn, :show, @user, post) %>

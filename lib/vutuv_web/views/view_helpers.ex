@@ -1,6 +1,6 @@
-defmodule VutuvWeb.ViewUtils do
+defmodule VutuvWeb.ViewHelpers do
   @moduledoc """
-  Functions used by views.
+  Miscellaneous helper functions used by views.
   """
 
   import VutuvWeb.Gettext

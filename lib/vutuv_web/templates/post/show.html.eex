@@ -1,10 +1,10 @@
 <h1><%= @post.title %></h1>
 
 <h3><%= gettext "By" %> <%= @user.full_name %></h3>
-<h4><%= ViewUtils.beautify_date(@post.published_at) %></h4>
+<h4><%= ViewHelpers.beautify_date(@post.published_at) %></h4>
 
 <h4><%= gettext "Tags" %></h4>
-<p><%= ViewUtils.stringify_list(@post.post_tags) %></p>
+<p><%= ViewHelpers.stringify_list(@post.post_tags) %></p>
 
 <p><%= @post.body %></p>
 
