@@ -1,5 +1,5 @@
 <div class="user-grid">
-  <%= render VutuvWeb.UserTagView, "_card.html", conn: @conn, current_user: @current_user, user_tags: ViewUtils.sort_user_tags(@user.user_tags, 10), user: @user %>
+  <%= render VutuvWeb.UserTagView, "_card.html", conn: @conn, current_user: @current_user, user_tags: ViewHelpers.sort_user_tags(@user.user_tags, 10), user: @user %>
   <%= render VutuvWeb.EmailAddressView, "_card.html", conn: @conn, current_user: @current_user, user: @user %>
   <%= render VutuvWeb.FolloweeView, "_card.html", conn: @conn, current_user: @current_user, followees: Enum.map(@user.followees, & &1.followee), user: @user %>
   <%= render VutuvWeb.FollowerView, "_card.html", conn: @conn, current_user: @current_user, followers: Enum.map(@user.followers, & &1.follower), user: @user %>
