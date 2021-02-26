@@ -62,7 +62,7 @@ defmodule Vutuv.Mixfile do
      {:arc_ecto, "~> 0.4.2"},
      {:ex_machina, "~> 1.0"},
      {:phoenix_html_simplified_helpers, "~> 0.6.0"},
-     {:mariaex, ">= 0.0.0"},
+     {:mariaex, "~> 0.8.2"},
      {:word_smith, "~> 0.1.0"},
      {:slugger, "~> 0.1.0"},
      {:httpoison, "~> 0.10.0"},
